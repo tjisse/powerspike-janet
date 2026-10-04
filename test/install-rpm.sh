@@ -5,7 +5,7 @@ test -f /run/.containerenv || test -f /.dockerenv
 [[ $EUID -eq 0 ]]
 repository_url=${PS_REPOSITORY_URL:-https://tjisse.github.io/powerspike-janet/rpm/powerspike.repo}
 dnf -y install curl util-linux systemd
-curl -fsSL "$repository_url" -o /etc/yum.repos.d/powerspike.repo
+curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "$repository_url" -o /etc/yum.repos.d/powerspike.repo
 grep -qx 'gpgcheck=1' /etc/yum.repos.d/powerspike.repo
 grep -qx 'repo_gpgcheck=1' /etc/yum.repos.d/powerspike.repo
 dnf -y install powerspike

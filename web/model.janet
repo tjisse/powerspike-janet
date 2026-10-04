@@ -3,6 +3,7 @@
 (import ../data/16.19.1/snapshot :as snapshot)
 (import ../data/16.19.1/annie :as annie)
 (import ./catalog :as catalog)
+(import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/stats :as stats)
 (import ../src/powerspike/combat :as combat)
 (import ../src/powerspike/rotation :as rotation)
@@ -24,14 +25,16 @@
 
 (defn parse-state [input]
   (assert (dictionary? input) "Expected scenario fields.")
+  (def patch (get input "patch" packages/default-version))
+  (def package (packages/load patch (get input "snapshot")))
   (def selected (get input "selected" (default-state :selected)))
   (assert (or (= selected "custom") (some |(= selected ($ :id)) builds)) "Choose a supported comparison build.")
   (def champion (get input "champion" "Annie"))
-  (assert (catalog/champions champion) "Choose a champion from this patch.")
+  (assert ((package :champion-map) champion) "Choose a champion from this patch.")
   (def slots (tabseq [key :in slot-keys]
                key (do (def id (get input (string key) ""))
-                     (assert (and (string? id) (or (= id "") (catalog/items id))) "Choose an item from this patch.") id)))
-  (merge slots {:champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
+                     (assert (and (string? id) (or (= id "") ((package :item-map) id))) "Choose an item from this patch.") id)))
+  (merge slots {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
                 :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
                 :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
                 :duration (numeric (get input "duration" 5) "Combat window" 0.5 30)
@@ -39,7 +42,7 @@
 
 (defn warnings [champion items]
   (def messages @[])
-  (unless (= (champion :id) "Annie")
+  (unless (and (= (champion :id) "Annie") (((catalog/current) :manifest) "initial"))
     (each text (champion :limitations) (array/push messages text)))
   (def seen @{})
   (def groups @{})
@@ -58,29 +61,31 @@
   messages)
 
 (defn compare [state]
-  (def champion (catalog/champions (get state :champion "Annie")))
-  (def is-annie (= "Annie" (champion :id)))
-  (def ranks (if is-annie (skills/ranks-from-order annie/skill-order (state :level)) {}))
-  (def custom {:id "custom" :name "Custom build"
-               :ids (filter |(not= "" $) (map |(get state $ "") slot-keys))})
-  (def candidates (if is-annie [;builds custom] [custom]))
-  (def rows (map (fn [build]
-                   (def items (map |(catalog/items $) (build :ids)))
-                   # Catalog builds are a stat sandbox. Preserve all source availability flags;
-                   # report restrictions instead of claiming the inventory is game-legal.
-                   (def totals (stats/apply-rank-penetration champion
-                                                             (stats/total-stats champion (state :level) items) ranks))
-                   (def target {:armor (get state :armor 80) :mr (state :mr)})
-                   (def scenario {:duration (state :duration) :windup-fraction 0.3 :distance 300
-                                  :attack-travel-time 0 :travel-time 0 :include-attacks true})
-                   (def outcome (if is-annie (rotation/evaluate totals target scenario annie/spells ranks)
-                                  (do (def result (combat/auto-attacks totals target scenario))
-                                    (merge result {:ability-dps 0 :attack-dps (result :dps)}))))
-                   (merge build {:stats totals :cost (sum (map |($ :gold) items)) :combat outcome
-                                 :items items :ranks ranks :limitations (warnings champion items)})) candidates))
-  {:state state :champion champion
-   :rows (sorted rows (fn [a b] (> ((a :combat) :damage) ((b :combat) :damage))))
-   :selected (find |(= ($ :id) (if is-annie (state :selected) "custom")) rows)})
+  (def package (packages/load (get state :patch packages/default-version) (get state :snapshot)))
+  (with-dyns [:patch-package package]
+    (def champion (catalog/champions (get state :champion "Annie")))
+    (def is-annie (and (= "16.19.1" (package :patch)) ((package :manifest) "initial") (= "Annie" (champion :id))))
+    (def ranks (if is-annie (skills/ranks-from-order annie/skill-order (state :level)) {}))
+    (def custom {:id "custom" :name "Custom build"
+                 :ids (filter |(not= "" $) (map |(get state $ "") slot-keys))})
+    (def candidates (if is-annie [;builds custom] [custom]))
+    (def rows (map (fn [build]
+                     (def items (map |(catalog/items $) (build :ids)))
+                     # Catalog builds are a stat sandbox. Preserve all source availability flags;
+                     # report restrictions instead of claiming the inventory is game-legal.
+                     (def totals (stats/apply-rank-penetration champion
+                                                               (stats/total-stats champion (state :level) items) ranks))
+                     (def target {:armor (get state :armor 80) :mr (state :mr)})
+                     (def scenario {:duration (state :duration) :windup-fraction 0.3 :distance 300
+                                    :attack-travel-time 0 :travel-time 0 :include-attacks true})
+                     (def outcome (if is-annie (rotation/evaluate totals target scenario annie/spells ranks)
+                                    (do (def result (combat/auto-attacks totals target scenario))
+                                      (merge result {:ability-dps 0 :attack-dps (result :dps)}))))
+                     (merge build {:stats totals :cost (sum (map |($ :gold) items)) :combat outcome
+                                   :items items :ranks ranks :limitations (warnings champion items)})) candidates))
+    {:state state :champion champion :package package
+     :rows (sorted rows (fn [a b] (> ((a :combat) :damage) ((b :combat) :damage))))
+     :selected (find |(= ($ :id) (if is-annie (state :selected) "custom")) rows)}))
 
 (def fixture-files ["annie-level1-no-items.jdn" "annie-level1-cloak.jdn"
                     "annie-level1-void-staff.jdn" "annie-level6-void-staff.jdn"

@@ -1,0 +1,21 @@
+(import ../src/powerspike/data-util :as util)
+(import pshash :as hash)
+(import ../data/16.19.1/snapshot :as snapshot)
+(def data (util/read-data "data/16.19.1/catalog/catalog.jdn"))
+(def champions (map (fn [record] (merge record (get snapshot/champions (record :id) {})
+                                        {:status "unvalidated" :abilities []})) (data :champions)))
+(def items (map (fn [record] (merge record (get snapshot/items (record :id) {}) {:status "unvalidated"})) (data :items)))
+(def package {:schema 1 :parser "1" :patch snapshot/patch :communitydragon "16.19"
+              :champions champions :items items :runes [] :summoners [] :objectives []
+              :coverage ["Initial curated snapshot; refresh the patch to fetch complete ability records."]})
+(def bytes (util/encode-data package))
+(def id (hash/sha256 bytes))
+(def directory (string "build/seed/" snapshot/patch "/" id))
+(util/mkdirs directory)
+(util/write (string directory "/package.jdn") bytes)
+(util/write (string directory "/manifest.json")
+            (util/encode-json {"schema" 1 "patch" snapshot/patch "snapshot" id "parser" "1"
+                               "package_sha256" id "sources" [] "initial" true}))
+(util/copy-tree "build/web-assets" (string directory "/assets"))
+(util/write (string "build/seed/" snapshot/patch "/current") id)
+(print "Initial runtime data package " snapshot/patch " / " (string/slice id 0 12))

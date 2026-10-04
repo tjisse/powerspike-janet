@@ -1,16 +1,19 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.1.0}
+%{!?app_version:%global app_version 0.2.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
 Version: %{app_version}
 Release: %{app_release}
 Summary: League of Legends build comparisons in Janet
-License: LicenseRef-PowerSpike AND MIT AND LicenseRef-RiotGames
+License: LicenseRef-PowerSpike AND MIT AND Unlicense AND LicenseRef-RiotGames
 Source0: powerspike-%{version}-runtime.tar.gz
 Requires: glibc >= %{min_glibc}
 Requires: systemd
+Requires: libcurl
+Requires: openssl-libs
+Requires: ca-certificates
 Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
@@ -18,9 +21,10 @@ Requires(postun): systemd
 AutoReqProv: no
 
 %description
-PowerSpike Rift HUD with the current unvalidated champion and item catalog.
-Bundles Janet, the application, native JSON bindings, game data and artwork
-in one relocatable executable. No runtime downloads or installed Janet required.
+PowerSpike Rift HUD with selectable, cached patch snapshots.
+Bundles Janet, native HTTPS/JSON bindings and the application in one executable.
+Initial data and artwork are installed separately; additional patches download
+at runtime. No installed Janet or Python is required.
 The listen address and port are configured in /etc/powerspike/powerspike.env.
 
 %prep
@@ -33,8 +37,10 @@ The listen address and port are configured in /etc/powerspike/powerspike.env.
 mkdir -p %{buildroot}/usr/bin %{buildroot}/usr/lib/systemd/system
 mkdir -p %{buildroot}/usr/lib/sysusers.d %{buildroot}/etc/powerspike
 mkdir -p %{buildroot}/usr/share/licenses/powerspike %{buildroot}/usr/share/doc/powerspike
+mkdir -p %{buildroot}/usr/share/powerspike
 install -m 0755 bin/powerspike %{buildroot}/usr/bin/powerspike
 cp -a share/licenses/. %{buildroot}/usr/share/licenses/powerspike/
+cp -a share/powerspike/. %{buildroot}/usr/share/powerspike/
 install -m 0644 packaging/powerspike.service %{buildroot}/usr/lib/systemd/system/
 install -m 0644 packaging/powerspike.sysusers %{buildroot}/usr/lib/sysusers.d/powerspike.conf
 install -m 0640 packaging/powerspike.env %{buildroot}/etc/powerspike/
@@ -64,6 +70,7 @@ fi
 %attr(0755,root,root) /usr/bin/powerspike
 /usr/lib/systemd/system/powerspike.service
 /usr/lib/sysusers.d/powerspike.conf
+/usr/share/powerspike
 %license /usr/share/licenses/powerspike
 %doc /usr/share/doc/powerspike/README.md
 %doc /usr/share/doc/powerspike/rpm-hosting.md

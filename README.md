@@ -2,7 +2,7 @@
 
 A Janet rebuild of [powerspike-core](https://github.com/tjisse/powerspike-core), a League of Legends item-build optimizer. The goal is explainable, reproducible calculations that can be checked against the game.
 
-The project uses patch **26.19** (Data Dragon **16.19.1**, CommunityDragon **16.19**). The **Rift HUD frontend** includes all **173 champions and 870 item entries**, explicitly **unvalidated**, with searchable pickers and six editable inventory slots. It calculates permanent modeled stats and ordinary basic attacks; Annie also has an explicit Q/W subset. The independent CLI keeps its curated Garen/Annie snapshot and fourteen items, with nine in the attack search pool and six in the ability pool.
+The **Rift HUD frontend** selects archived Data Dragon builds and fetches matching CommunityDragon records without rebuilding. Packages retain full champion records and individual spell descriptions, provider URLs and SHA-256 identities. Downloads run on a shared background worker with progress and cancellation; completed snapshots publish atomically. Cached patches work offline. The initial **26.19** snapshot (Data Dragon **16.19.1**) includes **173 champions and 870 items**, explicitly **unvalidated**, with searchable pickers and six inventory slots. The independent CLI retains its curated Garen/Annie regressions.
 
 ## Frontend
 
@@ -26,7 +26,7 @@ The [catalog notes](data/16.19.1/catalog/README.md) explain retained sources, no
 
 ## Build, format and deploy
 
-The release build follows [sqlite-viewer-janet](https://github.com/tjisse/sqlite-viewer-janet): one relocatable executable with Janet, native bindings, data and browser assets embedded. It runs without a source tree or installed Janet.
+The release build follows [sqlite-viewer-janet](https://github.com/tjisse/sqlite-viewer-janet): one executable with Janet, pinned Jurl/libcurl bindings and browser code embedded. Immutable game packages and artwork live outside the executable. It runs without a source tree, installed Janet or Python; libcurl, OpenSSL and CA certificates are runtime dependencies.
 
 ```sh
 make format                 # Same pinned Spork janet-format as the SQLite viewer
@@ -36,7 +36,7 @@ make test-runtime           # Exercise a copied binary in an empty directory
 make rpm                    # Tests, build, then x86_64 RPM on an x86_64 builder
 ```
 
-The build requires Git, a C compiler, Make, Python 3 and ripgrep; RPM packaging also requires `rpmbuild`, `readelf` and standard archive tools. Dependencies are pinned in `web/deps.lock` and the Janet bootstrap. The formatter excludes downloaded dependencies, generated build output and data-only `.jdn` snapshots. `make test` and `make test-web` enforce formatting.
+The build requires Git, a C compiler, Make, Python 3, ripgrep, libcurl development headers and OpenSSL development headers; RPM packaging also requires `rpmbuild`, `readelf` and standard archive tools. Dependencies are pinned in `web/deps.lock` and the Janet bootstrap. The formatter excludes downloaded dependencies, generated build output and data-only `.jdn` snapshots. `make test` and `make test-web` enforce formatting.
 
 Set `PS_PORT` at runtime, for example `PS_PORT=8765 make serve` or `PS_PORT=8765 dist/bin/powerspike`. `--port` overrides the environment; `PS_HOST` / `--host` configure the listen address. The default is `127.0.0.1:8090`. Invalid ports fail startup.
 

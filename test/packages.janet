@@ -1,0 +1,74 @@
+(import ../src/powerspike/packages :as packages)
+(import ../src/powerspike/data-util :as util)
+(import ../src/powerspike/jobs :as jobs)
+(import pshash :as hash)
+
+# Synthetic provider fixtures exercise storage, not game mechanics.
+(def root (string "build/package-tests/" (hash/sha256 (os/cryptorand 8))))
+(packages/initialize root "build/seed")
+(def retained ((packages/load "16.19.1") :snapshot))
+(var revision 1)
+(var fail false)
+(defn provider [url cancelled]
+  (assert (not (cancelled)))
+  (when fail (error "Offline fixture"))
+  (def version ((string/split "/" url) 4))
+  (util/encode-json
+    (cond
+      (string/has-suffix? "champion.json" url)
+      {"version" version "data" {"Test" {"id" "Test" "name" "Test" "title" "Fixture"
+                                         "image" {"full" "Test.png"} "stats" {"hp" revision "attackspeed" 0.6}
+                                         "partype" "Mana" "tags" []}}}
+      (string/has-suffix? "item.json" url) {"version" version "data" {}}
+      (string/has-suffix? "summoner.json" url) {"version" version "data" {}}
+      (string/find "/champion/Test.json" url) {"version" version "data" {}}
+      {})))
+(defn fetch [version]
+  (packages/fetch version (string root "/jobs/test") (fn [x] nil) (fn [] false) provider))
+(assert (util/version? "lolpatch_3.7"))
+(assert (not (util/version? "../16.19.1")))
+(def first-patch (fetch "16.18.1"))
+(def second-patch (fetch "16.17.1"))
+(assert (not= (first-patch :snapshot) (second-patch :snapshot)))
+(assert (= 1 (get-in (packages/load "16.18.1") [:champion-map "Test" :base :hp])))
+(set revision 2)
+(def updated (fetch "16.18.1"))
+(assert (not= (first-patch :snapshot) (updated :snapshot)))
+(assert (= 1 (get-in (packages/load "16.18.1" (first-patch :snapshot)) [:champion-map "Test" :base :hp])))
+(assert (= 2 (get-in (packages/load "16.18.1") [:champion-map "Test" :base :hp])))
+(set fail true)
+(assert (not (first (protect (fetch "16.18.1")))))
+(assert (= (updated :snapshot) ((packages/load "16.18.1") :snapshot)))
+(assert (not (first (protect (packages/fetch "16.16.1" (string root "/jobs/cancelled")
+                                             (fn [x] nil) (fn [] true) provider)))))
+(assert (not (os/stat (string root "/patches/16.16.1/current"))))
+# An offline restart reads only completed snapshots.
+(each key (keys packages/loaded) (put packages/loaded key nil))
+(packages/initialize root nil)
+(assert (= retained ((packages/load "16.19.1") :snapshot)))
+(assert (= (updated :snapshot) ((packages/load "16.18.1") :snapshot)))
+(def corrupt (string (packages/directory "16.17.1" (second-patch :snapshot)) "/package.jdn"))
+(util/write corrupt "{:schema 1}")
+(put packages/loaded (string "16.17.1/" (second-patch :snapshot)) nil)
+(assert (not (first (protect (packages/load "16.17.1")))))
+(assert (= retained ((packages/load "16.19.1") :snapshot)))
+
+(defn work [value progress cancelled]
+  (progress {:completed 1 :total 2 :message "Working"})
+  (ev/sleep 0.05)
+  (when (cancelled) (error "Cancelled"))
+  (* value 2))
+(def a (jobs/submit :test "a" work 4))
+(assert (= (a :id) ((jobs/submit :test "a" work 4) :id)))
+(def b (jobs/submit :test "b" work 5))
+(jobs/cancel (b :id))
+(while (not (jobs/terminal? a)) (ev/sleep 0.01))
+(assert (= :done (a :status)))
+(assert (= 8 (a :result)))
+(assert (= :cancelled (b :status)))
+(def c (jobs/submit :test "c" work 6))
+(jobs/cancel (c :id))
+(while (not (jobs/terminal? c)) (ev/sleep 0.01))
+(assert (= :cancelled (c :status)))
+(util/remove-tree root)
+(print "Patch isolation, immutable revisions, offline restart, corruption, failed publication, shared jobs and cancellation passed.")

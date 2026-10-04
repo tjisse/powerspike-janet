@@ -15,7 +15,9 @@ powerspike --version
 systemd-analyze verify /usr/lib/systemd/system/powerspike.service
 printf 'PS_HOST=127.0.0.1\nPS_PORT=8765\n# Preserve administrator configuration\n' > /etc/powerspike/powerspike.env
 sha256sum /etc/powerspike/powerspike.env > /tmp/powerspike-config.sha256
-runuser -u powerspike -- env PS_PORT=8765 powerspike > /tmp/powerspike.log 2>&1 &
+# StateDirectory is created by systemd on a real host; mirror it in this container.
+install -d -o powerspike -g powerspike -m 0750 /var/lib/powerspike
+runuser -u powerspike -- env PS_PORT=8765 PS_DATA_DIR=/var/lib/powerspike powerspike > /tmp/powerspike.log 2>&1 &
 server_pid=$!
 trap 'kill "$server_pid" 2>/dev/null || true' EXIT
 for attempt in {1..30}; do
@@ -34,6 +36,7 @@ dnf -y upgrade powerspike
 test "$installed_version" = "$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' powerspike)"
 dnf -y reinstall powerspike
 sha256sum --check /tmp/powerspike-config.sha256
+test -s /var/lib/powerspike/patches/16.19.1/current
 dnf -y remove powerspike
 test ! -e /usr/bin/powerspike
 grep -q 'Preserve administrator configuration' /etc/powerspike/powerspike.env.rpmsave

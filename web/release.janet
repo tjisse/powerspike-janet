@@ -10,5 +10,5 @@
     (do
       # Disconnected SSE clients must not terminate the process via SIGPIPE.
       (os/sigaction :pipe (fn [&] nil))
-      (server/start (settings :port) (settings :host))
+      (server/start (settings :port) (settings :host) (settings :data-dir) (settings :seed-dir))
       (ev/sleep math/inf))))

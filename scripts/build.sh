@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 root=$PWD
 make web-setup
-mkdir -p dist/bin dist/share/licenses
+mkdir -p dist/bin dist/share/licenses build/executable/jurl
 export JANET_PATH="$root/build/web-deps/jpm"
 export JANET_HEADERPATH="$root/build/janet-src/build"
 export JANET_LIBPATH="$root/build/janet-src/build"
@@ -16,7 +16,7 @@ import sys
 sys.path.insert(0, 'scripts')
 from jdn import dumps
 paths = {'VERSION', 'project.janet', 'web/deps.lock', 'scripts/jpm-config.janet'}
-for folder in ('web', 'src', 'data', 'observations/16.19.1', 'build/web-modules', 'build/web-assets'):
+for folder in ('web', 'src', 'native', 'data', 'observations/16.19.1', 'build/web-modules', 'build/web-assets'):
     paths.update(str(p) for p in Path(folder).rglob('*') if p.is_file())
 Path('build/executable-inputs.jdn').write_text(dumps(sorted(paths)) + '\n')
 PY
@@ -26,4 +26,6 @@ cp -R build/web-assets/licenses/. dist/share/licenses/
 cp build/janet-src/LICENSE dist/share/licenses/janet-LICENSE
 cp web/deps.lock dist/share/licenses/deps.lock
 cp packaging/NOTICE dist/share/licenses/powerspike-NOTICE
+mkdir -p dist/share/powerspike
+cp -R build/seed dist/share/powerspike/
 printf 'Built %s/dist/bin/powerspike\n' "$root"

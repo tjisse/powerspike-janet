@@ -134,3 +134,11 @@ Command-line flags override the environment. Ports must be decimal integers
 from 1024 to 65535; invalid values fail startup. The executable runs from any
 working directory, with no project files beside it. Keep the accompanying
 dependency license notices when redistributing the runtime.
+
+## Cached patch data
+
+The service uses `PS_DATA_DIR=/var/lib/powerspike`; systemd creates that writable state directory. The installed seed is `/usr/share/powerspike/seed`. For a copied executable, copy `dist/share/powerspike/seed` too and set `PS_SEED_DIR` and `PS_DATA_DIR`. Cached packages survive upgrades and remain usable without network access. A refresh retains previous snapshot revisions.
+
+The patch selector lists Riot’s archived builds. Sources missing from a matching CommunityDragon archive are recorded as coverage gaps; another patch is never substituted. The initial seed preserves the existing Annie subset; fetched packages currently model generic attacks while the ability parser is developed.
+
+Storage is bounded to 5 GB by default (`PS_DATA_LIMIT_MB=5120` in the service configuration). To prune, stop the service, remove an unused version directory under `/var/lib/powerspike/patches`, then restart. Keep at least one completed patch. Removing a snapshot prevents reproduction of scenarios that reference it; export or back it up first. Incomplete job folders can be removed while the service is stopped. Neither upgrades nor failed downloads prune completed packages.

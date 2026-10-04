@@ -2,6 +2,8 @@
 (import ../web/ui :as ui)
 (import ../web/catalog :as catalog)
 
+(catalog/initialize "build/runtime-data" "build/seed")
+
 (var passed 0)
 (defn test [description task]
   (task) (++ passed) (print "ok " description))
@@ -50,9 +52,9 @@
 
 (test "full catalog coverage remains unvalidated and every champion evaluates generic attacks"
       (fn []
-        (assert (= 173 (length catalog/champion-list)))
-        (assert (= 870 (length catalog/item-list)))
-        (each champion catalog/champion-list
+        (assert (= 173 (length (catalog/champion-list))))
+        (assert (= 870 (length (catalog/item-list))))
+        (each champion (catalog/champion-list)
           (assert (= "unvalidated" (champion :status)))
           (def result (model/compare (model/parse-state {"champion" (champion :id) "selected" "custom"})))
           (assert (> (((result :selected) :combat) :damage) 0))
@@ -60,7 +62,7 @@
             (assert (= 0 (((result :selected) :combat) :ability-dps)))
             (assert (= 1 (length (result :rows))))))))
 (test "every item can be selected as a sandbox entry without inventing passive damage"
-      (fn [] (each item catalog/item-list
+      (fn [] (each item (catalog/item-list)
                (assert (= "unvalidated" (item :status)))
                (def result (model/compare (model/parse-state {"champion" "Garen" "slot1" (item :id)})))
                (assert (= (item :gold) ((result :selected) :cost)))

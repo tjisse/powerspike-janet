@@ -32,7 +32,7 @@ jobs:
           test "$RELEASE_TAG" = "v$(cat VERSION)"
           test -n "$RPM_SIGNING_KEY"
       - name: Install build and signing tools
-        run: sudo apt-get update && sudo apt-get install -y build-essential git python3 ripgrep rpm libarchive-tools createrepo-c gnupg
+        run: sudo apt-get update && sudo apt-get install -y build-essential git python3 ripgrep rpm libarchive-tools libcurl4-openssl-dev libssl-dev createrepo-c gnupg
       - name: Test, build and verify RPM
         run: |
           make rpm

@@ -81,22 +81,27 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path):
+def verify(binary_path, seed_path=None):
     source = Path(binary_path).resolve()
+    seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
         cwd = Path(temp)
         binary = cwd / 'powerspike'
         shutil.copyfile(source, binary)
         binary.chmod(0o755)
-        version = subprocess.check_output([str(binary), '--version'], cwd=cwd, env=clean_env(), text=True)
+        seed = cwd / 'seed'
+        shutil.copytree(seed_source, seed)
+        def configuration(**settings):
+            return clean_env(PS_DATA_DIR=str(cwd / 'data'), PS_SEED_DIR=str(seed), **settings)
+        version = subprocess.check_output([str(binary), '--version'], cwd=cwd, env=configuration(), text=True)
         assert version.startswith('PowerSpike ')
-        help_text = subprocess.check_output([str(binary), '--help'], cwd=cwd, env=clean_env(PS_PORT='invalid'), text=True)
+        help_text = subprocess.check_output([str(binary), '--help'], cwd=cwd, env=configuration(PS_PORT='invalid'), text=True)
         assert 'PS_PORT' in help_text
         for invalid in ['bad', '8090.5', '1023', '65536']:
-            bad = subprocess.run([str(binary)], cwd=cwd, env=clean_env(PS_PORT=invalid), capture_output=True, timeout=10)
+            bad = subprocess.run([str(binary)], cwd=cwd, env=configuration(PS_PORT=invalid), capture_output=True, timeout=10)
             assert bad.returncode != 0 and b'1024' in bad.stderr, (invalid, bad.stderr)
         chosen = port()
-        with running(binary, cwd, [], clean_env(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
+        with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             headers, raw = get(base, '/')
             assert headers['Content-Type'].startswith('text/html')
             page = Page()
@@ -128,9 +133,9 @@ def verify(binary_path):
             get(base, '/healthz')
         # CLI port overrides even an invalid environment value at runtime.
         chosen = port()
-        with running(binary, cwd, ['--port', str(chosen)], clean_env(PS_PORT='invalid'), chosen) as base:
+        with running(binary, cwd, ['--port', str(chosen)], configuration(PS_PORT='invalid'), chosen) as base:
             get(base, '/healthz')
-        assert set(cwd.iterdir()) == {binary}, 'Runtime wrote files or required a source tree'
+        assert set(cwd.iterdir()) == {binary, seed, cwd / 'data'}, 'Runtime wrote outside its data directory'
     print('Relocated executable: runtime config, embedded catalog/art/assets, Q/W, SSE and disconnect checks passed.')
 
 

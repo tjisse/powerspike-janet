@@ -19,15 +19,41 @@
         (when (and (> i 0) (= 0 (% (- (length text) i) 3))) (buffer/push-string out ","))
         (buffer/push-string out (string/slice text i (inc i)))) (string out))))
 
+(defn patch-panel [result job &opt message]
+  (def patch (or (get job :key) (get (result :state) :patch ((result :package) :patch))))
+  (def progress (get job :progress {:message "" :completed 0 :total 1}))
+  (def active (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
+  [:section {:id "patch-panel" :class "patch-panel" :data-poll (if (or active (not catalog/versions-ready)) "true" "false")}
+   [:label "Patch"
+    [:select {:name "patchchoice" :data-bind:patchchoice true :data-on:change "@post('/patches')"}
+     (map |[:option {:value $ :selected (= $ patch)} $] catalog/patch-list)]]
+   [:span {:class "muted"} "Cached patches work offline"]
+   [:button {:type "button" :data-on:click "@post('/patches?refresh=true')"} "Refresh patch data"]
+   (when message [:p {:class "measurement-error"} message])
+   (when job
+     [:div {:class "patch-progress" :role "status"}
+      [:strong (get job :key "Patch download")]
+      [:span (string " · " (job :status) " · " (progress :message))]
+      (when active
+        [[:progress {:max (max 1 (progress :total)) :value (progress :completed)}]
+         [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"]])
+      (when (= :failed (job :status)) [:p (job :error)])
+      (when (= :done (job :status))
+        [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
+             :data-init (string "const next = new URL(location.href); next.searchParams.set('patch', '" ((job :result) :patch)
+                                "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
+         "Open patch"])
+      [:span {:id "patch-job-signals" :data-init (string "$job = '" (job :id) "'")}]])])
+
 (defn- icon [group id description &opt class]
-  [:img {:src (string "/assets/" group "/" id ".png") :alt description
+  [:img {:src (string "/assets/" ((catalog/current) :patch) "/" ((catalog/current) :snapshot) "/" group "/" id (if (string/has-suffix? ".png" id) "" ".png")) :alt description
          :width "64" :height "64" :class class :loading "lazy"}])
 (defn- level-options [state]
   (seq [level :range [1 19]] [:option {:value level :selected (= level (state :level))} level]))
 
 (defn- rank-markup [champion ranks]
   [:div {:id "ranks" :class "spells"}
-   (if (= "Annie" (champion :id))
+   (if (get ranks :q)
      [[:span {:class "spell"} (icon "spell" "AnnieQ" "Disintegrate") "Q" (ranks :q)]
       [:span {:class "spell"} (icon "spell" "AnnieW" "Incinerate") "W" (ranks :w)]
       [:span {:class "muted"} "R" (ranks :r) " passive"]]
@@ -38,7 +64,7 @@
   [:div {:id "champion-display" :class "champion-display"}
    [:div {:class "portrait"} (icon "champion" (champion :icon) (champion :name))]
    [:div {:class "champion-title"} [:h1 (champion :name)]
-    [:span {:class "muted"} (if (= "Annie" (champion :id)) "Q/W + basic attacks" "Basic attacks only")]
+    [:span {:class "muted"} (if (get-in result [:selected :ranks :q]) "Q/W + basic attacks" "Basic attacks only")]
     (rank-markup champion ((result :selected) :ranks))]])
 
 (defn scenario [result]
@@ -53,7 +79,7 @@
     [:label {:class "native-only" :for "champion"} "Champion"
      [:select {:id "champion" :name "champion" :data-bind:champion true}
       (map (fn [champion] [:option {:value (champion :id) :selected (= (champion :id) (state :champion))}
-                           (champion :name)]) catalog/champion-list)]]]
+                           (champion :name)]) (catalog/champion-list))]]]
    [:label {:for "level"} "Level"
     [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]
    [:label {:for "duration"} "Combat window (seconds)"
@@ -124,7 +150,7 @@
         [:select {:form "scenario" :name (string "slot" (inc index))}
          [:option {:value "" :selected (= "" (ids index))} "Empty"]
          (map (fn [item] [:option {:value (item :id) :selected (= (item :id) (ids index))}
-                          (item :name) " · " (item :id) " · " (item :gold) " gold"]) catalog/item-list)]])]
+                          (item :name) " · " (item :id) " · " (item :gold) " gold"]) (catalog/item-list))]])]
     [:button {:class "apply" :type "submit" :form "scenario" :name "selected" :value "custom"} "Apply inventory"]]])
 
 (defn catalog-pickers []
@@ -133,7 +159,7 @@
      [:button {:type "button" :class "catalog-close" :data-on:click "document.getElementById('champion-picker').close()"} "Close"]]
     [:div {:class "picker-toolbar"}
      [:label "Search champions" [:input {:type "search" :class "catalog-search" :placeholder "Name or role" :autocomplete "off" :autofocus true}]]
-     [:span {:class "muted catalog-count"} (length catalog/champion-list) " champions"]]
+     [:span {:class "muted catalog-count"} (length (catalog/champion-list)) " champions"]]
     [:div {:class "catalog-grid champion-grid"}
      (map (fn [champion]
             [:button {:type "button" :class "catalog-card"
@@ -143,7 +169,7 @@
                                              "document.getElementById('champion-picker').close(); "
                                              "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")}
              (icon "champion" (champion :icon) (champion :name))
-             [:span (champion :name)] [:small "Unvalidated"]]) catalog/champion-list)]
+             [:span (champion :name)] [:small "Unvalidated"]]) (catalog/champion-list))]
     [:p {:class "picker-empty" :hidden true} "No champions match your search."]]
    [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title"}
     [:div {:class "picker-header"} [:h2 {:id "item-picker-title"} "Choose item"]
@@ -157,7 +183,7 @@
                                                      (string "if ($editing === " index ") $slot" index " = '';")) " ")
                                       " $selected = 'custom'; document.getElementById('item-picker').close(); "
                                       "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")} "Empty slot"]]
-    [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length catalog/item-list) " items"]
+    [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length (catalog/item-list)) " items"]
      " · Unvalidated. Permanent stats only; effect exclusions appear below the build."]
     [:div {:class "catalog-grid item-grid"}
      (map (fn [item]
@@ -173,7 +199,7 @@
              (icon "item" (item :icon) (item :name))
              [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
              [:small {:class "validation-badge"} "Unvalidated"]
-             [:span {:class "item-description"} (item :description)]]) catalog/item-list)]
+             [:span {:class "item-description"} (item :description)]]) (catalog/item-list))]
     [:p {:class "picker-empty" :hidden true} "No items match your search."]]])
 
 (defn- chart [row duration title]
@@ -207,13 +233,13 @@
   (def duration (state :duration))
   (def totals (row :stats))
   (def combat (row :combat))
-  (def has-spells (= "Annie" ((result :champion) :id)))
+  (def has-spells (get-in row [:ranks :q]))
   (def chart-title (if has-spells "Q/W + attacks over time" "Basic attacks over time"))
   [:div {:id "results" :class "results" :aria-live "polite" :data-attr:aria-busy "$busy"}
    [:div {:class "workspace"}
     [:section {:class "build-panel" :aria-label "Build comparisons"}
      [:div {:class "section-header"} [:h2 "Builds"]
-      [:span {:class "muted"} (if (= "Annie" ((result :champion) :id)) "Custom + 3 Annie presets" "Custom inventory")]]
+      [:span {:class "muted"} (if (> (length (result :rows)) 1) "Custom + 3 Annie presets" "Custom inventory")]]
      (seq [[index candidate] :pairs (result :rows)] (build-row candidate index (state :selected)))]
     [:section {:class "loadout" :aria-label "Selected build"}
      [:div {:class "section-header"} [:h2 (row :name)] [:span {:class "muted"} (number-text (row :cost)) " gold"]]
@@ -234,7 +260,7 @@
       (stat "Ability haste" (totals :ability-haste))]]]
    [:section {:class "scope-panel" :aria-label "Build model coverage"}
     [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
-    [:p (if (= "Annie" ((result :champion) :id))
+    [:p (if has-spells
           "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
           "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
     [:p "Inventory legality and item interactions are unvalidated. Runes, stacks, on-hit damage and conditional effects are excluded."]
@@ -274,8 +300,8 @@
              [:span {:class (if (= :consistent (record :status)) "checked" "measurement-error")}
               (if (= :consistent (record :status)) "✓ " "! ") (record :checked) " checked"]]) evidence)]
     [:div {:class "evidence-row"} [:span {:class "evidence-kind"} "◇ Patch data"]
-     [:span (length catalog/champion-list) " champions and " (length catalog/item-list)
-      " items from patch 26.19. All catalog entries are unvalidated. Character records supply base/growth and attack-speed values; permanent item stats come from structured fields and stat blocks. The five Annie captures verify only the stated conditions."]]
+     [:span (length (catalog/champion-list)) " champions and " (length (catalog/item-list))
+      " items from the selected patch. All catalog entries are unvalidated. Character records supply base/growth and attack-speed values; permanent item stats come from structured fields and stat blocks. The five Annie captures verify only the stated conditions."]]
     [:div {:class "evidence-row"} [:span {:class "evidence-kind"} "~ Assumptions"]
      [:span "Attack windup 30%; basic-attack travel zero. Q before W; fixed target armor, resistance and health. Rune effects excluded. Damage and timing remain unverified."]]]])
 
@@ -288,13 +314,14 @@
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
             [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}]]
            [:body
-            [:div {:id "powerspike" :data-signals (json/encode (merge state {:busy false :editing 1}))
+            [:div {:id "powerspike" :data-signals (json/encode (merge state {:busy false :editing 1 :patchchoice (state :patch) :job ""}))
+                   :data-on:jobtick "@get('/patches/status')"
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"}
-             [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch 26.19"]]
-             [:main {:class "content"} (scenario result) (native-inventory result)
+             [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch " ((result :package) :patch)]]
+             [:main {:class "content"} (patch-panel result nil) (scenario result) (native-inventory result)
               (if message (error-result message) (results result)) (evidence-panel evidence)]
              (catalog-pickers)
-             [:footer {:class "footer"} [:span (length catalog/champion-list) " champions · " (length catalog/item-list) " items"]
+             [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Combat damage unverified"]
               [:small "PowerSpike is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc."]]]]]))

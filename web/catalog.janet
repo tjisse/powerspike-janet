@@ -1,17 +1,16 @@
-(import ../data/16.19.1/snapshot :as snapshot)
-
-# Data-only parsing: downloaded catalog strings never execute as Janet code.
-(def records (parse-all (slurp "data/16.19.1/catalog/catalog.jdn")))
-(assert (= 1 (length records)) "Expected one catalog record.")
-(def data (first records))
-(assert (= snapshot/patch (data :patch)) "Catalog patch mismatch.")
-(def champions
-  (tabseq [record :in (data :champions)] (record :id)
-    (merge record (get snapshot/champions (record :id) {}) {:status "unvalidated"})))
-(def items
-  (tabseq [record :in (data :items)] (record :id)
-    (merge record (get snapshot/items (record :id) {}) {:status "unvalidated"})))
-(def champion-list (sorted (values champions) (fn [a b] (< (compare (a :name) (b :name)) 0))))
-(def item-list (sorted (values items) (fn [a b]
-                                        (def by-name (compare (a :name) (b :name)))
-                                        (if (= 0 by-name) (< (scan-number (a :id)) (scan-number (b :id))) (< by-name 0)))))
+(import ../src/powerspike/packages :as packages)
+(var patch-list [])
+(var versions-ready false)
+(defn initialize [data seed]
+  (def package (packages/initialize data seed))
+  (set patch-list (packages/available)) package)
+(defn current [] (or (dyn :patch-package) (packages/load packages/default-version)))
+(defn champions [id] (((current) :champion-map) id))
+(defn items [id] (((current) :item-map) id))
+(defn champion-list [] (sorted ((current) :champions) |(< (compare ($0 :name) ($1 :name)) 0)))
+(defn item-list [] (sorted ((current) :items) |(< (compare ($0 :name) ($1 :name)) 0)))
+(defn discover []
+  (ev/go (fn []
+           (def result (protect (packages/versions)))
+           (when (first result) (set patch-list (result 1)))
+           (set versions-ready true))))

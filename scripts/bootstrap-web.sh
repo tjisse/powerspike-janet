@@ -19,9 +19,13 @@ cp -R build/web-deps/datastar-janet/datastar build/web-modules/
 cp build/web-deps/datastar-janet/datastar.janet build/web-modules/
 cp build/web-deps/jayson/src/jayson.janet build/web-modules/
 cp build/web-deps/janet-html/src/janet-html.janet build/web-modules/
+cp -R build/web-deps/jurl/jurl build/web-modules/
 mkdir -p build/web-modules/judge build/web-assets/licenses
 cp build/web-deps/judge/src/*.janet build/web-modules/judge/
 ${CC:-cc} -O2 -fPIC -shared -Ibuild/janet-src/build build/web-deps/spork/src/json.c -o build/web-modules/spork/json.so
+mkdir -p build/web-modules/jurl
+${CC:-cc} -O2 -fPIC -shared -Ibuild/janet-src/build ${CURL_CFLAGS:-} build/web-deps/jurl/src/*.c -l:libcurl.so.4 -o build/web-modules/jurl/native.so
+${CC:-cc} -O2 -fPIC -shared -Ibuild/janet-src/build native/hash.c -lcrypto -o build/web-modules/pshash.so
 while read -r task_name task_repo task_commit; do
     case "$task_name" in ''|'#'*) continue ;; esac
     for task_license in LICENSE LICENSE.md LICENSE.txt UNLICENSE; do
@@ -31,5 +35,6 @@ while read -r task_name task_repo task_commit; do
     done
 done < web/deps.lock
 ${PYTHON:-python3} scripts/fetch_web_assets.py
+JANET_PATH=build/web-modules build/janet scripts/seed-data.janet
 touch build/web-ready
 printf 'Frontend dependencies ready. Run make serve.\n'

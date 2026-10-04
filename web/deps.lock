@@ -1,5 +1,6 @@
 # name repository exact-commit
 jpm https://github.com/janet-lang/jpm 2430dec269f485473502bcdc2049ee332bc63908
+jurl https://github.com/cosmictoast/jurl e620ee820d50585c0efecfff2c2d580b5ac18213
 datastar-janet https://github.com/tjisse/datastar-janet ed228edf0b3db8826711f94eee3b179937596a41
 spork https://github.com/janet-lang/spork 2d4638cfb843589485dde75ab79c1eda7ccd1f46
 jayson https://github.com/CFiggers/jayson 4f54041617340c8ff99bc1e6b285b720184965e2

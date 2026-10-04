@@ -35,7 +35,7 @@ def main():
         assert files['/etc/powerspike/powerspike.env'][2] & 17 == 17, 'Config must be noreplace'
         assert '/usr/lib/systemd/system/powerspike.service' in files
         assert '/usr/lib/sysusers.d/powerspike.conf' in files
-        assert not any(path.endswith(('.so', '.janet', '.c', '.h', '.jdn', '.pem', '.key')) for path in files)
+        assert not any(path.endswith(('.so', '.janet', '.c', '.h', '.pem', '.key')) for path in files)
         requires = subprocess.check_output([*args, '--requires', str(package)], text=True)
         assert 'glibc >=' in requires and 'systemd' in requires and 'shadow-utils' in requires
         scripts = subprocess.check_output([*args, '--scripts', str(package)], text=True)
@@ -49,6 +49,9 @@ def main():
         assert 'EnvironmentFile=/etc/powerspike/powerspike.env' in unit
         assert 'ExecStart=/usr/bin/powerspike' in unit
         assert 'User=powerspike' in unit and 'ProtectSystem=strict' in unit
+        assert 'StateDirectory=powerspike' in unit
+        assert '/usr/share/powerspike/seed/16.19.1/current' in files
+        assert 'libcurl' in requires and 'ca-certificates' in requires
         assert 'PS_PORT=8090' in (payload / 'etc/powerspike/powerspike.env').read_text()
         if shutil.which('systemd-analyze'):
             check_unit = root / 'powerspike.service'
@@ -56,7 +59,7 @@ def main():
                 'ExecStart=' + str(payload / 'usr/bin/powerspike')))
             check_unit.chmod(0o644)
             subprocess.run(['systemd-analyze', 'verify', str(check_unit)], check=True)
-        verify(payload / 'usr/bin/powerspike')
+        verify(payload / 'usr/bin/powerspike', payload / 'usr/share/powerspike/seed')
         print('RPM payload, digests, permissions, preserved config, service and lifecycle scripts verified.')
 
 

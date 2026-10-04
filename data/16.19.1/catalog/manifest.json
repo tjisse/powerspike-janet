@@ -1,0 +1,723 @@
+{
+  "patch": "16.19.1",
+  "communitydragon_patch": "16.19",
+  "status": "unvalidated",
+  "counts": {
+    "champions": 173,
+    "items": 870
+  },
+  "sources": [
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion.json",
+      "sha256": "b70e5edb8d2f4c25d21cf68a8366bbf0f352082e840b0bbc2efcf004f10022db"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/item.json",
+      "sha256": "72c996d05a316ca194c0f5c02b25016a553bd204a974db09b4312c40cee3d477"
+    }
+  ],
+  "retained": [
+    {
+      "path": "sources/champions-ddragon.json",
+      "sha256": "b70e5edb8d2f4c25d21cf68a8366bbf0f352082e840b0bbc2efcf004f10022db"
+    },
+    {
+      "path": "sources/characters/Aatrox.json",
+      "sha256": "d195b0771f9608d3a7e43ac73eedd7792f6c59160f03f41b25bc36ad5e564b80"
+    },
+    {
+      "path": "sources/characters/Ahri.json",
+      "sha256": "5d0a17d148a7bce1ddb9b9ac6039c1a9ec2bf9524bad90105e4c7ec8385ee362"
+    },
+    {
+      "path": "sources/characters/Akali.json",
+      "sha256": "80f0a38f467c7579f3b40cb5b6fe386478262f7cba5c36fe46517572c91a93bc"
+    },
+    {
+      "path": "sources/characters/Akshan.json",
+      "sha256": "f56869604976861daedd18a1ebb1a3bf578612439266e0efa32b74424411925d"
+    },
+    {
+      "path": "sources/characters/Alistar.json",
+      "sha256": "39f9ad8ed3817fc90d9ecad2e76efb2e4f27f84bcf9c5f22a2b40cd8c25a40a1"
+    },
+    {
+      "path": "sources/characters/Ambessa.json",
+      "sha256": "6195cd3e32c1d653779489af0febb09cf3872fb014d32604523308396dabb7a2"
+    },
+    {
+      "path": "sources/characters/Amumu.json",
+      "sha256": "43a0b0db570839204fac85a21bbbb871166e59a3f3e82290accf2703ef4d6c70"
+    },
+    {
+      "path": "sources/characters/Anivia.json",
+      "sha256": "e52ce8a798d702ad3eead723c3518942ada8c74a091577653a3b9b52f7cec784"
+    },
+    {
+      "path": "sources/characters/Annie.json",
+      "sha256": "44560f4940586c727215885aa628265257454eba863a621e1bce7a0c8fefcc2d"
+    },
+    {
+      "path": "sources/characters/Aphelios.json",
+      "sha256": "d62b9b687ea51e8b9c74442587c2baab1160aef0e4dba45693b5531f85dba287"
+    },
+    {
+      "path": "sources/characters/Ashe.json",
+      "sha256": "245aaf211c7a062e20f5b5d49b1f0ad802da911b2d8092af593f3cd97b08c17a"
+    },
+    {
+      "path": "sources/characters/AurelionSol.json",
+      "sha256": "2c0d07717a23c3297b9babd36a783d7d538356d7adeba8411e3ba8ba84537376"
+    },
+    {
+      "path": "sources/characters/Aurora.json",
+      "sha256": "ddcdf0d5fe7f7d43532a7441bcc35c04f5269e047bd3f09f018a01eaccc98531"
+    },
+    {
+      "path": "sources/characters/Azir.json",
+      "sha256": "2c1275d0a49032f17857608734f83ae63707bf4758726d0e69ed979e0d1331b6"
+    },
+    {
+      "path": "sources/characters/Bard.json",
+      "sha256": "fd40c6d39035fcc8b1609eb6d68378c5f381a9b636335746cc67db92294269aa"
+    },
+    {
+      "path": "sources/characters/Belveth.json",
+      "sha256": "5b5e9d5760e823a04cdda61e53e67cdbec936732bf6cfdede52a3076222f6e2d"
+    },
+    {
+      "path": "sources/characters/Blitzcrank.json",
+      "sha256": "e08379a6e0936e62f84d32577fa599edbe1ec76341d322d9ac95a6a8703e099c"
+    },
+    {
+      "path": "sources/characters/Brand.json",
+      "sha256": "bb504d7b3efd919afe4de50ed2ca70d5c97dd63fa821b593d938c2e1a8a16c15"
+    },
+    {
+      "path": "sources/characters/Braum.json",
+      "sha256": "466f2e2264463f337b6d14d934f6c638ca771e2bbd1791f29fdcf13ccca9c423"
+    },
+    {
+      "path": "sources/characters/Briar.json",
+      "sha256": "d840c5f09b7c06ebe3a52e60694ff62eda6e486ff0c3e01e0c09677d7c01305b"
+    },
+    {
+      "path": "sources/characters/Caitlyn.json",
+      "sha256": "17c268829ed4dc9bede859e81280ae54951e0080e1cfbe42e3e952b64ca9ae7a"
+    },
+    {
+      "path": "sources/characters/Camille.json",
+      "sha256": "8767725e76ee7dee26cad58f9dce65d0e44ab5a821143162a358f5237cba5c68"
+    },
+    {
+      "path": "sources/characters/Cassiopeia.json",
+      "sha256": "7c4e72f1f7e572ae9eae44395bc22bcbee38c8f6a391fa83582dff9453200be0"
+    },
+    {
+      "path": "sources/characters/Chogath.json",
+      "sha256": "85b9c0e3f982d75096c8a2df3c91f8f440929e9d886568a83c7d247f16c48f46"
+    },
+    {
+      "path": "sources/characters/Corki.json",
+      "sha256": "69b6fc16462a13376f6d379da77d4a3684e1923e510ca4ba479abb98e75ac2c8"
+    },
+    {
+      "path": "sources/characters/Darius.json",
+      "sha256": "ef3bd377f2064548658b869733db8d61dffc3d8fba5517bbdcb70b6fc28e7710"
+    },
+    {
+      "path": "sources/characters/Diana.json",
+      "sha256": "bf9bf88699689c44c30547b8e783bc5e9624962e7a306ffe164004cbcbf5961a"
+    },
+    {
+      "path": "sources/characters/DrMundo.json",
+      "sha256": "9a278298bfc77e92ff9f891319beae1589259780731dc728fae072bb9ed6bf9d"
+    },
+    {
+      "path": "sources/characters/Draven.json",
+      "sha256": "2616f13ac08d6da0d813f338105fc39725382ba6b105a3e2c25cc3eac3ea6003"
+    },
+    {
+      "path": "sources/characters/Ekko.json",
+      "sha256": "02d526e329901b16df9b0e76ffa11ebae279ffb4fe27a4eedbdfdce4e70decf2"
+    },
+    {
+      "path": "sources/characters/Elise.json",
+      "sha256": "b870eb286e1ca94fd8705fe14e92fe03cbabcb056c067facbc62c29fea1d1e43"
+    },
+    {
+      "path": "sources/characters/Evelynn.json",
+      "sha256": "812c165c18db70fe4d0804d240d95b2b48a74ab7a82b092e96fe630ef9fbb16c"
+    },
+    {
+      "path": "sources/characters/Ezreal.json",
+      "sha256": "a8d4e435135eefe84ff5bbd0491df15dc20a7257a805b328399d1a956c81dd91"
+    },
+    {
+      "path": "sources/characters/Fiddlesticks.json",
+      "sha256": "7b5d803cbdd8db7d3d01dffe845f4d404fe123a7be766e5ad115208f260c3dd3"
+    },
+    {
+      "path": "sources/characters/Fiora.json",
+      "sha256": "57ceb4ebf4fdb903643db432d2ce90c1d9f0abac986841eb3e8ea9c97274c4fa"
+    },
+    {
+      "path": "sources/characters/Fizz.json",
+      "sha256": "a18fe1133520ed5ca86ffb094112f2eaaebc3d2a6d36de281cb7a73eef7805cc"
+    },
+    {
+      "path": "sources/characters/Galio.json",
+      "sha256": "4bfda987871e4144d2e9a3065477153525afe48f5d14e0dc1357e5ea7fbf7eb9"
+    },
+    {
+      "path": "sources/characters/Gangplank.json",
+      "sha256": "9bb2b9ffe954470c69b1cb2aa302eadfd1a179c23cb2cbfa7cd39f1427f7fdc8"
+    },
+    {
+      "path": "sources/characters/Garen.json",
+      "sha256": "4ac212d97e9e92c1b8ba5104be2706db54333af8d7416d99aeffdd37734d730e"
+    },
+    {
+      "path": "sources/characters/Gnar.json",
+      "sha256": "cd55ceaa353ac6d626e1772b517f639ebf851b5355c0fa2f18067275fa8e211e"
+    },
+    {
+      "path": "sources/characters/Gragas.json",
+      "sha256": "ff4261763be1e232cfff1d3c5be889e6847d07109db9945a1554cfdb15196351"
+    },
+    {
+      "path": "sources/characters/Graves.json",
+      "sha256": "04a3360178c9f3acb956d969db818ddcad59a7c5872a81af74d5afcdcd9a22fb"
+    },
+    {
+      "path": "sources/characters/Gwen.json",
+      "sha256": "dbe555a2514e4e42bf6955ac3c5a9bcf3ea95fcfcf228a7123b004c86afbfbd3"
+    },
+    {
+      "path": "sources/characters/Hecarim.json",
+      "sha256": "3989291d3dd96e85f27aaea6d0fe8a82d38a2c14d5759b76850023368cbfaf29"
+    },
+    {
+      "path": "sources/characters/Heimerdinger.json",
+      "sha256": "bd350897aaec15520df52aed2f99008dc4428b9fed168a1af5e952d34976bfe8"
+    },
+    {
+      "path": "sources/characters/Hwei.json",
+      "sha256": "04e56250d2b0b266def868db9ad02ba6f3454dcbf12fea3c197fbf1dabc3c60b"
+    },
+    {
+      "path": "sources/characters/Illaoi.json",
+      "sha256": "d8613cefd987677fb93f0f2a9019dd0c86c151eae12507aee2980b971877aefc"
+    },
+    {
+      "path": "sources/characters/Irelia.json",
+      "sha256": "826a47bd55a753100a7b103fca2a90eeb7754d34d2beb208a9a68e5b896822e3"
+    },
+    {
+      "path": "sources/characters/Ivern.json",
+      "sha256": "7941313a37539dea088368024f5276d7bda46522e9eb2754c786ea5b57015018"
+    },
+    {
+      "path": "sources/characters/Janna.json",
+      "sha256": "0ebd0985c8b92179416f701a833e243cb987b571d31019fa9415eaa281e4b41e"
+    },
+    {
+      "path": "sources/characters/JarvanIV.json",
+      "sha256": "f5d61e2ada77acb6551eb415f60608a45c652a23bf699e6bd544732d97a23682"
+    },
+    {
+      "path": "sources/characters/Jax.json",
+      "sha256": "11a62152f8fcb29865df6952e5a4009c14d1e1778e2a6eea77a083f75ae9f1e9"
+    },
+    {
+      "path": "sources/characters/Jayce.json",
+      "sha256": "f5dcdb2603838c9450094bc1bca42e43564b13a06bae00198324c294ace4a83d"
+    },
+    {
+      "path": "sources/characters/Jhin.json",
+      "sha256": "9e152196de609e9d67ad16f6fc60d379a7f5363764f3be7f63e919708d12777f"
+    },
+    {
+      "path": "sources/characters/Jinx.json",
+      "sha256": "0061e916bf5866cdae9f5859e1d65836b82d80d9d99adff37b38d0907021913d"
+    },
+    {
+      "path": "sources/characters/KSante.json",
+      "sha256": "24b61dbaa9ae0345e1fcc0dc76de5a7d2b558bb586ffe02c050e99bd8733442e"
+    },
+    {
+      "path": "sources/characters/Kaisa.json",
+      "sha256": "f7ee140c0d7e63bd02ff4345047fbc41bf45f5d2e84d613113f26cd669fefcbf"
+    },
+    {
+      "path": "sources/characters/Kalista.json",
+      "sha256": "155bfddeb970d80dfacbb3cc8b9a73f64db239930696020eb4b6d46020c0dce0"
+    },
+    {
+      "path": "sources/characters/Karma.json",
+      "sha256": "95901bddc71ab5bbfdd266afcef8e8c69bb754e6d2432ef1e6d7e9ae2e147882"
+    },
+    {
+      "path": "sources/characters/Karthus.json",
+      "sha256": "2e1360bcf171c758ad73e7d1183a11053efd1e4a1678e76f9ce63777c0923ffb"
+    },
+    {
+      "path": "sources/characters/Kassadin.json",
+      "sha256": "39e4985a4710f1a1be8388c7855295f056b710790b3c928eb1a88bcf5c52919e"
+    },
+    {
+      "path": "sources/characters/Katarina.json",
+      "sha256": "fd115cbbbebc6acee6ff20e128756f22bc0b067251fbb4818b7dca0ed60363fb"
+    },
+    {
+      "path": "sources/characters/Kayle.json",
+      "sha256": "127b129e6b2da107f88d121435f9cc2bf36fa0dc55ef066972f6355b46a0da3b"
+    },
+    {
+      "path": "sources/characters/Kayn.json",
+      "sha256": "8c029244d2011ab9717d356bbd6b1ee276aae1c540ee8c6be15854a01e6570b9"
+    },
+    {
+      "path": "sources/characters/Kennen.json",
+      "sha256": "fe00c7473a5dceca6cdc27eec1dade96c0c0dd3b5aadc1f00075aab8f90dc196"
+    },
+    {
+      "path": "sources/characters/Khazix.json",
+      "sha256": "1103c5f95f0c55358353b9c2efde9ad8a053da8cee9e8ad23749b5a38c311707"
+    },
+    {
+      "path": "sources/characters/Kindred.json",
+      "sha256": "7e3d3e117af18fe3f19cb136dddf311eac86c50859063c235f31c6e65f5992a2"
+    },
+    {
+      "path": "sources/characters/Kled.json",
+      "sha256": "c1f0a2512f93345acdd364730ba6e271c8b505b6902b429cb79d18e9c34b74b5"
+    },
+    {
+      "path": "sources/characters/KogMaw.json",
+      "sha256": "6890c91dfcfa2c6e60b31f1f1d25582f3ab6c12aec8974d8f41806b32dc79b09"
+    },
+    {
+      "path": "sources/characters/Leblanc.json",
+      "sha256": "7d6cd7575775513fa2dce400dfec712d26aba56dad120b0f6c9d45125ef53629"
+    },
+    {
+      "path": "sources/characters/LeeSin.json",
+      "sha256": "8a11eb3c480686be2855618bcaac54bb9f7a88e7fa7b39236919859071e3f6a8"
+    },
+    {
+      "path": "sources/characters/Leona.json",
+      "sha256": "49b635a332839d4ba88b3684b73e6da7a3fe6155f16aad71fe573519d140057a"
+    },
+    {
+      "path": "sources/characters/Lillia.json",
+      "sha256": "c8eb57fd7f37efdd16d0db2a214dfbf245e0690d543762a1065382a73a13eac6"
+    },
+    {
+      "path": "sources/characters/Lissandra.json",
+      "sha256": "6f3d931f7ebcf2f6bbce40d8c9dba86c0603e08edae43a7c4cfbf9fabf590838"
+    },
+    {
+      "path": "sources/characters/Locke.json",
+      "sha256": "5788155cb33772db725ebad2102830ecafc793dce077572e95e2b46318c8e646"
+    },
+    {
+      "path": "sources/characters/Lucian.json",
+      "sha256": "5ebcfec664b105a4ba6031a8176c47119212529dad77552e486ecdd792d08491"
+    },
+    {
+      "path": "sources/characters/Lulu.json",
+      "sha256": "375d3647276d3bf2a031e84a6f914768ca8081a2ec458a4a9c6360331612f199"
+    },
+    {
+      "path": "sources/characters/Lux.json",
+      "sha256": "f9e73394cb9ada2f13652e055f4a087c5d32130083299296b2ab501b56dc5693"
+    },
+    {
+      "path": "sources/characters/Malphite.json",
+      "sha256": "d53cd36200f4923fbc34bdbbc6ea6f5a5e4e68d99d9a917e66b7e8dd733ab828"
+    },
+    {
+      "path": "sources/characters/Malzahar.json",
+      "sha256": "2dc317e77cd8cd66157fa39707146375f31939ea688255c4ed13fcba34a52a8d"
+    },
+    {
+      "path": "sources/characters/Maokai.json",
+      "sha256": "12c11ee4795855b6231dff60cfd18f34f30de98085385513003c391bb3eb72f9"
+    },
+    {
+      "path": "sources/characters/MasterYi.json",
+      "sha256": "7fadfe75774abc4423d3ddebe8af250ae7515322634e9b99f84d7ccbd75cc331"
+    },
+    {
+      "path": "sources/characters/Mel.json",
+      "sha256": "a92d2403c11c1e5a70d7be24da5552f0b3b6759a8e5cefe6f86a4b9b6c5c0b87"
+    },
+    {
+      "path": "sources/characters/Milio.json",
+      "sha256": "ad5592d7bac90c00a1d93e4b70406f79e17272cc451afa3a0052e7bdc493b8d0"
+    },
+    {
+      "path": "sources/characters/MissFortune.json",
+      "sha256": "363e3956f876c7425ea5a64b30e92c024205cd737ad5f4d9efee2eec9c900759"
+    },
+    {
+      "path": "sources/characters/MonkeyKing.json",
+      "sha256": "3c8edf5974568a29b048ab57cd9bea04b018fb8daa18be8c566afe7620613bce"
+    },
+    {
+      "path": "sources/characters/Mordekaiser.json",
+      "sha256": "686e4688c1c7e8df87925c5a3925000f7aa739c3e34c3aba9568114f883f9816"
+    },
+    {
+      "path": "sources/characters/Morgana.json",
+      "sha256": "8b54d83eb7a264e4eb55417711216d66e00adec41ba337518b23733e8b69b95a"
+    },
+    {
+      "path": "sources/characters/Naafiri.json",
+      "sha256": "94957cbe752b65a50a515feaeab1a25fbd16f1d5bbc86a78f28a0f9ebaed380c"
+    },
+    {
+      "path": "sources/characters/Nami.json",
+      "sha256": "b270ae33f8ffd6f9cf747a88f52e29e840fda12b5e1384b72dd9cd62b2563ada"
+    },
+    {
+      "path": "sources/characters/Nasus.json",
+      "sha256": "ba76b572e54f2fadd3299eedc218bf1cd04f891d5ac72270bd47d72ef040be8d"
+    },
+    {
+      "path": "sources/characters/Nautilus.json",
+      "sha256": "e5a7f7a4caf583d739762667512cd204946a31e0e8cbe4ee41af6e6ba2b1d546"
+    },
+    {
+      "path": "sources/characters/Neeko.json",
+      "sha256": "43fd75dad66749aa1774c1391b19c7e1365bb7fe1e2b1d2d7ea5825a0b65c265"
+    },
+    {
+      "path": "sources/characters/Nidalee.json",
+      "sha256": "df8c1773b67842ca7aca21b17e98aaaf7813c7f05dfaf95c3e5dd5b60c1be2c8"
+    },
+    {
+      "path": "sources/characters/Nilah.json",
+      "sha256": "2db90d3e45fdd7914c23123329def47b74ed4a704846cdcb9f59fecb2b49b39d"
+    },
+    {
+      "path": "sources/characters/Nocturne.json",
+      "sha256": "903262dd942f80ef0b9f305f0536edcd46738c0eb19635fe65f4666e47203b4a"
+    },
+    {
+      "path": "sources/characters/Nunu.json",
+      "sha256": "21ec8dc937c4914722d5d0eaa704b016e5aa3a3b2cfac0e2811bc36f156850ca"
+    },
+    {
+      "path": "sources/characters/Olaf.json",
+      "sha256": "e5a4c025bf9321d0ce12f46bd87455b590a97ee95f2c6183973e75448f34614b"
+    },
+    {
+      "path": "sources/characters/Orianna.json",
+      "sha256": "3cae63d814938b24306975f4a46d7a5e0d79adf6b45b42a09f486e38ca705ee1"
+    },
+    {
+      "path": "sources/characters/Ornn.json",
+      "sha256": "9198f6cdb092514a997d4248bff3defcdc24eec26bd4f6e0e32b2cb3b0cd5943"
+    },
+    {
+      "path": "sources/characters/Pantheon.json",
+      "sha256": "09e5c9826901fb65c35a314c8472a5f4394c1f27c1d6cf2b0ea26f3cdddf6f43"
+    },
+    {
+      "path": "sources/characters/Poppy.json",
+      "sha256": "19aa2012e2a87d45b46a2ecd2ec72496a6c7cdfa4de943ebcca43211d498f961"
+    },
+    {
+      "path": "sources/characters/Pyke.json",
+      "sha256": "c5d3883ac9dde03c80c95ea705f6a7a89344a83e1389369835352f09d5dd6ed9"
+    },
+    {
+      "path": "sources/characters/Qiyana.json",
+      "sha256": "02e6f27a706ceb055e8f065604fa32c01cfcac8465cff7cc49ecdf76e32adfca"
+    },
+    {
+      "path": "sources/characters/Quinn.json",
+      "sha256": "c07a384d2b11c9f75ef26d4a17747ab7afd70e1bbc174cd0eaebe05f359389bc"
+    },
+    {
+      "path": "sources/characters/Rakan.json",
+      "sha256": "191a2dd7f24dc67cb3f1b88ed49853a2196039a4fa85b8aada62f39c1bd2ed61"
+    },
+    {
+      "path": "sources/characters/Rammus.json",
+      "sha256": "e9f85c9106c29090c92196e9739fdb965e3d4e255009f226348c76d9168dfa02"
+    },
+    {
+      "path": "sources/characters/RekSai.json",
+      "sha256": "40d27db34fa94d3ed8b8ae8b7ecab45c6ad0156c6dc4b84f7af2ca653c33a1c6"
+    },
+    {
+      "path": "sources/characters/Rell.json",
+      "sha256": "19b1cfdde364b2c2966ae313e060df9e787d5ac97cca14a949facc14764ce9e1"
+    },
+    {
+      "path": "sources/characters/Renata.json",
+      "sha256": "689b90e5bc08ca330060e41a26f6bf48053062ed346d49e506475b4e7720a9e5"
+    },
+    {
+      "path": "sources/characters/Renekton.json",
+      "sha256": "f92248a7f21598232d17a4e2839315293f0ea0ad1e57b7b54330fe7816109bc1"
+    },
+    {
+      "path": "sources/characters/Rengar.json",
+      "sha256": "deb2ae941ca1a36dbb5121750dd7c7f2f773a9937ce974c3028db0decf4b471b"
+    },
+    {
+      "path": "sources/characters/Riven.json",
+      "sha256": "e4a019ee014c4d84efef82f30b7b01130d7b546449f246b5ba3b85ea1860c5fe"
+    },
+    {
+      "path": "sources/characters/Rumble.json",
+      "sha256": "0640722bdbacf861b769cad0c153e38c175f3627cab7159341c0566a3109ddeb"
+    },
+    {
+      "path": "sources/characters/Ryze.json",
+      "sha256": "f51cd6858e466d45705a5d064d713a2ad3b13c5dfc8d9374a259e729a82c41d6"
+    },
+    {
+      "path": "sources/characters/Samira.json",
+      "sha256": "586c33fc621f75f7dd7fc73ca20664b5627b4a71152834460272f319d6f282fc"
+    },
+    {
+      "path": "sources/characters/Sejuani.json",
+      "sha256": "1c70ba7eb8d0322837d8c9b23f6090119e32e0b9fe64d96eb66f4d07b367da68"
+    },
+    {
+      "path": "sources/characters/Senna.json",
+      "sha256": "78c2c7f62fc2a86028b07de765d260558ab6990b2157a2b2ea10d4f03a24283c"
+    },
+    {
+      "path": "sources/characters/Seraphine.json",
+      "sha256": "4b06b0fbc5d230532e4a52c2e48efaade14b90cc105bef2fb1c839e9c3b42a19"
+    },
+    {
+      "path": "sources/characters/Sett.json",
+      "sha256": "79a6e510277adadae506c403cf495d54384509003a9764c7a31502772d2a67e0"
+    },
+    {
+      "path": "sources/characters/Shaco.json",
+      "sha256": "33f5b9934964cd4240b4153d1cc2d4bbb7734e68035db6d86fde1da95c9fcfde"
+    },
+    {
+      "path": "sources/characters/Shen.json",
+      "sha256": "b0d03fcfa47ef619b1ab77ef945a9d932f883da5af263f85e48f20d68631d5ac"
+    },
+    {
+      "path": "sources/characters/Shyvana.json",
+      "sha256": "5ea44a9f754d65a0fea18dae84cb97bec183f4a72c32ca10a5da036ac9473ed7"
+    },
+    {
+      "path": "sources/characters/Singed.json",
+      "sha256": "d1f6ca0e71f859bf43167cb2e5d33d2a6124a3790208c7b34a537dbab07ba393"
+    },
+    {
+      "path": "sources/characters/Sion.json",
+      "sha256": "91d55d437d3e2e29387258e3cf9ce73f5d4b00dccb7039d302b5b97c24826af5"
+    },
+    {
+      "path": "sources/characters/Sivir.json",
+      "sha256": "d9a84fd626baf6278074276aee24eb7acaf9c084ff26800119071631b08c5e14"
+    },
+    {
+      "path": "sources/characters/Skarner.json",
+      "sha256": "921a24794e0176e93ee924455f37deb7d8e21288a647fa347cd11af3c90284a5"
+    },
+    {
+      "path": "sources/characters/Smolder.json",
+      "sha256": "9ddcda8b1d495855fd6db69f63e4bf4dc551a8d3ea3ed2623a9833faeb9826d0"
+    },
+    {
+      "path": "sources/characters/Sona.json",
+      "sha256": "8e90a162756ee42ea9360488707ec9d562717baf898f0fb451760139343aac51"
+    },
+    {
+      "path": "sources/characters/Soraka.json",
+      "sha256": "020021d7386c7c4689aeaf6c63459225e1e37f7df3d552eab0ee9d73690bba18"
+    },
+    {
+      "path": "sources/characters/Swain.json",
+      "sha256": "6a9531ebf5848a9c48e08bff56bde30c655188190a07ed3a9b5f4826aa2b351b"
+    },
+    {
+      "path": "sources/characters/Sylas.json",
+      "sha256": "fd178f52a26bd744bb9fdad521cc142798793a52fa5caa34629ca494e16b0cd4"
+    },
+    {
+      "path": "sources/characters/Syndra.json",
+      "sha256": "a8fe3157a62c8016c6b29b202757dd93bb6252287482f504ef178689254da046"
+    },
+    {
+      "path": "sources/characters/TahmKench.json",
+      "sha256": "1222e98d535c06a695b1ff72958cf1ef5b73e6293572a68ef90044d03934de7f"
+    },
+    {
+      "path": "sources/characters/Taliyah.json",
+      "sha256": "4e240404edaa1d075773c49ae5e5227b62a5961beb593901c90fdbfd64c228c4"
+    },
+    {
+      "path": "sources/characters/Talon.json",
+      "sha256": "9db6feb55569073c7ef46d9281b943d934e76320c3b0f69c342250ca1549f319"
+    },
+    {
+      "path": "sources/characters/Taric.json",
+      "sha256": "f222469e1dc67f60d483c0a241cadddc8f38eec34e4cfe3454bd4ad51c01660b"
+    },
+    {
+      "path": "sources/characters/Teemo.json",
+      "sha256": "173fb4cf50d841d1cd2aa0cbd609798014dc92da77a17722721254b42ebb1865"
+    },
+    {
+      "path": "sources/characters/Thresh.json",
+      "sha256": "82ee1a39a3cc4d6037b20684dc4a6f3571ed3635e7b1dc20d1ecbe8175523622"
+    },
+    {
+      "path": "sources/characters/Tristana.json",
+      "sha256": "9a9a1e0f942aea36b4e23b6b3a1d7d4e24c7d98b2489c62f72cfc5345678c858"
+    },
+    {
+      "path": "sources/characters/Trundle.json",
+      "sha256": "c551201e512f02271b6c2a04cf2082b46b847a32cdc1bbe956ada6bc0d9e45fc"
+    },
+    {
+      "path": "sources/characters/Tryndamere.json",
+      "sha256": "b3d76edb9748a84f0045e508f0a435ed6932ba7cd4176213d9067afe883cdc8a"
+    },
+    {
+      "path": "sources/characters/TwistedFate.json",
+      "sha256": "42e61bb4d53de9f06a1abdd3ebbcaa3e095930770d898ffc440a8ae7e6e51f4a"
+    },
+    {
+      "path": "sources/characters/Twitch.json",
+      "sha256": "9cc48e641062f8e1642689335091b35416143cfcafb7177cbfa727581ed39cd5"
+    },
+    {
+      "path": "sources/characters/Udyr.json",
+      "sha256": "86d5414daece0b3b49b5b4bb806299e75f650580191dba0d69f4372397789305"
+    },
+    {
+      "path": "sources/characters/Urgot.json",
+      "sha256": "4e84b65f46504dfddfb62ba68598c205862987eda55101e57916194995d7ca7d"
+    },
+    {
+      "path": "sources/characters/Varus.json",
+      "sha256": "e51e9f774acb62bd834700bd0d403387c57bb0fdd2e89955008eb4b7cf365e6c"
+    },
+    {
+      "path": "sources/characters/Vayne.json",
+      "sha256": "8d69f87202ecdb38b7f8b1e9cf2bc6fcfa99ed5db21fd86d2cca9df9254e8d40"
+    },
+    {
+      "path": "sources/characters/Veigar.json",
+      "sha256": "52d17a640463c531d3a40ef57456b5073ee21b3963394370a084f8664f6531f2"
+    },
+    {
+      "path": "sources/characters/Velkoz.json",
+      "sha256": "58e9bd157170d256634e8643809b429bc31e97bbab775cb86ad1e5b84cf589bb"
+    },
+    {
+      "path": "sources/characters/Vex.json",
+      "sha256": "903f55fc9e4f65d6eb7ff3d26dbd884640dc610817edcdd1e4d97e1ab93283fa"
+    },
+    {
+      "path": "sources/characters/Vi.json",
+      "sha256": "3f1627e4a89929ea3b762090964effa3aa7063f93033738e17e0c9020f98d4ed"
+    },
+    {
+      "path": "sources/characters/Viego.json",
+      "sha256": "b3e7e93c0a088d74e47ee8cf9e44c48260bc63f8d7fbba3f51267cf2bc3fa6b5"
+    },
+    {
+      "path": "sources/characters/Viktor.json",
+      "sha256": "643d352e40343bb1659089c974df54e82f8acfb4d42836e80e894664379b4115"
+    },
+    {
+      "path": "sources/characters/Vladimir.json",
+      "sha256": "f9796b6ff37d63f86041579b5d1cd7f4bdf6ff1cf3599d5c7f80e81d42931540"
+    },
+    {
+      "path": "sources/characters/Volibear.json",
+      "sha256": "e790451459edda5508d04e42e5c5020d9b1dd8d9ef75174bd44977087d58d061"
+    },
+    {
+      "path": "sources/characters/Warwick.json",
+      "sha256": "5e7bb332451ae3f576d9b1493a3b01164ca88253470358bb74102368010a488e"
+    },
+    {
+      "path": "sources/characters/Xayah.json",
+      "sha256": "3cdd155c85e7bdfdc918ebc4a3dc48802d16f30c1fbdd19438a13f7279c7b435"
+    },
+    {
+      "path": "sources/characters/Xerath.json",
+      "sha256": "aef36a00936f2de1265e81ccd332c93463d6d7e114bda6004d95d36eb1582971"
+    },
+    {
+      "path": "sources/characters/XinZhao.json",
+      "sha256": "f49c0eca32fd5854e567c56d9f797fbc7ee401e35f593d80b13349b9f6189399"
+    },
+    {
+      "path": "sources/characters/Yasuo.json",
+      "sha256": "e56f3fc29ce83d8e9de557cdb4d3177b8c81fd227e8108d7caa6d3239d53e79c"
+    },
+    {
+      "path": "sources/characters/Yone.json",
+      "sha256": "4d3aadac607ad3488fbd8fba38cbe498d51f966474b0e27003b0f7b0d37b0a0b"
+    },
+    {
+      "path": "sources/characters/Yorick.json",
+      "sha256": "4b744eecccc2b424a09c0644d6c7e54d11efd9b3d1249557e0f4fb9093102ae3"
+    },
+    {
+      "path": "sources/characters/Yunara.json",
+      "sha256": "7f687fea357b7b735f746a630a03b035fe093eed3e582f3c1707534631bf6c9a"
+    },
+    {
+      "path": "sources/characters/Yuumi.json",
+      "sha256": "3f861e2ed050d5b62ef7bbbbc7dade226acd341ed4468f33ae39c574cbd8654d"
+    },
+    {
+      "path": "sources/characters/Zaahen.json",
+      "sha256": "e903d5d628292d0c8d4b05d1cee2259df4c5b22025fc6be4c3cd64d6a61c99c2"
+    },
+    {
+      "path": "sources/characters/Zac.json",
+      "sha256": "a7848330abf8854f1f572c0fd9d7a42a09daaff4885f5110a76ecc224abef90b"
+    },
+    {
+      "path": "sources/characters/Zed.json",
+      "sha256": "8110e85e583b1c122ce392eea2b0c4a0f2fafad5449f1b6088b656fe3666fdcc"
+    },
+    {
+      "path": "sources/characters/Zeri.json",
+      "sha256": "4a07fecea4ea1c54d2b0be6149b4f2a4b2ee512d31b13e18f7eccc627c3d5e77"
+    },
+    {
+      "path": "sources/characters/Ziggs.json",
+      "sha256": "c5c7d50b3018676d5b450f04ccc1b89e607706ce618e88e1b3eb57c66ee1c8da"
+    },
+    {
+      "path": "sources/characters/Zilean.json",
+      "sha256": "fc12097dcbcc909fd92ac01d6928196b86c2e8e540724429dae2e24ffea1c7d6"
+    },
+    {
+      "path": "sources/characters/Zoe.json",
+      "sha256": "fdf260616520f1e9f165a5ce7f825395e51bcbdc6f467f03a3145c43ffbf20eb"
+    },
+    {
+      "path": "sources/characters/Zyra.json",
+      "sha256": "f1f31a839fedeebb9e3b2e5eb4b593d4ca6c01b903ecb0aaeb60d2a3cc28819c"
+    },
+    {
+      "path": "sources/items-ddragon.json",
+      "sha256": "72c996d05a316ca194c0f5c02b25016a553bd204a974db09b4312c40cee3d477"
+    }
+  ],
+  "catalog_sha256": "34def6ab43f55d911a87bc97f6147bd74b3b798c96048d9663933cf8a9a02c10",
+  "scope": "All catalog entries; permanent modeled stats and generic attacks only. No inferred champion kits or item procs."
+}

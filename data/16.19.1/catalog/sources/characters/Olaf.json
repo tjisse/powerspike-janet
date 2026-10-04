@@ -1,0 +1,281 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/olaf/olaf.bin.json",
+  "sha256": "baee7f88dc7c625bfd00db61649a6747ef6f24cf9ea89976a6e49cec4f67de13",
+  "path": "Characters/Olaf/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Olaf",
+    "baseHPModifiable": {
+      "baseValue": 645.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 119.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 316.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.5,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 68.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 350.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.7200000286102295,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6940000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.06562499701976776,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "OlafBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "OlafBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.06562499701976776,
+        "mAttackName": "OlafCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "OlafAxeThrowCastAbility/OlafAxeThrowCast",
+      "OlafFrenziedStrikesAbility/OlafFrenziedStrikes",
+      "OlafRecklessStrikeAbility/OlafRecklessStrike",
+      "OlafRagnarokAbility/OlafRagnarok"
+    ],
+    "spells": [
+      "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrowCast",
+      "Characters/Olaf/Spells/OlafFrenziedStrikesAbility/OlafFrenziedStrikes",
+      "Characters/Olaf/Spells/OlafRecklessStrikeAbility/OlafRecklessStrike",
+      "Characters/Olaf/Spells/OlafRagnarokAbility/OlafRagnarok"
+    ],
+    "extraSpells": [
+      "OlafAxeThrow",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Olaf/Spells/OlafAxeThrowCastAbility/OlafAxeThrow",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Olaf/Spells/OlafAxeThrowCastAbility",
+      "Characters/Olaf/Spells/OlafFrenziedStrikesAbility",
+      "Characters/Olaf/Spells/OlafRecklessStrikeAbility",
+      "Characters/Olaf/Spells/OlafRagnarokAbility",
+      "Characters/Olaf/Spells/OlafBerzerkerRageAbility"
+    ],
+    "passiveName": "game_character_passiveName_Olaf",
+    "passiveLuaName": "OlafBerzerkerRage",
+    "passiveToolTip": "game_character_passiveDescription_Olaf",
+    "passive1IconName": "assets/characters/olaf/hud/icons2d/olaf_passive.dds",
+    "name": "game_character_displayname_Olaf",
+    "weaponMaterials": [
+      "OlafBasicAttack"
+    ],
+    "selectionHeight": 191.6667022705078,
+    "selectionRadius": 111.11109924316406,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      0,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Olaf",
+          "level": [
+            1,
+            4,
+            7
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 2,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 3,
+      "description": "game_character_description_Olaf",
+      "defenseRank": 5,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Olaf/Spells/OlafBerzerkerRageAbility/OlafBerzerkerRage",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Olaf/Spells/OlafBerzerkerRageAbility/OlafBerzerkerRage",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

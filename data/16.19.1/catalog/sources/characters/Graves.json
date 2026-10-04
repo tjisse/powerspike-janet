@@ -1,0 +1,318 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/graves/graves.bin.json",
+  "sha256": "e5e65aecfc686233483bac709642318bd4e929a278203f4521043a1eb3067c28",
+  "path": "Characters/Graves/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Graves",
+    "baseHPModifiable": {
+      "baseValue": 625.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 325.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 2.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "GravesSmall",
+      "arOverrideEmptyPipName": "EmptyPip16",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 66.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.599999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 425.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.4749999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.49000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.29499998688697815,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.10000000149011612,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.29499998688697815,
+        "mAttackName": "GravesCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "GravesQLineSpellAbility/GravesQLineSpell",
+      "GravesSmokeGrenadeAbility/GravesSmokeGrenade",
+      "GravesMoveAbility/GravesMove",
+      "GravesChargeShotAbility/GravesChargeShot"
+    ],
+    "spells": [
+      "Characters/Graves/Spells/GravesQLineSpellAbility/GravesQLineSpell",
+      "Characters/Graves/Spells/GravesSmokeGrenadeAbility/GravesSmokeGrenade",
+      "Characters/Graves/Spells/GravesMoveAbility/GravesMove",
+      "Characters/Graves/Spells/GravesChargeShotAbility/GravesChargeShot"
+    ],
+    "extraSpells": [
+      "GravesChargeShotShot",
+      "GravesPassiveShotAttack",
+      "GravesChargeShotXplode",
+      "GravesSmokeGrenadeBoom",
+      "GravesClusterShotAttack",
+      "GravesChargeShotFxMissile",
+      "GravesChargeShotFxMissile2",
+      "GravesClusterShotSoundMissile",
+      "BaseSpell",
+      "GravesBasicAttackSpread",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Graves/Spells/GravesChargeShotAbility/GravesChargeShotShot",
+      "Characters/Graves/Spells/GravesPassiveAbility/GravesPassiveShotAttack",
+      "Characters/Graves/Spells/GravesChargeShotAbility/GravesChargeShotXplode",
+      "Characters/Graves/Spells/GravesSmokeGrenadeAbility/GravesSmokeGrenadeBoom",
+      "Characters/Graves/Spells/GravesClusterShotAttack",
+      "Characters/Graves/Spells/GravesChargeShotAbility/GravesChargeShotFxMissile",
+      "Characters/Graves/Spells/GravesChargeShotAbility/GravesChargeShotFxMissile2",
+      "Characters/Graves/Spells/GravesClusterShotSoundMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Graves/Spells/GravesBasicAttackSpread",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Graves/Spells/GravesQLineSpellAbility",
+      "Characters/Graves/Spells/GravesSmokeGrenadeAbility",
+      "Characters/Graves/Spells/GravesMoveAbility",
+      "Characters/Graves/Spells/GravesChargeShotAbility",
+      "Characters/Graves/Spells/GravesPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Graves",
+    "passiveLuaName": "GravesPassive",
+    "passiveToolTip": "game_character_passiveDescription_Graves",
+    "passive1IconName": "assets/characters/graves/hud/icons2d/gravestruegrit.dds",
+    "name": "game_character_displayname_Graves",
+    "charAudioNameOverride": "Graves_FUTURE",
+    "selectionHeight": 140.0,
+    "selectionRadius": 110.0,
+    "pathfindingCollisionRadius": 10.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "recItems": [
+        "1055",
+        "3006",
+        "3035",
+        "3031",
+        "3131",
+        "3072"
+      ],
+      "sound": {
+        "attack": [
+          "Cardmaster_Attack1.wav",
+          "Cardmaster_Attack2.wav",
+          "Cardmaster_Attack3.wav",
+          "Cardmaster_Attack4.wav"
+        ],
+        "click": [
+          "Cardmaster_Click1.wav",
+          "Cardmaster_Click2.wav",
+          "Cardmaster_Click3.wav",
+          "Cardmaster_Click4.wav"
+        ],
+        "move": [
+          "Cardmaster_Move1.wav",
+          "Cardmaster_Move2.wav",
+          "Cardmaster_Move3.wav",
+          "Cardmaster_Move4.wav"
+        ],
+        "death": "Cardmaster_Death.wav",
+        "ready": "Cardmaster_Ready2.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "Fires 3 cards in a cone pattern, dealing damage to enemies they hit.",
+          "displayName": "Wild Cards",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Twisted Fate's attacks can deal extra damage, extra AoE damage with slow, or lots of extra AoE damage with stun!",
+          "displayName": "Pick a Card",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Teleports Twisted Fate to target distant location.",
+          "displayName": "Gate",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds +10% Attack Rate.",
+        "Adds +15% Attack Rate.",
+        "Adds +20% Attack Rate."
+      ],
+      "searchTags": "marksman",
+      "championId": 104,
+      "roles": "ATTACKER",
+      "PostAttackMoveDelay": 0.20000000298023224,
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 3,
+      "description": "game_character_description_Graves",
+      "defenseRank": 5,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Graves/Spells/GravesPassiveAbility/GravesPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Graves/Spells/GravesPassiveAbility/GravesPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Graves/Spells/GravesSkin35_GearManager",
+        "SkinFilter": {
+          "skinIds": [
+            35
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

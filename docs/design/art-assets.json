@@ -1,0 +1,20 @@
+{
+  "purpose": "Riot Data Dragon artwork for frontend design previews only",
+  "data_dragon_version": "16.19.1",
+  "repository": "noxelisdev/LoL_DDragon",
+  "commit": "1cf34d485c572a9894c223efd3d66c1e5ad7f22f",
+  "manifest_path": "latest/manifest.json",
+  "cdn_base": "https://cdn.jsdelivr.net/gh/noxelisdev/LoL_DDragon@1cf34d485c572a9894c223efd3d66c1e5ad7f22f/latest/img/",
+  "verified": "2026-10-04",
+  "verification": "Repository paths and Data Dragon manifest inspected; CDN image/png responses checked; rendered image loading checked in a browser.",
+  "assets": [
+    {"path": "champion/Annie.png", "name": "Annie", "git_blob_sha": "4e511633ec376e9709622c6e4faaa4c5f34c9272"},
+    {"path": "item/3089.png", "name": "Rabadon's Deathcap", "git_blob_sha": "d2b59c0dfba6fd267d127cdc60b91b817c6527f8"},
+    {"path": "item/3135.png", "name": "Void Staff", "git_blob_sha": "85aff0c28dc926510c3e929baf870ef0dbd8d43d"},
+    {"path": "item/3020.png", "name": "Sorcerer's Shoes", "git_blob_sha": "73867100c30c6f4d6971f8e24315d028416e9e51"},
+    {"path": "item/1052.png", "name": "Amplifying Tome", "git_blob_sha": "6e55b88999cff3dbe1cc9f03bb9f36a42e90f677"},
+    {"path": "item/3158.png", "name": "Ionian Boots of Lucidity", "git_blob_sha": "20c49d34d26fac560e2cbfaa5ab1674e5fc5a5d3"},
+    {"path": "spell/AnnieQ.png", "name": "Disintegrate", "git_blob_sha": "6351bff9555e8c17a8f2f9ad3da12ef8339021d9"},
+    {"path": "spell/AnnieW.png", "name": "Incinerate", "git_blob_sha": "417db40c79e0c848880a265941273171b6addffd"}
+  ]
+}

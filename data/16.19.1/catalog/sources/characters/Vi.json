@@ -1,0 +1,261 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/vi/vi.bin.json",
+  "sha256": "544166e680d5d1f0997e3e47f126d5c87a8f98923f4bcfd5391c90e1bf903009",
+  "path": "Characters/Vi/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Vi",
+    "baseHPModifiable": {
+      "baseValue": 655.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.20000000298023224,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 295.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 65.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.12999999523162842,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 61.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.9000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.36000001430511475,
+      "mAttackProbability": 0.4000000059604645,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.30000001192092896,
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.30000001192092896,
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ViQAbility/ViQ",
+      "ViWAbility/ViW",
+      "ViEAbility/ViE",
+      "ViRAbility/ViR"
+    ],
+    "spells": [
+      "Characters/Vi/Spells/ViQAbility/ViQ",
+      "Characters/Vi/Spells/ViWAbility/ViW",
+      "Characters/Vi/Spells/ViEAbility/ViE",
+      "Characters/Vi/Spells/ViRAbility/ViR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "ViRMissile",
+      "BaseSpell",
+      "ViEArea",
+      "ViRDunk",
+      "ViEAttack",
+      "ViEFx",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Vi/Spells/ViRMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Vi/Spells/ViEArea",
+      "Characters/Vi/Spells/ViRDunk",
+      "Characters/Vi/Spells/ViEAttack",
+      "Characters/Vi/Spells/ViEFx",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Vi/Spells/ViQAbility",
+      "Characters/Vi/Spells/ViWAbility",
+      "Characters/Vi/Spells/ViEAbility",
+      "Characters/Vi/Spells/ViRAbility",
+      "Characters/Vi/Spells/ViPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Vi",
+    "passiveLuaName": "ViPassiveMarker",
+    "passiveToolTip": "game_character_passiveDescription_Vi",
+    "passive1IconName": "assets/characters/vi/hud/icons2d/vipassive.dds",
+    "name": "game_character_displayname_Vi",
+    "mUseCCAnimations": true,
+    "selectionHeight": 100.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 2,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      8
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "medium": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Vi",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 254,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "difficultyRank": 4,
+      "description": "game_character_description_Vi",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Vi/Spells/ViPassiveAbility/ViPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Vi/Spells/ViPassiveAbility/ViPassive",
+        "mComponentBuffs": [
+          "Characters/Vi/Spells/ViPassiveReady"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Vi/Spells/ViRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

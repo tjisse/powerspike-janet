@@ -1,0 +1,290 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/chogath/chogath.bin.json",
+  "sha256": "606f8d5b66e7a7f4db0ca2242f169d38a10e33ae044bda0b1b6ff5631531e5b0",
+  "path": "Characters/Chogath/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Chogath",
+    "baseHPModifiable": {
+      "baseValue": 644.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 94.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.17000000178813934,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 93.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 270.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 60.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.440000057220459,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.09000000357627869,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 69.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 38.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.440000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.08100000023841858,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.08100000023841858,
+        "mAttackProbability": 0.5,
+        "mAttackName": "ChogathBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.08100000023841858,
+        "mAttackName": "ChogathCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "RuptureAbility/Rupture",
+      "FeralScreamAbility/FeralScream",
+      "VorpalSpikesAbility/VorpalSpikes",
+      "FeastAbility/Feast"
+    ],
+    "spells": [
+      "Characters/Chogath/Spells/RuptureAbility/Rupture",
+      "Characters/Chogath/Spells/FeralScreamAbility/FeralScream",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikes",
+      "Characters/Chogath/Spells/FeastAbility/Feast"
+    ],
+    "extraSpells": [
+      "VorpalSpikesMissle",
+      "VorpalSpikesMissle2",
+      "VorpalSpikesMissle3",
+      "VorpalSpikesMissle4",
+      "VorpalSpikesMissle5",
+      "VorpalSpikesMissle6",
+      "VorpalSpikesMissle7",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "Carnivore",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle2",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle3",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle4",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle5",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle6",
+      "Characters/Chogath/Spells/VorpalSpikesAbility/VorpalSpikesMissle7",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Chogath/Spells/CarnivoreAbility/Carnivore",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Chogath/Spells/RuptureAbility",
+      "Characters/Chogath/Spells/FeralScreamAbility",
+      "Characters/Chogath/Spells/VorpalSpikesAbility",
+      "Characters/Chogath/Spells/FeastAbility",
+      "Characters/Chogath/Spells/CarnivoreAbility"
+    ],
+    "passiveName": "game_character_passiveName_Chogath",
+    "passiveLuaName": "Carnivore",
+    "passiveToolTip": "game_character_passiveDescription_Chogath",
+    "passive1IconName": "assets/characters/chogath/hud/icons2d/greenterror_tailspike.dds",
+    "name": "game_character_displayname_Chogath",
+    "weaponMaterials": [
+      "GreenTerrorBasicAttack"
+    ],
+    "selectionHeight": 150.0,
+    "selectionRadius": 130.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion | Special_Void",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      13,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Chogath",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "mage",
+      "championId": 31,
+      "roles": "TANK",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 1.5,
+      "difficultyRank": 5,
+      "description": "game_character_description_Chogath",
+      "defenseRank": 7,
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 3,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Chogath/Spells/CarnivoreAbility/Carnivore",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Chogath/Spells/CarnivoreAbility/Carnivore",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Chogath/Spells/Chogath_Skin07_Blackhole",
+        "SkinFilter": {
+          "skinIds": [
+            7
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

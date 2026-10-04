@@ -1,0 +1,312 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/pantheon/pantheon.bin.json",
+  "sha256": "e70a195a4f28f24961d617de9699e052c5b2e902a6f66477101e9ef4abe4ae6f",
+  "path": "Characters/Pantheon/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Pantheon",
+    "baseHPModifiable": {
+      "baseValue": 650.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 137.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 317.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 31.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4700000286102295,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.09000000357627869,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 5.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 5.0,
+      "arMaxSegments": 5,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "PantheonSmall",
+      "arOverrideLargePipName": "PantheonLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 64.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 40.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.949999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.950000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10968749970197678,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "PantheonBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.14687499403953552,
+        "mAttackName": "PantheonCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "PantheonQAbility/PantheonQ",
+      "PantheonWAbility/PantheonW",
+      "PantheonEAbility/PantheonE",
+      "PantheonRAbility/PantheonR"
+    ],
+    "spells": [
+      "Characters/Pantheon/Spells/PantheonQAbility/PantheonQ",
+      "Characters/Pantheon/Spells/PantheonWAbility/PantheonW",
+      "Characters/Pantheon/Spells/PantheonEAbility/PantheonE",
+      "Characters/Pantheon/Spells/PantheonRAbility/PantheonR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "PantheonRFall",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Pantheon/Spells/PantheonRAbility/PantheonRFall",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Pantheon/Spells/PantheonRAbility",
+      "Characters/Pantheon/Spells/PantheonQAbility",
+      "Characters/Pantheon/Spells/PantheonWAbility",
+      "Characters/Pantheon/Spells/PantheonEAbility",
+      "Characters/Pantheon/Spells/PantheonPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "PantheonPassive",
+    "passive1IconName": "assets/characters/pantheon/hud/icons2d/pantheon_passive.dds",
+    "name": "game_character_displayname_Pantheon",
+    "weaponMaterials": [
+      "PantheonBasicAttack",
+      "None",
+      "PantheonBasicAttack2"
+    ],
+    "selectionHeight": 175.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      16,
+      0,
+      14
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Pantheon",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 80,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "difficultyRank": 4,
+      "description": "game_character_description_Pantheon",
+      "defenseRank": 4,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassive",
+        "mComponentBuffs": [
+          "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassiveCounter",
+          "Characters/Pantheon/Spells/PantheonPassiveAbility/PantheonPassiveReady"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Pantheon/Spells/PantheonPlumeManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Pantheon/Spells/PantheonSpearGlowVFX",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Pantheon/Spells/PantheonAttackSequencer",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/gragas/gragas.bin.json",
+  "sha256": "c00efcc71941cd48cf3c46e213ec7f026539c92518edce1876585a8a0170273b",
+  "path": "Characters/Gragas/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Gragas",
+    "baseHPModifiable": {
+      "baseValue": 640.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 115.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 47.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 64.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 38.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.675000011920929,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "GragasBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+        "mAttackName": "GragasCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "GragasQAbility/GragasQ",
+      "GragasWAbility/GragasW",
+      "GragasEAbility/GragasE",
+      "GragasRAbility/GragasR"
+    ],
+    "spells": [
+      "Characters/Gragas/Spells/GragasQAbility/GragasQ",
+      "Characters/Gragas/Spells/GragasWAbility/GragasW",
+      "Characters/Gragas/Spells/GragasEAbility/GragasE",
+      "Characters/Gragas/Spells/GragasRAbility/GragasR"
+    ],
+    "extraSpells": [
+      "GragasQMissile",
+      "GragasRBoom",
+      "GragasWAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Gragas/Spells/GragasQAbility/GragasQMissile",
+      "Characters/Gragas/Spells/GragasRAbility/GragasRBoom",
+      "Characters/Gragas/Spells/GragasWAbility/GragasWAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Gragas/Spells/GragasQAbility",
+      "Characters/Gragas/Spells/GragasWAbility",
+      "Characters/Gragas/Spells/GragasEAbility",
+      "Characters/Gragas/Spells/GragasRAbility",
+      "Characters/Gragas/Spells/GragasPassiveAbility"
+    ],
+    "criticalAttack": "MinotaurCriticalAttack",
+    "passiveName": "game_character_passiveName_Gragas",
+    "passiveLuaName": "GragasPassive",
+    "passiveToolTip": "game_character_passiveDescription_Gragas",
+    "passive1IconName": "assets/characters/gragas/hud/icons2d/gragaspassiveheal.dds",
+    "name": "game_character_displayname_Gragas",
+    "weaponMaterials": [
+      "GragasBasicAttack"
+    ],
+    "selectionHeight": 185.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      1,
+      0,
+      14,
+      7
+    ],
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Alstair_Attack1.wav",
+          "Alstair_Attack2.wav",
+          "Alstair_Attack3.wav",
+          "Alstair_Attack4.wav"
+        ],
+        "click": [
+          "Alstair_Click1.wav",
+          "Alstair_Click2.wav",
+          "Alstair_Click3.wav",
+          "Alstair_Click4.wav"
+        ],
+        "move": [
+          "Alstair_Move1.wav",
+          "Alstair_Move2.wav",
+          "Alstair_Move3.wav",
+          "Alstair_Move4.wav"
+        ],
+        "ready": "Alstair_Taunt.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "Alistar lets out a wild roar, removing all debuffs, temporarily increasing his health, and becoming Spell Immune for a duration.",
+          "displayName": "Unbreakable Will",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Alistar lets out a wild roar, removing all debuffs, temporarily increasing his health, and becoming Spell Immune for a duration.",
+          "displayName": "Unbreakable Will",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Alistar lets out a wild roar, removing all debuffs, temporarily increasing his health, and becoming Spell Immune for a duration.",
+          "displayName": "Unbreakable Will",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Alistar lets out a wild roar, removing all debuffs, temporarily increasing his health, and becoming Spell Immune for a duration.",
+          "displayName": "Unbreakable Will",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "\"Adds +400 Hit Points.\"",
+        "\"Adds +600 Hit Points.\""
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Gragas",
+          "level": [
+            10,
+            10,
+            10
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "mage",
+      "championId": 79,
+      "roles": "MAGE",
+      "magicRank": 6,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Gragas",
+      "defenseRank": 7,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Gragas/Spells/GragasPassiveAbility/GragasPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Gragas/Spells/GragasPassiveAbility/GragasPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

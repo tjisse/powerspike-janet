@@ -1,0 +1,307 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/katarina/katarina.bin.json",
+  "sha256": "4a8a573a2a5d918f8012ba7b0f978dd11793b20993b7f3698357fa6b9c56beb2",
+  "path": "Characters/Katarina/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Katarina",
+    "baseHPModifiable": {
+      "baseValue": 672.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 108.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 90.0,
+    "primaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.740000009536743,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+      "mAttackProbability": 0.6000000238418579,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackProbability": 0.4000000059604645,
+        "mAttackName": "KatarinaBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "KatarinaCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KatarinaQAbility/KatarinaQ",
+      "KatarinaWAbility/KatarinaW",
+      "KatarinaEWrapperAbility/KatarinaEWrapper",
+      "KatarinaRAbility/KatarinaR"
+    ],
+    "spells": [
+      "Characters/Katarina/Spells/KatarinaQAbility/KatarinaQ",
+      "Characters/Katarina/Spells/KatarinaWAbility/KatarinaW",
+      "Characters/Katarina/Spells/KatarinaEWrapperAbility/KatarinaEWrapper",
+      "Characters/Katarina/Spells/KatarinaRAbility/KatarinaR"
+    ],
+    "extraSpells": [
+      "KatarinaRMis",
+      "KatarinaRTriggerSound",
+      "KatarinaQMis",
+      "KatarinaRTrigger",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Katarina/Spells/KatarinaRAbility/KatarinaRMis",
+      "Characters/Katarina/Spells/KatarinaRAbility/KatarinaRTriggerSound",
+      "Characters/Katarina/Spells/KatarinaQAbility/KatarinaQMis",
+      "Characters/Katarina/Spells/KatarinaRAbility/KatarinaRTrigger",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Katarina/Spells/KatarinaQAbility",
+      "Characters/Katarina/Spells/KatarinaWAbility",
+      "Characters/Katarina/Spells/KatarinaEWrapperAbility",
+      "Characters/Katarina/Spells/KatarinaPassiveAbility",
+      "Characters/Katarina/Spells/KatarinaRAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "KatarinaPassive",
+    "passive1IconName": "assets/characters/katarina/hud/icons2d/katarina_passive.dds",
+    "name": "game_character_displayname_Katarina",
+    "weaponMaterials": [
+      "KatarinaBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 140.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Evelynn-Attack1-NORM_01.wav",
+          "Evelynn-Attack2-NORM_01.wav",
+          "Evelynn-Attack3-NORM_01.wav",
+          "Evelynn-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "Evelynn-Click1-NORM_01.wav",
+          "Evelynn-Click2-NORM_01.wav",
+          "Evelynn-Click3-NORM_01.wav",
+          "Evelynn-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "Evelynn-Move1-NORM_01.wav",
+          "Evelynn-Move2-NORM_01.wav",
+          "Evelynn-Move3-NORM_01.wav",
+          "Evelynn-Move4-NORM_01.wav"
+        ],
+        "death": "Evelynn-Death1-NORM_01.wav",
+        "ready": "Evelynn-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_KatarinaPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "mage",
+      "championId": 55,
+      "roles": "MAGE",
+      "PARFadeColor": "175 0 0",
+      "magicRank": 9,
+      "LevelSpellEffectiveness": 1.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Katarina",
+      "defenseRank": 3,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Katarina/Spells/KatarinaPassiveAbility/KatarinaPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Katarina/Spells/KatarinaPassiveAbility/KatarinaPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Katarina/Spells/KatarinaRunCycleManager",
+        "SkinFilter": {
+          "skinIds": [
+            12
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Katarina/Spells/KatarinaSkin29WeaponManager",
+        "SkinFilter": {
+          "skinIds": [
+            29
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

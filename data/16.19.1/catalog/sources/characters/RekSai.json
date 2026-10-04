@@ -1,0 +1,266 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/reksai/reksai.bin.json",
+  "sha256": "939b46a888fad403cf517eacad1254950027227568984c03d2ea35b089ec7159",
+  "path": "Characters/RekSai/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "RekSai",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 8,
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 62.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.6000000238418579,
+      "mAttackProbability": 0.16666699945926666,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.16666699945926666,
+        "mAttackName": "RekSaiBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.16666699945926666,
+        "mAttackName": "RekSaiBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.16666699945926666,
+        "mAttackName": "RekSaiBasicAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.16666699945926666,
+        "mAttackName": "RekSaiBasicAttack5",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.16666699945926666,
+        "mAttackName": "RekSaiBasicAttack6",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.30000001192092896,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.6000000238418579,
+        "mAttackName": "RekSaiCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "RekSaiQAbility/RekSaiQ",
+      "RekSaiWAbility/RekSaiW",
+      "RekSaiEAbility/RekSaiE",
+      "RekSaiRAbility/RekSaiR"
+    ],
+    "spells": [
+      "Characters/RekSai/Spells/RekSaiQAbility/RekSaiQ",
+      "Characters/RekSai/Spells/RekSaiWAbility/RekSaiW",
+      "Characters/RekSai/Spells/RekSaiEAbility/RekSaiE",
+      "Characters/RekSai/Spells/RekSaiRAbility/RekSaiR"
+    ],
+    "extraSpells": [
+      "RekSaiQBurrowedMis",
+      "BaseSpell",
+      "RekSaiQAttack",
+      "RekSaiR",
+      "BaseSpell",
+      "RekSaiWAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "RekSaiEBurrowed",
+      "RekSaiQBurrowed",
+      "RekSaiWBurrowed",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/RekSai/Spells/RekSaiQBurrowedAbility/RekSaiQBurrowedMis",
+      "Shared/Spells/BaseSpell",
+      "Characters/RekSai/Spells/RekSaiQAbility/RekSaiQAttack",
+      "Characters/RekSai/Spells/RekSaiRAbility/RekSaiR",
+      "Shared/Spells/BaseSpell",
+      "Characters/RekSai/Spells/RekSaiWAbility/RekSaiWAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/RekSai/Spells/RekSaiEBurrowedAbility/RekSaiEBurrowed",
+      "Characters/RekSai/Spells/RekSaiQBurrowedAbility/RekSaiQBurrowed",
+      "Characters/RekSai/Spells/RekSaiWBurrowedAbility/RekSaiWBurrowed",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/RekSai/Spells/RekSaiQAbility",
+      "Characters/RekSai/Spells/RekSaiWAbility",
+      "Characters/RekSai/Spells/RekSaiEAbility",
+      "Characters/RekSai/Spells/RekSaiRAbility",
+      "Characters/RekSai/Spells/RekSaiPassiveAbility",
+      "Characters/RekSai/Spells/RekSaiQBurrowedAbility",
+      "Characters/RekSai/Spells/RekSaiEBurrowedAbility",
+      "Characters/RekSai/Spells/RekSaiWBurrowedAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "RekSaiPassive",
+    "passiveToolTip": "",
+    "passiveSpell": "RekSaiPassive",
+    "passive1IconName": "assets/characters/reksai/hud/icons2d/reksai_passive.dds",
+    "name": "game_character_displayname_RekSai",
+    "mUseCCAnimations": true,
+    "selectionHeight": 122.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion | Special_Void",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_RekSai",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 421,
+      "roles": "BRAWLER",
+      "PARFadeColor": "175 0 0",
+      "magicRank": 2,
+      "difficultyRank": 3,
+      "description": "game_character_description_RekSai",
+      "defenseRank": 5,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/RekSai/Spells/RekSaiPassiveAbility/RekSaiPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/RekSai/Spells/RekSaiPassiveAbility/RekSaiPassive",
+        "mComponentBuffs": [
+          "Characters/RekSai/Spells/RekSaiInCombat",
+          "Characters/RekSai/Spells/RekSaiRunCycleManager",
+          "Characters/RekSai/Spells/RekSaiJetSkiManager"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/RekSai/Spells/RekSaiRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

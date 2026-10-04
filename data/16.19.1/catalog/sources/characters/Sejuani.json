@@ -1,0 +1,262 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/sejuani/sejuani.bin.json",
+  "sha256": "58f7043715fcb1dc0ccfa7660d35410bdd106fc583e348259c5d4bcea61c17a5",
+  "path": "Characters/Sejuani/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Sejuani",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 114.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.20000000298023224,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 66.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 34.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.449999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6880000233650208,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 1.0,
+      "mAttackName": "SejuaniBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.30000001192092896,
+        "mAttackProbability": 1.0,
+        "mAttackName": "SejuaniCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "SejuaniQAbility/SejuaniQ",
+      "SejuaniWAbility/SejuaniW",
+      "SejuaniEAbility/SejuaniE",
+      "SejuaniRAbility/SejuaniR"
+    ],
+    "spells": [
+      "Characters/Sejuani/Spells/SejuaniQAbility/SejuaniQ",
+      "Characters/Sejuani/Spells/SejuaniWAbility/SejuaniW",
+      "Characters/Sejuani/Spells/SejuaniEAbility/SejuaniE",
+      "Characters/Sejuani/Spells/SejuaniRAbility/SejuaniR"
+    ],
+    "extraSpells": [
+      "SejuaniEPassiveMissile",
+      "SejuaniRMissile",
+      "SejuaniE2",
+      "SejuaniWDummy",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Sejuani/Spells/SejuaniEAbility/SejuaniEPassiveMissile",
+      "Characters/Sejuani/Spells/SejuaniRAbility/SejuaniRMissile",
+      "Characters/Sejuani/Spells/SejuaniEAbility/SejuaniE2",
+      "Characters/Sejuani/Spells/SejuaniWDummy",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Sejuani/Spells/SejuaniQAbility",
+      "Characters/Sejuani/Spells/SejuaniWAbility",
+      "Characters/Sejuani/Spells/SejuaniEAbility",
+      "Characters/Sejuani/Spells/SejuaniRAbility",
+      "Characters/Sejuani/Spells/SejuaniPassiveAbility"
+    ],
+    "passiveName": "Spell_SejuaniPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_SejuaniPassive_Summary",
+    "passiveSpell": "SejuaniPassive",
+    "passive1IconName": "assets/characters/sejuani/hud/icons2d/sejuani_passive.dds",
+    "name": "game_character_displayname_Sejuani",
+    "weaponMaterials": [
+      "SejuaniBasicAttack"
+    ],
+    "selectionHeight": 140.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      0,
+      14,
+      16
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "tank",
+      "championId": 113,
+      "roles": "TANK",
+      "magicRank": 6,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 4,
+      "description": "game_character_description_Sejuani",
+      "defenseRank": 7,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 5,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Sejuani/Spells/SejuaniPassiveAbility/SejuaniPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Sejuani/Spells/SejuaniPassiveAbility/SejuaniPassive",
+        "mComponentBuffs": [
+          "Characters/Sejuani/Spells/SejuaniPassiveDefense",
+          "Characters/Sejuani/Spells/SejuaniPassiveCD"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

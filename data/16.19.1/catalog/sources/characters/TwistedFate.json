@@ -1,0 +1,282 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/twistedfate/twistedfate.bin.json",
+  "sha256": "21d2a929f2af0b2db0feb3803770aaeaa4dd51fd47ca210be781001c0c463a67",
+  "path": "Characters/TwistedFate/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "TwistedFate",
+    "baseHPModifiable": {
+      "baseValue": 604.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 108.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 333.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 39.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 52.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.349999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6510000228881836,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackProbability": 0.25,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "TwistedFateBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.25,
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.25,
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+        "mAttackName": "TwistedFateCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "WildCardsAbility/WildCards",
+      "PickACardAbility/PickACard",
+      "CardmasterStackAbility/CardmasterStack",
+      "DestinyAbility/Destiny"
+    ],
+    "spells": [
+      "Characters/TwistedFate/Spells/WildCardsAbility/WildCards",
+      "Characters/TwistedFate/Spells/PickACardAbility/PickACard",
+      "Characters/TwistedFate/Spells/CardmasterStackAbility/CardmasterStack",
+      "Characters/TwistedFate/Spells/DestinyAbility/Destiny"
+    ],
+    "extraSpells": [
+      "BlueCardAttack",
+      "RedCardAttack",
+      "GoldCardAttack",
+      "BlueCardPreAttack",
+      "RedCardPreAttack",
+      "GoldCardPreAttack",
+      "SealFateMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/TwistedFate/Spells/BlueCardAttack",
+      "Characters/TwistedFate/Spells/RedCardAttack",
+      "Characters/TwistedFate/Spells/GoldCardAttack",
+      "Characters/TwistedFate/Spells/BlueCardPreAttack",
+      "Characters/TwistedFate/Spells/RedCardPreAttack",
+      "Characters/TwistedFate/Spells/GoldCardPreAttack",
+      "Characters/TwistedFate/Spells/SealFateMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/TwistedFate/Spells/DestinyAbility",
+      "Characters/TwistedFate/Spells/WildCardsAbility",
+      "Characters/TwistedFate/Spells/CardmasterStackAbility",
+      "Characters/TwistedFate/Spells/SecondSightAbility",
+      "Characters/TwistedFate/Spells/PickACardAbility"
+    ],
+    "passiveName": "game_character_passiveName_TwistedFate",
+    "passiveLuaName": "Second_Sight",
+    "passiveToolTip": "game_character_passiveDescription_TwistedFate",
+    "passive1IconName": "assets/characters/twistedfate/hud/icons2d/cardmaster_sealfate.dds",
+    "name": "game_character_displayname_TwistedFate",
+    "mUseCCAnimations": true,
+    "selectionHeight": 140.0,
+    "selectionRadius": 110.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      16,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds +10% Attack Rate.",
+        "Adds +15% Attack Rate.",
+        "Adds +20% Attack Rate."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_TwistedFate",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "marksman",
+      "championId": 4,
+      "roles": "MAGE",
+      "PostAttackMoveDelay": 0.20000000298023224,
+      "magicRank": 6,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 9,
+      "description": "game_character_description_TwistedFate",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 6,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/TwistedFate/Spells/SecondSightAbility/SecondSight",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/TwistedFate/Spells/SecondSightAbility/SecondSight",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

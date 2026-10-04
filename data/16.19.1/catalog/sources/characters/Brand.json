@@ -1,0 +1,280 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/brand/brand.bin.json",
+  "sha256": "9d312381caa19ab2c7cb84967cc1a2e341d2215929c443e1aa2acb0e8ba576a8",
+  "path": "Characters/Brand/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Brand",
+    "baseHPModifiable": {
+      "baseValue": 570.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 469.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 21.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 2.200000047683716,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 57.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6809999942779541,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+      "mAttackProbability": 0.75,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "BrandBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "BrandCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "BrandQAbility/BrandQ",
+      "BrandWAbility/BrandW",
+      "BrandEAbility/BrandE",
+      "BrandRAbility/BrandR"
+    ],
+    "spells": [
+      "Characters/Brand/Spells/BrandQAbility/BrandQ",
+      "Characters/Brand/Spells/BrandWAbility/BrandW",
+      "Characters/Brand/Spells/BrandEAbility/BrandE",
+      "Characters/Brand/Spells/BrandRAbility/BrandR"
+    ],
+    "extraSpells": [
+      "BrandQMissile",
+      "BrandRMissile",
+      "BrandEMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Brand/Spells/BrandQAbility/BrandQMissile",
+      "Characters/Brand/Spells/BrandRAbility/BrandRMissile",
+      "Characters/Brand/Spells/BrandEAbility/BrandEMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Brand/Spells/BrandQAbility",
+      "Characters/Brand/Spells/BrandWAbility",
+      "Characters/Brand/Spells/BrandEAbility",
+      "Characters/Brand/Spells/BrandRAbility",
+      "Characters/Brand/Spells/BrandPassiveAbility"
+    ],
+    "passiveName": "Spell_BrandPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_BrandPassive_Summary",
+    "passiveSpell": "BrandPassive",
+    "passive1IconName": "assets/characters/brand/hud/icons2d/brandp.dds",
+    "name": "game_character_displayname_Brand",
+    "selectionHeight": 302.7778015136719,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      16,
+      0,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "recItems": [
+        "1056",
+        "3020",
+        "3089",
+        "3116",
+        "3135",
+        "3152"
+      ],
+      "mapAIPresence": {
+        "0": {
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_BrandPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 63,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 4,
+      "description": "game_character_description_Brand",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Brand/Spells/BrandPassiveAbility/BrandPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Brand/Spells/BrandPassiveAbility/BrandPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Brand/Spells/BrandPassiveRunspeed",
+        "SkinFilter": {
+          "skinIds": [
+            4
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

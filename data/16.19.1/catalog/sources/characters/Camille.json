@@ -1,0 +1,257 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/camille/camille.bin.json",
+  "sha256": "542f164b1993393f6792143c83c33157f60c67b4fc519a7935534111c5bc38fb",
+  "path": "Characters/Camille/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Camille",
+    "baseHPModifiable": {
+      "baseValue": 650.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.1599999964237213,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 375.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 52.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6299999952316284,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.15000000596046448,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 68.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.799999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5520000457763672,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "CamilleBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "CamilleBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "CamilleCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "CamilleQAbility/CamilleQ",
+      "CamilleWAbility/CamilleW",
+      "CamilleEAbility/CamilleE",
+      "CamilleRAbility/CamilleR"
+    ],
+    "spells": [
+      "Characters/Camille/Spells/CamilleQAbility/CamilleQ",
+      "Characters/Camille/Spells/CamilleWAbility/CamilleW",
+      "Characters/Camille/Spells/CamilleEAbility/CamilleE",
+      "Characters/Camille/Spells/CamilleRAbility/CamilleR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "CamilleEMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Camille/Spells/CamilleEAbility/CamilleEMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Camille/Spells/CamilleQAbility",
+      "Characters/Camille/Spells/CamilleEAbility",
+      "Characters/Camille/Spells/CamillePassiveAbility",
+      "Characters/Camille/Spells/CamilleWAbility",
+      "Characters/Camille/Spells/CamilleRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Camille",
+    "passiveLuaName": "CamillePassive",
+    "passiveToolTip": "game_character_passiveDescription_Camille",
+    "passive1IconName": "assets/characters/camille/hud/icons2d/camille_passive.dds",
+    "name": "game_character_displayname_Camille",
+    "selectionHeight": 280.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Camille",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 164,
+      "roles": "BRAWLER",
+      "PARFadeColor": "55 55 55",
+      "magicRank": 3,
+      "difficultyRank": 4,
+      "description": "game_character_description_Camille",
+      "defenseRank": 6,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398600,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Camille/Spells/CamillePassiveAbility/CamillePassive",
+        "mComponentBuffs": [
+          "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveCooldown",
+          "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveReady",
+          "Characters/Camille/Spells/CamilleEnemyScouter",
+          "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveShieldMagic",
+          "Characters/Camille/Spells/CamillePassiveAbility/CamillePassiveShieldPhysical"
+        ],
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Camille/Spells/CamilleAttackAnimationCycle",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Camille/Spells/CamilleVOManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

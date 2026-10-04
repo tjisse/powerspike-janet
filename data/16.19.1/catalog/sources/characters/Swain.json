@@ -1,0 +1,289 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/swain/swain.bin.json",
+  "sha256": "b1631ad3e32190aa67706c07bbd6e5ca0883a156040df3ee94d70c119be93b08",
+  "path": "Characters/Swain/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Swain",
+    "baseHPModifiable": {
+      "baseValue": 595.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.6000000238418579,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 105.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 29.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 2.0,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 10,
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 25.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 31.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.5499999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.109999895095825,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 525.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.1599999964237213,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.1733333319425583,
+        "mAttackName": "SwainBasicAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "SwainQAbility/SwainQ",
+      "SwainWAbility/SwainW",
+      "SwainEAbility/SwainE",
+      "SwainRAbility/SwainR"
+    ],
+    "spells": [
+      "Characters/Swain/Spells/SwainQAbility/SwainQ",
+      "Characters/Swain/Spells/SwainWAbility/SwainW",
+      "Characters/Swain/Spells/SwainEAbility/SwainE",
+      "Characters/Swain/Spells/SwainRAbility/SwainR"
+    ],
+    "extraSpells": [
+      "SwainPDummyCast",
+      "SwainEReturnMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "SwainQDummyMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Swain/Spells/SwainPDummyCast",
+      "Characters/Swain/Spells/SwainEAbility/SwainEReturnMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Swain/Spells/SwainQDummyMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Swain/Spells/SwainRAbility",
+      "Characters/Swain/Spells/SwainQAbility",
+      "Characters/Swain/Spells/SwainWAbility",
+      "Characters/Swain/Spells/SwainEAbility",
+      "Characters/Swain/Spells/SwainPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Swain",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Swain",
+    "passiveRange": 1150.0,
+    "passive1IconName": "assets/characters/swain/hud/icons2d/swain_p.dds",
+    "name": "game_character_displayname_Swain",
+    "mUseCCAnimations": true,
+    "outlineBBoxExpansion": 80.0,
+    "selectionHeight": 148.88890075683594,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      15,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Swain",
+          "effect": [
+            "15"
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 50,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 8,
+      "description": "game_character_description_Swain",
+      "defenseRank": 6,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8414464,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Swain/Spells/SwainPassiveAbility/SwainPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Swain/Spells/SwainPassiveAbility/SwainPassive",
+        "mComponentBuffs": [
+          "Characters/Swain/Spells/SwainPSoulDropListener"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Swain/Spells/SwainRSoulProgression",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Swain/Spells/SwainSoulCounter",
+        "mDisplayFlags": 3,
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/nunu/nunu.bin.json",
+  "sha256": "e5aa69b51026b3528acea6601f9e622464077f7d948cd3cd241153ea95ee6388",
+  "path": "Characters/Nunu/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Nunu",
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 90.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.1599999964237213,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 140.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 280.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 42.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.10000000149011612,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 5.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 5,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 61.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.25,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10641399770975113,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "NunuBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "NunuBloodBoilAttack1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "NunuBloodBoilAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10641399770975113,
+        "mAttackProbability": 1.0,
+        "mAttackName": "NunuCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "NunuQAbility/NunuQ",
+      "NunuWAbility/NunuW",
+      "NunuEAbility/NunuE",
+      "NunuRAbility/NunuR"
+    ],
+    "spells": [
+      "Characters/Nunu/Spells/NunuQAbility/NunuQ",
+      "Characters/Nunu/Spells/NunuWAbility/NunuW",
+      "Characters/Nunu/Spells/NunuEAbility/NunuE",
+      "Characters/Nunu/Spells/NunuRAbility/NunuR"
+    ],
+    "extraSpells": [
+      "NunuWSnowballMissile",
+      "NunuBasicAttack",
+      "NunuBasicAttack2",
+      "NunuBloodBoilAttack1",
+      "NunuBloodBoilAttack2",
+      "NunuBloodBoilAttack3",
+      "NunuStructureAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "NunuPBloodBoilMissile",
+      "",
+      "NunuESnowballMissile",
+      "NunuCritAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Nunu/Spells/NunuWAbility/NunuWSnowballMissile",
+      "Characters/Nunu/Spells/NunuBasicAttack",
+      "Characters/Nunu/Spells/NunuBasicAttack2",
+      "Characters/Nunu/Spells/NunuBloodBoilAttack1",
+      "Characters/Nunu/Spells/NunuBloodBoilAttack2",
+      "Characters/Nunu/Spells/NunuBloodBoilAttack3",
+      "Characters/Nunu/Spells/NunuStructureAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Nunu/Spells/NunuPassiveAbility/NunuPBloodBoilMissile",
+      "{00000000}",
+      "Characters/Nunu/Spells/NunuEAbility/NunuESnowballMissile",
+      "Characters/Nunu/Spells/NunuCritAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Nunu/Spells/NunuRAbility",
+      "Characters/Nunu/Spells/NunuQAbility",
+      "Characters/Nunu/Spells/NunuWAbility",
+      "Characters/Nunu/Spells/NunuEAbility",
+      "Characters/Nunu/Spells/NunuPassiveAbility"
+    ],
+    "passiveName": "Spell_NunuPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_NunuPassive_Summary",
+    "passiveSpell": "NunuPassive",
+    "passive1IconName": "assets/characters/nunu/hud/icons2d/nunupassive.dds",
+    "name": "game_character_displayname_Nunu",
+    "weaponMaterials": [
+      "YetiBasicAttack"
+    ],
+    "selectionHeight": 170.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      14,
+      14
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Nunu begins to sap the area of heat, gradually slowing all nearby enemies. At the end of the spell, he deals massive damage to all enemies caught in the area.",
+          "displayName": "Absolute Zero",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Nunu begins to sap the area of heat, gradually slowing all nearby enemies. At the end of the spell, he deals massive damage to all enemies caught in the area.",
+          "displayName": "Absolute Zero",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Nunu begins to sap the area of heat, gradually slowing all nearby enemies. At the end of the spell, he deals massive damage to all enemies caught in the area.",
+          "displayName": "Absolute Zero",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Nunu begins to sap the area of heat, gradually slowing all nearby enemies. At the end of the spell, he deals massive damage to all enemies caught in the area.",
+          "displayName": "Absolute Zero",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Yuralia has a 10% chance on attack to make her next non-ultimate, non-item spell free to cast.",
+        "Yuralia has a 10% chance on attack to make her next non-ultimate, non-item spell free to cast.",
+        "Yuralia has a 10% chance on attack to make her next non-ultimate, non-item spell free to cast."
+      ],
+      "passiveData": [
+        {
+          "name": "Spell_NunuPassive_Name",
+          "level": [
+            1,
+            6,
+            11,
+            16
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "mage",
+      "championId": 20,
+      "roles": "TANK",
+      "magicRank": 7,
+      "Lore2": "Returning to the village with her new friend, Yuralia and the Yeti impressed the villagers with their igloo building talents, with Yuralia forming ice bricks and the massive Yeti lifting them into place with ease. Able to harness her control over ice in times of danger, Yuralia can freeze her enemies into place with blasts of cold, leaving them vulnerable to the insatiable hunger of her Yeti friend. Together, Yuralia and her Yeti companion make a formidable duo on the battlefield, combining the powers of winter with hairy, brute force.",
+      "LevelSpellEffectiveness": 4.0,
+      "difficultyRank": 4,
+      "description": "game_character_description_Nunu",
+      "defenseRank": 6,
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "{aa75da9d}": false,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

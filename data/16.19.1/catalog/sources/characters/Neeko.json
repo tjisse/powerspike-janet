@@ -1,0 +1,208 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/neeko/neeko.bin.json",
+  "sha256": "ba2336102e2c4e9ed35aa05ab35e5f2487fad51bc216402ea0eb260700896aa6",
+  "path": "Characters/Neeko/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Neeko",
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 111.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 450.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 30.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arAllowMaxValueToBeOverridden": true,
+      "arDisplayAsPips": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 48.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5499999523162842,
+      "mAttackCastTime": 0.3100000023841858,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackName": "NeekoCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "NeekoQAbility/NeekoQ",
+      "NeekoWAbility/NeekoW",
+      "NeekoEAbility/NeekoE",
+      "NeekoRAbility/NeekoR"
+    ],
+    "spells": [
+      "Characters/Neeko/Spells/NeekoQAbility/NeekoQ",
+      "Characters/Neeko/Spells/NeekoWAbility/NeekoW",
+      "Characters/Neeko/Spells/NeekoEAbility/NeekoE",
+      "Characters/Neeko/Spells/NeekoRAbility/NeekoR"
+    ],
+    "mAbilities": [
+      "Characters/Neeko/Spells/NeekoRAbility",
+      "Characters/Neeko/Spells/NeekoQAbility",
+      "Characters/Neeko/Spells/NeekoWAbility",
+      "Characters/Neeko/Spells/NeekoEAbility",
+      "Characters/Neeko/Spells/NeekoPassiveAbility"
+    ],
+    "passiveName": "Spell_NeekoPassive_Name",
+    "passiveToolTip": "Spell_NeekoPassive_Summary",
+    "passiveSpell": "NeekoPassive",
+    "passive1IconName": "assets/characters/neeko/hud/icons2d/neeko_p.dds",
+    "name": "game_character_displayname_Neeko",
+    "selectionHeight": 300.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "overrideGameplayCollisionRadius": 65.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 518,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 5,
+      "description": "game_character_description_Neeko",
+      "defenseRank": 1,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Neeko/Spells/NeekoPassiveAbility/NeekoPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Neeko/Spells/NeekoPassiveAbility/NeekoPassive",
+        "mComponentBuffs": [
+          "Characters/Neeko/Spells/NeekoPassiveAbility/NeekoPassiveBuff"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Neeko/Spells/NeekoRunCycleManager",
+        "SkinFilter": {
+          "skinIds": [
+            10,
+            11,
+            21
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Neeko/Spells/NeekoMonsterReactionTracker",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/akshan/akshan.bin.json",
+  "sha256": "e79ef2131be222f9dcbd39661a8a7380a5cb7eedf29f1ac5252db5d199d4de0c",
+  "path": "Characters/Akshan/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Akshan",
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 107.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.75,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 112.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 350.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6399999856948853,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 10,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 52.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.4000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.20000000298023224,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 1.0,
+      "mAttackName": "AkshanBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "AkshanBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "AkshanBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "AkshanCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "AkshanQAbility/AkshanQ",
+      "AkshanWAbility/AkshanW",
+      "AkshanEAbility/AkshanE",
+      "AkshanRAbility/AkshanR"
+    ],
+    "spells": [
+      "Characters/Akshan/Spells/AkshanQAbility/AkshanQ",
+      "Characters/Akshan/Spells/AkshanWAbility/AkshanW",
+      "Characters/Akshan/Spells/AkshanEAbility/AkshanE",
+      "Characters/Akshan/Spells/AkshanRAbility/AkshanR"
+    ],
+    "extraSpells": [
+      "",
+      "",
+      "",
+      "BaseSpell",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "extraSpellsList": [
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "Shared/Spells/BaseSpell",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}",
+      "{00000000}"
+    ],
+    "mAbilities": [
+      "Characters/Akshan/Spells/AkshanQAbility",
+      "Characters/Akshan/Spells/AkshanWAbility",
+      "Characters/Akshan/Spells/AkshanEAbility",
+      "Characters/Akshan/Spells/AkshanRAbility",
+      "Characters/Akshan/Spells/AkshanPassiveAbility"
+    ],
+    "passiveLuaName": "",
+    "passiveSpell": "AkshanPassive",
+    "passive1IconName": "assets/characters/akshan/hud/icons2d/akshan_p.dds",
+    "name": "game_character_displayname_Akshan",
+    "mUseCCAnimations": true,
+    "selectionHeight": 100.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "marksman",
+      "searchTagsSecondary": "assassin",
+      "championId": 166,
+      "roles": "ATTACKER",
+      "description": "game_character_description_Akshan",
+      "classification": "Deadly",
+      "{aa75da9d}": false,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Akshan/Spells/AkshanAttackAnimationCycle",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Akshan/Spells/AkshanEAbility/AkshanEPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

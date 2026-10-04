@@ -1,0 +1,305 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/syndra/syndra.bin.json",
+  "sha256": "17754e5a6e1e803a9aafab203d1cf8c52cf146dafa9bbb3611cdce59e55144e9",
+  "path": "Characters/Syndra/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Syndra",
+    "baseHPModifiable": {
+      "baseValue": 583.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 100.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 130.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 480.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 2.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 2.0,
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "arDisplayAsPips": true,
+      "VisibilityFlags": 1,
+      "arOverrideSmallPipName": "SyndraLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 54.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.9000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 25.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 575.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "SyndraBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "SyndraCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "SyndraQAbility/SyndraQ",
+      "SyndraWAbility/SyndraW",
+      "SyndraEAbility/SyndraE",
+      "SyndraRAbility/SyndraR"
+    ],
+    "spells": [
+      "Characters/Syndra/Spells/SyndraQAbility/SyndraQ",
+      "Characters/Syndra/Spells/SyndraWAbility/SyndraW",
+      "Characters/Syndra/Spells/SyndraEAbility/SyndraE",
+      "Characters/Syndra/Spells/SyndraRAbility/SyndraR"
+    ],
+    "extraSpells": [
+      "SyndraQSpell",
+      "SyndraEMissile",
+      "SyndraEMissile2",
+      "SyndraRSpell",
+      "SyndraRBounce",
+      "SyndraESphereMissile",
+      "SyndraRTrigger",
+      "BaseSpell",
+      "SyndraQUpgrade",
+      "SyndraE5",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Syndra/Spells/SyndraQAbility/SyndraQSpell",
+      "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile",
+      "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile2",
+      "Characters/Syndra/Spells/SyndraRAbility/SyndraRSpell",
+      "Characters/Syndra/Spells/SyndraRBounce",
+      "Characters/Syndra/Spells/SyndraEAbility/SyndraESphereMissile",
+      "Characters/Syndra/Spells/SyndraRTrigger",
+      "Shared/Spells/BaseSpell",
+      "Characters/Syndra/Spells/SyndraQAbility/SyndraQUpgrade",
+      "Characters/Syndra/Spells/SyndraEAbility/SyndraE5",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Syndra/Spells/SyndraQAbility",
+      "Characters/Syndra/Spells/SyndraWAbility",
+      "Characters/Syndra/Spells/SyndraEAbility",
+      "Characters/Syndra/Spells/SyndraRAbility",
+      "Characters/Syndra/Spells/SyndraPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Syndra",
+    "passiveLuaName": "SyndraPassive",
+    "passiveToolTip": "game_character_passiveDescription_Syndra",
+    "passive1IconName": "assets/characters/syndra/hud/icons2d/syndrapassive.dds",
+    "name": "game_character_displayname_Syndra",
+    "selectionHeight": 200.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      16,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "5 Astral Spirts"
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Syndra",
+          "effect": [
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ],
+          "level": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "__type": "ToolPassiveData"
+        },
+        {
+          "effect": [
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ],
+          "level": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 134,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "Lore2": "poor sod",
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Syndra",
+      "defenseRank": 3,
+      "{aa75da9d}": false,
+      "attackSpeed": 10.0,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Syndra/Spells/SyndraRVisual",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

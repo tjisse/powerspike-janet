@@ -1,0 +1,94 @@
+{
+  "patch": "16.19.1",
+  "communitydragon_patch": "16.19",
+  "retrieved": "2026-10-04",
+  "original_repository": "tjisse/powerspike-core",
+  "original_commit": "bdea6197916167593c97927dec93fd840652f771",
+  "sources": [
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion.json",
+      "sha256": "b70e5edb8d2f4c25d21cf68a8366bbf0f352082e840b0bbc2efcf004f10022db"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/item.json",
+      "sha256": "72c996d05a316ca194c0f5c02b25016a553bd204a974db09b4312c40cee3d477"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/garen/garen.bin.json",
+      "sha256": "2c846ed35bd431fda13fd6c77bbd88e284472446b1b170777d1c5892ff4266cc"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/annie/annie.bin.json",
+      "sha256": "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    }
+  ],
+  "normalized_decimal_places": 6,
+  "coverage": {
+    "champions": [
+      "Garen",
+      "Annie"
+    ],
+    "items": [
+      "1018",
+      "1036",
+      "1038",
+      "1042",
+      "1052",
+      "3006",
+      "3031",
+      "3086",
+      "3089",
+      "3133",
+      "3134",
+      "3135",
+      "3158",
+      "3020"
+    ],
+    "champion_abilities": [
+      "Annie Q",
+      "Annie W",
+      "Annie learned-R magic penetration"
+    ],
+    "stat_shards": [
+      5005,
+      5010,
+      5011
+    ]
+  },
+  "ingame_validation": "partial: five Annie Practice Tool stat snapshots: level-1 no items, Cloak, Void Staff; level-6 Void Staff with R unlearned and rank one. Level-6 growth and multiplicative learned-R penetration agree; movement speed, damage and timing remain unvalidated. See docs/validation-results.md",
+  "retained_excerpts": [
+    {
+      "path": "sources/annie-character-record.json",
+      "sha256": "2c1d71c86cee27a1c5c2a75e3dfd7af4824874392be3fa6c9be04c30857a3b3d"
+    },
+    {
+      "path": "sources/annie-q-w-spells.json",
+      "sha256": "7d068e35e89d4ea2b4b7f9f0fbe14a73a3c535187465badec9ebc1e190e5c36a"
+    },
+    {
+      "path": "sources/annie-r-passive.json",
+      "sha256": "46504bdb568c60ff5ea0b60b7ab3b7d904cdc70787f4417466eb430988241ed2"
+    },
+    {
+      "path": "sources/champions-ddragon.json",
+      "sha256": "7b0df040bf32be0b2bf7e185a647b51d440debcd1ea99e1d4262e033516834d7"
+    },
+    {
+      "path": "sources/garen-character-record.json",
+      "sha256": "397ee696f01dd6cd2ac5d131f1d55a88ebd67a2cca5f1b9afe12202b2e0d038d"
+    },
+    {
+      "path": "sources/items-ddragon.json",
+      "sha256": "5b87965ff4a1d2841fc012bf3199f4978d4f70e53fbc288412f35810907468af"
+    },
+    {
+      "path": "sources/observed-perks.json",
+      "sha256": "e08c02a574be3a7a01cbed8a92f195fc8c031b1926a21505af406088669a564f"
+    }
+  ],
+  "spell_selection": "Follow CharacterRecords/Root.spells; legacy named objects are not current-kit evidence."
+}

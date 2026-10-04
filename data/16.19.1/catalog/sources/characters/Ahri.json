@@ -1,0 +1,365 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/ahri/ahri.bin.json",
+  "sha256": "92515ab5610eff9eb2bdf94b3bf032490f6ba86d3835cdbe304d2d1e76dfa093",
+  "path": "Characters/Ahri/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Ahri",
+    "baseHPModifiable": {
+      "baseValue": 590.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 94.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 418.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 25.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 3.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 3.0,
+      "arAllowMaxValueToBeOverridden": true,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "AhriLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 53.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6679999828338623,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 525.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "AhriBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+        "mAttackName": "AhriCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "AhriQAbility/AhriQ",
+      "AhriWAbility/AhriW",
+      "AhriEAbility/AhriE",
+      "AhriRAbility/AhriR"
+    ],
+    "spells": [
+      "Characters/Ahri/Spells/AhriQAbility/AhriQ",
+      "Characters/Ahri/Spells/AhriWAbility/AhriW",
+      "Characters/Ahri/Spells/AhriEAbility/AhriE",
+      "Characters/Ahri/Spells/AhriRAbility/AhriR"
+    ],
+    "extraSpells": [
+      "AhriQMissile",
+      "AhriQReturnMissile",
+      "AhriWMissile",
+      "BaseSpell",
+      "AhriEMissile",
+      "AhriRMissile",
+      "",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Ahri/Spells/AhriQAbility/AhriQMissile",
+      "Characters/Ahri/Spells/AhriQAbility/AhriQReturnMissile",
+      "Characters/Ahri/Spells/AhriWAbility/AhriWMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Ahri/Spells/AhriEAbility/AhriEMissile",
+      "Characters/Ahri/Spells/AhriRAbility/AhriRMissile",
+      "{00000000}",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Ahri/Spells/AhriRAbility",
+      "Characters/Ahri/Spells/AhriQAbility",
+      "Characters/Ahri/Spells/AhriWAbility",
+      "Characters/Ahri/Spells/AhriEAbility",
+      "Characters/Ahri/Spells/AhriPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Ahri",
+    "passiveLuaName": "AhriPassive",
+    "passiveToolTip": "game_character_passiveDescription_Ahri",
+    "passive1IconName": "assets/characters/ahri/hud/icons2d/ahri_souleater2.dds",
+    "name": "game_character_displayname_Ahri",
+    "weaponMaterials": [
+      "AhriBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 135.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      3,
+      0
+    ],
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Cardmaster_Attack1.wav",
+          "Cardmaster_Attack2.wav",
+          "Cardmaster_Attack3.wav",
+          "Cardmaster_Attack4.wav"
+        ],
+        "click": [
+          "Cardmaster_Click1.wav",
+          "Cardmaster_Click2.wav",
+          "Cardmaster_Click3.wav",
+          "Cardmaster_Click4.wav"
+        ],
+        "move": [
+          "Cardmaster_Move1.wav",
+          "Cardmaster_Move2.wav",
+          "Cardmaster_Move3.wav",
+          "Cardmaster_Move4.wav"
+        ],
+        "death": "Cardmaster_Death.wav",
+        "ready": "Cardmaster_Ready2.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "medium": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{42ac598e}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "mage",
+      "searchTagsSecondary": "assassin",
+      "championId": 103,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Ahri",
+      "defenseRank": 4,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 3,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 9446656,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Ahri/Spells/AhriPassiveAbility/AhriPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriPassiveAbility/AhriPassive",
+        "mComponentBuffs": [
+          "Characters/Ahri/Spells/AhriPassiveAbility/AhriPassiveCounter"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriSkin14Manager",
+        "SkinFilter": {
+          "skinIds": [
+            14
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriSkin27Manager",
+        "SkinFilter": {
+          "skinIds": [
+            27
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriSkin86Manager",
+        "SkinFilter": {
+          "skinIds": [
+            86
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriSkin85Manager",
+        "SkinFilter": {
+          "skinIds": [
+            85
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Ahri/Spells/AhriSkin89Manager",
+        "SkinFilter": {
+          "UseValidParentForChroma": false,
+          "skinIds": [
+            89
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

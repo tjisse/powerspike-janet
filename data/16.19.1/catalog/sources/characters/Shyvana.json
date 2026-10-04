@@ -1,0 +1,302 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/shyvana/shyvana.bin.json",
+  "sha256": "ebd94a5c97efea0a0f7f8526ee44e783d61ea43c93271b5a0509221923ed8d6c",
+  "path": "Characters/Shyvana/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Shyvana",
+    "baseHPModifiable": {
+      "baseValue": 625.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 95.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 5,
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 10.0,
+      "arMaxSegments": 10,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "{fa70e5c9}": true,
+      "{4eb6a404}": 1,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 62.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 350.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.25,
+      "mAttackName": "ShyvanaBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "ShyvanaBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaDragonBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaDragonBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaQAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaQAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaQAttackDragon",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaQAttackDragon2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaQAttackDragon3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "ShyvanaCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ShyvanaDragonCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ShyvanaQAbility/ShyvanaQ",
+      "ShyvanaWAbility/ShyvanaW",
+      "ShyvanaEAbility/ShyvanaE",
+      "ShyvanaRAbility/ShyvanaR"
+    ],
+    "spells": [
+      "Characters/Shyvana/Spells/ShyvanaQAbility/ShyvanaQ",
+      "Characters/Shyvana/Spells/ShyvanaWAbility/ShyvanaW",
+      "Characters/Shyvana/Spells/ShyvanaEAbility/ShyvanaE",
+      "Characters/Shyvana/Spells/ShyvanaRAbility/ShyvanaR"
+    ],
+    "extraSpellsList": [
+      "Characters/Shyvana/Spells/ShyvanaWAbility/ShyvanaWRecast",
+      "Characters/Shyvana/Spells/ShyvanaEAbility/ShyvanaEDragon",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Shyvana/Spells/ShyvanaPassiveAbility",
+      "Characters/Shyvana/Spells/ShyvanaQAbility",
+      "Characters/Shyvana/Spells/ShyvanaWAbility",
+      "Characters/Shyvana/Spells/ShyvanaEAbility",
+      "Characters/Shyvana/Spells/ShyvanaRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Shyvana",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Shyvana",
+    "passive1IconName": "assets/characters/shyvana/hud/icons2d/shyvana_passive.dds",
+    "name": "game_character_displayname_Shyvana",
+    "weaponMaterials": [
+      "ShyvanaBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "outlineBBoxExpansion": 100.0,
+    "selectionHeight": 100.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      7
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Shyvana",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "alternateForms": [
+        {
+          "champion": "ShyvanaDragon",
+          "name": "ShyvanaDragon",
+          "theSwitch": "Champion",
+          "__type": "ToolAlternateForm"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 102,
+      "roles": "BRAWLER",
+      "PARFadeColor": "55 55 55",
+      "magicRank": 3,
+      "difficultyRank": 4,
+      "description": "game_character_description_Shyvana",
+      "defenseRank": 6,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "RecSpellRankUpInfolist": {
+      "RecSpellRankUpInfos": [
+        {
+          "IsDefaultRecommendation": true,
+          "mEarlyLevelOverrides": [
+            1,
+            2,
+            0
+          ],
+          "__type": "RecSpellRankUpInfo"
+        }
+      ],
+      "__type": "RecSpellRankUpInfoList"
+    },
+    "flags": 8398600,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Shyvana/Spells/ShyvanaPassiveAbility/ShyvanaPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Shyvana/Spells/ShyvanaPassiveAbility/ShyvanaPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

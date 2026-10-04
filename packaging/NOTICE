@@ -1,0 +1,14 @@
+PowerSpike 0.1.0
+
+Application licensing has not been declared. The bundled dependencies retain
+their upstream licenses, included alongside this notice. Exact source revisions
+are recorded in deps.lock. Janet is pinned to commit
+e1963cdfe0148f83601907727e00bd672d798115 (v1.42.1).
+
+Game data and artwork: Riot Games, patch 26.19 / Data Dragon 16.19.1.
+Game-record excerpts: CommunityDragon 16.19.
+
+PowerSpike is not endorsed by Riot Games and does not reflect the views or
+opinions of Riot Games or anyone officially involved in producing or managing
+Riot Games properties. Riot Games and all associated properties are trademarks
+or registered trademarks of Riot Games, Inc.

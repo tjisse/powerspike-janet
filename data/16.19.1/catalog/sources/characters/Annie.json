@@ -1,0 +1,292 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/annie/annie.bin.json",
+  "sha256": "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d",
+  "path": "Characters/Annie/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Annie",
+    "baseHPModifiable": {
+      "baseValue": 560.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 96.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 85.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 418.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 25.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 4.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 4.0,
+      "arMaxSegments": 4,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "GenericLargeUncolored",
+      "arOverrideLargePipName": "AnnieLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 50.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.6500000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 23.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 625.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6100000143051147,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.3600000143051147,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 625.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10420524328947067,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "AnnieBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10420524328947067,
+        "mAttackName": "AnnieCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "AnnieQAbility/AnnieQ",
+      "AnnieWAbility/AnnieW",
+      "AnnieEAbility/AnnieE",
+      "AnnieRAbility/AnnieR"
+    ],
+    "spells": [
+      "Characters/Annie/Spells/AnnieQAbility/AnnieQ",
+      "Characters/Annie/Spells/AnnieWAbility/AnnieW",
+      "Characters/Annie/Spells/AnnieEAbility/AnnieE",
+      "Characters/Annie/Spells/AnnieRAbility/AnnieR"
+    ],
+    "extraSpells": [
+      "InfernalGuardianGuide",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Annie/Spells/InfernalGuardianGuide",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Annie/Spells/AnnieRAbility",
+      "Characters/Annie/Spells/AnnieQAbility",
+      "Characters/Annie/Spells/AnnieWAbility",
+      "Characters/Annie/Spells/AnnieEAbility",
+      "Characters/Annie/Spells/AnniePassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Annie",
+    "passiveLuaName": "AnniePassive",
+    "passiveToolTip": "game_character_passiveDescription_Annie",
+    "passiveSpell": "AnniePassive",
+    "passive1IconName": "assets/characters/annie/hud/icons2d/annie_passive.dds",
+    "name": "game_character_displayname_Annie",
+    "mUseCCAnimations": true,
+    "selectionHeight": 85.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Annie",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 1,
+      "roles": "MAGE",
+      "magicRank": 10,
+      "difficultyRank": 6,
+      "description": "game_character_description_Annie",
+      "defenseRank": 3,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "botDefaultSpell1": "SummonerHeal",
+      "botDefaultSpell2": "SummonerTeleport",
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Annie/Spells/AnniePassiveAbility/AnniePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Annie/Spells/AnniePassiveAbility/AnniePassive",
+        "mComponentBuffs": [
+          "Characters/Annie/Spells/AnniePassiveAbility/AnniePassiveStack",
+          "Characters/Annie/Spells/AnniePassiveAbility/AnniePassivePrimed"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/samira/samira.bin.json",
+  "sha256": "05208784d2871428581c7b4b5c5e3684a30d2c8241681171c2f53881ae1cd105",
+  "path": "Characters/Samira/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Samira",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 108.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.6499999761581421,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 349.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 38.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6399999856948853,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 7,
+      "{726ee5cd}": {
+        "baseValue": 6.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 6,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "SamiraStyleSmall",
+      "arOverrideMediumPipName": "SamiraStyleMedium",
+      "arOverrideLargePipName": "SamiraStyleLarge",
+      "arOverrideEmptyPipName": "SamiraStyleEmpty",
+      "arOverrideSpacerName": "PipSpacerSamira",
+      "arNegativeSpacer": true,
+      "HideEmptyPips": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 57.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+      "mAttackProbability": 0.5,
+      "mAttackName": "SamiraBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackProbability": 0.5,
+        "mAttackName": "SamiraBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "SamiraCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "SamiraCritAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "SamiraQAbility/SamiraQ",
+      "SamiraWAbility/SamiraW",
+      "SamiraEAbility/SamiraE",
+      "SamiraRAbility/SamiraR"
+    ],
+    "spells": [
+      "Characters/Samira/Spells/SamiraQAbility/SamiraQ",
+      "Characters/Samira/Spells/SamiraWAbility/SamiraW",
+      "Characters/Samira/Spells/SamiraEAbility/SamiraE",
+      "Characters/Samira/Spells/SamiraRAbility/SamiraR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Samira/Spells/SamiraQAbility",
+      "Characters/Samira/Spells/SamiraRAbility",
+      "Characters/Samira/Spells/SamiraWAbility",
+      "Characters/Samira/Spells/SamiraEAbility",
+      "Characters/Samira/Spells/SamiraPassiveAbility"
+    ],
+    "passiveName": "Spell_SamiraPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_SamiraPassive_Summary",
+    "passiveSpell": "SamiraPassive",
+    "passive1IconName": "assets/characters/samira/hud/icons2d/samirap.dds",
+    "name": "game_character_displayname_Samira",
+    "mUseCCAnimations": true,
+    "selectionHeight": 122.22219848632812,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 40.68000030517578,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_SamiraPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "assassin",
+      "championId": 360,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "difficultyRank": 6,
+      "description": "game_character_description_Samira",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.8999999761581421,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Domination/UltimateHunter",
+          "mReplaceWith": "Perks/Styles/Domination/TreasureHunter",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Samira/Spells/SamiraPassiveAbility/SamiraPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Samira/Spells/SamiraPassiveAbility/SamiraPassive",
+        "mComponentBuffs": [
+          "Characters/Samira/Spells/SamiraPassiveAttack",
+          "Characters/Samira/Spells/SamiraPassiveBuff",
+          "Characters/Samira/Spells/SamiraPJuggle",
+          "Characters/Samira/Spells/SamiraPMissile",
+          "Characters/Samira/Spells/SamiraPMissileOffhand",
+          "Characters/Samira/Spells/SamiraPSwordJuggle"
+        ],
+        "mChildSpells": [
+          "Characters/Samira/Spells/SamiraQAbility/SamiraQBufferedSword",
+          "Characters/Samira/Spells/SamiraPJuggle",
+          "Characters/Samira/Spells/SamiraTauntMissile"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Samira/Spells/SamiraSkin30Manager",
+        "SkinFilter": {
+          "skinIds": [
+            30
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

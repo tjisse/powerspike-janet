@@ -1,0 +1,312 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/teemo/teemo.bin.json",
+  "sha256": "1bbdab0ac20c6070c0bfaa3ccba56b63cc03bdc520b175ca6178cf9fad75b787",
+  "path": "Characters/Teemo/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Teemo",
+    "baseHPModifiable": {
+      "baseValue": 615.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 75.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 334.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 25.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.9199999570846558,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.09000000357627869,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 54.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6899999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6899999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 500.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackName": "TeemoBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.0842565968632698,
+        "mAttackName": "TeemoCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TeemoQAbility/TeemoQ",
+      "TeemoWAbility/TeemoW",
+      "TeemoEAbility/TeemoE",
+      "TeemoRAbility/TeemoR"
+    ],
+    "spells": [
+      "Characters/Teemo/Spells/TeemoQAbility/TeemoQ",
+      "Characters/Teemo/Spells/TeemoWAbility/TeemoW",
+      "Characters/Teemo/Spells/TeemoEAbility/TeemoE",
+      "Characters/Teemo/Spells/TeemoRAbility/TeemoR"
+    ],
+    "extraSpells": [
+      "TeemoEAttack",
+      "TeemoECrit",
+      "TeemoRTrap",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Teemo/Spells/TeemoEAbility/TeemoEAttack",
+      "Characters/Teemo/Spells/TeemoEAbility/TeemoECrit",
+      "Characters/Teemo/Spells/TeemoRAbility/TeemoRTrap",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Teemo/Spells/TeemoQAbility",
+      "Characters/Teemo/Spells/TeemoWAbility",
+      "Characters/Teemo/Spells/TeemoEAbility",
+      "Characters/Teemo/Spells/TeemoRAbility",
+      "Characters/Teemo/Spells/TeemoPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Teemo",
+    "passiveLuaName": "TeemoPassive",
+    "passiveToolTip": "game_character_passiveDescription_Teemo",
+    "passive1IconName": "assets/characters/teemo/hud/icons2d/teemopassive.dds",
+    "name": "game_character_displayname_Teemo",
+    "mUseCCAnimations": true,
+    "selectionHeight": 100.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      2,
+      0,
+      0,
+      14
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Teemo",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "mage",
+      "championId": 17,
+      "roles": "ATTACKER",
+      "magicRank": 7,
+      "difficultyRank": 6,
+      "description": "game_character_description_Teemo",
+      "defenseRank": 3,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "botDefaultSpell1": "SummonerIgnite",
+      "botDefaultSpell2": "SummonerExhaust",
+      "attackRank": 5,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 545268992,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Teemo/Spells/TeemoPassiveAbility/TeemoPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Teemo/Spells/TeemoPassiveAbility/TeemoPassive",
+        "mComponentBuffs": [
+          "Characters/Teemo/Spells/TeemoPassiveAbility/TeemoPAttackSpeedBuff",
+          "Characters/Teemo/Spells/TeemoPassiveAbility/TeemoPStealthBuff"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Teemo/Spells/TeemoSkin47Manager",
+        "SkinFilter": {
+          "skinIds": [
+            47
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

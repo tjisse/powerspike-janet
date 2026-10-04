@@ -1,0 +1,531 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/elise/elise.bin.json",
+  "sha256": "3bc5c29e36ff90f2eab159bb2ed37d7700d69120c14eb8a1f029729a3695eb29",
+  "path": "Characters/Elise/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Elise",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 117.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 324.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.75,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+      "mAttackProbability": 0.3499999940395355,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.3499999940395355,
+        "mAttackName": "EliseBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.30000001192092896,
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+        "mAttackName": "EliseCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "EliseHumanQAbility/EliseHumanQ",
+      "EliseHumanWAbility/EliseHumanW",
+      "EliseHumanEAbility/EliseHumanE",
+      "EliseRAbility/EliseR"
+    ],
+    "spells": [
+      "Characters/Elise/Spells/EliseHumanQAbility/EliseHumanQ",
+      "Characters/Elise/Spells/EliseHumanWAbility/EliseHumanW",
+      "Characters/Elise/Spells/EliseHumanEAbility/EliseHumanE",
+      "Characters/Elise/Spells/EliseRAbility/EliseR"
+    ],
+    "extraSpells": [
+      "EliseSpiderQ",
+      "EliseSpiderW",
+      "EliseSpiderE",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Elise/Spells/EliseSpiderQAbility/EliseSpiderQ",
+      "Characters/Elise/Spells/EliseSpiderWAbility/EliseSpiderW",
+      "Characters/Elise/Spells/EliseSpiderEAbility/EliseSpiderE",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Elise/Spells/EliseRAbility",
+      "Characters/Elise/Spells/EliseHumanQAbility",
+      "Characters/Elise/Spells/EliseSpiderQAbility",
+      "Characters/Elise/Spells/EliseSpiderWAbility",
+      "Characters/Elise/Spells/EliseSpiderEAbility",
+      "Characters/Elise/Spells/EliseHumanWAbility",
+      "Characters/Elise/Spells/EliseHumanEAbility",
+      "Characters/Elise/Spells/ElisePassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Elise",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Elise",
+    "passiveSpell": "ElisePassive",
+    "passive1IconName": "assets/characters/elise/hud/icons2d/elisepassive.dds",
+    "name": "game_character_displayname_Elise",
+    "weaponMaterials": [
+      "EliseBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 145.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      16,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Latches chains of energy onto nearby enemy champions dealing damage and stunning them, and if they move too far from Morgana Hex, they are dealt additional damage and stunned again.",
+          "displayName": "Soul Shackles",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Latches chains of energy onto nearby enemy champions dealing damage and stunning them, and if they move too far from Morgana Hex, they are dealt additional damage and stunned again.",
+          "displayName": "Soul Shackles",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Latches chains of energy onto nearby enemy champions dealing damage and stunning them, and if they move too far from Morgana Hex, they are dealt additional damage and stunned again.",
+          "displayName": "Soul Shackles",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Latches chains of energy onto nearby enemy champions dealing damage and stunning them, and if they move too far from Morgana Hex, they are dealt additional damage and stunned again.",
+          "displayName": "Soul Shackles",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Elise",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "alternateForms": [
+        {
+          "name": "EliseSpider",
+          "spells": [
+            "EliseSpiderQ",
+            "EliseSpiderW",
+            "EliseSpiderEInitial",
+            "EliseRSpider"
+          ],
+          "theSwitch": "Spell",
+          "__type": "ToolAlternateForm"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "mage",
+      "championId": 60,
+      "roles": "MAGE",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 4.5,
+      "difficultyRank": 9,
+      "description": "game_character_description_Elise",
+      "defenseRank": 5,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 6,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 6,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 16,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "purchaseIdentities": [
+      "Ranged",
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/NullifyingOrb",
+          "mReplaceWith": "Perks/Styles/Sorcery/NimbusCloak",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Elise/Spells/ElisePassiveAbility/ElisePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Elise/Spells/ElisePassiveAbility/ElisePassive",
+        "mChildSpells": [
+          "Characters/Elise/Spells/EliseSpiderQAbility/EliseSpiderQ",
+          "Characters/Elise/Spells/EliseSpiderWAbility/EliseSpiderW",
+          "Characters/Elise/Spells/EliseSpiderEAbility/EliseSpiderE",
+          "Characters/Elise/Spells/EliseRAbility/EliseRSpider"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

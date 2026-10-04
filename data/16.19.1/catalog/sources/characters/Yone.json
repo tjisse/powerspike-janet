@@ -1,0 +1,302 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/yone/yone.bin.json",
+  "sha256": "251601d95a52cd2c540b5d958c7a8573fd761c655dd9e58f46140a2729933057",
+  "path": "Characters/Yone/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Yone",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 103.0,
+    "primaryAbilityResource": {
+      "arType": 11,
+      "{726ee5cd}": {
+        "baseValue": 500.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 5,
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 62.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.599999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.07999999821186066,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 1.0,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "YoneBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "YoneBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "YoneBasicAttack4",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 1.0,
+        "mAttackName": "YoneCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "YoneCritAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "YoneCritAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "YoneCritAttack4",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "YoneQAbility/YoneQ",
+      "YoneWAbility/YoneW",
+      "YoneEAbility/YoneE",
+      "YoneRAbility/YoneR"
+    ],
+    "spells": [
+      "Characters/Yone/Spells/YoneQAbility/YoneQ",
+      "Characters/Yone/Spells/YoneWAbility/YoneW",
+      "Characters/Yone/Spells/YoneEAbility/YoneE",
+      "Characters/Yone/Spells/YoneRAbility/YoneR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Yone/Spells/YoneRAbility",
+      "Characters/Yone/Spells/YoneQAbility",
+      "Characters/Yone/Spells/YoneWAbility",
+      "Characters/Yone/Spells/YoneEAbility",
+      "Characters/Yone/Spells/YonePassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Yone",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "YonePassive",
+    "passive1IconName": "assets/characters/yone/hud/icons2d/yonepassive.dds",
+    "name": "game_character_displayname_Yone",
+    "weaponMaterials": [
+      "YoneBasicAttack",
+      "YoneBasicAttack",
+      "YoneBasicAttack"
+    ],
+    "selectionHeight": 180.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 32.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Yone",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 777,
+      "roles": "ATTACKER",
+      "PARFadeColor": "0 0 0",
+      "magicRank": 4,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Yone",
+      "defenseRank": 4,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398092,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Yone/Spells/YonePassiveAbility/YonePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Yone/Spells/YonePassiveAbility/YonePassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Yone/Spells/YoneSkin19_GearManager",
+        "SkinFilter": {
+          "skinIds": [
+            19
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Yone/Spells/YoneSkin55Manager",
+        "SkinFilter": {
+          "skinIds": [
+            55,
+            58
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

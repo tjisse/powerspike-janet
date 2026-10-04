@@ -1,0 +1,7 @@
+# name repository exact-commit
+jpm https://github.com/janet-lang/jpm 2430dec269f485473502bcdc2049ee332bc63908
+datastar-janet https://github.com/tjisse/datastar-janet ed228edf0b3db8826711f94eee3b179937596a41
+spork https://github.com/janet-lang/spork 2d4638cfb843589485dde75ab79c1eda7ccd1f46
+jayson https://github.com/CFiggers/jayson 4f54041617340c8ff99bc1e6b285b720184965e2
+judge https://github.com/ianthehenry/judge 612c3f41bbb75649515d6b0bdcf6116419030fa6
+janet-html https://github.com/swlkr/janet-html d3b145d22dcf7b5da979b36de5ba3e4ddcb25da3

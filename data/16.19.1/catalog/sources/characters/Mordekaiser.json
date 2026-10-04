@@ -1,0 +1,326 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/mordekaiser/mordekaiser.bin.json",
+  "sha256": "9a3886adbc27443563fa326595156b476ef2f947dfa1d6dd066fc79e28b019ac",
+  "path": "Characters/Mordekaiser/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Mordekaiser",
+    "baseHPModifiable": {
+      "baseValue": 645.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "selfChampSpecificHealthSuffix": "Red",
+    "selfCBChampSpecificHealthSuffix": "Red",
+    "allyChampSpecificHealthSuffix": "Red",
+    "enemyChampSpecificHealthSuffix": "Red",
+    "primaryAbilityResource": {
+      "arType": 3,
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 30,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 14,
+      "{726ee5cd}": {
+        "baseValue": 3.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 3,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "VisibilityFlags": 1,
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 61.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 37.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 2.365999937057495,
+      "mAttackCastTime": 0.5,
+      "mAttackProbability": 1.0,
+      "mAttackName": "MordekaiserBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackTotalTime": 2.365999937057495,
+        "mAttackCastTime": 0.5,
+        "mAttackName": "MordekaiserBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.5,
+        "mAttackName": "MordekaiserCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "MordekaiserQAbility/MordekaiserQ",
+      "MordekaiserWAbility/MordekaiserW",
+      "MordekaiserEAbility/MordekaiserE",
+      "MordekaiserRAbility/MordekaiserR"
+    ],
+    "spells": [
+      "Characters/Mordekaiser/Spells/MordekaiserQAbility/MordekaiserQ",
+      "Characters/Mordekaiser/Spells/MordekaiserWAbility/MordekaiserW",
+      "Characters/Mordekaiser/Spells/MordekaiserEAbility/MordekaiserE",
+      "Characters/Mordekaiser/Spells/MordekaiserRAbility/MordekaiserR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Mordekaiser/Spells/MordekaiserRAbility",
+      "Characters/Mordekaiser/Spells/MordekaiserQAbility",
+      "Characters/Mordekaiser/Spells/MordekaiserEAbility",
+      "Characters/Mordekaiser/Spells/MordekaiserPassiveAbility",
+      "Characters/Mordekaiser/Spells/MordekaiserWAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "MordekaiserPassive",
+    "passiveToolTip": "",
+    "passiveSpell": "MordekaiserPassive",
+    "passive1IconName": "assets/characters/mordekaiser/hud/icons2d/mordekaiserpassive.dds",
+    "name": "game_character_displayname_Mordekaiser",
+    "weaponMaterials": [
+      "MordekaiserBasicAttack",
+      "None",
+      "MordekaiserBasicAttack2"
+    ],
+    "selectionHeight": 190.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "skillOrder": 2,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "recItems": [
+        "1054",
+        "3020",
+        "3116",
+        "3068",
+        "3109",
+        "3001"
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Mordekaiser",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "mage",
+      "championId": 82,
+      "roles": "TANK",
+      "magicRank": 7,
+      "difficultyRank": 4,
+      "description": "game_character_description_Mordekaiser",
+      "defenseRank": 6,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "{aa75da9d}": false,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398092,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Mordekaiser/Spells/MordekaiserPassiveAbility/MordekaiserPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Mordekaiser/Spells/MordekaiserPassiveAbility/MordekaiserPassive",
+        "mComponentBuffs": [
+          "Characters/Mordekaiser/Spells/MordekaiserPassiveAbility/MordekaiserPassive_FullStacks"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Mordekaiser/Spells/MordekaiserSkin6Manager",
+        "mAllowOnClones": false,
+        "SkinFilter": {
+          "skinIds": [
+            6
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Mordekaiser/Spells/MordekaiserSkin13Manager",
+        "mAllowOnClones": false,
+        "SkinFilter": {
+          "skinIds": [
+            13
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Mordekaiser/Spells/MordekaiserSkin54Manager",
+        "mAllowOnClones": false,
+        "SkinFilter": {
+          "skinIds": [
+            54
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

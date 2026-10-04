@@ -1,0 +1,287 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/hecarim/hecarim.bin.json",
+  "sha256": "cbb22d20fff0b229d63383130073ae8b01c8d0d15969d4579065f5fdd163d144",
+  "path": "Characters/Hecarim/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Hecarim",
+    "baseHPModifiable": {
+      "baseValue": 625.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 280.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 66.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.449999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "HecarimBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.05000000074505806,
+        "mAttackName": "HecarimCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "HecarimRapidSlashAbility/HecarimRapidSlash",
+      "HecarimWAbility/HecarimW",
+      "HecarimRampAbility/HecarimRamp",
+      "HecarimUltAbility/HecarimUlt"
+    ],
+    "spells": [
+      "Characters/Hecarim/Spells/HecarimRapidSlashAbility/HecarimRapidSlash",
+      "Characters/Hecarim/Spells/HecarimWAbility/HecarimW",
+      "Characters/Hecarim/Spells/HecarimRampAbility/HecarimRamp",
+      "Characters/Hecarim/Spells/HecarimUltAbility/HecarimUlt"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "HecarimRampAttack",
+      "HecarimUltCharge",
+      "HecarimUltMissileGrab",
+      "HecarimUltMissile",
+      "HecarimWVFX",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Hecarim/Spells/HecarimRampAbility/HecarimRampAttack",
+      "Characters/Hecarim/Spells/HecarimUltAbility/HecarimUltCharge",
+      "Characters/Hecarim/Spells/HecarimUltAbility/HecarimUltMissileGrab",
+      "Characters/Hecarim/Spells/HecarimUltAbility/HecarimUltMissile",
+      "Characters/Hecarim/Spells/HecarimWAbility/HecarimWVFX",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Hecarim/Spells/HecarimUltAbility",
+      "Characters/Hecarim/Spells/HecarimRapidSlashAbility",
+      "Characters/Hecarim/Spells/HecarimWAbility",
+      "Characters/Hecarim/Spells/HecarimRampAbility",
+      "Characters/Hecarim/Spells/HecarimPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Hecarim",
+    "passiveLuaName": "HecarimPassive",
+    "passiveToolTip": "game_character_passiveDescription_Hecarim",
+    "passiveSpell": "HecarimPassive",
+    "passive1IconName": "assets/characters/hecarim/hud/icons2d/hecarim_passive.dds",
+    "name": "game_character_displayname_Hecarim",
+    "selectionHeight": 140.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      7,
+      5
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds +10% Attack Rate.",
+        "Adds +15% Attack Rate.",
+        "Adds +20% Attack Rate."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Hecarim",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 120,
+      "roles": "BRAWLER",
+      "magicRank": 4,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 6,
+      "description": "game_character_description_Hecarim",
+      "defenseRank": 6,
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Hecarim/Spells/HecarimPassiveAbility/HecarimPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Hecarim/Spells/HecarimPassiveAbility/HecarimPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Hecarim/Spells/HecarimArcadeQTailAnimation",
+        "SkinFilter": {
+          "skinIds": [
+            4
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

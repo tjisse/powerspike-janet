@@ -1,0 +1,265 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/kindred/kindred.bin.json",
+  "sha256": "2d513076b36d1cb180373ce5e8a72ea42b35f0b692d705f1e068e63e07bb307e",
+  "path": "Characters/Kindred/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Kindred",
+    "baseHPModifiable": {
+      "baseValue": 595.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 300.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 35.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07999999821186066,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 65.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.25,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 525.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.12456139922142029,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.12456139922142029,
+        "mAttackName": "KindredCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KindredQAbility/KindredQ",
+      "KindredWAbility/KindredW",
+      "KindredEWrapperAbility/KindredEWrapper",
+      "KindredRAbility/KindredR"
+    ],
+    "spells": [
+      "Characters/Kindred/Spells/KindredQAbility/KindredQ",
+      "Characters/Kindred/Spells/KindredWAbility/KindredW",
+      "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWrapper",
+      "Characters/Kindred/Spells/KindredRAbility/KindredR"
+    ],
+    "extraSpells": [
+      "KindredWPassiveHealMissile",
+      "KindredMarkoftheKindredSpell",
+      "KindredFakeCastTimeSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Kindred/Spells/KindredWAbility/KindredWPassiveHealMissile",
+      "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredMarkoftheKindredSpell",
+      "Characters/Kindred/Spells/KindredRAbility/KindredFakeCastTimeSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Kindred/Spells/KindredQAbility",
+      "Characters/Kindred/Spells/KindredWAbility",
+      "Characters/Kindred/Spells/KindredEWrapperAbility",
+      "Characters/Kindred/Spells/KindredRAbility",
+      "Characters/Kindred/Spells/KindredPassiveManagerAbility"
+    ],
+    "passiveName": "game_character_passiveName_Kindred",
+    "passiveLuaName": "KindredPassiveManager",
+    "passiveToolTip": "game_character_passiveDescription_Kindred",
+    "passive1IconName": "assets/characters/kindred/hud/icons2d/kindred_passive.dds",
+    "name": "game_character_displayname_Kindred",
+    "weaponMaterials": [
+      "KindredBasicAttack"
+    ],
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.12999999523162842,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "ChloeNil-Attack1-NORM_01.wav",
+          "ChloeNil-Attack2-NORM_01.wav",
+          "ChloeNil-Attack3-NORM_01.wav",
+          "ChloeNil-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "ChloeNil-Click1-NORM_01.wav",
+          "ChloeNil-Click2-NORM_01.wav",
+          "ChloeNil-Click3-NORM_01.wav",
+          "ChloeNil-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "ChloeNil-Move1-NORM_01.wav",
+          "ChloeNil-Move2-NORM_01.wav",
+          "ChloeNil-Move3-NORM_01.wav",
+          "ChloeNil-Move4-NORM_01.wav"
+        ],
+        "death": "ChloeNil-Death1-NORM_01.wav",
+        "ready": "ChloeNil-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Kindred",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 203,
+      "roles": "ATTACKER",
+      "magicRank": 2,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 4,
+      "description": "game_character_description_Kindred",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredPassiveManager",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredPassiveManager",
+        "mComponentBuffs": [
+          "Characters/Kindred/Spells/KindredUIInCombatBuff",
+          "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredHitListTracker",
+          "Characters/Kindred/Spells/KindredWolfBuddyVisual",
+          "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredMarkOfTheKindredStackCounter",
+          "Characters/Kindred/Spells/KindredLegendPassive",
+          "Characters/Kindred/Spells/KindredPassiveManagerAbility/KindredMonsterBountyLockout"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

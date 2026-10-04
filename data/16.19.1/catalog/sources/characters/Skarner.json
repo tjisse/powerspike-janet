@@ -1,0 +1,240 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/skarner/skarner.bin.json",
+  "sha256": "dcdd2961539ce4037e64cf9b57c93672809001eead54748aa95e9aec10530c30",
+  "path": "Characters/Skarner/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Skarner",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 110.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 85.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 320.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.440000057220459,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.15000000596046448,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 63.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 0.4000000059604645,
+      "__type": "AttackSlotData"
+    },
+    "spellNames": [
+      "SkarnerQAbility/SkarnerQ",
+      "SkarnerWAbility/SkarnerW",
+      "SkarnerEAbility/SkarnerE",
+      "SkarnerRAbility/SkarnerR"
+    ],
+    "spells": [
+      "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQ",
+      "Characters/Skarner/Spells/SkarnerWAbility/SkarnerW",
+      "Characters/Skarner/Spells/SkarnerEAbility/SkarnerE",
+      "Characters/Skarner/Spells/SkarnerRAbility/SkarnerR"
+    ],
+    "extraSpells": [
+      "SkarnerPassiveAttack",
+      "SkarnerTurretAttack",
+      "SkarnerQClawAttack",
+      "SkarnerQRockAttack",
+      "SkarnerQRockThrow",
+      "SkarnerECancel",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassiveAttack",
+      "Characters/Skarner/Spells/SkarnerTurretAttack",
+      "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQClawAttack",
+      "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQRockAttack",
+      "Characters/Skarner/Spells/SkarnerQAbility/SkarnerQRockThrow",
+      "Characters/Skarner/Spells/SkarnerEAbility/SkarnerECancel",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Skarner/Spells/SkarnerQAbility",
+      "Characters/Skarner/Spells/SkarnerWAbility",
+      "Characters/Skarner/Spells/SkarnerEAbility",
+      "Characters/Skarner/Spells/SkarnerRAbility",
+      "Characters/Skarner/Spells/SkarnerPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Skarner",
+    "passiveLuaName": "SkarnerPassive",
+    "passiveToolTip": "game_character_passiveDescription_Skarner",
+    "passive1IconName": "assets/characters/skarner/hud/icons2d/skarner_passive.dds",
+    "name": "game_character_displayname_Skarner",
+    "weaponMaterials": [
+      "SkarnerBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 150.0,
+    "selectionRadius": 130.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Cho'Gath consumes a unit in one gulp.  He gains a size level each time he kills a unit in this way, gaining health, ability power, and he can Feast on higher health units.",
+          "displayName": "Feast",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Skarner",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "fighter",
+      "championId": 72,
+      "roles": "TANK",
+      "magicRank": 5,
+      "LevelSpellEffectiveness": 1.5,
+      "difficultyRank": 5,
+      "description": "game_character_description_Skarner",
+      "defenseRank": 8,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 7,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Skarner/Spells/SkarnerPassiveAbility/SkarnerPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,685 @@
+{
+  "1018": {
+    "name": "Cloak of Agility",
+    "description": "<mainText><stats><attention>15%</attention> Critical Strike Chance</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Increases critical strike chance",
+    "into": [
+      "123430",
+      "667666",
+      "3031",
+      "3086",
+      "6670",
+      "3033",
+      "3039",
+      "3508",
+      "3095",
+      "6676"
+    ],
+    "image": {
+      "full": "1018.png",
+      "sprite": "item0.png",
+      "group": "item",
+      "x": 192,
+      "y": 0,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 600,
+      "purchasable": true,
+      "total": 600,
+      "sell": 420
+    },
+    "tags": [
+      "CriticalStrike"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatCritChanceMod": 0.15
+    }
+  },
+  "1036": {
+    "name": "Long Sword",
+    "description": "<mainText><stats><attention>10</attention> Attack Damage</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Slightly increases Attack Damage",
+    "into": [
+      "1053",
+      "4003",
+      "6701",
+      "2015",
+      "2019",
+      "2021",
+      "3077",
+      "6670",
+      "3133",
+      "2517",
+      "323004",
+      "3142",
+      "3004",
+      "2523",
+      "3032",
+      "3035",
+      "3044",
+      "3051",
+      "3155",
+      "6690",
+      "3123",
+      "3134",
+      "6699",
+      "6671",
+      "6692"
+    ],
+    "image": {
+      "full": "1036.png",
+      "sprite": "item0.png",
+      "group": "item",
+      "x": 96,
+      "y": 48,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 350,
+      "purchasable": true,
+      "total": 350,
+      "sell": 245
+    },
+    "tags": [
+      "Damage",
+      "Lane"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatPhysicalDamageMod": 10
+    }
+  },
+  "1038": {
+    "name": "B. F. Sword",
+    "description": "<mainText><stats><attention>40</attention> Attack Damage</stats><br><br></mainText>",
+    "colloq": ";bf",
+    "plaintext": "Greatly increases Attack Damage",
+    "into": [
+      "3031",
+      "3026",
+      "3032",
+      "3072",
+      "3095",
+      "4403",
+      "6671"
+    ],
+    "image": {
+      "full": "1038.png",
+      "sprite": "item0.png",
+      "group": "item",
+      "x": 192,
+      "y": 48,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 1300,
+      "purchasable": true,
+      "total": 1300,
+      "sell": 910
+    },
+    "tags": [
+      "Damage"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatPhysicalDamageMod": 40
+    }
+  },
+  "1042": {
+    "name": "Dagger",
+    "description": "<mainText><stats><attention>10%</attention> Attack Speed</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Slightly increases Attack Speed",
+    "into": [
+      "1043",
+      "3086",
+      "2510",
+      "3006",
+      "3046",
+      "3051",
+      "3073",
+      "3131",
+      "3144",
+      "6631",
+      "6675",
+      "6677"
+    ],
+    "image": {
+      "full": "1042.png",
+      "sprite": "item0.png",
+      "group": "item",
+      "x": 336,
+      "y": 48,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 250,
+      "purchasable": true,
+      "total": 250,
+      "sell": 175
+    },
+    "tags": [
+      "AttackSpeed"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "PercentAttackSpeedMod": 0.1
+    }
+  },
+  "1052": {
+    "name": "Amplifying Tome",
+    "description": "<mainText><stats><attention>20</attention> Ability Power</stats><br><br></mainText>",
+    "colloq": ";amptome",
+    "plaintext": "Slightly increases Ability Power",
+    "into": [
+      "3113",
+      "2421",
+      "2420",
+      "3145",
+      "124011",
+      "4637",
+      "3916",
+      "6656",
+      "3147",
+      "3146",
+      "3802",
+      "4005",
+      "2508",
+      "326616",
+      "3108",
+      "3116",
+      "3124",
+      "4630",
+      "323504",
+      "4628",
+      "4632",
+      "4635",
+      "4642",
+      "4644"
+    ],
+    "image": {
+      "full": "1052.png",
+      "sprite": "item0.png",
+      "group": "item",
+      "x": 432,
+      "y": 48,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 400,
+      "purchasable": true,
+      "total": 400,
+      "sell": 280
+    },
+    "tags": [
+      "SpellDamage"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMagicDamageMod": 20
+    }
+  },
+  "3006": {
+    "name": "Berserker's Greaves",
+    "description": "<mainText><stats><attention>30%</attention> Attack Speed<br><attention>45</attention> Move Speed</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Enhances Move Speed and Attack Speed",
+    "from": [
+      "1001",
+      "1042",
+      "1042"
+    ],
+    "into": [
+      "3172"
+    ],
+    "image": {
+      "full": "3006.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 0,
+      "y": 96,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 300,
+      "purchasable": true,
+      "total": 1100,
+      "sell": 770
+    },
+    "tags": [
+      "AttackSpeed",
+      "Boots"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMovementSpeedMod": 45,
+      "PercentAttackSpeedMod": 0.3
+    },
+    "depth": 2
+  },
+  "3031": {
+    "name": "Infinity Edge",
+    "description": "<mainText><stats><attention>75</attention> Attack Damage<br><attention>25%</attention> Critical Strike Chance<br><attention>30%</attention> Critical Strike Damage</stats><br><br></mainText>",
+    "colloq": ";ie",
+    "plaintext": "Massively enhances critical strikes",
+    "from": [
+      "1038",
+      "1037",
+      "1018"
+    ],
+    "image": {
+      "full": "3031.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 48,
+      "y": 144,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 725,
+      "purchasable": true,
+      "total": 3500,
+      "sell": 2450
+    },
+    "tags": [
+      "CriticalStrike",
+      "Damage"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatCritChanceMod": 0.25,
+      "FlatPhysicalDamageMod": 75
+    },
+    "depth": 2
+  },
+  "3086": {
+    "name": "Zeal",
+    "description": "<mainText><stats><attention>15%</attention> Attack Speed<br><attention>15%</attention> Critical Strike Chance<br><attention>4%</attention> Move Speed</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Slight bonuses to Critical Strike Chance, Move Speed and Attack Speed",
+    "from": [
+      "1018",
+      "1042"
+    ],
+    "into": [
+      "2512",
+      "3094",
+      "3046",
+      "3085",
+      "4403",
+      "6671",
+      "6675"
+    ],
+    "image": {
+      "full": "3086.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 192,
+      "y": 288,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 350,
+      "purchasable": true,
+      "total": 1200,
+      "sell": 840
+    },
+    "tags": [
+      "CriticalStrike",
+      "AttackSpeed",
+      "NonbootsMovement"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatCritChanceMod": 0.15,
+      "PercentAttackSpeedMod": 0.15,
+      "PercentMovementSpeedMod": 0.04
+    },
+    "depth": 2
+  },
+  "3089": {
+    "name": "Rabadon's Deathcap",
+    "description": "<mainText><stats><attention>130</attention> Ability Power</stats><br><br><passive>Magical Opus</passive><br>Increases your total <scaleAP>Ability Power by 30%</scaleAP>.</mainText>",
+    "colloq": ";dc;banksys;hat",
+    "plaintext": "Massively increases Ability Power",
+    "from": [
+      "1058",
+      "1058"
+    ],
+    "image": {
+      "full": "3089.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 288,
+      "y": 288,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 1100,
+      "purchasable": true,
+      "total": 3500,
+      "sell": 2450
+    },
+    "tags": [
+      "SpellDamage"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMagicDamageMod": 130
+    },
+    "depth": 2
+  },
+  "3133": {
+    "name": "Caulfield's Warhammer",
+    "description": "<mainText><stats><attention>20</attention> Attack Damage<br><attention>10</attention> Ability Haste</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Attack Damage and Cooldown Reduction",
+    "stacks": 0,
+    "from": [
+      "1036",
+      "2022",
+      "1036"
+    ],
+    "into": [
+      "6333",
+      "126697",
+      "6697",
+      "4402",
+      "3156",
+      "2517",
+      "323004",
+      "6693",
+      "3004",
+      "3508",
+      "3074",
+      "3179",
+      "6691",
+      "6609",
+      "6610",
+      "6632",
+      "6692",
+      "6694",
+      "6696"
+    ],
+    "image": {
+      "full": "3133.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 48,
+      "y": 432,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 100,
+      "purchasable": true,
+      "total": 1050,
+      "sell": 735
+    },
+    "tags": [
+      "Damage",
+      "CooldownReduction",
+      "AbilityHaste"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatPhysicalDamageMod": 20
+    },
+    "depth": 2
+  },
+  "3134": {
+    "name": "Serrated Dirk",
+    "description": "<mainText><stats><attention>20</attention> Attack Damage<br><attention>10</attention> Lethality</stats><br><br></mainText>",
+    "colloq": ";lethality",
+    "plaintext": "Increases Attack Damage and Lethality",
+    "stacks": 0,
+    "from": [
+      "1036",
+      "1036"
+    ],
+    "into": [
+      "3142",
+      "667666",
+      "126697",
+      "6697",
+      "6701",
+      "6693",
+      "2520",
+      "4004",
+      "6695",
+      "3814",
+      "3131",
+      "3179",
+      "6691",
+      "6676"
+    ],
+    "image": {
+      "full": "3134.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 96,
+      "y": 432,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 300,
+      "purchasable": true,
+      "total": 1000,
+      "sell": 700
+    },
+    "tags": [
+      "Damage",
+      "ArmorPenetration"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatPhysicalDamageMod": 20
+    },
+    "depth": 2
+  },
+  "3135": {
+    "name": "Void Staff",
+    "description": "<mainText><stats><attention>95</attention> Ability Power<br><attention>40%</attention> Magic Penetration</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Increases magic damage",
+    "from": [
+      "4630",
+      "1026"
+    ],
+    "image": {
+      "full": "3135.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 144,
+      "y": 432,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 1050,
+      "purchasable": true,
+      "total": 3000,
+      "sell": 2100
+    },
+    "tags": [
+      "MagicPenetration",
+      "SpellDamage"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMagicDamageMod": 95
+    },
+    "depth": 3
+  },
+  "3158": {
+    "name": "Ionian Boots of Lucidity",
+    "description": "<mainText><stats><attention>10</attention> Ability Haste<br><attention>45</attention> Move Speed</stats><br><br><passive>Ionian Insight</passive><br>Gain 10 Summoner Spell Haste.<br><br></mainText>",
+    "colloq": "",
+    "plaintext": "Increases Move Speed and Cooldown Reduction",
+    "from": [
+      "1001",
+      "2022"
+    ],
+    "into": [
+      "3171"
+    ],
+    "image": {
+      "full": "3158.png",
+      "sprite": "item4.png",
+      "group": "item",
+      "x": 384,
+      "y": 0,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 350,
+      "purchasable": true,
+      "total": 900,
+      "sell": 630
+    },
+    "tags": [
+      "Boots",
+      "CooldownReduction"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMovementSpeedMod": 45
+    },
+    "depth": 2
+  },
+  "3020": {
+    "name": "Sorcerer's Shoes",
+    "description": "<mainText><stats><attention>12</attention> Magic Penetration<br><attention>45</attention> Move Speed</stats><br><br></mainText>",
+    "colloq": ";",
+    "plaintext": "Enhances Move Speed and magic damage",
+    "from": [
+      "1001"
+    ],
+    "into": [
+      "3175"
+    ],
+    "image": {
+      "full": "3020.png",
+      "sprite": "item3.png",
+      "group": "item",
+      "x": 336,
+      "y": 96,
+      "w": 48,
+      "h": 48
+    },
+    "gold": {
+      "base": 800,
+      "purchasable": true,
+      "total": 1100,
+      "sell": 770
+    },
+    "tags": [
+      "Boots",
+      "MagicPenetration"
+    ],
+    "maps": {
+      "11": true,
+      "12": true,
+      "22": false,
+      "30": false,
+      "453": true
+    },
+    "stats": {
+      "FlatMovementSpeedMod": 45
+    },
+    "depth": 2
+  }
+}

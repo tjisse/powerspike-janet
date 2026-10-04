@@ -1,0 +1,256 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/lulu/lulu.bin.json",
+  "sha256": "f5b8d3379353094f7b9052a980122bb7a2bd953ad1ebc5a55e01cbe8f41b3dd9",
+  "path": "Characters/Lulu/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Lulu",
+    "baseHPModifiable": {
+      "baseValue": 565.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 92.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 85.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 350.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 55.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 2.200000047683716,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 47.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.599999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.25,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 625.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "LuluBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.5,
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+        "mAttackName": "LuluCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "LuluQAbility/LuluQ",
+      "LuluWAbility/LuluW",
+      "LuluEAbility/LuluE",
+      "LuluRAbility/LuluR"
+    ],
+    "spells": [
+      "Characters/Lulu/Spells/LuluQAbility/LuluQ",
+      "Characters/Lulu/Spells/LuluWAbility/LuluW",
+      "Characters/Lulu/Spells/LuluEAbility/LuluE",
+      "Characters/Lulu/Spells/LuluRAbility/LuluR"
+    ],
+    "extraSpells": [
+      "LuluPassiveMissile",
+      "LuluQMissile",
+      "LuluQMissileTwo",
+      "LuluPassiveMissileController",
+      "BaseSpell",
+      "LuluWTwo",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassiveMissile",
+      "Characters/Lulu/Spells/LuluQAbility/LuluQMissile",
+      "Characters/Lulu/Spells/LuluQAbility/LuluQMissileTwo",
+      "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassiveMissileController",
+      "Shared/Spells/BaseSpell",
+      "Characters/Lulu/Spells/LuluWAbility/LuluWTwo",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Lulu/Spells/LuluQAbility",
+      "Characters/Lulu/Spells/LuluWAbility",
+      "Characters/Lulu/Spells/LuluEAbility",
+      "Characters/Lulu/Spells/LuluRAbility",
+      "Characters/Lulu/Spells/LuluPassiveAbility"
+    ],
+    "passiveName": "Spell_LuluPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_LuluPassive_Summary",
+    "passiveSpell": "LuluPassive",
+    "passive1IconName": "assets/characters/lulu/hud/icons2d/lulu_pixfaeriecompanion.dds",
+    "name": "game_character_displayname_Lulu",
+    "selectionHeight": 85.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      11,
+      0,
+      8
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_LuluPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "support",
+      "searchTagsSecondary": "mage",
+      "championId": 117,
+      "roles": "SUPPORT",
+      "magicRank": 7,
+      "difficultyRank": 5,
+      "description": "game_character_description_Lulu",
+      "defenseRank": 5,
+      "classification": "Arcane",
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Lulu/Spells/LuluRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

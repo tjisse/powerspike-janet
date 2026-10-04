@@ -1,0 +1,285 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/talon/talon.bin.json",
+  "sha256": "4a5668e9cd00c203162bb0f50ae0cffdd7b4906fa71343da8a5c9581fd9db1e7",
+  "path": "Characters/Talon/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Talon",
+    "baseHPModifiable": {
+      "baseValue": 658.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 95.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 37.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.5199999809265137,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 68.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 36.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.9000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.1979999989271164,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "TalonBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "TalonCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TalonQAbility/TalonQ",
+      "TalonWAbility/TalonW",
+      "TalonEAbility/TalonE",
+      "TalonRAbility/TalonR"
+    ],
+    "spells": [
+      "Characters/Talon/Spells/TalonQAbility/TalonQ",
+      "Characters/Talon/Spells/TalonWAbility/TalonW",
+      "Characters/Talon/Spells/TalonEAbility/TalonE",
+      "Characters/Talon/Spells/TalonRAbility/TalonR"
+    ],
+    "extraSpells": [
+      "TalonQAttack",
+      "TalonWMissileOne",
+      "TalonWMissileTwo",
+      "TalonRMisOne",
+      "TalonRMisTwo",
+      "BaseSpell",
+      "BaseSpell",
+      "TalonPassiveAttack",
+      "TalonPassiveAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Talon/Spells/TalonQAbility/TalonQAttack",
+      "Characters/Talon/Spells/TalonWAbility/TalonWMissileOne",
+      "Characters/Talon/Spells/TalonWAbility/TalonWMissileTwo",
+      "Characters/Talon/Spells/TalonRAbility/TalonRMisOne",
+      "Characters/Talon/Spells/TalonRAbility/TalonRMisTwo",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveAttack",
+      "Characters/Talon/Spells/TalonPassiveAbility/TalonPassiveAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Talon/Spells/TalonRAbility",
+      "Characters/Talon/Spells/TalonQAbility",
+      "Characters/Talon/Spells/TalonWAbility",
+      "Characters/Talon/Spells/TalonEAbility",
+      "Characters/Talon/Spells/TalonPassiveAbility"
+    ],
+    "passiveName": "Spell_TalonPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_TalonPassive_Summary",
+    "passiveSpell": "TalonPassive",
+    "passive1IconName": "assets/characters/talon/hud/icons2d/talonp.dds",
+    "name": "game_character_displayname_Talon",
+    "weaponMaterials": [
+      "TalonBasicAttack"
+    ],
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      13,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "Spell_TalonPassive_Name",
+          "level": [
+            1,
+            6,
+            11,
+            16
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "championId": 91,
+      "roles": "MAGE",
+      "magicRank": 1,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Talon",
+      "defenseRank": 3,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8414472,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Talon/Spells/TalonPassiveAbility/TalonPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

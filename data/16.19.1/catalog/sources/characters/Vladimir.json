@@ -1,0 +1,299 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/vladimir/vladimir.bin.json",
+  "sha256": "923d6041f45decf35a4c4b7edce03dd73d136d5066d35a0bc6b1b3eaaf79176f",
+  "path": "Characters/Vladimir/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Vladimir",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 110.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 95.0,
+    "primaryAbilityResource": {
+      "arType": 8,
+      "{726ee5cd}": {
+        "baseValue": 2.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 4,
+      "arHasRegenText": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 450.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5199999809265137,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 0.25,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "VladimirBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "VladimirBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "VladimirBasicAttack4",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.07210899889469147,
+        "mAttackName": "VladimirCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "VladimirQAbility/VladimirQ",
+      "VladimirSanguinePoolAbility/VladimirSanguinePool",
+      "VladimirEAbility/VladimirE",
+      "VladimirHemoplagueAbility/VladimirHemoplague"
+    ],
+    "spells": [
+      "Characters/Vladimir/Spells/VladimirQAbility/VladimirQ",
+      "Characters/Vladimir/Spells/VladimirSanguinePoolAbility/VladimirSanguinePool",
+      "Characters/Vladimir/Spells/VladimirEAbility/VladimirE",
+      "Characters/Vladimir/Spells/VladimirHemoplagueAbility/VladimirHemoplague"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "VladimirTransfusionHeal",
+      "VladimirHemoplagueMissile",
+      "VladimirRHealMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "VladimirBloodGorged",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Vladimir/Spells/VladimirTransfusionHeal",
+      "Characters/Vladimir/Spells/VladimirHemoplagueMissile",
+      "Characters/Vladimir/Spells/VladimirRHealMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Vladimir/Spells/VladimirBloodGorgedAbility/VladimirBloodGorged",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Vladimir/Spells/VladimirQAbility",
+      "Characters/Vladimir/Spells/VladimirSanguinePoolAbility",
+      "Characters/Vladimir/Spells/VladimirEAbility",
+      "Characters/Vladimir/Spells/VladimirHemoplagueAbility",
+      "Characters/Vladimir/Spells/VladimirBloodGorgedAbility"
+    ],
+    "passiveName": "game_character_passiveName_Vladimir",
+    "passiveLuaName": "VladimirBloodGorged",
+    "passiveToolTip": "game_character_passiveDescription_Vladimir",
+    "passive1IconName": "assets/characters/vladimir/hud/icons2d/vladimirp.dds",
+    "name": "game_character_displayname_Vladimir",
+    "parName": "game_ability_resource_CrimsonRush",
+    "selectionHeight": 183.3300018310547,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Vladimir",
+          "level": [
+            1,
+            6,
+            16
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "fighter",
+      "championId": 8,
+      "roles": "MAGE",
+      "PARFadeColor": "55 55 55",
+      "magicRank": 8,
+      "LevelSpellEffectiveness": 5.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Vladimir",
+      "defenseRank": 6,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398084,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Vladimir/Spells/VladimirBloodGorgedAbility/VladimirBloodGorged",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Vladimir/Spells/VladimirBloodGorgedAbility/VladimirBloodGorged",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/Eternals_SkillshotMissileTracker",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Vladimir/Spells/VladimirBloodBallVFXBuff",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/caitlyn/caitlyn.bin.json",
+  "sha256": "ae66eab6b03aa69aa8870e7fbd7ea04fb11d9d9db2b8a764abd8f469d62dda0f",
+  "path": "Characters/Caitlyn/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Caitlyn",
+    "baseHPModifiable": {
+      "baseValue": 580.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 107.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.699999988079071,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 99.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 315.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4800000190734863,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 62.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.799999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 27.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 650.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6809999942779541,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.12291666865348816,
+      "mAttackProbability": 1.0,
+      "mAttackName": "CaitlynBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackName": "CaitlynCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "CaitlynQAbility/CaitlynQ",
+      "CaitlynWAbility/CaitlynW",
+      "CaitlynEAbility/CaitlynE",
+      "CaitlynRAbility/CaitlynR"
+    ],
+    "spells": [
+      "Characters/Caitlyn/Spells/CaitlynQAbility/CaitlynQ",
+      "Characters/Caitlyn/Spells/CaitlynWAbility/CaitlynW",
+      "Characters/Caitlyn/Spells/CaitlynEAbility/CaitlynE",
+      "Characters/Caitlyn/Spells/CaitlynRAbility/CaitlynR"
+    ],
+    "extraSpells": [
+      "CaitlynRMissile",
+      "CaitlynEMissile",
+      "CaitlynPassiveMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Caitlyn/Spells/CaitlynRAbility/CaitlynRMissile",
+      "Characters/Caitlyn/Spells/CaitlynEAbility/CaitlynEMissile",
+      "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassiveMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Caitlyn/Spells/CaitlynQAbility",
+      "Characters/Caitlyn/Spells/CaitlynWAbility",
+      "Characters/Caitlyn/Spells/CaitlynEAbility",
+      "Characters/Caitlyn/Spells/CaitlynRAbility",
+      "Characters/Caitlyn/Spells/CaitlynPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "CaitlynPassive",
+    "passive1IconName": "assets/characters/caitlyn/hud/icons2d/caitlyn_headshot.dds",
+    "name": "game_character_displayname_Caitlyn",
+    "mUseCCAnimations": true,
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      14,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "marksman",
+      "championId": 51,
+      "roles": "ATTACKER",
+      "magicRank": 2,
+      "difficultyRank": 6,
+      "description": "game_character_description_Caitlyn",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassive",
+        "mComponentBuffs": [
+          "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassiveCount",
+          "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassiveDriver",
+          "Characters/Caitlyn/Spells/CaitlynPassiveAbility/CaitlynPassiveRangeCheck"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Caitlyn/Spells/CaitlynSkin11Manager",
+        "SkinFilter": {
+          "skinIds": [
+            11
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Caitlyn/Spells/CaitlynSkin22Manager",
+        "SkinFilter": {
+          "skinIds": [
+            22
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

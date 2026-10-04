@@ -1,0 +1,10 @@
+cache/
+build/
+dist/
+*.so
+*.dll
+*.dylib
+__pycache__/
+observations/local/
+packages/
+site/

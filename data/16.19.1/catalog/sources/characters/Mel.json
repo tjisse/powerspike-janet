@@ -1,0 +1,203 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/mel/mel.bin.json",
+  "sha256": "aa205be7763838e156fdc83528acdeaf1aa5990bfd95ec47cb37ee0e398d6f2d",
+  "path": "Characters/Mel/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Mel",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 480.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 28.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.7999999523162842,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.18000000715255737,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 54.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 625.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.14399999380111694,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.14399999380111694,
+        "mAttackName": "MelCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "MelQAbility/MelQ",
+      "MelWAbility/MelW",
+      "MelEAbility/MelE",
+      "MelRAbility/MelR"
+    ],
+    "spells": [
+      "Characters/Mel/Spells/MelQAbility/MelQ",
+      "Characters/Mel/Spells/MelWAbility/MelW",
+      "Characters/Mel/Spells/MelEAbility/MelE",
+      "Characters/Mel/Spells/MelRAbility/MelR"
+    ],
+    "mAbilities": [
+      "Characters/Mel/Spells/MelPassiveAbility",
+      "Characters/Mel/Spells/MelQAbility",
+      "Characters/Mel/Spells/MelWAbility",
+      "Characters/Mel/Spells/MelEAbility",
+      "Characters/Mel/Spells/MelRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Mel",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Mel",
+    "passiveSpell": "MelPassive",
+    "passive1IconName": "assets/characters/mel/hud/icons2d/mel_passive.dds",
+    "name": "game_character_displayname_Mel",
+    "mUseCCAnimations": true,
+    "selectionHeight": 85.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      15,
+      0,
+      14,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 800,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 5,
+      "description": "game_character_description_Mel",
+      "defenseRank": 4,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8414464,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Mel/Spells/MelPassiveAbility/MelPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Mel/Spells/MelPassiveAbility/MelPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

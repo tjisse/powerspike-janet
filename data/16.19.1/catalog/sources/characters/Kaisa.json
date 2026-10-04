@@ -1,0 +1,427 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/kaisa/kaisa.bin.json",
+  "sha256": "a5b33a10089b19c22170205b9cf3ee46a3b39607a138b85c8b297a1ecfa6f7b9",
+  "path": "Characters/Kaisa/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Kaisa",
+    "evolutionData": {
+      "mTitle": "game_character_evolutionBarTitle_Kaisa",
+      "mTooltips": [
+        "game_spell_tooltip_KaisaQEvolved",
+        "game_spell_tooltip_KaisaWEvolved",
+        "game_spell_tooltip_KaisaEEvolved",
+        ""
+      ],
+      "mIconNames": [
+        "assets/characters/kaisa/hud/icons2d/kaisa_q2.dds",
+        "assets/characters/kaisa/hud/icons2d/kaisa_w2.dds",
+        "assets/characters/kaisa/hud/icons2d/kaisa_e2.dds",
+        "{ef46db3751d8e999}"
+      ],
+      "__type": "EvolutionDescription"
+    },
+    "baseHPModifiable": {
+      "baseValue": 640.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 102.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.800000011920929,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 345.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6399999856948853,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 25.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.7999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5520000457763672,
+      "mAttackCastTime": 0.25,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "KaisaBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "KaisaBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEAttack5",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "KaisaPAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaEPAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "KaisaCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaECritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaECritAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaECritAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaECritAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackName": "KaisaECritAttack5",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "KaisaCritAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "KaisaCritAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KaisaQAbility/KaisaQ",
+      "KaisaWAbility/KaisaW",
+      "KaisaEAbility/KaisaE",
+      "KaisaRAbility/KaisaR"
+    ],
+    "spells": [
+      "Characters/Kaisa/Spells/KaisaQAbility/KaisaQ",
+      "Characters/Kaisa/Spells/KaisaWAbility/KaisaW",
+      "Characters/Kaisa/Spells/KaisaEAbility/KaisaE",
+      "Characters/Kaisa/Spells/KaisaRAbility/KaisaR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "KaisaBasicAttack",
+      "KaisaBasicAttack2",
+      "KaisaCritAttack",
+      "KaisaCritAttack2",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Kaisa/Spells/KaisaBasicAttack",
+      "Characters/Kaisa/Spells/KaisaBasicAttack2",
+      "Characters/Kaisa/Spells/KaisaCritAttack",
+      "Characters/Kaisa/Spells/KaisaCritAttack2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Kaisa/Spells/KaisaQAbility",
+      "Characters/Kaisa/Spells/KaisaWAbility",
+      "Characters/Kaisa/Spells/KaisaEAbility",
+      "Characters/Kaisa/Spells/KaisaRAbility",
+      "Characters/Kaisa/Spells/KaisaPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Kaisa",
+    "passiveLuaName": "KaisaPassive",
+    "passiveToolTip": "game_character_passiveDescription_Kaisa",
+    "passiveSpell": "KaisaPassive",
+    "passive1IconName": "assets/characters/kaisa/hud/icons2d/kaisa_passive.dds",
+    "name": "game_character_displayname_Kaisa",
+    "selectionHeight": 122.22219848632812,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 40.68000030517578,
+    "{eb74898c}": 0.12999999523162842,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Kaisa",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "mage",
+      "championId": 145,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "difficultyRank": 6,
+      "description": "game_character_description_Kaisa",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.8999999761581421,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Kaisa/Spells/KaisaPassiveAbility/KaisaPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaPassiveAbility/KaisaPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaAttackAnimationCycle",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaQAbility/KaisaQEvolveProgression",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaWAbility/KaisaWEvolveProgression",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaEAbility/KaisaEEvolveProgression",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaSkin40Manager",
+        "SkinFilter": {
+          "skinIds": [
+            40
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/ObjectiveGraffitiSource",
+        "SkinFilter": {
+          "skinIds": [
+            71
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaSkin70Manager",
+        "SkinFilter": {
+          "skinIds": [
+            70
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kaisa/Spells/KaisaSkin71Manager",
+        "SkinFilter": {
+          "skinIds": [
+            71
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

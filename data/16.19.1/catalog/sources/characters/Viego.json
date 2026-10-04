@@ -1,0 +1,617 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/viego/viego.bin.json",
+  "sha256": "172cd98d4cfc665b666e979f564b98ad28216ceb3bea1eb5cf173b9d9b588c04",
+  "path": "Characters/Viego/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Viego",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 104.0,
+    "primaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 10000.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arIsShown": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 57.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 34.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.599999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 200.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.75,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 775.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5199999809265137,
+      "mAttackCastTime": 0.25,
+      "mAttackProbability": 1.0,
+      "mAttackName": "ViegoBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "ViegoBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "ViegoBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5199999809265137,
+        "mAttackCastTime": 0.25,
+        "mAttackProbability": 1.0,
+        "mAttackName": "ViegoCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "ViegoCritAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "ViegoCritAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "deathEventListeningRadius": 1500.0,
+    "spellNames": [
+      "ViegoQAbility/ViegoQ",
+      "ViegoWAbility/ViegoW",
+      "ViegoEAbility/ViegoE",
+      "ViegoRAbility/ViegoR"
+    ],
+    "spells": [
+      "Characters/Viego/Spells/ViegoQAbility/ViegoQ",
+      "Characters/Viego/Spells/ViegoWAbility/ViegoW",
+      "Characters/Viego/Spells/ViegoEAbility/ViegoE",
+      "Characters/Viego/Spells/ViegoRAbility/ViegoR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Viego/Spells/ViegoQAbility",
+      "Characters/Viego/Spells/ViegoWAbility",
+      "Characters/Viego/Spells/ViegoEAbility",
+      "Characters/Viego/Spells/ViegoRAbility",
+      "Characters/Viego/Spells/ViegoPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_ViegoMartialCadence_Summary",
+    "passiveSpell": "ViegoPassive",
+    "passive1IconName": "assets/characters/viego/hud/icons2d/viego_passive.dds",
+    "name": "game_character_displayname_Viego",
+    "weaponMaterials": [
+      "ViegoBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 100.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      14,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 234,
+      "roles": "BRAWLER",
+      "magicRank": 2,
+      "difficultyRank": 5,
+      "description": "game_character_description_Viego",
+      "defenseRank": 4,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "{aa75da9d}": false,
+      "attackRank": 6,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 6,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 16,
+                  "__type": "CharacterLevelRequirement"
+                },
+                {
+                  "mBuffName": "{4c8e96d4}",
+                  "__type": "HasBuffRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "useRiotRelationships": true,
+    "flags": 8414472,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Viego/Spells/ViegoPassiveAbility/ViegoPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Viego/Spells/ViegoPassiveAbility/ViegoPassive",
+        "mComponentBuffs": [
+          "Characters/Viego/Spells/ViegoEAbility/ViegoEMist",
+          "Characters/Viego/Spells/ViegoPassiveAbility/ViegoPassiveNotTransformed"
+        ],
+        "mChildSpells": [
+          "Characters/Viego/Spells/ViegoPassiveAbility/ViegoPassiveAttack"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "{5f55d2d9}",
+        "SkinFilter": {
+          "skinIds": [
+            30
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "{6b528185}",
+        "mComponentBuffs": [
+          "{ada0a9a9}",
+          "{aca0a816}",
+          "{aba0a683}",
+          "{aaa0a4f0}",
+          "{b1a0aff5}",
+          "{b0a0ae62}",
+          "{afa0accf}"
+        ],
+        "SkinFilter": {
+          "skinIds": [
+            43
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

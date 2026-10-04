@@ -1,0 +1,569 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/nidalee/nidalee.bin.json",
+  "sha256": "ebb70f0ada28ae79a32b9c1fec4be6f5f4df5059a851411eae5eec87278585b7",
+  "path": "Characters/Nidalee/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Nidalee",
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 295.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arIsShown": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.4500000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.2200000286102295,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackProbability": 0.5,
+        "mAttackName": "NidaleeBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "NidaleeCougarBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "NidaleeCougarBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "NidaleeCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "NidaleeCougarCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "JavelinTossAbility/JavelinToss",
+      "BushwhackAbility/Bushwhack",
+      "PrimalSurgeAbility/PrimalSurge",
+      "AspectOfTheCougarAbility/AspectOfTheCougar"
+    ],
+    "spells": [
+      "Characters/Nidalee/Spells/JavelinTossAbility/JavelinToss",
+      "Characters/Nidalee/Spells/BushwhackAbility/Bushwhack",
+      "Characters/Nidalee/Spells/PrimalSurgeAbility/PrimalSurge",
+      "Characters/Nidalee/Spells/AspectOfTheCougarAbility/AspectOfTheCougar"
+    ],
+    "extraSpells": [
+      "NidaleeCougarTakedownAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Nidalee/Spells/NidaleeCougarTakedownAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Nidalee/Spells/AspectOfTheCougarAbility",
+      "Characters/Nidalee/Spells/JavelinTossAbility",
+      "Characters/Nidalee/Spells/BushwhackAbility",
+      "Characters/Nidalee/Spells/PrimalSurgeAbility",
+      "Characters/Nidalee/Spells/NidaleePassiveHuntAbility"
+    ],
+    "passiveName": "game_character_passiveName_Nidalee",
+    "passiveLuaName": "NidaleePassiveHunt",
+    "passiveToolTip": "game_character_passiveDescription_Nidalee",
+    "passiveSpell": "NidaleePassiveHunt",
+    "passive1IconName": "assets/characters/nidalee/hud/icons2d/nidalee_passive.dds",
+    "name": "game_character_displayname_Nidalee",
+    "weaponMaterials": [
+      "NidaleeBasicAttack"
+    ],
+    "outlineBBoxExpansion": 50.0,
+    "selectionHeight": 120.0,
+    "selectionRadius": 110.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Cardmaster_Attack1.wav",
+          "Cardmaster_Attack2.wav",
+          "Cardmaster_Attack3.wav",
+          "Cardmaster_Attack4.wav"
+        ],
+        "click": [
+          "Cardmaster_Click1.wav",
+          "Cardmaster_Click2.wav",
+          "Cardmaster_Click3.wav",
+          "Cardmaster_Click4.wav"
+        ],
+        "move": [
+          "Cardmaster_Move1.wav",
+          "Cardmaster_Move2.wav",
+          "Cardmaster_Move3.wav",
+          "Cardmaster_Move4.wav"
+        ],
+        "death": "Cardmaster_Death.wav",
+        "ready": "Cardmaster_Ready2.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Reveals all enemy Champions and slows their movement speed for a short duration.",
+          "displayName": "Destiny",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds +10% Attack Rate.",
+        "Adds +15% Attack Rate.",
+        "Adds +20% Attack Rate."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Nidalee",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "alternateForms": [
+        {
+          "champion": "NidaleeCougar",
+          "name": "NidaleeCougar",
+          "spells": [
+            "Takedown",
+            "Pounce",
+            "Swipe",
+            "AspectOfTheCougar"
+          ],
+          "theSwitch": "Spell",
+          "__type": "ToolAlternateForm"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "mage",
+      "championId": 76,
+      "roles": "MAGE",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Nidalee",
+      "defenseRank": 4,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 5,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 6,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 16,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "purchaseIdentities": [
+      "Ranged",
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/NullifyingOrb",
+          "mReplaceWith": "Perks/Styles/Sorcery/NimbusCloak",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/NidaleePassiveHunt",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Nidalee/Spells/NidaleePassiveHuntAbility/NidaleePassiveHunt",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "hpPerLevel": 15.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

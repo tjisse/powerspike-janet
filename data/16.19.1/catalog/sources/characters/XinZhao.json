@@ -1,0 +1,353 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/xinzhao/xinzhao.bin.json",
+  "sha256": "23baa8a4591946ae7c34a4d9d7542b4a64b36a1af164e8ebacf0d488550d114d",
+  "path": "Characters/XinZhao/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "XinZhao",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 92.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 274.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 55.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4500000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.09000000357627869,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 63.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.400000095367432,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6449999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6449999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5499999523162842,
+      "mAttackCastTime": 0.28999999165534973,
+      "mAttackProbability": 0.5,
+      "mAttackName": "XinZhaoBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.28999999165534973,
+        "mAttackProbability": 0.5,
+        "mAttackName": "XinZhaoBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.28999999165534973,
+        "mAttackName": "XinZhaoPassiveCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.28999999165534973,
+        "mAttackName": "XinZhaoEBasicAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.3199999928474426,
+        "mAttackName": "XinZhaoCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.20000000298023224,
+        "mAttackName": "XinZhaoQThrust3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5499999523162842,
+        "mAttackCastTime": 0.28999999165534973,
+        "mAttackName": "XinZhaoPassiveCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "XinZhaoQAbility/XinZhaoQ",
+      "XinZhaoWAbility/XinZhaoW",
+      "XinZhaoEAbility/XinZhaoE",
+      "XinZhaoRAbility/XinZhaoR"
+    ],
+    "spells": [
+      "Characters/XinZhao/Spells/XinZhaoQAbility/XinZhaoQ",
+      "Characters/XinZhao/Spells/XinZhaoWAbility/XinZhaoW",
+      "Characters/XinZhao/Spells/XinZhaoEAbility/XinZhaoE",
+      "Characters/XinZhao/Spells/XinZhaoRAbility/XinZhaoR"
+    ],
+    "extraSpells": [
+      "XinZhaoQThrust1",
+      "XinZhaoQThrust2",
+      "XinZhaoQThrust3",
+      "XinZhaoEDash",
+      "XinZhaoESpellCastTrigger",
+      "XinZhaoEBasicAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "XinZhaoPassiveCritAttack",
+      "XinZhaoWMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/XinZhao/Spells/XinZhaoQThrust1",
+      "Characters/XinZhao/Spells/XinZhaoQThrust2",
+      "Characters/XinZhao/Spells/XinZhaoQThrust3",
+      "Characters/XinZhao/Spells/XinZhaoEAbility/XinZhaoEDash",
+      "Characters/XinZhao/Spells/XinZhaoEAbility/XinZhaoESpellCastTrigger",
+      "Characters/XinZhao/Spells/XinZhaoEBasicAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/XinZhao/Spells/XinZhaoPassiveCritAttack",
+      "Characters/XinZhao/Spells/XinZhaoWAbility/XinZhaoWMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/XinZhao/Spells/XinZhaoEAbility",
+      "Characters/XinZhao/Spells/XinZhaoQAbility",
+      "Characters/XinZhao/Spells/XinZhaoWAbility",
+      "Characters/XinZhao/Spells/XinZhaoRAbility",
+      "Characters/XinZhao/Spells/XinZhaoPAbility"
+    ],
+    "passiveName": "Spell_XinZhaoP_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_XinZhaoP_Summary",
+    "passiveSpell": "XinZhaoP",
+    "passive1IconName": "assets/characters/xinzhao/hud/icons2d/xinzhaoreworkp.dds",
+    "name": "game_character_displayname_XinZhao",
+    "weaponMaterials": [
+      "XenZhaoBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 138.88890075683594,
+    "selectionRadius": 108.33329772949219,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      0,
+      0,
+      7
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Master Yi moves like a blur through the battlefield, moving and attacking faster",
+          "displayName": "Highlander",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{42ac598e}": true,
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "Spell_XinZhaoP_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 5,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "difficultyRank": 2,
+      "description": "game_character_description_XinZhao",
+      "defenseRank": 6,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8414472,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/XinZhao/Spells/XinZhaoPAbility/XinZhaoP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/XinZhao/Spells/XinZhaoPAbility/XinZhaoP",
+        "mChildSpells": [
+          "Characters/XinZhao/Spells/XinZhaoPassiveCritAttack"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/XinZhao/Spells/XinZhaoRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

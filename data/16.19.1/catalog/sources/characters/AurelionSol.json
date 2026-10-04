@@ -1,0 +1,191 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/aurelionsol/aurelionsol.bin.json",
+  "sha256": "0c43cefae8262445cbe79f9067cb2f58006881aa746871e66db35e94319bf0d4",
+  "path": "Characters/AurelionSol/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "AurelionSol",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 90.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 530.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.15000000596046448,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.23000000417232513,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.23000000417232513,
+        "mAttackName": "AurelionSolCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "AurelionSolQAbility/AurelionSolQ",
+      "AurelionSolWAbility/AurelionSolW",
+      "AurelionSolEAbility/AurelionSolE",
+      "AurelionSolRAbility/AurelionSolR"
+    ],
+    "spells": [
+      "Characters/AurelionSol/Spells/AurelionSolQAbility/AurelionSolQ",
+      "Characters/AurelionSol/Spells/AurelionSolWAbility/AurelionSolW",
+      "Characters/AurelionSol/Spells/AurelionSolEAbility/AurelionSolE",
+      "Characters/AurelionSol/Spells/AurelionSolRAbility/AurelionSolR"
+    ],
+    "mAbilities": [
+      "Characters/AurelionSol/Spells/AurelionSolQAbility",
+      "Characters/AurelionSol/Spells/AurelionSolWAbility",
+      "Characters/AurelionSol/Spells/AurelionSolEAbility",
+      "Characters/AurelionSol/Spells/AurelionSolRAbility",
+      "Characters/AurelionSol/Spells/AurelionSolPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "AurelionSolPassive",
+    "passive1IconName": "assets/characters/aurelionsol/hud/icons2d/aurelionsolp.dds",
+    "name": "game_character_displayname_AurelionSol",
+    "selectionHeight": 0.0,
+    "selectionRadius": 150.0,
+    "pathfindingCollisionRadius": 35.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_AurelionSol",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 136,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "LevelSpellEffectiveness": 1.5,
+      "difficultyRank": 7,
+      "description": "game_character_description_AurelionSol",
+      "defenseRank": 3,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/AurelionSol/Spells/AurelionSolPassiveAbility/AurelionSolPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/AurelionSol/Spells/AurelionSolPassiveAbility/AurelionSolPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/AurelionSol/Spells/AurelionSolSkin31Manager",
+        "SkinFilter": {
+          "skinIds": [
+            31
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

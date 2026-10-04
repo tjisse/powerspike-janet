@@ -1,0 +1,5 @@
+(array/insert module/paths 0 [(string (os/cwd) "/build/web-modules/:all:.janet") :source (fn [x] x)])
+(array/insert module/paths 0 [(string (os/cwd) "/build/web-modules/:all:/init.janet") :source (fn [x] x)])
+(array/insert module/paths 0 [(string (os/cwd) "/build/web-modules/:all:.so") :native (fn [x] x)])
+(import ./release :as release)
+(release/main ;(dyn :args))

@@ -1,0 +1,263 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/shaco/shaco.bin.json",
+  "sha256": "05d7f43d67d94b4a24088d21ee283f3380aaa5f60828d8a6a9c3c0ef711a2dcc",
+  "path": "Characters/Shaco/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Shaco",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 93.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 297.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07000000029802322,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 63.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6940000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6940000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.07849616557359695,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "ShacoBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.07849616557359695,
+        "mAttackName": "ShacoCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "DeceiveAbility/Deceive",
+      "JackInTheBoxAbility/JackInTheBox",
+      "TwoShivPoisonAbility/TwoShivPoison",
+      "HallucinateFullAbility/HallucinateFull"
+    ],
+    "spells": [
+      "Characters/Shaco/Spells/DeceiveAbility/Deceive",
+      "Characters/Shaco/Spells/JackInTheBoxAbility/JackInTheBox",
+      "Characters/Shaco/Spells/TwoShivPoisonAbility/TwoShivPoison",
+      "Characters/Shaco/Spells/HallucinateFullAbility/HallucinateFull"
+    ],
+    "extraSpells": [
+      "Hallucinate",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Shaco/Spells/HallucinateFullAbility/Hallucinate",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Shaco/Spells/HallucinateFullAbility",
+      "Characters/Shaco/Spells/DeceiveAbility",
+      "Characters/Shaco/Spells/JackInTheBoxAbility",
+      "Characters/Shaco/Spells/TwoShivPoisonAbility",
+      "Characters/Shaco/Spells/ShacoPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "ShacoPassive",
+    "passiveToolTip": "",
+    "passiveSpell": "ShacoPassive",
+    "passive1IconName": "assets/characters/shaco/hud/icons2d/jester_carefulstrikes.dds",
+    "name": "game_character_displayname_Shaco",
+    "weaponMaterials": [
+      "JesterBasicAttack"
+    ],
+    "selectionHeight": 180.0,
+    "selectionRadius": 135.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      5,
+      14,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Shaco cloaks himself, and continually recloaks himself but drains mana.",
+          "displayName": "Hallucinate",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Shaco cloaks himself, and continually recloaks himself but drains mana.",
+          "displayName": "Hallucinate",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Shaco cloaks himself, and continually recloaks himself but drains mana.",
+          "displayName": "Hallucinate",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Shaco cloaks himself, and continually recloaks himself but drains mana.",
+          "displayName": "Hallucinate",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Shaco",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "championId": 35,
+      "roles": "MAGE",
+      "magicRank": 6,
+      "Lore2": "As time passed, she became the cause of much trouble in Jugo. People became afraid of Annie because of the sudden fires that erupted when the little girl was in a bad mood. Several years later, she threw a temper tantrum over a dropped teddy bear, and completely incinerated her parents and her home. She has since drifted aimlessly from town to town, sometimes becoming angry over a trivial matter at which point great fire storms erupt leaving only a crying orphan girl in their wake. When the darkness inside of her felt the first call of Chaos, it discovered befitting and truly sinister use for the Dark Child.",
+      "difficultyRank": 9,
+      "description": "game_character_description_Shaco",
+      "defenseRank": 4,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Shaco/Spells/ShacoPassiveAbility/ShacoPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Shaco/Spells/ShacoPassiveAbility/ShacoPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

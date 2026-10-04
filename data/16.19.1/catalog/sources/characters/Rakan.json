@@ -1,0 +1,275 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/rakan/rakan.bin.json",
+  "sha256": "37f77a31feb641acc59a966c2c1ff94acb12cab6ff2ada90b08b9b0a8acb932f",
+  "path": "Characters/Rakan/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Rakan",
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 315.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.75,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.10000000149011612,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 5.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 5,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 62.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.900000095367432,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 300.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6349999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6349999904632568,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 475.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5750000476837158,
+      "mAttackCastTime": 0.27000001072883606,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "RakanBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "RakanCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "RakanQAbility/RakanQ",
+      "RakanWAbility/RakanW",
+      "RakanEAbility/RakanE",
+      "RakanRAbility/RakanR"
+    ],
+    "spells": [
+      "Characters/Rakan/Spells/RakanQAbility/RakanQ",
+      "Characters/Rakan/Spells/RakanWAbility/RakanW",
+      "Characters/Rakan/Spells/RakanEAbility/RakanE",
+      "Characters/Rakan/Spells/RakanRAbility/RakanR"
+    ],
+    "mAbilities": [
+      "Characters/Rakan/Spells/RakanRAbility",
+      "Characters/Rakan/Spells/RakanQAbility",
+      "Characters/Rakan/Spells/RakanWAbility",
+      "Characters/Rakan/Spells/RakanEAbility",
+      "Characters/Rakan/Spells/RakanPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Rakan",
+    "passiveLuaName": "RakanPassive",
+    "passiveToolTip": "game_character_passiveDescription_Rakan",
+    "passiveSpell": "RakanPassive",
+    "passiveRange": 250.0,
+    "passive1IconName": "assets/characters/rakan/hud/icons2d/rakan_p.dds",
+    "name": "game_character_displayname_Rakan",
+    "outlineBBoxExpansion": 50.0,
+    "selectionHeight": 200.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      14,
+      0,
+      7
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "Monsoon",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "5 Astral Spirts"
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Rakan",
+          "effect": [
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ],
+          "level": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "support",
+      "championId": 497,
+      "roles": "SUPPORT",
+      "magicRank": 8,
+      "Lore2": "poor sod",
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Rakan",
+      "defenseRank": 4,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackSpeed": 10.0,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassive",
+        "mComponentBuffs": [
+          "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassiveReady",
+          "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassiveShield"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Rakan/Spells/RakanRunCycleManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/TandemRecallManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/taric/taric.bin.json",
+  "sha256": "d5cb10ae49048734387bf728c92230b3a2c4ccf45df0ad40d0c1ac6d9ec58f23",
+  "path": "Characters/Taric/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Taric",
+    "baseHPModifiable": {
+      "baseValue": 645.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 300.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 60.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.7000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 40.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.300000190734863,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 350.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+      "mAttackName": "TaricBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+        "mAttackName": "TaricBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+        "mAttackName": "TaricBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+        "mAttackName": "TaricPassiveAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+        "mAttackName": "TaricPassiveAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.25,
+        "mAttackName": "TaricCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TaricQAbility/TaricQ",
+      "TaricWAbility/TaricW",
+      "TaricEAbility/TaricE",
+      "TaricRAbility/TaricR"
+    ],
+    "spells": [
+      "Characters/Taric/Spells/TaricQAbility/TaricQ",
+      "Characters/Taric/Spells/TaricWAbility/TaricW",
+      "Characters/Taric/Spells/TaricEAbility/TaricE",
+      "Characters/Taric/Spells/TaricRAbility/TaricR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Taric/Spells/TaricQAbility",
+      "Characters/Taric/Spells/TaricWAbility",
+      "Characters/Taric/Spells/TaricEAbility",
+      "Characters/Taric/Spells/TaricRAbility",
+      "Characters/Taric/Spells/TaricPassiveAbility"
+    ],
+    "passiveName": "Spell_TaricPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_TaricPassive_Summary",
+    "passiveSpell": "TaricPassive",
+    "passive1IconName": "assets/characters/taric/hud/icons2d/taric_passive.dds",
+    "name": "game_character_displayname_Taric",
+    "weaponMaterials": [
+      "GemKnightBasicAttack"
+    ],
+    "selectionHeight": 165.0,
+    "selectionRadius": 135.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      16,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_TaricPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "support",
+      "searchTagsSecondary": "tank",
+      "championId": 44,
+      "roles": "SUPPORT",
+      "magicRank": 5,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 3,
+      "description": "game_character_description_Taric",
+      "defenseRank": 8,
+      "ChasingAttackRangePercent": 0.30000001192092896,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Taric/Spells/TaricPassiveAbility/TaricPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Taric/Spells/TaricPassiveAbility/TaricPassive",
+        "mComponentBuffs": [
+          "Characters/Taric/Spells/TaricPassiveAbility/TaricPassiveAttack",
+          "Characters/Taric/Spells/TaricPassiveAbility/TaricPassiveAttack2"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

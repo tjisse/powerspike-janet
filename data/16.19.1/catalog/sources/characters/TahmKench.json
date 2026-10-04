@@ -1,0 +1,235 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/tahmkench/tahmkench.bin.json",
+  "sha256": "d1ededfd17e248ef9ec0bc96f8ca78d550aa5abde33e9c14d5808435db83ba40",
+  "path": "Characters/TahmKench/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "TahmKench",
+    "baseHPModifiable": {
+      "baseValue": 640.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 103.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 105.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 325.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.20000000298023224,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 56.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 39.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5190000534057617,
+      "mAttackCastTime": 0.3799999952316284,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "TahmKenchBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "TahmKenchBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "TahmKenchCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TahmKenchQAbility/TahmKenchQ",
+      "TahmKenchWAbility/TahmKenchW",
+      "TahmKenchEAbility/TahmKenchE",
+      "TahmKenchRWrapperAbility/TahmKenchRWrapper"
+    ],
+    "spells": [
+      "Characters/TahmKench/Spells/TahmKenchQAbility/TahmKenchQ",
+      "Characters/TahmKench/Spells/TahmKenchWAbility/TahmKenchW",
+      "Characters/TahmKench/Spells/TahmKenchEAbility/TahmKenchE",
+      "Characters/TahmKench/Spells/TahmKenchRWrapperAbility/TahmKenchRWrapper"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/TahmKench/Spells/TahmKenchRWrapperAbility",
+      "Characters/TahmKench/Spells/TahmKenchEAbility",
+      "Characters/TahmKench/Spells/TahmKenchQAbility",
+      "Characters/TahmKench/Spells/TahmKenchWAbility",
+      "Characters/TahmKench/Spells/TahmKenchPassiveAbility"
+    ],
+    "passiveName": "Spell_TahmKenchPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_TahmKenchPassive_Summary",
+    "passiveSpell": "TahmKenchPassive",
+    "passive1IconName": "assets/characters/tahmkench/hud/icons2d/tahmkenchp.dds",
+    "name": "game_character_displayname_TahmKench",
+    "weaponMaterials": [
+      "TahmKenchBasicAttack"
+    ],
+    "selectionHeight": 190.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_TahmKench",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "support",
+      "championId": 223,
+      "roles": "TANK",
+      "magicRank": 6,
+      "difficultyRank": 5,
+      "description": "game_character_description_TahmKench",
+      "defenseRank": 9,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 3,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/TahmKench/Spells/TahmKenchPassiveAbility/TahmKenchPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/TahmKench/Spells/TahmKenchPassiveAbility/TahmKenchPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

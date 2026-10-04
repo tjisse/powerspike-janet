@@ -1,0 +1,267 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/draven/draven.bin.json",
+  "sha256": "2b71f97a39312d0b16cbaaced4d2f15a32a5a89d22b93b0986f005a389f024e6",
+  "path": "Characters/Draven/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Draven",
+    "baseHPModifiable": {
+      "baseValue": 675.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.75,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 105.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 361.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 39.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6100000143051147,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.12999999523162842,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 64.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.4000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6790000200271606,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6790000200271606,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.4730000495910645,
+      "mAttackCastTime": 0.23000000417232513,
+      "mAttackDelayCastOffsetPercent": -0.11884059756994247,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "DravenBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "DravenAttackP_L",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "DravenAttackP_R",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11884059756994247,
+        "mAttackName": "DravenCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "DravenSpinningAbility/DravenSpinning",
+      "DravenFuryAbility/DravenFury",
+      "DravenDoubleShotAbility/DravenDoubleShot",
+      "DravenRCastAbility/DravenRCast"
+    ],
+    "spells": [
+      "Characters/Draven/Spells/DravenSpinningAbility/DravenSpinning",
+      "Characters/Draven/Spells/DravenFuryAbility/DravenFury",
+      "Characters/Draven/Spells/DravenDoubleShotAbility/DravenDoubleShot",
+      "Characters/Draven/Spells/DravenRCastAbility/DravenRCast"
+    ],
+    "extraSpells": [
+      "DravenDoubleShotMissile",
+      "DravenR",
+      "DravenSpinningAttack",
+      "DravenSpinningReturn",
+      "DravenSpinningAttackCrit",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Draven/Spells/DravenDoubleShotAbility/DravenDoubleShotMissile",
+      "Characters/Draven/Spells/DravenRCastAbility/DravenR",
+      "Characters/Draven/Spells/DravenSpinningAbility/DravenSpinningAttack",
+      "Characters/Draven/Spells/DravenSpinningAbility/DravenSpinningReturn",
+      "Characters/Draven/Spells/DravenSpinningAbility/DravenSpinningAttackCrit",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Draven/Spells/DravenRCastAbility",
+      "Characters/Draven/Spells/DravenSpinningAbility",
+      "Characters/Draven/Spells/DravenFuryAbility",
+      "Characters/Draven/Spells/DravenDoubleShotAbility",
+      "Characters/Draven/Spells/DravenPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveLuaName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "DravenPassive",
+    "passive1IconName": "assets/characters/draven/hud/icons2d/draven_passive.dds",
+    "name": "game_character_displayname_Draven",
+    "selectionHeight": 191.6667022705078,
+    "selectionRadius": 111.11109924316406,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      7,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Draven",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 119,
+      "roles": "ATTACKER",
+      "magicRank": 1,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Draven",
+      "defenseRank": 3,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8414464,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Draven/Spells/DravenPassiveAbility/DravenPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Draven/Spells/DravenPassiveAbility/DravenPassive",
+        "mComponentBuffs": [
+          "Characters/Draven/Spells/DravenPassiveAbility/DravenPassiveStacks"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

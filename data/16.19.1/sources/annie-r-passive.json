@@ -1,0 +1,553 @@
+{
+  "Characters/Annie/Spells/AnnieRAbility/AnnieR": {
+    "ObjectName": "AnnieR",
+    "objectPath": "Characters/Annie/Spells/AnnieRAbility/AnnieR",
+    "mScriptName": "AnnieR",
+    "mSpell": {
+      "mAffectsTypeFlags": 6154,
+      "mSpellTags": [
+        "Trait_Ultimate",
+        "Trait_DamageAbility",
+        "Trait_DoT",
+        "Trait_Pet",
+        "Trait_AoE"
+      ],
+      "DataValues": [
+        {
+          "name": "InitialDamage",
+          "values": [
+            25.0,
+            150.0,
+            275.0,
+            400.0,
+            525.0,
+            650.0,
+            775.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "AuraDamage",
+          "values": [
+            4.0,
+            8.0,
+            12.0,
+            16.0,
+            20.0,
+            24.0,
+            28.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersAttackDamage",
+          "values": [
+            15.0,
+            30.0,
+            45.0,
+            60.0,
+            75.0,
+            90.0,
+            105.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersAttackSpeedDecay",
+          "values": [
+            -0.10000000149011612,
+            -0.10000000149011612,
+            -0.10000000149011612,
+            -0.10000000149011612,
+            -0.10000000149011612,
+            -0.10000000149011612,
+            -0.10000000149011612
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersAttackAPRatio",
+          "values": [
+            0.10000000149011612,
+            0.10000000149011612,
+            0.10000000149011612,
+            0.10000000149011612,
+            0.10000000149011612,
+            0.10000000149011612,
+            0.10000000149011612
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "MovespeedBurst",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "EnrageDuration",
+          "values": [
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "AvengerEnrageDuration",
+          "values": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersLifetime",
+          "values": [
+            45.0,
+            45.0,
+            45.0,
+            45.0,
+            45.0,
+            45.0,
+            45.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersBonusMS",
+          "values": [
+            -25.0,
+            0.0,
+            25.0,
+            50.0,
+            75.0,
+            100.0,
+            125.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TibbersModeSpecificHPMod",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "RPercentPenBuff",
+          "values": [
+            0.05000000074505806,
+            0.10000000149011612,
+            0.15000000596046448,
+            0.20000000298023224,
+            0.25,
+            0.30000001192092896,
+            0.3499999940395355
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "DataValuesModeOverride": {
+        "cherry": {
+          "SpellDataValues": [
+            {
+              "name": "TibbersAttackAPRatio",
+              "values": [
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612
+              ],
+              "__type": "SpellDataValue"
+            },
+            {
+              "name": "InitialDamage",
+              "values": [
+                25.0,
+                125.0,
+                225.0,
+                325.0,
+                425.0,
+                525.0,
+                625.0
+              ],
+              "__type": "SpellDataValue"
+            },
+            {
+              "name": "TibbersAttackDamage",
+              "values": [
+                0.0,
+                25.0,
+                50.0,
+                75.0,
+                100.0,
+                125.0,
+                150.0
+              ],
+              "__type": "SpellDataValue"
+            },
+            {
+              "name": "AuraDamage",
+              "values": [
+                10.0,
+                15.0,
+                20.0,
+                25.0,
+                30.0,
+                35.0,
+                40.0
+              ],
+              "__type": "SpellDataValue"
+            },
+            {
+              "name": "TibbersModeSpecificHPMod",
+              "values": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "__type": "SpellDataValue"
+            }
+          ],
+          "__type": "SpellDataValueVector"
+        }
+      },
+      "mSpellCalculations": {
+        "InitialBurstDamage": {
+          "mFormulaParts": [
+            {
+              "mDataValue": "InitialDamage",
+              "__type": "NamedDataValueCalculationPart"
+            },
+            {
+              "mCoefficient": 0.75,
+              "__type": "StatByCoefficientCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "TibbersAuraDamage": {
+          "mFormulaParts": [
+            {
+              "mDataValue": "AuraDamage",
+              "__type": "NamedDataValueCalculationPart"
+            },
+            {
+              "mCoefficient": 0.03999999910593033,
+              "__type": "StatByCoefficientCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "TibbersAADamage": {
+          "mFormulaParts": [
+            {
+              "mDataValue": "TibbersAttackDamage",
+              "__type": "NamedDataValueCalculationPart"
+            },
+            {
+              "mDataValue": "TibbersAttackAPRatio",
+              "__type": "StatByNamedDataValueCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "TibbersTotalHP": {
+          "mFormulaParts": [
+            {
+              "mPart1": {
+                "mLevel1Value": 1150.0,
+                "mBreakpoints": [
+                  {
+                    "mLevel": 7,
+                    "mBonusPerLevelAtAndAfter": 50.0,
+                    "__type": "Breakpoint"
+                  },
+                  {
+                    "mLevel": 11,
+                    "mBonusPerLevelAtAndAfter": 250.0,
+                    "__type": "Breakpoint"
+                  },
+                  {
+                    "mLevel": 16,
+                    "mBonusPerLevelAtAndAfter": 300.0,
+                    "__type": "Breakpoint"
+                  }
+                ],
+                "__type": "ByCharLevelBreakpointsCalculationPart"
+              },
+              "mPart2": {
+                "mDataValue": "TibbersModeSpecificHPMod",
+                "__type": "NamedDataValueCalculationPart"
+              },
+              "__type": "ProductOfSubPartsCalculationPart"
+            },
+            {
+              "mCoefficient": 0.5,
+              "__type": "StatByCoefficientCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "TibbersTotalResists": {
+          "mFormulaParts": [
+            {
+              "mLevel1Value": 30.0,
+              "mBreakpoints": [
+                {
+                  "mLevel": 7,
+                  "mBonusPerLevelAtAndAfter": 5.0,
+                  "__type": "Breakpoint"
+                }
+              ],
+              "__type": "ByCharLevelBreakpointsCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        }
+      },
+      "mAnimationName": "Spell4",
+      "mImgIconName": [
+        "ASSETS/Characters/Annie/HUD/Icons2D/Annie_R1.dds"
+      ],
+      "spellCastTime": 0.25,
+      "spellTotalTime": 1.0,
+      "cooldownTime": [
+        130.0,
+        130.0,
+        115.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "Cooldown": {
+        "values": [
+          130.0,
+          130.0,
+          115.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ],
+        "__type": "{0a0eddc9}"
+      },
+      "mCantCancelWhileWindingUp": true,
+      "bIsToggleSpell": true,
+      "castRange": [
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0
+      ],
+      "castRangeValues": {
+        "values": [
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0
+        ],
+        "{0a3e0478}": 600.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        250.0,
+        250.0,
+        250.0,
+        250.0,
+        250.0,
+        250.0,
+        250.0
+      ],
+      "castRadiusSecondary": [
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0,
+        1000.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 0.0,
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mana": [
+        100.0,
+        100.0,
+        100.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "manaValues": {
+        "values": [
+          100.0,
+          100.0,
+          100.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "__type": "{630af303}"
+      },
+      "selectionPriority": 1,
+      "mTargetingTypeData": {
+        "__type": "Area"
+      },
+      "mSpellCooldownOrSealedQueueThreshold": 0.5,
+      "mCastingBreaksStealth": true,
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "AnnieR",
+          "mFormat": "{d7c27163}",
+          "mLocKeys": {
+            "keyName": "Spell_AnnieR_Name",
+            "keyTooltip": "Spell_AnnieR_Tooltip",
+            "keySummary": "Spell_AnnieR_Summary",
+            "keyTooltipExtendedBelowLine": "Spell_AnnieR_TooltipExtendedBelowLine"
+          },
+          "mLists": {
+            "LevelUp": {
+              "levelCount": 3,
+              "Elements": [
+                {
+                  "type": "InitialDamage",
+                  "nameOverride": "Spell_AnnieR_LevelUp_InitialDamage",
+                  "__type": "TooltipInstanceListElement"
+                },
+                {
+                  "type": "AuraDamage",
+                  "nameOverride": "Spell_AnnieR_LevelUp_AuraDamage",
+                  "__type": "TooltipInstanceListElement"
+                },
+                {
+                  "type": "TibbersAttackDamage",
+                  "nameOverride": "Spell_ListType_AttackDamageBonus",
+                  "__type": "TooltipInstanceListElement"
+                },
+                {
+                  "type": "TibbersBonusMS",
+                  "nameOverride": "Spell_AnnieR_BonusMS",
+                  "__type": "TooltipInstanceListElement"
+                },
+                {
+                  "type": "Cooldown",
+                  "nameOverride": "Spell_AnnieR_LevelUp_Cooldown",
+                  "__type": "TooltipInstanceListElement"
+                },
+                {
+                  "type": "RPercentPenBuff",
+                  "multiplier": 100.0,
+                  "nameOverride": "Spell_AnnieR_PercPen",
+                  "Style": 1,
+                  "__type": "TooltipInstanceListElement"
+                }
+              ],
+              "__type": "TooltipInstanceList"
+            }
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "mTargeterDefinitions": [
+          {
+            "__type": "TargeterDefinitionRange"
+          },
+          {
+            "centerLocator": {
+              "basePosition": 3,
+              "__type": "DrawablePositionLocator"
+            },
+            "__type": "TargeterDefinitionAoe"
+          }
+        ],
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "BotData": {
+      "DamageTag": 1,
+      "{6d548702}": {
+        "mFormulaParts": [
+          {
+            "mSpellCalculationKey": "InitialBurstDamage",
+            "__type": "{f3cbe7b2}"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{ec17e271}": [
+        {
+          "EffectTag": 4096,
+          "EffectCalculation": {
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "{38382c53}": [
+        {
+          "{e38f54f7}": 2048,
+          "{0717e686}": false,
+          "__type": "{150d1b92}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  }
+}

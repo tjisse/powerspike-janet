@@ -1,0 +1,303 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/zac/zac.bin.json",
+  "sha256": "8e6d8bf2ff4500b7260f682007d7dc2ce2f787defa642a13b745d2d0a455a716",
+  "path": "Characters/Zac/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Zac",
+    "baseHPModifiable": {
+      "baseValue": 685.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 113.0,
+    "primaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 60.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.4000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.7360000014305115,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5679999589920044,
+      "mAttackCastTime": 0.3630000054836273,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "ZacBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5679999589920044,
+        "mAttackCastTime": 0.3630000054836273,
+        "mAttackName": "ZacCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ZacQAbility/ZacQ",
+      "ZacWAbility/ZacW",
+      "ZacEAbility/ZacE",
+      "ZacRAbility/ZacR"
+    ],
+    "spells": [
+      "Characters/Zac/Spells/ZacQAbility/ZacQ",
+      "Characters/Zac/Spells/ZacWAbility/ZacW",
+      "Characters/Zac/Spells/ZacEAbility/ZacE",
+      "Characters/Zac/Spells/ZacRAbility/ZacR"
+    ],
+    "extraSpells": [
+      "ZacETimingMissile",
+      "ZacQAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Zac/Spells/ZacETimingMissile",
+      "Characters/Zac/Spells/ZacQAbility/ZacQAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Zac/Spells/ZacRAbility",
+      "Characters/Zac/Spells/ZacQAbility",
+      "Characters/Zac/Spells/ZacWAbility",
+      "Characters/Zac/Spells/ZacEAbility",
+      "Characters/Zac/Spells/ZacPassiveChunkDropAbility"
+    ],
+    "passiveName": "game_character_passiveName_Zac",
+    "passiveLuaName": "ZacPassiveChunkDrop",
+    "passiveToolTip": "game_character_passiveDescription_Zac",
+    "passiveSpell": "ZacPassiveChunkDrop",
+    "passive1IconName": "assets/characters/zac/hud/icons2d/zacpassive.dds",
+    "name": "game_character_displayname_Zac",
+    "weaponMaterials": [
+      "ZacBasicAttack"
+    ],
+    "selectionHeight": 100.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 43.07490158081055,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      0,
+      8,
+      8
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Zac",
+          "effect": [
+            "0.2",
+            "0.4",
+            "0.6",
+            "0.8"
+          ],
+          "level": [
+            3,
+            7,
+            11,
+            15
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "fighter",
+      "championId": 154,
+      "roles": "TANK",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Zac",
+      "defenseRank": 7,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 3,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Zac/Spells/ZacPassiveChunkDropAbility/ZacPassiveChunkDrop",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Zac/Spells/ZacPassiveChunkDropAbility/ZacPassiveChunkDrop",
+        "mComponentBuffs": [
+          "Characters/Zac/Spells/ZacPassiveSpawnChunk",
+          "Characters/Zac/Spells/ZacGooMove",
+          "Characters/Zac/Spells/ZacWCDRMath"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zac/Spells/ZacRebirth",
+        "mComponentBuffs": [
+          "Characters/Zac/Spells/ZacRebirthReady"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zac/Spells/ZacSizeScale",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/GlobalRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

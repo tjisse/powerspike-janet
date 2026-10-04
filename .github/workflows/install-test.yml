@@ -1,0 +1,13 @@
+name: Published RPM install test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Verify published package through signed DNF repository
+        run: docker run --rm -v "$PWD:/source:ro" fedora:latest bash /source/test/install-rpm.sh

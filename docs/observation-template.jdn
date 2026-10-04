@@ -1,0 +1,20 @@
+# Copy this for an actual Practice Tool observation.
+# Nil values intentionally mark missing measurements. Do not count this as a fixture.
+{:patch "16.19.1"
+ :champion "Annie"
+ :level 18
+ :item-ids []
+ :ranks {:q 5 :w 5 :e 5 :r 3}
+ :runes nil
+ :shards nil
+ :buffs []
+ :role-quest-state nil
+ :target {:armor 80 :mr 80 :health nil}
+ :distance nil
+ :window {:start-event nil :duration 5}
+ :observed {:attack-damage nil :attack-speed nil :armor nil :magic-resistance nil
+            :q-damage nil :w-damage nil :first-attack-hit-time nil
+            :q-cast-time nil :q-cooldown-start nil}
+ :tolerance nil
+ :recording-or-notes nil
+ :status :unmeasured}

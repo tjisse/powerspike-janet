@@ -1,0 +1,254 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/malzahar/malzahar.bin.json",
+  "sha256": "6581db919e660fd3c437a60165de1fac133d32c88cd46972709dfede123d383e",
+  "path": "Characters/Malzahar/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Malzahar",
+    "baseHPModifiable": {
+      "baseValue": 580.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 101.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 115.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 375.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 28.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 18.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10999999940395355,
+      "mAttackProbability": 0.75,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10999999940395355,
+        "mAttackProbability": 0.25,
+        "mAttackName": "MalzaharBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10999999940395355,
+        "mAttackName": "MalzaharCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "MalzaharQAbility/MalzaharQ",
+      "MalzaharWAbility/MalzaharW",
+      "MalzaharEAbility/MalzaharE",
+      "MalzaharRAbility/MalzaharR"
+    ],
+    "spells": [
+      "Characters/Malzahar/Spells/MalzaharQAbility/MalzaharQ",
+      "Characters/Malzahar/Spells/MalzaharWAbility/MalzaharW",
+      "Characters/Malzahar/Spells/MalzaharEAbility/MalzaharE",
+      "Characters/Malzahar/Spells/MalzaharRAbility/MalzaharR"
+    ],
+    "extraSpells": [
+      "MalzaharQMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Malzahar/Spells/MalzaharQAbility/MalzaharQMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Malzahar/Spells/MalzaharQAbility",
+      "Characters/Malzahar/Spells/MalzaharWAbility",
+      "Characters/Malzahar/Spells/MalzaharEAbility",
+      "Characters/Malzahar/Spells/MalzaharRAbility",
+      "Characters/Malzahar/Spells/MalzaharPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Malzahar",
+    "passiveLuaName": "MalzaharPassive",
+    "passiveToolTip": "game_character_passiveDescription_Malzahar",
+    "passive1IconName": "assets/characters/malzahar/hud/icons2d/malzahar_passive.dds",
+    "name": "game_character_displayname_Malzahar",
+    "selectionHeight": 302.7778015136719,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 2,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      13,
+      0,
+      0,
+      17
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Malzahar",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 90,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 6,
+      "description": "game_character_description_Malzahar",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassive",
+        "mComponentBuffs": [
+          "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassiveShield",
+          "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassiveShieldCooldown",
+          "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassiveShieldCooldownIndicator",
+          "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassiveShieldWinddown",
+          "Characters/Malzahar/Spells/MalzaharPassiveAbility/MalzaharPassiveShieldWindup"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "armorPerLevel": -0.5,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

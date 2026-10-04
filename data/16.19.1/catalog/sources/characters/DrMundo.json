@@ -1,0 +1,332 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/drmundo/drmundo.bin.json",
+  "sha256": "f0e788e44931442f5550068ab37eb665b430e1b81613873773ddf4979384c2a8",
+  "path": "Characters/DrMundo/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "DrMundo",
+    "baseHPModifiable": {
+      "baseValue": 640.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 103.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 61.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.13968749344348907,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.33000001311302185,
+        "mAttackName": "DrMundoBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.3400000035762787,
+        "mAttackName": "DrMundoBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.13968749344348907,
+        "mAttackName": "DrMundoCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "DrMundoQAbility/DrMundoQ",
+      "DrMundoWAbility/DrMundoW",
+      "DrMundoEAbility/DrMundoE",
+      "DrMundoRAbility/DrMundoR"
+    ],
+    "spells": [
+      "Characters/DrMundo/Spells/DrMundoQAbility/DrMundoQ",
+      "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoW",
+      "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoE",
+      "Characters/DrMundo/Spells/DrMundoRAbility/DrMundoR"
+    ],
+    "extraSpells": [
+      "",
+      "DrMundoEAttack",
+      "",
+      "DrMundoPObjectMissile",
+      "DrMundoWRecast",
+      "DrMundoBasicAttackTower",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "DrMundoP",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "{00000000}",
+      "Characters/DrMundo/Spells/DrMundoEAbility/DrMundoEAttack",
+      "{00000000}",
+      "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPObjectMissile",
+      "Characters/DrMundo/Spells/DrMundoWAbility/DrMundoWRecast",
+      "Characters/DrMundo/Spells/DrMundoBasicAttackTower",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoP",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/DrMundo/Spells/DrMundoQAbility",
+      "Characters/DrMundo/Spells/DrMundoWAbility",
+      "Characters/DrMundo/Spells/DrMundoEAbility",
+      "Characters/DrMundo/Spells/DrMundoRAbility",
+      "Characters/DrMundo/Spells/DrMundoPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_DrMundo",
+    "passiveLuaName": "DrMundoP",
+    "passiveToolTip": "game_character_passiveDescription_DrMundo",
+    "passiveSpell": "DrMundoP",
+    "passive1IconName": "assets/characters/drmundo/hud/icons2d/drmundo_p.dds",
+    "name": "game_character_displayname_DrMundo",
+    "weaponMaterials": [
+      "DrMundoBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 175.0,
+    "selectionRadius": 135.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      0,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{42ac598e}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_DrMundo",
+          "effect": [
+            "0.2",
+            "0.4",
+            "0.6"
+          ],
+          "level": [
+            1,
+            9,
+            17
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "fighter",
+      "championId": 36,
+      "roles": "TANK",
+      "magicRank": 6,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_DrMundo",
+      "defenseRank": 7,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 5,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoP",
+        "mComponentBuffs": [
+          "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPImmunity",
+          "Characters/DrMundo/Spells/DrMundoPassiveAbility/DrMundoPCooldown"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/DrMundo/Spells/DrMundoSkin09_WeaponRotationManager",
+        "SkinFilter": {
+          "skinIds": [
+            9
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

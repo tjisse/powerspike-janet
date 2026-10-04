@@ -1,0 +1,310 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/urgot/urgot.bin.json",
+  "sha256": "d9e21078738af877291e44eeec8c15e26ec1e539e7a1ff3daf86f7f94857a649",
+  "path": "Characters/Urgot/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Urgot",
+    "baseHPModifiable": {
+      "baseValue": 655.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 102.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 340.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4500000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 63.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 36.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 350.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.75,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+      "mAttackProbability": 0.5,
+      "mAttackName": "UrgotBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "UrgotBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "UrgotBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "UrgotCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "UrgotQAbility/UrgotQ",
+      "UrgotWAbility/UrgotW",
+      "UrgotEAbility/UrgotE",
+      "UrgotRAbility/UrgotR"
+    ],
+    "spells": [
+      "Characters/Urgot/Spells/UrgotQAbility/UrgotQ",
+      "Characters/Urgot/Spells/UrgotWAbility/UrgotW",
+      "Characters/Urgot/Spells/UrgotEAbility/UrgotE",
+      "Characters/Urgot/Spells/UrgotRAbility/UrgotR"
+    ],
+    "extraSpells": [
+      "UrgotQMissile",
+      "UrgotWMissile",
+      "UrgotWMissileExtra",
+      "UrgotRRecastMissile",
+      "UrgotRRecastChannel",
+      "UrgotRFacing",
+      "UrgotEDash",
+      "BaseSpell",
+      "UrgotSkin03CritDummy",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Urgot/Spells/UrgotQAbility/UrgotQMissile",
+      "Characters/Urgot/Spells/UrgotWAbility/UrgotWMissile",
+      "Characters/Urgot/Spells/UrgotWAbility/UrgotWMissileExtra",
+      "Characters/Urgot/Spells/UrgotRRecastMissile",
+      "Characters/Urgot/Spells/UrgotRRecastChannel",
+      "Characters/Urgot/Spells/UrgotRFacing",
+      "Characters/Urgot/Spells/UrgotEAbility/UrgotEDash",
+      "Shared/Spells/BaseSpell",
+      "Characters/Urgot/Spells/UrgotSkin03CritDummy",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Urgot/Spells/UrgotRAbility",
+      "Characters/Urgot/Spells/UrgotWAbility",
+      "Characters/Urgot/Spells/UrgotEAbility",
+      "Characters/Urgot/Spells/UrgotQAbility",
+      "Characters/Urgot/Spells/UrgotPassiveAbility"
+    ],
+    "passiveName": "Spell_UrgotPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_UrgotPassive_Summary",
+    "passiveSpell": "UrgotPassive",
+    "passive1IconName": "assets/characters/urgot/hud/icons2d/urgot_passive.dds",
+    "name": "game_character_displayname_Urgot",
+    "mUseCCAnimations": true,
+    "selectionHeight": 155.55560302734375,
+    "selectionRadius": 136.11109924316406,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      12
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Plants a trap.  When an enemy champion triggers this trap, it deals damage in an area and slows nearby units.",
+          "displayName": "Noxious Trap",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Urgot",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 6,
+      "roles": "BRAWLER",
+      "PostAttackMoveDelay": 0.20000000298023224,
+      "magicRank": 3,
+      "difficultyRank": 8,
+      "description": "game_character_description_Urgot",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Urgot/Spells/UrgotPassiveAbility/UrgotPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Urgot/Spells/UrgotPassiveAbility/UrgotPassive",
+        "mComponentBuffs": [
+          "Characters/Urgot/Spells/UrgotPassiveZone1Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone1Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone1Inactive",
+          "Characters/Urgot/Spells/UrgotPassiveZone2Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone2Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone2Inactive",
+          "Characters/Urgot/Spells/UrgotPassiveZone3Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone3Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone3Inactive",
+          "Characters/Urgot/Spells/UrgotPassiveZone4Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone4Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone4Inactive",
+          "Characters/Urgot/Spells/UrgotPassiveZone5Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone5Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone5Inactive",
+          "Characters/Urgot/Spells/UrgotPassiveZone6Activating",
+          "Characters/Urgot/Spells/UrgotPassiveZone6Active",
+          "Characters/Urgot/Spells/UrgotPassiveZone6Inactive"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "armorPerLevel": -0.5,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

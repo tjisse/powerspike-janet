@@ -1,0 +1,521 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/zeri/zeri.bin.json",
+  "sha256": "9c3e55163c08225b830e4176ec177a6eadb31b8119b25bfbc73ac8e807418936",
+  "path": "Characters/Zeri/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Zeri",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 110.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.6499999761581421,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.14000000059604645,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 250.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 7,
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 1,
+      "arHasRegenText": false,
+      "HideEmptyPips": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 56.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "TreatAutoAttacksAsNormalSpells": {
+      "AutoAttackSpellsUseSpellSource": true,
+      "SkipSequencedAttackEvents": true,
+      "OverrideQueryableAttackRange": {
+        "mFormulaParts": [
+          {
+            "mNumber": 740.0,
+            "__type": "NumberCalculationPart"
+          },
+          {
+            "mStat": 31,
+            "mStatFormula": 2,
+            "mCoefficient": 1.0,
+            "__type": "StatByCoefficientCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "__type": "TreatAutoAttacksAsNormalSpells"
+    },
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.25,
+      "mAttackProbability": 1.0,
+      "mAttackName": "ZeriBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.25,
+        "mAttackProbability": 1.0,
+        "mAttackName": "ZeriBasicAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ZeriQAbility/ZeriQ",
+      "ZeriWAbility/ZeriW",
+      "ZeriEAbility/ZeriE",
+      "ZeriRAbility/ZeriR"
+    ],
+    "spells": [
+      "Characters/Zeri/Spells/ZeriQAbility/ZeriQ",
+      "Characters/Zeri/Spells/ZeriWAbility/ZeriW",
+      "Characters/Zeri/Spells/ZeriEAbility/ZeriE",
+      "Characters/Zeri/Spells/ZeriRAbility/ZeriR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Zeri/Spells/ZeriQAbility",
+      "Characters/Zeri/Spells/ZeriWAbility",
+      "Characters/Zeri/Spells/ZeriEAbility",
+      "Characters/Zeri/Spells/ZeriRAbility",
+      "Characters/Zeri/Spells/ZeriPassiveAbility"
+    ],
+    "passiveName": "Spell_ZeriPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_ZeriPassive_Summary",
+    "passiveSpell": "ZeriPassive",
+    "passive1IconName": "assets/characters/zeri/hud/icons2d/zerip.dds",
+    "name": "game_character_displayname_Zeri",
+    "mUseCCAnimations": true,
+    "selectionHeight": 122.22219848632812,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 40.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "medium": true,
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "medium": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_ZeriPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 221,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "difficultyRank": 6,
+      "description": "game_character_description_Zeri",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.8999999761581421,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 2,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 2,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 6,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 16,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "useRiotRelationships": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Zeri/Spells/ZeriPassiveAbility/ZeriPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Zeri/Spells/ZeriQAbility/ZeriQPassive",
+        "mComponentBuffs": [
+          "Characters/Zeri/Spells/ZeriQAbility/ZeriQPassiveReady"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zeri/Spells/ZeriBackpackVFXManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zeri/Spells/ZeriSkin40Manager",
+        "SkinFilter": {
+          "skinIds": [
+            40
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

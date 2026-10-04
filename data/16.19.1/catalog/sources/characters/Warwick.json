@@ -1,0 +1,344 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/warwick/warwick.bin.json",
+  "sha256": "af5e878b10e1a2bf2e8afd0cd66a591738d1f551af1e653ba3501f321096ee8e",
+  "path": "Characters/Warwick/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Warwick",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.800000011920929,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 280.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 35.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4900000095367432,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 65.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.400000095367432,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.125,
+      "mAttackProbability": 1.0,
+      "mAttackName": "WarwickBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "WarwickBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "WarwickBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "WarwickBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "WarwickBasicAttackPassive4",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "WarwickQAbility/WarwickQ",
+      "WarwickWAbility/WarwickW",
+      "WarwickEAbility/WarwickE",
+      "WarwickRAbility/WarwickR"
+    ],
+    "spells": [
+      "Characters/Warwick/Spells/WarwickQAbility/WarwickQ",
+      "Characters/Warwick/Spells/WarwickWAbility/WarwickW",
+      "Characters/Warwick/Spells/WarwickEAbility/WarwickE",
+      "Characters/Warwick/Spells/WarwickRAbility/WarwickR"
+    ],
+    "extraSpells": [
+      "WarwickRChannel",
+      "WarwickPSpellInfo",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Warwick/Spells/WarwickRChannel",
+      "Characters/Warwick/Spells/WarwickPSpellInfo",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Warwick/Spells/WarwickRAbility",
+      "Characters/Warwick/Spells/WarwickQAbility",
+      "Characters/Warwick/Spells/WarwickWAbility",
+      "Characters/Warwick/Spells/WarwickEAbility",
+      "Characters/Warwick/Spells/WarwickPAbility"
+    ],
+    "passiveName": "Spell_WarwickP_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_WarwickP_Summary",
+    "passiveSpell": "WarwickP",
+    "passive1IconName": "assets/characters/warwick/hud/icons2d/warwickp.dds",
+    "name": "game_character_displayname_Warwick",
+    "weaponMaterials": [
+      "OlafBasicAttack"
+    ],
+    "selectionHeight": 191.6667022705078,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      17
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{42ac598e}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "Spell_WarwickP_Name",
+          "level": [
+            1,
+            4,
+            7
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "tank",
+      "championId": 19,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 3,
+      "description": "game_character_description_Warwick",
+      "defenseRank": 5,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Warwick/Spells/WarwickPAbility/WarwickP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Warwick/Spells/WarwickPAbility/WarwickP",
+        "mComponentBuffs": [
+          "Characters/Warwick/Spells/WarwickPSpellInfo"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

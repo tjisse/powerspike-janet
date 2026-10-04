@@ -1,0 +1,278 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/twitch/twitch.bin.json",
+  "sha256": "bdca4f916af5b494fe486403fe982e4ae471e21c32a5ed21f7ac1bf191016e62",
+  "path": "Characters/Twitch/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Twitch",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 98.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.75,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 85.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 300.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.4500000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 27.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6790000200271606,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6790000200271606,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 575.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.09808401763439178,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "TwitchBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "TwitchBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "TwitchCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TwitchHideInShadowsAbility/TwitchHideInShadows",
+      "TwitchVenomCaskAbility/TwitchVenomCask",
+      "TwitchExpungeAbility/TwitchExpunge",
+      "TwitchFullAutomaticAbility/TwitchFullAutomatic"
+    ],
+    "spells": [
+      "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadows",
+      "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCask",
+      "Characters/Twitch/Spells/TwitchExpungeAbility/TwitchExpunge",
+      "Characters/Twitch/Spells/TwitchFullAutomaticAbility/TwitchFullAutomatic"
+    ],
+    "extraSpells": [
+      "",
+      "TwitchVenomCaskMissile",
+      "TwitchEParticle",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "{00000000}",
+      "Characters/Twitch/Spells/TwitchVenomCaskAbility/TwitchVenomCaskMissile",
+      "Characters/Twitch/Spells/TwitchExpungeAbility/TwitchEParticle",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Twitch/Spells/TwitchHideInShadowsAbility",
+      "Characters/Twitch/Spells/TwitchVenomCaskAbility",
+      "Characters/Twitch/Spells/TwitchExpungeAbility",
+      "Characters/Twitch/Spells/TwitchFullAutomaticAbility",
+      "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility"
+    ],
+    "passiveName": "Spell_TwitchDeadlyVenomMarker_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_TwitchDeadlyVenomMarker_Summary",
+    "passiveSpell": "TwitchDeadlyVenomMarker",
+    "passive1IconName": "assets/characters/twitch/hud/icons2d/twitch_passive.dds",
+    "name": "game_character_displayname_Twitch",
+    "selectionHeight": 120.0,
+    "selectionRadius": 135.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "For 10 attacks, Twitch attacks very rapidly with line hits, but deals reduced damage.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "For 10 attacks, Twitch attacks very rapidly with line hits, but deals reduced damage.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "For 10 attacks, Twitch attacks very rapidly with line hits, but deals reduced damage.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "For 10 attacks, Twitch attacks very rapidly with line hits, but deals reduced damage.",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Twitch",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "assassin",
+      "championId": 29,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "difficultyRank": 6,
+      "description": "game_character_description_Twitch",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenomMarker",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Twitch/Spells/TwitchDeadlyVenomMarkerAbility/TwitchDeadlyVenomMarker",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

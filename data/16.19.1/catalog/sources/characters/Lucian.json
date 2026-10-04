@@ -1,0 +1,307 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/lucian/lucian.bin.json",
+  "sha256": "eafd5876b3f2032c976c7ccf37fde5a88fd03c95d84c0665c1e72188a5965cd4",
+  "path": "Characters/Lucian/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Lucian",
+    "baseHPModifiable": {
+      "baseValue": 641.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 100.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.75,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 320.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 43.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 60.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 500.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 1.0,
+        "mAttackName": "LucianBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "LucianCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.15000000596046448,
+        "mAttackName": "LucianCritAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "LucianQAbility/LucianQ",
+      "LucianWAbility/LucianW",
+      "LucianEAbility/LucianE",
+      "LucianRAbility/LucianR"
+    ],
+    "spells": [
+      "Characters/Lucian/Spells/LucianQAbility/LucianQ",
+      "Characters/Lucian/Spells/LucianWAbility/LucianW",
+      "Characters/Lucian/Spells/LucianEAbility/LucianE",
+      "Characters/Lucian/Spells/LucianRAbility/LucianR"
+    ],
+    "extraSpells": [
+      "LucianPassiveShotDummy",
+      "LucianRMissile",
+      "LucianBasicAttack",
+      "LucianBasicAttack2",
+      "LucianCritAttack",
+      "LucianCritAttack2",
+      "LucianPassiveShot",
+      "BaseSpell",
+      "LucianWMissile",
+      "LucianPassiveAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveShotDummy",
+      "Characters/Lucian/Spells/LucianRAbility/LucianRMissile",
+      "Characters/Lucian/Spells/LucianBasicAttack",
+      "Characters/Lucian/Spells/LucianBasicAttack2",
+      "Characters/Lucian/Spells/LucianCritAttack",
+      "Characters/Lucian/Spells/LucianCritAttack2",
+      "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveShot",
+      "Shared/Spells/BaseSpell",
+      "Characters/Lucian/Spells/LucianWAbility/LucianWMissile",
+      "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Lucian/Spells/LucianRAbility",
+      "Characters/Lucian/Spells/LucianQAbility",
+      "Characters/Lucian/Spells/LucianWAbility",
+      "Characters/Lucian/Spells/LucianEAbility",
+      "Characters/Lucian/Spells/LucianPassiveAbility"
+    ],
+    "passiveName": "Spell_LucianPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_LucianPassive_Summary",
+    "passiveSpell": "LucianPassive",
+    "passive1IconName": "assets/characters/lucian/hud/icons2d/lucian_passive.dds",
+    "name": "game_character_displayname_Lucian",
+    "selectionHeight": 122.22219848632812,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 40.68000030517578,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "Buster Shot",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_LucianPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "assassin",
+      "championId": 236,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "difficultyRank": 6,
+      "description": "game_character_description_Lucian",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.8999999761581421,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/GlobalRecallFacingSouth",
+        "SkinFilter": {
+          "skinIds": [
+            8
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Lucian/Spells/LucianRunCycleManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Lucian/Spells/LucianSkin72Manager",
+        "SkinFilter": {
+          "skinIds": [
+            72
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

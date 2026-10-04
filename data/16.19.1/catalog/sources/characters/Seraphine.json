@@ -1,0 +1,273 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/seraphine/seraphine.bin.json",
+  "sha256": "754690d6ddfb7bcd37c22dab801517774561f7dca065c7c95e2bd4997cb30500",
+  "path": "Characters/Seraphine/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Seraphine",
+    "evolutionData": {
+      "mIconNames": [
+        "assets/characters/pyke/hud/icons2d/pykeq.dds",
+        "assets/characters/morgana/hud/icons2d/fallenangel_blackshield.dds",
+        "assets/characters/teemo/hud/icons2d/teemo_r.dds",
+        "assets/characters/fiddlesticks/hud/icons2d/fiddlesticks_conjurescarecrow.dds"
+      ],
+      "__type": "EvolutionDescription"
+    },
+    "baseHPModifiable": {
+      "baseValue": 570.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 95.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 130.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 360.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 2.299999952316284,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1899999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 3.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 3.0,
+      "arMaxSegments": 2,
+      "arDisplayAsPips": true,
+      "arOverrideLargePipName": "SeraphineStyleLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "arNegativeSpacer": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 50.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6690000295639038,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 525.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11299999803304672,
+      "__type": "AttackSlotData"
+    },
+    "spellNames": [
+      "SeraphineQAbility/SeraphineQ",
+      "SeraphineWAbility/SeraphineW",
+      "SeraphineEAbility/SeraphineE",
+      "SeraphineRAbility/SeraphineR"
+    ],
+    "spells": [
+      "Characters/Seraphine/Spells/SeraphineQAbility/SeraphineQ",
+      "Characters/Seraphine/Spells/SeraphineWAbility/SeraphineW",
+      "Characters/Seraphine/Spells/SeraphineEAbility/SeraphineE",
+      "Characters/Seraphine/Spells/SeraphineRAbility/SeraphineR"
+    ],
+    "mAbilities": [
+      "Characters/Seraphine/Spells/SeraphineQAbility",
+      "Characters/Seraphine/Spells/SeraphineWAbility",
+      "Characters/Seraphine/Spells/SeraphineEAbility",
+      "Characters/Seraphine/Spells/SeraphineRAbility",
+      "Characters/Seraphine/Spells/SeraphinePassiveAbility"
+    ],
+    "passiveName": "Spell_SeraphinePassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_SeraphinePassive_Summary",
+    "passiveSpell": "SeraphinePassive",
+    "passive1IconName": "assets/characters/seraphine/hud/icons2d/seraphine_passive.dds",
+    "name": "Character_Seraphine_Name",
+    "mUseCCAnimations": true,
+    "selectionHeight": 100.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "support",
+      "searchTagsSecondary": "mage",
+      "championId": 147,
+      "roles": "SUPPORT",
+      "description": "game_character_description_seraphine",
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 9446656,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Seraphine/Spells/SeraphinePassiveAbility/SeraphinePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphinePassiveAbility/SeraphinePassive",
+        "mComponentBuffs": [
+          "Characters/Seraphine/Spells/SeraphinePassiveEcho",
+          "Characters/Seraphine/Spells/SeraphinePassiveNotes",
+          "Characters/Seraphine/Spells/SeraphinePassiveEchoStage1",
+          "Characters/Seraphine/Spells/SeraphinePassiveEchoStage2"
+        ],
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphineSkin01MusicManager",
+        "SkinFilter": {
+          "skinIds": [
+            1
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphineSkin02MusicManager",
+        "SkinFilter": {
+          "skinIds": [
+            2
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphineSkin03MusicManager",
+        "SkinFilter": {
+          "skinIds": [
+            3
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphineSkin43Manager",
+        "SkinFilter": {
+          "skinIds": [
+            43
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Seraphine/Spells/SeraphineSkin69Manager",
+        "SkinFilter": {
+          "skinIds": [
+            69
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "hpPerLevel": 5.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

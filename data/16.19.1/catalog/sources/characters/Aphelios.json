@@ -1,0 +1,524 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/aphelios/aphelios.bin.json",
+  "sha256": "083fae740ffd97445e2f3d43066a24c0798b0e38dc7d9814e39b94e5e731e094",
+  "path": "Characters/Aphelios/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Aphelios",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 102.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.6499999761581421,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 130.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 348.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 42.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2999999523162842,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07999999821186066,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 13,
+      "{726ee5cd}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 10.0,
+      "arMaxSegments": 5,
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6650000214576721,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.23000000417232513,
+      "mAttackProbability": 1.0,
+      "mAttackName": "ApheliosBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.1599999964237213,
+        "mAttackProbability": 0.0,
+        "mAttackName": "ApheliosCrescendumAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.23000000417232513,
+        "mAttackProbability": 1.0,
+        "mAttackName": "ApheliosBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.10000000149011612,
+        "mAttackProbability": 0.0,
+        "mAttackName": "ApheliosCrescendumAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ApheliosQ_ClientTooltipWrapper",
+      "ApheliosWAbility/ApheliosW",
+      "ApheliosE_ClientTooltipWrapper",
+      "ApheliosRAbility/ApheliosR"
+    ],
+    "spells": [
+      "Characters/Aphelios/Spells/ApheliosQ_ClientTooltipWrapper",
+      "Characters/Aphelios/Spells/ApheliosWAbility/ApheliosW",
+      "Characters/Aphelios/Spells/ApheliosE_ClientTooltipWrapper",
+      "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR"
+    ],
+    "extraSpells": [
+      "ApheliosCrescendumQ",
+      "ApheliosInfernumQ",
+      "ApheliosE",
+      "ApheliosE",
+      "ApheliosGravitumQ",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumQ",
+      "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumQ",
+      "Characters/Aphelios/Spells/ApheliosEAbility/ApheliosE",
+      "Characters/Aphelios/Spells/ApheliosEAbility/ApheliosE",
+      "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumQ",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Aphelios/Spells/ApheliosWAbility",
+      "Characters/Aphelios/Spells/ApheliosEAbility",
+      "Characters/Aphelios/Spells/ApheliosRAbility",
+      "Characters/Aphelios/Spells/ApheliosPAbility",
+      "Characters/Aphelios/Spells/ApheliosCalibrumQAbility",
+      "Characters/Aphelios/Spells/ApheliosCrescendumQAbility",
+      "Characters/Aphelios/Spells/ApheliosGravitumQAbility",
+      "Characters/Aphelios/Spells/ApheliosInfernumQAbility",
+      "Characters/Aphelios/Spells/ApheliosSeverumQAbility"
+    ],
+    "passiveName": "Spell_ApheliosP_Name",
+    "passiveLuaName": "ApheliosP",
+    "passiveToolTip": "game_character_passiveDescription_Aphelios",
+    "passiveSpell": "ApheliosP",
+    "passive1IconName": "assets/characters/aphelios/hud/icons2d/apheliosp.dds",
+    "name": "game_character_displayname_Aphelios",
+    "mUseCCAnimations": true,
+    "selectionHeight": 140.0,
+    "selectionRadius": 110.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Aphelios",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 523,
+      "roles": "ATTACKER",
+      "PostAttackMoveDelay": 0.20000000298023224,
+      "magicRank": 1,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 10,
+      "description": "game_character_description_Aphelios",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 6,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 6,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 16,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "useRiotRelationships": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosP",
+        "mComponentBuffs": [
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPReload",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPDefinitions",
+          "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumManager",
+          "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumManager",
+          "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumManager",
+          "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumManager",
+          "Characters/Aphelios/Spells/ApheliosSeverumQAbility/ApheliosSeverumManager",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffCalibrum",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffCrescendum",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffGravitum",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffInfernum",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosOffHandBuffSeverum",
+          "Characters/Aphelios/Spells/ApheliosCrescendumOrbitManager",
+          "Characters/Aphelios/Spells/ApheliosCrescendumAttackMiniLauncher",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAD",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAP",
+          "Characters/Aphelios/Spells/ApheliosPAbility/ApheliosPBuffAS"
+        ],
+        "mChildSpells": [
+          "Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumQ",
+          "Characters/Aphelios/Spells/ApheliosCalibrumLineAttack",
+          "Characters/Aphelios/Spells/ApheliosSeverumQAbility/ApheliosSeverumQ",
+          "Characters/Aphelios/Spells/ApheliosSeverumLineAttack",
+          "Characters/Aphelios/Spells/ApheliosGravitumQAbility/ApheliosGravitumQ",
+          "Characters/Aphelios/Spells/ApheliosGravitumLineAttack",
+          "Characters/Aphelios/Spells/ApheliosInfernumQAbility/ApheliosInfernumQ",
+          "Characters/Aphelios/Spells/ApheliosInfernumLineAttack",
+          "Characters/Aphelios/Spells/ApheliosCrescendumQAbility/ApheliosCrescendumQ",
+          "Characters/Aphelios/Spells/ApheliosCrescendumLineAttack",
+          "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisOut",
+          "Characters/Aphelios/Spells/ApheliosCrescendumAttackMisOutMini"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map30/Modes/CHERRY",
+        "{cf19cb5d}": {
+          "damagePerLevel": 1.0,
+          "baseMoveSpeed": 5.0,
+          "hpPerLevel": 12.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,28 @@
+(import ../data/16.19.1/snapshot :as snapshot)
+(import ../src/powerspike/observations :as observations)
+
+(assert (= 2 (length (dyn :args))) "usage: janet scripts/compare_stats.janet observation.jdn")
+# parse consumes data; an observation is never loaded or evaluated as source code.
+(def records (parse-all (slurp ((dyn :args) 1))))
+(assert (= 1 (length records)) "observation must contain exactly one data record")
+(def record (records 0))
+(def champion (get snapshot/champions (record :champion)))
+(assert champion "unsupported observation champion")
+(def items (map (fn [id]
+                  (def item (get snapshot/items id))
+                  (assert item (string "unsupported observed item: " id)) item)
+                (record :item-ids)))
+(def report (observations/compare-stats champion items record snapshot/stat-shards))
+(print "Result: " (report :status) "; " (report :checked) " checked, "
+       (report :mismatches) " mismatches, " (report :missing) " missing.")
+(each row (report :rows)
+  (print (row :stat) " " (row :status) " expected=" (row :expected)
+         " observed=" (row :observed)))
+(when (> (length (report :applied-shard-ids)) 0)
+  (print "Applied supported stat shards: " (string/format "%p" (report :applied-shard-ids))))
+(unless (report :context-reviewed)
+  (print "Review rune/shard effects, buffs and role quests; exclude affected stats explicitly."))
+(when (> (length (report :unmapped-fields)) 0)
+  (print "Fields without a verified unit mapping: " (string/format "%p" (report :unmapped-fields))))
+(print "Evidence covers these stats and this scenario only; timing and damage are not tested.")
+(unless (= :consistent (report :status)) (os/exit 1))

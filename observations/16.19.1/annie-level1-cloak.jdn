@@ -1,0 +1,51 @@
+# Measured Practice Tool snapshot; isolated Cloak of Agility, movement speed excluded.
+{:schema-version 1
+ :source "live-client-api"
+ :patch "16.19.1"
+ :patch-origin "operator-declared"
+ :client-build "16.19.823.0722"
+ :champion "Annie"
+ :level 1
+ :ranks {:q 0
+ :w 0
+ :e 0
+ :r 0}
+ :item-ids ["1018"]
+ :ignored-trinket-ids ["3340"]
+ :map-id 11
+ :game-mode "PRACTICETOOL"
+ :game-time 89.22666931152344
+ :is-dead false
+ :rune-ids [8992 8226 8234 8237 8017 9105]
+ :shard-ids [5005 5010 5011]
+ :field-units {:critChance "fraction"
+ :critDamage "percent"}
+ :unmapped-fields ["armorPenetrationPercent" "magicPenetrationPercent"]
+ :observed {:ad 50.0
+ :ap 0.0
+ :hp 625.0
+ :armor 23.0
+ :mr 30.0
+ :attack-speed 0.6725000143051147
+ :move-speed 346.7249755859375
+ :ability-haste 0.0
+ :magic-pen-flat 0.0
+ :crit-chance 0.15000000596046448
+ :crit-damage 2.0
+ :mp 418.0}
+ :context-reviewed true
+ :buffs []
+ :role-quest-state "inactive"
+ :excluded-stats ["move-speed"]
+ :notes "Cloak of Agility gives 15% crit chance in retained source data. Raw critChance 0.15000000596046448 establishes fraction units, separately from critDamage percent units. All other raw champion stats match the no-item baseline. Movement speed excluded pending Celerity handling; percentage penetration remains unmapped. No measured values were fitted or overwritten."
+ :tolerances {:default {:absolute 0.01
+ :relative 1e-05}
+ :attack-speed {:absolute 1e-05
+ :relative 1e-05}}
+ :raw-sha256 "96535cf4a5d0a2defef58ceb96b6332fcb875781c87bf844160e3c161c850da3"
+ :collection-started-at "2026-10-04T17:12:56.613945+00:00"
+ :collection-seconds 0.0470000000022992
+ :reviewed-at "2026-10-04T17:15:43.725357+00:00"
+ :review-basis "User completed the level-1 single-Cloak no-combat setup. Captured ranks all zero, inventory Cloak plus trinket only, position NONE; rune page and static shards match the baseline."
+ :expected-status "consistent"
+ :expected-checked-stats 11}

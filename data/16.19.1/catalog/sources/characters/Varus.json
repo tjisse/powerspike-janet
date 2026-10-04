@@ -1,0 +1,305 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/varus/varus.bin.json",
+  "sha256": "88e167331aee9a1bd44a356e61a95e69109e75afcc49b0c7a61163f719b509b3",
+  "path": "Characters/Varus/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Varus",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.699999988079071,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 95.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 320.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.4000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 575.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.12456140667200089,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "VarusBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.12456140667200089,
+        "mAttackName": "VarusCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "VarusQAbility/VarusQ",
+      "VarusWAbility/VarusW",
+      "VarusEAbility/VarusE",
+      "VarusRAbility/VarusR"
+    ],
+    "spells": [
+      "Characters/Varus/Spells/VarusQAbility/VarusQ",
+      "Characters/Varus/Spells/VarusWAbility/VarusW",
+      "Characters/Varus/Spells/VarusEAbility/VarusE",
+      "Characters/Varus/Spells/VarusRAbility/VarusR"
+    ],
+    "extraSpells": [
+      "VarusQMissile",
+      "VarusEMissile",
+      "BaseSpell",
+      "VarusEMissileDummy",
+      "VarusRMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "VarusWBasicAttack",
+      "VarusWBasicAttack2",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Varus/Spells/VarusQMissile",
+      "Characters/Varus/Spells/VarusEMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Varus/Spells/VarusEAbility/VarusEMissileDummy",
+      "Characters/Varus/Spells/VarusRMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Varus/Spells/VarusWBasicAttack",
+      "Characters/Varus/Spells/VarusWBasicAttack2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Varus/Spells/VarusQAbility",
+      "Characters/Varus/Spells/VarusWAbility",
+      "Characters/Varus/Spells/VarusEAbility",
+      "Characters/Varus/Spells/VarusRAbility",
+      "Characters/Varus/Spells/VarusPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Varus",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Varus",
+    "passiveSpell": "VarusPassive",
+    "passive1IconName": "assets/characters/varus/hud/icons2d/varuspassive.dds",
+    "name": "game_character_displayname_Varus",
+    "weaponMaterials": [
+      "VarusBasicAttack"
+    ],
+    "outlineBBoxExpansion": 80.0,
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      14,
+      15
+    ],
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "ChloeNil-Attack1-NORM_01.wav",
+          "ChloeNil-Attack2-NORM_01.wav",
+          "ChloeNil-Attack3-NORM_01.wav",
+          "ChloeNil-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "ChloeNil-Click1-NORM_01.wav",
+          "ChloeNil-Click2-NORM_01.wav",
+          "ChloeNil-Click3-NORM_01.wav",
+          "ChloeNil-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "ChloeNil-Move1-NORM_01.wav",
+          "ChloeNil-Move2-NORM_01.wav",
+          "ChloeNil-Move3-NORM_01.wav",
+          "ChloeNil-Move4-NORM_01.wav"
+        ],
+        "death": "ChloeNil-Death1-NORM_01.wav",
+        "ready": "ChloeNil-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "Ashe fires a missile at any point on the map.  If the arrow encounters a champion it damages him and nearby enemies.  These units are stunned for up to 5 secs, based on how far the arrow has traveled.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Ashe fires a missile at any point on the map.  If the arrow encounters a champion it damages him and nearby enemies.  These units are stunned for up to 5 secs, based on how far the arrow has traveled.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Ashe fires a missile at any point on the map.  If the arrow encounters a champion it damages him and nearby enemies.  These units are stunned for up to 5 secs, based on how far the arrow has traveled.",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Ashe fires a missile at any point on the map.  If the arrow encounters a champion it damages him and nearby enemies.  These units are stunned for up to 5 secs, based on how far the arrow has traveled.",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds a 30% chance of adding an additional attack that hits a random target within a Small Area.",
+        "Adds a 40% chance of adding an additional attack that hits a random target within a Small Area.",
+        "Adds a 50% chance of adding an additional attack that hits a random target within a Small Area.",
+        "Adds a 60% chance of adding an additional attack that hits a random target within a Small Area."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Varus",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "mage",
+      "championId": 110,
+      "roles": "ATTACKER",
+      "magicRank": 4,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 2,
+      "description": "game_character_description_Varus",
+      "defenseRank": 3,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 7,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Varus/Spells/VarusPassiveAbility/VarusPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Varus/Spells/VarusPassiveAbility/VarusPassive",
+        "mComponentBuffs": [
+          "Characters/Varus/Spells/VarusPassiveBuffDisplay",
+          "Characters/Varus/Spells/VarusPassiveBuffDisplayMinion",
+          "Characters/Varus/Spells/VarusPassiveTracker"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

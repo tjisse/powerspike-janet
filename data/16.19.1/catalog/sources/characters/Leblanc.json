@@ -1,0 +1,256 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/leblanc/leblanc.bin.json",
+  "sha256": "e57e2bf363aff1c94bdafe68e26e55ed452df3cc3d9c624695b72088433db53d",
+  "path": "Characters/Leblanc/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Leblanc",
+    "baseHPModifiable": {
+      "baseValue": 598.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 108.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 105.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 25.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 525.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.13333334028720856,
+      "mAttackProbability": 0.5,
+      "mAttackName": "LeblancBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "LeblancBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.13333334028720856,
+        "mAttackName": "LeblancCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "LeblancQAbility/LeblancQ",
+      "LeblancWAbility/LeblancW",
+      "LeblancEAbility/LeblancE",
+      "LeblancRAbility/LeblancR"
+    ],
+    "spells": [
+      "Characters/Leblanc/Spells/LeblancQAbility/LeblancQ",
+      "Characters/Leblanc/Spells/LeblancWAbility/LeblancW",
+      "Characters/Leblanc/Spells/LeblancEAbility/LeblancE",
+      "Characters/Leblanc/Spells/LeblancRAbility/LeblancR"
+    ],
+    "extraSpells": [
+      "LeblancRQ",
+      "LeblancRW",
+      "LeblancRE",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Leblanc/Spells/LeblancRQAbility/LeblancRQ",
+      "Characters/Leblanc/Spells/LeblancRWAbility/LeblancRW",
+      "Characters/Leblanc/Spells/LeblancREAbility/LeblancRE",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Leblanc/Spells/LeblancRWAbility",
+      "Characters/Leblanc/Spells/LeblancQAbility",
+      "Characters/Leblanc/Spells/LeblancWAbility",
+      "Characters/Leblanc/Spells/LeblancEAbility",
+      "Characters/Leblanc/Spells/LeblancRAbility",
+      "Characters/Leblanc/Spells/LeblancPAbility",
+      "Characters/Leblanc/Spells/LeblancRQAbility",
+      "Characters/Leblanc/Spells/LeblancREAbility"
+    ],
+    "passiveName": "game_character_passiveName_Leblanc",
+    "passiveLuaName": "LeblancP",
+    "passiveToolTip": "game_character_passiveDescription_Leblanc",
+    "passive1IconName": "assets/characters/leblanc/hud/icons2d/leblancp.dds",
+    "name": "game_character_displayname_Leblanc",
+    "mUseCCAnimations": true,
+    "selectionHeight": 85.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Annie wills her bear Tibbers to life, dealing damage to units in the area. Tibbers can attack and also burns enemies that stand near him.",
+          "displayName": "Infernal Guardian",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Leblanc",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "mage",
+      "championId": 7,
+      "roles": "MAGE",
+      "magicRank": 10,
+      "difficultyRank": 9,
+      "description": "game_character_description_Leblanc",
+      "defenseRank": 4,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 545285376,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Leblanc/Spells/LeblancPAbility/LeblancP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Leblanc/Spells/LeblancPAbility/LeblancP",
+        "mComponentBuffs": [
+          "Characters/Leblanc/Spells/LeblancPCooldown"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

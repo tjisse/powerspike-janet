@@ -1,0 +1,515 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/jayce/jayce.bin.json",
+  "sha256": "8debded310692c6edc508f33cb243f03d0c84cb56108c45af77a82ad49bf6212",
+  "path": "Characters/Jayce/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Jayce",
+    "baseHPModifiable": {
+      "baseValue": 590.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 375.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.25,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 200.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.20499999821186066,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.004999999888241291,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.20499999821186066,
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.004999999888241291,
+        "mAttackName": "JayceCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "JayceToTheSkiesAbility/JayceToTheSkies",
+      "JayceStaticFieldAbility/JayceStaticField",
+      "JayceThunderingBlowAbility/JayceThunderingBlow",
+      "JayceStanceHtGAbility/JayceStanceHtG"
+    ],
+    "spells": [
+      "Characters/Jayce/Spells/JayceToTheSkiesAbility/JayceToTheSkies",
+      "Characters/Jayce/Spells/JayceStaticFieldAbility/JayceStaticField",
+      "Characters/Jayce/Spells/JayceThunderingBlowAbility/JayceThunderingBlow",
+      "Characters/Jayce/Spells/JayceStanceHtGAbility/JayceStanceHtG"
+    ],
+    "extraSpells": [
+      "JayceShockBlastMis",
+      "JayceShockBlastWallMis",
+      "JaycePassiveMeleeAttack",
+      "JaycePassiveRangedAttack",
+      "JayceHyperChargeRangedAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Jayce/Spells/JayceShockBlastAbility/JayceShockBlastMis",
+      "Characters/Jayce/Spells/JayceShockBlastAbility/JayceShockBlastWallMis",
+      "Characters/Jayce/Spells/JaycePassiveAbility/JaycePassiveMeleeAttack",
+      "Characters/Jayce/Spells/JaycePassiveAbility/JaycePassiveRangedAttack",
+      "Characters/Jayce/Spells/JayceHyperChargeAbility/JayceHyperChargeRangedAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Jayce/Spells/JayceStanceHtGAbility",
+      "Characters/Jayce/Spells/JayceToTheSkiesAbility",
+      "Characters/Jayce/Spells/JayceStaticFieldAbility",
+      "Characters/Jayce/Spells/JayceThunderingBlowAbility",
+      "Characters/Jayce/Spells/JaycePassiveAbility",
+      "Characters/Jayce/Spells/JayceAccelerationGateAbility",
+      "Characters/Jayce/Spells/JayceHyperChargeAbility",
+      "Characters/Jayce/Spells/JayceShockBlastAbility"
+    ],
+    "passiveName": "game_character_passiveName_Jayce",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Jayce",
+    "passiveSpell": "JaycePassive",
+    "passive1IconName": "assets/characters/jayce/hud/icons2d/jayce_passive.dds",
+    "name": "game_character_displayname_Jayce",
+    "selectionHeight": 188.88890075683594,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      0,
+      7,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tryndamere's lust for battle becomes so strong that he is unable to die, no matter how wounded he becomes.",
+          "displayName": "Undying Rage",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Jayce",
+          "level": [
+            1,
+            4,
+            7
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "alternateForms": [
+        {
+          "name": "JayceCannon",
+          "spells": [
+            "JayceShockBlast",
+            "JayceHyperCharge",
+            "JayceAccelerationGate",
+            "JayceStanceGtH"
+          ],
+          "theSwitch": "Spell",
+          "__type": "ToolAlternateForm"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "marksman",
+      "championId": 126,
+      "roles": "ATTACKER",
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Jayce",
+      "defenseRank": 4,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "{1abb82c0}": {
+      "List": [
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 3,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 5,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 7,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 9,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            },
+            {
+              "mRequirements": [
+                {
+                  "__type": "HasSkillPointRequirement"
+                },
+                {
+                  "mLevel": 11,
+                  "__type": "CharacterLevelRequirement"
+                }
+              ],
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        },
+        {
+          "mRequirements": [
+            {
+              "__type": "SpellRankUpRequirements"
+            }
+          ],
+          "__type": "SpellLevelUpInfo"
+        }
+      ],
+      "__type": "SpellLevelUpList"
+    },
+    "purchaseIdentities": [
+      "Ranged",
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/NullifyingOrb",
+          "mReplaceWith": "Perks/Styles/Sorcery/NimbusCloak",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Jayce/Spells/JaycePassiveAbility/JaycePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Jayce/Spells/JaycePassiveAbility/JaycePassive",
+        "mComponentBuffs": [
+          "Characters/Jayce/Spells/JaycePassiveAbility/JaycePassiveHaste"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jayce/Spells/JayceRunSpeed",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jayce/Spells/JayceSkin35Manager",
+        "SkinFilter": {
+          "skinIds": [
+            35
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

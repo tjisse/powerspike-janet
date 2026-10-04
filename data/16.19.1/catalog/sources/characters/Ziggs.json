@@ -1,0 +1,285 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/ziggs/ziggs.bin.json",
+  "sha256": "7f6010ecfc1ec88feab8c062284e5fb63e2bc51e734d63d35187c005e1a2e915",
+  "path": "Characters/Ziggs/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Ziggs",
+    "baseHPModifiable": {
+      "baseValue": 606.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 78.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 480.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 23.5,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.656000018119812,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.656000018119812,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 800.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "ZiggsBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ZiggsBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ZiggsPassiveAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+        "mAttackName": "ZiggsCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ZiggsQAbility/ZiggsQ",
+      "ZiggsWAbility/ZiggsW",
+      "ZiggsEAbility/ZiggsE",
+      "ZiggsRAbility/ZiggsR"
+    ],
+    "spells": [
+      "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ",
+      "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW",
+      "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE",
+      "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsR"
+    ],
+    "extraSpells": [
+      "ZiggsRBoom",
+      "ZiggsPassiveAttack",
+      "ZiggsE2",
+      "ZiggsE3",
+      "ZiggsQSpell",
+      "ZiggsQSpell2",
+      "ZiggsQSpell3",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Ziggs/Spells/ZiggsRAbility/ZiggsRBoom",
+      "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveAttack",
+      "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE2",
+      "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE3",
+      "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell",
+      "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell2",
+      "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell3",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Ziggs/Spells/ZiggsQAbility",
+      "Characters/Ziggs/Spells/ZiggsWAbility",
+      "Characters/Ziggs/Spells/ZiggsEAbility",
+      "Characters/Ziggs/Spells/ZiggsRAbility",
+      "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility"
+    ],
+    "passiveName": "Spell_ZiggsPassiveBuff_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_ZiggsPassiveBuff_Summary",
+    "passiveSpell": "ZiggsPassiveBuff",
+    "passive1IconName": "assets/characters/ziggs/hud/icons2d/ziggspassiveready.dds",
+    "name": "game_character_displayname_Ziggs",
+    "weaponMaterials": [
+      "ZiggsBasicAttack"
+    ],
+    "selectionHeight": 110.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      7,
+      14,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "ZiggsR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "ZiggsR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "ZiggsR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals damage and knocks the target back.",
+          "displayName": "ZiggsR",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_ZiggsPassiveBuff_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 115,
+      "roles": "MAGE",
+      "magicRank": 9,
+      "difficultyRank": 4,
+      "description": "game_character_description_Ziggs",
+      "defenseRank": 4,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Ziggs/Spells/ZiggsPassiveBuffAbility/ZiggsPassiveBuff",
+        "mComponentBuffs": [
+          "{ecf2ad99}"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

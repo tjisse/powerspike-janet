@@ -1,0 +1,53 @@
+# Measured Practice Tool snapshot; level growth and learned-R comparison, movement excluded.
+{:schema-version 1
+ :source "live-client-api"
+ :patch "16.19.1"
+ :patch-origin "operator-declared"
+ :client-build "16.19.823.0722"
+ :champion "Annie"
+ :level 6
+ :ranks {:q 0
+ :w 0
+ :e 0
+ :r 1}
+ :item-ids ["3135"]
+ :ignored-trinket-ids ["3340"]
+ :map-id 11
+ :game-mode "PRACTICETOOL"
+ :game-time 1029.954345703125
+ :is-dead false
+ :rune-ids [8992 8226 8234 8237 8017 9105]
+ :shard-ids [5005 5010 5011]
+ :field-units {:critChance "fraction"
+ :critDamage "percent"
+ :magicPenetrationPercent "remaining-fraction"}
+ :unmapped-fields ["armorPenetrationPercent"]
+ :observed {:ad 60.467498779296875
+ :ap 95.0
+ :hp 1004.2000122070312
+ :armor 38.80000305175781
+ :mr 35.13500213623047
+ :attack-speed 0.7060750126838684
+ :move-speed 346.7249755859375
+ :ability-haste 0.0
+ :magic-pen-flat 0.0
+ :crit-chance 0.0
+ :crit-damage 2.0
+ :magic-pen-percent 0.4599999785423279
+ :mp 516.75}
+ :context-reviewed true
+ :buffs []
+ :role-quest-state "inactive"
+ :excluded-stats ["move-speed"]
+ :notes "Checks learned R rank-one 10% magic penetration combined multiplicatively with Void Staff 40%: 1 - (1 - 0.10) * (1 - 0.40) = 0.46. All raw champion stats other than magicPenetrationPercent match the paired unlearned-R snapshot. Movement speed excluded pending full Celerity handling; armor percentage penetration remains unmapped. No measured values were fitted or overwritten."
+ :tolerances {:default {:absolute 0.01
+ :relative 1e-05}
+ :attack-speed {:absolute 1e-05
+ :relative 1e-05}}
+ :raw-sha256 "f3181f2e9fd48cb895e65fa4d93d6d9c80005bbf222614eb1d95793604818abb"
+ :collection-started-at "2026-10-04T17:28:37.296352+00:00"
+ :collection-seconds 0.030999999999039574
+ :reviewed-at "2026-10-04T17:31:09.608334+00:00"
+ :review-basis "User completed the prescribed level-6 stat snapshots with Void Staff only: all ranks unspent, then one point in R without casting. Recorded ranks and inventory match; position NONE, alive, zero kills/deaths/assists/CS, unchanged rune page and shards. No-combat and temporary-buff context is operator-supplied; API events are not a complete combat or buff log."
+ :expected-status "consistent"
+ :expected-checked-stats 12}

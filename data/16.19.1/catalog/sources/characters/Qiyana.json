@@ -1,0 +1,205 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/qiyana/qiyana.bin.json",
+  "sha256": "858bd2149bd198b437943ebb5e30dc1acfeef2fd272db58d33eb625193d491a8",
+  "path": "Characters/Qiyana/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Qiyana",
+    "baseHPModifiable": {
+      "baseValue": 590.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 115.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.18000000715255737,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 375.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 60.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 64.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 31.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6880000233650208,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.23000000417232513,
+      "mAttackProbability": 0.33399999141693115,
+      "mAttackName": "QiyanaBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.23000000417232513,
+        "mAttackProbability": 0.3330000042915344,
+        "mAttackName": "QiyanaBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.23000000417232513,
+        "mAttackProbability": 0.3330000042915344,
+        "mAttackName": "QiyanaBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.5,
+        "mAttackCastTime": 0.23000000417232513,
+        "mAttackName": "QiyanaCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "QiyanaQAbility/QiyanaQ",
+      "QiyanaWAbility/QiyanaW",
+      "QiyanaEAbility/QiyanaE",
+      "QiyanaRAbility/QiyanaR"
+    ],
+    "spells": [
+      "Characters/Qiyana/Spells/QiyanaQAbility/QiyanaQ",
+      "Characters/Qiyana/Spells/QiyanaWAbility/QiyanaW",
+      "Characters/Qiyana/Spells/QiyanaEAbility/QiyanaE",
+      "Characters/Qiyana/Spells/QiyanaRAbility/QiyanaR"
+    ],
+    "mAbilities": [
+      "Characters/Qiyana/Spells/QiyanaQAbility",
+      "Characters/Qiyana/Spells/QiyanaWAbility",
+      "Characters/Qiyana/Spells/QiyanaRAbility",
+      "Characters/Qiyana/Spells/QiyanaEAbility",
+      "Characters/Qiyana/Spells/QiyanaPassiveAbility"
+    ],
+    "passiveName": "Passive_QiyanaPv1_Name",
+    "passiveLuaName": "BadPassive",
+    "passiveToolTip": "Spell_QiyanaPassive_Summary",
+    "passiveSpell": "QiyanaPassive",
+    "passive1IconName": "assets/characters/qiyana/hud/icons2d/qiyana_passive.dds",
+    "name": "game_character_displayname_Qiyana",
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "QiyanaPassive",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "championId": 246,
+      "roles": "MAGE",
+      "magicRank": 4,
+      "difficultyRank": 8,
+      "description": "game_character_description_Qiyana",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 9446664,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Qiyana/Spells/QiyanaPassiveAbility/QiyanaPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Qiyana/Spells/QiyanaPassiveAbility/QiyanaPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "baseHP": 30.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

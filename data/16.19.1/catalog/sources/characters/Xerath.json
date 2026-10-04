@@ -1,0 +1,267 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/xerath/xerath.bin.json",
+  "sha256": "cf638141d373496064c662676f59a98afcdf03ea713e1b93d02bacf344a9ed52",
+  "path": "Characters/Xerath/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Xerath",
+    "baseHPModifiable": {
+      "baseValue": 575.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 22.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.3700000047683716,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.3600000143051147,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 1.0,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "XerathBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 1.0,
+        "mAttackName": "XerathCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "XerathArcanopulseChargeUpAbility/XerathArcanopulseChargeUp",
+      "XerathArcaneBarrage2Ability/XerathArcaneBarrage2",
+      "XerathMageSpearAbility/XerathMageSpear",
+      "XerathLocusOfPower2Ability/XerathLocusOfPower2"
+    ],
+    "spells": [
+      "Characters/Xerath/Spells/XerathArcanopulseChargeUpAbility/XerathArcanopulseChargeUp",
+      "Characters/Xerath/Spells/XerathArcaneBarrage2Ability/XerathArcaneBarrage2",
+      "Characters/Xerath/Spells/XerathMageSpearAbility/XerathMageSpear",
+      "Characters/Xerath/Spells/XerathLocusOfPower2Ability/XerathLocusOfPower2"
+    ],
+    "extraSpells": [
+      "XerathArcanopulse2",
+      "BaseSpell",
+      "BaseSpell",
+      "XerathLocusPulse",
+      "BaseSpell",
+      "XerathMageSpearMissile",
+      "XerathLocusPulse",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Xerath/Spells/XerathArcanopulse2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Xerath/Spells/XerathLocusOfPower2Ability/XerathLocusPulse",
+      "Shared/Spells/BaseSpell",
+      "{a104f46c}",
+      "Characters/Xerath/Spells/XerathLocusOfPower2Ability/XerathLocusPulse",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Xerath/Spells/XerathLocusOfPower2Ability",
+      "Characters/Xerath/Spells/XerathArcanopulseChargeUpAbility",
+      "Characters/Xerath/Spells/XerathArcaneBarrage2Ability",
+      "Characters/Xerath/Spells/XerathMageSpearAbility",
+      "Characters/Xerath/Spells/XerathAscended2Ability"
+    ],
+    "passiveName": "game_character_passiveName_Xerath",
+    "passiveLuaName": "XerathAscended2",
+    "passiveToolTip": "game_character_passiveDescription_Xerath",
+    "passive1IconName": "assets/characters/xerath/hud/icons2d/xerath_passive1.dds",
+    "name": "game_character_displayname_Xerath",
+    "mUseCCAnimations": true,
+    "selectionHeight": 302.7778015136719,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "recItems": [
+        "1056",
+        "3020",
+        "3027",
+        "3116",
+        "3089",
+        "3135"
+      ],
+      "spellData": [
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Xerath",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 101,
+      "roles": "SUPPORT",
+      "magicRank": 10,
+      "difficultyRank": 8,
+      "description": "game_character_description_Xerath",
+      "defenseRank": 3,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Xerath/Spells/XerathAscended2Ability/XerathAscended2",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Xerath/Spells/XerathAscended2Ability/XerathAscended2",
+        "mComponentBuffs": [
+          "Characters/Xerath/Spells/XerathAscended2OnHit"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

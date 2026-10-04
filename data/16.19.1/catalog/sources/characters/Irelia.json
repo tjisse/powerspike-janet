@@ -1,0 +1,284 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/irelia/irelia.bin.json",
+  "sha256": "06b08c7db7539ee4e84984566474462fee99bcf6cbaad46c0a0c71025eb2cc98",
+  "path": "Characters/Irelia/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Irelia",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 115.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.699999988079071,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.17000000178813934,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 101.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 350.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 14,
+      "{726ee5cd}": {
+        "baseValue": 4.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 4,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "GenericLargeUncolored",
+      "arOverrideMediumPipName": "GenericLargeUncolored",
+      "arOverrideLargePipName": "GenericLargeUncolored",
+      "arOverrideSpacerName": "PipSpacer1",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 65.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 36.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 200.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.656000018119812,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.656000018119812,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.524999976158142,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 1.0,
+      "mAttackName": "IreliaBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.524999976158142,
+        "mAttackCastTime": 0.30000001192092896,
+        "mAttackName": "IreliaCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "IreliaQAbility/IreliaQ",
+      "IreliaWAbility/IreliaW",
+      "IreliaEAbility/IreliaE",
+      "IreliaRAbility/IreliaR"
+    ],
+    "spells": [
+      "Characters/Irelia/Spells/IreliaQAbility/IreliaQ",
+      "Characters/Irelia/Spells/IreliaWAbility/IreliaW",
+      "Characters/Irelia/Spells/IreliaEAbility/IreliaE",
+      "Characters/Irelia/Spells/IreliaRAbility/IreliaR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Irelia/Spells/IreliaQAbility",
+      "Characters/Irelia/Spells/IreliaWAbility",
+      "Characters/Irelia/Spells/IreliaEAbility",
+      "Characters/Irelia/Spells/IreliaPassiveAbility",
+      "Characters/Irelia/Spells/IreliaRAbility"
+    ],
+    "passiveName": "Spell_IreliaPassive_Name",
+    "passiveLuaName": "BadDesc",
+    "passiveToolTip": "Spell_IreliaPassive_Summary",
+    "passiveSpell": "IreliaPassive",
+    "passive1IconName": "assets/characters/irelia/hud/icons2d/irelia_passive.dds",
+    "name": "game_character_displayname_Irelia",
+    "weaponMaterials": [
+      "IreliaBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 120.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      16,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Irelia",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 39,
+      "roles": "BRAWLER",
+      "magicRank": 5,
+      "LevelSpellEffectiveness": 1.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Irelia",
+      "defenseRank": 4,
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 7,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Irelia/Spells/IreliaPassiveAbility/IreliaPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Irelia/Spells/IreliaPassiveAbility/IreliaPassive",
+        "mComponentBuffs": [
+          "Characters/Irelia/Spells/IreliaPassiveAbility/IreliaPassiveStacks",
+          "Characters/Irelia/Spells/IreliaPassiveAbility/IreliaPassiveStacksMax"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Irelia/Spells/IreliaSkin37Manager",
+        "SkinFilter": {
+          "skinIds": [
+            37
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/nami/nami.bin.json",
+  "sha256": "8070d6fc69ecbd934563fadda7e4196f09475edfe44643098c33d462ba94ec0f",
+  "path": "Characters/Nami/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Nami",
+    "baseHPModifiable": {
+      "baseValue": 560.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 88.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 365.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 43.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 2.299999952316284,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07999999821186066,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 54.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.609999895095825,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "NamiBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+        "mAttackName": "NamiCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "NamiQAbility/NamiQ",
+      "NamiWAbility/NamiW",
+      "NamiEAbility/NamiE",
+      "NamiRAbility/NamiR"
+    ],
+    "spells": [
+      "Characters/Nami/Spells/NamiQAbility/NamiQ",
+      "Characters/Nami/Spells/NamiWAbility/NamiW",
+      "Characters/Nami/Spells/NamiEAbility/NamiE",
+      "Characters/Nami/Spells/NamiRAbility/NamiR"
+    ],
+    "extraSpells": [
+      "NamiRMissile",
+      "NamiQDummyMissile",
+      "NamiWAlly",
+      "NamiWMissileEnemy",
+      "NamiWMissileAlly",
+      "NamiQMissile",
+      "NamiWEnemy",
+      "BaseSpell",
+      "BaseSpell",
+      "NamiCritAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Nami/Spells/NamiRAbility/NamiRMissile",
+      "Characters/Nami/Spells/NamiQAbility/NamiQDummyMissile",
+      "Characters/Nami/Spells/NamiWAbility/NamiWAlly",
+      "Characters/Nami/Spells/NamiWAbility/NamiWMissileEnemy",
+      "Characters/Nami/Spells/NamiWAbility/NamiWMissileAlly",
+      "Characters/Nami/Spells/NamiQAbility/NamiQMissile",
+      "Characters/Nami/Spells/NamiWAbility/NamiWEnemy",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Nami/Spells/NamiCritAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Nami/Spells/NamiRAbility",
+      "Characters/Nami/Spells/NamiQAbility",
+      "Characters/Nami/Spells/NamiWAbility",
+      "Characters/Nami/Spells/NamiEAbility",
+      "Characters/Nami/Spells/NamiPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Nami",
+    "passiveLuaName": "NamiPassive",
+    "passiveToolTip": "game_character_passiveDescription_Nami",
+    "passive1IconName": "assets/characters/nami/hud/icons2d/namipassive.dds",
+    "name": "game_character_displayname_Nami",
+    "selectionHeight": 180.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      16,
+      0,
+      0,
+      8
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Needs text",
+          "displayName": "NamiR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "NamiR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "NamiR",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Needs text",
+          "displayName": "NamiR",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "{42ac598e}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Nami",
+          "effect": [
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ],
+          "level": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "__type": "ToolPassiveData"
+        },
+        {
+          "effect": [
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ],
+          "level": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "support",
+      "searchTagsSecondary": "mage",
+      "championId": 267,
+      "roles": "SUPPORT",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Nami",
+      "defenseRank": 3,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Nami/Spells/NamiPassiveAbility/NamiPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Nami/Spells/NamiPassiveAbility/NamiPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/GlobalRecallFacingSouth",
+        "SkinFilter": {
+          "skinIds": [
+            2
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Nami/Spells/NamiSkin51Manager",
+        "SkinFilter": {
+          "skinIds": [
+            51,
+            68
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

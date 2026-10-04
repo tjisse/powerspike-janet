@@ -1,0 +1,188 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/taliyah/taliyah.bin.json",
+  "sha256": "a8ee5f679110677b3cd5b9f3c619a1e8824de3ea26daa176c6ecec8b0ab67fad",
+  "path": "Characters/Taliyah/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Taliyah",
+    "baseHPModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 470.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 30.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 18.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.3600000143051147,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.13854166865348816,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackName": "TaliyahCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "TaliyahQAbility/TaliyahQ",
+      "TaliyahWVCAbility/TaliyahWVC",
+      "TaliyahEAbility/TaliyahE",
+      "TaliyahRAbility/TaliyahR"
+    ],
+    "spells": [
+      "Characters/Taliyah/Spells/TaliyahQAbility/TaliyahQ",
+      "Characters/Taliyah/Spells/TaliyahWVCAbility/TaliyahWVC",
+      "Characters/Taliyah/Spells/TaliyahEAbility/TaliyahE",
+      "Characters/Taliyah/Spells/TaliyahRAbility/TaliyahR"
+    ],
+    "mAbilities": [
+      "Characters/Taliyah/Spells/TaliyahRAbility",
+      "Characters/Taliyah/Spells/TaliyahQAbility",
+      "Characters/Taliyah/Spells/TaliyahWVCAbility",
+      "Characters/Taliyah/Spells/TaliyahEAbility",
+      "Characters/Taliyah/Spells/TaliyahPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Taliyah",
+    "passiveLuaName": "TaliyahPassive",
+    "passiveToolTip": "game_character_passiveDescription_Taliyah",
+    "passive1IconName": "assets/characters/taliyah/hud/icons2d/taliyah_passive.dds",
+    "name": "game_character_displayname_Taliyah",
+    "selectionHeight": 145.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Taliyah",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 163,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "LevelSpellEffectiveness": 4.5,
+      "difficultyRank": 5,
+      "description": "game_character_description_Taliyah",
+      "defenseRank": 7,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Taliyah/Spells/TaliyahPassiveAbility/TaliyahPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Taliyah/Spells/TaliyahPassiveAbility/TaliyahPassive",
+        "mComponentBuffs": [
+          "Characters/Taliyah/Spells/TaliyahPassiveAbility/TaliyahPSpeedBuff",
+          "Characters/Taliyah/Spells/TaliyahPassiveAbility/TaliyahPStackingUp"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Taliyah/Spells/TaliyahOutOfCombat",
+        "mComponentBuffs": [
+          "Characters/Taliyah/Spells/TaliyahInCombat"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

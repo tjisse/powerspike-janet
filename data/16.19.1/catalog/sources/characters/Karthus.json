@@ -1,0 +1,280 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/karthus/karthus.bin.json",
+  "sha256": "e1f38c90019cea230d19698a50584e1e16c55bd62e64b96030b3d792d4c079ad",
+  "path": "Characters/Karthus/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Karthus",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 110.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 467.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 31.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 46.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.25,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 450.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.109999895095825,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 450.0,
+    "basicAttack": {
+      "mAttackProbability": 0.75,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.25,
+        "mAttackName": "KarthusBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": 0.04374999925494194,
+        "mAttackName": "KarthusCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KarthusLayWasteA1Ability/KarthusLayWasteA1",
+      "KarthusWallOfPainAbility/KarthusWallOfPain",
+      "KarthusDefileAbility/KarthusDefile",
+      "KarthusFallenOneAbility/KarthusFallenOne"
+    ],
+    "spells": [
+      "Characters/Karthus/Spells/KarthusLayWasteA1Ability/KarthusLayWasteA1",
+      "Characters/Karthus/Spells/KarthusWallOfPainAbility/KarthusWallOfPain",
+      "Characters/Karthus/Spells/KarthusDefileAbility/KarthusDefile",
+      "Characters/Karthus/Spells/KarthusFallenOneAbility/KarthusFallenOne"
+    ],
+    "extraSpells": [
+      "KarthusLayWasteExtra",
+      "",
+      "KarthusFallenOneExtra",
+      "KarthusDeathDefiedBuff",
+      "KarthusDefileSoundDummy2",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Karthus/Spells/KarthusLayWasteA1Ability/KarthusLayWasteExtra",
+      "{00000000}",
+      "Characters/Karthus/Spells/KarthusFallenOneAbility/KarthusFallenOneExtra",
+      "Characters/Karthus/Spells/KarthusDeathDefiedAbility/KarthusDeathDefiedBuff",
+      "Characters/Karthus/Spells/KarthusDefileAbility/KarthusDefileSoundDummy2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Karthus/Spells/KarthusLayWasteA1Ability",
+      "Characters/Karthus/Spells/KarthusWallOfPainAbility",
+      "Characters/Karthus/Spells/KarthusDefileAbility",
+      "Characters/Karthus/Spells/KarthusFallenOneAbility",
+      "Characters/Karthus/Spells/KarthusDeathDefiedAbility"
+    ],
+    "passiveName": "game_character_passiveName_Karthus",
+    "passiveLuaName": "Death Defied",
+    "passiveToolTip": "game_character_passiveDescription_Karthus",
+    "passive1IconName": "assets/characters/karthus/hud/icons2d/karthus_passive.dds",
+    "name": "game_character_displayname_Karthus",
+    "selectionHeight": 150.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "After a 3 second channel, deals global damage to all enemy champions.",
+          "displayName": "Fallen One",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "After a 3 second channel, deals global damage to all enemy champions.",
+          "displayName": "Fallen One",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "After a 3 second channel, deals global damage to all enemy champions.",
+          "displayName": "Fallen One",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "After a 3 second channel, deals global damage to all enemy champions.",
+          "displayName": "Fallen One",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Karthus",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 30,
+      "roles": "MAGE",
+      "magicRank": 10,
+      "difficultyRank": 7,
+      "description": "game_character_description_Karthus",
+      "defenseRank": 2,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Karthus/Spells/KarthusDeathDefiedAbility/KarthusDeathDefied",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Karthus/Spells/KarthusDeathDefiedAbility/KarthusDeathDefied",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/GlobalRunCycleManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/CrestBigMarker",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

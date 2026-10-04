@@ -1,0 +1,230 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/velkoz/velkoz.bin.json",
+  "sha256": "0084ae02d83ae0afa08d94f7e9976a42926b517129a6172ce207aa9dff1f9c03",
+  "path": "Characters/Velkoz/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Velkoz",
+    "baseHPModifiable": {
+      "baseValue": 590.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 102.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 125.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 469.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 21.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.1415927410125732,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6430000066757202,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.590000033378601,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 575.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "VelkozBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "VelkozBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "VelkozCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "VelkozQAbility/VelkozQ",
+      "VelkozWAbility/VelkozW",
+      "VelkozEAbility/VelkozE",
+      "VelkozRAbility/VelkozR"
+    ],
+    "spells": [
+      "Characters/Velkoz/Spells/VelkozQAbility/VelkozQ",
+      "Characters/Velkoz/Spells/VelkozWAbility/VelkozW",
+      "Characters/Velkoz/Spells/VelkozEAbility/VelkozE",
+      "Characters/Velkoz/Spells/VelkozRAbility/VelkozR"
+    ],
+    "extraSpells": [
+      "VelkozQMissile",
+      "VelkozWMissile",
+      "VelkozEMissile",
+      "VelkozResearchProc",
+      "VelkozQSplitActivate",
+      "VelkozQMissileSplit",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Velkoz/Spells/VelkozQAbility/VelkozQMissile",
+      "Characters/Velkoz/Spells/VelkozWAbility/VelkozWMissile",
+      "Characters/Velkoz/Spells/VelkozEAbility/VelkozEMissile",
+      "Characters/Velkoz/Spells/VelkozResearchProc",
+      "Characters/Velkoz/Spells/VelkozQAbility/VelkozQSplitActivate",
+      "Characters/Velkoz/Spells/VelkozQAbility/VelkozQMissileSplit",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Velkoz/Spells/VelkozQAbility",
+      "Characters/Velkoz/Spells/VelkozWAbility",
+      "Characters/Velkoz/Spells/VelkozEAbility",
+      "Characters/Velkoz/Spells/VelkozRAbility",
+      "Characters/Velkoz/Spells/VelkozPassiveAbility"
+    ],
+    "passiveName": "Spell_VelkozPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_VelkozPassive_Summary",
+    "passiveSpell": "VelkozPassive",
+    "passive1IconName": "assets/characters/velkoz/hud/icons2d/velkoz_passive.dds",
+    "name": "game_character_displayname_Velkoz",
+    "selectionHeight": 302.7778015136719,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion | Special_Void",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_VelkozPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 161,
+      "roles": "MAGE",
+      "magicRank": 10,
+      "difficultyRank": 8,
+      "description": "game_character_description_Velkoz",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Velkoz/Spells/VelkozPassiveAbility/VelkozPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Velkoz/Spells/VelkozPassiveAbility/VelkozPassive",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Shared/Spells/GlobalRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/heimerdinger/heimerdinger.bin.json",
+  "sha256": "a96ff9db17bbc0877c75dd4d56eb51a73b79e97c31d8003ac5c6d0e776795f60",
+  "path": "Characters/Heimerdinger/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Heimerdinger",
+    "baseHPModifiable": {
+      "baseValue": 558.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 87.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 385.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 20.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 56.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 19.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.3600000143051147,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "HeimerdingerBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.09992187470197678,
+        "mAttackName": "HeimerdingerCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "HeimerdingerQAbility/HeimerdingerQ",
+      "HeimerdingerWAbility/HeimerdingerW",
+      "HeimerdingerEAbility/HeimerdingerE",
+      "HeimerdingerRAbility/HeimerdingerR"
+    ],
+    "spells": [
+      "Characters/Heimerdinger/Spells/HeimerdingerQAbility/HeimerdingerQ",
+      "Characters/Heimerdinger/Spells/HeimerdingerWAbility/HeimerdingerW",
+      "Characters/Heimerdinger/Spells/HeimerdingerEAbility/HeimerdingerE",
+      "Characters/Heimerdinger/Spells/HeimerdingerRAbility/HeimerdingerR"
+    ],
+    "extraSpells": [
+      "HeimerdingerESpell",
+      "BaseSpell",
+      "BaseSpell",
+      "HeimerdingerWAttack2",
+      "BaseSpell",
+      "BaseSpell",
+      "HeimerdingerWAttack2Ult",
+      "HeimerdingerUltWDummySpell",
+      "HeimerdingerUltEDummySpell",
+      "HeimerdingerUltQDummySpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Heimerdinger/Spells/HeimerdingerEAbility/HeimerdingerESpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Heimerdinger/Spells/HeimerdingerWAbility/HeimerdingerWAttack2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Heimerdinger/Spells/HeimerdingerWAbility/HeimerdingerWAttack2Ult",
+      "Characters/Heimerdinger/Spells/HeimerdingerUltWDummySpell",
+      "Characters/Heimerdinger/Spells/HeimerdingerUltEDummySpell",
+      "Characters/Heimerdinger/Spells/HeimerdingerUltQDummySpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Heimerdinger/Spells/HeimerdingerRAbility",
+      "Characters/Heimerdinger/Spells/HeimerdingerQAbility",
+      "Characters/Heimerdinger/Spells/HeimerdingerWAbility",
+      "Characters/Heimerdinger/Spells/HeimerdingerEAbility",
+      "Characters/Heimerdinger/Spells/HeimerdingerPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Heimerdinger",
+    "passiveToolTip": "game_character_passiveDescription_Heimerdinger",
+    "passiveSpell": "HeimerdingerPassive",
+    "passiveRange": 300.0,
+    "passive1IconName": "assets/characters/heimerdinger/hud/icons2d/heimerdinger_passive.dds",
+    "name": "game_character_displayname_Heimerdinger",
+    "selectionHeight": 85.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.54439926147461,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "easy": true,
+          "medium": true,
+          "hard": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Heimerdinger",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "searchTagsSecondary": "support",
+      "championId": 74,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "difficultyRank": 8,
+      "description": "game_character_description_Heimerdinger",
+      "defenseRank": 6,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Heimerdinger/Spells/HeimerdingerPassiveAbility/HeimerdingerPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Heimerdinger/Spells/HeimerdingerPassiveAbility/HeimerdingerPassive",
+        "mComponentBuffs": [
+          "Characters/Heimerdinger/Spells/HeimerdingerPassiveAbility/HeimerdingerPassiveSpeed"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Heimerdinger/Spells/HeimerdingerRunCycleManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Heimerdinger/Spells/HeimerdingerQAbility/HeimerQAmmo",
+        "mComponentBuffs": [
+          "Characters/Heimerdinger/Spells/HeimerdingerTurretReady"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

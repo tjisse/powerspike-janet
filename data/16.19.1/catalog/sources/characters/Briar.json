@@ -1,0 +1,268 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/briar/briar.bin.json",
+  "sha256": "d4d6cc3b0dac086ff7b23da77219de4b8c471d46fe238dd76f94d9e8ffc0c8f8",
+  "path": "Characters/Briar/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Briar",
+    "baseHPModifiable": {
+      "baseValue": 625.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 95.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.0,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 5,
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 60.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6439999938011169,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6690000295639038,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5529999732971191,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 1.0,
+      "mAttackName": "BriarBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "BriarBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttack4",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttack5",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttack6",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttackFrenzy",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttackFrenzy2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarBasicAttackFrenzy3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackProbability": 1.0,
+        "mAttackName": "BriarCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BriarCritAttackFrenzy",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "BriarQAbility/BriarQ",
+      "BriarWAbility/BriarW",
+      "BriarEAbility/BriarE",
+      "BriarRAbility/BriarR"
+    ],
+    "spells": [
+      "Characters/Briar/Spells/BriarQAbility/BriarQ",
+      "Characters/Briar/Spells/BriarWAbility/BriarW",
+      "Characters/Briar/Spells/BriarEAbility/BriarE",
+      "Characters/Briar/Spells/BriarRAbility/BriarR"
+    ],
+    "extraSpells": [
+      "",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "{00000000}",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Briar/Spells/BriarPAbility",
+      "Characters/Briar/Spells/BriarWAbility",
+      "Characters/Briar/Spells/BriarQAbility",
+      "Characters/Briar/Spells/BriarRAbility",
+      "Characters/Briar/Spells/BriarEAbility"
+    ],
+    "passiveName": "Spell_BriarP_Name",
+    "passiveLuaName": "BriarP",
+    "passiveToolTip": "Spell_BriarP_Summary",
+    "passiveSpell": "BriarP",
+    "passive1IconName": "assets/characters/briar/hud/icons2d/briarp.dds",
+    "name": "game_character_displayname_Briar",
+    "mUseCCAnimations": true,
+    "selectionHeight": 191.6667022705078,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      17
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "fighter",
+      "searchTagsSecondary": "assassin",
+      "championId": 233,
+      "roles": "BRAWLER",
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 3,
+      "description": "game_character_description_Briar",
+      "defenseRank": 5,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Briar/Spells/BriarPAbility/BriarP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Briar/Spells/BriarPAbility/BriarP",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

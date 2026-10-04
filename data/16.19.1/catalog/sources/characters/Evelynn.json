@@ -1,0 +1,312 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/evelynn/evelynn.bin.json",
+  "sha256": "3ef1e450bb14edfb1b5c808c90a182b7a7f8fef22e5e380fa8695414c627d7d0",
+  "path": "Characters/Evelynn/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Evelynn",
+    "baseHPModifiable": {
+      "baseValue": 642.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 98.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 90.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 315.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 42.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.621999979019165,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 61.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 37.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.23000000417232513,
+      "mAttackProbability": 0.4000000059604645,
+      "mAttackName": "EvelynnBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.10000000149011612,
+        "mAttackName": "EvelynnBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "EvelynnBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "EvelynnCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "EvelynnQAbility/EvelynnQ",
+      "EvelynnWAbility/EvelynnW",
+      "EvelynnEAbility/EvelynnE",
+      "EvelynnRAbility/EvelynnR"
+    ],
+    "spells": [
+      "Characters/Evelynn/Spells/EvelynnQAbility/EvelynnQ",
+      "Characters/Evelynn/Spells/EvelynnWAbility/EvelynnW",
+      "Characters/Evelynn/Spells/EvelynnEAbility/EvelynnE",
+      "Characters/Evelynn/Spells/EvelynnRAbility/EvelynnR"
+    ],
+    "extraSpells": [
+      "EvelynnQ2",
+      "EvelynnWMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Evelynn/Spells/EvelynnQAbility/EvelynnQ2",
+      "Characters/Evelynn/Spells/EvelynnWAbility/EvelynnWMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Evelynn/Spells/EvelynnQAbility",
+      "Characters/Evelynn/Spells/EvelynnWAbility",
+      "Characters/Evelynn/Spells/EvelynnEAbility",
+      "Characters/Evelynn/Spells/EvelynnPassiveAbility",
+      "Characters/Evelynn/Spells/EvelynnRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Evelynn",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Evelynn",
+    "passiveSpell": "EvelynnPassive",
+    "passive1IconName": "assets/characters/evelynn/hud/icons2d/evelynn_passive.dds",
+    "name": "game_character_displayname_Evelynn",
+    "weaponMaterials": [
+      "EvelynnBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 110.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      14
+    ],
+    "characterToolData": {
+      "recItems": [
+        "1054",
+        "3117",
+        "3154",
+        "3078",
+        "3026",
+        "3124"
+      ],
+      "sound": {
+        "attack": [
+          "Evelynn-Attack1-NORM_01.wav",
+          "Evelynn-Attack2-NORM_01.wav",
+          "Evelynn-Attack3-NORM_01.wav",
+          "Evelynn-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "Evelynn-Click1-NORM_01.wav",
+          "Evelynn-Click2-NORM_01.wav",
+          "Evelynn-Click3-NORM_01.wav",
+          "Evelynn-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "Evelynn-Move1-NORM_01.wav",
+          "Evelynn-Move2-NORM_01.wav",
+          "Evelynn-Move3-NORM_01.wav",
+          "Evelynn-Move4-NORM_01.wav"
+        ],
+        "death": "Evelynn-Death1-NORM_01.wav",
+        "ready": "Evelynn-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Evelynn",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "mage",
+      "championId": 28,
+      "roles": "MAGE",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 1.0,
+      "difficultyRank": 10,
+      "description": "game_character_description_Evelynn",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Evelynn/Spells/EvelynnPassiveAbility/EvelynnPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Evelynn/Spells/EvelynnPassiveAbility/EvelynnPassive",
+        "mComponentBuffs": [
+          "Characters/Evelynn/Spells/EvelynnStealthRing",
+          "Characters/Evelynn/Spells/EvelynnPassiveAbility/EvelynnPassiveDelay",
+          "Characters/Evelynn/Spells/EvelynnPassiveAbility/EvelynnPassiveDemonCloak",
+          "Characters/Evelynn/Spells/EvelynnEAbility/EvelynnE"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Evelynn/Spells/EvelynnSkin24Manager",
+        "SkinFilter": {
+          "skinIds": [
+            24
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

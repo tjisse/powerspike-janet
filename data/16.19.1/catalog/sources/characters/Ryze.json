@@ -1,0 +1,295 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/ryze/ryze.bin.json",
+  "sha256": "4a0742508953b8a944f65243f1344f9bd7f0ab4824a82f2d1acc31600770e0bb",
+  "path": "Characters/Ryze/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Ryze",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 124.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.1599999964237213,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 115.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 300.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 70.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.20000000298023224,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 12,
+      "{726ee5cd}": {
+        "baseValue": 2.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "RyzeSmall",
+      "arOverrideLargePipName": "RyzeLarge",
+      "arOverrideEmptyPipName": "EmptyPip16",
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.109999895095825,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 575.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "RyzeBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "RyzeBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "RyzeBasicAttack4",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+        "mAttackName": "RyzeCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "RyzeQWrapperAbility/RyzeQWrapper",
+      "RyzeWAbility/RyzeW",
+      "RyzeEAbility/RyzeE",
+      "RyzeRAbility/RyzeR"
+    ],
+    "spells": [
+      "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQWrapper",
+      "Characters/Ryze/Spells/RyzeWAbility/RyzeW",
+      "Characters/Ryze/Spells/RyzeEAbility/RyzeE",
+      "Characters/Ryze/Spells/RyzeRAbility/RyzeR"
+    ],
+    "extraSpells": [
+      "RyzeQMissile",
+      "BaseSpell",
+      "RyzeEMissile",
+      "RyzeR2",
+      "RyzeQ",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Ryze/Spells/RyzeEAbility/RyzeEMissile",
+      "Characters/Ryze/Spells/RyzeRAbility/RyzeR2",
+      "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQ",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Ryze/Spells/RyzeQWrapperAbility",
+      "Characters/Ryze/Spells/RyzeWAbility",
+      "Characters/Ryze/Spells/RyzeEAbility",
+      "Characters/Ryze/Spells/RyzeRAbility",
+      "Characters/Ryze/Spells/RyzePassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Ryze",
+    "passiveLuaName": "RyzePassive",
+    "passiveToolTip": "game_character_passiveDescription_Ryze",
+    "passiveSpell": "RyzePassive",
+    "passive1IconName": "assets/characters/ryze/hud/icons2d/ryze_p.dds",
+    "name": "game_character_displayname_Ryze",
+    "selectionHeight": 150.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "skillOrder": 2,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      15,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Energizes Ryze, giving bonus ability power and causing his spells to deal damage in a small area.",
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Energizes Ryze, giving bonus ability power and causing his spells to deal damage in a small area.",
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Energizes Ryze, giving bonus ability power and causing his spells to deal damage in a small area.",
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Energizes Ryze, giving bonus ability power and causing his spells to deal damage in a small area.",
+          "displayName": "Desperate Power",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "intro": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Ability Power increases to 30.",
+        "Ability Power increases to 45.",
+        "Ability Power increases to 60."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Ryze",
+          "level": [
+            1,
+            6,
+            16
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 13,
+      "roles": "MAGE",
+      "magicRank": 10,
+      "LevelSpellEffectiveness": 5.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Ryze",
+      "defenseRank": 2,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "{aa75da9d}": false,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mCharacterPassiveSpell": "Characters/Ryze/Spells/RyzePassiveAbility/RyzePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Ryze/Spells/RyzePassiveAbility/RyzePassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

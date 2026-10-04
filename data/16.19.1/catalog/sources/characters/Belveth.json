@@ -1,0 +1,339 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/belveth/belveth.bin.json",
+  "sha256": "d8ea5af670e0352a7d9ca22a5faaed3093406f0eb9c8396e4459da072ab853af",
+  "path": "Characters/Belveth/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Belveth",
+    "baseHPModifiable": {
+      "baseValue": 580.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 90.0,
+    "primaryAbilityResource": {
+      "arType": 14,
+      "{726ee5cd}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 6.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 6,
+      "arHasRegenText": false,
+      "arDisplayAsPips": true,
+      "arIsShown": false,
+      "VisibilityFlags": 1,
+      "arOverrideSmallPipName": "SamiraStyleSmall",
+      "arOverrideSpacerName": "PipSpacer",
+      "arNegativeSpacer": true,
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6700000166893005,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.4930000305175781,
+      "mAttackCastTime": 0.2199999988079071,
+      "mAttackProbability": 1.0,
+      "mAttackName": "BelvethBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "BelvethBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "BelvethCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "BelvethCritAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "deathEventListeningRadius": 2000.0,
+    "spellNames": [
+      "BelvethQAbility/BelvethQ",
+      "BelvethWAbility/BelvethW",
+      "BelvethEAbility/BelvethE",
+      "BelvethRAbility/BelvethR"
+    ],
+    "spells": [
+      "Characters/Belveth/Spells/BelvethQAbility/BelvethQ",
+      "Characters/Belveth/Spells/BelvethWAbility/BelvethW",
+      "Characters/Belveth/Spells/BelvethEAbility/BelvethE",
+      "Characters/Belveth/Spells/BelvethRAbility/BelvethR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Belveth/Spells/BelvethWAbility",
+      "Characters/Belveth/Spells/BelvethEAbility",
+      "Characters/Belveth/Spells/BelvethPassiveAbility",
+      "Characters/Belveth/Spells/BelvethQAbility",
+      "Characters/Belveth/Spells/BelvethRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Belveth",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Belveth",
+    "passiveSpell": "BelvethPassive",
+    "passive1IconName": "assets/characters/belveth/hud/icons2d/belveth_passive.dds",
+    "name": "game_character_displayname_Belveth",
+    "parName": "Lavender",
+    "weaponMaterials": [
+      "BelvethBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 110.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      14
+    ],
+    "characterToolData": {
+      "recItems": [
+        "1054",
+        "3117",
+        "3154",
+        "3078",
+        "3026",
+        "3124"
+      ],
+      "sound": {
+        "attack": [
+          "Belveth-Attack1-NORM_01.wav",
+          "Belveth-Attack2-NORM_01.wav",
+          "Belveth-Attack3-NORM_01.wav",
+          "Belveth-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "Belveth-Click1-NORM_01.wav",
+          "Belveth-Click2-NORM_01.wav",
+          "Belveth-Click3-NORM_01.wav",
+          "Belveth-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "Belveth-Move1-NORM_01.wav",
+          "Belveth-Move2-NORM_01.wav",
+          "Belveth-Move3-NORM_01.wav",
+          "Belveth-Move4-NORM_01.wav"
+        ],
+        "death": "Belveth-Death1-NORM_01.wav",
+        "ready": "Belveth-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "When a nearby enemy champion dies, Belveth gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Belveth gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Belveth gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Belveth gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Belveth",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "championId": 200,
+      "roles": "BRAWLER",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 1.0,
+      "difficultyRank": 10,
+      "description": "game_character_description_Belveth",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 4,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Domination/UltimateHunter",
+          "mReplaceWith": "Perks/Styles/Domination/RelentlessHunter",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Belveth/Spells/BelvethPassiveAbility/BelvethPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Belveth/Spells/BelvethPassiveAbility/BelvethPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map30/Modes/CHERRY",
+        "{cf19cb5d}": {
+          "damagePerLevel": 1.0,
+          "baseHP": 50.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

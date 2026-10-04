@@ -1,0 +1,227 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/quinn/quinn.bin.json",
+  "sha256": "6d3051f0675a2a41d21c9406231ba7ef05fc03862fea045d2948a0d7c99a7963",
+  "path": "Characters/Quinn/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Quinn",
+    "baseHPModifiable": {
+      "baseValue": 565.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 107.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 105.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 269.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 35.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.399999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07999999821186066,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.200000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6679999828338623,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6679999828338623,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.12456139922142029,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.12456139922142029,
+        "mAttackName": "QuinnCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "QuinnQAbility/QuinnQ",
+      "QuinnWAbility/QuinnW",
+      "QuinnEAbility/QuinnE",
+      "QuinnRAbility/QuinnR"
+    ],
+    "spells": [
+      "Characters/Quinn/Spells/QuinnQAbility/QuinnQ",
+      "Characters/Quinn/Spells/QuinnWAbility/QuinnW",
+      "Characters/Quinn/Spells/QuinnEAbility/QuinnE",
+      "Characters/Quinn/Spells/QuinnRAbility/QuinnR"
+    ],
+    "extraSpells": [
+      "QuinnWTimingMissile",
+      "QuinnWEnhanced",
+      "QuinnRFinale",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Quinn/Spells/QuinnWAbility/QuinnWTimingMissile",
+      "Characters/Quinn/Spells/QuinnWAbility/QuinnWEnhanced",
+      "Characters/Quinn/Spells/QuinnRAbility/QuinnRFinale",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Quinn/Spells/QuinnRAbility",
+      "Characters/Quinn/Spells/QuinnQAbility",
+      "Characters/Quinn/Spells/QuinnWAbility",
+      "Characters/Quinn/Spells/QuinnEAbility",
+      "Characters/Quinn/Spells/QuinnPassiveAbility"
+    ],
+    "passiveName": "Spell_QuinnPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_QuinnPassive_Summary",
+    "passiveSpell": "QuinnPassive",
+    "passive1IconName": "assets/characters/quinn/hud/icons2d/quinn_passive.dds",
+    "name": "game_character_displayname_Quinn",
+    "mUseCCAnimations": true,
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      2,
+      0,
+      7,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_QuinnPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "searchTagsSecondary": "assassin",
+      "championId": 133,
+      "roles": "ATTACKER",
+      "magicRank": 2,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Quinn",
+      "defenseRank": 4,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Quinn/Spells/QuinnPassiveAbility/QuinnPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Quinn/Spells/QuinnPassiveAbility/QuinnPassive",
+        "mComponentBuffs": [
+          "Characters/Quinn/Spells/QuinnPassiveAbility/QuinnPassiveAmmo"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

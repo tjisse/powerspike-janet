@@ -1,0 +1,222 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/kalista/kalista.bin.json",
+  "sha256": "8ad3bfdb2a282c27aeaf9201f9b3dece4eafbee7fd8c588adf878b5a848015d1",
+  "path": "Characters/Kalista/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Kalista",
+    "baseHPModifiable": {
+      "baseValue": 560.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 114.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.800000011920929,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 300.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 45.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2599999904632568,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.1599999964237213,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 57.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.75,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 330.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6940000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6940000057220459,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 4.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 900.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": 0.05999999865889549,
+      "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.75,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "KalistaBasicAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercentAttackSpeedRatio": 0.75,
+        "mAttackName": "KalistaCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KalistaMysticShotAbility/KalistaMysticShot",
+      "KalistaWAbility/KalistaW",
+      "KalistaExpungeWrapperAbility/KalistaExpungeWrapper",
+      "KalistaRxAbility/KalistaRx"
+    ],
+    "spells": [
+      "Characters/Kalista/Spells/KalistaMysticShotAbility/KalistaMysticShot",
+      "Characters/Kalista/Spells/KalistaWAbility/KalistaW",
+      "Characters/Kalista/Spells/KalistaExpungeWrapperAbility/KalistaExpungeWrapper",
+      "Characters/Kalista/Spells/KalistaRxAbility/KalistaRx"
+    ],
+    "mAbilities": [
+      "Characters/Kalista/Spells/KalistaMysticShotAbility",
+      "Characters/Kalista/Spells/KalistaWAbility",
+      "Characters/Kalista/Spells/KalistaExpungeWrapperAbility",
+      "Characters/Kalista/Spells/KalistaRxAbility",
+      "Characters/Kalista/Spells/KalistaPassiveBuffAbility"
+    ],
+    "passiveName": "game_character_passiveName_Kalista",
+    "passiveLuaName": "KalistaPassiveBuff",
+    "passiveToolTip": "game_character_passiveDescription_Kalista",
+    "passive1IconName": "assets/characters/kalista/hud/icons2d/kalista_passive.dds",
+    "name": "game_character_displayname_Kalista",
+    "mUseCCAnimations": true,
+    "selectionHeight": 135.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Cardmaster_Attack1.wav",
+          "Cardmaster_Attack2.wav",
+          "Cardmaster_Attack3.wav",
+          "Cardmaster_Attack4.wav"
+        ],
+        "click": [
+          "Cardmaster_Click1.wav",
+          "Cardmaster_Click2.wav",
+          "Cardmaster_Click3.wav",
+          "Cardmaster_Click4.wav"
+        ],
+        "move": [
+          "Cardmaster_Move1.wav",
+          "Cardmaster_Move2.wav",
+          "Cardmaster_Move3.wav",
+          "Cardmaster_Move4.wav"
+        ],
+        "death": "Cardmaster_Death.wav",
+        "ready": "Cardmaster_Ready2.wav",
+        "__type": "ToolSoundData"
+      },
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Kalista",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 429,
+      "roles": "ATTACKER",
+      "magicRank": 4,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Kalista",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Kalista/Spells/KalistaPassiveBuffAbility/KalistaPassiveBuff",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Kalista/Spells/KalistaPassiveBuffAbility/KalistaPassiveBuff",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map30/Modes/CHERRY",
+        "{cf19cb5d}": {
+          "baseHP": -50.0,
+          "hpPerLevel": -20.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

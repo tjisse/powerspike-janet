@@ -1,0 +1,285 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/kled/kled.bin.json",
+  "sha256": "c01421677e36282934c67c0f1a180f14205647e41d31431d13822590715b676f",
+  "path": "Characters/Kled/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Kled",
+    "baseHPModifiable": {
+      "baseValue": 410.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 84.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 130.0,
+    "selfChampSpecificHealthSuffix": "Green",
+    "selfCBChampSpecificHealthSuffix": "Yellow",
+    "allyChampSpecificHealthSuffix": "Blue",
+    "enemyChampSpecificHealthSuffix": "Red",
+    "primaryAbilityResource": {
+      "arType": 8,
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 1030,
+      "arHasRegenText": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 14,
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arMaxSegments": 30,
+      "arHasRegenText": false,
+      "arIsShown": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 65.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.2800000011920929,
+      "mAttackProbability": 1.0,
+      "mAttackName": "KledBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "KledBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "KledBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "KledRiderBasicAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "KledRiderBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.33000001311302185,
+        "mAttackName": "KledCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.33000001311302185,
+        "mAttackName": "KledRiderCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "KledQAbility/KledQ",
+      "KledWAbility/KledW",
+      "KledEAbility/KledE",
+      "KledRAbility/KledR"
+    ],
+    "spells": [
+      "Characters/Kled/Spells/KledQAbility/KledQ",
+      "Characters/Kled/Spells/KledWAbility/KledW",
+      "Characters/Kled/Spells/KledEAbility/KledE",
+      "Characters/Kled/Spells/KledRAbility/KledR"
+    ],
+    "extraSpells": [
+      "KledWAttack1",
+      "KledEDash",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Kled/Spells/KledWAttack1",
+      "Characters/Kled/Spells/KledEAbility/KledEDash",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Kled/Spells/KledRAbility",
+      "Characters/Kled/Spells/KledQAbility",
+      "Characters/Kled/Spells/KledWAbility",
+      "Characters/Kled/Spells/KledEAbility",
+      "Characters/Kled/Spells/KledPassiveAbility",
+      "Characters/Kled/Spells/KledRiderQAbility"
+    ],
+    "passiveName": "game_buff_description_KledPassive",
+    "passiveLuaName": "KledPassive",
+    "passiveToolTip": "game_character_passiveDescription_Kled",
+    "passiveSpell": "KledPassive",
+    "passive1IconName": "assets/characters/kled/hud/icons2d/kled_p.dds",
+    "name": "game_character_displayname_Kled",
+    "parName": "game_ability_resource_Courage",
+    "selectionHeight": 140.0,
+    "selectionRadius": 140.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "Adds +10% Attack Rate.",
+        "Adds +15% Attack Rate.",
+        "Adds +20% Attack Rate."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Kled",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "championId": 240,
+      "roles": "BRAWLER",
+      "PARFadeColor": "0 255 0",
+      "magicRank": 2,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Kled",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.75,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398092,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Kled/Spells/KledPassiveAbility/KledPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Kled/Spells/KledPassiveAbility/KledPassive",
+        "mComponentBuffs": [
+          "Characters/Kled/Spells/KledPassiveAbility/KledPassiveCooldown"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Kled/Spells/KledRunCycleManager",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

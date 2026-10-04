@@ -1,0 +1,301 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/jinx/jinx.bin.json",
+  "sha256": "72b608c52b1d42a5447368b1513b15037e3fad51e7bfc20d20ed1dd2dc20bf94",
+  "path": "Characters/Jinx/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Jinx",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.75,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 260.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 50.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.340000033378601,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.20000000298023224,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.25,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 26.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 33.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.100000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 525.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.2833299934864044,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "JinxBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "__type": "AttackSlotData"
+      },
+      {
+        "__type": "AttackSlotData"
+      },
+      {
+        "__type": "AttackSlotData"
+      },
+      {
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.27000001072883606,
+        "mAttackName": "JinxQAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.27000001072883606,
+        "mAttackName": "JinxQAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "JinxCritAttack",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.27000001072883606,
+        "mAttackName": "JinxQCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "JinxQAbility/JinxQ",
+      "JinxWAbility/JinxW",
+      "JinxEAbility/JinxE",
+      "JinxRAbility/JinxR"
+    ],
+    "spells": [
+      "Characters/Jinx/Spells/JinxQAbility/JinxQ",
+      "Characters/Jinx/Spells/JinxWAbility/JinxW",
+      "Characters/Jinx/Spells/JinxEAbility/JinxE",
+      "Characters/Jinx/Spells/JinxRAbility/JinxR"
+    ],
+    "extraSpells": [
+      "JinxR",
+      "JinxQCritAttack",
+      "JinxQAttack",
+      "JinxQAttack2",
+      "JinxEHit",
+      "BaseSpell",
+      "JinxWMissile",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Jinx/Spells/JinxRAbility/JinxR",
+      "Characters/Jinx/Spells/JinxQAbility/JinxQCritAttack",
+      "Characters/Jinx/Spells/JinxQAbility/JinxQAttack",
+      "Characters/Jinx/Spells/JinxQAbility/JinxQAttack2",
+      "Characters/Jinx/Spells/JinxEAbility/JinxEHit",
+      "Shared/Spells/BaseSpell",
+      "Characters/Jinx/Spells/JinxWAbility/JinxWMissile",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Jinx/Spells/JinxPassiveMarkerAbility",
+      "Characters/Jinx/Spells/JinxRAbility",
+      "Characters/Jinx/Spells/JinxEAbility",
+      "Characters/Jinx/Spells/JinxWAbility",
+      "Characters/Jinx/Spells/JinxQAbility"
+    ],
+    "passiveName": "game_character_passiveName_Jinx",
+    "passiveLuaName": "JinxPassiveMarker",
+    "passiveToolTip": "game_character_passiveDescription_Jinx",
+    "passive1IconName": "assets/characters/jinx/hud/icons2d/jinx_passive.dds",
+    "name": "game_character_displayname_Jinx",
+    "mUseCCAnimations": true,
+    "selectionHeight": 155.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.17000000178813934,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      15,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Jinx",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "marksman",
+      "championId": 222,
+      "roles": "ATTACKER",
+      "magicRank": 4,
+      "LevelSpellEffectiveness": 3.0,
+      "difficultyRank": 6,
+      "description": "game_character_description_Jinx",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Jinx/Spells/JinxPassiveMarkerAbility/JinxPassiveMarker",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Jinx/Spells/JinxPassiveMarkerAbility/JinxPassiveMarker",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jinx/Spells/JinxRunCycleManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jinx/Spells/JinxSkin60Manager",
+        "SkinFilter": {
+          "skinIds": [
+            60
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jinx/Spells/JinxSkin60MultiKillTracker",
+        "SkinFilter": {
+          "skinIds": [
+            60
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

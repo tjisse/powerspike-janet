@@ -1,0 +1,94 @@
+name: Publish signed RPM repository
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag, matching VERSION (for example v0.1.0)'
+        required: true
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: rpm-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: github-pages
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+      RPM_SIGNING_KEY: ${{ vars.RPM_SIGNING_KEY }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+      - name: Validate version
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          test "$RELEASE_TAG" = "v$(cat VERSION)"
+          test -n "$RPM_SIGNING_KEY"
+      - name: Install build and signing tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential git python3 ripgrep rpm libarchive-tools createrepo-c gnupg
+      - name: Test, build and verify RPM
+        run: |
+          make rpm
+          python3 test/package.py "dist/powerspike-$(cat VERSION)-1.x86_64.rpm"
+      - name: Import dedicated signing key
+        env:
+          SIGNING_KEY: ${{ secrets.RPM_GPG_PRIVATE_KEY }}
+        run: |
+          test -n "$SIGNING_KEY"
+          signing_home=$(mktemp -d "$RUNNER_TEMP/powerspike-gpg.XXXXXX")
+          chmod 0700 "$signing_home"
+          echo "GNUPGHOME=$signing_home" >> "$GITHUB_ENV"
+          printf '%s' "$SIGNING_KEY" | gpg --homedir "$signing_home" --batch --import
+      - name: Sign RPM and refresh checksum
+        run: bash scripts/sign-rpm.sh
+      - name: Publish release and gather retained RPMs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" dist/*.rpm dist/*.rpm.sha256 \
+              --repo "$GITHUB_REPOSITORY" --verify-tag --title "PowerSpike $RELEASE_TAG" --generate-notes
+          fi
+          mkdir -p packages site/rpm
+          gh release list --repo "$GITHUB_REPOSITORY" --limit 100 --json tagName,isDraft,isPrerelease \
+            --jq '.[] | select(.isDraft == false and .isPrerelease == false) | .tagName' |
+          while IFS= read -r tag; do
+            [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || continue
+            mkdir -p "packages/$tag"
+            gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern '*.rpm' --dir "packages/$tag"
+          done
+      - name: Generate and verify signed DNF repository
+        run: |
+          bash scripts/repository.sh "$GITHUB_REPOSITORY" packages site/rpm
+          python3 test/repository.py "$GITHUB_REPOSITORY" packages site/rpm
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+      - name: Remove private signing material
+        if: always()
+        run: |
+          if [[ -n "${GNUPGHOME:-}" && "$GNUPGHOME" == "$RUNNER_TEMP"/powerspike-gpg.* ]]; then
+            gpgconf --kill gpg-agent || true
+            rm -rf "$GNUPGHOME"
+          fi
+  install:
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+      - name: Install published package through signed DNF repository
+        run: docker run --rm -v "$PWD:/source:ro" fedora:latest bash /source/test/install-rpm.sh

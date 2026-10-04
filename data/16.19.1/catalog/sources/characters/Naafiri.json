@@ -1,0 +1,595 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/naafiri/naafiri.bin.json",
+  "sha256": "31aef554e688dc13cf2e14a57cd3d34122899b5bd45e3de45b4d4480c8b1b56c",
+  "path": "Characters/Naafiri/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Naafiri",
+    "PackmanagerData": {
+      "BuffOverrides": [
+        "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriPackmateTaunt",
+        "Characters/Naafiri/Spells/NaafiriEmoteActive",
+        "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriPackmateLeap",
+        "Characters/Naafiri/Spells/NaafiriWAbility/NaafiriW",
+        "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriPackmateWChanneling",
+        "Characters/Naafiri/Spells/NaafiriEAbility/NaafiriEPackmates",
+        "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriPackmateLeapNoAttack",
+        "Characters/Renata/Spells/RenataRAbility/RenataRDebuff",
+        "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriPackmateRecalling",
+        "Characters/Syndra/Spells/SyndraWAbility/SyndraW",
+        "Characters/Syndra/Spells/SyndraWAbility/SyndraWDebuff"
+      ],
+      "FollowerCrossoverAnimation": "Hop",
+      "OnLeaderMoveFollowerAnimation": "{45cbeaa1}",
+      "OrderTrailingDelay": 0.20000000298023224,
+      "LeashDistance": 0.0,
+      "UiTargetForgivenessRange": 200.0,
+      "AttackMoveTargetForgivenessRange": 400.0,
+      "{b97a9b92}": false,
+      "{377491e8}": {
+        "__type": "{1ddfbeeb}"
+      },
+      "RankToFormationMap": {
+        "1": {
+          "FormationPositions": [
+            [
+              262.5,
+              -150.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "2": {
+          "FormationPositions": [
+            [
+              262.5,
+              -150.0
+            ],
+            [
+              -262.5,
+              -150.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "3": {
+          "FormationPositions": [
+            [
+              0.0,
+              -337.0
+            ],
+            [
+              262.5,
+              -150.0
+            ],
+            [
+              -262.5,
+              -150.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "4": {
+          "FormationPositions": [
+            [
+              262.5,
+              -150.0
+            ],
+            [
+              -262.5,
+              -150.0
+            ],
+            [
+              87.375,
+              -300.0
+            ],
+            [
+              -87.375,
+              -300.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "5": {
+          "FormationPositions": [
+            [
+              262.5,
+              -150.0
+            ],
+            [
+              -262.5,
+              -150.0
+            ],
+            [
+              0.0,
+              -337.0
+            ],
+            [
+              131.25,
+              -225.0
+            ],
+            [
+              -131.25,
+              -225.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "6": {
+          "FormationPositions": [
+            [
+              300.0,
+              0.0
+            ],
+            [
+              -300.0,
+              0.0
+            ],
+            [
+              60.0,
+              -300.0
+            ],
+            [
+              -60.0,
+              -300.0
+            ],
+            [
+              180.0,
+              -150.0
+            ],
+            [
+              -180.0,
+              -150.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "7": {
+          "FormationPositions": [
+            [
+              300.0,
+              0.0
+            ],
+            [
+              -300.0,
+              0.0
+            ],
+            [
+              0.0,
+              -300.0
+            ],
+            [
+              -150.0,
+              -150.0
+            ],
+            [
+              150.0,
+              -150.0
+            ],
+            [
+              -225.0,
+              -300.0
+            ],
+            [
+              225.0,
+              -300.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "8": {
+          "FormationPositions": [
+            [
+              200.0,
+              0.0
+            ],
+            [
+              -200.0,
+              0.0
+            ],
+            [
+              66.5999984741211,
+              -100.0
+            ],
+            [
+              -66.5999984741211,
+              -100.0
+            ],
+            [
+              133.3000030517578,
+              -200.0
+            ],
+            [
+              -133.3000030517578,
+              -200.0
+            ],
+            [
+              200.0,
+              -100.0
+            ],
+            [
+              -200.0,
+              -100.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "9": {
+          "FormationPositions": [
+            [
+              200.0,
+              0.0
+            ],
+            [
+              -200.0,
+              0.0
+            ],
+            [
+              66.5999984741211,
+              -100.0
+            ],
+            [
+              -66.5999984741211,
+              -100.0
+            ],
+            [
+              133.3000030517578,
+              -200.0
+            ],
+            [
+              -133.3000030517578,
+              -200.0
+            ],
+            [
+              200.0,
+              -100.0
+            ],
+            [
+              -200.0,
+              -100.0
+            ],
+            [
+              0.0,
+              -200.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "10": {
+          "FormationPositions": [
+            [
+              200.0,
+              0.0
+            ],
+            [
+              -200.0,
+              0.0
+            ],
+            [
+              80.0,
+              -100.0
+            ],
+            [
+              -80.0,
+              -100.0
+            ],
+            [
+              66.5999984741211,
+              -225.0
+            ],
+            [
+              -66.5999984741211,
+              -225.0
+            ],
+            [
+              240.0,
+              -100.0
+            ],
+            [
+              -240.0,
+              -100.0
+            ],
+            [
+              200.0,
+              -225.0
+            ],
+            [
+              -200.0,
+              -225.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        },
+        "11": {
+          "FormationPositions": [
+            [
+              200.0,
+              0.0
+            ],
+            [
+              -200.0,
+              0.0
+            ],
+            [
+              120.0,
+              -100.0
+            ],
+            [
+              -120.0,
+              -100.0
+            ],
+            [
+              66.5999984741211,
+              -225.0
+            ],
+            [
+              -66.5999984741211,
+              -225.0
+            ],
+            [
+              240.0,
+              -100.0
+            ],
+            [
+              -240.0,
+              -100.0
+            ],
+            [
+              200.0,
+              -225.0
+            ],
+            [
+              -200.0,
+              -225.0
+            ],
+            [
+              0.0,
+              -100.0
+            ]
+          ],
+          "__type": "PackFormationData"
+        }
+      },
+      "__type": "PackManagerData"
+    },
+    "baseHPModifiable": {
+      "baseValue": 610.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 105.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.25,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 400.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 55.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.5,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.20000000298023224,
+        "__type": "ModifiableFloat"
+      },
+      "arHasRegenText": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arIsShown": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 28.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6629999876022339,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.0999999046325684,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.4500000476837158,
+      "mAttackCastTime": 0.25,
+      "mAttackProbability": 0.5,
+      "mAttackName": "NaafiriBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "NaafiriBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "NaafiriCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "NaafiriQAbility/NaafiriQ",
+      "NaafiriRAbility/NaafiriR",
+      "NaafiriEAbility/NaafiriE",
+      "NaafiriWAbility/Naafiriw"
+    ],
+    "spells": [
+      "Characters/Naafiri/Spells/NaafiriQAbility/NaafiriQ",
+      "Characters/Naafiri/Spells/NaafiriRAbility/NaafiriR",
+      "Characters/Naafiri/Spells/NaafiriEAbility/NaafiriE",
+      "Characters/Naafiri/Spells/NaafiriWAbility/NaafiriW"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Naafiri/Spells/NaafiriQAbility",
+      "Characters/Naafiri/Spells/NaafiriWAbility",
+      "Characters/Naafiri/Spells/NaafiriEAbility",
+      "Characters/Naafiri/Spells/NaafiriRAbility",
+      "Characters/Naafiri/Spells/NaafiriPAbility"
+    ],
+    "passiveName": "Spell_NaafiriP_Name",
+    "passiveLuaName": "NaafiriP",
+    "passiveToolTip": "Spell_NaafiriP_Summary",
+    "passiveSpell": "NaafiriP",
+    "passive1IconName": "assets/characters/naafiri/hud/icons2d/icons_naafiri_p.dds",
+    "name": "game_character_displayname_Naafiri",
+    "mUseCCAnimations": true,
+    "selectionHeight": 191.6667022705078,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      0,
+      17
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "assassin",
+      "searchTagsSecondary": "fighter",
+      "championId": 950,
+      "roles": "BRAWLER",
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 2,
+      "description": "game_character_description_Naafiri",
+      "defenseRank": 5,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "useRiotRelationships": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriP",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Naafiri/Spells/NaafiriPAbility/NaafiriP",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

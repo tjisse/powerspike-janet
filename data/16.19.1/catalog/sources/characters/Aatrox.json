@@ -1,0 +1,294 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/aatrox/aatrox.bin.json",
+  "sha256": "a95ea5e44b17c164942660b920a671cb580c34e452ebab975ff08f149c7aa391",
+  "path": "Characters/Aatrox/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Aatrox",
+    "baseHPModifiable": {
+      "baseValue": 650.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 114.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 0.6000000238418579,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 140.0,
+    "primaryAbilityResource": {
+      "arType": 10,
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 100.0,
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "{726ee5cd}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arHasRegenText": false,
+      "arAllowMaxValueToBeOverridden": true,
+      "arIsShown": false,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 60.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 5.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 38.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.800000190734863,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 175.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6510000228881836,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6510000228881836,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 475.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5199999809265137,
+      "mAttackCastTime": 0.30000001192092896,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "AatroxBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "AatroxBasicAttack3",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "AatroxRAttack1",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "AatroxRAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackCastTime": 0.0,
+        "mAttackName": "AatroxPassiveAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "AatroxCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "AatroxQAbility/AatroxQ",
+      "AatroxWAbility/AatroxW",
+      "AatroxEAbility/AatroxE",
+      "AatroxRAbility/AatroxR"
+    ],
+    "spells": [
+      "Characters/Aatrox/Spells/AatroxQAbility/AatroxQ",
+      "Characters/Aatrox/Spells/AatroxWAbility/AatroxW",
+      "Characters/Aatrox/Spells/AatroxEAbility/AatroxE",
+      "Characters/Aatrox/Spells/AatroxRAbility/AatroxR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Aatrox/Spells/AatroxRAbility",
+      "Characters/Aatrox/Spells/AatroxQAbility",
+      "Characters/Aatrox/Spells/AatroxWAbility",
+      "Characters/Aatrox/Spells/AatroxEAbility",
+      "Characters/Aatrox/Spells/AatroxPassiveAbility"
+    ],
+    "passiveName": "",
+    "passiveToolTip": "",
+    "passiveSpell": "AatroxPassive",
+    "passive1IconName": "assets/characters/aatrox/hud/icons2d/aatrox_passive.dds",
+    "name": "Character_Aatrox_Name",
+    "selectionHeight": 180.0,
+    "selectionRadius": 135.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      8,
+      0,
+      14,
+      0
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Passive_AatroxPassive_Name",
+          "level": [
+            1,
+            4,
+            7
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "championId": 266,
+      "roles": "BRAWLER",
+      "PARFadeColor": "55 55 55",
+      "magicRank": 3,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 4,
+      "description": "Character_Aatrox_Description",
+      "defenseRank": 4,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 8,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398092,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Aatrox/Spells/AatroxPassiveAbility/AatroxPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Aatrox/Spells/AatroxPassiveAbility/AatroxPassive",
+        "mComponentBuffs": [
+          "Characters/Aatrox/Spells/AatroxPassiveAbility/AatroxPassiveReady",
+          "Characters/Aatrox/Spells/AatroxPassiveAbility/AatroxPassiveCooldown"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Aatrox/Spells/AatroxAttackAnimationCycle",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Aatrox/Spells/AatroxSkin33_Manager",
+        "SkinFilter": {
+          "skinIds": [
+            33
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

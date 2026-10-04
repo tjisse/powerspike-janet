@@ -1,0 +1,136 @@
+[
+  {
+    "id": 8234,
+    "name": "Celerity",
+    "majorChangePatchVersion": "9.9",
+    "tooltip": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.<br><br>Currently Granted: <speed>@f1@ Move Speed</speed><br>Extra Distance Traveled: @f2@",
+    "shortDesc": "All <speed>Move Speed</speed> bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.",
+    "longDesc": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>.",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Sorcery/Celerity/CelerityTemp.png",
+    "endOfGameStatDescs": [
+      "Extra Distance Travelled: @eogvar1@"
+    ],
+    "recommendationDescriptorAttributes": {
+      "kMoveSpeed": 10
+    }
+  },
+  {
+    "id": 8237,
+    "name": "Scorch",
+    "majorChangePatchVersion": "9.9",
+    "tooltip": "Your next damaging ability hit sets champions on fire dealing <magicDamage>@DamageCalc@ bonus magic damage</magicDamage> after 1s.<br>Cooldown: 10s<br><br>Total Damage Dealt: @f1@",
+    "shortDesc": "Your first damaging ability hit every 10s burns champions.",
+    "longDesc": "Your next damaging ability hit sets champions on fire dealing 20 - 40 bonus magic damage based on level after 1s.<br><br>Cooldown: 10s",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Sorcery/Scorch/Scorch.png",
+    "endOfGameStatDescs": [
+      "Total Bonus Damage: @eogvar1@"
+    ],
+    "recommendationDescriptorAttributes": {
+      "kBurstDamage": 7,
+      "kDamagePerSecond": 3
+    }
+  },
+  {
+    "id": 9105,
+    "name": "Legend: Haste",
+    "majorChangePatchVersion": "",
+    "tooltip": "Gain 1.5 basic ability haste for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.<br><hr><br>Total Basic Ability Haste granted: <scaleAD>@f1.1@</scaleAD> (<statGood>@f3@ of 10</statGood>)<br>Progress Towards Next Stack: @f2@%",
+    "shortDesc": "<lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Takedown'>Takedowns</lol-uikit-tooltipped-keyword> on enemies grant permanent Basic Ability <b>Haste</b>. ",
+    "longDesc": "Gain 1.5 basic ability haste for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill.",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Precision/LegendHaste/LegendHaste.png",
+    "endOfGameStatDescs": [
+      "Time Completed: @eogvar1@:@eogvar2@"
+    ],
+    "recommendationDescriptorAttributes": {
+      "kDurability": 4,
+      "kUtility": 6
+    }
+  },
+  {
+    "id": 8017,
+    "name": "Cut Down",
+    "majorChangePatchVersion": "",
+    "tooltip": "Deal 8% more damage to champions who have more than 60% health.<br><hr><br>Total bonus damage: <scaleAD>@f1@</scaleAD>",
+    "shortDesc": "Deal more damage to high health enemy champions.",
+    "longDesc": "Deal 8% more damage to champions who have more than 60% health.",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Precision/CutDown/CutDown.png",
+    "endOfGameStatDescs": [
+      "Total Bonus Damage: @eogvar1@"
+    ],
+    "recommendationDescriptorAttributes": {
+      "kBurstDamage": 1,
+      "kDamagePerSecond": 9
+    }
+  },
+  {
+    "id": 5011,
+    "name": "Health",
+    "majorChangePatchVersion": "",
+    "tooltip": "<scaleHealth>+65 Health</scaleHealth>",
+    "shortDesc": "+65 Health",
+    "longDesc": "+65 Health",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsHealthScalingIcon.png",
+    "endOfGameStatDescs": [],
+    "recommendationDescriptorAttributes": {}
+  },
+  {
+    "id": 8226,
+    "name": "Manaflow Band",
+    "majorChangePatchVersion": "8.7",
+    "tooltip": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds<br><hr><br>Total bonus mana: @f1@<br>Total mana restored: @f2@",
+    "shortDesc": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.",
+    "longDesc": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Sorcery/ManaflowBand/ManaflowBand.png",
+    "endOfGameStatDescs": [
+      "Total bonus mana: @eogvar1@",
+      "Total mana restored: @eogvar2@"
+    ],
+    "recommendationDescriptorAttributes": {
+      "kMana": 15
+    }
+  },
+  {
+    "id": 5005,
+    "name": "Attack Speed",
+    "majorChangePatchVersion": "",
+    "tooltip": "+10% Attack Speed",
+    "shortDesc": "+10% Attack Speed",
+    "longDesc": "+10% Attack Speed",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsAttackSpeedIcon.png",
+    "endOfGameStatDescs": [],
+    "recommendationDescriptorAttributes": {}
+  },
+  {
+    "id": 8992,
+    "name": "Deathfire Touch",
+    "majorChangePatchVersion": "16.9",
+    "tooltip": "Damaging a champion with an ability burns them for <magicDamage>@DamageCalc@ magic damage</magicDamage> per second. After burning for 3 seconds, the damage of the burn increases by 75% while they remain on fire.<br><rules><br>Duration:<br>Single Target: 4s<br>Area of Effect: 2s<br>Damage over Time: 1s<br></rules><br>You have dealt @f1@ damage to champions with Deathfire Touch burn.",
+    "shortDesc": "Damaging a champion with an ability burns them over time.",
+    "longDesc": "Damaging a champion with an ability burns them for 3 - 12 based on level (+<scaleAP>2.5% AP</scaleAP>) (+<scaleAD>7% bonus AD</scaleAD>)  magic damage per second. After burning for 3 seconds, the damage of the burn increases by 75% while they remain on fire.<br><rules><br>Duration:<br>Single Target: 4s<br>Area of Effect: 2s<br>Damage over Time: 1s<br></rules>",
+    "recommendationDescriptor": "Sustained Ability Damage",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/Styles/Sorcery/DeathfireTouch/DEATHFIRE_TOUCH_KEYSTONE.png",
+    "endOfGameStatDescs": [
+      "Burn Damage Dealt: @eogvar1@"
+    ],
+    "recommendationDescriptorAttributes": {}
+  },
+  {
+    "id": 5010,
+    "name": "Move Speed",
+    "majorChangePatchVersion": "",
+    "tooltip": "<speed>+2.5% Move Speed</speed>",
+    "shortDesc": "+2.5% <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>Move Speed</lol-uikit-tooltipped-keyword>",
+    "longDesc": "+2.5% <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>Move Speed</lol-uikit-tooltipped-keyword>",
+    "recommendationDescriptor": "",
+    "iconPath": "/lol-game-data/assets/v1/perk-images/StatMods/StatModsMovementSpeedIcon.png",
+    "endOfGameStatDescs": [],
+    "recommendationDescriptorAttributes": {}
+  }
+]

@@ -1,0 +1,322 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/rengar/rengar.bin.json",
+  "sha256": "bf8b02248fd27f178d82e90d0671147d58a6904bdc5cb41482cbdc4ca7ed4d3e",
+  "path": "Characters/Rengar/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Rengar",
+    "baseHPModifiable": {
+      "baseValue": 590.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 104.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.2000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10000000149011612,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 9,
+      "{726ee5cd}": {
+        "baseValue": 4.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 1.0,
+      "arMaxSegments": 4,
+      "arHasRegenText": false,
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "secondaryAbilityResource": {
+      "arType": 14,
+      "{726ee5cd}": {
+        "baseValue": 4.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 0.0,
+        "__type": "ModifiableFloat"
+      },
+      "arIncrements": 4.0,
+      "arMaxSegments": 4,
+      "arDisplayAsPips": true,
+      "arOverrideSmallPipName": "GenericLargeUncolored",
+      "arOverrideMediumPipName": "GenericLargeUncolored",
+      "arOverrideLargePipName": "GenericLarge",
+      "arOverrideSpacerName": "PipSpacer1",
+      "{4eb6a404}": 2,
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 68.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 34.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6669999957084656,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.0,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.5,
+      "mAttackCastTime": 0.30000001192092896,
+      "mAttackProbability": 0.44999998807907104,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.44999998807907104,
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.10000000149011612,
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "RengarPassiveAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "RengarCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "RengarQAbility/RengarQ",
+      "RengarWAbility/RengarW",
+      "RengarEAbility/RengarE",
+      "RengarRAbility/RengarR"
+    ],
+    "spells": [
+      "Characters/Rengar/Spells/RengarQAbility/RengarQ",
+      "Characters/Rengar/Spells/RengarWAbility/RengarW",
+      "Characters/Rengar/Spells/RengarEAbility/RengarE",
+      "Characters/Rengar/Spells/RengarRAbility/RengarR"
+    ],
+    "extraSpells": [
+      "RengarPassiveBuffDash",
+      "RengarQSound",
+      "",
+      "",
+      "RengarEMis",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Rengar/Spells/RengarPassiveBuffDash",
+      "Characters/Rengar/Spells/RengarQSound",
+      "{00000000}",
+      "{00000000}",
+      "Characters/Rengar/Spells/RengarEAbility/RengarEMis",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Rengar/Spells/RengarRAbility",
+      "Characters/Rengar/Spells/RengarQAbility",
+      "Characters/Rengar/Spells/RengarWAbility",
+      "Characters/Rengar/Spells/RengarEAbility",
+      "Characters/Rengar/Spells/RengarPassiveAbility",
+      "Characters/Rengar/Spells/RengarEEmpAbility"
+    ],
+    "passiveName": "game_character_passiveName_Rengar",
+    "passiveLuaName": "",
+    "passiveToolTip": "game_character_passiveDescription_Rengar",
+    "passiveSpell": "RengarPassive",
+    "passive1IconName": "assets/characters/rengar/hud/icons2d/rengar_p.dds",
+    "name": "game_character_displayname_Rengar",
+    "weaponMaterials": [
+      "RengarBasicAttack",
+      "None",
+      "RengarBasicAttack2",
+      "RengarBasicAttack3"
+    ],
+    "selectionHeight": 225.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Warwick lunges at an enemy Champion, stunning them and dealing damage for a few seconds.",
+          "displayName": "Infinite Duress",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Rengar",
+          "level": [
+            1,
+            6,
+            11,
+            16
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "searchTagsSecondary": "fighter",
+      "championId": 107,
+      "roles": "BRAWLER",
+      "PARFadeColor": "55 55 55",
+      "magicRank": 2,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 8,
+      "description": "game_character_description_Rengar",
+      "defenseRank": 4,
+      "classification": "Deadly",
+      "{aa75da9d}": false,
+      "attackRank": 7,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Precision/PresenceOfMind",
+          "mReplaceWith": "Perks/Styles/Precision/Triumph",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Rengar/Spells/RengarPassiveAbility/RengarPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Rengar/Spells/RengarPassiveAbility/RengarPassive",
+        "mComponentBuffs": [
+          "Characters/Rengar/Spells/RengarPassiveEmpowered",
+          "Characters/Rengar/Spells/RengarCombatTracker"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Rengar/Spells/RengarPassiveBonetoothManager",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "{6854087e}": [
+      {
+        "{e4f7105d}": "Maps/Shipping/Map11/Modes/SWIFTPLAY",
+        "{cf19cb5d}": {
+          "damagePerLevel": 0.5,
+          "baseHP": 30.0,
+          "hpPerLevel": 6.0,
+          "__type": "{770f7888}"
+        },
+        "__type": "{47f13ab0}"
+      }
+    ],
+    "__type": "CharacterRecord"
+  }
+}

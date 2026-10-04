@@ -1,0 +1,255 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/zoe/zoe.bin.json",
+  "sha256": "894b484ac9ffdae69786725a62f9418d44613dc7075285e303d9e95b5855b36c",
+  "path": "Characters/Zoe/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Zoe",
+    "baseHPModifiable": {
+      "baseValue": 630.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 106.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.11999999731779099,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 110.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 425.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 25.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.12999999523162842,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 58.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 21.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6579999923706055,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 550.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.13854166865348816,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackName": "ZoeBasicAttackPassive",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ZoeBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "ZoeBasicAttack3",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "ZoeCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ZoeQAbility/ZoeQ",
+      "ZoeWAbility/ZoeW",
+      "ZoeEAbility/ZoeE",
+      "ZoeRAbility/ZoeR"
+    ],
+    "spells": [
+      "Characters/Zoe/Spells/ZoeQAbility/ZoeQ",
+      "Characters/Zoe/Spells/ZoeWAbility/ZoeW",
+      "Characters/Zoe/Spells/ZoeEAbility/ZoeE",
+      "Characters/Zoe/Spells/ZoeRAbility/ZoeR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "ZoeBasicAttackPassive",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "ZoePassive",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Zoe/Spells/ZoeBasicAttackPassive",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Characters/Zoe/Spells/ZoePassiveAbility/ZoePassive",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Zoe/Spells/ZoeQAbility",
+      "Characters/Zoe/Spells/ZoeWAbility",
+      "Characters/Zoe/Spells/ZoeEAbility",
+      "Characters/Zoe/Spells/ZoeRAbility",
+      "Characters/Zoe/Spells/ZoePassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Zoe",
+    "passiveLuaName": "ZoePassive",
+    "passiveToolTip": "game_character_passiveDescription_Zoe",
+    "passiveSpell": "ZoePassive",
+    "passive1IconName": "assets/characters/zoe/hud/icons2d/zoe_p.dds",
+    "name": "game_character_displayname_Zoe",
+    "selectionHeight": 145.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 30.0,
+    "overrideGameplayCollisionRadius": 55.0,
+    "unitTagsString": "Champion",
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Zoe",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 142,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "LevelSpellEffectiveness": 4.5,
+      "difficultyRank": 5,
+      "description": "game_character_description_Zoe",
+      "defenseRank": 7,
+      "classification": "Arcane",
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "{aa75da9d}": false,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Sorcery",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/NullifyingOrb",
+          "mReplaceWith": "Perks/Styles/Sorcery/NimbusCloak",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Zoe/Spells/ZoePassiveAbility/ZoePassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Zoe/Spells/ZoePassiveAbility/ZoePassive",
+        "mComponentBuffs": [
+          "Characters/Zoe/Spells/ZoePassiveAbility/ZoePassiveSheenBuff"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zoe/Spells/ZoeAltRunManager",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zoe/Spells/ZoeHighDamageVO",
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Zoe/Spells/ZoeWAbility/ZoeW",
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

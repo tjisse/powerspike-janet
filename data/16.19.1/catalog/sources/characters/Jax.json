@@ -1,0 +1,312 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/jax/jax.bin.json",
+  "sha256": "3887a8c1768cd297ffa1cceef7dbc63cbdd55c9f89d02077fd99659219191ccf",
+  "path": "Characters/Jax/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Jax",
+    "baseHPModifiable": {
+      "baseValue": 650.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 103.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.7000000476837158,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 339.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 52.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.6399999856948853,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 68.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 4.25,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 36.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 350.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6380000114440918,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.4000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.09189043939113617,
+      "mAttackProbability": 1.0,
+      "mAttackName": "JaxBasicAttack",
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "JaxBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackProbability": 0.0,
+        "mAttackName": "JaxBasicAttackTower",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackName": "JaxBasicAttackTower2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.09189043939113617,
+        "mAttackName": "JaxCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "JaxQAbility/JaxQ",
+      "JaxWAbility/JaxW",
+      "JaxEAbility/JaxE",
+      "JaxRAbility/JaxR"
+    ],
+    "spells": [
+      "Characters/Jax/Spells/JaxQAbility/JaxQ",
+      "Characters/Jax/Spells/JaxWAbility/JaxW",
+      "Characters/Jax/Spells/JaxEAbility/JaxE",
+      "Characters/Jax/Spells/JaxRAbility/JaxR"
+    ],
+    "extraSpells": [
+      "",
+      "",
+      "JaxRPassiveAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "{00000000}",
+      "{00000000}",
+      "Characters/Jax/Spells/JaxRAbility/JaxRPassiveAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Jax/Spells/JaxQAbility",
+      "Characters/Jax/Spells/JaxWAbility",
+      "Characters/Jax/Spells/JaxEAbility",
+      "Characters/Jax/Spells/JaxPassiveAbility",
+      "Characters/Jax/Spells/JaxRAbility"
+    ],
+    "passiveName": "game_character_passiveName_Jax",
+    "passiveLuaName": "JaxPassive",
+    "passiveToolTip": "game_character_passiveDescription_Jax",
+    "passive1IconName": "assets/characters/jax/hud/icons2d/armsmaster_masterofarms.dds",
+    "name": "game_character_displayname_Jax",
+    "weaponMaterials": [
+      "ArmsmasterBasicAttack"
+    ],
+    "mUseCCAnimations": true,
+    "selectionHeight": 130.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "skillOrder": 1,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      0,
+      16,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "Jax's greatest talent lies in his ability to grow stronger with every attack. Each successive attack increases his attack speed temporarily, and every 4th blow will devastate his target.",
+          "displayName": "Relentless Assault",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{e9f30ef6}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "+40% Mana Point regeneration.",
+        "+60% Mana Point regeneration.",
+        "+80% Mana Point regeneration."
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Jax",
+          "effect": [
+            "0.2",
+            "0.4",
+            "0.6",
+            "0.8"
+          ],
+          "level": [
+            3,
+            7,
+            11,
+            15
+          ],
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "fighter",
+      "championId": 24,
+      "roles": "BRAWLER",
+      "magicRank": 7,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Jax",
+      "defenseRank": 5,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 7,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Precision",
+    "mCharacterPassiveSpell": "Characters/Jax/Spells/JaxPassiveAbility/JaxPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Jax/Spells/JaxPassiveAbility/JaxPassive",
+        "mComponentBuffs": [
+          "Characters/Jax/Spells/JaxPassiveAbility/JaxPassiveAS"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jax/Spells/JaxFishingPassive",
+        "mComponentBuffs": [
+          "Characters/Jax/Spells/JaxFishingPassiveCounter"
+        ],
+        "mAllowOnClones": false,
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jax/Spells/JaxSkin14Manager",
+        "SkinFilter": {
+          "skinIds": [
+            14
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Jax/Spells/JaxAttackSequencer",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

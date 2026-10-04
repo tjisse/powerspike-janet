@@ -1,0 +1,247 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/lissandra/lissandra.bin.json",
+  "sha256": "db405d851b254c8769fe68822845cf4f295434d6fce48590a151a4447f273c29",
+  "path": "Characters/Lissandra/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Lissandra",
+    "baseHPModifiable": {
+      "baseValue": 620.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 110.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.10999999940395355,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 475.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 30.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.600000023841858,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.07999999821186066,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 55.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 2.700000047683716,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 22.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 30.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 1.2999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 325.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 550.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.656000018119812,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.11249999701976776,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "LissandraBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackName": "LissandraCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "LissandraQAbility/LissandraQ",
+      "LissandraWAbility/LissandraW",
+      "LissandraEAbility/LissandraE",
+      "LissandraRAbility/LissandraR"
+    ],
+    "spells": [
+      "Characters/Lissandra/Spells/LissandraQAbility/LissandraQ",
+      "Characters/Lissandra/Spells/LissandraWAbility/LissandraW",
+      "Characters/Lissandra/Spells/LissandraEAbility/LissandraE",
+      "Characters/Lissandra/Spells/LissandraRAbility/LissandraR"
+    ],
+    "extraSpells": [
+      "BaseSpell",
+      "LissandraQMissile",
+      "LissandraEMissile",
+      "LissandraREnemy",
+      "LissandraQShards",
+      "LissandraPassiveAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Shared/Spells/BaseSpell",
+      "Characters/Lissandra/Spells/LissandraQAbility/LissandraQMissile",
+      "Characters/Lissandra/Spells/LissandraEAbility/LissandraEMissile",
+      "Characters/Lissandra/Spells/LissandraRAbility/LissandraREnemy",
+      "Characters/Lissandra/Spells/LissandraQAbility/LissandraQShards",
+      "Characters/Lissandra/Spells/LissandraPassiveAbility/LissandraPassiveAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Lissandra/Spells/LissandraQAbility",
+      "Characters/Lissandra/Spells/LissandraWAbility",
+      "Characters/Lissandra/Spells/LissandraEAbility",
+      "Characters/Lissandra/Spells/LissandraRAbility",
+      "Characters/Lissandra/Spells/LissandraPassiveAbility"
+    ],
+    "passiveName": "Spell_LissandraPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_LissandraPassive_Summary",
+    "passiveSpell": "LissandraPassive",
+    "passiveRange": 1350.0,
+    "passive1IconName": "assets/characters/lissandra/hud/icons2d/lissandra_passive.dds",
+    "name": "game_character_displayname_Lissandra",
+    "selectionHeight": 250.0,
+    "selectionRadius": 120.0,
+    "pathfindingCollisionRadius": 35.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      15,
+      0,
+      16
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_LissandraPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "mage",
+      "championId": 127,
+      "roles": "MAGE",
+      "magicRank": 8,
+      "difficultyRank": 6,
+      "description": "game_character_description_Lissandra",
+      "defenseRank": 5,
+      "ChasingAttackRangePercent": 0.800000011920929,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 2,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "purchaseIdentities": [
+      "Ranged"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mCharacterPassiveSpell": "Characters/Lissandra/Spells/LissandraPassiveAbility/LissandraPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Lissandra/Spells/LissandraPassiveAbility/LissandraPassive",
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

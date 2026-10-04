@@ -1,0 +1,268 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/galio/galio.bin.json",
+  "sha256": "d940a13d6bfec1c74ff4250d96503a1d129c53737bae4000fc3deeeebbd3af8c",
+  "path": "Characters/Galio/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Galio",
+    "baseHPModifiable": {
+      "baseValue": 600.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 126.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.600000023841858,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.1599999964237213,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 135.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 410.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 40.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.899999976158142,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.14000000059604645,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 59.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.5,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 24.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 340.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 150.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.625,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 1.5,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackTotalTime": 1.600000023841858,
+      "mAttackCastTime": 0.33000001311302185,
+      "mAttackProbability": 1.0,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackTotalTime": 1.600000023841858,
+        "mAttackCastTime": 0.33000001311302185,
+        "mAttackName": "GalioCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "expGivenOnDeath": 0.0,
+    "goldGivenOnDeath": 0.0,
+    "spellNames": [
+      "GalioQAbility/GalioQ",
+      "GalioWAbility/GalioW",
+      "GalioEAbility/GalioE",
+      "GalioRAbility/GalioR"
+    ],
+    "spells": [
+      "Characters/Galio/Spells/GalioQAbility/GalioQ",
+      "Characters/Galio/Spells/GalioWAbility/GalioW",
+      "Characters/Galio/Spells/GalioEAbility/GalioE",
+      "Characters/Galio/Spells/GalioRAbility/GalioR"
+    ],
+    "extraSpells": [
+      "GalioW2",
+      "GalioPassiveAttack",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Galio/Spells/GalioWAbility/GalioW2",
+      "Characters/Galio/Spells/GalioPassiveAttack",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Galio/Spells/GalioQAbility",
+      "Characters/Galio/Spells/GalioWAbility",
+      "Characters/Galio/Spells/GalioEAbility",
+      "Characters/Galio/Spells/GalioRAbility",
+      "Characters/Galio/Spells/GalioPassiveAbility"
+    ],
+    "passiveName": "Spell_GalioPassive_Name",
+    "passiveLuaName": "BadDesc",
+    "passiveToolTip": "Spell_GalioPassive_Summary",
+    "passiveSpell": "GalioPassive",
+    "passive1IconName": "assets/characters/galio/hud/icons2d/galio_passive.dds",
+    "name": "game_character_displayname_Galio",
+    "weaponMaterials": [
+      "GalioBasicAttack"
+    ],
+    "selectionHeight": 180.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1056,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      0,
+      0,
+      18
+    ],
+    "characterToolData": {
+      "mapAIPresence": {
+        "0": {
+          "intro": true,
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "searchTags": "tank",
+      "searchTagsSecondary": "mage",
+      "championId": 3,
+      "roles": "TANK",
+      "magicRank": 6,
+      "LevelSpellEffectiveness": 2.0,
+      "difficultyRank": 5,
+      "description": "game_character_description_Galio",
+      "defenseRank": 10,
+      "classification": "Deadly",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 1,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Galio/Spells/GalioPassiveAbility/GalioPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Galio/Spells/GalioPassiveAbility/GalioPassive",
+        "mComponentBuffs": [
+          "Characters/Galio/Spells/GalioPassiveAttack",
+          "Characters/Galio/Spells/GalioPassiveAbility/GalioPassiveBuff",
+          "Characters/Galio/Spells/GalioPassiveAbility/GalioPassiveCD"
+        ],
+        "__type": "CharacterPassiveData"
+      },
+      {
+        "mParentPassiveBuff": "Characters/Galio/Spells/GalioSkin04Particle",
+        "SkinFilter": {
+          "skinIds": [
+            4
+          ],
+          "__type": "SkinFilterData"
+        },
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

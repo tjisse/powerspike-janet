@@ -1,0 +1,300 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/zed/zed.bin.json",
+  "sha256": "7abf5ed3e32799e42093bdd4cd883f99ba9775b31a531fbecc0f4a98ba682c72",
+  "path": "Characters/Zed/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Zed",
+    "baseHPModifiable": {
+      "baseValue": 654.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 99.0,
+      "__type": "ModifiableFloat"
+    },
+    "baseStaticHPRegenModifiable": {
+      "baseValue": 1.399999976158142,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.12999999523162842,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 95.0,
+    "primaryAbilityResource": {
+      "arType": 1,
+      "{726ee5cd}": {
+        "baseValue": 200.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 10.0,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 63.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.4000000953674316,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 4.699999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 29.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 345.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.6510000228881836,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6510000228881836,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "acquisitionRange": 400.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": -0.10240550339221954,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10199999809265137,
+        "mAttackProbability": 0.5,
+        "mAttackName": "ZedBasicAttack2",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": -0.10240550339221954,
+        "mAttackName": "ZedCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "ZedQAbility/ZedQ",
+      "ZedWAbility/ZedW",
+      "ZedEAbility/ZedE",
+      "ZedRAbility/ZedR"
+    ],
+    "spells": [
+      "Characters/Zed/Spells/ZedQAbility/ZedQ",
+      "Characters/Zed/Spells/ZedWAbility/ZedW",
+      "Characters/Zed/Spells/ZedEAbility/ZedE",
+      "Characters/Zed/Spells/ZedRAbility/ZedR"
+    ],
+    "extraSpells": [
+      "ZedQMissile",
+      "ZedRMissile",
+      "BaseSpell",
+      "ZedW2",
+      "ZedWMissile",
+      "ZedR2",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Zed/Spells/ZedQAbility/ZedQMissile",
+      "Characters/Zed/Spells/ZedRAbility/ZedRMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Zed/Spells/ZedWAbility/ZedW2",
+      "Characters/Zed/Spells/ZedWAbility/ZedWMissile",
+      "Characters/Zed/Spells/ZedRAbility/ZedR2",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Zed/Spells/ZedRAbility",
+      "Characters/Zed/Spells/ZedQAbility",
+      "Characters/Zed/Spells/ZedWAbility",
+      "Characters/Zed/Spells/ZedEAbility",
+      "Characters/Zed/Spells/ZedPassiveAbility"
+    ],
+    "passiveName": "Spell_ZedPassive_Name",
+    "passiveLuaName": "",
+    "passiveToolTip": "Spell_ZedPassive_Summary",
+    "passiveSpell": "ZedPassive",
+    "passive1IconName": "assets/characters/zed/hud/icons2d/zedp.dds",
+    "name": "game_character_displayname_Zed",
+    "weaponMaterials": [
+      "ZedBasicAttack",
+      "None",
+      "None",
+      "ZedBasicAttack"
+    ],
+    "selectionHeight": 0.0,
+    "selectionRadius": 100.0,
+    "pathfindingCollisionRadius": 35.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1055,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      0,
+      14,
+      0,
+      14
+    ],
+    "characterToolData": {
+      "sound": {
+        "attack": [
+          "Evelynn-Attack1-NORM_01.wav",
+          "Evelynn-Attack2-NORM_01.wav",
+          "Evelynn-Attack3-NORM_01.wav",
+          "Evelynn-Attack4-NORM_01.wav"
+        ],
+        "click": [
+          "Evelynn-Click1-NORM_01.wav",
+          "Evelynn-Click2-NORM_01.wav",
+          "Evelynn-Click3-NORM_01.wav",
+          "Evelynn-Click4-NORM_01.wav"
+        ],
+        "move": [
+          "Evelynn-Move1-NORM_01.wav",
+          "Evelynn-Move2-NORM_01.wav",
+          "Evelynn-Move3-NORM_01.wav",
+          "Evelynn-Move4-NORM_01.wav"
+        ],
+        "death": "Evelynn-Death1-NORM_01.wav",
+        "ready": "Evelynn-Ready1-NORM_01.wav",
+        "__type": "ToolSoundData"
+      },
+      "spellData": [
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "desc": "When a nearby enemy champion dies, Evelynn gains move and attack speed.  If she was the killer, she is also healed.",
+          "displayName": "Malice and Spite",
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "weaponMaterialCrit": "ZedCritAttack",
+      "mapAIPresence": {
+        "0": {
+          "__type": "ToolAiPresence"
+        },
+        "1": {
+          "__type": "ToolAiPresence"
+        },
+        "2": {
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passiveData": [
+        {
+          "name": "Spell_ZedPassive_Name",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "assassin",
+      "championId": 238,
+      "roles": "ATTACKER",
+      "magicRank": 1,
+      "LevelSpellEffectiveness": 1.0,
+      "difficultyRank": 7,
+      "description": "game_character_description_Zed",
+      "defenseRank": 2,
+      "ChasingAttackRangePercent": 0.5,
+      "{aa75da9d}": false,
+      "attackRank": 9,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 9446664,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Domination",
+    "mPerkReplacements": {
+      "mReplacements": [
+        {
+          "mReplaceTarget": "Perks/Styles/Sorcery/ManaflowBand",
+          "mReplaceWith": "Perks/Styles/Sorcery/NullifyingOrb",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Resolve/Aftershock",
+          "mReplaceWith": "Perks/Styles/Resolve/GraspOfTheUndying",
+          "__type": "PerkReplacement"
+        },
+        {
+          "mReplaceTarget": "Perks/Styles/Inspiration/GlacialAugment",
+          "mReplaceWith": "Perks/Styles/Inspiration/FirstStrike",
+          "__type": "PerkReplacement"
+        }
+      ],
+      "__type": "PerkReplacementList"
+    },
+    "mCharacterPassiveSpell": "Characters/Zed/Spells/ZedPassiveAbility/ZedPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Zed/Spells/ZedPassiveAbility/ZedPassive",
+        "mComponentBuffs": [
+          "Characters/Zed/Spells/ZedPassiveAbility/ZedPassiveCD"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

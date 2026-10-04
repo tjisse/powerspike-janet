@@ -1,0 +1,279 @@
+{
+  "url": "https://raw.communitydragon.org/16.19/game/data/characters/maokai/maokai.bin.json",
+  "sha256": "fd67bf400ae3d4a0624dbc4f071a0c523d14a8ce2bccda004d29e6be840b49a4",
+  "path": "Characters/Maokai/CharacterRecords/Root",
+  "record": {
+    "mCharacterName": "Maokai",
+    "baseHPModifiable": {
+      "baseValue": 665.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpPerLevelModifiable": {
+      "baseValue": 109.0,
+      "__type": "ModifiableFloat"
+    },
+    "hpRegenPerLevelModifiable": {
+      "baseValue": 0.15000000596046448,
+      "__type": "ModifiableFloat"
+    },
+    "healthBarHeight": 120.0,
+    "primaryAbilityResource": {
+      "arType": 0,
+      "{726ee5cd}": {
+        "baseValue": 375.0,
+        "__type": "ModifiableFloat"
+      },
+      "{6216bf7b}": {
+        "baseValue": 43.0,
+        "__type": "ModifiableFloat"
+      },
+      "{c4ab3550}": {
+        "baseValue": 1.2000000476837158,
+        "__type": "ModifiableFloat"
+      },
+      "{3a509002}": {
+        "baseValue": 0.11999999731779099,
+        "__type": "ModifiableFloat"
+      },
+      "__type": "AbilityResourceSlotInfo"
+    },
+    "baseDamageModifiable": {
+      "baseValue": 64.0,
+      "__type": "ModifiableFloat"
+    },
+    "damagePerLevelModifiable": {
+      "baseValue": 3.299999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "baseArmorModifiable": {
+      "baseValue": 35.0,
+      "__type": "ModifiableFloat"
+    },
+    "armorPerLevelModifiable": {
+      "baseValue": 5.199999809265137,
+      "__type": "ModifiableFloat"
+    },
+    "baseMR": {
+      "baseValue": 32.0,
+      "__type": "ModifiableFloat"
+    },
+    "mrPerLevel": {
+      "baseValue": 2.049999952316284,
+      "__type": "ModifiableFloat"
+    },
+    "critDamageMultiplier": 2.0,
+    "baseMoveSpeedModifiable": {
+      "baseValue": 335.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackRangeModifiable": {
+      "baseValue": 125.0,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedModifiable": {
+      "baseValue": 0.800000011920929,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedRatioModifiable": {
+      "baseValue": 0.6949999928474426,
+      "__type": "ModifiableFloat"
+    },
+    "attackSpeedPerLevelModifiable": {
+      "baseValue": 2.125,
+      "__type": "ModifiableFloat"
+    },
+    "mAdaptiveForceToAbilityPowerWeight": 1.0,
+    "acquisitionRange": 600.0,
+    "basicAttack": {
+      "mAttackDelayCastOffsetPercent": 0.0,
+      "mAttackProbability": 0.5,
+      "__type": "AttackSlotData"
+    },
+    "extraAttacks": [
+      {
+        "mAttackProbability": 0.5,
+        "mAttackName": "MaokaiBasicAttack2",
+        "__type": "AttackSlotData"
+      },
+      {
+        "mAttackDelayCastOffsetPercent": -0.5,
+        "mAttackProbability": 0.0,
+        "mAttackName": "MaokaiFastAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "critAttacks": [
+      {
+        "mAttackDelayCastOffsetPercent": 0.024074073880910873,
+        "mAttackName": "MaokaiCritAttack",
+        "__type": "AttackSlotData"
+      }
+    ],
+    "spellNames": [
+      "MaokaiQAbility/MaokaiQ",
+      "MaokaiWAbility/MaokaiW",
+      "MaokaiEAbility/MaokaiE",
+      "MaokaiRAbility/MaokaiR"
+    ],
+    "spells": [
+      "Characters/Maokai/Spells/MaokaiQAbility/MaokaiQ",
+      "Characters/Maokai/Spells/MaokaiWAbility/MaokaiW",
+      "Characters/Maokai/Spells/MaokaiEAbility/MaokaiE",
+      "Characters/Maokai/Spells/MaokaiRAbility/MaokaiR"
+    ],
+    "extraSpells": [
+      "MaokaiQMissile",
+      "BaseSpell",
+      "MaokaiEMissile",
+      "MaokaiRSoundMis",
+      "MaokaiRMis",
+      "MaokaiPassiveAttack",
+      "MaokaiEMissileBrushTiny",
+      "BaseSpell",
+      "MaokaiEMissileBrushTiny2",
+      "MaokaiRMisExtra",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell",
+      "BaseSpell"
+    ],
+    "extraSpellsList": [
+      "Characters/Maokai/Spells/MaokaiQAbility/MaokaiQMissile",
+      "Shared/Spells/BaseSpell",
+      "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissile",
+      "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRSoundMis",
+      "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRMis",
+      "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassiveAttack",
+      "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissileBrushTiny",
+      "Shared/Spells/BaseSpell",
+      "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissileBrushTiny2",
+      "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRMisExtra",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell",
+      "Shared/Spells/BaseSpell"
+    ],
+    "mAbilities": [
+      "Characters/Maokai/Spells/MaokaiQAbility",
+      "Characters/Maokai/Spells/MaokaiWAbility",
+      "Characters/Maokai/Spells/MaokaiEAbility",
+      "Characters/Maokai/Spells/MaokaiRAbility",
+      "Characters/Maokai/Spells/MaokaiPassiveAbility"
+    ],
+    "passiveName": "game_character_passiveName_Maokai",
+    "passiveLuaName": "MaokaiPassive",
+    "passiveToolTip": "game_character_passiveDescription_Maokai",
+    "passive1IconName": "assets/characters/maokai/hud/icons2d/maokai_passive.dds",
+    "name": "game_character_displayname_Maokai",
+    "weaponMaterials": [
+      "MaokaiBasicAttack"
+    ],
+    "selectionHeight": 190.0,
+    "selectionRadius": 125.0,
+    "pathfindingCollisionRadius": 50.0,
+    "overrideGameplayCollisionRadius": 80.0,
+    "{eb74898c}": 0.0,
+    "unitTagsString": "Champion",
+    "mEducationToolData": {
+      "firstItem": 1054,
+      "skillOrder": 2,
+      "__type": "ToolEducationData"
+    },
+    "mAbilitySlotCC": [
+      14,
+      15,
+      0,
+      0
+    ],
+    "characterToolData": {
+      "spellData": [
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        },
+        {
+          "__type": "ToolSpellDesc"
+        }
+      ],
+      "mapAIPresence": {
+        "0": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "3": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "4": {
+          "{ca762bfc}": true,
+          "{b75b2ab8}": true,
+          "{b66d0e47}": true,
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        },
+        "5": {
+          "{6175bb7b}": true,
+          "__type": "ToolAiPresence"
+        }
+      },
+      "passLev1Desc": [
+        "",
+        "",
+        ""
+      ],
+      "passiveData": [
+        {
+          "name": "game_character_passiveName_Maokai",
+          "__type": "ToolPassiveData"
+        }
+      ],
+      "searchTags": "tank",
+      "searchTagsSecondary": "support",
+      "championId": 57,
+      "roles": "TANK",
+      "magicRank": 6,
+      "difficultyRank": 3,
+      "description": "game_character_description_Maokai",
+      "defenseRank": 8,
+      "classification": "Strong",
+      "ChasingAttackRangePercent": 0.5,
+      "botEnabled": true,
+      "botEnabledMM": true,
+      "attackRank": 3,
+      "__type": "CharacterToolData"
+    },
+    "platformEnabled": true,
+    "flags": 8398088,
+    "purchaseIdentities": [
+      "Melee"
+    ],
+    "mPreferredPerkStyle": "Perks/Styles/Resolve",
+    "mCharacterPassiveSpell": "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassive",
+    "mCharacterPassiveBuffs": [
+      {
+        "mParentPassiveBuff": "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassive",
+        "mComponentBuffs": [
+          "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassiveReady"
+        ],
+        "__type": "CharacterPassiveData"
+      }
+    ],
+    "{c5c48b41}": 1,
+    "__type": "CharacterRecord"
+  }
+}

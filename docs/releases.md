@@ -34,7 +34,7 @@ existing release assets instead of overwriting them. For corrections, publish
 a new version.
 
 Normal pushes and pull requests run the unsigned build/test workflow and retain
-RPMs as Actions artifacts. They cannot access the signing key. The published
+RPMs as Actions artifacts. They do not import the signing key. The published
 install test can also be rerun from its manual workflow.
 
 ## Signing and hosting configuration

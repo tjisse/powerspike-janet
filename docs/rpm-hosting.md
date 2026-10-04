@@ -15,9 +15,8 @@ baseline if that is your target.
 ## Build
 
 On Ubuntu, build prerequisites are Git, C compiler, Make, Python 3, ripgrep and
-RPM build tools (`build-essential git python3 ripgrep rpm`). Use authenticated
-GitHub access is sufficient; all dependencies, including the Datastar SDK, are
-public and pinned.
+RPM build tools (`build-essential git python3 ripgrep rpm`). All dependencies,
+including the Datastar SDK, are public and pinned.
 
 ```sh
 make format

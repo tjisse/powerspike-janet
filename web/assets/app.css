@@ -29,3 +29,17 @@
 .search-metrics { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
 .search-metrics dt { color:#98a7ac; font-size:.8rem; }
 .search-metrics dd { margin:0; color:#d4bc80; }
+
+.scenario-actions { display:flex; flex-wrap:wrap; gap:.6rem; margin:.8rem 0; }
+.scenario-tools input[type=text], .scenario-tools textarea { width:100%; }
+.scenario-actions input[type=text] { width:auto; flex:1; min-width:180px; }
+.source-evidence dd { margin:.3rem 0 1rem; overflow-wrap:anywhere; }
+.source-records { max-height:360px; overflow:auto; }
+.source-records table { width:100%; font-size:.75rem; border-collapse:collapse; }
+.source-records td { padding:.5rem; border-bottom:1px solid #344a52; overflow-wrap:anywhere; max-width:420px; }
+.source-records a { color:#8bc4ce; }
+
+.comparison-charts { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+.comparison-chart { margin:0; }
+.comparison-chart svg { width:100%; height:auto; }
+.comparison-chart figcaption { color:#d4bc80; }

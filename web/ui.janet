@@ -3,6 +3,7 @@
 (import ./catalog :as catalog)
 (import ./model :as model)
 (import ./optimizer :as optimizer)
+(import ./workspace :as workspace)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
@@ -477,7 +478,7 @@
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn signals [state]
-  (def values (merge optimizer/defaults state {:busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (def values (merge optimizer/defaults state {:skillorder "" :opponentskillorder "" :savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
   (each key [:priority :opponentpriority :runes :opponentrunes]
     (put values key (string/join (map string (get state key [])) ",")))
   (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
@@ -503,7 +504,8 @@
                    :data-indicator:busy true :data-class:is-pending "$busy"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch " ((result :package) :patch)]]
              [:main {:class "content"} (patch-panel result nil) (scenario result) (tactics result) (optimizer/rune-editor (result :package) state) (native-inventory result)
-              (if message (error-result message) (results result)) (optimizer/controls) (optimizer/panel result nil) (evidence-panel evidence)]
+              (if message (error-result message) (results result)) (workspace/tools result) (optimizer/controls result) (optimizer/panel result nil)
+              (workspace/evidence result) (evidence-panel evidence)]
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Combat damage unverified"]

@@ -7,7 +7,7 @@
 (import ../../data/16.19.1/snapshot :as initial)
 (import pshash :as hash)
 
-(def version "search-1")
+(def version "search-2")
 (def presets [:burst :sustained :duel :survival :utility :objective])
 (def explanations
   {:burst "Damage within the configured combat window; lower cost breaks ties."
@@ -35,6 +35,15 @@
     (> comparison 0)))
 (defn inventory [package ids]
   (map (fn [id] (def item ((package :item-map) id)) (assert item "Search item unavailable on this patch.") item) ids))
+(defn distinct-rows [rows]
+  (def seen @{})
+  (filter (fn [row] (unless (seen (row :key)) (put seen (row :key) true) true)) rows))
+(defn alternatives [rows]
+  (def ranked (sorted rows better?))
+  (def cheaper (first (sorted (filter |(> ($ :cost) 0) rows) |(< ($0 :cost) ($1 :cost)))))
+  (def healthier (first (sorted rows |(> (get-in $0 [:metrics :health] 0) (get-in $1 [:metrics :health] 0)))))
+  (def controls (first (sorted rows |(> (get-in $0 [:metrics :control] 0) (get-in $1 [:metrics :control] 0)))))
+  (sorted (take 5 (distinct-rows [;(take 2 ranked) ;(filter identity [cheaper healthier controls]) ;ranked])) better?))
 (defn replace-items [definition ids]
   (merge definition {:player (merge (definition :player)
                                     {:loadout (merge (get-in definition [:player :loadout] {}) {:items ids})})}))
@@ -80,6 +89,12 @@
   (def slots (v/integer-between (get options :slots 6) 0 6 "Search slots"))
   (def budget (v/nonnegative (get options :budget 10000) "Gold budget"))
   (def champion (get-in definition [:player :champion]))
+  (when (get options :skills false)
+    (def abilities (get-in package [:champion-map champion :abilities] []))
+    (when (not (empty? abilities))
+      (assert (all (fn [slot]
+                     (= (get (find |(= slot ($ :slot)) abilities) :max-rank (if (= slot :r) 3 5)) (if (= slot :r) 3 5))) [:q :w :e :r])
+              "This kit needs an exceptional leveling handler. Keep skill choices fixed to search its items, runes or summoners.")))
   (def owned (get-in definition [:player :loadout :items] []))
   (def locked (get options :locked []))
   (assert (contains-all? owned locked) "Locked items must be present in the current inventory.")
@@ -110,7 +125,7 @@
   (def evaluate (or evaluator (fn [candidate stop] (scenario/simulate candidate stop))))
   (defn publish [message]
     (progress {:message message :completed evaluated :total 0 :seconds (- (os/clock :monotonic) started)
-               :best (tuple ;(take 5 (sorted archive better?))) :preset preset :explanation (explanations preset)}))
+               :best (tuple ;(alternatives archive)) :preset preset :explanation (explanations preset)}))
   (defn visit [candidate &opt purchase count-samples force]
     (unless (stop?)
       (def ids (get-in candidate [:player :loadout :items] []))
@@ -135,7 +150,8 @@
                         :uncertainty (get result :uncertainty {}) :samples trials
                         :coverage (get result :unsupported [])})
               (array/push archive row)
-              (when (> (length archive) 40) (set archive (array/slice (take 20 (sorted archive better?)))))
+              (when (> (length archive) 40)
+                (set archive (array/slice (distinct-rows [;(take 20 (sorted archive better?)) ;(alternatives archive)]))))
               (when (or (= evaluated 1) (= 0 (mod evaluated 8))) (publish "Searching builds"))
               row))))))
   (var baseline definition)
@@ -207,13 +223,13 @@
   # Heuristic finalists all use the same larger schedule; reserve wall time.
   (when (and (not exact?) (not (cancelled)))
     (set phase :finalists)
-    (def finalists (take 5 (sorted archive better?)))
+    (def finalists (alternatives archive))
     (def refined @[])
     (each row finalists
       (def next (visit (row :definition) {:purchase (row :purchase) :purchase-cost (row :purchase-cost)} final-samples true))
       (when next (array/push refined next)))
     (when (not (empty? refined)) (set archive refined)))
-  (def rows (tuple ;(take 5 (sorted archive better?))))
+  (def rows (tuple ;(alternatives archive)))
   (publish "Search finished")
   {:version version :patch (package :patch) :snapshot (package :snapshot) :model engine/identity
    :preset preset :explanation (explanations preset) :rows rows :evaluated evaluated :pool-size (length pool)

@@ -8,7 +8,8 @@ dnf -y install curl util-linux systemd
 curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "$repository_url" -o /etc/yum.repos.d/powerspike.repo
 grep -qx 'gpgcheck=1' /etc/yum.repos.d/powerspike.repo
 grep -qx 'repo_gpgcheck=1' /etc/yum.repos.d/powerspike.repo
-dnf -y install powerspike
+upgrade_from=${PS_UPGRADE_FROM:-0.4.0-1}
+dnf -y install "powerspike-$upgrade_from.x86_64"
 installed_version=$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' powerspike)
 rpm -V powerspike
 powerspike --version
@@ -32,8 +33,26 @@ test -s /tmp/ahri.png
 kill "$server_pid"
 wait "$server_pid" || true
 trap - EXIT
+find /var/lib/powerspike/patches -type f \( -name current -o -name package.jdn -o -name manifest.json \) -print0 | sort -z | xargs -0 sha256sum > /tmp/powerspike-cache.sha256
 dnf -y upgrade powerspike
-test "$installed_version" = "$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' powerspike)"
+upgraded_version=$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}' powerspike)
+test "$installed_version" != "$upgraded_version"
+test "$upgraded_version" = "$(cat /source/VERSION)-1.x86_64"
+sha256sum --check /tmp/powerspike-config.sha256
+sha256sum --check /tmp/powerspike-cache.sha256
+runuser -u powerspike -- env PS_PORT=8765 PS_DATA_DIR=/var/lib/powerspike powerspike > /tmp/powerspike-upgraded.log 2>&1 &
+server_pid=$!
+trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+for attempt in {1..30}; do
+  if curl -fsS http://127.0.0.1:8765/healthz; then break; fi
+  sleep 1
+done
+curl -fsS http://127.0.0.1:8765/healthz
+curl -fsS http://127.0.0.1:8765/ -o /tmp/powerspike-upgraded.html
+grep -q 'Save locally' /tmp/powerspike-upgraded.html
+kill "$server_pid"
+wait "$server_pid" || true
+trap - EXIT
 dnf -y reinstall powerspike
 sha256sum --check /tmp/powerspike-config.sha256
 test -s /var/lib/powerspike/patches/16.19.1/current
@@ -41,4 +60,4 @@ dnf -y remove powerspike
 test ! -e /usr/bin/powerspike
 grep -q 'Preserve administrator configuration' /etc/powerspike/powerspike.env.rpmsave
 getent passwd powerspike
-echo 'Signed DNF install, runtime, config preservation, reinstall and removal passed.'
+echo 'Signed DNF install, real version upgrade, preserved config/cache, upgraded runtime, reinstall and removal passed.'

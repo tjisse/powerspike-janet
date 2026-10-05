@@ -3,7 +3,7 @@
 # remains compatible with the development entry point.
 (def version (string/trim (slurp "VERSION")))
 
-(def usage "Usage: powerspike [--host ADDRESS] [--port PORT] [--data-dir PATH] [--seed-dir PATH]\n\nEnvironment: PS_HOST (default 127.0.0.1), PS_PORT (default 8090), PS_DATA_DIR, PS_SEED_DIR.\nPorts must be 1024–65535. A positional port is also accepted.\n")
+(def usage "Usage: powerspike [--host ADDRESS] [--port PORT] [--data-dir PATH] [--seed-dir PATH]\n       powerspike --simulate SCENARIO.json | --optimize SEARCH.json | --calibrate MEASUREMENT.json\n\nEnvironment: PS_HOST (default 127.0.0.1), PS_PORT (default 8090), PS_DATA_DIR, PS_SEED_DIR.\nPorts must be 1024–65535. A positional port is also accepted.\n")
 
 (defn parse [args environment]
   (var host (get environment "PS_HOST" "127.0.0.1"))
@@ -11,6 +11,7 @@
   (var port-set false)
   (var host-set false)
   (var mode :serve)
+  (var input-file nil)
   (var data-dir (get environment "PS_DATA_DIR" (string (os/getenv "HOME" ".") "/.local/share/powerspike")))
   (var seed-dir (get environment "PS_SEED_DIR" "/usr/share/powerspike/seed"))
   (def paths @{})
@@ -20,6 +21,10 @@
     (cond
       (= arg "--help") (set mode :help)
       (= arg "--version") (set mode :version)
+      (some |(= $ arg) ["--simulate" "--optimize" "--calibrate"])
+      (do (assert (and (= :serve mode) (nil? input-file)) "Choose one JSON command.")
+        (++ index) (assert (< index (length args)) (string arg " requires a JSON file."))
+        (set input-file (args index)) (set mode (keyword (string/slice arg 2))))
       (or (= arg "--data-dir") (= arg "--seed-dir"))
       (do (assert (not (paths arg)) "Specify each directory only once.")
         (++ index) (assert (< index (length args)) (string arg " requires a value."))
@@ -47,7 +52,7 @@
     (def port (scan-number port-text))
     (assert (and (number? port) (<= 1024 port 65535))
             "PS_PORT / --port must be an integer from 1024 to 65535."))
-  {:host host :port (if (= mode :serve) (scan-number port-text) nil) :mode mode :data-dir data-dir :seed-dir seed-dir})
+  {:host host :port (if (= mode :serve) (scan-number port-text) nil) :mode mode :data-dir data-dir :seed-dir seed-dir :input-file input-file})
 
 (defn from-environment [args]
   (parse args (tabseq [name :in ["PS_HOST" "PS_PORT" "PS_DATA_DIR" "PS_SEED_DIR"]

@@ -1,5 +1,6 @@
 (import ./server :as server)
 (import ./config :as config)
+(import ./cli :as cli)
 
 (defn main [& args]
   # JPM passes argv[0] just like Janet's :args dynamic.
@@ -7,6 +8,9 @@
   (case (settings :mode)
     :help (print config/usage)
     :version (print "PowerSpike " config/version)
+    :simulate (cli/run settings)
+    :optimize (cli/run settings)
+    :calibrate (cli/run settings)
     (do
       # Disconnected SSE clients must not terminate the process via SIGPIPE.
       (os/sigaction :pipe (fn [&] nil))

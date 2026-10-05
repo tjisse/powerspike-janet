@@ -7,7 +7,8 @@
 (defn number [value] (if (number? value) (string/format "%.1f" value) "—"))
 (defn checkbox [name caption]
   [:label [:input {:type "checkbox" :data-bind name}] caption])
-(defn controls []
+(defn controls [&opt result]
+  (def order (or (get-in result [:state :skillorder]) scenario/default-order))
   [:section {:id "optimizer" :class "scope-panel optimizer"}
    [:h2 "Optimize build"]
    [:div {:class "tactics-grid"}
@@ -28,9 +29,26 @@
      (checkbox "locksummoner1" "Keep summoner D") (checkbox "locksummoner2" "Keep summoner F")]
     [:details [:summary "Keep skill choices at specific levels"]
      [:p {:class "muted"} "Locks preserve the displayed standard order at those levels. Rank settings remain fixed when skill-order search is off."]
-     [:div {:class "tactics-grid"} (seq [index :range [1 19]] (checkbox (string "lockskill" index) (string "Level " index)))]]]
+     [:div {:class "tactics-grid"}
+      (seq [index :range [1 19]]
+        [:span {:data-show (string "$level >= " index)}
+         (checkbox (string "lockskill" index)
+                   [:span {:data-text (string "'Level " index " · ' + ($skillorder.length > " (dec index) " ? $skillorder[" (dec index) "].toUpperCase() : '"
+                                              (string/ascii-upper (string (scenario/default-order (dec index)))) "')")}
+                    (string "Level " index " · " (string/ascii-upper (string (get order (dec index) :q))))])])]]]
    [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]
    [:button {:class "apply" :type "button" :data-on:click "@post('/search')"} "Find builds"]])
+(defn comparison-chart [rows field caption &opt cost]
+  (def values (map |(if cost ($ :cost) (get-in $ [:metrics field])) rows))
+  (def ceiling (max ;[1 ;(filter number? values)]))
+  [:figure {:class "comparison-chart"}
+   [:figcaption caption]
+   [:svg {:viewBox "0 0 640 170" :role "img" :aria-label (string caption " across recommended builds")}
+    (seq [[index value] :pairs values]
+      [:g
+       [:text {:x 4 :y (+ 23 (* index 30)) :class "chart-label"} (string "Build " (inc index))]
+       (when (number? value) [:rect {:x 72 :y (+ 8 (* index 30)) :width (* 430 (/ value ceiling)) :height 19 :fill "#b49a5d"}])
+       [:text {:x 520 :y (+ 23 (* index 30)) :class "chart-label"} (number value)]])]])
 (defn panel [result job]
   (def ongoing (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
   (def outcome (get job :result))
@@ -47,6 +65,12 @@
       (when ongoing [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel search"])
       (when (= :failed (job :status)) [:p {:class "warning"} (job :error)])
       (when (and outcome (empty? rows)) [:p "No recommendation fits these constraints. Increase the budget, relax locks or change the item pool."])
+      (when (not (empty? rows))
+        [:div {:class "comparison-charts"}
+         (comparison-chart rows :damage "Damage") (comparison-chart rows :health "Health remaining")
+         (comparison-chart rows :control "Effective control (seconds)") (comparison-chart rows nil "Gold cost" true)])
+      [:p {:class "muted"} "Alternatives include scoring leaders and cost, health or control tradeoffs found during this search. Each chart has its own scale."]
+      (when outcome [:details [:summary "Search limits & coverage"] [:ul (map |[:li $] (outcome :notes))]])
       [:div {:class "search-alternatives"}
        (seq [[index row] :pairs rows]
          [:article {:class "search-alternative"}
@@ -62,6 +86,14 @@
            (map (fn [[field caption]] [:div [:dt caption] [:dd (number (get (row :metrics) field))]])
                 [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"] [:control "Control (s)"] [:healing "Healing"] [:absorbed "Absorbed"]])]
           [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
+          [:details [:summary "Runes, summoners & skill order"]
+           [:p "Runes: " (string/join (map (fn [id] (def rune (find |(= id (get $ "id")) (scenario/runes package))) (get rune "name" (string id)))
+                                           (get-in row [:definition :player :loadout :runes] [])) ", ")]
+           [:p "Summoners: " (string/join (map (fn [id] (get (find |(= id (get $ "id")) (get package :summoners [])) "name" id))
+                                               (get-in row [:definition :player :loadout :summoners] [])) ", ")]
+           [:p "Skill order: " (if (get-in row [:definition :player :skill-order])
+                                 (string/join (map |(string/ascii-upper (string $)) (get-in row [:definition :player :skill-order])) " → ")
+                                 "Current rank settings")]]
           [:details [:summary (string (length (row :coverage)) " coverage notes")]
            [:ul (map |[:li $] (row :coverage))]]
           (unless ongoing [:button {:class "apply" :type "button" :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}

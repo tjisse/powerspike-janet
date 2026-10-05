@@ -1,0 +1,16 @@
+{
+  "format": "powerspike-calibration",
+  "version": 1,
+  "family": "isolated-damage",
+  "scenario-document": null,
+  "observation": {
+    "reviewed": false,
+    "metric": "damage",
+    "value": null,
+    "tolerance": 0.01,
+    "required-source": "AnnieQ",
+    "game-version": null,
+    "source": null,
+    "captured-at": null
+  }
+}

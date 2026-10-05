@@ -21,4 +21,8 @@
 (rejects [] {"PS_HOST" ""})
 (assert (= :help ((config/parse ["--help"] {"PS_PORT" "invalid"}) :mode)))
 (assert (= :version ((config/parse ["--version"] {}) :mode)))
+(assert (= :simulate ((config/parse ["--simulate" "scenario.json"] {"PS_PORT" "invalid"}) :mode)))
+(assert (= "scenario.json" ((config/parse ["--simulate" "scenario.json"] {}) :input-file)))
+(rejects ["--simulate"] {})
+(rejects ["--simulate" "a.json" "--optimize" "b.json"] {})
 (print "Configuration defaults, environment, precedence and rejection checks passed.")

@@ -27,6 +27,10 @@
   (first records))
 
 (defn encode-data [value] (string/format "%j\n" value))
+(defn canonical [value]
+  (cond (dictionary? value) (struct ;(mapcat (fn [[key child]] [key (canonical child)]) (pairs value)))
+    (indexed? value) (tuple ;(map canonical value))
+    value))
 (defn read-json [bytes] (json/decode bytes))
 (defn encode-json [value] (json/encode value))
 

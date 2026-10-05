@@ -4,10 +4,12 @@
 (import ./ui :as ui)
 (import ./catalog :as catalog)
 (import ./optimizer :as optimizer)
+(import ./workspace :as workspace)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
 (import ../src/powerspike/https :as https)
+(import ../src/powerspike/scenario-wire :as wire)
 
 (def assets
   {"/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
@@ -56,18 +58,36 @@
   (merge (response 200 (slurp path) "image/png")
          {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}}))
 
-(defn evaluate [req]
-  (def result (protect (model/compare-async (model/parse-state (ds/get-signals req)))))
+(defn show-result [req result &opt state]
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
-                                                      (ds/patch-elements gen
-                                                                         (if (first result) (with-dyns [:patch-package ((result 1) :package)]
-                                                                                              (ui/render (ui/results (result 1)) (ui/champion-display (result 1)) (ui/tactics (result 1))))
-                                                                           (ui/render (ui/error-result (string (result 1))))))))}))
+                                                      (when state
+                                                        (def values (ui/signals state))
+                                                        (when (= "/search/apply" (req :route))
+                                                          (def input (ds/get-signals req))
+                                                          (each key [:searchbudget :searchslots :searchseconds :searchpreset :searchpool :searchexclude :nextpurchase :searchrunes :searchsummoners :searchskills]
+                                                            (when (has-key? input (string key)) (put values key (get input (string key))))))
+                                                        (ds/patch-signals gen values))
+                                                      (with-dyns [:patch-package (result :package)]
+                                                        (ds/patch-elements gen
+                                                                           (ui/render (ui/results result)
+                                                                                      (if state (ui/scenario result) (ui/champion-display result))
+                                                                                      (ui/tactics result) (optimizer/rune-editor (result :package) (result :state))
+                                                                                      (when state (ui/patch-panel result nil))
+                                                                                      (workspace/tools result) (workspace/evidence result))))))}))
+(defn evaluate [req]
+  (def result (protect (model/compare-async (model/parse-state (ds/get-signals req)))))
+  (if (first result) (show-result req (result 1)) (fragment req (ui/render (ui/error-result (string (result 1)))))))
 
 (defn app-inner [req]
   (cond
+    (and (= "POST" (req :method)) (= "/scenario/import" (req :route)))
+    (do (def input (ds/get-signals req))
+      (def definition (wire/decode (get input "scenariojson" "")))
+      (def state (model/state-from-definition definition))
+      (def result (model/compare-async state))
+      (show-result req result state))
     (and (= "POST" (req :method)) (= "/search" (req :route)))
     (do (def input (ds/get-signals req)) (def state (model/parse-state input))
       (def job (model/optimize input))
@@ -84,12 +104,7 @@
       (assert row "Recommendation is no longer retained. Run the search again.")
       (def state (model/state-from-definition (row :definition)))
       (def result (model/compare-async state))
-      (adapter/sse-response req {:on-open (fn [gen]
-                                            (ds/with-open-sse gen
-                                                              (ds/patch-signals gen (ui/signals state))
-                                                              (with-dyns [:patch-package (result :package)]
-                                                                (ds/patch-elements gen (ui/render (ui/results result) (ui/scenario result) (ui/tactics result)
-                                                                                                  (optimizer/rune-editor (result :package) state) (ui/patch-panel result nil))))))}))
+      (show-result req result state))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
       (def signals (ds/get-signals req))
@@ -116,7 +131,10 @@
       (fragment req (ui/render (ui/patch-panel (model/context (model/parse-state signals)) job))))
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
-    (do (def result (protect (model/compare-async (model/parse-state (get req :query {})))))
+    (do (def result (protect (model/compare-async
+                               (if (get-in req [:query "scenario"])
+                                 (model/state-from-definition (wire/decode (get-in req [:query "scenario"])))
+                                 (model/parse-state (get req :query {}))))))
       (if (first result) (with-dyns [:patch-package ((result 1) :package)] (response 200 (ui/page (result 1) evidence)))
         (response 400 (ui/page (model/compare (model/parse-state {})) evidence (string (result 1))))))
     (= "/evaluate" (req :route)) (evaluate req)

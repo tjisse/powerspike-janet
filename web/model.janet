@@ -14,6 +14,7 @@
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
 (import ../src/powerspike/search :as search)
+(import ../src/powerspike/scenario-wire :as wire)
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
@@ -52,6 +53,7 @@
 
 (defn parse-state [input]
   (assert (dictionary? input) "Expected scenario fields.")
+  (assert (or (nil? (get input "savedmodel")) (and (string? (get input "savedmodel")) (= 64 (length (get input "savedmodel"))))) "Invalid saved model identity.")
   (def patch (get input "patch" packages/default-version))
   (def package (packages/load patch (get input "snapshot")))
   (def selected (get input "selected" (default-state :selected)))
@@ -93,8 +95,8 @@
                                        :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
                                        :opponentsummoners (if (has-key? input "opponentsummoner1") (filter |(not= $ "") [(get input "opponentsummoner1" "") (get input "opponentsummoner2" "")]) (list-field "opponentsummoners"))
                                        :priority (plan "priority") :opponentpriority (plan "opponentpriority")
-                                       :skillorder (when (get input "skillorder") (map keyword (list-field "skillorder")))
-                                       :opponentskillorder (when (get input "opponentskillorder") (map keyword (list-field "opponentskillorder")))
+                                       :skillorder (when (not (empty? (list-field "skillorder"))) (map keyword (list-field "skillorder")))
+                                       :opponentskillorder (when (not (empty? (list-field "opponentskillorder"))) (map keyword (list-field "opponentskillorder")))
                                        :movement (get input "movement" "approach") :opponentmovement (get input "opponentmovement" "approach")
                                        :hit-chance (numeric (get input "hitchance" (get input "hit-chance" 1)) "Hit chance" 0 1)
                                        :opponent-hit-chance (numeric (get input "opponenthitchance" (get input "opponent-hit-chance" 1)) "Opponent hit chance" 0 1)
@@ -110,6 +112,7 @@
                                        :gametime (numeric (get input "gametime" 20) "Game time in minutes" 0 120)
                                        :minionspresent (flag input "minionspresent" true) :retaliation (flag input "retaliation" true)
                                        :samples (numeric (get input "samples" 1) "Trials" 1 64 true) :seed (numeric (get input "seed" 1) "Seed" 0 2147483647 true)
+                                       :savedmodel (get input "savedmodel")
                                        :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
 
 (defn ability-settings [champion totals level ranks]
@@ -209,7 +212,7 @@
                 :abilities (get state (if opponent :opponentabilities :abilities) true)
                 :preferred-range (get state (if opponent :opponentpreferredrange :preferredrange) 500)
                 :hit-chance (get state (if opponent :opponent-hit-chance :hit-chance) 1)}})
-  {:schema 1 :patch (get state :patch packages/default-version) :snapshot (state :snapshot) :duration (state :duration)
+  {:schema 1 :patch (get state :patch packages/default-version) :snapshot (state :snapshot) :duration (state :duration) :model (get state :savedmodel)
    :seed (get state :seed 1) :samples (get state :samples 1) :player (spec false) :distance (get state :distance 300)
    :target (cond (= "duel" (state :mode)) (merge (spec true) {:kind :champion})
              (some |(= (state :mode) (string ($ :id))) objectives/presets)
@@ -312,6 +315,7 @@
 (defn state-from-definition [definition]
   (def compiled (scenarios/compile definition))
   (def input @{"patch" (compiled :patch) "snapshot" (compiled :snapshot) "selected" "custom"
+               "savedmodel" (definition :model)
                "duration" (definition :duration) "distance" (get definition :distance 300)
                "samples" (min 64 (get definition :samples 1)) "seed" (get definition :seed 1)})
   (each [spec opponent] [[(definition :player) false] [(definition :target) true]]

@@ -19,6 +19,7 @@ class Page(HTMLParser):
     def __init__(self):
         super().__init__()
         self.timeline = None
+        self.scenario = None
         self.assets = set()
         self.text = []
 
@@ -26,6 +27,8 @@ class Page(HTMLParser):
         attrs = dict(attrs)
         if attrs.get('id') == 'timeline':
             self.timeline = attrs
+        if attrs.get('id') == 'scenario-data':
+            self.scenario = attrs
         for name in ['href', 'src']:
             if attrs.get(name, '').startswith('/assets/'):
                 self.assets.add(attrs[name])
@@ -127,6 +130,30 @@ def verify(binary_path, seed_path=None):
             headers, body = get(base, path, {'Datastar-Request': 'true', 'Accept': 'text/event-stream'})
             assert headers['Content-Type'].startswith('text/event-stream')
             assert b'datastar-patch-elements' in body and b'id="results"' in body and b'data-duration="6.5"' in body
+            assert b'id="scenario-data"' in body
+            # The packaged commands consume the same versioned document as the UI.
+            scenario_page = Page()
+            scenario_page.feed(body.decode())
+            document = scenario_page.scenario['data-json']
+            input_file = cwd / 'scenario.json'
+            input_file.write_text(document)
+            outcome = json.loads(subprocess.check_output([str(binary), '--simulate', str(input_file)], cwd=cwd,
+                                env=configuration(), text=True, timeout=10))
+            assert outcome['scenario']['snapshot'] == json.loads(document)['scenario']['snapshot']
+            search_file = cwd / 'search.json'
+            search_file.write_text(json.dumps({'format':'powerspike-optimization','version':1,
+                'scenario-document':json.loads(document),'constraints':{'searchpool':'Amplifying Tome',
+                'searchbudget':400,'searchslots':1,'searchseconds':5}}))
+            searched = json.loads(subprocess.check_output([str(binary), '--optimize', str(search_file)], cwd=cwd,
+                                env=configuration(), text=True, timeout=10))
+            assert searched['complete'] and searched['rows'][0]['ids'] == ['1052']
+            calibration_file = cwd / 'calibration.json'
+            calibration_file.write_text(json.dumps({'format':'powerspike-calibration','version':1,'family':'isolated-damage'}))
+            checked = json.loads(subprocess.check_output([str(binary), '--calibrate', str(calibration_file)], cwd=cwd,
+                                env=configuration(), text=True, timeout=10))
+            assert checked['status'] == 'unmeasured' and not checked['checked']
+            for fixture in (input_file, search_file, calibration_file):
+                fixture.unlink()
             # A client disappearing midway through SSE must not kill the service.
             with socket.create_connection(('127.0.0.1', chosen)) as sock:
                 sock.sendall(('GET ' + path + ' HTTP/1.1\r\nHost: localhost\r\nDatastar-Request: true\r\n\r\n').encode())

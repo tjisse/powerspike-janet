@@ -111,11 +111,11 @@
   (def warnings [;(player :coverage) ;(opponent :coverage)
                  ;(if (and (definition :model) (not= engine/identity (definition :model)))
                     ["This scenario was saved with a different combat model. The retained data is used, but the result is recomputed with the current model."] [])])
-  {:definition (merge definition {:schema schema :patch (package :patch) :snapshot (package :snapshot) :model engine/identity})
+  {:definition (util/canonical (merge definition {:schema schema :patch (package :patch) :snapshot (package :snapshot) :model engine/identity}))
    :duration duration :seed (v/integer-between (get definition :seed 1) 0 2147483647 "seed")
    :actors [player opponent] :coverage warnings :patch (package :patch) :snapshot (package :snapshot) :model engine/identity})
 (defn identity [compiled]
-  (hash/sha256 (util/encode-data [(compiled :definition) (compiled :actors) engine/identity])))
+  (hash/sha256 (util/encode-data (util/canonical [(compiled :definition) (compiled :actors) engine/identity]))))
 (defn simulate [definition &opt cancelled]
   (def compiled (compile definition))
   (def outcome (engine/trials compiled (get definition :samples 1) cancelled))

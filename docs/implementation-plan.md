@@ -17,7 +17,7 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
-**Milestones 1–5 are released through v0.6.0.** Milestone 6 passed local verification and is being published as v0.7.0. All six functional milestones now have implementations; the GitHub release gates include the real signed upgrade check. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
+**All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
 
@@ -33,10 +33,11 @@ Milestone 6 is implemented for v0.7.0: local named saves, shared URLs and versio
 
 ## Verification checkpoint
 
-- Published milestones: v0.2.0 (`7313b3b`), v0.3.0 (`9d22876`), v0.4.0 (`422e59a`), v0.5.0 (`d8ea4bf`) and v0.6.0 (`99f84ee`). All completed build and signed RPM/DNF workflows succeeded.
+- Published milestones: v0.2.0 (`7313b3b`), v0.3.0 (`9d22876`), v0.4.0 (`422e59a`), v0.5.0 (`d8ea4bf`), v0.6.0 (`99f84ee`) and v0.7.0 (`e7a7cb5`). All completed build and signed RPM/DNF workflows succeeded.
 - Milestone 5's full local formatter/core/frontend/parser/combat/effect/objective/search/storage/configuration/relocated-runtime gates and RPM payload/runtime checks passed. The browser regression is now retained in CI.
-- Milestone 6's scenario round-trip, exact-revision, seeded reproduction, old-model compatibility, invalid import and missing-measurement regressions pass. Browser save/share/file round trips reproduce the same outcome. Full local gates, the rebuilt RPM and packaged JSON commands passed. Retained 16.17.1 and 16.18.1 scenario documents reproduce offline with identical metrics and scenario IDs. Signed real-upgrade verification runs in the v0.7.0 release workflow.
-- Local verification output is retained under ignored `build/milestone6-*` files. This checkpoint accompanies the v0.7.0 release; final workflow results are recorded on GitHub.
+- Milestone 6's scenario round-trip, exact-revision, seeded reproduction, old-model compatibility, invalid import and missing-measurement regressions pass. Browser save/share/file round trips reproduce the same outcome. Full local gates, the rebuilt RPM and packaged JSON commands passed. Retained 16.17.1 and 16.18.1 scenario documents reproduce offline with identical metrics and scenario IDs.
+- v0.7.0's [build/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/37303347518) and [signed RPM/DNF workflow](https://github.com/tjisse/powerspike-janet/actions/runs/37303352619) succeeded. The latter verified a real signed DNF upgrade from v0.4.0 to v0.7.0, byte-for-byte preservation of cached snapshot data and port configuration, and the upgraded runtime.
+- Local verification output is retained under ignored `build/milestone6-*` files. The [v0.7.0 release](https://github.com/tjisse/powerspike-janet/releases/tag/v0.7.0) includes the signed x86_64 RPM and checksum.
 
 ## Accuracy and scope
 

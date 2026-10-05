@@ -47,6 +47,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
 	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	JANET_PATH=build/web-modules $(JANET) test/search.janet
+	JANET_PATH=build/web-modules $(JANET) test/fitness-cache.janet
 	JANET_PATH=build/web-modules $(JANET) test/scenarios.janet
 	$(JANET) test/config.janet
 

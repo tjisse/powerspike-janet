@@ -28,9 +28,61 @@
     filter();
   }
   setInterval(() => {
-    if (document.getElementById('search-panel')?.dataset.poll === 'true') app.dispatchEvent(new Event('searchtick'));
-    if (document.getElementById('patch-panel')?.dataset.poll === 'true') app.dispatchEvent(new Event('jobtick'));
+    if (document.getElementById('search-panel')?.dataset.poll === 'true') document.getElementById('optimizer-dialog').dispatchEvent(new Event('searchtick'));
+    if (document.getElementById('patch-panel')?.dataset.poll === 'true') document.getElementById('patch-settings').dispatchEvent(new Event('jobtick'));
   }, 1000);
+  // Keep optimization visible from the click onward. Closing the native dialog
+  // never cancels the worker; opening it again resumes the same progress view.
+  const optimizer=document.getElementById('optimizer-dialog');
+  const requestStatus=document.getElementById('search-request-status');
+  let awaitingSearch=false,previousJob='',lastApplied='',searchOpener=null;
+  const searchPanel=()=>document.getElementById('search-panel');
+  function openOptimizer(opener) {
+    searchOpener=opener;
+    if(!optimizer.open)optimizer.showModal();
+    document.getElementById('optimizer-title').focus({preventScroll:true});
+  }
+  function updateSearch() {
+    const panel=searchPanel();if(!panel)return;
+    if(awaitingSearch && (panel.dataset.job!==previousJob || panel.dataset.error==='true')){
+      awaitingSearch=false;requestStatus.hidden=true;panel.hidden=false;
+      requestAnimationFrame(()=>{if(optimizer.open)panel.scrollIntoView({block:'start'});});
+    }
+    const ongoing=panel.dataset.poll==='true';
+    document.getElementById('search-start').disabled=awaitingSearch || ongoing;
+    optimizer.querySelectorAll('#optimizer input,#optimizer select').forEach(node=>{node.disabled=awaitingSearch || ongoing;});
+    if(panel.dataset.applied && panel.dataset.applied!==lastApplied){
+      lastApplied=panel.dataset.applied;awaitingSearch=false;requestStatus.hidden=true;
+      optimizer.close();document.querySelector('#loadout-tray .optimize-primary')?.focus({preventScroll:true});
+    }
+  }
+  document.addEventListener('click',event=>{
+    const open=event.target.closest('[data-search-open]');
+    if(open){openOptimizer(open);updateSearch();return;}
+    if(event.target.closest('[data-search-close]')){optimizer.close();return;}
+    const start=event.target.closest('[data-search-start]');if(!start)return;
+    const ongoing=searchPanel()?.dataset.poll==='true';
+    openOptimizer(start);
+    if(awaitingSearch || ongoing){event.preventDefault();event.stopImmediatePropagation();return;}
+    previousJob=searchPanel()?.dataset.job || '';awaitingSearch=true;
+    requestStatus.textContent='Starting search…';requestStatus.hidden=false;searchPanel().hidden=true;
+    optimizer.scrollTop=0;requestStatus.scrollIntoView({block:'nearest'});updateSearch();
+  },true);
+  optimizer.addEventListener('close',()=>{if(searchOpener?.isConnected)searchOpener.focus({preventScroll:true});});
+  document.addEventListener('datastar-fetch',event=>{
+    const {type,el}=event.detail;
+    if(type==='finished' && el?.matches('[data-search-start]'))setTimeout(()=>{
+      updateSearch();
+      if(awaitingSearch){
+        awaitingSearch=false;requestStatus.textContent='The search could not start. Please retry.';
+        searchPanel().hidden=false;updateSearch();
+      }
+    },0);
+  });
+  new MutationObserver(records=>{
+    if(records.some(record=>record.target.closest?.('#search-panel') || [...record.addedNodes].some(node=>node.nodeType===1 && (node.id==='search-panel' || node.querySelector?.('#search-panel')))))updateSearch();
+  }).observe(optimizer,{subtree:true,childList:true,attributes:true,attributeFilter:['data-job','data-poll','data-error','data-applied']});
+
   // Persistence carries Janet's canonical scenario; it does not calculate combat.
   const savesKey = 'powerspike.scenarios.v1';
   const storageStatus = text => { const node = document.getElementById('scenario-storage-status'); if (node) node.textContent = text; };
@@ -117,51 +169,6 @@
     }
   }).observe(app,{subtree:true,childList:true});
 
-  const ns = 'http://www.w3.org/2000/svg';
-  const format = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value);
-  function element(name, attrs, text) {
-    const node = document.createElementNS(ns, name);
-    for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, String(value));
-    if (text !== undefined) node.textContent = text;
-    return node;
-  }
-  function draw() {
-    const box = document.getElementById('timeline');
-    if (!box) return;
-    const events = JSON.parse(box.dataset.events);
-    const duration = Number(box.dataset.duration), total = Number(box.dataset.total);
-    const width = Math.max(220, box.clientWidth), height = 185, left = 47, right = 12;
-    const ceiling = Math.max(1, total * 1.15);
-    const x = time => left + time / duration * (width - left - right);
-    const y = damage => 157 - damage / ceiling * 145;
-    const label = box.dataset.label;
-    const svg = element('svg', {viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `${label}: ${format(total)} damage over ${duration} seconds`});
-    svg.append(element('title', {}, label));
-    for (const fraction of [0, 0.5, 1]) {
-      const value = fraction * ceiling;
-      svg.append(element('line', {x1: left, x2: width - right, y1: y(value), y2: y(value), class: 'chart-grid'}));
-      svg.append(element('text', {x: left - 8, y: y(value) + 4, 'text-anchor': 'end'}, format(value)));
-    }
-    for (const time of [0, duration / 2, duration]) svg.append(element('text', {x: x(time), y: 178, 'text-anchor': time === 0 ? 'start' : time === duration ? 'end' : 'middle'}, `${time} s`));
-    let cumulative = 0, path = `M ${x(0)} ${y(0)}`;
-    const points = [];
-    for (const event of events) {
-      cumulative += event.damage;
-      path += ` H ${x(event.at)} V ${y(cumulative)}`;
-      points.push([event, cumulative]);
-    }
-    path += ` H ${x(duration)}`;
-    svg.append(element('path', {d: path, class: 'chart-line'}));
-    for (const [event, damage] of points) {
-      const dot = element('circle', {cx: x(event.at), cy: y(damage), r: 3, class: 'chart-point'});
-      dot.append(element('title', {}, `${event.source === 'attack' ? 'Attack' : event.source.replace('Annie', '')}: ${event.at.toFixed(2)} s, ${format(event.damage)} damage`));
-      svg.append(dot);
-    }
-    box.replaceChildren(svg);
-  }
-  draw();
-  new ResizeObserver(draw).observe(app);
-  new MutationObserver(records => {
-    if (records.some(record => record.type === 'attributes' || !(record.target.nodeType === 1 ? record.target : record.target.parentElement)?.closest('#timeline'))) draw();
-  }).observe(app, {subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['data-events', 'data-duration', 'data-total', 'data-label']});
+  // Graph geometry and linked inspection live in hud.js. Catalog filtering and
+  // canonical scenario persistence above remain independent of those interactions.
 })();

@@ -4,6 +4,7 @@
 (import ./model :as model)
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
+(import ./details :as details)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
@@ -37,17 +38,19 @@
    (when message [:p {:class "measurement-error"} message])
    (when job
      [:div {:class "patch-progress" :role "status"}
-      [:strong (get job :key "Patch download")]
-      [:span (string " · " (job :status) " · " (progress :message))]
-      (when active
-        [[:progress {:max (max 1 (progress :total)) :value (progress :completed)}]
-         [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"]])
-      (when (= :failed (job :status)) [:p (job :error)])
-      (when (= :done (job :status))
-        [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
-             :data-init (string "const next = new URL(location.href); next.searchParams.set('patch', '" ((job :result) :patch)
-                                "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
-         "Open patch"])
+      [:div {:class "patch-progress-controls"}
+       [:strong (get job :key "Patch download")]
+       [:span (string " · " (job :status))]
+       (when active
+         [[:progress {:max (max 1 (progress :total)) :value (progress :completed)}]
+          [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"]])
+       (when (= :done (job :status))
+         [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
+              :data-init (string "const next = new URL(location.href); next.searchParams.set('patch', '" ((job :result) :patch)
+                                 "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
+          "Open patch"])]
+      [:span {:class "patch-progress-message" :title (progress :message)} (progress :message)]
+      (when (= :failed (job :status)) [:p {:class "patch-progress-error"} (job :error)])
       [:span {:id "patch-job-signals" :data-init (string "$job = '" (job :id) "'")}]])])
 
 (defn- icon [group id description &opt class]
@@ -60,25 +63,27 @@
   [:div {:id "ranks" :class "spells"}
    (cond (not (empty? settings))
      (map (fn [ability]
-            [:span {:class "spell" :title (string (ability :name) " · " (length (ability :unresolved)) " unresolved components")}
+            [:button (merge {:type "button" :class "spell" :aria-label (string (ability :name) " details")}
+                            (details/attrs (details/ability ability) true))
              (when (not= "" (ability :icon)) (icon (ability :icon-group) (ability :icon) (ability :name)))
-             [:b (string/ascii-upper (string (ability :slot)))] (ability :rank)
-             [:small (if (number? (ability :effective-cooldown))
-                       (string (number-text (ability :effective-cooldown) true) "s") "CD unknown")]]) settings)
+             [:span (string/ascii-upper (string (ability :slot))) (ability :rank)]]) settings)
      (and (= "Annie" (champion :id)) (get ranks :q))
      [[:span {:class "spell"} (icon "spell" "AnnieQ" "Disintegrate") "Q" (ranks :q)]
       [:span {:class "spell"} (icon "spell" "AnnieW" "Incinerate") "W" (ranks :w)]
       [:span {:class "muted"} "R" (ranks :r) " passive"]]
-     [:span {:class "muted"} "Abilities excluded"])])
+     [:span {:class "muted"} "Ability model unavailable"])])
 
 (defn champion-display [result]
   (def champion (result :champion))
   [:div {:id "champion-display" :class "champion-display"}
-   [:div {:class "portrait"} (icon "champion" (champion :icon) (champion :name))]
-   [:div {:class "champion-title"} [:h1 (champion :name)]
-    [:span {:class "muted"} (cond (not (empty? (get-in result [:selected :ability-settings]))) "Estimated abilities + attacks"
-                              (and (= "Annie" (champion :id)) (get-in result [:selected :ranks :q])) "Q/W + basic attacks" "Basic attacks only")]
-    (rank-markup champion ((result :selected) :ranks) ((result :selected) :ability-settings))]])
+   [:button (merge {:type "button" :class "portrait" :aria-label (string (champion :name) " details")
+                    :data-on:click "document.getElementById('champion-picker').showModal()"}
+                   (details/attrs (details/champion champion (get-in result [:state :level]) (get-in result [:selected :stats]))))
+    (icon "champion" (champion :icon) (champion :name))]
+   [:div {:class "champion-title"} [:span {:class "muted"} "Champion"]
+    [:h1 (champion :name)]
+    [:button {:class "catalog-open js-only" :type "button"
+              :data-on:click "document.getElementById('champion-picker').showModal()"} "Change champion"]]])
 
 (defn scenario [result]
   (def state (result :state))
@@ -86,59 +91,19 @@
           :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
           :data-on:input__debounce.200ms "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
           :data-on:submit__prevent "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
-   [:div {:class "champion"} (champion-display result)
-    [:button {:class "catalog-open js-only" :type "button"
-              :data-on:click "document.getElementById('champion-picker').showModal()"} "Change champion"]
+   [:div {:class "champion-identity"} (champion-display result)
     [:label {:class "native-only" :for "champion"} "Champion"
      [:select {:id "champion" :name "champion" :data-bind:champion true}
       (map (fn [champion] [:option {:value (champion :id) :selected (= (champion :id) (state :champion))}
-                           (champion :name)]) (catalog/champion-list))]]]
-   [:label {:for "level"} "Level"
-    [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]
-   [:label {:for "duration"} "Combat window (seconds)"
-    [:input {:id "duration" :name "duration" :type "number" :min "0.5" :max "120" :step "0.5"
-             :required true :value (state :duration) :data-bind:duration true}]]
-   [:label {:for "mr"} "Target magic resistance"
-    [:input {:id "mr" :name "mr" :type "number" :min "0" :max "1000" :step "1"
-             :required true :value (state :mr) :data-bind:mr true}]]
-   [:label {:for "armor"} "Target armor"
-    [:input {:id "armor" :name "armor" :type "number" :min "0" :max "1000" :step "1"
-             :required true :value (state :armor) :data-bind:armor true}]]
-   [:label "Target health"
-    [:input {:name "targethealth" :type "number" :min "1" :max "1000000" :value (get state :target-health 10000)
-             :data-bind:targethealth true}]]
-   [:label "Starting distance"
-    [:input {:name "distance" :type "number" :min "0" :max "10000" :value (get state :distance 300) :data-bind:distance true}]]
-   [:label "Fight"
-    [:select {:name "mode" :data-bind:mode true}
-     [:option {:value "practice" :selected (= "practice" (get state :mode "practice"))} "Practice target"]
-     [:option {:value "duel" :selected (= "duel" (state :mode))} "Champion duel"]
-     (map (fn [preset]
-            [:option {:value (string (preset :id)) :selected (= (string (preset :id)) (state :mode))
-                      :disabled (not (some |(and (= ($ :id) (preset :id)) ($ :available)) (get (result :package) :objectives [])))}
-             (preset :name)]) objectives/presets)
-     [:option {:value "legacy" :selected (= "legacy" (state :mode))} "Curated reference"]]]
-   [:label {:data-show "$mode === 'duel'"} "Opponent"
-    [:select {:name "opponent" :data-bind:opponent true}
-     (map |[:option {:value ($ :id) :selected (= ($ :id) (get state :opponent "Garen"))} ($ :name)] (catalog/champion-list))]]
-   [:label {:data-show "$mode === 'duel'"} "Opponent level"
-    [:input {:name "opponentlevel" :type "number" :min 1 :max 18 :value (get state :opponentlevel 18) :data-bind:opponentlevel true}]]
-   [:label "Trials"
-    [:input {:name "samples" :type "number" :min 1 :max 64 :step 1 :required true
-             :value (get state :samples 1) :data-bind:samples true}]]
-   (seq [index :range [0 2]]
-     [:label (if (= index 0) "Summoner spell D" "Summoner spell F")
-      [:select {:name (string "summoner" (inc index)) :data-bind (string "summoner" (inc index))}
-       [:option {:value "" :selected (= "" (get (get state :summoners []) index ""))} "None"]
-       (map (fn [spell] [:option {:value (spell "id") :selected (= (spell "id") (get (get state :summoners []) index ""))}
-                         (spell "name")]) (filter |(some (fn [mode] (= "CLASSIC" mode)) (get $ "modes" [])) (get (result :package) :summoners [])))]])
+                           (champion :name)]) (catalog/champion-list))]]
+    [:label {:for "level" :class "champion-level"} "Level"
+     [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]]
+   [:div {:class "champion-vitals"}
+    (map (fn [[key caption]] [:div [:span caption] [:strong (number-text (get-in result [:selected :stats key] 0))]]) [[:hp "Health"] [:mp "Resource"]])]
+   (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings))
    [:input {:type "hidden" :name "patch" :value (get state :patch ((result :package) :patch))}]
    [:input {:type "hidden" :name "snapshot" :value ((result :package) :snapshot)}]
-   [:div {:class "scenario-notes"}
-    [:span {:class "validation-badge"} "Unvalidated catalog"]
-    [:span "Inventory " [:strong "6 slots · no budget limit"]]
-    [:span "Effects " [:strong "Coverage below"]]
-    [:span {:class "update-status" :role "status" :aria-live "polite" :data-text "$busy ? 'Updating…' : ''"} ""]]
+   [:span {:class "update-status" :role "status" :aria-live "polite" :data-text "$busy ? 'Updating…' : ''"} ""]
    [:noscript [:button {:type "submit" :name "selected" :value (state :selected) :class "apply"} "Update comparison"]]])
 
 (defn ranks-fragment [result]
@@ -170,16 +135,17 @@
   (defn y [value] (- 157 (* (/ value ceiling) 145)))
   [:section {:class "chart-panel"}
    [:div {:class "section-header"} [:h2 title] [:span {:class "muted"} "Seeded trial 0"]]
-   [:svg {:viewBox "0 0 864 185" :role "img" :aria-label title :class "state-chart"}
-    [:title title]
-    (seq [index :range [0 2]]
-      (do (def path (string/join (seq [[i event] :pairs trace]
-                                   (string (if (= i 0) "M " " L ") (x (event :at)) " "
-                                           (y (get-in event [:before index field] (get-in event [:participants index field] 0)))
-                                           " V " (y (get-in event [:participants index field] 0)))) ""))
-        [:path {:d path :class (if (= 0 index) "chart-line" "chart-opponent")}]))
-    [:text {:x 47 :y 178} "0 s"] [:text {:x 852 :y 178 :text-anchor "end"} duration " s"]]
-   [:p {:class "muted"} "Gold: player · Violet: target/opponent"]])
+   [:div {:class "state-chart-box" :data-state-chart (string field) :data-duration duration :data-label title}
+    [:svg {:viewBox "0 0 864 185" :role "img" :aria-label title :class "state-chart"}
+     [:title title]
+     (seq [index :range [0 2]]
+       (do (def path (string/join (seq [[i event] :pairs trace]
+                                    (string (if (= i 0) "M " " L ") (x (event :at)) " "
+                                            (y (get-in event [:before index field] (get-in event [:participants index field] 0)))
+                                            " V " (y (get-in event [:participants index field] 0)))) ""))
+         [:path {:d path :class (if (= 0 index) "chart-line" "chart-opponent")}]))
+     [:text {:x 47 :y 178} "0 s"] [:text {:x 852 :y 178 :text-anchor "end"} duration " s"]]]
+   [:p {:class "muted chart-legend"} "Player · solid cyan / Target · dashed violet"]])
 
 (defn- inventory-ids [row state]
   (if (= "custom" (row :id)) (map |(get state $ "") model/slot-keys)
@@ -193,30 +159,78 @@
   [:div {:class "inventory" :aria-label "Six editable inventory slots"}
    (seq [index :range [0 6]]
      (do (def item (catalog/items (ids index)))
-       [:button {:type "button" :class (if item "item-slot" "item-slot empty-slot")
-                 :data-attr:disabled "$busy"
-                 :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
-                 :title (if item (item :name) "Add item")
-                 :data-on:click (string seed "$editingwho = '" (if opponent "opponent" "player") "'; $editing = " (inc index)
-                                        "; document.getElementById('item-picker').showModal()")}
+       [:button (merge (if item (details/attrs (details/item item)) {}) {:type "button" :class (if item "item-slot" "item-slot empty-slot")
+                                                                         :data-attr:disabled "$busy"
+                                                                         :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
+
+                                                                         :data-on:click (string seed "$editingwho = '" (if opponent "opponent" "player") "'; $editing = " (inc index)
+                                                                                                "; document.getElementById('item-picker').showModal()")})
         (if item (icon "item" (item :icon) (item :name)) "+")
         [:span {:class "slot-label"} (inc index)]]))])
+
+(defn fight-controls [result]
+  (def state (result :state))
+  (def row (result :selected))
+  [:details {:id "fight-settings" :class "control-group" :data-preserve-attr "open"
+             :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
+             :data-on:input__debounce.200ms "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+   [:summary [:span "Opponent & fight"] [:span {:class "muted"} (state :mode) " · " (state :duration) " s"]]
+   [:div {:class "tactics-grid"}
+    [:label {:for "duration"} "Combat window (seconds)"
+     [:input {:form "scenario" :id "duration" :name "duration" :type "number" :min "0.5" :max "120" :step "0.5"
+              :required true :value (state :duration) :data-bind:duration true}]]
+    [:label {:for "mr"} "Target magic resistance"
+     [:input {:form "scenario" :id "mr" :name "mr" :type "number" :min "0" :max "1000" :step "1"
+              :required true :value (state :mr) :data-bind:mr true}]]
+    [:label {:for "armor"} "Target armor"
+     [:input {:form "scenario" :id "armor" :name "armor" :type "number" :min "0" :max "1000" :step "1"
+              :required true :value (state :armor) :data-bind:armor true}]]
+    [:label "Target health"
+     [:input {:form "scenario" :name "targethealth" :type "number" :min "1" :max "1000000" :value (get state :target-health 10000)
+              :data-bind:targethealth true}]]
+    [:label "Starting distance"
+     [:input {:form "scenario" :name "distance" :type "number" :min "0" :max "10000" :value (get state :distance 300) :data-bind:distance true}]]
+    [:label "Fight"
+     [:select {:form "scenario" :name "mode" :data-bind:mode true}
+      [:option {:value "practice" :selected (= "practice" (get state :mode "practice"))} "Practice target"]
+      [:option {:value "duel" :selected (= "duel" (state :mode))} "Champion duel"]
+      (map (fn [preset]
+             [:option {:value (string (preset :id)) :selected (= (string (preset :id)) (state :mode))
+                       :disabled (not (some |(and (= ($ :id) (preset :id)) ($ :available)) (get (result :package) :objectives [])))}
+              (preset :name)]) objectives/presets)
+      [:option {:value "legacy" :selected (= "legacy" (state :mode))} "Curated reference"]]]
+    [:label {:data-show "$mode === 'duel'"} "Opponent"
+     [:select {:form "scenario" :name "opponent" :data-bind:opponent true}
+      (map |[:option {:value ($ :id) :selected (= ($ :id) (get state :opponent "Garen"))} ($ :name)] (catalog/champion-list))]]
+    [:label {:data-show "$mode === 'duel'"} "Opponent level"
+     [:input {:form "scenario" :name "opponentlevel" :type "number" :min 1 :max 18 :value (get state :opponentlevel 18) :data-bind:opponentlevel true}]]
+    [:label "Trials"
+     [:input {:form "scenario" :name "samples" :type "number" :min 1 :max 64 :step 1 :required true
+              :value (get state :samples 1) :data-bind:samples true}]]
+
+    [:label "Objective level" [:input {:form "scenario" :name "objectivelevel" :type "number" :min 1 :max 30 :value (get state :objectivelevel 10) :data-bind:objectivelevel true}]]
+    [:label "Game time (minutes)" [:input {:form "scenario" :name "gametime" :type "number" :min 0 :max 120 :step 0.5 :value (get state :gametime 20) :data-bind:gametime true}]]
+    [:label "Objective retaliation" [:input {:form "scenario" :type "checkbox" :name "retaliation" :checked (get state :retaliation true) :data-bind:retaliation true}]]
+    [:label "Minions present at turret" [:input {:form "scenario" :type "checkbox" :name "minionspresent" :checked (get state :minionspresent true) :data-bind:minionspresent true}]]]
+   (when (= "duel" (state :mode))
+     [:section {:class "loadout"}
+      [:div {:class "section-header"} [:h2 "Opponent · " (get state :opponent "Garen")]
+       (icon "champion" (get state :opponent "Garen") "Opponent")]
+      (inventory row state true)
+      [:div {:class "build-stats"}
+       (map (fn [[key caption]] (stat caption (number-text (get-in row [:opponent :stats key] 0))))
+            [[:hp "Health"] [:ad "Attack damage"] [:ap "Ability power"] [:armor "Armor"] [:mr "Magic resistance"]])]])])
 
 (defn- setting [caption name value minimum maximum &opt step]
   [:label caption [:input {:form "scenario" :name name :id (string "setting-" name) :type "number" :required true
                            :min minimum :max maximum :step (or step 1) :value value :data-bind name}]])
 (defn tactics [result]
   (def state (result :state))
-  [:details {:id "tactics" :class "tactics scope-panel"
+  [:details {:id "tactics" :class "tactics scope-panel" :data-preserve-attr "open"
              :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
              :data-on:input__debounce.300ms "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
-   [:summary "Fight conditions & ability settings"]
-   [:div {:class "tactics-grid"}
-    (setting "Seed" "seed" (get state :seed 1) 0 2147483647)
-    (setting "Objective level" "objectivelevel" (get state :objectivelevel 10) 1 30)
-    (setting "Game time (minutes)" "gametime" (get state :gametime 20) 0 120 0.5)
-    [:label "Objective retaliation" [:input {:form "scenario" :type "checkbox" :name "retaliation" :checked (get state :retaliation true) :data-bind:retaliation true}]]
-    [:label "Minions present at turret" [:input {:form "scenario" :type "checkbox" :name "minionspresent" :checked (get state :minionspresent true) :data-bind:minionspresent true}]]]
+   [:summary "Strategies, ranks & activation rules"]
+   [:div {:class "tactics-grid"} (setting "Seed" "seed" (get state :seed 1) 0 2147483647)]
    (map (fn [opponent]
           (def prefix (if opponent "enemy" ""))
           (def stat-prefix (if opponent "opponent" ""))
@@ -260,6 +274,56 @@
                   (map |[:option {:value ($ "id") :selected (= ($ "id") (get (get state :opponentsummoners []) index ""))} ($ "name")]
                        (filter |(some (fn [mode] (= mode "CLASSIC")) (get $ "modes" [])) (get (result :package) :summoners [])))]])])
            [:p {:class "muted"} "Automatic ranks use a standard skill order. Exceptional leveling, forms and decision rules remain listed as omissions."]]) [false true])])
+
+(defn loadout [result]
+  (def row (result :selected))
+  (def state (result :state))
+  (def totals (row :stats))
+  [:section {:id "loadout-tray" :class "loadout-tray" :aria-label "Champion, stats, items and gold"}
+   (when (and (state :savedmodel) (not= workspace/model-identity (state :savedmodel)))
+     [:p {:class "model-notice warning"} "Saved model differs. This result uses the current model. "
+      [:button {:type "button" :class "quiet-action" :data-ui-toggle "scenario-tools"} "Reproduction details"]])
+   [:div {:class "tray-champion"} (scenario result)
+    [:div {:class "loadout-effects" :aria-label "Selected runes and summoner spells"}
+     (map (fn [effect]
+            (when effect
+              [:button (merge {:type "button" :class (string "effect-icon " (effect :kind)) :aria-label (string (get-in effect [:details :name]) " details")}
+                              (details/attrs (effect :details) true))
+               [:img {:src (get-in effect [:details :icon]) :alt (get-in effect [:details :name]) :width 32 :height 32}]]))
+          (details/loadout-effects (result :package) state))
+     [:button {:type "button" :class "quiet-action" :data-ui-toggle "ability-settings"} "Runes & spells"]]]
+   [:section {:class "tray-stats" :aria-label "Build stats"}
+    [:div {:class "section-header"} [:h2 "Stats"]
+     [:button (merge {:type "button" :class "quiet-action"}
+                     (details/attrs {:name "Build stats" :subtitle (row :name) :stats (details/stat-rows totals) :body []
+                                     :coverage "Source stats and modeled item bonuses. Combat exclusions remain in coverage."} true)) "Details"]]
+    [:div {:class "build-stats"}
+     (map (fn [[key caption]] (stat caption (number-text (get totals key 0) (some |(= key $) [:attack-speed]))))
+          [[:ap "Ability power"] [:ad "Attack damage"] [:ability-haste "Ability haste"]
+           [:attack-speed "Attack speed"] [:armor "Armor"] [:mr "Magic resist"]])]]
+   [:section {:class "tray-items" :aria-label "Selected build"}
+    [:div {:class "section-header"} [:h2 "Items"] [:span {:class "muted"} (number-text (row :cost)) " gold"]]
+    (inventory row state)
+    [:div {:class "gold-controls"}
+     [:label "Gold budget" [:input {:type "number" :min 0 :max 100000 :step 50 :value (optimizer/defaults :searchbudget) :data-bind:searchbudget true}]]
+     [:div {:class "gold-remaining"}
+      [:span {:class "muted" :data-text "$nextpurchase ? 'Available now' : 'Remaining'"} "Remaining"]
+      [:strong {:data-text (string "($nextpurchase ? Number($searchbudget) : Number($searchbudget) - " (row :cost) ").toLocaleString()")}
+       (number-text (- (optimizer/defaults :searchbudget) (row :cost)))]]]
+    [:button {:type "button" :class "optimize-primary" :data-search-open true} "Optimize build"]]])
+
+(defn ability-group [result]
+  (def state (result :state))
+  [:details {:id "ability-settings" :class "control-group"}
+   [:summary [:span "Abilities, runes & spells"] [:span {:class "muted"} "Ranks · activation · loadout"]]
+   [:div {:class "tactics-grid" :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+    (seq [index :range [0 2]]
+      [:label (if (= index 0) "Summoner spell D" "Summoner spell F")
+       [:select {:form "scenario" :name (string "summoner" (inc index)) :data-bind (string "summoner" (inc index))}
+        [:option {:value "" :selected (= "" (get (get state :summoners []) index ""))} "None"]
+        (map (fn [spell] [:option {:value (spell "id") :selected (= (spell "id") (get (get state :summoners []) index ""))}
+                          (spell "name")]) (filter |(some (fn [mode] (= "CLASSIC" mode)) (get $ "modes" [])) (get (result :package) :summoners [])))]])]
+   (tactics result) (optimizer/rune-editor (result :package) state)])
 
 (defn native-inventory [result]
   (def ids (inventory-ids (result :selected) (result :state)))
@@ -309,14 +373,14 @@
     [:div {:class "catalog-grid item-grid"}
      (map (fn [item]
             (def rift (and (item :purchasable) (item :in-store) (some |(= 11 $) (item :maps))))
-            [:button {:type "button" :class "catalog-card" :hidden (not rift)
-                      :data-item-id (item :id) :title (item :description)
-                      :data-rift (if rift "true" "false")
-                      :data-search (string (item :name) " " (item :id) " " (item :description) " " (string/join (item :tags) " "))
-                      :data-on:click (string (string/join (seq [index :range [1 7]]
-                                                            (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = '" (item :id) "'; else $slot" index " = '" (item :id) "'; }")) " ")
-                                             " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
-                                             "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")}
+            [:button (merge (details/attrs (details/item item)) {:type "button" :class "catalog-card" :hidden (not rift)
+                                                                 :data-item-id (item :id)
+                                                                 :data-rift (if rift "true" "false")
+                                                                 :data-search (string (item :name) " " (item :id) " " (item :description) " " (string/join (item :tags) " "))
+                                                                 :data-on:click (string (string/join (seq [index :range [1 7]]
+                                                                                                       (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = '" (item :id) "'; else $slot" index " = '" (item :id) "'; }")) " ")
+                                                                                        " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
+                                                                                        "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")})
              (icon "item" (item :icon) (item :name))
              [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
              [:small {:class "validation-badge"} "Unvalidated"]
@@ -350,15 +414,49 @@
 
 (defn- event-icon [row event]
   (def source (event :source))
-  (cond (= :attack source) [:b "AA"]
+  (cond (= :attack source) (icon "champion" (get-in row [:champion :icon] (get row :champion-id "Annie")) "Basic attack")
     (and (string? source) (string/has-prefix? "item/" source)) (icon "item" ((string/split "/" source) 1) "Item effect")
-    (and (string? source) (string/has-prefix? "rune/" source)) [:b "Rune"]
+    (and (string? source) (string/has-prefix? "rune/" source)) (icon "rune" ((string/split "/" source) 1) "Rune effect")
     (do (def ability (find |(= source ($ :id)) (get row :ability-settings [])))
       (if (and ability (not= "" (ability :icon))) (icon (ability :icon-group) (ability :icon) (ability :name))
         [:b source]))))
 
-(defn results [result]
+(defn- event-label [row event]
+  (def source (event :source))
+  (cond (= :attack source) "Basic attack"
+    (and (string? source) (string/has-prefix? "item/" source)) (get (catalog/items ((string/split "/" source) 1)) :name source)
+    (and (string? source) (string/has-prefix? "rune/" source))
+    (get (find |(= (scan-number ((string/split "/" source) 1)) (get $ "id")) (scenarios/runes (catalog/current))) "name" source)
+    (get (find |(= source ($ :id)) (get row :ability-settings [])) :name source)))
+
+(defn coverage [result]
   (def row (result :selected))
+  (def combat (row :combat))
+  (def broad (not (empty? (get row :ability-settings []))))
+  (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
+  [:details {:id "coverage" :class "scope-panel coverage-details" :data-preserve-attr "open" :aria-label "Build model coverage"}
+   [:summary "Coverage & assumptions"]
+   [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
+   [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Your declared priority, activation conditions and movement drive this run. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions."
+         has-spells
+         "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
+         "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
+   [:p "Available data, implemented handlers and in-game checks remain separate. Item and rune effects contribute only where a handler exists; inventory restrictions and missing effects appear below."]
+   (when (not (empty? (row :limitations)))
+     [:details [:summary "Excluded effects & inventory notes (" (length (row :limitations)) ")"]
+      [:ul (map |[:li $] (row :limitations))]])
+   (when broad
+     [:details {:class "ability-evidence"} [:summary "Ability descriptions and coverage"]
+      (map (fn [ability]
+             [:article [:strong (string/ascii-upper (string (ability :slot))) " · " (ability :name)]
+              [:p "Data " (if (ability :available) "available" "unavailable") " · "
+               (length (ability :effects)) " interpreted effects · " (length (ability :unresolved)) " unresolved · No in-game check"]
+              [:p (normalize/plain (ability :tooltip))]]) (row :ability-settings))])
+   (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
+   (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])])
+
+(defn results [result]
+  (def row (merge (result :selected) {:champion-id ((result :champion) :icon)}))
   (def state (result :state))
   (def duration (state :duration))
   (def totals (row :stats))
@@ -368,90 +466,59 @@
   (def spell-label (if broad "Modeled abilities" "Q/W"))
   (def chart-title (if has-spells (string spell-label " + attacks over time") "Basic attacks over time"))
   [:div {:id "results" :class "results" :aria-live "polite" :data-attr:aria-busy "$busy"}
-   [:div {:class "workspace"}
-    [:section {:class "build-panel" :aria-label "Build comparisons"}
-     [:div {:class "section-header"} [:h2 "Builds"]
-      [:span {:class "muted"} (if (> (length (result :rows)) 1) "Custom + 3 Annie presets" "Custom inventory")]]
-     (seq [[index candidate] :pairs (result :rows)] (build-row candidate index (state :selected)))]
-    [:section {:class "loadout" :aria-label "Selected build"}
-     [:div {:class "section-header"} [:h2 (row :name)] [:span {:class "muted"} (number-text (row :cost)) " gold"]]
-     [:p {:class "inventory-note muted"} "Select a slot to add or replace an item."]
-     (inventory row state)
-     [:div {:class "numbers"}
-      (metric (string (if has-spells (string spell-label " + attacks / ") "Basic attacks / ") duration " seconds") (combat :damage))
-      (metric "Damage per second" (combat :dps) true)]
-     (when (combat :metrics)
-       [:div {:class "build-stats"}
-        (stat "Health remaining" (number-text (get-in combat [:metrics :health])))
-        (stat "Damage taken" (number-text (get-in combat [:metrics :damage-taken])))
-        (stat "Healing" (number-text (get-in combat [:metrics :healing])))
-        (stat "Absorbed" (number-text (get-in combat [:metrics :absorbed])))
-        (stat "Effective control" (string (number-text (get-in combat [:metrics :control]) true) " s"))
-        (stat "Kill / death chance" (string (number-text (* 100 (get-in combat [:metrics :kill-rate] 0))) "% / "
-                                            (number-text (* 100 (get-in combat [:metrics :death-rate] 0))) "%"))
-        (stat "Kill time (successful trials)" (if (get-in combat [:metrics :mean-kill-time]) (string (number-text (get-in combat [:metrics :mean-kill-time]) true) " s") "—"))
-        (stat "Death time (successful trials)" (if (get-in combat [:metrics :mean-death-time]) (string (number-text (get-in combat [:metrics :mean-death-time]) true) " s") "—"))
-        (stat "Sampling interval (damage)" (if (get-in combat [:uncertainty :damage]) (string "± " (number-text (get-in combat [:uncertainty :damage]))) "Unavailable"))])
-     [:div {:class "build-stats"}
-      (stat "Attack damage" (number-text (totals :ad) true))
-      (stat "Attack speed" (number-text (totals :attack-speed) true))
-      (stat "Crit chance" (string (number-text (* 100 (totals :crit-chance))) "%"))
-      (stat "Health" (number-text (totals :hp)))
-      (stat "Armor / MR" (string (number-text (totals :armor)) " / " (number-text (totals :mr))))
-      (stat "Ability power" (number-text (totals :ap) true))
-      (stat "Magic pen" (string (number-text (* 100 (totals :magic-pen-percent))) "% + " (totals :magic-pen-flat)))
-      (stat "Armor pen" (string (number-text (* 100 (totals :armor-pen-percent))) "% + " (totals :armor-pen-flat)))
-      (stat "Ability haste" (totals :ability-haste))]]]
-   [:section {:class "scope-panel" :aria-label "Build model coverage"}
-    [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
-    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Your declared priority, activation conditions and movement drive this run. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions."
-          has-spells
-          "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
-          "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
-    [:p "Available data, implemented handlers and in-game checks remain separate. Item and rune effects contribute only where a handler exists; inventory restrictions and missing effects appear below."]
-    (when (not (empty? (row :limitations)))
-      [:details [:summary "Excluded effects & inventory notes (" (length (row :limitations)) ")"]
-       [:ul (map |[:li $] (row :limitations))]])
-    (when broad
-      [:details {:class "ability-evidence"} [:summary "Ability descriptions and coverage"]
-       (map (fn [ability]
-              [:article [:strong (string/ascii-upper (string (ability :slot))) " · " (ability :name)]
-               [:p "Data " (if (ability :available) "available" "unavailable") " · "
-                (length (ability :effects)) " interpreted effects · " (length (ability :unresolved)) " unresolved · No in-game check"]
-               [:p (normalize/plain (ability :tooltip))]]) (row :ability-settings))])
-    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
-    (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])]
+   [:div {:class "fight-strip"}
+    [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} (if (= "practice" (state :mode)) "Practice target" (state :mode)) " ▾"]
+    [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} duration " seconds"]
+    [:button {:type "button" :class "quiet-action" :data-ui-toggle "optimizer" :data-text "'Goal: ' + $searchpreset"} "Goal: burst"]
+    [:span {:class "validation-badge"} "Unvalidated estimate"]]
+   [:div {:class "numbers outcome-summary"}
+    (metric "Mean damage dealt" (combat :damage)) (metric "Damage per second" (combat :dps) true)
+    [:span {:class "muted"} (get combat :samples 1) " trial(s) · graphs show trial 0"]]
+   [:div {:id "combat-graphs" :class "combat-graphs"}
+    [:span {:id "combat-trace" :hidden true :data-trace (json/encode (get combat :trace []))
+            :data-scenario (get combat :scenario-id (string ((result :package) :snapshot) "/" (json/encode state)))}]
+    [:section {:class "chart-panel" :aria-label "Damage timeline"}
+     [:div {:class "section-header"} [:h2 chart-title] [:span {:class "muted"} "Cumulative damage"]]
+     (unless has-spells
+       [:p {:class "chart-coverage muted"} "Spell damage unavailable for " ((result :champion) :name)
+        "; this estimate covers basic attacks. Spells: not modeled."])
+     (chart row duration chart-title)]
+    [:div {:id "event-detail" :class "event-detail" :aria-label "Selected attack details"}
+     [:span {:class "muted"} "Hover or select an attack to inspect its damage and state changes."]]
+    (when (not (empty? (get combat :trace [])))
+      [:div {:class "state-plots"} (state-chart combat duration :health "Health over time")
+       (state-chart combat duration :resource "Resources over time")])
+    [:div {:class "attack-header"} [:h2 "Attacks & effects"] [:span {:class "muted"} "Trial 0"]]
+    [:div {:id "attack-events" :class "hit-list" :aria-label "Damage events"}
+     (seq [[index event] :pairs (combat :events)]
+       [:button {:type "button" :class "hit" :data-event index :data-label (event-label row event) :aria-pressed "false"
+                 :aria-label (string (event :source) " at " (number-text (event :at) true) " seconds, " (number-text (event :damage)) " damage")}
+        (event-icon row event) [:span (number-text (event :at) true) " s"]])]]
+   (when (combat :metrics)
+     [:details {:class "combat-outcomes"} [:summary "Outcome details"] [:div {:class "build-stats"}
+                                                                        (stat "Health remaining" (number-text (get-in combat [:metrics :health])))
+                                                                        (stat "Damage taken" (number-text (get-in combat [:metrics :damage-taken])))
+                                                                        (stat "Healing" (number-text (get-in combat [:metrics :healing])))
+                                                                        (stat "Absorbed" (number-text (get-in combat [:metrics :absorbed])))
+                                                                        (stat "Effective control" (string (number-text (get-in combat [:metrics :control]) true) " s"))
+                                                                        (stat "Kill / death chance" (string (number-text (* 100 (get-in combat [:metrics :kill-rate] 0))) "% / "
+                                                                                                            (number-text (* 100 (get-in combat [:metrics :death-rate] 0))) "%"))
+                                                                        (stat "Kill time (successful trials)" (if (get-in combat [:metrics :mean-kill-time]) (string (number-text (get-in combat [:metrics :mean-kill-time]) true) " s") "—"))
+                                                                        (stat "Death time (successful trials)" (if (get-in combat [:metrics :mean-death-time]) (string (number-text (get-in combat [:metrics :mean-death-time]) true) " s") "—"))
+                                                                        (stat "Sampling interval (damage)" (if (get-in combat [:uncertainty :damage]) (string "± " (number-text (get-in combat [:uncertainty :damage]))) "Unavailable"))]])
+   (when (> (length (result :rows)) 1) [:details {:class "build-comparisons"} [:summary "Build comparisons"]
+                                        [:section {:class "build-panel" :aria-label "Build comparisons"}
+                                         [:div {:class "section-header"} [:h2 "Builds"]
+                                          [:span {:class "muted"} (if (> (length (result :rows)) 1) "Custom + 3 Annie presets" "Custom inventory")]]
+                                         (seq [[index candidate] :pairs (result :rows)] (build-row candidate index (state :selected)))]])
    (when (combat :damage-breakdown)
-     [:section {:class "scope-panel"}
-      [:div {:class "section-header"} [:h2 "Mean damage by source"]]
+     [:details {:class "source-breakdown"}
+      [:summary "Damage breakdown"]
       [:div {:class "damage-breakdown"}
        (map (fn [[source amount]]
               [:div (event-icon row {:source (if (= source "attack") :attack source)})
-               [:span source] [:strong (number-text amount)]])
-            (sorted (pairs (combat :damage-breakdown)) |(> ($0 1) ($1 1))))]])
-   [:section {:class "chart-panel" :aria-label "Damage timeline"}
-    [:div {:class "section-header"} [:h2 chart-title]
-     [:span {:class "muted"} (if has-spells (string spell-label " " (number-text (* duration (combat :ability-dps)))) "Spells: not modeled")
-      " · Attacks " (number-text (* duration (combat :attack-dps)))]]
-    (unless has-spells
-      [:p {:class "chart-coverage muted"} "Spell damage unavailable for " ((result :champion) :name)
-       "; this estimate covers basic attacks."])
-    (chart row duration chart-title)
-    [:div {:class "hit-list" :aria-label "Damage events"}
-     (map (fn [event]
-            [:span {:class "hit" :title (string (number-text (event :damage)) " damage")}
-             (event-icon row event)
-             [:span (number-text (event :at) true) " s"]]) (combat :events))]]
-   (when (not (empty? (get combat :trace []))) [(state-chart combat duration :health "Health over time")
-                                                (state-chart combat duration :resource "Resources over time")])
-   (when (= "duel" (state :mode))
-     [:section {:class "loadout"}
-      [:div {:class "section-header"} [:h2 "Opponent · " (get state :opponent "Garen")]
-       (icon "champion" (get state :opponent "Garen") "Opponent")]
-      (inventory row state true)
-      [:div {:class "build-stats"}
-       (map (fn [[key caption]] (stat caption (number-text (get-in row [:opponent :stats key] 0))))
-            [[:hp "Health"] [:ad "Attack damage"] [:ap "Ability power"] [:armor "Armor"] [:mr "Magic resistance"]])]])])
+               [:span (event-label row {:source (if (= source "attack") :attack source)})] [:strong (number-text amount)]])
+            (sorted (pairs (combat :damage-breakdown)) |(> ($0 1) ($1 1))))]])])
 
 (defn error-result [message]
   [:div {:id "results" :class "results" :role "alert"}
@@ -495,17 +562,23 @@
            [:head [:meta {:charset "utf-8"}] [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
             [:title "PowerSpike · Build comparisons"] [:link {:rel "stylesheet" :href "/assets/app.css"}]
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
-            [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}]]
+            [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}] [:script {:defer true :src "/assets/hud.js"}]]
            [:body
             [:div {:id "powerspike" :data-signals (json/encode (signals state))
-                   :data-on:jobtick "@get('/patches/status')"
-                   :data-on:searchtick "@get('/search/status')"
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"}
-             [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch " ((result :package) :patch)]]
-             [:main {:class "content"} (patch-panel result nil) (scenario result) (tactics result) (optimizer/rune-editor (result :package) state) (native-inventory result)
-              (if message (error-result message) (results result)) (workspace/tools result) (optimizer/controls result) (optimizer/panel result nil)
-              (workspace/evidence result) (evidence-panel evidence)]
+             [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
+              [:div {:class "top-meta"} [:button {:type "button" :class "quiet-action" :data-ui-toggle "patch-settings" :data-text "'Patch ' + $patch + ' ▾'"} "Patch " ((result :package) :patch) " ▾"]]]
+             [:main {:class "content"} (loadout result) (native-inventory result)
+              (if message (error-result message) (results result))
+              [:div {:class "secondary-controls"} (fight-controls result) (ability-group result)
+               [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"]
+               (workspace/tools result)
+               [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
+                [:summary [:span "Patch & evidence"] [:span {:class "muted"} "Sources · calibration"]]
+                (patch-panel result nil) (coverage result) (workspace/evidence result) (evidence-panel evidence)]]]
+             [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
+             (optimizer/dialog result)
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Combat damage unverified"]

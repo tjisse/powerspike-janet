@@ -68,8 +68,10 @@
 (assert (= :cancelled (b :status)))
 (def c (jobs/submit :test "c" work 6))
 (jobs/cancel (c :id))
+(jobs/cancel (c :id))
 (while (not (jobs/terminal? c)) (ev/sleep 0.01))
 (assert (= :cancelled (c :status)))
+(assert (not (c :cancel-channel)))
 (defn network-work [value progress cancelled]
   (os/sleep 0.2) value)
 (def network (jobs/submit :patch "network-fixture" network-work 9))

@@ -4,10 +4,14 @@
 (import ./data-util :as util)
 (import ./validation :as v)
 (import ./engine :as engine)
+(import ./effects :as effects)
+(import ./fitness-cache :as cache)
 (import ../../data/16.19.1/snapshot :as initial)
 (import pshash :as hash)
 
-(def version "search-2")
+(def version "search-5")
+(defn fitness-key [package definition]
+  (hash/sha256 (util/encode-data (util/canonical ["fitness-1" engine/identity (package :patch) (package :snapshot) definition]))))
 (def presets [:burst :sustained :duel :survival :utility :objective])
 (def explanations
   {:burst "Damage within the configured combat window; lower cost breaks ties."
@@ -39,17 +43,15 @@
   (def seen @{})
   (filter (fn [row] (unless (seen (row :key)) (put seen (row :key) true) true)) rows))
 (defn alternatives [rows]
-  (def ranked (sorted rows better?))
-  (def cheaper (first (sorted (filter |(> ($ :cost) 0) rows) |(< ($0 :cost) ($1 :cost)))))
-  (def healthier (first (sorted rows |(> (get-in $0 [:metrics :health] 0) (get-in $1 [:metrics :health] 0)))))
-  (def controls (first (sorted rows |(> (get-in $0 [:metrics :control] 0) (get-in $1 [:metrics :control] 0)))))
-  (sorted (take 5 (distinct-rows [;(take 2 ranked) ;(filter identity [cheaper healthier controls]) ;ranked])) better?))
+  (take 10 (distinct-rows (sorted rows better?))))
 (defn replace-items [definition ids]
   (merge definition {:player (merge (definition :player)
                                     {:loadout (merge (get-in definition [:player :loadout] {}) {:items ids})})}))
 (defn legal [package ids options champion]
   (builds/inspect-build (inventory package ids) (merge options {:champion champion})))
-(defn unique [values] (keys (tabseq [value :in values] value true)))
+(defn unique [values]
+  (def seen @{})
+  (filter (fn [value] (unless (seen value) (put seen value true) true)) values))
 (defn contains-all? [values required]
   (def remaining (array/slice values))
   (all (fn [id] (def index (find-index |(= id $) remaining))
@@ -104,10 +106,20 @@
   (def requested (get options :pool (map |($ :id) (package :items))))
   (assert (and (indexed? requested) (<= (length requested) 2000)) "Invalid item pool.")
   (inventory package requested)
+  (def ranged (> (get-in package [:champion-map champion :attack-range] 125) 300))
+  (def priorities
+    (tabseq [id :in requested :let [item ((package :item-map) id)]] id
+      (+ (if (and (item :patch) (not (empty? (get item :record {}))) (not (empty? (effects/item-triggers item ranged)))) 4 0)
+         (if (or (>= (get-in item [:source "depth"] 0) 3) (>= (item :gold) 2000)
+                 (and (some |(= "Boots" $) (get item :tags [])) (>= (get-in item [:source "depth"] 0) 2))) 2 0)
+         (if (not (empty? (get item :stats {}))) 1 0))))
+  (def pool-order (tabseq [id :in requested] id (hash/sha256 (string (get definition :seed 1) id))))
   (def pool (sorted (filter (fn [id] (and (or (not (get-in package [:manifest "initial"])) (initial/items id))
                                           ((legal package [id] (merge limits {:slots 6 :owned [] :budget math/inf}) champion) :legal)))
                             (unique requested))
-                    |(< (hash/sha256 (string (get definition :seed 1) $0)) (hash/sha256 (string (get definition :seed 1) $1)))))
+                    (fn [a b] (if (= (priorities a) (priorities b))
+                                (< (pool-order a) (pool-order b))
+                                (> (priorities a) (priorities b))))))
   (def samples (v/integer-between (get options :samples (get definition :samples 1)) 1 64 "Search trials"))
   (def final-samples (v/integer-between (get options :final-samples (max samples 16)) samples 256 "Finalist trials"))
   (def optional? (some |(get options $ false) [:runes :summoners :skills]))
@@ -119,13 +131,21 @@
   (def seen @{})
   (var archive @[])
   (var evaluated 0)
+  (var simulated 0)
+  (var cache-hits 0)
   (var truncated false)
   (var phase :search)
-  (defn stop? [] (or (cancelled) (>= (os/clock :monotonic) (if (= phase :search) search-deadline deadline))))
-  (def evaluate (or evaluator (fn [candidate stop] (scenario/simulate candidate stop))))
-  (defn publish [message]
-    (progress {:message message :completed evaluated :total 0 :seconds (- (os/clock :monotonic) started)
-               :best (tuple ;(alternatives archive)) :preset preset :explanation (explanations preset)}))
+  (var incumbent nil)
+  (var last-publish (- started 0.1))
+  (defn stop? [] (or (cancelled) (and (= phase :search) (>= (length seen) 4096))
+                     (>= (os/clock :monotonic) (if (= phase :search) search-deadline deadline))))
+  (def evaluate (or evaluator (fn [candidate stop] (scenario/fitness candidate stop))))
+  (defn publish [message &opt force]
+    (def now (os/clock :monotonic))
+    (when (or force (>= (- now last-publish) 0.1))
+      (set last-publish now)
+      (progress {:message message :completed evaluated :simulated simulated :cache-hits cache-hits :total 0 :seconds (- now started)
+                 :best (tuple ;(alternatives archive)) :preset preset :explanation (explanations preset)})))
   (defn visit [candidate &opt purchase count-samples force]
     (unless (stop?)
       (def ids (get-in candidate [:player :loadout :items] []))
@@ -133,18 +153,29 @@
       (when (and (inspection :legal) (contains-all? ids locked)
                  (or (not (get options :runes false)) (loadouts/legal-page? package (get-in candidate [:player :loadout :runes] [])))
                  (or (not (get options :summoners false)) (= 2 (length (get-in candidate [:player :loadout :summoners] [])))))
+        # Item slots do not change our modeled effects. A stable inventory order
+        # avoids evaluating permutations and fixes trigger order across builds.
         (def trials (or count-samples (if exact? final-samples (min samples 8))))
-        (def normalized (merge candidate {:samples trials :model engine/identity}))
-        (def key (hash/sha256 (util/encode-data [version engine/identity (package :snapshot) normalized preset purchase])))
+        (def normalized (merge (replace-items candidate (tuple ;(sorted ids))) {:samples trials :model engine/identity}))
+        (def purchase-key (when (get purchase :purchase) {:purchase (purchase :purchase) :purchase-cost (purchase :purchase-cost)}))
+        (def key (hash/sha256 (util/encode-data (util/canonical [version engine/identity (package :snapshot) normalized preset purchase-key]))))
         (unless (and (seen key) (not force))
-          (when (< (length seen) 4096)
+          (when (or force (< (length seen) 4096))
             (put seen key true)
-            (def outcome (protect (evaluate normalized stop?)))
+            # Custom evaluators are deliberately isolated from the real-engine
+            # cache. Purchase restrictions and scores are checked anew on hits.
+            (def metric-key (unless evaluator (fitness-key package normalized)))
+            (def cached (when metric-key (cache/lookup metric-key)))
+            (def outcome (if cached (do (++ cache-hits) [true cached])
+                           (protect
+                             (def result (evaluate normalized stop?))
+                             (++ simulated)
+                             (if metric-key (or (cache/store metric-key result) result) result))))
             (unless (or (first outcome) (stop?)) (error (string "Candidate simulation failed: " (outcome 1))))
             (when (first outcome)
               (++ evaluated)
               (def result (outcome 1))
-              (def row {:key key :definition normalized :ids (tuple ;ids) :cost (inspection :cost)
+              (def row {:key key :definition normalized :ids (get-in normalized [:player :loadout :items]) :cost (inspection :cost)
                         :purchase (get purchase :purchase) :purchase-cost (get purchase :purchase-cost)
                         :score (score (result :metrics) preset duration) :metrics (result :metrics)
                         :uncertainty (get result :uncertainty {}) :samples trials
@@ -152,7 +183,7 @@
               (array/push archive row)
               (when (> (length archive) 40)
                 (set archive (array/slice (distinct-rows [;(take 20 (sorted archive better?)) ;(alternatives archive)]))))
-              (when (or (= evaluated 1) (= 0 (mod evaluated 8))) (publish "Searching builds"))
+              (when (or (= evaluated 1) (= 0 (mod evaluated 8))) (publish "Searching builds" (= evaluated 1)))
               row))))))
   (var baseline definition)
   (when (get options :runes false)
@@ -167,8 +198,7 @@
     (assert pair "No legal summoner pair satisfies the locked choices.")
     (set baseline (merge baseline {:player (merge (baseline :player) {:loadout (merge (get-in baseline [:player :loadout] {}) {:summoners pair})})})))
   (def base (replace-items baseline locked))
-  (defn expand [candidate]
-    (def ids (get-in candidate [:player :loadout :items] []))
+  (defn expand-choices [candidate]
     (when (get options :runes false)
       (def page (get-in candidate [:player :loadout :runes] []))
       (def choices [;(loadouts/page-neighbors package page (get options :rune-locks []))
@@ -185,17 +215,29 @@
       (each order (loadouts/skill-orders (get-in definition [:player :level] 18) (get options :skill-locks {}))
         (def player (merge @{} (candidate :player)))
         (put player :ranks nil) (put player :skill-order order)
-        (visit (merge candidate {:player player}))))
-    (each id pool
-      (when (stop?) (break))
-      (when (< (length ids) slots) (visit (replace-items candidate [;ids id])))
-      (for index 0 (length ids)
-        (unless (some |(= $ (ids index)) locked)
-          (def next (array/slice ids)) (put next index id)
-          (visit (replace-items candidate (tuple ;next))))))
-    (for index 0 (length ids)
-      (def next (array/slice ids)) (array/remove next index 1)
-      (when (contains-all? next locked) (visit (replace-items candidate (tuple ;next))))))
+        (visit (merge candidate {:player player})))))
+  # Complete legal inventories are proposals only. Every score still comes from
+  # the same chronological combat engine, including interactions and coverage.
+  (defn fill [order]
+    (def ids (array/slice locked))
+    (var cost (sum (map |(((package :item-map) $) :gold) locked)))
+    (for pass 0 slots
+      (def count (length ids))
+      (each id order
+        (when (or (stop?) (>= (length ids) slots)) (break))
+        (def item ((package :item-map) id))
+        (def next [;ids id])
+        (when (and (<= (+ cost (item :gold)) budget)
+                   (or (item :stackable) (not (some |(= id $) ids)))
+                   ((legal package next limits champion) :legal))
+          (array/push ids id) (+= cost (item :gold))))
+      (when (= count (length ids)) (break)))
+    (tuple ;ids))
+  (var random-state (inc (mod (get definition :seed 1) 2147483646)))
+  (defn choose [values]
+    (when (not (empty? values))
+      (set random-state (mod (* random-state 48271) 2147483647))
+      (values (mod random-state (length values)))))
   (cond
     next? (each purchase (next-purchases package owned pool (merge limits {:budget budget}) champion)
             (when (stop?) (set truncated true) (break))
@@ -211,13 +253,79 @@
                   (def item ((package :item-map) (pool index)))
                   (enumerate (if (item :stackable) index (inc index)) [;ids (item :id)]))))))
       (enumerate 0 locked))
-    (do (visit base)
-      (when (and (contains-all? owned locked) ((legal package owned limits champion) :legal)) (visit (replace-items baseline owned)))
-      (def expanded @{})
-      (while (not (stop?))
-        (def next (find |(not (expanded ($ :key))) (sorted archive better?)))
-        (unless next (break))
-        (put expanded (next :key) true) (expand (next :definition)))
+    (do
+      (def base-row (visit base))
+      (when (and (contains-all? owned locked) ((legal package owned limits champion) :legal))
+        (set incumbent (visit (replace-items baseline owned) nil final-samples true)))
+      (def singles @[])
+      (def screening-deadline (+ started (* seconds 0.35)))
+      (each id pool
+        (when (or (stop?) (>= (os/clock :monotonic) screening-deadline)) (break))
+        (def row (visit (replace-items baseline [;locked id]) nil samples))
+        (when row (array/push singles (merge row {:added id}))))
+      (def ranked (sorted singles better?))
+      # Cost efficiency orders proposals using only the preset's first metric;
+      # it never adds unlike outcome metrics or replaces simulation scoring.
+      (defn efficiency [row]
+        (/ (- ((row :score) 0) (get-in base-row [:score 0] 0)) (max 1 (- (row :cost) (get-in base-row [:cost] 0)))))
+      (def efficient (sorted singles (fn [a b] (if (= (efficiency a) (efficiency b)) (better? a b) (> (efficiency a) (efficiency b))))))
+      (def raw-order (unique [;(map |($ :added) ranked) ;pool]))
+      (def efficient-order (unique [;(map |($ :added) efficient) ;pool]))
+      (each order [raw-order efficient-order]
+        (visit (replace-items baseline (fill order))))
+      # Give complementary stat families their own starts. This avoids a mixed
+      # standalone ranking suppressing AD/crit, AP/penetration or defense builds.
+      # These are proposal buckets, not hardcoded champion builds or item scores.
+      (each stat [:ad :ap :attack-speed-bonus :crit-chance :ability-haste :hp :armor :mr]
+        (when (stop?) (break))
+        (def family (filter |(> (get-in package [:item-map $ :stats stat] 0) 0) raw-order))
+        (when (not (empty? family)) (visit (replace-items baseline (fill [;family ;raw-order])))))
+      (when optional? (expand-choices baseline))
+      # Seed several full inventories before any exhaustive neighborhood sweep.
+      # Mutations and crossovers revisit leaders after each small batch, rather
+      # than exhausting every item/slot permutation of one shallow candidate.
+      (for index 0 (min 12 (length pool))
+        (each order [raw-order efficient-order]
+          (when (stop?) (break))
+          (visit (replace-items baseline (fill [;(array/slice order index) ;(take index order)])))))
+      (var generation 0)
+      (while (and (not (stop?)) (not (empty? archive)) (not (empty? pool)))
+        (def leaders (take 4 (sorted archive better?)))
+        (each row leaders
+          (def parent (row :definition))
+          (def ids (row :ids))
+          (def editable (seq [index :range [0 (length ids)]
+                              :when (contains-all? [;(take index ids) ;(drop (inc index) ids)] locked)] index))
+          (for mutation 0 8
+            (when (stop?) (break))
+            (def remaining (array/slice ids))
+            (when (not (empty? editable)) (array/remove remaining (choose editable) 1))
+            (when (and (= 0 (mod mutation 4)) (not (empty? remaining)))
+              (def removable (filter (fn [index] (contains-all? [;(take index remaining) ;(drop (inc index) remaining)] locked))
+                                     (range 0 (length remaining))))
+              (when (not (empty? removable)) (array/remove remaining (choose removable) 1)))
+            (def order (if (= 0 (mod mutation 2)) raw-order efficient-order))
+            (def proposal @[(choose pool) ;remaining ;order])
+            (when (= 0 (mod mutation 4)) (array/insert proposal 0 (choose pool)))
+            (visit (replace-items parent (fill proposal))))
+          # Remove weak filler too: spending all gold or filling six slots is
+          # not itself a goal, and lower cost breaks equal outcome scores.
+          (each index editable
+            (when (stop?) (break))
+            (visit (replace-items parent [;(take index ids) ;(drop (inc index) ids)])))
+          (when (and optional? (= 0 (mod generation 4))) (expand-choices parent)))
+        (when (> (length leaders) 1)
+          (def a (first leaders)) (def b (choose (drop 1 leaders)))
+          (def crossed @[])
+          (for index 0 slots
+            (each row [a b] (when (get (row :ids) index) (array/push crossed ((row :ids) index)))))
+          (visit (replace-items (a :definition) (fill [;crossed ;pool]))))
+        # A fresh full inventory escapes local optima, including synergies with
+        # little standalone value. Its deterministic seed is scenario-specific.
+        (def order (tabseq [id :in pool] id (hash/sha256 (string random-state generation id))))
+        (def shuffled (sorted pool |(< (order $0) (order $1))))
+        (visit (replace-items baseline (fill shuffled)))
+        (++ generation))
       (set truncated true)))
   # Exact searches evaluate every candidate with the same final trial schedule.
   # Heuristic finalists all use the same larger schedule; reserve wall time.
@@ -228,17 +336,20 @@
     (each row finalists
       (def next (visit (row :definition) {:purchase (row :purchase) :purchase-cost (row :purchase-cost)} final-samples true))
       (when next (array/push refined next)))
-    (when (not (empty? refined)) (set archive refined)))
+    (when (not (empty? refined)) (set archive [;refined ;(if incumbent [incumbent] [])])))
   (def rows (tuple ;(alternatives archive)))
-  (publish "Search finished")
+  (publish "Search finished" true)
   {:version version :patch (package :patch) :snapshot (package :snapshot) :model engine/identity
-   :preset preset :explanation (explanations preset) :rows rows :evaluated evaluated :pool-size (length pool)
+   :preset preset :explanation (explanations preset) :rows rows :baseline incumbent :evaluated evaluated
+   :simulated simulated :cache-hits cache-hits :cache (cache/stats) :pool-size (length pool)
    :seconds (- (os/clock :monotonic) started) :limit seconds :cancelled (not (not (cancelled)))
    :complete (and exact? (not truncated) (not (cancelled)) (< (os/clock :monotonic) deadline))
    :guarantee (if (and exact? (not truncated) (not (cancelled)) (< (os/clock :monotonic) deadline)) :optimal-within-pool :best-found)
    :search (if exact? :exhaustive :heuristic) :next-purchase next?
    :notes ["Scores compare a fixed opponent and declared strategies using common seeds."
-           "The initial excerpt searches only curated purchase rules; refresh the selected patch to search its complete shop."
+           ;(if (get-in package [:manifest "initial"])
+              ["The initial excerpt searches only curated purchase rules; refresh the selected patch to search its complete shop."] [])
+           "Heuristic search screens items, seeds complete legal inventories, then uses seeded mutations and crossovers. Scores always come from the combat engine."
            "Missing effects can change rankings. See coverage for every recommendation."
            "Heuristic alternatives are the best found within the compute budget; optimal play is not modeled."
            "Utility compares effective control, healing and protection in order. Team protection and spatial effects are outside this duel model."]})

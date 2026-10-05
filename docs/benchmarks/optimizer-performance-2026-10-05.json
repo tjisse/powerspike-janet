@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-05",
+  "host": "WSL, source/data under /mnt/c",
+  "baseline": [
+    {
+      "seconds": 0.07519421899996814,
+      "measurement": "submit"
+    },
+    {
+      "evaluated": 105,
+      "seconds": 4.878135590999591,
+      "status": "done",
+      "measurement": "worker",
+      "first-progress": 0.22809000400229706,
+      "best-damage": 2867.2925603836275,
+      "search-seconds": 4.654257599999255
+    }
+  ],
+  "workers": [
+    {
+      "evaluated": 520,
+      "search-version": "search-4",
+      "patch": "16.18.1",
+      "seconds": 4.420196053000836,
+      "best": {
+        "ids": [
+          "1086",
+          "3046",
+          "3145",
+          "3153",
+          "6695"
+        ],
+        "samples": 16,
+        "score": [
+          3498.7836124761343
+        ],
+        "cost": 9850,
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.6000000000003,
+          "kill-rate": 0,
+          "attack-damage": 922.7329620989883,
+          "damage": 3498.7836124761343,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        }
+      },
+      "snapshot": "c97e185fd040c973d8f702f2dba2c558ad65c7092420e4324fd82fd2d8b2321c",
+      "cache": {
+        "bytes": 872498,
+        "byte-limit": 8388608,
+        "capacity": 2048,
+        "entries": 519
+      },
+      "model": "18c27633a2f723a6cd755804520dbf9856710271db4fa52650bee48554b5ec98",
+      "simulated": 519,
+      "first-progress": 0.1919852719984192,
+      "iteration": 1,
+      "cache-hits": 1
+    },
+    {
+      "evaluated": 934,
+      "search-version": "search-4",
+      "patch": "16.18.1",
+      "seconds": 4.3856847130009555,
+      "best": {
+        "ids": [
+          "1086",
+          "3046",
+          "3057",
+          "3153",
+          "6697"
+        ],
+        "samples": 16,
+        "score": [
+          3534.53748165081
+        ],
+        "cost": 9950,
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.5999999999995,
+          "kill-rate": 0,
+          "attack-damage": 939.8206095452662,
+          "damage": 3534.53748165081,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        }
+      },
+      "snapshot": "c97e185fd040c973d8f702f2dba2c558ad65c7092420e4324fd82fd2d8b2321c",
+      "cache": {
+        "bytes": 1745672,
+        "byte-limit": 8388608,
+        "capacity": 2048,
+        "entries": 937
+      },
+      "model": "18c27633a2f723a6cd755804520dbf9856710271db4fa52650bee48554b5ec98",
+      "simulated": 418,
+      "first-progress": 0.1566040569996403,
+      "iteration": 2,
+      "cache-hits": 516
+    }
+  ],
+  "quality": [
+    {
+      "seconds": 4.0743621889996575,
+      "measurement": "heuristic",
+      "row": {
+        "ids": [
+          "3046",
+          "3087",
+          "3145",
+          "3153"
+        ],
+        "samples": 16,
+        "score": [
+          3302.2112343229255
+        ],
+        "cost": 9950,
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.6000000000004,
+          "kill-rate": 0,
+          "attack-damage": 768.9635485907397,
+          "damage": 3302.2112343229255,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        }
+      },
+      "evaluated": 171
+    },
+    {
+      "seconds": 17.97435900900018,
+      "measurement": "exhaustive",
+      "row": {
+        "key": "3153,3046,3145,3087",
+        "ids": [
+          "3153",
+          "3046",
+          "3145",
+          "3087"
+        ],
+        "score": [
+          3302.2112343229255
+        ],
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.6000000000004,
+          "kill-rate": 0,
+          "attack-damage": 768.9635485907397,
+          "damage": 3302.2112343229255,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        },
+        "cost": 9950
+      },
+      "evaluated": 249
+    }
+  ],
+  "source_sha256": {
+    "src/powerspike/jobs.janet": "6ece6462495b43c3e7093809f70072441041ce61bfdd8dc26469bcdfbc6209e7",
+    "src/powerspike/fitness-cache.janet": "7152d6708095698ce0f0be1cd08d2c91cc527d38c577ca4525c1fbc2b562a61d",
+    "src/powerspike/search.janet": "ae284ac42e8a0545667b5e0f46c043bec74194116f79e02002b6c80bc36cd6d4",
+    "src/powerspike/scenario.janet": "3a8eddab550dd06480212185b39ec645fba7e546d759b7b559a88b66056ac661",
+    "src/powerspike/engine.janet": "389f1194440ce033f3a28b9743207e5940af232d9f89a6ed6c2cb721910e0809",
+    "web/model.janet": "76c9123d74d23d883e28270e4a8926b592473d2116a4b7d65684699cebc02068"
+  },
+  "verification": [
+    "83 curated/core tests passed including the five measured Annie fixtures",
+    "Frontend, storage, parsing, effects, objectives, search, cache and scenarios passed",
+    "Standalone relocated-runtime checks passed",
+    "Packaged browser: cache reuse, cancellation, apply, saved/share/JSON and responsive UI passed",
+    "Standard formatter/source-integrity gate and 16 Python checks passed"
+  ]
+}

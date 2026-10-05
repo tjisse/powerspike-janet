@@ -1,6 +1,8 @@
 (import ../web/model :as model)
 (import ../web/ui :as ui)
 (import ../web/catalog :as catalog)
+(import ../web/details :as details)
+(import ../web/optimizer :as optimizer)
 (import ../src/powerspike/data-util :as util)
 
 (catalog/initialize "build/runtime-data" "build/seed")
@@ -9,6 +11,21 @@
 (defn test [description task]
   (task) (++ passed) (print "ok " description))
 (defn rejects [task] (assert (not (first (protect (task)))) "Expected rejection"))
+
+(test "optimization renders ten ranked rows with shared item details and no graphs"
+      (fn []
+        (def package (catalog/current))
+        (def item (first (package :items)))
+        (def rows (seq [index :range [0 10]]
+                    {:key (string index) :ids [(item :id)] :cost (item :gold) :metrics {:damage (- 1000 index)}
+                     :definition {:patch (package :patch) :snapshot (package :snapshot)} :samples 16 :uncertainty {} :coverage []}))
+        (def text (ui/render (optimizer/panel {:package package} {:id "fixture" :status :done :result {:rows rows :preset :burst :notes []}})))
+        (assert (= 10 (dec (length (string/split "role=\"listitem\"" text)))))
+        (assert (string/find ">Build 10<" text))
+        (assert (string/find "data-details=" text))
+        (assert (string/find "data-detail-pin=\"true\"" text))
+        (assert (not (string/find "<svg" text)))
+        (assert (< (string/find ">Build 1<" text) (string/find ">Build 10<" text)))))
 
 (test "legacy frontend wrapper preserves the curated rotation regression"
       (fn [] (def result (model/compare (model/parse-state {"mode" "legacy"})))
@@ -75,10 +92,10 @@
         (assert (= "" (state :slot1))) (assert (= "3031" (state :slot2)))
         (assert (= 2 (length ((result :selected) :items))))
         (assert (< (math/abs (- .35 (((result :selected) :stats) :armor-pen-percent))) 1e-9))
-        (assert (string/find "Edit slot 1: empty" (ui/render (ui/results result))))))
+        (assert (string/find "Edit slot 1: empty" (ui/render (ui/loadout result))))))
 (test "excluded on-hit effects and other-mode inventory restrictions remain visible"
       (fn [] (def result (model/compare (model/parse-state {"champion" "Jhin" "slot1" "6672" "slot2" "222051"})))
-        (def text (ui/render (ui/results result)))
+        (def text (ui/render (ui/results result) (ui/coverage result)))
         (each marker ["Basic" "Unvalidated estimate" "Kraken Slayer" "Passive and active effects excluded"
                       "not available on map"]
           (assert (string/find (if (= marker "Basic") "basic attacks" marker) text)))))
@@ -117,5 +134,31 @@
         (assert (= 0.7 (roundtrip :health-fraction)))
         (assert (= ["3089"] (tuple ;(roundtrip :opponentitems))))
         (rejects (fn [] (model/compare (model/parse-state {"level" 1 "qrank" 5}))))))
+
+(test "loadout tray promotes core inputs and keeps the full scenario form associated"
+      (fn [] (def result (model/compare model/default-state))
+        (def primary (ui/render (ui/loadout result)))
+        (each marker ["id=\"loadout-tray\"" "Gold budget" "Optimize build" "Ability power" "Six editable inventory slots"]
+          (assert (string/find marker primary)))
+        (assert (not (string/find "Combat window" primary)))
+        (def secondary (ui/render (ui/fight-controls result)))
+        (each marker ["Opponent &amp; fight" "form=\"scenario\"" "name=\"duration\"" "data-preserve-attr=\"open\""]
+          (assert (string/find marker secondary)))))
+(test "game-style details retain safe text and explicit unresolved coverage"
+      (fn [] (def result (model/compare model/default-state))
+        (def payload (details/item (catalog/items "3089")))
+        (assert (= "Rabadon's Deathcap" (payload :name)))
+        (assert (string/find "handler" (payload :coverage)))
+        (def text (ui/render [:button (details/attrs (merge payload {:body ["<script>alert(1)</script>"]}) true) "Details"]))
+        (assert (string/find "data-details=" text))
+        (assert (not (string/find "<script>" text)))
+        (assert (string/find "data-trace=" (ui/render (ui/results result))))))
+(test "rune art uses only the selected package's supported image reference"
+      (fn [] (defn package [path] {:runes [{"slots" [{"runes" [{"id" 8112 "icon" path}]}]}]})
+        (assert (= "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Electrocute/Electrocute.png"
+                   (details/rune-source (package "perk-images/Styles/Domination/Electrocute/Electrocute.png") "8112.png")))
+        (each path ["https://example.com/x.png" "perk-images/../secret.png" "perk-images/%2e%2e/secret.png" "perk-images/x.svg"]
+          (rejects (fn [] (details/rune-source (package path) "8112.png"))))
+        (rejects (fn [] (details/rune-source (package "perk-images/x.png") "9999.png")))))
 
 (print passed " frontend tests passed")

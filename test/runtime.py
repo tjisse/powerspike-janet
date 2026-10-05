@@ -57,7 +57,10 @@ def running(binary, cwd, args, env, chosen):
                                    stdout=log, stderr=log)
         base = 'http://127.0.0.1:' + str(chosen)
         try:
-            for _ in range(100):
+            # A cold RPM seed can contain thousands of icons. Allow its first
+            # copy on a slower mounted filesystem without weakening HTTP checks.
+            deadline = time.monotonic() + 30
+            while time.monotonic() < deadline:
                 if process.poll() is not None:
                     log.seek(0)
                     raise AssertionError('Runtime exited: ' + log.read().decode(errors='replace'))
@@ -68,7 +71,8 @@ def running(binary, cwd, args, env, chosen):
                 except (OSError, urllib.error.URLError):
                     time.sleep(.05)
             else:
-                raise AssertionError('Runtime never became ready')
+                log.seek(0)
+                raise AssertionError('Runtime never became ready: ' + log.read().decode(errors='replace'))
             yield base
         finally:
             process.terminate()
@@ -117,7 +121,7 @@ def verify(binary_path, seed_path=None):
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:
                 headers, image = get(base, path)
                 assert headers['Content-Type'] == 'image/png' and image.startswith(b'\x89PNG')
-            for path in ['/assets/app.css', '/assets/app.js', '/assets/datastar.js']:
+            for path in ['/assets/app.css', '/assets/app.js', '/assets/hud.js', '/assets/datastar.js']:
                 _, content = get(base, path)
                 assert len(content) > 100
             _, raw = get(base, '/?champion=Ahri&selected=custom&slot1=3031&armor=97')

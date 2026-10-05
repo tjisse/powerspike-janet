@@ -1,5 +1,6 @@
 (import ./data-util :as util)
 (import ./packages :as packages)
+(import ./fitness-cache :as fitness)
 (import pshash :as hash)
 (def records @{})
 (def queue @[])
@@ -10,8 +11,9 @@
 (defn cancel [id]
   (def job (records id))
   (assert job "Unknown job.")
-  (unless (terminal? job)
-    (util/write (job :cancel-file) "cancel")
+  (unless (or (terminal? job) (job :cancel-requested))
+    (put job :cancel-requested true)
+    (when (job :cancel-channel) (ev/give (job :cancel-channel) true))
     (put job :status (if (= :queued (job :status)) :cancelled :cancelling)))
   job)
 (defn pump []
@@ -24,13 +26,19 @@
       (put active (lane selected) (selected :id))
       (put selected :status :running)
       (def channel (ev/thread-chan 8))
+      (def cancel-channel (ev/thread-chan 1))
+      (put selected :cancel-channel cancel-channel)
       (ev/thread
-        (fn [[channel task input cancel-file]]
-          (def result (protect
-                        (task input (fn [value] (ev/give channel [:progress value]))
-                              (fn [] (os/stat cancel-file)))))
-          (ev/give channel [:finished result]))
-        [channel (selected :task) (selected :input) (selected :cancel-file)] :n)
+        (fn [[channel task input cancel-channel kind]]
+          (def outcome
+            (with-dyns [:powerspike-fitness-cache (fitness/current)]
+              (when (= kind :optimization) (fitness/begin-job))
+              (def result (protect
+                            (task input (fn [value] (ev/give channel [:progress value]))
+                                  (fn [] (> (ev/count cancel-channel) 0)))))
+              [result (when (= kind :optimization) (fitness/export-changes))]))
+          (ev/give channel [:finished ;outcome]))
+        [channel (selected :task) (selected :input) cancel-channel (selected :kind)] :n)
       (ev/go (fn []
                (forever
                  (def message (ev/take channel))
@@ -39,13 +47,15 @@
                    :finished
                    (do
                      (def result (message 1))
+                     (fitness/accept-changes (message 2))
                      (cond
-                       (os/stat (selected :cancel-file))
+                       (selected :cancel-requested)
                        (do (put selected :status :cancelled)
                          (when (and (= :optimization (selected :kind)) (first result)) (put selected :result (result 1))))
                        (first result) (do (put selected :status :done) (put selected :result (result 1)))
                        (do (put selected :status :failed) (put selected :error (string (result 1)))))
-                     (util/remove-tree (selected :cancel-file))
+                     (ev/chan-close cancel-channel)
+                     (put selected :cancel-channel nil)
                      (put selected :task nil) (put selected :input nil)
                      (put active (lane selected) nil) (pump) (break)))))))))
 (defn submit [kind key task input]
@@ -55,7 +65,7 @@
         (assert (< (length queue) 8) "The work queue is full. Try again shortly.")
         (def id (string/slice (hash/sha256 (os/cryptorand 32)) 0 32))
         (def job @{:id id :kind kind :key key :status :queued :task task :input input
-                   :cancel-file (string packages/data-dir "/jobs/" id ".cancel")
+                   :cancel-requested false
                    :progress {:message "Queued" :completed 0 :total 1}})
         (put records id job) (array/push queue job)
         (when (> (length records) 64)

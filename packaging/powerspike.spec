@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.7.0}
+%{!?app_version:%global app_version 0.8.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
@@ -78,6 +78,10 @@ fi
 %config(noreplace) %attr(0640,root,powerspike) /etc/powerspike/powerspike.env
 
 %changelog
+* Mon Oct 05 2026 PowerSpike contributors - 0.8.0-1
+- Simplify the Rift HUD, add shared element popovers and linked graph inspection.
+- Show up to ten ranked optimization rows; start searches explicitly.
+- Cache completed fitness evaluations and reduce worker overhead.
 * Sun Oct 04 2026 PowerSpike contributors - 0.1.0-1
 - Bundle current Rift HUD, Janet, native bindings and local assets.
 - Configure listener through PS_HOST and PS_PORT; add systemd service.

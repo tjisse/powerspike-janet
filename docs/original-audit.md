@@ -2,6 +2,8 @@
 
 The source repository is `tjisse/powerspike-core`. The inspected commit is recorded in the snapshot manifest. Its README and game-mechanics reference describe intended behavior; these are not treated as a verified specification.
 
+The [optimizer comparison](optimizer-comparison.md) executes the original implementation against a retained recent snapshot and measures the current search, worker overhead and recommendation differences.
+
 | Location in original | Finding | Effect on the rebuild |
 | --- | --- | --- |
 | `core.clj / ensure-data` | Prefers version strings starting with 14 or 15, even when newer data exists | Use a declared snapshot |

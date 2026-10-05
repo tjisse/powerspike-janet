@@ -1,0 +1,1631 @@
+{
+  "fixed-builds": [
+    {
+      "ids": [],
+      "samples": 16,
+      "dps": 171.9272365166558,
+      "champion": "Annie",
+      "breakdown": {
+        "AnnieW": 140.243902642907,
+        "AnnieQ": 317.0731711926593,
+        "attack": 158.4166693687439,
+        "AnnieR": 243.9024393789687
+      },
+      "measurement": "fixed-build",
+      "damage": 859.636182583279
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "samples": 16,
+      "dps": 390.1912861682686,
+      "champion": "Annie",
+      "breakdown": {
+        "AnnieW": 410.4046305802909,
+        "AnnieQ": 864.1618623614609,
+        "attack": 158.4166693687439,
+        "AnnieR": 517.9732685308475
+      },
+      "measurement": "fixed-build",
+      "damage": 1950.956430841343
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "samples": 16,
+      "dps": 699.7567224952269,
+      "champion": "Annie",
+      "breakdown": {
+        "AnnieW": 162.19512251411288,
+        "AnnieQ": 360.9756109350711,
+        "attack": 922.7329620989883,
+        "AnnieR": 264.4817077015692,
+        "item/3153/mist": 1748.7640628273102,
+        "item/3145": 39.63414639908241
+      },
+      "measurement": "fixed-build",
+      "damage": 3498.7836124761343
+    },
+    {
+      "ids": [],
+      "samples": 16,
+      "dps": 158.33333349227908,
+      "champion": "Ahri",
+      "breakdown": {
+        "AhriQ": 210,
+        "AhriR": 97.2222222222222,
+        "attack": 231.1111111111112,
+        "AhriE": 133.33333333333331,
+        "AhriW": 120.00000079472858
+      },
+      "measurement": "fixed-build",
+      "damage": 791.6666674613954
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "samples": 16,
+      "dps": 357.15465840813636,
+      "champion": "Ahri",
+      "breakdown": {
+        "AhriQ": 580.2027059487393,
+        "AhriR": 218.15878299845232,
+        "attack": 231.1111111111112,
+        "AhriE": 404.8141982205013,
+        "AhriW": 351.48649376187774
+      },
+      "measurement": "fixed-build",
+      "damage": 1785.7732920406818
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "samples": 16,
+      "dps": 677.5935511198617,
+      "champion": "Ahri",
+      "breakdown": {
+        "AhriQ": 245,
+        "AhriR": 105.97222207321057,
+        "attack": 964.4318181818181,
+        "AhriE": 154.5833339293798,
+        "item/3153/mist": 1743.8692691216297,
+        "AhriW": 138.00000118215877,
+        "item/3145": 36.1111111111111
+      },
+      "measurement": "fixed-build",
+      "damage": 3387.9677555993085
+    },
+    {
+      "ids": [],
+      "samples": 16,
+      "dps": 163.77777777777777,
+      "champion": "Ashe",
+      "breakdown": {
+        "Volley": 222.2222222222222,
+        "EnchantedCrystalArrow": 333.33333333333337,
+        "attack": 263.3333333333334
+      },
+      "measurement": "fixed-build",
+      "damage": 818.8888888888888
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "samples": 16,
+      "dps": 246.70570905645337,
+      "champion": "Ashe",
+      "breakdown": {
+        "Volley": 222.2222222222222,
+        "EnchantedCrystalArrow": 747.9729897267114,
+        "attack": 263.3333333333334
+      },
+      "measurement": "fixed-build",
+      "damage": 1233.5285452822668
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "samples": 16,
+      "dps": 748.1270761042487,
+      "champion": "Ashe",
+      "breakdown": {
+        "Volley": 367.2727272727273,
+        "attack": 939.6969696969699,
+        "item/3153/mist": 2034.2212379150105,
+        "item/3145": 36.1111111111111,
+        "EnchantedCrystalArrow": 363.3333345254262
+      },
+      "measurement": "fixed-build",
+      "damage": 3740.6353805212434
+    },
+    {
+      "ids": [],
+      "samples": 16,
+      "dps": 89.41666666666666,
+      "champion": "Garen",
+      "breakdown": {
+        "GarenQ": 204.58333333333337,
+        "attack": 242.50000000000003
+      },
+      "measurement": "fixed-build",
+      "damage": 447.08333333333326
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "samples": 16,
+      "dps": 89.41666666666666,
+      "champion": "Garen",
+      "breakdown": {
+        "GarenQ": 204.58333333333337,
+        "attack": 242.50000000000003
+      },
+      "measurement": "fixed-build",
+      "damage": 447.08333333333326
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "samples": 16,
+      "dps": 791.2131467745976,
+      "champion": "Garen",
+      "breakdown": {
+        "GarenQ": 316.81818181818187,
+        "attack": 997.7651515151517,
+        "item/3153/mist": 2605.371289428544,
+        "item/3145": 36.1111111111111
+      },
+      "measurement": "fixed-build",
+      "damage": 3956.065733872988
+    },
+    {
+      "breakdown": {
+        "AnnieW": 162.19512251411288,
+        "AnnieQ": 360.9756109350711,
+        "attack": 922.7329620989883,
+        "AnnieR": 264.4817077015692,
+        "item/3153/mist": 1748.7640628273102,
+        "item/3145": 39.63414639908241
+      },
+      "trigger-enabled": true,
+      "measurement": "bork-sensitivity",
+      "target-hp": 10000,
+      "damage": 3498.7836124761343
+    },
+    {
+      "breakdown": {
+        "AnnieW": 162.19512251411288,
+        "AnnieQ": 360.9756109350711,
+        "attack": 922.7329620989883,
+        "AnnieR": 264.4817077015692,
+        "item/3145": 39.63414639908241
+      },
+      "trigger-enabled": false,
+      "measurement": "bork-sensitivity",
+      "target-hp": 10000,
+      "damage": 1750.0195496488236
+    },
+    {
+      "breakdown": {
+        "AnnieW": 162.19512251411288,
+        "AnnieQ": 358.98371267388814,
+        "attack": 908.8895144216744,
+        "AnnieR": 264.4817077015692,
+        "item/3153/mist": 155.07639120612788,
+        "item/3145": 39.63414639908241
+      },
+      "trigger-enabled": true,
+      "measurement": "bork-sensitivity",
+      "target-hp": 2000,
+      "damage": 1889.2605949164547
+    },
+    {
+      "breakdown": {
+        "AnnieW": 162.19512251411288,
+        "AnnieQ": 360.9756109350711,
+        "attack": 921.0086103690758,
+        "AnnieR": 264.4817077015692,
+        "item/3145": 39.63414639908241
+      },
+      "trigger-enabled": false,
+      "measurement": "bork-sensitivity",
+      "target-hp": 2000,
+      "damage": 1748.295197918911
+    },
+    {
+      "rows": [
+        {
+          "ids": [
+            "1058",
+            "3020",
+            "3089",
+            "3135",
+            "3145"
+          ],
+          "names": [
+            "Needlessly Large Rod",
+            "Sorcerer's Shoes",
+            "Rabadon's Deathcap",
+            "Void Staff",
+            "Hextech Alternator"
+          ],
+          "cost": 9900,
+          "damage": 2046.5387904128575
+        },
+        {
+          "ids": [
+            "1058",
+            "2003",
+            "3020",
+            "3089",
+            "3135",
+            "3145"
+          ],
+          "names": [
+            "Needlessly Large Rod",
+            "Health Potion",
+            "Sorcerer's Shoes",
+            "Rabadon's Deathcap",
+            "Void Staff",
+            "Hextech Alternator"
+          ],
+          "cost": 9950,
+          "damage": 2046.5387904128575
+        },
+        {
+          "ids": [
+            "2031",
+            "2501",
+            "3089",
+            "3135"
+          ],
+          "names": [
+            "Refillable Potion",
+            "Overlord's Bloodmail",
+            "Rabadon's Deathcap",
+            "Void Staff"
+          ],
+          "cost": 9950,
+          "damage": 1496.658252204162
+        },
+        {
+          "ids": [
+            "2003",
+            "3112",
+            "3165",
+            "4629",
+            "4633"
+          ],
+          "names": [
+            "Health Potion",
+            "Guardian's Orb",
+            "Morellonomicon",
+            "Cosmic Drive",
+            "Riftmaker"
+          ],
+          "cost": 9950,
+          "damage": 1210.213422172263
+        },
+        {
+          "ids": [],
+          "names": [],
+          "cost": 0,
+          "damage": 701.2195132145351
+        }
+      ],
+      "attacks": false,
+      "measurement": "attack-mode",
+      "evaluated": 438
+    },
+    {
+      "rows": [
+        {
+          "ids": [
+            "1086",
+            "2031",
+            "3046",
+            "3145",
+            "3153",
+            "6695"
+          ],
+          "names": [
+            "Doran's Bow",
+            "Refillable Potion",
+            "Phantom Dancer",
+            "Hextech Alternator",
+            "Blade of The Ruined King",
+            "Serpent's Fang"
+          ],
+          "cost": 10000,
+          "damage": 3498.7836124761343
+        },
+        {
+          "ids": [
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "names": [
+            "Doran's Bow",
+            "Statikk Shiv",
+            "Blade of The Ruined King",
+            "Kraken Slayer"
+          ],
+          "cost": 9600,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "3087",
+            "3095",
+            "3153"
+          ],
+          "names": [
+            "Statikk Shiv",
+            "Stormrazor",
+            "Blade of The Ruined King"
+          ],
+          "cost": 9400,
+          "damage": 3000.590219307278
+        },
+        {
+          "ids": [
+            "2003",
+            "2510",
+            "3073",
+            "3112",
+            "3165"
+          ],
+          "names": [
+            "Health Potion",
+            "Dusk and Dawn",
+            "Experimental Hexplate",
+            "Guardian's Orb",
+            "Morellonomicon"
+          ],
+          "cost": 9950,
+          "damage": 1356.665998332868
+        },
+        {
+          "ids": [],
+          "names": [],
+          "cost": 0,
+          "damage": 859.636182583279
+        }
+      ],
+      "attacks": true,
+      "measurement": "attack-mode",
+      "evaluated": 451
+    }
+  ],
+  "clojure-version": "1.11.1",
+  "java-version": "OpenJDK 17",
+  "performance-repeat": [
+    {
+      "model": "d0d934f2f3d3c1e194557d12b2d729ddc7815d2391fb93a559aac8ad21715839",
+      "seconds": 1.1879525760014076,
+      "options": {
+        "seconds": 5,
+        "summoners": false,
+        "samples": 1,
+        "next-purchase": false,
+        "slots": 6,
+        "skill-locks": {},
+        "runes": false,
+        "summoner-locks": [],
+        "locked": [],
+        "skills": false,
+        "budget": 10000,
+        "rune-locks": [],
+        "preset": "burst",
+        "exclusions": []
+      },
+      "definition": {
+        "patch": "16.18.1",
+        "player": {
+          "level": 18,
+          "health-fraction": 1,
+          "resource-fraction": 1,
+          "loadout": {
+            "summoners": [],
+            "items": [],
+            "runes": []
+          },
+          "strategy": {
+            "activation": {
+              "d": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "e": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "f": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "w": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "q": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "r": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              }
+            },
+            "preferred-range": 500,
+            "priority": [
+              "q",
+              "w",
+              "e",
+              "r",
+              "d",
+              "f"
+            ],
+            "abilities": true,
+            "hit-chance": 1,
+            "attacks": true,
+            "movement": "approach"
+          },
+          "champion": "Annie"
+        },
+        "samples": 1,
+        "schema": 1,
+        "snapshot": "c97e185fd040c973d8f702f2dba2c558ad65c7092420e4324fd82fd2d8b2321c",
+        "seed": 1,
+        "duration": 5,
+        "target": {
+          "mr": 80,
+          "hp": 10000,
+          "armor": 80,
+          "kind": "practice"
+        },
+        "distance": 300
+      },
+      "measurement": "setup"
+    },
+    {
+      "seconds": 8.605994122000993,
+      "measurement": "stat",
+      "calls": 10000,
+      "path": "build/runtime-data/jobs/benchmark-43907.cancel"
+    },
+    {
+      "seconds": 0.005614957000943832,
+      "measurement": "stat",
+      "calls": 10000,
+      "path": "/tmp/powerspike-benchmark-43907.cancel"
+    },
+    {
+      "seconds": 4.132605691000208,
+      "wall-seconds": 4.148339859999396,
+      "rows": [
+        {
+          "ids": [
+            "1086",
+            "2031",
+            "3046",
+            "3145",
+            "3153",
+            "6695"
+          ],
+          "samples": 16,
+          "cost": 10000,
+          "damage": 3498.7836124761343
+        },
+        {
+          "ids": [
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 9600,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "1086",
+            "2031",
+            "3057",
+            "3095",
+            "3145",
+            "3742"
+          ],
+          "samples": 16,
+          "cost": 8650,
+          "damage": 1363.350830022087
+        },
+        {
+          "ids": [
+            "2003",
+            "2510",
+            "3073",
+            "3112",
+            "3165"
+          ],
+          "samples": 16,
+          "cost": 9950,
+          "damage": 1356.665998332868
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "memory",
+      "measurement": "search",
+      "checks": 35094,
+      "evaluated": 459
+    },
+    {
+      "seconds": 4.553330606999225,
+      "wall-seconds": 4.566470071000367,
+      "rows": [
+        {
+          "ids": [
+            "1036",
+            "2022",
+            "3135",
+            "3153",
+            "4645"
+          ],
+          "samples": 16,
+          "cost": 10000,
+          "damage": 2867.2925603836275
+        },
+        {
+          "ids": [
+            "3031",
+            "3153",
+            "663146",
+            "6690"
+          ],
+          "samples": 16,
+          "cost": 9975,
+          "damage": 2795.393122136229
+        },
+        {
+          "ids": [
+            "3071"
+          ],
+          "samples": 16,
+          "cost": 3000,
+          "damage": 934.636182583279
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        },
+        {
+          "ids": [
+            "3083"
+          ],
+          "samples": 16,
+          "cost": 3100,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "mounted-file",
+      "measurement": "search",
+      "checks": 3771,
+      "evaluated": 119
+    },
+    {
+      "seconds": 4.14747893599997,
+      "wall-seconds": 4.160632397000882,
+      "rows": [
+        {
+          "ids": [
+            "1086",
+            "2003",
+            "3046",
+            "3145",
+            "3153",
+            "6695"
+          ],
+          "samples": 16,
+          "cost": 9900,
+          "damage": 3498.7836124761343
+        },
+        {
+          "ids": [
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 9600,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "3087",
+            "3095",
+            "3153"
+          ],
+          "samples": 16,
+          "cost": 9400,
+          "damage": 3000.590219307278
+        },
+        {
+          "ids": [
+            "2003",
+            "2510",
+            "3073",
+            "3112",
+            "3165"
+          ],
+          "samples": 16,
+          "cost": 9950,
+          "damage": 1356.665998332868
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "tmp-file",
+      "measurement": "search",
+      "checks": 33255,
+      "evaluated": 471
+    },
+    {
+      "compile-seconds": 0.007551570000941865,
+      "full-seconds": 0.35968851600046037,
+      "measurement": "evaluation",
+      "engine-seconds": 0.2099494229987613,
+      "iterations": 50,
+      "identity-seconds": 0.10661331599840196
+    }
+  ],
+  "quality": [
+    {
+      "seconds": 4.080684725002357,
+      "measurement": "heuristic",
+      "row": {
+        "ids": [
+          "3046",
+          "3087",
+          "3145",
+          "3153"
+        ],
+        "samples": 16,
+        "score": [
+          3302.2112343229255
+        ],
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.6000000000004,
+          "kill-rate": 0,
+          "attack-damage": 768.9635485907397,
+          "damage": 3302.2112343229255,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        },
+        "cost": 9950
+      },
+      "evaluated": 171
+    },
+    {
+      "seconds": 16.945209256999078,
+      "measurement": "exhaustive",
+      "row": {
+        "metrics": {
+          "absorbed": 0,
+          "healing": 0,
+          "death-rate": 0,
+          "resource": 434.6000000000004,
+          "kill-rate": 0,
+          "attack-damage": 768.9635485907397,
+          "damage": 3302.2112343229255,
+          "control": 0,
+          "health": 2192,
+          "win-rate": 0,
+          "damage-taken": 0
+        },
+        "ids": [
+          "3153",
+          "3046",
+          "3145",
+          "3087"
+        ],
+        "cost": 9950,
+        "score": [
+          3302.2112343229255
+        ]
+      },
+      "evaluated": 249
+    }
+  ],
+  "identity": [
+    {
+      "seconds": 0.0784099939992302,
+      "iterations": 50
+    }
+  ],
+  "date": "2026-10-05",
+  "worker-cold": [
+    {
+      "seconds": 1.1960934180024196,
+      "measurement": "submit"
+    },
+    {
+      "evaluated": 105,
+      "seconds": 5.995871045000968,
+      "status": "done",
+      "measurement": "worker",
+      "first-progress": 1.3458423070005665,
+      "best-damage": 2867.2925603836275,
+      "search-seconds": 4.657480638998095
+    }
+  ],
+  "reference": "tjisse/powerspike-core",
+  "reference-commit": "bdea6197916167593c97927dec93fd840652f771",
+  "performance": [
+    {
+      "model": "d0d934f2f3d3c1e194557d12b2d729ddc7815d2391fb93a559aac8ad21715839",
+      "seconds": 1.2201577480009291,
+      "options": {
+        "seconds": 5,
+        "summoners": false,
+        "samples": 1,
+        "next-purchase": false,
+        "slots": 6,
+        "skill-locks": {},
+        "runes": false,
+        "summoner-locks": [],
+        "locked": [],
+        "skills": false,
+        "budget": 10000,
+        "rune-locks": [],
+        "preset": "burst",
+        "exclusions": []
+      },
+      "definition": {
+        "patch": "16.18.1",
+        "player": {
+          "level": 18,
+          "health-fraction": 1,
+          "resource-fraction": 1,
+          "loadout": {
+            "summoners": [],
+            "items": [],
+            "runes": []
+          },
+          "strategy": {
+            "activation": {
+              "d": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "e": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "f": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "w": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "q": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              },
+              "r": {
+                "target-health-below": 1,
+                "self-health-below": 1,
+                "after": 0
+              }
+            },
+            "preferred-range": 500,
+            "priority": [
+              "q",
+              "w",
+              "e",
+              "r",
+              "d",
+              "f"
+            ],
+            "abilities": true,
+            "hit-chance": 1,
+            "attacks": true,
+            "movement": "approach"
+          },
+          "champion": "Annie"
+        },
+        "samples": 1,
+        "schema": 1,
+        "snapshot": "c97e185fd040c973d8f702f2dba2c558ad65c7092420e4324fd82fd2d8b2321c",
+        "seed": 1,
+        "duration": 5,
+        "target": {
+          "mr": 80,
+          "hp": 10000,
+          "armor": 80,
+          "kind": "practice"
+        },
+        "distance": 300
+      },
+      "measurement": "setup"
+    },
+    {
+      "seconds": 8.82983084800071,
+      "calls": 10000,
+      "path": "build/runtime-data/jobs/comparison-nonexistent.cancel",
+      "measurement": "stat"
+    },
+    {
+      "seconds": 0.005628663999232231,
+      "calls": 10000,
+      "path": "/tmp/powerspike-comparison-nonexistent.cancel",
+      "measurement": "stat"
+    },
+    {
+      "seconds": 4.1702968739991775,
+      "wall-seconds": 4.187035516999458,
+      "rows": [
+        {
+          "ids": [
+            "1086",
+            "2031",
+            "3046",
+            "3145",
+            "3153",
+            "6695"
+          ],
+          "samples": 16,
+          "cost": 10000,
+          "damage": 3498.7836124761343
+        },
+        {
+          "ids": [
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 9600,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "1028",
+            "1086",
+            "3057",
+            "3066",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 8700,
+          "damage": 2738.5246976269336
+        },
+        {
+          "ids": [
+            "2003",
+            "2510",
+            "3073",
+            "3112",
+            "3165"
+          ],
+          "samples": 16,
+          "cost": 9950,
+          "damage": 1356.665998332868
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "memory",
+      "measurement": "search",
+      "checks": 35376,
+      "evaluated": 468
+    },
+    {
+      "seconds": 4.530096753998805,
+      "wall-seconds": 4.580227883001498,
+      "rows": [
+        {
+          "ids": [
+            "1036",
+            "2022",
+            "3135",
+            "3153",
+            "4645"
+          ],
+          "samples": 16,
+          "cost": 10000,
+          "damage": 2867.2925603836275
+        },
+        {
+          "ids": [
+            "3031",
+            "3153",
+            "663146",
+            "6690"
+          ],
+          "samples": 16,
+          "cost": 9975,
+          "damage": 2795.393122136229
+        },
+        {
+          "ids": [
+            "6676"
+          ],
+          "samples": 16,
+          "cost": 3000,
+          "damage": 1015.8500314370916
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        },
+        {
+          "ids": [
+            "3083"
+          ],
+          "samples": 16,
+          "cost": 3100,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "mounted-file",
+      "measurement": "search",
+      "checks": 3784,
+      "evaluated": 121
+    },
+    {
+      "seconds": 4.122611763999885,
+      "wall-seconds": 4.171763488000579,
+      "rows": [
+        {
+          "ids": [
+            "1086",
+            "2003",
+            "3046",
+            "3145",
+            "3153",
+            "6695"
+          ],
+          "samples": 16,
+          "cost": 9900,
+          "damage": 3498.7836124761343
+        },
+        {
+          "ids": [
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 9600,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "1028",
+            "1086",
+            "3087",
+            "3153",
+            "6672"
+          ],
+          "samples": 16,
+          "cost": 10000,
+          "damage": 3201.515283683272
+        },
+        {
+          "ids": [
+            "2003",
+            "2510",
+            "3073",
+            "3112",
+            "3165"
+          ],
+          "samples": 16,
+          "cost": 9950,
+          "damage": 1356.665998332868
+        },
+        {
+          "ids": [],
+          "samples": 16,
+          "cost": 0,
+          "damage": 859.636182583279
+        }
+      ],
+      "mode": "tmp-file",
+      "measurement": "search",
+      "checks": 33022,
+      "evaluated": 464
+    },
+    {
+      "compile-seconds": 0.006784028999391012,
+      "full-seconds": 0.36334127300142427,
+      "measurement": "evaluation",
+      "engine-seconds": 0.2336075189996336,
+      "iterations": 50
+    }
+  ],
+  "janet-version": "1.42.1",
+  "worker-warm": [
+    {
+      "seconds": 0.07519421899996814,
+      "measurement": "submit"
+    },
+    {
+      "evaluated": 105,
+      "seconds": 4.878135590999591,
+      "status": "done",
+      "measurement": "worker",
+      "first-progress": 0.22809000400229706,
+      "best-damage": 2867.2925603836275,
+      "search-seconds": 4.654257599999255
+    }
+  ],
+  "host": "WSL, source/data under /mnt/c",
+  "clojure": [
+    {
+      "champion": "Annie",
+      "spells": [
+        {
+          "id": ":AnnieE",
+          "calculations": 4,
+          "slot": "E"
+        },
+        {
+          "id": ":AnnieQ",
+          "calculations": 2,
+          "slot": "Q"
+        },
+        {
+          "id": ":AnniePassive",
+          "calculations": 1,
+          "slot": "P"
+        },
+        {
+          "id": ":AnnieW",
+          "calculations": 2,
+          "slot": "W"
+        },
+        {
+          "id": ":AnnieR",
+          "calculations": 6,
+          "slot": "E"
+        },
+        {
+          "id": ":AnnieRController",
+          "calculations": 0,
+          "slot": "E"
+        }
+      ],
+      "measurement": "spell-selection"
+    },
+    {
+      "ids": [],
+      "champion": "Annie",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 20.862000000000002,
+        "total": 31.362000000000002,
+        "ap": 10.5
+      },
+      "cost": 0
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "champion": "Annie",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 20.862000000000002,
+        "total": 794.9228202995782,
+        "ap": 774.0608202995783
+      },
+      "cost": 9250
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "champion": "Annie",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 153.22664863636365,
+        "total": 227.926649436556,
+        "ap": 74.70000080019236
+      },
+      "cost": 10000
+    },
+    {
+      "champion": "Ahri",
+      "spells": [
+        {
+          "id": ":AhriPassive",
+          "calculations": 2,
+          "slot": "P"
+        },
+        {
+          "id": ":AhriQReturnMissile",
+          "calculations": 0,
+          "slot": "Q"
+        },
+        {
+          "id": ":AhriEMissile",
+          "calculations": 0,
+          "slot": "E"
+        },
+        {
+          "id": ":AhriRMissile",
+          "calculations": 0,
+          "slot": "E"
+        },
+        {
+          "id": ":AhriWMissile",
+          "calculations": 0,
+          "slot": "W"
+        },
+        {
+          "id": ":AhriE",
+          "calculations": 2,
+          "slot": "E"
+        },
+        {
+          "id": ":AhriQMissile",
+          "calculations": 0,
+          "slot": "Q"
+        },
+        {
+          "id": ":AhriQ",
+          "calculations": 2,
+          "slot": "Q"
+        },
+        {
+          "id": ":AhriWDamageMissile",
+          "calculations": 0,
+          "slot": "W"
+        },
+        {
+          "id": ":AhriW",
+          "calculations": 3,
+          "slot": "W"
+        },
+        {
+          "id": ":AhriR",
+          "calculations": 2,
+          "slot": "R"
+        }
+      ],
+      "measurement": "spell-selection"
+    },
+    {
+      "ids": [],
+      "champion": "Ahri",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 27.025053333333336,
+        "total": 27.025053333333336,
+        "ap": 0
+      },
+      "cost": 0
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "champion": "Ahri",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 27.025053333333336,
+        "total": 86.31559387387388,
+        "ap": 59.29054054054055
+      },
+      "cost": 9250
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "champion": "Ahri",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 181.79559272727278,
+        "total": 186.79559272727278,
+        "ap": 5
+      },
+      "cost": 10000
+    },
+    {
+      "champion": "Ashe",
+      "spells": [
+        {
+          "id": ":AsheQAttack",
+          "calculations": 0,
+          "slot": "Q"
+        },
+        {
+          "id": ":EnchantedCrystalArrow",
+          "calculations": 3,
+          "slot": "W"
+        },
+        {
+          "id": ":VolleyRank5",
+          "calculations": 1,
+          "slot": "E"
+        },
+        {
+          "id": ":AshePassive",
+          "calculations": 4,
+          "slot": "P"
+        },
+        {
+          "id": ":VolleyCenterAttack",
+          "calculations": 0,
+          "slot": "E"
+        },
+        {
+          "id": ":VolleyRank3",
+          "calculations": 1,
+          "slot": "E"
+        },
+        {
+          "id": ":AsheQ",
+          "calculations": 2,
+          "slot": "Q"
+        },
+        {
+          "id": ":VolleyAttackWithSound",
+          "calculations": 0,
+          "slot": "W"
+        },
+        {
+          "id": ":VolleyAttack",
+          "calculations": 0,
+          "slot": "E"
+        },
+        {
+          "id": ":Volley",
+          "calculations": 2,
+          "slot": "E"
+        },
+        {
+          "id": ":AsheSpiritOfTheHawk",
+          "calculations": 1,
+          "slot": "W"
+        },
+        {
+          "id": ":VolleyRightAttack",
+          "calculations": 0,
+          "slot": "E"
+        },
+        {
+          "id": ":VolleyRank2",
+          "calculations": 1,
+          "slot": "E"
+        },
+        {
+          "id": ":VolleyRank4",
+          "calculations": 1,
+          "slot": "E"
+        },
+        {
+          "id": ":AsheQAttackNoOnHit",
+          "calculations": 0,
+          "slot": "Q"
+        }
+      ],
+      "measurement": "spell-selection"
+    },
+    {
+      "ids": [],
+      "champion": "Ashe",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 32.567344444444444,
+        "total": 32.567344444444444,
+        "ap": 0
+      },
+      "cost": 0
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "champion": "Ashe",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 32.567344444444444,
+        "total": 269.7295066066066,
+        "ap": 237.1621621621622
+      },
+      "cost": 9250
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "champion": "Ashe",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 196.39505454545457,
+        "total": 216.39505454545457,
+        "ap": 20
+      },
+      "cost": 10000
+    },
+    {
+      "champion": "Garen",
+      "spells": [
+        {
+          "id": ":GarenR",
+          "calculations": 1,
+          "slot": "E"
+        },
+        {
+          "id": ":GarenPassive",
+          "calculations": 1,
+          "slot": "P"
+        },
+        {
+          "id": ":GarenE",
+          "calculations": 4,
+          "slot": "E"
+        },
+        {
+          "id": ":GarenQ",
+          "calculations": 2,
+          "slot": "Q"
+        },
+        {
+          "id": ":GarenW",
+          "calculations": 3,
+          "slot": "W"
+        },
+        {
+          "id": ":GarenQAttack",
+          "calculations": 0,
+          "slot": "Q"
+        },
+        {
+          "id": ":GarenECancel",
+          "calculations": 0,
+          "slot": "E"
+        }
+      ],
+      "measurement": "spell-selection"
+    },
+    {
+      "ids": [],
+      "champion": "Garen",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 38.82447916666667,
+        "total": 38.82447916666667,
+        "ap": 0
+      },
+      "cost": 0
+    },
+    {
+      "ids": [
+        "3089",
+        "3135",
+        "6655"
+      ],
+      "champion": "Garen",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 38.82447916666667,
+        "total": 38.82447916666667,
+        "ap": 0
+      },
+      "cost": 9250
+    },
+    {
+      "ids": [
+        "1086",
+        "2031",
+        "3046",
+        "3145",
+        "3153",
+        "6695"
+      ],
+      "champion": "Garen",
+      "measurement": "fixed-build",
+      "result": {
+        "ad": 206.60970643939396,
+        "total": 206.60970643939396,
+        "ap": 0
+      },
+      "cost": 10000
+    },
+    {
+      "seconds": 0.47567086,
+      "measurement": "evaluation",
+      "iterations": 100,
+      "source": "original-local-file-loader"
+    },
+    {
+      "seconds": 0.03118594,
+      "measurement": "evaluation",
+      "iterations": 100,
+      "source": "in-memory-pinned-record"
+    },
+    {
+      "seconds": 5.123538707,
+      "mode": "ability",
+      "highest-cached-items": [
+        "Lich Bane",
+        "Rabadon's Deathcap",
+        "Shadowflame",
+        "Spellslinger's Shoes",
+        "Stormsurge",
+        "Void Staff"
+      ],
+      "uncached-evaluations": 1136,
+      "highest-cached-score": 1838.9700226854534,
+      "fitness-calls": 19431,
+      "progress": {
+        "gen": 16,
+        "run": 1,
+        "score": 1838.9700226854534,
+        "total-runs": 5,
+        "total-gen": 200
+      },
+      "measurement": "search-probe",
+      "result": {
+        "interrupted": true
+      },
+      "cache-size": 1136
+    },
+    {
+      "seconds": 5.035081472,
+      "mode": "ad",
+      "highest-cached-items": [
+        "Berserker's Greaves",
+        "Infinity Edge",
+        "Lord Dominik's Regards",
+        "Mortal Reminder",
+        "Stormrazor",
+        "Yun Tal Wildarrows"
+      ],
+      "uncached-evaluations": 1155,
+      "highest-cached-score": 674.4019890625,
+      "fitness-calls": 21443,
+      "progress": {
+        "gen": 18,
+        "run": 1,
+        "score": 674.4019890625,
+        "total-runs": 5,
+        "total-gen": 200
+      },
+      "measurement": "search-probe",
+      "result": {
+        "interrupted": true
+      },
+      "cache-size": 1155
+    },
+    {
+      "seconds": 5.115197774,
+      "mode": "total",
+      "highest-cached-items": [
+        "Hextech Gunblade",
+        "Rabadon's Deathcap",
+        "Shadowflame",
+        "Spellslinger's Shoes",
+        "Stormsurge",
+        "Void Staff"
+      ],
+      "uncached-evaluations": 1174,
+      "highest-cached-score": 1843.9398222533493,
+      "fitness-calls": 17319,
+      "progress": {
+        "gen": 14,
+        "run": 1,
+        "score": 1843.9398222533493,
+        "total-runs": 5,
+        "total-gen": 300
+      },
+      "measurement": "search-probe",
+      "result": {
+        "interrupted": true
+      },
+      "cache-size": 1174
+    }
+  ]
+}

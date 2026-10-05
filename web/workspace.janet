@@ -4,8 +4,8 @@
 (def model-identity engine/identity)
 (defn tools [result]
   (def definition (get-in result [:selected :combat :scenario]))
-  [:section {:id "scenario-tools" :class "scope-panel scenario-tools"}
-   [:h2 "Save & reproduce"]
+  [:details {:id "scenario-tools" :class "control-group scenario-tools" :data-preserve-attr "open"}
+   [:summary [:span "Saved scenarios"] [:span {:class "muted"} "Save · share · import"]]
    (if definition
      [:div
       [:span {:id "scenario-data" :hidden true :data-json (util/encode-json {:format "powerspike-scenario" :version 1 :scenario definition})}]

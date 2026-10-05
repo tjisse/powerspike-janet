@@ -19,6 +19,8 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
+Version 0.8.0 adds the simplified loadout tray, shared element popovers, linked attack inspection, passive optimizer modal opening and up to ten ranked build rows. Completed fitness results are cached across workers, cancellation is in memory, and candidate evaluation avoids unnecessary traces/hashes. Full release verification and signed publication are being run; see [release notes](releases/0.8.0.md) and [optimizer performance](optimizer-performance.md).
+
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
 
 Milestone 2 is released as v0.3.0 with successful signed RPM/DNF checks. All 173 champions on retained 16.18.1 simulate without errors; 156 have recognized ability damage. Full records, localized tooltips and bounded calculations remain separate from in-game verification.

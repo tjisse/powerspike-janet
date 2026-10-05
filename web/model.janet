@@ -257,10 +257,9 @@
   (def champion ((package :champion-map) (state :champion)))
   (if (and (or (= "legacy" (state :mode)) (not (state :mode))) (empty? (get champion :abilities []))) (compare state)
     (do
-      (def key (hash/sha256 (util/encode-data [engine/identity state
-                                               (when (and (state :mode) (not= "legacy" (state :mode)))
-                                                 (scenarios/identity (scenarios/compile (definition state
-                                                                                          (filter |(not= "" $) (map |(get state $ "") slot-keys))))))])))
+      # State, exact package and model completely determine the result. Avoid
+      # compiling and hashing full actors just to look up an existing result.
+      (def key (hash/sha256 (util/encode-data (util/canonical [engine/identity (package :patch) (package :snapshot) state]))))
       (or (when (cache key) (merge (cache key) {:package package}))
           (do
             (def job (jobs/submit :simulation key compare-task state))
@@ -310,8 +309,15 @@
   (def canonical ((scenarios/compile (definition state ids)) :definition))
   # A separate cancellation capability per request prevents one user's cancel
   # from stopping another user's search, even with identical scenarios.
-  (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
-               {:definition canonical :options (search-options input state)}))
+  (def job (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
+                        {:definition canonical :options (search-options input state)}))
+  (put job :scenario-summary (string (get-in canonical [:player :champion]) " · patch " (canonical :patch)
+                                     " · " (canonical :duration) " seconds · " (get-in canonical [:target :kind] :practice)
+                                     (if (= :practice (get-in canonical [:target :kind]))
+                                       (string " · " (get-in canonical [:target :hp]) " target HP · " (get-in canonical [:target :armor])
+                                               " armor / " (get-in canonical [:target :mr]) " MR") "")))
+  (put job :limit (get-in job [:input :options :seconds] 5))
+  job)
 (defn state-from-definition [definition]
   (def compiled (scenarios/compile definition))
   (def input @{"patch" (compiled :patch) "snapshot" (compiled :snapshot) "selected" "custom"

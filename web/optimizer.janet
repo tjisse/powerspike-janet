@@ -1,4 +1,5 @@
 (import ./catalog :as catalog)
+(import ./details :as details)
 (import ../src/powerspike/search :as search)
 (import ../src/powerspike/loadouts :as loadouts)
 (import ../src/powerspike/scenario :as scenario)
@@ -9,18 +10,17 @@
   [:label [:input {:type "checkbox" :data-bind name}] caption])
 (defn controls [&opt result]
   (def order (or (get-in result [:state :skillorder]) scenario/default-order))
-  [:section {:id "optimizer" :class "scope-panel optimizer"}
-   [:h2 "Optimize build"]
+  [:section {:id "optimizer" :class "optimizer"}
    [:div {:class "tactics-grid"}
-    [:label "Gold budget" [:input {:type "number" :min 0 :max 100000 :step 50 :data-bind:searchbudget true}]]
+    [:label "Search gold budget" [:input {:type "number" :min 0 :max 100000 :step 1 :data-bind:searchbudget true}]]
     [:label "Inventory slots" [:input {:type "number" :min 0 :max 6 :step 1 :data-bind:searchslots true}]]
     [:label "Scoring" [:select {:data-bind:searchpreset true}
                        (map |[:option {:value (string $)} (string $)] search/presets)]]
     [:label "Compute budget" [:select {:data-bind:searchseconds true} [:option {:value 5} "5 seconds"] [:option {:value 30} "30 seconds"]]]]
-   [:div {:class "tactics-grid"}
-    (checkbox "nextpurchase" "Recommend one next purchase (budget is gold available now)")
-    (checkbox "searchrunes" "Search rune pages") (checkbox "searchsummoners" "Search summoner spells") (checkbox "searchskills" "Search skill orders")]
-   [:details [:summary "Locks & candidate items"]
+   [:details {:class "optimizer-advanced" :data-preserve-attr "open"} [:summary "Options, locks & candidate items"]
+    [:div {:class "tactics-grid"}
+     (checkbox "nextpurchase" "Recommend one next purchase (budget is gold available now)")
+     (checkbox "searchrunes" "Search rune pages") (checkbox "searchsummoners" "Search summoner spells") (checkbox "searchskills" "Search skill orders")]
     [:p {:class "muted"} "Lock owned items to retain them. Other slots may be replaced. Next-purchase search keeps runes, summoners and skills fixed."]
     [:div {:class "tactics-grid"} (seq [index :range [1 7]] (checkbox (string "lockslot" index) (string "Keep item in slot " index)))]
     [:label "Candidate items (comma-separated names or IDs; blank uses the full shop)" [:input {:type "text" :data-bind:searchpool true :placeholder "Rabadon's Deathcap, Void Staff, Sorcerer's Shoes"}]]
@@ -36,71 +36,91 @@
                    [:span {:data-text (string "'Level " index " · ' + ($skillorder.length > " (dec index) " ? $skillorder[" (dec index) "].toUpperCase() : '"
                                               (string/ascii-upper (string (scenario/default-order (dec index)))) "')")}
                     (string "Level " index " · " (string/ascii-upper (string (get order (dec index) :q))))])])]]]
-   [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]
-   [:button {:class "apply" :type "button" :data-on:click "@post('/search')"} "Find builds"]])
-(defn comparison-chart [rows field caption &opt cost]
-  (def values (map |(if cost ($ :cost) (get-in $ [:metrics field])) rows))
-  (def ceiling (max ;[1 ;(filter number? values)]))
-  [:figure {:class "comparison-chart"}
-   [:figcaption caption]
-   [:svg {:viewBox "0 0 640 170" :role "img" :aria-label (string caption " across recommended builds")}
-    (seq [[index value] :pairs values]
-      [:g
-       [:text {:x 4 :y (+ 23 (* index 30)) :class "chart-label"} (string "Build " (inc index))]
-       (when (number? value) [:rect {:x 72 :y (+ 8 (* index 30)) :width (* 430 (/ value ceiling)) :height 19 :fill "#b49a5d"}])
-       [:text {:x 520 :y (+ 23 (* index 30)) :class "chart-label"} (number value)]])]])
-(defn panel [result job]
+   [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]])
+(defn panel-body [result job &opt applied]
   (def ongoing (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
   (def outcome (get job :result))
   (def progress (get job :progress {}))
   (def rows (or (get outcome :rows) (get progress :best) []))
   (def package (result :package))
-  [:section {:id "search-panel" :class "scope-panel search-panel" :data-poll (if ongoing "true" "false") :aria-live "polite"}
+  [:section {:id "search-panel" :class "scope-panel search-panel" :data-poll (if ongoing "true" "false")
+             :data-job (get job :id "") :data-status (get job :status :idle) :data-applied applied :aria-live "polite"}
    (when job
      [:div
+      (when (job :scenario-summary) [:p {:class "muted"} (job :scenario-summary)])
       [:h2 "Recommendations · " (if (get outcome :complete) "Optimal within selected pool" "Best found")]
       [:p (string (job :status) " · " (get progress :message "Queued") " · " (get outcome :evaluated (get progress :completed 0))
                   " builds evaluated · " (number (get outcome :seconds (get progress :seconds 0))) " s")]
+      (when (> (get outcome :cache-hits (get progress :cache-hits 0)) 0)
+        [:p {:class "muted"} (get outcome :cache-hits (get progress :cache-hits 0)) " results reused · "
+         (get outcome :simulated (get progress :simulated 0)) " new simulations"])
       [:p (or (get outcome :explanation) (get progress :explanation) "Waiting for the simulation worker.")]
+      (when ongoing [:progress {:class "search-time" :aria-label "Search compute time" :max (get job :limit 5)
+                                :value (min (get job :limit 5) (get progress :seconds 0))}])
+      (when (get outcome :baseline)
+        [:p {:class "muted"} "Current inventory: " (number (get-in outcome [:baseline :metrics :damage])) " damage · "
+         (number (get-in outcome [:baseline :metrics :health])) " health left · " (get-in outcome [:baseline :samples]) " trials"])
       (when ongoing [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel search"])
       (when (= :failed (job :status)) [:p {:class "warning"} (job :error)])
       (when (and outcome (empty? rows)) [:p "No recommendation fits these constraints. Increase the budget, relax locks or change the item pool."])
-      (when (not (empty? rows))
-        [:div {:class "comparison-charts"}
-         (comparison-chart rows :damage "Damage") (comparison-chart rows :health "Health remaining")
-         (comparison-chart rows :control "Effective control (seconds)") (comparison-chart rows nil "Gold cost" true)])
-      [:p {:class "muted"} "Alternatives include scoring leaders and cost, health or control tradeoffs found during this search. Each chart has its own scale."]
+      (when (not (empty? rows)) [:p {:class "muted"} "Top " (length rows) " builds · ranked by "
+                                 (get outcome :preset (get progress :preset :burst))])
       (when outcome [:details [:summary "Search limits & coverage"] [:ul (map |[:li $] (outcome :notes))]])
-      [:div {:class "search-alternatives"}
+      [:div {:class "search-alternatives" :role "list" :aria-label "Builds ranked best to worst"}
        (seq [[index row] :pairs rows]
-         [:article {:class "search-alternative"}
-          [:h3 (string "Build " (inc index) " · " (number (row :cost)) " gold")]
-          [:div {:class "inventory"}
-           (map (fn [id]
-                  (def item ((package :item-map) id))
-                  [:img {:src (string "/assets/" (get-in row [:definition :patch]) "/" (get-in row [:definition :snapshot]) "/item/" id ".png")
-                         :alt (get item :name id) :title (get item :name id) :width 48 :height 48 :loading "lazy"}]) (row :ids))]
-          (when (row :purchase) [:p (string "Next purchase: " (get ((package :item-map) (row :purchase)) :name (row :purchase))
-                                            " · " (number (row :purchase-cost)) " gold now")])
+         [:article {:class "search-alternative" :role "listitem"}
+          [:span {:class "search-rank" :aria-label (string "Rank " (inc index))} (inc index)]
+          [:div {:class "search-loadout"}
+           [:h3 (if (empty? (row :ids)) "No items" (string "Build " (inc index)))
+            [:span {:class "gold-number"} (number (row :cost)) " gold"]]
+           [:div {:class "inventory" :aria-label (string "Build " (inc index) " items")}
+            (map (fn [id]
+                   (def item ((package :item-map) id))
+                   [:button (merge {:type "button" :class "search-item" :aria-label (string (get item :name id) " details")}
+                                   (when item (details/attrs (merge (details/item item) {:action nil :action-label nil}) true)))
+                    [:img {:src (string "/assets/" (get-in row [:definition :patch]) "/" (get-in row [:definition :snapshot]) "/item/" id ".png")
+                           :alt (get item :name id) :width 40 :height 40 :loading "lazy"}]]) (row :ids))]
+           (when (row :purchase) [:p {:class "muted"} (string "Next purchase: " (get ((package :item-map) (row :purchase)) :name (row :purchase))
+                                                              " · " (number (row :purchase-cost)) " gold now")])]
           [:dl {:class "search-metrics"}
            (map (fn [[field caption]] [:div [:dt caption] [:dd (number (get (row :metrics) field))]])
                 [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"] [:control "Control (s)"] [:healing "Healing"] [:absorbed "Absorbed"]])]
-          [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
-          [:details [:summary "Runes, summoners & skill order"]
+          (unless ongoing [:button {:class "apply" :type "button" :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
+                           "Apply & inspect"])
+          [:details {:class "search-build-details"} [:summary "Build details & coverage"]
+           [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
            [:p "Runes: " (string/join (map (fn [id] (def rune (find |(= id (get $ "id")) (scenario/runes package))) (get rune "name" (string id)))
                                            (get-in row [:definition :player :loadout :runes] [])) ", ")]
            [:p "Summoners: " (string/join (map (fn [id] (get (find |(= id (get $ "id")) (get package :summoners [])) "name" id))
                                                (get-in row [:definition :player :loadout :summoners] [])) ", ")]
            [:p "Skill order: " (if (get-in row [:definition :player :skill-order])
                                  (string/join (map |(string/ascii-upper (string $)) (get-in row [:definition :player :skill-order])) " → ")
-                                 "Current rank settings")]]
-          [:details [:summary (string (length (row :coverage)) " coverage notes")]
-           [:ul (map |[:li $] (row :coverage))]]
-          (unless ongoing [:button {:class "apply" :type "button" :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
-                           "Apply & inspect"])])]
+                                 "Current rank settings")]
+           [:p (string (length (row :coverage)) " coverage notes")]
+           [:ul (map |[:li $] (row :coverage))]]])]
       [:span {:data-init (string "$searchjob = '" (job :id) "'")}]])])
+(defn panel [result job &opt applied]
+  (with-dyns [:patch-package (result :package)] (panel-body result job applied)))
+(defn error-panel [message]
+  [:section {:id "search-panel" :class "scope-panel search-panel" :data-poll "false" :data-job "" :data-status "failed" :data-error "true"}
+   [:p {:class "warning" :role "alert"} message]
+   [:span {:data-init "$searchjob = ''"}]])
+(defn dialog [result]
+  [:dialog {:id "optimizer-dialog" :class "optimizer-dialog" :aria-labelledby "optimizer-title" :aria-describedby "optimizer-description"
+            :data-on:searchtick "@get('/search/status')"}
+   [:header {:class "picker-header"}
+    [:div [:h2 {:id "optimizer-title" :tabindex "-1"} "Optimize build"]
+     [:p {:id "optimizer-description" :class "muted"} "Compare builds for your current opponent and fight strategy."]]
+    [:button {:type "button" :class "catalog-close" :data-search-close true :aria-label "Close optimization"} "Close"]]
+   (controls result)
+   [:div {:class "optimizer-actions"}
+    [:button {:id "search-start" :type "button" :class "optimize-primary" :data-search-start true
+              :data-on:click "@post('/search', {retry: 'never'})"} "Run search"]
+    [:span {:class "muted"} "Closing this window keeps the search running."]]
+   [:p {:id "search-request-status" :role "status" :hidden true} "Starting search…"]
+   (panel result nil)])
 (defn rune-editor [package state]
-  [:details {:id "rune-editor" :class "scope-panel" :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+  [:details {:id "rune-editor" :class "scope-panel" :data-preserve-attr "open" :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
    [:summary "Rune pages"]
    [:p {:class "muted"} "A full page has a primary keystone and one rune from each primary slot, plus two different secondary slots. Leave slots empty for a partial effect estimate. Stat shards are not modeled."]
    (map (fn [opponent]

@@ -1,4 +1,5 @@
 (import ../src/powerspike/engine :as engine)
+(import ../src/powerspike/data-util :as util)
 (defn unit [id &opt settings]
   (merge {:id id :kind :champion :level 1 :base {:ad 100 :ap 0 :hp 1000}
           :stats {:hp 1000 :mp 20 :ad 100 :ap 0 :armor 0 :mr 0 :attack-speed 1 :crit-chance 0 :crit-damage 1.75}
@@ -36,6 +37,11 @@
 (def directed (battle [] {:abilities [(merge spell {:cast-time -2})] :strategy {:abilities true :attacks true}}))
 (assert (not (empty? (directed :unsupported))))
 (close 300 (directed :damage))
+(def zero-cooldown (battle [] {:abilities [(merge spell {:cost 0 :cooldown 0})]
+                               :strategy {:abilities true :attacks true}}))
+(close 300 (zero-cooldown :damage))
+(assert (some |(string/find "Zero-cooldown activation" $) (zero-cooldown :unsupported)))
+(assert (= 0 (count |(= :cast ($ :kind)) (zero-cooldown :trace))))
 (def periodic (battle [] {:abilities [(merge spell {:cost 0 :cooldown 99
                                                     :effects [{:kind :damage :damage-type :true :amount 20 :hits 3 :interval 1
                                                                :status :estimated :target :enemy}]})]
@@ -91,6 +97,11 @@
                          :strategy {:attacks true :abilities false}} {:kind :objective} 1))
 (close 120 (bounded :damage))
 (def sampled (engine/trials seeded 16))
+(def lean (engine/trials (merge seeded {:trace false}) 16))
+(assert (empty? (lean :trace)))
+(assert (empty? (lean :events)))
+(each field [:metrics :uncertainty :damage-breakdown :unsupported]
+  (assert (= (util/canonical (sampled field)) (util/canonical (lean field)))))
 (assert (= (sampled :metrics) ((engine/trials seeded 16) :metrics)))
 (assert (> (get-in sampled [:uncertainty :damage]) 0))
 (close (sampled :damage) (get-in sampled [:metrics :damage]))

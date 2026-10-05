@@ -8,6 +8,8 @@
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
                                    (slurp "src/powerspike/objectives.janet")
+                                   (slurp "src/powerspike/scenario.janet") (slurp "src/powerspike/skills.janet")
+                                   (slurp "src/powerspike/builds.janet") (slurp "data/16.19.1/annie.janet")
                                    (slurp "data/semantic-overrides.jdn"))))
 (defn less? [a b]
   (cond (not= (a :at) (b :at)) (< (a :at) (b :at))
@@ -191,12 +193,13 @@
                          (put owner :damage-dealt (+ (owner :damage-dealt) applied))
                          (put (owner :breakdown) source (+ (get (owner :breakdown) source 0) applied))
                          (when (= "attack" source) (put owner :attack-damage (+ (owner :attack-damage) applied)))
-                         (def summary (merge hit {:at at :source source :actor (owner :id) :target (target :id)
-                                                  :damage applied :absorbed (- before remaining) :health (target :health)
-                                                  :origin (event :origin)}))
-                         (put summary :critical (get event :critical false))
-                         (when tracing (array/push hits summary))
-                         (record :damage summary)
+                         (when tracing
+                           (def summary (merge hit {:at at :source source :actor (owner :id) :target (target :id)
+                                                    :damage applied :absorbed (- before remaining) :health (target :health)
+                                                    :origin (event :origin)}))
+                           (put summary :critical (get event :critical false))
+                           (array/push hits summary)
+                           (record :damage summary))
                          (when (<= (target :health) 0) (schedule at 20 :death {:actor (target :index)}))
                          # Proc damage does not recursively trigger other damage procs by default.
                          (when (= depth 0)
@@ -354,6 +357,11 @@
                             (def ability-range (max 0 (value (ability :range) actor target learned)))
                             (def cd (damage/cooldown (max 0 (value (ability :cooldown) actor target learned))
                                                      (if (ability :unhasted) 0 (get (actor :stats) :ability-haste 0))))
+                            # A zero cooldown often represents a stack-gated
+                            # activation, toggle or transformation. Repeatedly
+                            # casting it would suppress every ordinary attack.
+                            (assert (or (> cd 0) recasting (ability :max-charges))
+                                    "Zero-cooldown activation requires a charge, recast or champion handler; effect excluded.")
                             (when (ability :max-charges)
                               (unless ((actor :charges) (ability :id))
                                 (def maximum (value (ability :max-charges) actor target learned))
@@ -492,7 +500,7 @@
   (def omissions @[])
   (for trial 0 samples
     (when (and cancelled (cancelled)) (error "Cancelled."))
-    (def result (simulate (merge scenario {:trial trial :trace (= trial 0)}) cancelled))
+    (def result (simulate (merge scenario {:trial trial :trace (and (get scenario :trace true) (= trial 0))}) cancelled))
     (unless representative (set representative result))
     (eachp [source damage] (result :damage-breakdown) (put sources source (+ (get sources source 0) damage)))
     (each message (result :unsupported) (unless (some |(= $ message) omissions) (array/push omissions message)))

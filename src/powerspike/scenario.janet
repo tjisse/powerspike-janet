@@ -121,3 +121,8 @@
   (def outcome (engine/trials compiled (get definition :samples 1) cancelled))
   (merge outcome {:scenario (compiled :definition) :scenario-id (identity compiled)
                   :coverage (compiled :coverage) :unsupported [;(compiled :coverage) ;(outcome :unsupported)]}))
+(defn fitness [definition &opt cancelled]
+  (def compiled (compile definition))
+  (def outcome (engine/trials (merge compiled {:trace false}) (get definition :samples 1) cancelled))
+  {:metrics (outcome :metrics) :uncertainty (outcome :uncertainty)
+   :unsupported [;(compiled :coverage) ;(outcome :unsupported)]})

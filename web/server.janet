@@ -5,6 +5,7 @@
 (import ./catalog :as catalog)
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
+(import ./details :as details)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
@@ -13,6 +14,7 @@
 
 (def assets
   {"/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
+   "/assets/hud.js" {:type "text/javascript" :body (slurp "web/assets/hud.js")}
    "/assets/app.js" {:type "text/javascript" :body (slurp "web/assets/app.js")}
    "/assets/datastar.js" {:type "text/javascript" :body (slurp "build/web-assets/datastar.js")}})
 (def evidence (model/evidence))
@@ -38,7 +40,7 @@
   (def package (if scoped (packages/load (parts 2) (parts 3)) (catalog/current)))
   (def group (parts (if scoped 4 2)))
   (def file (parts (if scoped 5 3)))
-  (assert (and (some |(= $ group) ["champion" "item" "spell" "passive"])
+  (assert (and (some |(= $ group) ["champion" "item" "spell" "passive" "rune"])
                (util/safe-id? file) (string/has-suffix? ".png" file)) "Invalid asset identifier.")
   (def path (string (package :directory) "/assets/" group "/" file))
   (unless (os/stat path)
@@ -49,7 +51,8 @@
     (unless (os/stat path)
       (++ asset-active) (put asset-pending path true)
       (def fetched (protect
-                     (def bytes (https/get-async (string "https://ddragon.leagueoflegends.com/cdn/" (package :patch) "/img/" group "/" file) (* 1024 1024)))
+                     (def bytes (https/get-async (if (= group "rune") (details/rune-source package file)
+                                                   (string "https://ddragon.leagueoflegends.com/cdn/" (package :patch) "/img/" group "/" file)) (* 1024 1024)))
                      (assert (string/has-prefix? "\x89PNG\r\n\x1a\n" bytes) "Provider asset is not PNG.")
                      (assert (<= (+ (util/tree-size-async packages/data-dir) (* 8 1024 1024)) (packages/storage-limit)) "Data storage allowance reached.")
                      (util/atomic-write path bytes)))
@@ -71,11 +74,11 @@
                                                         (ds/patch-signals gen values))
                                                       (with-dyns [:patch-package (result :package)]
                                                         (ds/patch-elements gen
-                                                                           (ui/render (ui/results result)
-                                                                                      (if state (ui/scenario result) (ui/champion-display result))
+                                                                           (ui/render (ui/results result) (ui/loadout result) (ui/fight-controls result)
+                                                                                      (when (= "/search/apply" (req :route)) (optimizer/panel result nil (get-in req [:query "id"])))
                                                                                       (ui/tactics result) (optimizer/rune-editor (result :package) (result :state))
                                                                                       (when state (ui/patch-panel result nil))
-                                                                                      (workspace/tools result) (workspace/evidence result))))))}))
+                                                                                      (workspace/tools result) (ui/coverage result) (workspace/evidence result))))))}))
 (defn evaluate [req]
   (def result (protect (model/compare-async (model/parse-state (ds/get-signals req)))))
   (if (first result) (show-result req (result 1)) (fragment req (ui/render (ui/error-result (string (result 1)))))))
@@ -143,7 +146,9 @@
 (defn app [req]
   (def result (protect (app-inner req)))
   (if (first result) (result 1)
-    (if (= "true" (get-in req [:headers "datastar-request"])) (fragment req (ui/render (ui/error-result (string (result 1)))))
+    (if (= "true" (get-in req [:headers "datastar-request"]))
+      (fragment req (ui/render (if (string/has-prefix? "/search" (req :route))
+                                 (optimizer/error-panel (string (result 1))) (ui/error-result (string (result 1))))))
       (response 400 (string (result 1)) "text/plain"))))
 
 (defn start [port &opt host data seed]

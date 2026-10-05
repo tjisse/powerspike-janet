@@ -3,6 +3,7 @@
 (import ./catalog :as catalog)
 (import ./model :as model)
 (import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/scenario :as scenarios)
 
 (defn- safe-tree [node]
   (if (indexed? node)
@@ -61,7 +62,7 @@
              [:b (string/ascii-upper (string (ability :slot)))] (ability :rank)
              [:small (if (number? (ability :effective-cooldown))
                        (string (number-text (ability :effective-cooldown) true) "s") "CD unknown")]]) settings)
-     (get ranks :q)
+     (and (= "Annie" (champion :id)) (get ranks :q))
      [[:span {:class "spell"} (icon "spell" "AnnieQ" "Disintegrate") "Q" (ranks :q)]
       [:span {:class "spell"} (icon "spell" "AnnieW" "Incinerate") "W" (ranks :w)]
       [:span {:class "muted"} "R" (ranks :r) " passive"]]
@@ -72,8 +73,8 @@
   [:div {:id "champion-display" :class "champion-display"}
    [:div {:class "portrait"} (icon "champion" (champion :icon) (champion :name))]
    [:div {:class "champion-title"} [:h1 (champion :name)]
-    [:span {:class "muted"} (cond (not (empty? (get champion :abilities []))) "Estimated abilities + attacks"
-                              (get-in result [:selected :ranks :q]) "Q/W + basic attacks" "Basic attacks only")]
+    [:span {:class "muted"} (cond (not (empty? (get-in result [:selected :ability-settings]))) "Estimated abilities + attacks"
+                              (and (= "Annie" (champion :id)) (get-in result [:selected :ranks :q])) "Q/W + basic attacks" "Basic attacks only")]
     (rank-markup champion ((result :selected) :ranks) ((result :selected) :ability-settings))]])
 
 (defn scenario [result]
@@ -105,12 +106,36 @@
              :data-bind:targethealth true}]]
    [:label "Starting distance"
     [:input {:name "distance" :type "number" :min "0" :max "10000" :value (get state :distance 300) :data-bind:distance true}]]
+   [:label "Fight"
+    [:select {:name "mode" :data-bind:mode true}
+     [:option {:value "practice" :selected (= "practice" (get state :mode "practice"))} "Practice target"]
+     [:option {:value "duel" :selected (= "duel" (state :mode))} "Champion duel"]
+     [:option {:value "legacy" :selected (= "legacy" (state :mode))} "Curated reference"]]]
+   [:label {:data-show "$mode === 'duel'"} "Opponent"
+    [:select {:name "opponent" :data-bind:opponent true}
+     (map |[:option {:value ($ :id) :selected (= ($ :id) (get state :opponent "Garen"))} ($ :name)] (catalog/champion-list))]]
+   [:label {:data-show "$mode === 'duel'"} "Opponent level"
+    [:input {:name "opponentlevel" :type "number" :min 1 :max 18 :value (get state :opponentlevel 18) :data-bind:opponentlevel true}]]
+   [:label "Trials"
+    [:select {:name "samples" :data-bind:samples true}
+     (map |[:option {:value $ :selected (= $ (get state :samples 1))} $] [1 8 32 64])]]
+   [:label "Rune effects"
+    [:select {:name "runes" :data-bind:runes true}
+     [:option {:value "" :selected (empty? (get state :runes []))} "None"]
+     (map |[:option {:value (get $ "id") :selected (some (fn [id] (= id (get $ "id"))) (get state :runes []))}
+            (get $ "name")] (scenarios/runes (result :package)))]]
+   (seq [index :range [0 2]]
+     [:label (if (= index 0) "Summoner spell D" "Summoner spell F")
+      [:select {:name (string "summoner" (inc index)) :data-bind (string "summoner" (inc index))}
+       [:option {:value "" :selected (= "" (get (get state :summoners []) index ""))} "None"]
+       (map (fn [spell] [:option {:value (spell "id") :selected (= (spell "id") (get (get state :summoners []) index ""))}
+                         (spell "name")]) (filter |(some (fn [mode] (= "CLASSIC" mode)) (get $ "modes" [])) (get (result :package) :summoners [])))]])
    [:input {:type "hidden" :name "patch" :value (get state :patch ((result :package) :patch))}]
    [:input {:type "hidden" :name "snapshot" :value ((result :package) :snapshot)}]
    [:div {:class "scenario-notes"}
     [:span {:class "validation-badge"} "Unvalidated catalog"]
     [:span "Inventory " [:strong "6 slots · no budget limit"]]
-    [:span "Runes " [:strong "Excluded"]]
+    [:span "Effects " [:strong "Coverage below"]]
     [:span {:class "update-status" :role "status" :aria-live "polite" :data-text "$busy ? 'Updating…' : ''"} ""]]
    [:noscript [:button {:type "submit" :name "selected" :value (state :selected) :class "apply"} "Update comparison"]]])
 
@@ -135,6 +160,23 @@
 
 (defn- stat [description value]
   [:div [:span description] [:strong value]])
+
+(defn- state-chart [combat duration field title]
+  (def trace (get combat :trace []))
+  (def ceiling (max 1 (max ;(mapcat |(map (fn [actor] (get actor field 0)) ($ :participants)) trace))))
+  (defn x [time] (+ 47 (* (/ time duration) 805)))
+  (defn y [value] (- 157 (* (/ value ceiling) 145)))
+  [:section {:class "chart-panel"}
+   [:div {:class "section-header"} [:h2 title] [:span {:class "muted"} "Seeded trial 0"]]
+   [:svg {:viewBox "0 0 864 185" :role "img" :aria-label title :class "state-chart"}
+    [:title title]
+    (seq [index :range [0 2]]
+      (do (def path (string/join (seq [[i event] :pairs trace]
+                                   (string (if (= i 0) "M " " L ") (x (event :at)) " "
+                                           (y (get-in event [:participants index field] 0)))) ""))
+        [:path {:d path :class (if (= 0 index) "chart-line" "chart-opponent")}]))
+    [:text {:x 47 :y 178} "0 s"] [:text {:x 852 :y 178 :text-anchor "end"} duration " s"]]
+   [:p {:class "muted"} "Gold: player · Violet: target/opponent"]])
 
 (defn- inventory-ids [row state]
   (if (= "custom" (row :id)) (map |(get state $ "") model/slot-keys)
@@ -243,14 +285,23 @@
     [:text {:x "47" :y "178"} "0 s"]
     [:text {:x "852" :y "178" :text-anchor "end"} duration " s"]]])
 
+(defn- event-icon [row event]
+  (def source (event :source))
+  (cond (= :attack source) [:b "AA"]
+    (and (string? source) (string/has-prefix? "item/" source)) (icon "item" ((string/split "/" source) 1) "Item effect")
+    (and (string? source) (string/has-prefix? "rune/" source)) [:b "Rune"]
+    (do (def ability (find |(= source ($ :id)) (get row :ability-settings [])))
+      (if (and ability (not= "" (ability :icon))) (icon (ability :icon-group) (ability :icon) (ability :name))
+        [:b source]))))
+
 (defn results [result]
   (def row (result :selected))
   (def state (result :state))
   (def duration (state :duration))
   (def totals (row :stats))
   (def combat (row :combat))
-  (def broad (not (empty? (get (result :champion) :abilities []))))
-  (def has-spells (or broad (get-in row [:ranks :q])))
+  (def broad (not (empty? (get row :ability-settings []))))
+  (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
   (def spell-label (if broad "Modeled abilities" "Q/W"))
   (def chart-title (if has-spells (string spell-label " + attacks over time") "Basic attacks over time"))
   [:div {:id "results" :class "results" :aria-live "polite" :data-attr:aria-busy "$busy"}
@@ -266,6 +317,17 @@
      [:div {:class "numbers"}
       (metric (string (if has-spells (string spell-label " + attacks / ") "Basic attacks / ") duration " seconds") (combat :damage))
       (metric "Damage per second" (combat :dps) true)]
+     (when (combat :metrics)
+       [:div {:class "build-stats"}
+        (stat "Health remaining" (number-text (get-in combat [:metrics :health])))
+        (stat "Damage taken" (number-text (get-in combat [:metrics :damage-taken])))
+        (stat "Healing" (number-text (get-in combat [:metrics :healing])))
+        (stat "Absorbed" (number-text (get-in combat [:metrics :absorbed])))
+        (stat "Effective control" (string (number-text (get-in combat [:metrics :control]) true) " s"))
+        (stat "Kill / death chance" (string (number-text (* 100 (get-in combat [:metrics :kill-rate] 0))) "% / "
+                                            (number-text (* 100 (get-in combat [:metrics :death-rate] 0))) "%"))
+        (stat "Kill time (successful trials)" (if (get-in combat [:metrics :mean-kill-time]) (string (number-text (get-in combat [:metrics :mean-kill-time]) true) " s") "—"))
+        (stat "Sampling interval (damage)" (if (get-in combat [:uncertainty :damage]) (string "± " (number-text (get-in combat [:uncertainty :damage]))) "Unavailable"))])
      [:div {:class "build-stats"}
       (stat "Attack damage" (number-text (totals :ad) true))
       (stat "Attack speed" (number-text (totals :attack-speed) true))
@@ -282,7 +344,7 @@
           has-spells
           "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
           "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
-    [:p "Inventory legality and item interactions are unvalidated. Runes, stacks, on-hit damage and conditional effects are excluded."]
+    [:p "Available data, implemented handlers and in-game checks remain separate. Item and rune effects contribute only where a handler exists; inventory restrictions and missing effects appear below."]
     (when (not (empty? (row :limitations)))
       [:details [:summary "Excluded effects & inventory notes (" (length (row :limitations)) ")"]
        [:ul (map |[:li $] (row :limitations))]])
@@ -293,7 +355,8 @@
                [:p "Data " (if (ability :available) "available" "unavailable") " · "
                 (length (ability :effects)) " interpreted effects · " (length (ability :unresolved)) " unresolved · No in-game check"]
                [:p (normalize/plain (ability :tooltip))]]) (row :ability-settings))])
-    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])]
+    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
+    (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])]
    [:section {:class "chart-panel" :aria-label "Damage timeline"}
     [:div {:class "section-header"} [:h2 chart-title]
      [:span {:class "muted"} (if has-spells (string spell-label " " (number-text (* duration (combat :ability-dps)))) "Spells: not modeled")
@@ -305,8 +368,10 @@
     [:div {:class "hit-list" :aria-label "Damage events"}
      (map (fn [event]
             [:span {:class "hit" :title (string (number-text (event :damage)) " damage")}
-             (if (= :attack (event :source)) [:b "AA"] (icon "spell" (event :source) (event :source)))
-             [:span (number-text (event :at) true) " s"]]) (combat :events))]]])
+             (event-icon row event)
+             [:span (number-text (event :at) true) " s"]]) (combat :events))]]
+   (when (not (empty? (get combat :trace []))) [(state-chart combat duration :health "Health over time")
+                                                (state-chart combat duration :resource "Resources over time")])])
 
 (defn error-result [message]
   [:div {:id "results" :class "results" :role "alert"}

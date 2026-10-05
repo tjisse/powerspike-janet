@@ -1,0 +1,25 @@
+{
+  "patch": "16.18.1",
+  "sources": {
+    "items": {
+      "url": "https://raw.communitydragon.org/16.18/game/items.cdtb.bin.json?powerspike=1",
+      "source_sha256": "c1cf2b0bf746d260cd960788a52e71d96c096fe298c83cef55253f556e819ffb",
+      "excerpt": true
+    },
+    "runes": {
+      "url": "https://raw.communitydragon.org/16.18/game/perks.cdtb.bin.json?powerspike=1",
+      "source_sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "excerpt": true
+    },
+    "summoners": {
+      "url": "https://raw.communitydragon.org/16.18/game/shared.cdtb.bin.json?powerspike=1",
+      "source_sha256": "8726e915a7c913c826bf3a722e548d002e8e41677073a585d40e8d179d0dd8bf",
+      "excerpt": true
+    }
+  },
+  "fixture_sha256": {
+    "items.json": "29a349e703d7a8a0fc2ccaa045f0327fa0f61c1e8463c9db5351e872d0d98c03",
+    "runes.json": "21dba9f574451fa5e9b4fb996396702c1b143409d93ceea192b3ee66066115e4",
+    "summoners.json": "cd71f80ba4c36173c0bc661cc9537d732f5f621978f8ebeec5ead8394279c6d0"
+  }
+}

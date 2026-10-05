@@ -19,7 +19,11 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
 
-Milestone 2 is under release verification for v0.3.0. Full retained records resolve current ability references and localized descriptions, including hashed keys. Typed effects and bounded expressions drive the first shared event engine; coverage and assumptions appear in the Rift HUD. Real-record regressions cover rank origins, total/base/bonus scaling, duplicate displays, conditional branches, malformed structures and unknown formulas. The initial seed remains a historical subset until refreshed. Milestone 3's stateful foundation is implemented, but trigger families, charges, recasts and exceptional handlers remain in progress. Duels/objectives, optimization and scenario persistence remain required work.
+Milestone 2 is released as v0.3.0 with successful signed RPM/DNF checks. All 173 champions on retained 16.18.1 simulate without errors; 156 have recognized ability damage. Full records, localized tooltips and bounded calculations remain separate from in-game verification.
+
+Milestone 3 is under release verification for v0.4.0. The shared chronological engine handles health/resources, regeneration, death, projectiles, control/interruptions, shields/healing, periodic hits, attack modifiers/resets, charges/recasts, temporary stats, cleanses and bounded triggers. Real-record regressions cover item/rune/summoner handlers. Canonical scenarios and frontend duels share this engine; seeded trials report mean outcomes and sampling uncertainty. Exceptional forms, pets and passive semantics remain explicit omissions to extend by family. The legacy wrappers and five Annie stat measurements remain regressions.
+
+Milestones 4–6 remain required: complete opponent/ability strategies and objective presets, bounded legal optimization with optional loadout choices, and scenario save/share/import/export with evidence and upgrade verification.
 
 ## Source interpretation
 

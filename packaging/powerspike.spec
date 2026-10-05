@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.3.0}
+%{!?app_version:%global app_version 0.4.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike

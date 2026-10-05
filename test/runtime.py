@@ -108,7 +108,7 @@ def verify(binary_path, seed_path=None):
             page.feed(raw.decode())
             events = json.loads(page.timeline['data-events'])
             assert {'AnnieQ', 'AnnieW', 'attack'} <= {event['source'] for event in events}
-            assert abs(float(page.timeline['data-total']) - 1359.956399437412) < 1e-6
+            assert abs(float(page.timeline['data-total']) - 1307.15084388186) < 1e-6
             assert '173 champions' in ''.join(page.text) and '870 items' in ''.join(page.text)
             for path in ['/assets/champion/Ahri.png', '/assets/champion/MonkeyKing.png',
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:

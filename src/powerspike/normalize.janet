@@ -3,7 +3,7 @@
 (import pshash :as hash)
 (import ./data-util :as util)
 
-(def parser-version "2")
+(def parser-version "3")
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
 (defn patch-order [patch]
   (def parts (string/split "." (string/replace "lolpatch_" "" patch)))
@@ -140,6 +140,10 @@
                           (expr/ranked (or (get spell "castRangeDisplayOverride") (get spell "castRange")) 0 "CommunityDragon range"))
                  :cast-time (get spell "mCastTime" (get spell "spellCastTime" 0.25))
                  :missile-speed (get spell "missileSpeed" 0)
+                 :max-charges (when (and (indexed? (get spell "mMaxAmmo")) (some |(> $ 0) (spell "mMaxAmmo")))
+                                (expr/ranked (spell "mMaxAmmo") 0 "CommunityDragon ammo"))
+                 :recharge-time (when (get spell "mAmmoRechargeTime") (expr/ranked (spell "mAmmoRechargeTime") 0 "CommunityDragon recharge"))
+                 :recharge-unhasted (get spell "mAmmoNotAffectedByCDR" false)
                  :unresolved problems :record spell}))
 
 (defn kit [id objects detail fonts &opt patch]

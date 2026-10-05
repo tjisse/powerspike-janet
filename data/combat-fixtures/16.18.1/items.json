@@ -1,0 +1,582 @@
+{
+  "Items/3153": {
+    "mDisplayName": "Item_3153_Name",
+    "mDeathRecapName": "BOTRK",
+    "itemID": 3153,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default",
+      "{973182a1}"
+    ],
+    "mItemAdviceAttributes": [
+      "{e625a35a}",
+      "{3868804c}"
+    ],
+    "price": 725,
+    "mItemCalloutSpectator": true,
+    "mCanBeSold": true,
+    "epicness": 5,
+    "recipeItemLinks": [
+      "Items/1053",
+      "Items/1043",
+      "Items/1037"
+    ],
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "MoveSpeedMod",
+        "mValue": -0.30000001192092896,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MoveSpeedDuration",
+        "mValue": 1.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Cooldown",
+        "mValue": 15.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "RangedValue",
+        "mValue": 0.05999999865889549,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MeleeValue",
+        "mValue": 0.09000000357627869,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MonsterDamageCap",
+        "mValue": 100.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "AttackCounterDuration",
+        "mValue": 6.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "RangedMoveSpeedMod",
+        "mValue": -0.15000000596046448,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "DataValuesModeOverride": {
+      "ARAM": {
+        "DataValues": [
+          {
+            "mName": "RangedValue",
+            "mValue": 0.10000000149011612,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.11999999731779099,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      },
+      "Ruby": {
+        "DataValues": [
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.05999999865889549,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "RangedValue",
+            "mValue": 0.03999999910593033,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      },
+      "RUBY_TRIAL_1": {
+        "DataValues": [
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.05999999865889549,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "RangedValue",
+            "mValue": 0.03999999910593033,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      },
+      "RUBY_TRIAL_2": {
+        "DataValues": [
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.05999999865889549,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "RangedValue",
+            "mValue": 0.03999999910593033,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      },
+      "{aecea60c}": {
+        "DataValues": [
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.05999999865889549,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "RangedValue",
+            "mValue": 0.03999999910593033,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      },
+      "{bffdf499}": {
+        "DataValues": [
+          {
+            "mName": "RangedValue",
+            "mValue": 0.05999999865889549,
+            "__type": "ItemDataValue"
+          },
+          {
+            "mName": "MeleeValue",
+            "mValue": 0.09000000357627869,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      }
+    },
+    "mItemCalculations": {
+      "ChampRange": {
+        "mSimpleTooltipCalculationDisplay": 5,
+        "mExpandedTooltipCalculationDisplay": 5,
+        "mDefaultGameCalculation": "{792cf56b}",
+        "mConditionalGameCalculation": "{06387172}",
+        "mConditionalCalculationRequirements": {
+          "__type": "IsRangedCastRequirement"
+        },
+        "__type": "GameCalculationConditional"
+      },
+      "SiphonDamage": {
+        "mFormulaParts": [
+          {
+            "mLevel1Value": 40.0,
+            "mBreakpoints": [
+              {
+                "mLevel": 10,
+                "mBonusPerLevelAtAndAfter": 7.0,
+                "__type": "Breakpoint"
+              }
+            ],
+            "__type": "ByCharLevelBreakpointsCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "MeleeItemCalcValue": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "MeleeValue",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "mDisplayAsPercent": true,
+        "__type": "GameCalculation"
+      },
+      "RangedItemCalcValue": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "RangedValue",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "mDisplayAsPercent": true,
+        "__type": "GameCalculation"
+      },
+      "{792cf56b}": {
+        "mFormulaParts": [
+          {
+            "mNumber": 1.0,
+            "__type": "NumberCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{06387172}": {
+        "mFormulaParts": [
+          {
+            "mNumber": 2.0,
+            "__type": "NumberCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{c0b34d7a}": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "MoveSpeedMod",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{fe7dca43}": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "RangedMoveSpeedMod",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "MeleeItemCalcValueB": {
+        "mMultiplier": {
+          "mNumber": -1.0,
+          "__type": "NumberCalculationPart"
+        },
+        "mFormulaParts": [
+          {
+            "mDataValue": "MoveSpeedMod",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "mDisplayAsPercent": true,
+        "__type": "GameCalculation"
+      },
+      "RangedItemCalcValueB": {
+        "mMultiplier": {
+          "mNumber": -1.0,
+          "__type": "NumberCalculationPart"
+        },
+        "mFormulaParts": [
+          {
+            "mDataValue": "RangedMoveSpeedMod",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "mDisplayAsPercent": true,
+        "__type": "GameCalculation"
+      },
+      "{d96e60e3}": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "MeleeValue",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{42565e68}": {
+        "mFormulaParts": [
+          {
+            "mDataValue": "RangedValue",
+            "__type": "NamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{79b6144b}": {
+        "mDefaultGameCalculation": "{d96e60e3}",
+        "mConditionalGameCalculation": "{42565e68}",
+        "mConditionalCalculationRequirements": {
+          "__type": "IsRangedCastRequirement"
+        },
+        "__type": "GameCalculationConditional"
+      },
+      "{405deeb1}": {
+        "mMultiplier": {
+          "mSpellCalculationKey": "{79b6144b}",
+          "__type": "{f3cbe7b2}"
+        },
+        "{72c5c2a8}": 0,
+        "mFormulaParts": [
+          {
+            "{a8cb9c14}": true,
+            "mStat": 13,
+            "mCoefficient": 1.0,
+            "__type": "StatByCoefficientCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      }
+    },
+    "{fe87f21e}": [
+      {
+        "{6166b756}": "{405deeb1}",
+        "{39ab689d}": "MonsterDamageCap",
+        "__type": "{fe87f21e}"
+      }
+    ],
+    "mFlatPhysicalDamageMod": 40.0,
+    "mPercentAttackSpeedMod": 0.25,
+    "mPercentLifeStealMod": 0.10000000149011612,
+    "mCategories": [
+      "Damage",
+      "AttackSpeed",
+      "LifeSteal",
+      "Slow",
+      "OnHit"
+    ],
+    "mItemDataAvailability": {
+      "mInStore": true,
+      "__type": "ItemDataAvailability"
+    },
+    "mItemAttributes": [
+      1,
+      2
+    ],
+    "mItemDataClient": {
+      "mTooltipData": {
+        "mObjectName": "3153",
+        "mFormat": "{32559c50}",
+        "mLocKeys": {
+          "keyName": "Item_3153_Name",
+          "keyBrief": "Item_3153_Brief",
+          "keyTooltip": "Item_3153_Tooltip",
+          "keyColloquialism": "Item_3153_Colloquialism",
+          "keyTooltipExtended": "Item_3153_TooltipExtended",
+          "keyInventoryOnlyText": "Item_223153_InventoryOnlyText",
+          "keyTooltipExternal": "Item_3153_TooltipExternal"
+        },
+        "mLists": {
+          "Stats": {
+            "Elements": [
+              {
+                "type": "AttackDamage",
+                "__type": "TooltipInstanceListElement"
+              },
+              {
+                "type": "AttackSpeed",
+                "__type": "TooltipInstanceListElement"
+              },
+              {
+                "type": "LifeSteal",
+                "__type": "TooltipInstanceListElement"
+              }
+            ],
+            "__type": "TooltipInstanceList"
+          }
+        },
+        "__type": "TooltipInstanceItem"
+      },
+      "mDescription": "GeneratedTip_Item_3153_Description",
+      "mDynamicTooltip": "GeneratedTip_Item_3153_TooltipInventory",
+      "mShopTooltip": "GeneratedTip_Item_3153_TooltipShop",
+      "inventoryIcon": "assets/items/icons2d/3153_fighter_t3_bladeoftheruinedking.dds",
+      "InventoryIconSmall": "ASSETS/Items/Icons2D/AutoAtlas/SmallIcons/3153_Fighter_T3_BladeoftheRuinedKing.png",
+      "InventoryIconLarge": "ASSETS/Items/Icons2D/AutoAtlas/LargeIcons/3153_Fighter_T3_BladeoftheRuinedKing.png",
+      "epicness": 5,
+      "__type": "ItemDataClient"
+    },
+    "mVFXResourceResolver": {
+      "resourceMap": {
+        "{9b11edac}": "Items/3153/Particles/3153_Max_Stacks"
+      },
+      "__type": "ResourceResolver"
+    },
+    "__type": "ItemData"
+  },
+  "Items/3057": {
+    "mDisplayName": "Item_3057_Name",
+    "itemID": 3057,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default",
+      "{8b55a7b3}"
+    ],
+    "price": 650,
+    "ShowCooldownVfxToAllies": false,
+    "ShowCooldownInPings": false,
+    "mCanBeSold": true,
+    "epicness": 4,
+    "recipeItemLinks": [
+      "Items/2022"
+    ],
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "SpellbladeCooldown",
+        "mValue": 1.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Cooldown",
+        "mValue": 1.5,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "mItemCalculations": {
+      "SpellbladeDamage": {
+        "mFormulaParts": [
+          {
+            "mStat": 2,
+            "mStatFormula": 1,
+            "mCoefficient": 1.0,
+            "__type": "StatByCoefficientCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      }
+    },
+    "mAbilityHasteMod": 10.0,
+    "mCategories": [
+      "OnHit",
+      "AbilityHaste"
+    ],
+    "mItemDataAvailability": {
+      "mInStore": true,
+      "__type": "ItemDataAvailability"
+    },
+    "mItemAttributes": [
+      1,
+      16,
+      2,
+      8
+    ],
+    "mItemDataClient": {
+      "mTooltipData": {
+        "mObjectName": "3057",
+        "mFormat": "{32559c50}",
+        "mLocKeys": {
+          "keyName": "Item_3057_Name",
+          "keyTooltip": "Item_3057_Tooltip",
+          "keyColloquialism": "Item_3057_Colloquialism",
+          "keySecondaryBrief": "Item_Unique_Spellblade",
+          "keyTooltipExternal": "Item_3057_TooltipExternal"
+        },
+        "mLists": {
+          "Stats": {
+            "Elements": [
+              {
+                "type": "AbilityHaste",
+                "__type": "TooltipInstanceListElement"
+              }
+            ],
+            "__type": "TooltipInstanceList"
+          }
+        },
+        "__type": "TooltipInstanceItem"
+      },
+      "mDescription": "GeneratedTip_Item_3057_Description",
+      "mDynamicTooltip": "GeneratedTip_Item_3057_TooltipInventory",
+      "mShopTooltip": "GeneratedTip_Item_3057_TooltipShop",
+      "inventoryIcon": "assets/items/icons2d/3057_fighter_t2_sheen.dds",
+      "InventoryIconSmall": "ASSETS/Items/Icons2D/AutoAtlas/SmallIcons/3057_Fighter_T2_Sheen.png",
+      "InventoryIconLarge": "ASSETS/Items/Icons2D/AutoAtlas/LargeIcons/3057_Fighter_T2_Sheen.png",
+      "epicness": 4,
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  },
+  "Items/3145": {
+    "mDisplayName": "Item_3145_Name",
+    "mDeathRecapName": "HextechRevolver",
+    "itemID": 3145,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default"
+    ],
+    "price": 300,
+    "ShowCooldownVfxToAllies": false,
+    "mCanBeSold": true,
+    "epicness": 4,
+    "recipeItemLinks": [
+      "Items/1052",
+      "Items/1052"
+    ],
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "Cooldown",
+        "mValue": 40.0,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "mItemCalculations": {
+      "DamageAmount": {
+        "mFormulaParts": [
+          {
+            "mNumber": 65.0,
+            "__type": "NumberCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      }
+    },
+    "mFlatMagicDamageMod": 45.0,
+    "mCategories": [
+      "SpellDamage"
+    ],
+    "mItemDataAvailability": {
+      "mInStore": true,
+      "__type": "ItemDataAvailability"
+    },
+    "mItemAttributes": [
+      16
+    ],
+    "mItemDataClient": {
+      "mTooltipData": {
+        "mObjectName": "3145",
+        "mFormat": "{32559c50}",
+        "EnableExtendedTooltip": false,
+        "mLocKeys": {
+          "keyName": "Item_3145_Name",
+          "keyTooltip": "Item_3145_Tooltip",
+          "keyColloquialism": "Item_3145_Colloquialism",
+          "keyTooltipExternal": "Item_3145_TooltipExternal"
+        },
+        "mLists": {
+          "Stats": {
+            "Elements": [
+              {
+                "type": "AbilityPower",
+                "__type": "TooltipInstanceListElement"
+              }
+            ],
+            "__type": "TooltipInstanceList"
+          }
+        },
+        "__type": "TooltipInstanceItem"
+      },
+      "mDescription": "GeneratedTip_Item_3145_Description",
+      "mDynamicTooltip": "GeneratedTip_Item_3145_TooltipInventory",
+      "mShopTooltip": "GeneratedTip_Item_3145_TooltipShop",
+      "inventoryIcon": "assets/items/icons2d/3145_mage_t2_hextechalternator.dds",
+      "InventoryIconSmall": "ASSETS/Items/Icons2D/AutoAtlas/SmallIcons/3145_Mage_T2_HextechAlternator.png",
+      "InventoryIconLarge": "ASSETS/Items/Icons2D/AutoAtlas/LargeIcons/3145_Mage_T2_HextechAlternator.png",
+      "epicness": 4,
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  }
+}

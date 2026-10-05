@@ -9,8 +9,8 @@
   (task) (++ passed) (print "ok " description))
 (defn rejects [task] (assert (not (first (protect (task)))) "Expected rejection"))
 
-(test "default frontend scenario agrees with the measured model's existing rotation regression"
-      (fn [] (def result (model/compare (model/parse-state {})))
+(test "legacy frontend wrapper preserves the curated rotation regression"
+      (fn [] (def result (model/compare (model/parse-state {"mode" "legacy"})))
         (assert (< (math/abs (- (((result :selected) :combat) :damage) 1359.956399437412)) 0.000001))
         (assert (= 7600 ((result :selected) :cost)))
         (assert (= 4 (length (result :rows))))))
@@ -79,7 +79,7 @@
       (fn [] (def result (model/compare (model/parse-state {"champion" "Jhin" "slot1" "6672" "slot2" "222051"})))
         (def text (ui/render (ui/results result)))
         (each marker ["Basic" "Unvalidated estimate" "Kraken Slayer" "Passive and active effects excluded"
-                      "not a regular purchasable Summoner"]
+                      "not available on map"]
           (assert (string/find (if (= marker "Basic") "basic attacks" marker) text)))))
 
 (test "graph distinguishes missing spell models from real zero spell damage"
@@ -88,10 +88,20 @@
         (def events (((annie :selected) :combat) :events))
         (assert (some |(= "AnnieQ" ($ :source)) events))
         (assert (some |(= "AnnieW" ($ :source)) events))
-        (assert (string/find "Q&#x2F;W + attacks over time" (ui/render (ui/results annie))))
+        (assert (string/find "Modeled abilities + attacks over time" (ui/render (ui/results annie))))
         (def ahri (ui/render (ui/results (model/compare (model/parse-state {"champion" "Ahri"})))))
         (each marker ["Basic attacks over time" "Spells: not modeled" "Spell damage unavailable for Ahri"]
           (assert (string/find marker ahri)))
         (assert (not (string/find "Abilities 0" ahri)))))
+
+(test "frontend duels use two acting participants and report sampled health outcomes"
+      (fn [] (def result (model/compare (model/parse-state {"mode" "duel" "champion" "Annie" "opponent" "Garen"
+                                                            "level" 6 "opponentlevel" 6 "duration" 8 "samples" 3 "selected" "custom"})))
+        (def combat (get-in result [:selected :combat]))
+        (assert (= 3 (combat :samples)))
+        (assert (> (get-in combat [:metrics :damage-taken]) 0))
+        (assert (> (length (combat :trace)) 0))
+        (assert (combat :scenario-id))
+        (assert (not (empty? (combat :uncertainty))))))
 
 (print passed " frontend tests passed")

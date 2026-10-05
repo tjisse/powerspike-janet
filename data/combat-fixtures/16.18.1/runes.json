@@ -1,0 +1,120 @@
+{
+  "Perks/Styles/Domination/Electrocute": {
+    "mPerkId": 8112,
+    "mPerkName": "Electrocute",
+    "mDisplayNameLocalizationKey": "perk_displayname_Electrocute",
+    "mTooltipNameLocalizationKey": "perk_tooltip_Electrocute",
+    "mShortDescLocalizationKey": "perk_short_desc_8112",
+    "mLongDescLocalizationKey": "perk_long_desc_8112",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_Electrocute1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/domination/electrocute/electrocute.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/Electrocute.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "Cooldown": 20.0,
+          "DamageBase": 70.0,
+          "DamageMax": 240.0,
+          "BonusADRatio": 0.10000000149011612,
+          "WindowDuration": 3.0,
+          "APRatio": 0.05000000074505806,
+          "CooldownMin": 20.0
+        },
+        "mEffectAmountGameMode": {
+          "NEXUSBLITZ": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 20.0,
+              "CooldownMin": 15.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "URF": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 10.0,
+              "CooldownMin": 10.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "ARAM": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 15.0,
+              "CooldownMin": 10.0,
+              "DamageBase": 65.0,
+              "DamageMax": 250.0,
+              "BonusADRatio": 0.15000000596046448,
+              "APRatio": 0.10000000149011612
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "KINGPORO": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 15.0,
+              "CooldownMin": 10.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          }
+        },
+        "mCalculations": {
+          "TotalDamage": {
+            "mSimpleTooltipCalculationDisplay": 4,
+            "mFormulaParts": [
+              {
+                "mStartValue": 70.0,
+                "mEndValue": 240.0,
+                "__type": "ByCharLevelInterpolationCalculationPart"
+              },
+              {
+                "mDataValue": "APRatio",
+                "__type": "StatByNamedDataValueCalculationPart"
+              },
+              {
+                "mStat": 2,
+                "mStatFormula": 2,
+                "mDataValue": "BonusADRatio",
+                "__type": "StatByNamedDataValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          }
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "mBuffs": [
+      {
+        "mBuffScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/PerkElectrocuteLockout.lua",
+        "mBuffSpellObject": {
+          "mBuff": {
+            "mDescription": "buff_desc_8112Cooldown",
+            "__type": "BuffData"
+          },
+          "__type": "SpellObject"
+        },
+        "__type": "PerkBuff"
+      },
+      {
+        "mBuffScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/Electrocute.lua",
+        "mBuffSpellObject": {
+          "mBuff": {
+            "mDescription": "buff_desc_8112Ready",
+            "__type": "BuffData"
+          },
+          "__type": "SpellObject"
+        },
+        "__type": "PerkBuff"
+      }
+    ],
+    "mVFXResourceResolver": {
+      "resourceMap": {
+        "Perks_Electrocute_AOE": "Perks/Styles/Domination/Electrocute/Particles/Perks_Electrocute_AOE"
+      },
+      "__type": "ResourceResolver"
+    },
+    "mDefault": true,
+    "__type": "Perk"
+  }
+}

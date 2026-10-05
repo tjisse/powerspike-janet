@@ -1,0 +1,1840 @@
+{
+  "Shared/Spells/SummonerSmite": {
+    "ObjectName": "SummonerSmite",
+    "objectPath": "Shared/Spells/SummonerSmite",
+    "mScriptName": "SummonerSmite",
+    "mSpell": {
+      "flags": 20,
+      "mAffectsTypeFlags": 6152,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "Monster_Large",
+          "{592aa99b}",
+          "minion",
+          "{1d6fa889}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 3,
+        "mSpellID": 11,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "DOOMBOTSTEEMO",
+          "PRACTICETOOL",
+          "CLASSIC",
+          "SWIFTPLAY",
+          "URF",
+          "NEXUSBLITZ",
+          "ONEFORALL",
+          "TUTORIAL",
+          "ARSR"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mSpellTags": [
+        "Trait_SummonerSmite",
+        "Trait_SummonerSpell"
+      ],
+      "mEffectAmount": [
+        {
+          "value": [
+            15.0,
+            15.0,
+            15.0,
+            15.0,
+            15.0,
+            15.0,
+            15.0
+          ],
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        },
+        {
+          "__type": "SpellEffectAmount"
+        }
+      ],
+      "DataValues": [
+        {
+          "name": "SmiteBaseDamage",
+          "values": [
+            600.0,
+            600.0,
+            600.0,
+            600.0,
+            600.0,
+            600.0,
+            600.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SmiteUpgradedDamage",
+          "values": [
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "Smite2ndUpgradedDamage",
+          "values": [
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0,
+            1400.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "AoESmiteRatio",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SmiteSlowAmount",
+          "values": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SmiteSlowDuration",
+          "values": [
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "FirstPVPDamage",
+          "values": [
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SecondPVPDamage",
+          "values": [
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SmiteComebackXP",
+          "values": [
+            50.0,
+            50.0,
+            50.0,
+            50.0,
+            50.0,
+            50.0,
+            50.0
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "{f9c2333e}": {
+        "URF": {
+          "value": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          "__type": "SpellEffectAmount"
+        }
+      },
+      "{b08bc498}": {
+        "URF": {
+          "value": [
+            120.0,
+            120.0,
+            120.0,
+            120.0,
+            120.0,
+            120.0,
+            120.0
+          ],
+          "__type": "SpellEffectAmount"
+        }
+      },
+      "mSpellCalculations": {
+        "PetDPS": {
+          "mExpandedTooltipCalculationDisplay": 6,
+          "mFormulaParts": [
+            {
+              "mStartValue": 20.0,
+              "mEndValue": 150.0,
+              "__type": "ByCharLevelInterpolationCalculationPart"
+            },
+            {
+              "mStat": 2,
+              "mStatFormula": 2,
+              "mCoefficient": 0.10000000149011612,
+              "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+              "mCoefficient": 0.1599999964237213,
+              "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+              "mStat": 12,
+              "mStatFormula": 2,
+              "mCoefficient": 0.03999999910593033,
+              "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+              "mStat": 1,
+              "mStatFormula": 2,
+              "mCoefficient": 0.25,
+              "__type": "StatByCoefficientCalculationPart"
+            },
+            {
+              "mStat": 6,
+              "mStatFormula": 2,
+              "mCoefficient": 0.25,
+              "__type": "StatByCoefficientCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "PetHPS": {
+          "mFormulaParts": [
+            {
+              "mLevel1Value": 6.0,
+              "mBreakpoints": [
+                {
+                  "mLevel": 4,
+                  "mBonusPerLevelAtAndAfter": 2.0,
+                  "__type": "Breakpoint"
+                }
+              ],
+              "__type": "ByCharLevelBreakpointsCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        }
+      },
+      "mAnimationName": "Idle1",
+      "mImgIconName": [
+        "Summoner_smite.dds"
+      ],
+      "cooldownTime": [
+        15.0,
+        15.0,
+        15.0,
+        15.0,
+        15.0,
+        15.0,
+        15.0
+      ],
+      "Cooldown": {
+        "values": [
+          15.0,
+          15.0,
+          15.0,
+          15.0,
+          15.0,
+          15.0,
+          15.0
+        ],
+        "{0a3e0478}": 15.0,
+        "__type": "{0a0eddc9}"
+      },
+      "mMaxAmmo": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mAmmoRechargeTime": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "mCooldownNotAffectedByCDR": true,
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRangeUseBoundingBoxes": true,
+      "castRange": [
+        500.0,
+        500.0,
+        500.0,
+        500.0,
+        500.0,
+        500.0,
+        500.0
+      ],
+      "castRangeValues": {
+        "values": [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        "{0a3e0478}": 500.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 20.0,
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "selectionPriority": 1,
+      "TargetingForgivenessDefinitions": [
+        {
+          "ForgivenessRange": 125.0,
+          "TargetForgivenessDefinitions": [
+            {
+              "mUnitTags": {
+                "mObjectTagList": [
+                  "{592aa99b}"
+                ],
+                "__type": "ObjectTags"
+              },
+              "__type": "HasUnitTagsCastRequirement"
+            }
+          ],
+          "__type": "TargetingForgivenessDefinitions"
+        }
+      ],
+      "mCastingBreaksStealth": true,
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerSmite",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerSmite_Name",
+            "keyTooltip": "Spell_SummonerSmite_Tooltip",
+            "keySummary": "Spell_SummonerSmite_Summary",
+            "keyCooldown": "Spell_Smite_Cooldown_And_Recharge"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "mTargeterDefinitions": [
+          {
+            "useCasterBoundingBox": true,
+            "__type": "TargeterDefinitionRange"
+          }
+        ],
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "mBuff": {
+      "__type": "BuffData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerBoost": {
+    "ObjectName": "SummonerBoost",
+    "objectPath": "Shared/Spells/SummonerBoost",
+    "mScriptName": "SummonerBoost",
+    "mSpell": {
+      "flags": 20,
+      "mAffectsTypeFlags": 9221,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "{ea595ca6}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 9,
+        "mSpellID": 1,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "ARAM",
+          "TUTORIAL",
+          "KIWI",
+          "ULTBOOK",
+          "FIRSTBLOOD",
+          "SWIFTPLAY",
+          "CLASSIC",
+          "PRACTICETOOL",
+          "RUBY",
+          "RUBY_TRIAL_1",
+          "BRAWL",
+          "URF",
+          "KIWI_JADE",
+          "RUBY_TRIAL_3",
+          "ONEFORALL",
+          "ARSR",
+          "NEXUSBLITZ",
+          "DOOMBOTSTEEMO",
+          "RUBY_TRIAL_2"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mSpellTags": [
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "TenacityValue",
+          "values": [
+            0.75,
+            0.75,
+            0.75,
+            0.75,
+            0.75,
+            0.75,
+            0.75
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "TenacityDuration",
+          "values": [
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "mImgIconName": [
+        "Summoner_boost.dds"
+      ],
+      "cooldownTime": [
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0
+      ],
+      "Cooldown": {
+        "values": [
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0
+        ],
+        "{0a3e0478}": 240.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRange": [
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0
+      ],
+      "castRangeValues": {
+        "values": [
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0
+        ],
+        "{0a3e0478}": 200.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 0.0,
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mTargetingTypeData": {
+        "__type": "Self"
+      },
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerBoost",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerBoost_Name",
+            "keySummary": "Spell_SummonerBoost_Summary",
+            "keyTooltip": "Spell_SummonerBoost_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "BotData": {
+      "{ec17e271}": [
+        {
+          "EffectTag": 2097152,
+          "EffectCalculation": {
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "{38382c53}": [
+        {
+          "{e38f54f7}": 4,
+          "{0717e686}": false,
+          "__type": "{150d1b92}"
+        },
+        {
+          "{e38f54f7}": 2048,
+          "{0717e686}": false,
+          "__type": "{150d1b92}"
+        },
+        {
+          "{e38f54f7}": 1,
+          "{0717e686}": false,
+          "__type": "{150d1b92}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerExhaust": {
+    "ObjectName": "SummonerExhaust",
+    "objectPath": "Shared/Spells/SummonerExhaust",
+    "mScriptName": "SummonerExhaust",
+    "mSpell": {
+      "flags": 4,
+      "mAffectsTypeFlags": 2,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "{ea595ca6}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 4,
+        "mSpellID": 3,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "URF",
+          "PRACTICETOOL",
+          "CLASSIC",
+          "ULTBOOK",
+          "DOOMBOTSTEEMO",
+          "ARAM",
+          "RUBY_TRIAL_3",
+          "NEXUSBLITZ",
+          "SWIFTPLAY",
+          "ONEFORALL",
+          "TUTORIAL",
+          "RUBY",
+          "WIPMODEWIP",
+          "RUBY_TRIAL_2",
+          "WIPMODEWIP3",
+          "RUBY_TRIAL_1",
+          "ARSR"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mSpellTags": [
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "DebuffDuration",
+          "values": [
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0,
+            3.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "DamageReduction",
+          "values": [
+            35.0,
+            35.0,
+            35.0,
+            35.0,
+            35.0,
+            35.0,
+            35.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "Slow",
+          "values": [
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0,
+            40.0
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "{f9c2333e}": {
+        "ARAM": {
+          "value": [
+            290.0,
+            290.0,
+            290.0,
+            290.0,
+            290.0,
+            290.0,
+            290.0
+          ],
+          "__type": "SpellEffectAmount"
+        }
+      },
+      "mSpellCalculations": {
+        "DamageReductionTOOLTIP": {
+          "mFormulaParts": [
+            {
+              "mEffectIndex": 2,
+              "__type": "EffectValueCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        }
+      },
+      "mAnimationName": "Idle1",
+      "mImgIconName": [
+        "Summoner_exhaust.dds"
+      ],
+      "cooldownTime": [
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0
+      ],
+      "Cooldown": {
+        "values": [
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0
+        ],
+        "{0a3e0478}": 240.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRange": [
+        650.0,
+        650.0,
+        650.0,
+        650.0,
+        650.0,
+        650.0,
+        650.0
+      ],
+      "castRangeValues": {
+        "values": [
+          650.0,
+          650.0,
+          650.0,
+          650.0,
+          650.0,
+          650.0,
+          650.0
+        ],
+        "{0a3e0478}": 650.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0,
+        210.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 20.0,
+      "mHitEffectName": "doesnotexist.troy",
+      "mHitBoneName": "head",
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "selectionPriority": 1,
+      "mCastingBreaksStealth": true,
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerExhaust",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerExhaust_Name",
+            "keySummary": "Spell_SummonerExhaust_Summary",
+            "keyTooltip": "Spell_SummonerExhaust_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "mTargeterDefinitions": [
+          {
+            "__type": "TargeterDefinitionRange"
+          }
+        ],
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "BotData": {
+      "{6d548702}": {
+        "__type": "GameCalculation"
+      },
+      "{ec17e271}": [
+        {
+          "EffectTag": 1,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mEffectIndex": 5,
+                "__type": "EffectValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerBarrier": {
+    "ObjectName": "SummonerBarrier",
+    "objectPath": "Shared/Spells/SummonerBarrier",
+    "mScriptName": "SummonerBarrier",
+    "mSpell": {
+      "flags": 4,
+      "mAffectsTypeFlags": 15567,
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 4,
+        "mSpellID": 21,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "ARAM",
+          "TUTORIAL",
+          "KIWI",
+          "ULTBOOK",
+          "FIRSTBLOOD",
+          "SWIFTPLAY",
+          "CLASSIC",
+          "PRACTICETOOL",
+          "RUBY",
+          "RUBY_TRIAL_1",
+          "BRAWL",
+          "URF",
+          "KIWI_JADE",
+          "RUBY_TRIAL_3",
+          "ONEFORALL",
+          "ASSASSINATE",
+          "ARSR",
+          "NEXUSBLITZ",
+          "DOOMBOTSTEEMO",
+          "RUBY_TRIAL_2"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mSpellTags": [
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "ShieldDuration",
+          "values": [
+            2.5,
+            2.5,
+            2.5,
+            2.5,
+            2.5,
+            2.5,
+            2.5
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "mSpellCalculations": {
+        "ShieldStrength": {
+          "mFormulaParts": [
+            {
+              "mStartValue": 100.0,
+              "mEndValue": 460.0,
+              "__type": "ByCharLevelInterpolationCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        }
+      },
+      "mImgIconName": [
+        "SummonerBarrier.dds"
+      ],
+      "cooldownTime": [
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0
+      ],
+      "Cooldown": {
+        "values": [
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0
+        ],
+        "{0a3e0478}": 180.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRange": [
+        1200.0,
+        1200.0,
+        1200.0,
+        1200.0,
+        1200.0,
+        1200.0,
+        1200.0
+      ],
+      "castRangeValues": {
+        "values": [
+          1200.0,
+          1200.0,
+          1200.0,
+          1200.0,
+          1200.0,
+          1200.0,
+          1200.0
+        ],
+        "{0a3e0478}": 1200.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 0.0,
+      "mHitEffectName": "doesnotexist.troy",
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mTargetingTypeData": {
+        "__type": "Self"
+      },
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerBarrier",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerBarrier_Name",
+            "keySummary": "Spell_SummonerBarrier_Summary",
+            "keyTooltip": "Spell_SummonerBarrier_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "mBuff": {
+      "mDescription": "buff_desc_SummonerBarrier",
+      "__type": "BuffData"
+    },
+    "BotData": {
+      "{ec17e271}": [
+        {
+          "EffectTag": 524288,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mSpellCalculationKey": "ShieldStrength",
+                "__type": "{f3cbe7b2}"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerDot": {
+    "ObjectName": "SummonerDot",
+    "objectPath": "Shared/Spells/SummonerDot",
+    "mScriptName": "SummonerDot",
+    "mSpell": {
+      "flags": 4,
+      "mAffectsTypeFlags": 4106,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "{ea595ca6}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 9,
+        "mSpellID": 14,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "ARAM",
+          "TUTORIAL",
+          "KIWI",
+          "ULTBOOK",
+          "FIRSTBLOOD",
+          "SWIFTPLAY",
+          "CLASSIC",
+          "PRACTICETOOL",
+          "RUBY",
+          "RUBY_TRIAL_1",
+          "BRAWL",
+          "URF",
+          "KIWI_JADE",
+          "RUBY_TRIAL_3",
+          "ONEFORALL",
+          "ASSASSINATE",
+          "ARSR",
+          "NEXUSBLITZ",
+          "DOOMBOTSTEEMO",
+          "RUBY_TRIAL_2"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mAlternateName": "SummonerDot",
+      "mSpellTags": [
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "GrievousAmount",
+          "values": [
+            0.4000000059604645,
+            0.4000000059604645,
+            0.4000000059604645,
+            0.4000000059604645,
+            0.4000000059604645,
+            0.4000000059604645,
+            0.4000000059604645
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "SightRadius",
+          "values": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "DotDuration",
+          "values": [
+            5.0,
+            5.0,
+            5.0,
+            5.0,
+            5.0,
+            5.0,
+            5.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "InverseDuration",
+          "values": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "mSpellCalculations": {
+        "TooltipTrueDamageCalculation": {
+          "mFormulaParts": [
+            {
+              "mLevel1Value": 70.0,
+              "mInitialBonusPerLevel": 20.0,
+              "mBreakpoints": [
+                {
+                  "mLevel": 6,
+                  "mBonusPerLevelAtAndAfter": 25.0,
+                  "__type": "Breakpoint"
+                }
+              ],
+              "__type": "ByCharLevelBreakpointsCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        },
+        "DamagePerSecond": {
+          "mMultiplier": {
+            "mDataValue": "InverseDuration",
+            "__type": "NamedDataValueCalculationPart"
+          },
+          "mModifiedGameCalculation": "TooltipTrueDamageCalculation",
+          "__type": "GameCalculationModified"
+        }
+      },
+      "mAnimationName": "Spell4",
+      "mAnimationLoopName": "Spell4_Loop",
+      "mAnimationWinddownName": "Spell4_Winddown",
+      "mImgIconName": [
+        "SummonerIgnite.dds"
+      ],
+      "spellCastTime": 0.25,
+      "spellTotalTime": 1.0,
+      "cooldownTime": [
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0,
+        180.0
+      ],
+      "Cooldown": {
+        "values": [
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0,
+          180.0
+        ],
+        "{0a3e0478}": 180.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRange": [
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0,
+        600.0
+      ],
+      "castRangeValues": {
+        "values": [
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0,
+          600.0
+        ],
+        "{0a3e0478}": 600.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        550.0,
+        550.0,
+        550.0,
+        550.0,
+        550.0,
+        550.0,
+        550.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 5.170000076293945,
+      "missileSpeed": 828.5,
+      "mMissileEffectName": "doesnotexist.troy",
+      "mHitEffectName": "DATA/Shared/Particles/missing_instant.troy",
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mCastingBreaksStealth": true,
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerDot",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerDot_Name",
+            "keySummary": "Spell_SummonerDot_Summary",
+            "keyTooltip": "Spell_SummonerDot_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "mTargeterDefinitions": [
+          {
+            "useCasterBoundingBox": false,
+            "__type": "TargeterDefinitionRange"
+          }
+        ],
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "mBuff": {
+      "mDescription": "buff_desc_SummonerDot",
+      "__type": "BuffData"
+    },
+    "BotData": {
+      "DamageTag": 2,
+      "{6d548702}": {
+        "mFormulaParts": [
+          {
+            "mNumber": 250.0,
+            "__type": "NumberCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      },
+      "{ec17e271}": [
+        {
+          "EffectTag": 33554432,
+          "EffectCalculation": {
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerHeal": {
+    "ObjectName": "SummonerHeal",
+    "objectPath": "Shared/Spells/SummonerHeal",
+    "mScriptName": "SummonerHeal",
+    "mSpell": {
+      "flags": 36,
+      "mAffectsTypeFlags": 1,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "{ea595ca6}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 1,
+        "mSpellID": 7,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "ARAM",
+          "TUTORIAL_MODULE_1",
+          "TUTORIAL",
+          "KIWI",
+          "ULTBOOK",
+          "SWIFTPLAY",
+          "CLASSIC",
+          "PRACTICETOOL",
+          "RUBY",
+          "RUBY_TRIAL_1",
+          "BRAWL",
+          "URF",
+          "KIWI_JADE",
+          "RUBY_TRIAL_3",
+          "TUTORIAL_MODULE_2",
+          "ONEFORALL",
+          "ASSASSINATE",
+          "ARSR",
+          "NEXUSBLITZ",
+          "DOOMBOTSTEEMO",
+          "RUBY_TRIAL_2"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mAlternateName": "SummonerHeal",
+      "mSpellTags": [
+        "PositiveEffect_Boon",
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "AllyRange",
+          "values": [
+            900.0,
+            900.0,
+            900.0,
+            900.0,
+            900.0,
+            900.0,
+            900.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "MoveSpeed",
+          "values": [
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896,
+            0.30000001192092896
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "MoveSpeedDuration",
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "StackingHealDebuff",
+          "values": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "DebuffDuration",
+          "values": [
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            30.0,
+            30.0
+          ],
+          "__type": "SpellDataValue"
+        },
+        {
+          "name": "CursorForgiveness",
+          "values": [
+            200.0,
+            200.0,
+            200.0,
+            200.0,
+            200.0,
+            200.0,
+            200.0
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "mSpellCalculations": {
+        "TotalHeal": {
+          "mFormulaParts": [
+            {
+              "mStartValue": 80.0,
+              "mEndValue": 318.0,
+              "__type": "ByCharLevelInterpolationCalculationPart"
+            }
+          ],
+          "__type": "GameCalculation"
+        }
+      },
+      "mImgIconName": [
+        "Summoner_heal.dds"
+      ],
+      "cooldownTime": [
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0
+      ],
+      "Cooldown": {
+        "values": [
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0
+        ],
+        "{0a3e0478}": 240.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "bHaveHitEffect": true,
+      "mIgnoreRangeCheck": true,
+      "castRange": [
+        25000.0,
+        25000.0,
+        25000.0,
+        25000.0,
+        25000.0,
+        25000.0,
+        25000.0
+      ],
+      "castRangeValues": {
+        "values": [
+          25000.0,
+          25000.0,
+          25000.0,
+          25000.0,
+          25000.0,
+          25000.0,
+          25000.0
+        ],
+        "{0a3e0478}": 25000.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRangeDisplayOverride": [
+        875.0,
+        875.0,
+        875.0,
+        875.0,
+        875.0,
+        875.0,
+        875.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 10.0,
+      "missileSpeed": 0.0,
+      "mHitEffectName": "DATA/Particles/global_ss_heal_02.troy",
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mTargetingTypeData": {
+        "__type": "TargetOrLocation"
+      },
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerHeal",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerHeal_Name",
+            "keySummary": "Spell_SummonerHeal_Summary",
+            "keyTooltip": "Spell_SummonerHeal_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "mTargeterDefinitions": [
+          {
+            "__type": "TargeterDefinitionRange"
+          }
+        ],
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "mBuff": {
+      "mDescription": "buff_desc_SummonerHeal",
+      "__type": "BuffData"
+    },
+    "BotData": {
+      "{6d548702}": {
+        "__type": "GameCalculation"
+      },
+      "{ec17e271}": [
+        {
+          "EffectTag": 2,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mDataValue": "MoveSpeed",
+                "__type": "NamedDataValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        },
+        {
+          "EffectTag": 4,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mDataValue": "MoveSpeed",
+                "__type": "NamedDataValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        },
+        {
+          "EffectTag": 8,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mSpellCalculationKey": "TotalHeal",
+                "__type": "{f3cbe7b2}"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        },
+        {
+          "EffectTag": 64,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mSpellCalculationKey": "TotalHeal",
+                "__type": "{f3cbe7b2}"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  },
+  "Shared/Spells/SummonerHaste": {
+    "ObjectName": "SummonerHaste",
+    "objectPath": "Shared/Spells/SummonerHaste",
+    "mScriptName": "SummonerHaste",
+    "mSpell": {
+      "flags": 20,
+      "mAffectsTypeFlags": 9221,
+      "mRequiredUnitTags": {
+        "mObjectTagList": [
+          "{ea595ca6}"
+        ],
+        "__type": "ObjectTags"
+      },
+      "mPlatformSpellInfo": {
+        "mAvatarLevelRequired": 1,
+        "mSpellID": 6,
+        "mPlatformEnabled": true,
+        "mGameModes": [
+          "ARAM",
+          "TUTORIAL_MODULE_1",
+          "TUTORIAL",
+          "KIWI",
+          "ULTBOOK",
+          "FIRSTBLOOD",
+          "SWIFTPLAY",
+          "CLASSIC",
+          "PRACTICETOOL",
+          "RUBY",
+          "RUBY_TRIAL_1",
+          "BRAWL",
+          "URF",
+          "KIWI_JADE",
+          "RUBY_TRIAL_3",
+          "TUTORIAL_MODULE_2",
+          "ONEFORALL",
+          "ASSASSINATE",
+          "ARSR",
+          "NEXUSBLITZ",
+          "DOOMBOTSTEEMO",
+          "RUBY_TRIAL_2"
+        ],
+        "__type": "PlatformSpellInfo"
+      },
+      "mSpellTags": [
+        "Trait_SummonerGhost",
+        "Trait_SummonerSpell"
+      ],
+      "DataValues": [
+        {
+          "name": "Duration",
+          "values": [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          "__type": "SpellDataValue"
+        }
+      ],
+      "mSpellCalculations": {
+        "MoveSpeedMod": {
+          "mFormulaParts": [
+            {
+              "mStartValue": 0.23999999463558197,
+              "mEndValue": 0.47999998927116394,
+              "__type": "ByCharLevelInterpolationCalculationPart"
+            }
+          ],
+          "mDisplayAsPercent": true,
+          "__type": "GameCalculation"
+        },
+        "{7bcbbf47}": {
+          "mFormulaParts": [
+            {
+              "mStartValue": 4.0,
+              "mEndValue": 7.0,
+              "__type": "ByCharLevelInterpolationCalculationPart"
+            }
+          ],
+          "mPrecision": 1,
+          "__type": "GameCalculation"
+        }
+      },
+      "mAnimationName": "Spell3",
+      "mImgIconName": [
+        "Summoner_haste.dds"
+      ],
+      "cooldownTime": [
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0,
+        240.0
+      ],
+      "Cooldown": {
+        "values": [
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0,
+          240.0
+        ],
+        "{0a3e0478}": 240.0,
+        "__type": "{0a0eddc9}"
+      },
+      "canCastWhileDisabled": true,
+      "mDoesntBreakChannels": true,
+      "mBelongsToAvatar": true,
+      "castRange": [
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0,
+        200.0
+      ],
+      "castRangeValues": {
+        "values": [
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0,
+          200.0
+        ],
+        "{0a3e0478}": 200.0,
+        "__type": "{0a0eddc9}"
+      },
+      "castRadius": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "castConeDistance": 100.0,
+      "castFrame": 25.0,
+      "missileSpeed": 0.0,
+      "mFloatVarsDecimals": [
+        0,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mTargetingTypeData": {
+        "__type": "Self"
+      },
+      "mClientData": {
+        "mTooltipData": {
+          "mObjectName": "SummonerHaste",
+          "mFormat": "{b5df7ddb}",
+          "EnableExtendedTooltip": false,
+          "mLocKeys": {
+            "keyName": "Spell_SummonerHaste_Name",
+            "keySummary": "Spell_SummonerHaste_Summary",
+            "keyTooltip": "Spell_SummonerHaste_Tooltip"
+          },
+          "__type": "TooltipInstanceSpell"
+        },
+        "__type": "SpellDataResourceClient"
+      },
+      "__type": "SpellDataResource"
+    },
+    "BotData": {
+      "{ec17e271}": [
+        {
+          "EffectTag": 2,
+          "EffectCalculation": {
+            "mFormulaParts": [
+              {
+                "mDataValue": "Duration",
+                "__type": "NamedDataValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          },
+          "__type": "{b09016f6}"
+        }
+      ],
+      "__type": "BotsSpellData"
+    },
+    "__type": "SpellObject"
+  }
+}

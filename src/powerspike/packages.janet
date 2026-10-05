@@ -39,6 +39,7 @@
         (def package (merge data {:snapshot id :directory dir :manifest manifest
                                   :champion-map (tabseq [champion :in (data :champions)] (champion :id) champion)
                                   :item-map (tabseq [item :in (data :items)] (item :id) item)}))
+        (when (>= (length loaded) 4) (put loaded (first (keys loaded)) nil))
         (put loaded key package)
         package)))
 
@@ -110,6 +111,7 @@
   (def fonts (if strings (get strings "entries" strings) {}))
   (def item-records (or (obtain (string cd "game/items.cdtb.bin.json?powerspike=1") "sources/item-effects.json" true) {}))
   (def perk-records (or (obtain (string cd "game/perks.cdtb.bin.json?powerspike=1") "sources/rune-effects.json" true) {}))
+  (def shared-records (or (obtain (string cd "game/shared.cdtb.bin.json?powerspike=1") "sources/shared-effects.json" true) {}))
   (def champions @[])
   (def ids (sorted (keys (champion-data "data"))))
   (eachp [index id] ids
@@ -126,8 +128,10 @@
                 :items (seq [id :in (sorted (keys (item-data "data")))]
                          (normalize/item-effects (normalize/item version id ((item-data "data") id)) item-records fonts))
                 :runes (normalize/rune-effects (if (indexed? runes) runes []) perk-records fonts version)
-                :summoners (if summoners (map (fn [spell] (merge spell {:parsed (tooltip/parse (get spell "tooltip" "") {} spell)
-                                                                        :available true :checked false})) (values (summoners "data"))) [])
+                :summoners (if summoners (map (fn [spell]
+                                                (def record (get-in shared-records [(string "Shared/Spells/" (spell "id")) "mSpell"] {}))
+                                                (merge spell {:parsed (tooltip/parse (get spell "tooltip" "") record spell)
+                                                              :record record :available true :checked false})) (values (summoners "data"))) [])
                 :objectives [] :coverage missing :sources sources})
   (def bytes (util/encode-data package))
   (def id (hash/sha256 bytes))

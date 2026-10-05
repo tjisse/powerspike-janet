@@ -60,4 +60,37 @@
 (assert (= (get ((seeded :actors) 0) :health) nil))
 (assert (not (first (protect (engine/simulate (merge seeded {:event-limit 5}))))))
 (assert (not (first (protect (engine/simulate seeded (fn [] true))))))
+(def charged (battle [] {:abilities [(merge spell {:cost 0 :cooldown 1 :max-charges 2 :charge-delay 0.1})]
+                         :strategy {:abilities true :attacks false}}))
+(assert (= 4 (count |(= :cast ($ :kind)) (charged :trace))))
+(assert (= 2 (count |(= :charge ($ :kind)) (charged :trace))))
+(def recast (battle [] {:abilities [(merge spell {:cost 10 :cooldown 99 :recast {:window 1 :count 2 :delay 0.1}})]
+                        :strategy {:abilities true :attacks false}}))
+(assert (= 3 (count |(= :cast ($ :kind)) (recast :trace))))
+(close 10 (recast :resource-left))
+(def buffed (battle [(effect 0 0 0 {:kind :stat-buff :stat :ad :amount 100 :duration 1})]
+                    {:strategy {:attacks true :abilities false}}))
+(close 400 (buffed :damage))
+(close 100 (get-in buffed [:actors 0 :stats :ad]))
+(def slow (battle [(effect 0 1 0 {:kind :control :control :slow :strength 0.5 :duration 1})]
+                  {:stats {:hp 1000 :ad 100 :move-speed 400 :attack-speed 1 :armor 0 :mr 0}
+                   :strategy {:attacks true :abilities false :movement :approach}}
+                  {:position 1000} 1))
+(close 200 (get-in slow [:actors 0 :position]))
+(def immune (battle [(effect 0 0 1 {:kind :control :control :stun :duration 3})]
+                    nil {:immunities [:stun] :strategy {:attacks true :abilities false}}))
+(close 300 (get-in immune [:actors 1 :damage-dealt]))
+(def once (battle [(effect 0 0 0 {:kind :buff :buff "mark" :duration 10})]
+                  {:strategy {:attacks true :abilities false}
+                   :triggers [{:id "consume" :on [:damage] :requires-buff "mark" :consume-buff "mark"
+                               :kind :damage :damage-type :true :amount 20}]}))
+(close 320 (once :damage))
+(def bounded (battle [] {:triggers [{:id "bounded" :on [:damage] :kind :damage :damage-type :true :amount 1000
+                                     :monster-cap {:op :constant :value 20}}]
+                         :strategy {:attacks true :abilities false}} {:kind :objective} 1))
+(close 120 (bounded :damage))
+(def sampled (engine/trials seeded 16))
+(assert (= (sampled :metrics) ((engine/trials seeded 16) :metrics)))
+(assert (> (get-in sampled [:uncertainty :damage]) 0))
+(close (sampled :damage) (get-in sampled [:metrics :damage]))
 (print "Chronological health, simultaneous deaths, conditional health damage, shields/expiry, healing, travel, resources, periodic hits, proc bounds, interruption, movement and seeded trials passed.")

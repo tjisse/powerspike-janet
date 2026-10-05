@@ -3,7 +3,9 @@
 (import ../data/16.19.1/snapshot :as snapshot)
 (def data (util/read-data "data/16.19.1/catalog/catalog.jdn"))
 (def champions (map (fn [record] (merge record (get snapshot/champions (record :id) {})
-                                        {:status "unvalidated" :abilities []})) (data :champions)))
+                                        {:status "unvalidated" :abilities []
+                                         :coverage {:available 0 :implemented 0 :checked 0
+                                                    :unresolved ["Initial catalog excerpt; refresh to fetch complete ability data."]}})) (data :champions)))
 (def items (map (fn [record] (merge record (get snapshot/items (record :id) {}) {:status "unvalidated"})) (data :items)))
 (def package {:schema 1 :parser "1" :patch snapshot/patch :communitydragon "16.19"
               :champions champions :items items :runes [] :summoners [] :objectives []

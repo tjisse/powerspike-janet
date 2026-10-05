@@ -75,6 +75,7 @@
                  (* (champion :attack-speed-ratio) bonus-as)))
   (put result :attack-speed (max 0 (min raw-as (champion :attack-speed-cap))))
   (put result :attack-speed-uncapped raw-as)
+  (put result :attack-speed-bonus bonus-as)
   (def raw-ms (* (result :move-speed) (+ 1 move-bonus)))
   (put result :move-speed
        (cond (> raw-ms 490) (+ 475 (* 0.5 (- raw-ms 490)))

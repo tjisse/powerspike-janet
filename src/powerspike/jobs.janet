@@ -3,7 +3,8 @@
 (import pshash :as hash)
 (def records @{})
 (def queue @[])
-(var active nil)
+(def active @{})
+(defn lane [job] (if (= :patch (job :kind)) :network :compute))
 (defn get-job [id] (get records id))
 (defn terminal? [job] (some |(= $ (job :status)) [:done :failed :cancelled]))
 (defn cancel [id]
@@ -14,37 +15,37 @@
     (put job :status (if (= :queued (job :status)) :cancelled :cancelling)))
   job)
 (defn pump []
-  (unless active
-    (while (not (empty? queue))
-      (def selected (first queue))
-      (array/remove queue 0 1)
-      (unless (terminal? selected)
-        (set active (selected :id))
-        (put selected :status :running)
-        (def channel (ev/thread-chan 8))
-        (ev/thread
-          (fn [[channel task input cancel-file]]
-            (def result (protect
-                          (task input (fn [value] (ev/give channel [:progress value]))
-                                (fn [] (os/stat cancel-file)))))
-            (ev/give channel [:finished result]))
-          [channel (selected :task) (selected :input) (selected :cancel-file)] :n)
-        (ev/go (fn []
-                 (forever
-                   (def message (ev/take channel))
-                   (case (first message)
-                     :progress (put selected :progress (message 1))
-                     :finished
-                     (do
-                       (def result (message 1))
-                       (cond
-                         (os/stat (selected :cancel-file)) (put selected :status :cancelled)
-                         (first result) (do (put selected :status :done) (put selected :result (result 1)))
-                         (do (put selected :status :failed) (put selected :error (string (result 1)))))
-                       (util/remove-tree (selected :cancel-file))
-                       (put selected :task nil) (put selected :input nil)
-                       (set active nil) (pump) (break))))))
-        (break)))))
+  (while (not (empty? queue))
+    (def index (find |(or (terminal? (queue $)) (not (active (lane (queue $))))) (range 0 (length queue))))
+    (unless index (break))
+    (def selected (queue index))
+    (array/remove queue index 1)
+    (unless (terminal? selected)
+      (put active (lane selected) (selected :id))
+      (put selected :status :running)
+      (def channel (ev/thread-chan 8))
+      (ev/thread
+        (fn [[channel task input cancel-file]]
+          (def result (protect
+                        (task input (fn [value] (ev/give channel [:progress value]))
+                              (fn [] (os/stat cancel-file)))))
+          (ev/give channel [:finished result]))
+        [channel (selected :task) (selected :input) (selected :cancel-file)] :n)
+      (ev/go (fn []
+               (forever
+                 (def message (ev/take channel))
+                 (case (first message)
+                   :progress (put selected :progress (message 1))
+                   :finished
+                   (do
+                     (def result (message 1))
+                     (cond
+                       (os/stat (selected :cancel-file)) (put selected :status :cancelled)
+                       (first result) (do (put selected :status :done) (put selected :result (result 1)))
+                       (do (put selected :status :failed) (put selected :error (string (result 1)))))
+                     (util/remove-tree (selected :cancel-file))
+                     (put selected :task nil) (put selected :input nil)
+                     (put active (lane selected) nil) (pump) (break)))))))))
 (defn submit [kind key task input]
   (def shared (find |(and (= kind ($ :kind)) (= key ($ :key)) (not (terminal? $))) (values records)))
   (or shared

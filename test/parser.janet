@@ -1,0 +1,72 @@
+(import ../src/powerspike/expressions :as expr)
+(import ../src/powerspike/tooltip :as tooltip)
+(import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/data-util :as util)
+(import pshash :as hash)
+
+(def root "data/parser-fixtures/16.18.1/")
+(def manifest (util/read-json (slurp (string root "manifest.json"))))
+(eachp [path expected] (manifest "fixture_sha256")
+  (assert (= expected (hash/sha256 (slurp (string root path)))) (string "Fixture corruption: " path)))
+(def fonts (util/read-json (slurp (string root "strings.json"))))
+(defn kit [id]
+  (normalize/kit id (util/read-json (slurp (string root id "-characters.json")))
+                 (util/read-json (slurp (string root id "-abilities.json"))) fonts "16.18.1"))
+(def context {:rank 1 :level 1 :stats {:ap 100 :ad 150 :hp 1000} :base {:ap 0 :ad 80 :hp 600} :buffs {}})
+(defn close [a b] (assert (< (math/abs (- a b)) 0.0001)))
+(defn rejects [task] (assert (not (first (protect (task))))))
+(def ahri (kit "Ahri"))
+(def annie (kit "Annie"))
+(def q ((annie :abilities) 0))
+(assert (= "Characters/Annie/Spells/AnnieQAbility/AnnieQ" (q :path)))
+(close 160 (expr/evaluate (((q :effects) 0) :amount) context))
+(close 340 (expr/evaluate (((q :effects) 0) :amount) (merge context {:rank 5})))
+(close 4 (expr/evaluate (q :cooldown) context))
+(close 60 (expr/evaluate (q :cost) context))
+(rejects (fn [] (expr/evaluate (((q :effects) 0) :amount) (merge context {:rank 0}))))
+(assert (= [:magic :true] (tuple ;(map |($ :damage-type) (((ahri :abilities) 0) :effects)))))
+(each effect (((ahri :abilities) 0) :effects) (close 85 (expr/evaluate (effect :amount) context)))
+(def aatrox (kit "Aatrox"))
+(def primary (first (((aatrox :abilities) 0) :effects)))
+(assert (= :physical (primary :damage-type)))
+(close 100 (expr/evaluate (primary :amount) context))
+(assert (not (empty? (((aatrox :abilities) 0) :unresolved))))
+(assert (= :attack (get-in (kit "Garen") [:abilities 0 :effects 0 :trigger])))
+(def items (util/read-json (slurp (string root "items.json"))))
+(def sheen {"mSpellCalculations" ((items "Items/3057") "mItemCalculations")})
+(close 80 (expr/evaluate (expr/variable "SpellbladeDamage" sheen) context))
+(def kha (((kit "Khazix") :abilities) 0))
+(close 153.5 (expr/evaluate (expr/variable "BaseDamage" (kha :record)) context))
+(assert (= "{70ad6d3fc2}" (hash/tooltip-key "spell_vexq_tooltip")))
+(assert (= "{1ddee768}" (expr/fnv "TotalDamage")))
+(close 160 (expr/evaluate (expr/variable "totaldamage" (q :record)) context))
+(close 25 (expr/evaluate (expr/variable "Slow*-100" {"DataValues" [{"name" "Slow" "values" [-0.25 -0.25]}]}) context))
+(def duplicate (tooltip/parse "<magicDamage>@d@ magic damage</magicDamage> (maximum <magicDamage>@d@ magic damage</magicDamage>)"
+                              {"DataValues" [{"name" "d" "values" [0 10]}]}))
+(assert (= 1 (length (duplicate :effects))))
+(def conditional-spell {"mSpellCalculations" {"base" {"__type" "NumberCalculationPart" "mNumber" 10}
+                                              "enhanced" {"__type" "NumberCalculationPart" "mNumber" 30}}})
+(def conditional (expr/compile-part {"__type" "GameCalculationConditional" "mDefaultGameCalculation" "base"
+                                     "mConditionalGameCalculation" "enhanced"
+                                     "mConditionalCalculationRequirements" {"__type" "HasBuffCastRequirement" "mBuffName" "mark"}}
+                                    conditional-spell))
+(close 10 (expr/evaluate conditional context))
+(close 30 (expr/evaluate conditional (merge context {:buffs {"mark" 1}})))
+(rejects (fn [] (expr/evaluate conditional (merge context {:buffs false}))))
+(def product (expr/compile-part {"__type" "ProductOfSubPartsCalculationPart"
+                                 "mPart1" {"__type" "NumberCalculationPart" "mNumber" 3}
+                                 "mPart2" {"__type" "NumberCalculationPart" "mNumber" 4}} {}))
+(close 12 (expr/evaluate product context))
+(rejects (fn [] (expr/evaluate (expr/variable "e1" {} {"effect" [nil [0 0 0 0 0]]}) context)))
+(rejects (fn [] (expr/evaluate (expr/compile-part {"__type" "SumOfSubPartsCalculationPart" "mSubparts" []} {}) context)))
+(each malformed [nil {} {"__type" "MysteryCalculation"} {"__type" "GameCalculation" "mFormulaParts" []}
+                 {"__type" "StatByCoefficientCalculationPart" "mStat" 255 "mCoefficient" 1}]
+  (rejects (fn [] (expr/evaluate (expr/compile-part malformed {}) context))))
+(rejects (fn [] (expr/evaluate (expr/compile-part {"__type" "StatByCoefficientCalculationPart" "mCoefficient" 1}
+                                                  {"__powerspike_patch" "12.2.1"}) context)))
+(def legacy {"spells" ["current"] "spellNames" ["obsolete"]})
+(assert (= ["current"] (normalize/spell-paths "Test" legacy)))
+(each id ["Ahri" "Annie" "Aatrox" "Garen" "Khazix"]
+  (def champion (kit id)) (assert (= 5 (length (champion :abilities))))
+  (assert (has-key? champion :coverage)))
+(print "Retained parser fixtures, current references, rank origins, scaling enums, typed damage, duplicate displays, conditional branches and unknown structures passed.")

@@ -2,6 +2,7 @@
 (import jayson :as json)
 (import ./catalog :as catalog)
 (import ./model :as model)
+(import ../src/powerspike/normalize :as normalize)
 
 (defn- safe-tree [node]
   (if (indexed? node)
@@ -51,9 +52,16 @@
 (defn- level-options [state]
   (seq [level :range [1 19]] [:option {:value level :selected (= level (state :level))} level]))
 
-(defn- rank-markup [champion ranks]
+(defn- rank-markup [champion ranks &opt settings]
   [:div {:id "ranks" :class "spells"}
-   (if (get ranks :q)
+   (cond (not (empty? settings))
+     (map (fn [ability]
+            [:span {:class "spell" :title (string (ability :name) " · " (length (ability :unresolved)) " unresolved components")}
+             (when (not= "" (ability :icon)) (icon (ability :icon-group) (ability :icon) (ability :name)))
+             [:b (string/ascii-upper (string (ability :slot)))] (ability :rank)
+             [:small (if (number? (ability :effective-cooldown))
+                       (string (number-text (ability :effective-cooldown) true) "s") "CD unknown")]]) settings)
+     (get ranks :q)
      [[:span {:class "spell"} (icon "spell" "AnnieQ" "Disintegrate") "Q" (ranks :q)]
       [:span {:class "spell"} (icon "spell" "AnnieW" "Incinerate") "W" (ranks :w)]
       [:span {:class "muted"} "R" (ranks :r) " passive"]]
@@ -64,8 +72,9 @@
   [:div {:id "champion-display" :class "champion-display"}
    [:div {:class "portrait"} (icon "champion" (champion :icon) (champion :name))]
    [:div {:class "champion-title"} [:h1 (champion :name)]
-    [:span {:class "muted"} (if (get-in result [:selected :ranks :q]) "Q/W + basic attacks" "Basic attacks only")]
-    (rank-markup champion ((result :selected) :ranks))]])
+    [:span {:class "muted"} (cond (not (empty? (get champion :abilities []))) "Estimated abilities + attacks"
+                              (get-in result [:selected :ranks :q]) "Q/W + basic attacks" "Basic attacks only")]
+    (rank-markup champion ((result :selected) :ranks) ((result :selected) :ability-settings))]])
 
 (defn scenario [result]
   (def state (result :state))
@@ -91,15 +100,22 @@
    [:label {:for "armor"} "Target armor"
     [:input {:id "armor" :name "armor" :type "number" :min "0" :max "1000" :step "1"
              :required true :value (state :armor) :data-bind:armor true}]]
+   [:label "Target health"
+    [:input {:name "targethealth" :type "number" :min "1" :max "1000000" :value (get state :target-health 10000)
+             :data-bind:targethealth true}]]
+   [:label "Starting distance"
+    [:input {:name "distance" :type "number" :min "0" :max "10000" :value (get state :distance 300) :data-bind:distance true}]]
+   [:input {:type "hidden" :name "patch" :value (get state :patch ((result :package) :patch))}]
+   [:input {:type "hidden" :name "snapshot" :value ((result :package) :snapshot)}]
    [:div {:class "scenario-notes"}
     [:span {:class "validation-badge"} "Unvalidated catalog"]
     [:span "Inventory " [:strong "6 slots · no budget limit"]]
-    [:span "Distance " [:strong "300"]] [:span "Runes " [:strong "Excluded"]]
+    [:span "Runes " [:strong "Excluded"]]
     [:span {:class "update-status" :role "status" :aria-live "polite" :data-text "$busy ? 'Updating…' : ''"} ""]]
    [:noscript [:button {:type "submit" :name "selected" :value (state :selected) :class "apply"} "Update comparison"]]])
 
 (defn ranks-fragment [result]
-  (rank-markup (result :champion) ((result :selected) :ranks)))
+  (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings)))
 
 (defn- build-row [row index selected]
   [:button {:type "submit" :form "scenario" :name "selected" :value (row :id)
@@ -233,8 +249,10 @@
   (def duration (state :duration))
   (def totals (row :stats))
   (def combat (row :combat))
-  (def has-spells (get-in row [:ranks :q]))
-  (def chart-title (if has-spells "Q/W + attacks over time" "Basic attacks over time"))
+  (def broad (not (empty? (get (result :champion) :abilities []))))
+  (def has-spells (or broad (get-in row [:ranks :q])))
+  (def spell-label (if broad "Modeled abilities" "Q/W"))
+  (def chart-title (if has-spells (string spell-label " + attacks over time") "Basic attacks over time"))
   [:div {:id "results" :class "results" :aria-live "polite" :data-attr:aria-busy "$busy"}
    [:div {:class "workspace"}
     [:section {:class "build-panel" :aria-label "Build comparisons"}
@@ -246,7 +264,7 @@
      [:p {:class "inventory-note muted"} "Select a slot to add or replace an item."]
      (inventory row state)
      [:div {:class "numbers"}
-      (metric (string (if has-spells "Q/W + attacks / " "Basic attacks / ") duration " seconds") (combat :damage))
+      (metric (string (if has-spells (string spell-label " + attacks / ") "Basic attacks / ") duration " seconds") (combat :damage))
       (metric "Damage per second" (combat :dps) true)]
      [:div {:class "build-stats"}
       (stat "Attack damage" (number-text (totals :ad) true))
@@ -260,16 +278,25 @@
       (stat "Ability haste" (totals :ability-haste))]]]
    [:section {:class "scope-panel" :aria-label "Build model coverage"}
     [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
-    [:p (if has-spells
+    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions. This strategy prioritizes Q/W/E/R, then attacks, and approaches into attack range."
+          has-spells
           "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
           "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
     [:p "Inventory legality and item interactions are unvalidated. Runes, stacks, on-hit damage and conditional effects are excluded."]
     (when (not (empty? (row :limitations)))
       [:details [:summary "Excluded effects & inventory notes (" (length (row :limitations)) ")"]
-       [:ul (map |[:li $] (row :limitations))]])]
+       [:ul (map |[:li $] (row :limitations))]])
+    (when broad
+      [:details {:class "ability-evidence"} [:summary "Ability descriptions and coverage"]
+       (map (fn [ability]
+              [:article [:strong (string/ascii-upper (string (ability :slot))) " · " (ability :name)]
+               [:p "Data " (if (ability :available) "available" "unavailable") " · "
+                (length (ability :effects)) " interpreted effects · " (length (ability :unresolved)) " unresolved · No in-game check"]
+               [:p (normalize/plain (ability :tooltip))]]) (row :ability-settings))])
+    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])]
    [:section {:class "chart-panel" :aria-label "Damage timeline"}
     [:div {:class "section-header"} [:h2 chart-title]
-     [:span {:class "muted"} (if has-spells (string "Q/W " (number-text (* duration (combat :ability-dps)))) "Spells: not modeled")
+     [:span {:class "muted"} (if has-spells (string spell-label " " (number-text (* duration (combat :ability-dps)))) "Spells: not modeled")
       " · Attacks " (number-text (* duration (combat :attack-dps)))]]
     (unless has-spells
       [:p {:class "chart-coverage muted"} "Spell damage unavailable for " ((result :champion) :name)
@@ -303,7 +330,7 @@
      [:span (length (catalog/champion-list)) " champions and " (length (catalog/item-list))
       " items from the selected patch. All catalog entries are unvalidated. Character records supply base/growth and attack-speed values; permanent item stats come from structured fields and stat blocks. The five Annie captures verify only the stated conditions."]]
     [:div {:class "evidence-row"} [:span {:class "evidence-kind"} "~ Assumptions"]
-     [:span "Attack windup 30%; basic-attack travel zero. Q before W; fixed target armor, resistance and health. Rune effects excluded. Damage and timing remain unverified."]]]])
+     [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn page [result evidence &opt message]
   (def state (result :state))

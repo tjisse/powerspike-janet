@@ -1,4 +1,16 @@
-(def parser-version "1")
+(import ./tooltip :as tooltip)
+(import ./expressions :as expr)
+(import pshash :as hash)
+(import ./data-util :as util)
+
+(def parser-version "2")
+(def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
+(defn patch-order [patch]
+  (def parts (string/split "." (string/replace "lolpatch_" "" patch)))
+  (+ (* 1000000 (or (scan-number (get parts 0 "")) 0))
+     (* 1000 (or (scan-number (get parts 1 "")) 0)) (or (scan-number (get parts 2 "")) 0)))
+(defn applicable-rules [id patch]
+  (filter |(and (= id ($ :champion)) (<= (patch-order ($ :patch-min)) (patch-order patch) (patch-order ($ :patch-max)))) semantic-rules))
 
 (defn plain [text]
   (def out @"")
@@ -87,5 +99,117 @@
    :attack-speed-growth (/ (number-field root "attackSpeedPerLevelModifiable" (get dd "attackspeedperlevel" 0)) 100)
    :attack-speed-cap 2.5 :crit-damage (number-field root "critDamageMultiplier" 1.75)
    :attack-range (get dd "attackrange" 125)
-   :limitations [(if (empty? root) "Character record unavailable; Data Dragon fallback stats." "Abilities not yet interpreted.")
+   :limitations [(if (empty? root) "Character record unavailable; Data Dragon fallback stats." "Character root supplies base stats; ability coverage is reported separately.")
+                 "Special champion attack rules and transformations require handlers."
                  "Attack-speed cap 2.5 and windup 30% remain estimates."]})
+
+(defn spell-paths [id root]
+  # Current references take precedence over legacy names and old extracted spells.
+  (or (get root "spells")
+      (map |(if (string/has-prefix? "Characters/" $) $ (string "Characters/" id "/Spells/" $))
+           (get root "spellNames" []))))
+
+(defn ability [slot path object dd fonts &opt patch]
+  (def spell (merge (get object "mSpell" {}) {"__powerspike_patch" (or patch "16.19.1")}))
+  (def client (get-in spell ["mClientData" "mTooltipData"] {}))
+  (def key (or (get-in client ["mLocKeys" "keyTooltip"]) (get client "keyTooltip")))
+  (def text (or (when key (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key)))))
+                (get dd "tooltip") (get dd "description") ""))
+  (def parsed (merge @{} (tooltip/parse text spell dd)))
+  (when (= slot :p)
+    (put parsed :effects (map |(merge $ {:trigger :unresolved :status :unresolved}) (parsed :effects)))
+    (array/push (parsed :unresolved) "Passive activation requires an explicit trigger handler."))
+  (def maxrank (get dd "maxrank" (if (= slot :r) 3 (if (= slot :p) 1 5))))
+  (def problems (array ;(parsed :unresolved)))
+  (when (empty? object) (array/push problems "Current spell record unavailable."))
+  (when (empty? text) (array/push problems "Ability tooltip unavailable."))
+  (when (empty? (parsed :effects)) (array/push problems "No recognized executable effect; this does not imply zero damage."))
+  (each [term note] [["recast" "Recasts/charges need explicit semantics."]
+                     ["pet" "Pet behavior needs a handler."] ["tibbers" "Tibbers behavior needs a handler."]
+                     ["stack" "Stack state requires explicit triggers."] ["minions" "Minion-specific rules are outside champion estimates."]]
+    (when (string/find term (string/ascii-lower text)) (array/push problems note)))
+  (merge parsed {:slot slot :path path :id (or (get object "ObjectName") (get dd "id") (string slot))
+                 :name (get dd "name" (or (get object "ObjectName") (string slot)))
+                 :icon (get-in dd ["image" "full"] "") :icon-group (if (= slot :p) "passive" "spell")
+                 :max-rank maxrank :available (or (not (empty? object)) (not (empty? dd))) :checked false
+                 :cooldown (if (get dd "cooldown") (expr/ranked (dd "cooldown") -1 "Data Dragon cooldown")
+                             (expr/ranked (get spell "cooldownTime") 0 "CommunityDragon cooldown"))
+                 :cost (if (get dd "cost") (expr/ranked (dd "cost") -1 "Data Dragon resource cost")
+                         (expr/ranked (get-in spell ["manaValues" "values"]) -1 "CommunityDragon resource cost"))
+                 :range (if (get dd "range") (expr/ranked (dd "range") -1 "Data Dragon range")
+                          (expr/ranked (or (get spell "castRangeDisplayOverride") (get spell "castRange")) 0 "CommunityDragon range"))
+                 :cast-time (get spell "mCastTime" (get spell "spellCastTime" 0.25))
+                 :missile-speed (get spell "missileSpeed" 0)
+                 :unresolved problems :record spell}))
+
+(defn kit [id objects detail fonts &opt patch]
+  (def root (get objects (string "Characters/" id "/CharacterRecords/Root") {}))
+  (def paths (spell-paths id root))
+  (def dd (get-in detail ["data" id] {}))
+  (def abilities @[])
+  (eachp [index slot] [:q :w :e :r]
+    (def path (get paths index ""))
+    (array/push abilities (ability slot path (get objects path {}) (get (get dd "spells" []) index {}) fonts (get detail "version" (or patch "unknown")))))
+  (def passive-path (get root "mCharacterPassiveSpell" ""))
+  (array/push abilities (ability :p passive-path (get objects passive-path {}) (get dd "passive" {}) fonts (get detail "version" (or patch "unknown"))))
+  (def penetration @{})
+  (each rule (applicable-rules id (get detail "version" (or patch "unknown")))
+    (def chosen (find |(= ($ :slot) (rule :slot)) abilities))
+    (when chosen
+      (def index (find-index |(= ($ :slot) (rule :slot)) abilities))
+      (def effects (when (rule :effects)
+                     (map (fn [spec]
+                            (def amount (expr/variable (spec :variable) (chosen :record)))
+                            (merge spec {:id (string id "/" (rule :slot) "/" (spec :variable)) :amount amount
+                                         :target :enemy :trigger (get spec :trigger :cast) :condition :always
+                                         :duration (when (spec :duration-variable) (expr/variable (spec :duration-variable) (chosen :record)))
+                                         :status (if (empty? (expr/problems amount)) :estimated :unresolved)
+                                         :evidence {:tooltip (rule :note) :override true}})) (rule :effects))))
+      (put abilities index (merge chosen {:effects (or effects (chosen :effects))
+                                          :unresolved [;(chosen :unresolved) (rule :note)]}))
+      (when (rule :rank-penetration)
+        (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
+                              :let [values (expr/lookup (expr/named-values (chosen :record)) name)]
+                              :when (and (indexed? values) (not (empty? values)))] stat values))
+        (unless (empty? bonuses) (put penetration (rule :slot) bonuses)))))
+  {:abilities abilities
+   :rank-penetration penetration
+   :forms (seq [[path object] :pairs objects
+                :when (and (= "SpellObject" (get object "__type"))
+                           (not= path passive-path) (not (some |(= $ path) paths)))]
+            {:path path :id (get object "ObjectName") :record (get object "mSpell" {}) :status :unresolved})
+   :coverage {:available (count |($ :available) abilities)
+              :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
+              :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}})
+
+(defn localized [fonts key fallback]
+  (or (when (string? key) (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key))))) fallback))
+(defn item-effects [record objects fonts]
+  (def raw (get objects (string "Items/" (record :id)) {}))
+  (def key (get-in raw ["mItemDataClient" "mTooltipData" "mLocKeys" "keyTooltip"]))
+  (def text (localized fonts key (record :tooltip)))
+  (def spell {"mDataValues" (get raw "mDataValues" []) "mSpellCalculations" (get raw "mItemCalculations" {}) "__powerspike_patch" (record :patch)})
+  (def parsed (tooltip/parse text spell))
+  (def limits (tabseq [key :in (get raw "mItemGroups" [])
+                       :let [limit (get-in objects [key "mMaxGroupOwnable"])] :when (number? limit)] key limit))
+  (def stats (merge @{} (record :stats)))
+  # This passive is numerical data plus an explicit semantic interpretation.
+  (when (= "3089" (record :id))
+    (def amp (expr/lookup (expr/named-values spell) "APAmp"))
+    (when amp (put stats :ap-multiplier (+ 1 (amp 1)))))
+  (merge record {:effects (parsed :effects) :effect-variables (parsed :variables) :record raw
+                 :tooltip text :group-limits limits :groups (keys limits)
+                 :stackable (not (some |(= 1 $) (values limits))) :stats stats
+                 :limitations [;(record :limitations) ;(parsed :unresolved)]}))
+
+(defn rune-effects [styles objects fonts &opt patch]
+  (map (fn [style]
+         (merge style {"slots" (map (fn [slot]
+                                      (merge slot {"runes" (map (fn [rune]
+                                                                  (def raw (find |(and (dictionary? $) (= (rune "id") (get $ "mPerkId"))) (values objects)))
+                                                                  (def script (get-in raw ["mScript" "mSpellScriptData"] {}))
+                                                                  (def spell {"__powerspike_patch" (or patch "unknown") "mDataValues" (seq [[name value] :pairs (get script "mEffectAmount" {})]
+                                                                                                                                        {"mName" name "mValue" value})
+                                                                              "mSpellCalculations" (get script "mCalculations" {})})
+                                                                  (def text (localized fonts (get raw "mLongDescLocalizationKey") (get rune "longDesc" "")))
+                                                                  (merge rune {:parsed (tooltip/parse text spell) :record raw :available true :checked false})) (slot "runes"))})) (style "slots"))})) styles))

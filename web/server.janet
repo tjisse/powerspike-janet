@@ -35,7 +35,7 @@
   (def package (if scoped (packages/load (parts 2) (parts 3)) (catalog/current)))
   (def group (parts (if scoped 4 2)))
   (def file (parts (if scoped 5 3)))
-  (assert (and (some |(= $ group) ["champion" "item" "spell"])
+  (assert (and (some |(= $ group) ["champion" "item" "spell" "passive"])
                (util/safe-id? file) (string/has-suffix? ".png" file)) "Invalid asset identifier.")
   (def path (string (package :directory) "/assets/" group "/" file))
   (unless (os/stat path)
@@ -56,7 +56,7 @@
          {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}}))
 
 (defn evaluate [req]
-  (def result (protect (model/compare (model/parse-state (ds/get-signals req)))))
+  (def result (protect (model/compare-async (model/parse-state (ds/get-signals req)))))
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
@@ -72,7 +72,7 @@
       (def signals (ds/get-signals req))
       (def patch (get signals "patchchoice" packages/default-version))
       (assert (some |(= $ patch) catalog/patch-list) "Choose a published patch.")
-      (def result (model/compare (model/parse-state {})))
+      (def result (model/context (model/parse-state signals)))
       (def cached (and (not= "true" (get-in req [:query "refresh"]))
                        (some |(= $ patch) (packages/available))))
       (def job (if cached {:id "" :key patch :status :done :result {:patch patch :snapshot ((packages/load patch) :snapshot)}
@@ -80,7 +80,7 @@
       (fragment req (ui/render (ui/patch-panel result job))))
     (and (= "POST" (req :method)) (= "/jobs/cancel" (req :route)))
     (do (def job (jobs/cancel (get-in req [:query "id"])))
-      (fragment req (ui/render (ui/patch-panel (model/compare (model/parse-state {})) job))))
+      (fragment req (ui/render (ui/patch-panel (model/context (model/parse-state {})) job))))
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
     (get assets (req :route)) (do (def asset (assets (req :route))) (response 200 (asset :body) (asset :type)))
@@ -88,10 +88,10 @@
     (= "/patches/status" (req :route))
     (do (def signals (ds/get-signals req))
       (def job (jobs/get-job (get signals "job" "")))
-      (fragment req (ui/render (ui/patch-panel (model/compare (model/parse-state signals)) job))))
+      (fragment req (ui/render (ui/patch-panel (model/context (model/parse-state signals)) job))))
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
-    (do (def result (protect (model/compare (model/parse-state (get req :query {})))))
+    (do (def result (protect (model/compare-async (model/parse-state (get req :query {})))))
       (if (first result) (with-dyns [:patch-package ((result 1) :package)] (response 200 (ui/page (result 1) evidence)))
         (response 400 (ui/page (model/compare (model/parse-state {})) evidence (string (result 1))))))
     (= "/evaluate" (req :route)) (evaluate req)

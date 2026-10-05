@@ -1,0 +1,16 @@
+{:schema 1
+ :rules [{:champion "Ahri" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
+          :effects [{:kind :damage :damage-type :magic :variable "TotalDamage" :travel-multiplier 1}
+                    {:kind :damage :damage-type :true :variable "TotalDamage" :travel-multiplier 2}]
+          :note "Both orb phases are assumed to hit; the return uses twice the release distance. Orb turning behavior is not modeled."}
+         {:champion "Ahri" :slot :w :patch-min "16.17.1" :patch-max "16.19.1"
+          :effects [{:kind :damage :damage-type :magic :variable "SingleFireDamage"}
+                    {:kind :damage :damage-type :magic :variable "MultiFireDamage" :hits 2}]
+          :note "All three fox-fires are assumed to select this opponent. Their separate missile origins are not modeled."}
+         {:champion "Garen" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
+          :effects [{:kind :damage :damage-type :physical :variable "TotalDamage" :trigger :attack
+                     :duration-variable "AttackWindow" :reset true}]
+          :note "The next attack replaces ordinary attack damage with the source's total. Critical-strike interaction and silence are unresolved."}
+         {:champion "Annie" :slot :r :patch-min "16.17.1" :patch-max "16.19.1"
+          :rank-penetration {:magic-pen-percent "RPercentPenBuff"}
+          :note "Learned R grants permanent magic penetration; Tibbers behavior remains unresolved."}]}

@@ -17,7 +17,9 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
-Milestone 1 implementation is under release verification. Live runtime downloads have retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package. Storage/job tests verify immutable revisions, failure isolation, corruption detection, offline loading, deduplication and cancellation. Later milestones remain in progress; fetching full records alone does not implement their mechanics.
+Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
+
+Milestone 2 is under release verification for v0.3.0. Full retained records resolve current ability references and localized descriptions, including hashed keys. Typed effects and bounded expressions drive the first shared event engine; coverage and assumptions appear in the Rift HUD. Real-record regressions cover rank origins, total/base/bonus scaling, duplicate displays, conditional branches, malformed structures and unknown formulas. The initial seed remains a historical subset until refreshed. Milestone 3's stateful foundation is implemented, but trigger families, charges, recasts and exceptional handlers remain in progress. Duels/objectives, optimization and scenario persistence remain required work.
 
 ## Source interpretation
 

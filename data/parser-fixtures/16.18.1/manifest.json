@@ -1,0 +1,93 @@
+{
+  "patch": "16.18.1",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/ahri/ahri.bin.json?powerspike=1",
+      "path": "sources/characters/Ahri.json",
+      "sha256": "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2",
+      "fixture": "Ahri-characters.json"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/champion/Ahri.json",
+      "path": "sources/abilities/Ahri.json",
+      "sha256": "81d9f3d8e34d14e6d916af330c0e624aa0e7fabb12d8b900429c076fc56a7364",
+      "fixture": "Ahri-abilities.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/annie/annie.bin.json?powerspike=1",
+      "path": "sources/characters/Annie.json",
+      "sha256": "7bc7e9d3ca1f3d6cff9bb664c7e8876d672e119cc1ffbfbb3a5bee26ffd9f067",
+      "fixture": "Annie-characters.json"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/champion/Annie.json",
+      "path": "sources/abilities/Annie.json",
+      "sha256": "8d5d6e93d1fb862de3c6ffc1f0b50268388db8e308d6508edb0023a3183d1c5a",
+      "fixture": "Annie-abilities.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/aatrox/aatrox.bin.json?powerspike=1",
+      "path": "sources/characters/Aatrox.json",
+      "sha256": "6724639d000d303353ae7fffed2355aed2d0d90e263e839a7757407100d10d81",
+      "fixture": "Aatrox-characters.json"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/champion/Aatrox.json",
+      "path": "sources/abilities/Aatrox.json",
+      "sha256": "a6d2c2dc66e0966a6cf19ef8701e0062aa3ba863b2219bae97c6ff557328cc93",
+      "fixture": "Aatrox-abilities.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/garen/garen.bin.json?powerspike=1",
+      "path": "sources/characters/Garen.json",
+      "sha256": "c0b9f40064cfde35d2805e37dc3181c5f4a8064dfd4357773c5922b412290bbd",
+      "fixture": "Garen-characters.json"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/champion/Garen.json",
+      "path": "sources/abilities/Garen.json",
+      "sha256": "17c0ee01c176374d581ac9d1bee250d9d8256ff12a6e86259e223e21f61f2902",
+      "fixture": "Garen-abilities.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/khazix/khazix.bin.json?powerspike=1",
+      "path": "sources/characters/Khazix.json",
+      "sha256": "6e412996baed139ec72fb60574e58f5a62a0148ddaafb65fefde8e6b2a83f6ab",
+      "fixture": "Khazix-characters.json"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/champion/Khazix.json",
+      "path": "sources/abilities/Khazix.json",
+      "sha256": "6c03b190de90cc35007cf1b03ef930885b77be59ea327484be7d6df87964aad9",
+      "fixture": "Khazix-abilities.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "path": "sources/strings.json",
+      "sha256": "bdee3e3636feb8e1cb5ac11e09e213c9115df2b04910c1f7eb6acc3e7d0d479d",
+      "fixture": "strings.json",
+      "derived_excerpt": true
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/items.cdtb.bin.json?powerspike=1",
+      "path": "sources/item-effects.json",
+      "sha256": "c1cf2b0bf746d260cd960788a52e71d96c096fe298c83cef55253f556e819ffb",
+      "fixture": "items.json",
+      "derived_excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Aatrox-abilities.json": "a6d2c2dc66e0966a6cf19ef8701e0062aa3ba863b2219bae97c6ff557328cc93",
+    "Aatrox-characters.json": "6724639d000d303353ae7fffed2355aed2d0d90e263e839a7757407100d10d81",
+    "Ahri-abilities.json": "81d9f3d8e34d14e6d916af330c0e624aa0e7fabb12d8b900429c076fc56a7364",
+    "Ahri-characters.json": "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2",
+    "Annie-abilities.json": "8d5d6e93d1fb862de3c6ffc1f0b50268388db8e308d6508edb0023a3183d1c5a",
+    "Annie-characters.json": "7bc7e9d3ca1f3d6cff9bb664c7e8876d672e119cc1ffbfbb3a5bee26ffd9f067",
+    "Garen-abilities.json": "17c0ee01c176374d581ac9d1bee250d9d8256ff12a6e86259e223e21f61f2902",
+    "Garen-characters.json": "c0b9f40064cfde35d2805e37dc3181c5f4a8064dfd4357773c5922b412290bbd",
+    "items.json": "dfbacebb1796ea9188cd31885a5bfa1e437c831cce17b31181c2f13c6f38f3dc",
+    "Khazix-abilities.json": "6c03b190de90cc35007cf1b03ef930885b77be59ea327484be7d6df87964aad9",
+    "Khazix-characters.json": "6e412996baed139ec72fb60574e58f5a62a0148ddaafb65fefde8e6b2a83f6ab",
+    "strings.json": "b96cd1d8d857bf96a705dcda0c1b8f5de028e075a5976cfaed32aabaa6bbc134"
+  }
+}

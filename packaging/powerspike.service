@@ -27,7 +27,7 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 CapabilityBoundingSet=
 LockPersonality=yes
 UMask=0027
-MemoryMax=512M
+MemoryMax=1G
 TasksMax=64
 LimitNOFILE=1024
 

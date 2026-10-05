@@ -17,13 +17,34 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
+**Work resumed on 2026-10-05.** Milestones 1–3 are released. Milestone 4 has passed local checks and is being published as v0.5.0. Milestones 5–6 remain in progress; the full accepted plan is unfinished.
+
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
 
 Milestone 2 is released as v0.3.0 with successful signed RPM/DNF checks. All 173 champions on retained 16.18.1 simulate without errors; 156 have recognized ability damage. Full records, localized tooltips and bounded calculations remain separate from in-game verification.
 
-Milestone 3 is under release verification for v0.4.0. The shared chronological engine handles health/resources, regeneration, death, projectiles, control/interruptions, shields/healing, periodic hits, attack modifiers/resets, charges/recasts, temporary stats, cleanses and bounded triggers. Real-record regressions cover item/rune/summoner handlers. Canonical scenarios and frontend duels share this engine; seeded trials report mean outcomes and sampling uncertainty. Exceptional forms, pets and passive semantics remain explicit omissions to extend by family. The legacy wrappers and five Annie stat measurements remain regressions.
+Milestone 3 is released as v0.4.0 with successful signed RPM/DNF checks. The shared chronological engine handles health/resources, regeneration, death, projectiles, control/interruptions, shields/healing, periodic hits, attack modifiers/resets, charges/recasts, temporary stats, cleanses and bounded triggers. Real-record regressions cover item/rune/summoner handlers. Canonical scenarios and frontend duels share this engine; seeded trials report mean outcomes and sampling uncertainty. Exceptional forms, pets and passive semantics remain explicit omissions to extend by family. The legacy wrappers and five Annie stat measurements remain regressions.
 
-Milestones 4–6 remain required: complete opponent/ability strategies and objective presets, bounded legal optimization with optional loadout choices, and scenario save/share/import/export with evidence and upgrade verification.
+Milestone 4 has passed local release verification for v0.5.0. Both participants have full inventories, rune/summoner selections, ranks, priorities, activation conditions, starting health/resources, hit assumptions and 1D approach/hold-range controls. Retained records cover turrets, Baron, Herald and seven dragons (six elemental dragons and Elder). Objective level/time, retaliation and minion presence are declared inputs. Sourced restrictions, caps, immunity and turret heating/backdoor effects interact through the event queue. Objective server scaling, special attacks, plating, Baron debuffs and Herald eye behavior remain explicit coverage gaps. Health/resource traces include before/after values; outcomes expose damage sources, kill/death times, healing, absorption and effective control. Health-cost descriptions now override zero-filled cost arrays where resolvable.
+
+Milestones 5–6 remain required: bounded legal optimization with optional loadout choices, and scenario save/share/import/export with evidence and upgrade verification.
+
+## Verification checkpoint
+
+- Last released commit: `422e59a`, v0.4.0. Earlier milestone releases are v0.2.0 (`7313b3b`) and v0.3.0 (`9d22876`). Their GitHub release workflows, including signed DNF installation, succeeded.
+- Local version files say `0.5.0`; this is a pending release version, not a published release. Existing milestone 4 changes and new retained fixtures remain in the working tree. No milestone 4 commit, tag or publication was made before pausing.
+- The complete local milestone 4 command `make format test test-web test-runtime` finished successfully. This includes 83 core tests, the five measured Annie fixtures, 16 Python tests, 15 frontend tests, parser/combat/shared-effect/objective/configuration/package checks, executable compilation and relocated executable checks. Output is retained locally in `build/milestone4-checks.log` (ignored build output).
+- A separate retained 16.18.1 roster check completed for all 173 champions without failures; 156 have recognizable damage abilities. These are source-derived estimates, not 156 calibrated kits.
+- New real-record parser regressions resolve Dr. Mundo's flat Q and current-health W costs and Zac's current-health Q cost. Continuous or ambiguous resource costs remain unresolved. The objective fixtures retain exact matching 16.18.1 source records and provenance.
+- Milestone 4 local RPM build, payload/digest/permission/service checks and relocated runtime checks passed on resume. Its signed DNF release check is pending publication. The browser preview must be checked/restarted when work resumes; its currently running content has not been verified against the final working tree.
+
+## Remaining delivery order
+
+1. Review the preserved milestone 4 diff and coverage notes. Finish its RPM checks, publish v0.5.0 through the existing workflow and verify the signed DNF result. Recheck the frontend preview against the current files.
+2. Implement milestone 5 around the shared scenario engine: validate patch-specific item legality and purchase groups; support six slots, budget, owned locks, exclusions and next purchase; compare exact small-pool enumeration with bounded full-catalog search. Add five/thirty-second budgets, background progress and cancellation, common trial seeds, finalist resampling and separately explained scoring presets. Expose alternatives and missing effects that may change rankings. Add optional legal rune pages, summoner pairs and skill orders with locks while holding the opponent and strategies fixed. Release the milestone after its correctness and runtime checks pass.
+3. Implement milestone 6: finish optimization/comparison/evidence UI, local scenario saves, shared URLs and versioned JSON import/export preserving exact patch, snapshot and engine identities. Add compatibility warnings, calibration tooling by mechanic family, real upgrades from an earlier release preserving cached data and configured ports, and browser verification of the complete configure/optimize/compare/explain/save/reproduce flow. Release after the remaining gates pass.
+
+Known accuracy limits at this checkpoint include exceptional champion forms/pets/passives, many item/rune triggers, conditional or ambiguous tooltip semantics and the objective server mechanics listed above. Available source data, implemented mechanics and in-game checks must continue to be shown separately. The five Annie measurements validate their original stat cases; they do not validate every new combat handler.
 
 ## Source interpretation
 

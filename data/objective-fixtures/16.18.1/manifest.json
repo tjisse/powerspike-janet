@@ -1,0 +1,73 @@
+{
+  "patch": "16.18.1",
+  "sources": {
+    "turret": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/turret/turret.bin.json?powerspike=1",
+      "source_sha256": "b1338a74d7d49bf838211378406c1634e6e58e4444e512f1b4e373a55c682a35",
+      "excerpt": false
+    },
+    "sru_baron": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_baron/sru_baron.bin.json?powerspike=1",
+      "source_sha256": "6a3da7e1306cc5cd4fad974aacbddde71f2f81d8d527628786c70030e7009729",
+      "excerpt": false
+    },
+    "sru_riftherald": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_riftherald/sru_riftherald.bin.json?powerspike=1",
+      "source_sha256": "b76bd0a9c51b8abbed1a9ab0b358fdd0d8d7915f4bac59ddf311f7b443932132",
+      "excerpt": false
+    },
+    "sru_dragon_fire": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_fire/sru_dragon_fire.bin.json?powerspike=1",
+      "source_sha256": "21d0cb285977fe44cefc2e62057c568f6d768bb816142dbc070c14be174c48d9",
+      "excerpt": false
+    },
+    "sru_dragon_air": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_air/sru_dragon_air.bin.json?powerspike=1",
+      "source_sha256": "a74c241ca4c0ace5bc8ec0d847246f15b04e206c2449f9472464992d8e249113",
+      "excerpt": false
+    },
+    "sru_dragon_earth": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_earth/sru_dragon_earth.bin.json?powerspike=1",
+      "source_sha256": "2447e8fcc38276ac28f5806bc2d6b847f01ffcc3633c51fd5d86e327979dc77e",
+      "excerpt": false
+    },
+    "sru_dragon_water": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_water/sru_dragon_water.bin.json?powerspike=1",
+      "source_sha256": "d79e11b8e775e7d578526ac4dd06eb83df861d0f40f28dd5101503ef3a80dc9f",
+      "excerpt": false
+    },
+    "sru_dragon_hextech": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_hextech/sru_dragon_hextech.bin.json?powerspike=1",
+      "source_sha256": "e84af13da2235b1e57014b5791173ffa491bdf8b0e512f23719640fbeef9c880",
+      "excerpt": false
+    },
+    "sru_dragon_chemtech": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_chemtech/sru_dragon_chemtech.bin.json?powerspike=1",
+      "source_sha256": "da0c393c4d4bcea5aa42cc874da64aaf14a0b169c78a940fc554b170f5568c58",
+      "excerpt": false
+    },
+    "sru_dragon_elder": {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/sru_dragon_elder/sru_dragon_elder.bin.json?powerspike=1",
+      "source_sha256": "bb463ab8ac4df2899b8a55e4aad846a2d4552e5c2beb48550938c6f27a9f184d",
+      "excerpt": false
+    },
+    "items": {
+      "url": "https://raw.communitydragon.org/16.18/game/items.cdtb.bin.json?powerspike=1",
+      "source_sha256": "c1cf2b0bf746d260cd960788a52e71d96c096fe298c83cef55253f556e819ffb",
+      "excerpt": true
+    }
+  },
+  "fixture_sha256": {
+    "items.json": "cd5f2b642da3768ddc25f2b4f3f18541b501b7c9cda4b214be1369f3d3ee2e21",
+    "sru_baron.json": "6a3da7e1306cc5cd4fad974aacbddde71f2f81d8d527628786c70030e7009729",
+    "sru_dragon_air.json": "a74c241ca4c0ace5bc8ec0d847246f15b04e206c2449f9472464992d8e249113",
+    "sru_dragon_chemtech.json": "da0c393c4d4bcea5aa42cc874da64aaf14a0b169c78a940fc554b170f5568c58",
+    "sru_dragon_earth.json": "2447e8fcc38276ac28f5806bc2d6b847f01ffcc3633c51fd5d86e327979dc77e",
+    "sru_dragon_elder.json": "bb463ab8ac4df2899b8a55e4aad846a2d4552e5c2beb48550938c6f27a9f184d",
+    "sru_dragon_fire.json": "21d0cb285977fe44cefc2e62057c568f6d768bb816142dbc070c14be174c48d9",
+    "sru_dragon_hextech.json": "e84af13da2235b1e57014b5791173ffa491bdf8b0e512f23719640fbeef9c880",
+    "sru_dragon_water.json": "d79e11b8e775e7d578526ac4dd06eb83df861d0f40f28dd5101503ef3a80dc9f",
+    "sru_riftherald.json": "b76bd0a9c51b8abbed1a9ab0b358fdd0d8d7915f4bac59ddf311f7b443932132",
+    "turret.json": "b1338a74d7d49bf838211378406c1634e6e58e4444e512f1b4e373a55c682a35"
+  }
+}

@@ -45,6 +45,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
+	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	$(JANET) test/config.janet
 
 build: build/web-ready

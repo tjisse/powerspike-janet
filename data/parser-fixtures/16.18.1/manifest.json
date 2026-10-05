@@ -88,6 +88,20 @@
     "items.json": "dfbacebb1796ea9188cd31885a5bfa1e437c831cce17b31181c2f13c6f38f3dc",
     "Khazix-abilities.json": "6c03b190de90cc35007cf1b03ef930885b77be59ea327484be7d6df87964aad9",
     "Khazix-characters.json": "6e412996baed139ec72fb60574e58f5a62a0148ddaafb65fefde8e6b2a83f6ab",
-    "strings.json": "b96cd1d8d857bf96a705dcda0c1b8f5de028e075a5976cfaed32aabaa6bbc134"
-  }
+    "strings.json": "b96cd1d8d857bf96a705dcda0c1b8f5de028e075a5976cfaed32aabaa6bbc134",
+    "DrMundo-characters.json": "78e462078b39b951af2b10af71e4850446cb73e1f1eb4ceb4c511f1ccacf1f0d",
+    "DrMundo-abilities.json": "67de1e011ad9c0d4555df73f1d70160cddf7605efa0993f80152447ff9449b32",
+    "Zac-characters.json": "442b158984869d0fe3154d5211ce965321520d1724939e8f31e7a7a800c104ed",
+    "Zac-abilities.json": "59731538004f679989a7f3dbaf75166730a7c86252e1d92d45dd547ddf67d434"
+  },
+  "health_cost_sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/drmundo/drmundo.bin.json?powerspike=1",
+      "fixture": "DrMundo-characters.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/data/characters/zac/zac.bin.json?powerspike=1",
+      "fixture": "Zac-characters.json"
+    }
+  ]
 }

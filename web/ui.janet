@@ -4,6 +4,7 @@
 (import ./model :as model)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
+(import ../src/powerspike/objectives :as objectives)
 
 (defn- safe-tree [node]
   (if (indexed? node)
@@ -93,7 +94,7 @@
    [:label {:for "level"} "Level"
     [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]
    [:label {:for "duration"} "Combat window (seconds)"
-    [:input {:id "duration" :name "duration" :type "number" :min "0.5" :max "30" :step "0.5"
+    [:input {:id "duration" :name "duration" :type "number" :min "0.5" :max "120" :step "0.5"
              :required true :value (state :duration) :data-bind:duration true}]]
    [:label {:for "mr"} "Target magic resistance"
     [:input {:id "mr" :name "mr" :type "number" :min "0" :max "1000" :step "1"
@@ -110,6 +111,10 @@
     [:select {:name "mode" :data-bind:mode true}
      [:option {:value "practice" :selected (= "practice" (get state :mode "practice"))} "Practice target"]
      [:option {:value "duel" :selected (= "duel" (state :mode))} "Champion duel"]
+     (map (fn [preset]
+            [:option {:value (string (preset :id)) :selected (= (string (preset :id)) (state :mode))
+                      :disabled (not (some |(and (= ($ :id) (preset :id)) ($ :available)) (get (result :package) :objectives [])))}
+             (preset :name)]) objectives/presets)
      [:option {:value "legacy" :selected (= "legacy" (state :mode))} "Curated reference"]]]
    [:label {:data-show "$mode === 'duel'"} "Opponent"
     [:select {:name "opponent" :data-bind:opponent true}
@@ -173,7 +178,8 @@
     (seq [index :range [0 2]]
       (do (def path (string/join (seq [[i event] :pairs trace]
                                    (string (if (= i 0) "M " " L ") (x (event :at)) " "
-                                           (y (get-in event [:participants index field] 0)))) ""))
+                                           (y (get-in event [:before index field] (get-in event [:participants index field] 0)))
+                                           " V " (y (get-in event [:participants index field] 0)))) ""))
         [:path {:d path :class (if (= 0 index) "chart-line" "chart-opponent")}]))
     [:text {:x 47 :y 178} "0 s"] [:text {:x 852 :y 178 :text-anchor "end"} duration " s"]]
    [:p {:class "muted"} "Gold: player · Violet: target/opponent"]])
@@ -182,10 +188,11 @@
   (if (= "custom" (row :id)) (map |(get state $ "") model/slot-keys)
     (seq [index :range [0 6]] (get (row :ids) index ""))))
 
-(defn- inventory [row state]
-  (def ids (inventory-ids row state))
+(defn- inventory [row state &opt opponent]
+  (def ids (if opponent (map |(get state $ "") model/enemy-slot-keys) (inventory-ids row state)))
+  (def prefix (if opponent "enemyslot" "slot"))
   (def seed (string/join (seq [index :range [0 6]]
-                           (string "$slot" (inc index) " = '" (ids index) "'; ")) ""))
+                           (string "$" prefix (inc index) " = '" (ids index) "'; ")) ""))
   [:div {:class "inventory" :aria-label "Six editable inventory slots"}
    (seq [index :range [0 6]]
      (do (def item (catalog/items (ids index)))
@@ -193,10 +200,73 @@
                  :data-attr:disabled "$busy"
                  :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
                  :title (if item (item :name) "Add item")
-                 :data-on:click (string seed "$editing = " (inc index)
+                 :data-on:click (string seed "$editingwho = '" (if opponent "opponent" "player") "'; $editing = " (inc index)
                                         "; document.getElementById('item-picker').showModal()")}
         (if item (icon "item" (item :icon) (item :name)) "+")
         [:span {:class "slot-label"} (inc index)]]))])
+
+(defn- setting [caption name value minimum maximum &opt step]
+  [:label caption [:input {:form "scenario" :name name :id (string "setting-" name) :type "number" :required true
+                           :min minimum :max maximum :step (or step 1) :value value :data-bind name}]])
+(defn tactics [result]
+  (def state (result :state))
+  [:details {:id "tactics" :class "tactics scope-panel"
+             :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
+             :data-on:input__debounce.300ms "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+   [:summary "Fight conditions & ability settings"]
+   [:div {:class "tactics-grid"}
+    (setting "Seed" "seed" (get state :seed 1) 0 2147483647)
+    (setting "Objective level" "objectivelevel" (get state :objectivelevel 10) 1 30)
+    (setting "Game time (minutes)" "gametime" (get state :gametime 20) 0 120 0.5)
+    [:label "Objective retaliation" [:input {:form "scenario" :type "checkbox" :name "retaliation" :checked (get state :retaliation true) :data-bind:retaliation true}]]
+    [:label "Minions present at turret" [:input {:form "scenario" :type "checkbox" :name "minionspresent" :checked (get state :minionspresent true) :data-bind:minionspresent true}]]]
+   (map (fn [opponent]
+          (def prefix (if opponent "enemy" ""))
+          (def stat-prefix (if opponent "opponent" ""))
+          [:section {:class "tactics-participant" :data-show (if opponent "$mode === 'duel'" "true")}
+           [:h2 (if opponent "Opponent strategy" "Player strategy")]
+           [:div {:class "tactics-grid"}
+            [:label "Ability priority"
+             [:input {:form "scenario" :name (string stat-prefix "priority") :value (string/join (map string (get state (keyword (string stat-prefix "priority")) scenarios/slots)) ",")
+                      :data-bind (string stat-prefix "priority")}]]
+            [:label "Movement"
+             [:select {:form "scenario" :name (string stat-prefix "movement") :data-bind (string stat-prefix "movement")}
+              (map |[:option {:value $ :selected (= $ (get state (keyword (string stat-prefix "movement")) "approach"))}
+                     (case $ "approach" "Approach into attack range" "hold" "Hold position" "Keep preferred range")] ["approach" "hold" "hold-range"])]]
+            (setting "Preferred distance" (string stat-prefix "preferredrange") (get state (keyword (string stat-prefix "preferredrange")) 500) 0 10000)
+            (setting "Hit chance (0–1)" (string stat-prefix "hitchance") (get state (if opponent :opponent-hit-chance :hit-chance) 1) 0 1 0.05)
+            (setting "Starting health (fraction)" (string stat-prefix "healthfraction") (get state (if opponent :opponent-health-fraction :health-fraction) 1) 0.01 1 0.05)
+            (setting "Starting resource (fraction)" (string stat-prefix "resourcefraction") (get state (if opponent :opponent-resource-fraction :resource-fraction) 1) 0 1 0.05)
+            (map (fn [[suffix title]] [:label title [:input {:form "scenario" :type "checkbox" :name (string stat-prefix suffix)
+                                                             :checked (get state (keyword (string stat-prefix suffix)) true) :data-bind (string stat-prefix suffix)}]])
+                 [["attacks" "Basic attacks"] ["abilities" "Abilities"]])]
+           [:div {:class "ability-controls"}
+            (map (fn [slot]
+                   (def base (string prefix slot))
+                   [:article
+                    [:strong (string/ascii-upper (string slot))]
+                    (when (some |(= $ slot) [:q :w :e :r])
+                      [:label "Rank"
+                       [:select {:form "scenario" :name (string base "rank") :data-bind (string base "rank")}
+                        [:option {:value -1 :selected (= -1 (get state (keyword (string base "rank")) -1))} "Automatic"]
+                        (seq [rank :range [0 (if (= slot :r) 4 6)]]
+                          [:option {:value rank :selected (= rank (get state (keyword (string base "rank")) -1))} rank])]])
+                    (setting "Cast after (seconds)" (string base "after") (get state (keyword (string base "after")) 0) 0 120 0.1)
+                    (setting "Self health at most (fraction)" (string base "selfbelow") (get state (keyword (string base "selfbelow")) 1) 0 1 0.05)
+                    (setting "Target health at most (fraction)" (string base "targetbelow") (get state (keyword (string base "targetbelow")) 1) 0 1 0.05)]) scenarios/slots)]
+           (when opponent
+             [:div {:class "tactics-grid"}
+              [:label "Opponent rune effects" [:select {:form "scenario" :name "opponentrunes" :data-bind:opponentrunes true}
+                                               [:option {:value ""} "None"]
+                                               (map |[:option {:value (get $ "id") :selected (some (fn [id] (= id (get $ "id"))) (get state :opponentrunes []))}
+                                                      (get $ "name")] (scenarios/runes (result :package)))]]
+              (seq [index :range [0 2]]
+                [:label (string "Opponent summoner " (if (= index 0) "D" "F"))
+                 [:select {:form "scenario" :name (string "opponentsummoner" (inc index)) :data-bind (string "opponentsummoner" (inc index))}
+                  [:option {:value ""} "None"]
+                  (map |[:option {:value ($ "id") :selected (= ($ "id") (get (get state :opponentsummoners []) index ""))} ($ "name")]
+                       (filter |(some (fn [mode] (= mode "CLASSIC")) (get $ "modes" [])) (get (result :package) :summoners [])))]])])
+           [:p {:class "muted"} "Automatic ranks use a standard skill order. Exceptional leveling, forms and decision rules remain listed as omissions."]]) [false true])])
 
 (defn native-inventory [result]
   (def ids (inventory-ids (result :selected) (result :state)))
@@ -238,8 +308,8 @@
                         [:option {:value "rift"} "Summoner's Rift shop"] [:option {:value "all"} "All modes & special items"]]]
      [:button {:type "button" :class "clear-slot"
                :data-on:click (string (string/join (seq [index :range [1 7]]
-                                                     (string "if ($editing === " index ") $slot" index " = '';")) " ")
-                                      " $selected = 'custom'; document.getElementById('item-picker').close(); "
+                                                     (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = ''; else $slot" index " = ''; }")) " ")
+                                      " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
                                       "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")} "Empty slot"]]
     [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length (catalog/item-list)) " items"]
      " · Unvalidated. Permanent stats only; effect exclusions appear below the build."]
@@ -251,8 +321,8 @@
                       :data-rift (if rift "true" "false")
                       :data-search (string (item :name) " " (item :id) " " (item :description) " " (string/join (item :tags) " "))
                       :data-on:click (string (string/join (seq [index :range [1 7]]
-                                                            (string "if ($editing === " index ") $slot" index " = '" (item :id) "';")) " ")
-                                             " $selected = 'custom'; document.getElementById('item-picker').close(); "
+                                                            (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = '" (item :id) "'; else $slot" index " = '" (item :id) "'; }")) " ")
+                                             " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
                                              "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")}
              (icon "item" (item :icon) (item :name))
              [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
@@ -327,6 +397,7 @@
         (stat "Kill / death chance" (string (number-text (* 100 (get-in combat [:metrics :kill-rate] 0))) "% / "
                                             (number-text (* 100 (get-in combat [:metrics :death-rate] 0))) "%"))
         (stat "Kill time (successful trials)" (if (get-in combat [:metrics :mean-kill-time]) (string (number-text (get-in combat [:metrics :mean-kill-time]) true) " s") "—"))
+        (stat "Death time (successful trials)" (if (get-in combat [:metrics :mean-death-time]) (string (number-text (get-in combat [:metrics :mean-death-time]) true) " s") "—"))
         (stat "Sampling interval (damage)" (if (get-in combat [:uncertainty :damage]) (string "± " (number-text (get-in combat [:uncertainty :damage]))) "Unavailable"))])
      [:div {:class "build-stats"}
       (stat "Attack damage" (number-text (totals :ad) true))
@@ -340,7 +411,7 @@
       (stat "Ability haste" (totals :ability-haste))]]]
    [:section {:class "scope-panel" :aria-label "Build model coverage"}
     [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
-    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions. This strategy prioritizes Q/W/E/R, then attacks, and approaches into attack range."
+    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Your declared priority, activation conditions and movement drive this run. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions."
           has-spells
           "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
           "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
@@ -357,6 +428,14 @@
                [:p (normalize/plain (ability :tooltip))]]) (row :ability-settings))])
     (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
     (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])]
+   (when (combat :damage-breakdown)
+     [:section {:class "scope-panel"}
+      [:div {:class "section-header"} [:h2 "Mean damage by source"]]
+      [:div {:class "damage-breakdown"}
+       (map (fn [[source amount]]
+              [:div (event-icon row {:source (if (= source "attack") :attack source)})
+               [:span source] [:strong (number-text amount)]])
+            (sorted (pairs (combat :damage-breakdown)) |(> ($0 1) ($1 1))))]])
    [:section {:class "chart-panel" :aria-label "Damage timeline"}
     [:div {:class "section-header"} [:h2 chart-title]
      [:span {:class "muted"} (if has-spells (string spell-label " " (number-text (* duration (combat :ability-dps)))) "Spells: not modeled")
@@ -371,7 +450,15 @@
              (event-icon row event)
              [:span (number-text (event :at) true) " s"]]) (combat :events))]]
    (when (not (empty? (get combat :trace []))) [(state-chart combat duration :health "Health over time")
-                                                (state-chart combat duration :resource "Resources over time")])])
+                                                (state-chart combat duration :resource "Resources over time")])
+   (when (= "duel" (state :mode))
+     [:section {:class "loadout"}
+      [:div {:class "section-header"} [:h2 "Opponent · " (get state :opponent "Garen")]
+       (icon "champion" (get state :opponent "Garen") "Opponent")]
+      (inventory row state true)
+      [:div {:class "build-stats"}
+       (map (fn [[key caption]] (stat caption (number-text (get-in row [:opponent :stats key] 0))))
+            [[:hp "Health"] [:ad "Attack damage"] [:ap "Ability power"] [:armor "Armor"] [:mr "Magic resistance"]])]])])
 
 (defn error-result [message]
   [:div {:id "results" :class "results" :role "alert"}
@@ -397,6 +484,13 @@
     [:div {:class "evidence-row"} [:span {:class "evidence-kind"} "~ Assumptions"]
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
+(defn signals [state]
+  (def values (merge state {:busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (each key [:priority :opponentpriority :runes :opponentrunes]
+    (put values key (string/join (map string (get state key [])) ",")))
+  (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
+    (for index 0 2 (put values (keyword (string prefix (inc index))) (get (get state source []) index ""))))
+  values)
 (defn page [result evidence &opt message]
   (def state (result :state))
   (render (html/doctype :html5)
@@ -406,12 +500,12 @@
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
             [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}]]
            [:body
-            [:div {:id "powerspike" :data-signals (json/encode (merge state {:busy false :editing 1 :patchchoice (state :patch) :job ""}))
+            [:div {:id "powerspike" :data-signals (json/encode (signals state))
                    :data-on:jobtick "@get('/patches/status')"
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch " ((result :package) :patch)]]
-             [:main {:class "content"} (patch-panel result nil) (scenario result) (native-inventory result)
+             [:main {:class "content"} (patch-panel result nil) (scenario result) (tactics result) (native-inventory result)
               (if message (error-result message) (results result)) (evidence-panel evidence)]
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]

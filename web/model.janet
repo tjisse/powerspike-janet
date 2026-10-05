@@ -12,12 +12,14 @@
 (import ../src/powerspike/damage :as damage)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/scenario :as scenarios)
+(import ../src/powerspike/objectives :as objectives)
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
 (def default-state {:champion "Annie" :level 18 :armor 80 :mr 80 :duration 5
                     :selected "penetration" :slot1 "" :slot2 "" :slot3 "" :slot4 "" :slot5 "" :slot6 ""})
 (def slot-keys [:slot1 :slot2 :slot3 :slot4 :slot5 :slot6])
+(def enemy-slot-keys [:enemyslot1 :enemyslot2 :enemyslot3 :enemyslot4 :enemyslot5 :enemyslot6])
 (def builds [{:id "penetration" :name "Penetration" :ids ["3089" "3135" "3020"]}
              {:id "ability-power" :name "More ability power" :ids ["3089" "3135" "1052"]}
              {:id "haste" :name "More haste" :ids ["3089" "3135" "3158"]}])
@@ -31,6 +33,22 @@
                   " from " minimum " to " maximum "."))
   parsed)
 
+(defn flag [input name fallback]
+  (def value (get input name fallback))
+  (assert (some |(= value $) [true false "true" "false"]) "Invalid on/off setting.")
+  (or (= value true) (= value "true")))
+(defn ability-fields [input]
+  (def fields @{})
+  (each prefix ["" "enemy"]
+    (each slot scenarios/slots
+      (def base (string prefix slot))
+      (when (some |(= $ slot) [:q :w :e :r])
+        (put fields (keyword (string base "rank")) (numeric (get input (string base "rank") -1) "Ability rank (-1 = automatic)" -1 (if (= :r slot) 3 5) true)))
+      (each [suffix minimum maximum fallback] [["after" 0 120 0] ["selfbelow" 0 1 1] ["targetbelow" 0 1 1]]
+        (def name (string base suffix))
+        (put fields (keyword name) (numeric (get input name fallback) "Ability activation" minimum maximum)))))
+  fields)
+
 (defn parse-state [input]
   (assert (dictionary? input) "Expected scenario fields.")
   (def patch (get input "patch" packages/default-version))
@@ -39,11 +57,14 @@
   (assert (or (= selected "custom") (some |(= selected ($ :id)) builds)) "Choose a supported comparison build.")
   (def champion (get input "champion" "Annie"))
   (assert ((package :champion-map) champion) "Choose a champion from this patch.")
-  (def slots (tabseq [key :in slot-keys]
-               key (do (def id (get input (string key) ""))
+  (def slots (tabseq [key :in [;slot-keys ;enemy-slot-keys]]
+               key (do (def enemy-index (find-index |(= $ key) enemy-slot-keys))
+                     (def previous (get input "opponentitems" []))
+                     (def previous-list (if (string? previous) (string/split "," previous) previous))
+                     (def id (get input (string key) (if (and enemy-index (indexed? previous-list)) (get previous-list enemy-index "") "")))
                      (assert (and (string? id) (or (= id "") ((package :item-map) id))) "Choose an item from this patch.") id)))
   (def mode (get input "mode" "practice"))
-  (assert (some |(= $ mode) ["practice" "duel" "legacy"]) "Choose a supported scenario preset.")
+  (assert (some |(= $ mode) ["practice" "duel" "legacy" ;(map |(string ($ :id)) objectives/presets)]) "Choose a supported scenario preset.")
   (def opponent (get input "opponent" "Garen"))
   (assert ((package :champion-map) opponent) "Choose an opponent from this patch.")
   (defn list-field [name]
@@ -56,34 +77,42 @@
     (if (empty? values) scenarios/slots
       (map (fn [name] (def slot (find |(= name (string $)) scenarios/slots)) (assert slot "Use Q/W/E/R/D/F in the priority.") slot)
            (map string/ascii-lower values))))
-  (merge slots {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
-                :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
-                :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
-                :duration (numeric (get input "duration" 5) "Combat window" 0.5 30)
-                :target-health (numeric (get input "targethealth" (get input "target-health" 10000)) "Target health" 1 1000000)
-                :distance (numeric (get input "distance" 300) "Starting distance" 0 10000)
-                :mode mode :opponent opponent :opponentlevel (numeric (get input "opponentlevel" 18) "Opponent level" 1 18 true)
-                :opponentitems (list-field "opponentitems") :runes (map |(numeric $ "Rune ID" 1 99999 true) (list-field "runes"))
-                :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true) (list-field "opponentrunes"))
-                :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
-                :opponentsummoners (list-field "opponentsummoners")
-                :priority (plan "priority") :opponentpriority (plan "opponentpriority")
-                :movement (get input "movement" "approach") :opponentmovement (get input "opponentmovement" "approach")
-                :hit-chance (numeric (get input "hitchance" 1) "Hit chance" 0 1)
-                :opponent-hit-chance (numeric (get input "opponenthitchance" 1) "Opponent hit chance" 0 1)
-                :health-fraction (numeric (get input "healthfraction" 1) "Starting health fraction" 0.01 1)
-                :resource-fraction (numeric (get input "resourcefraction" 1) "Starting resource fraction" 0 1)
-                :opponent-health-fraction (numeric (get input "opponenthealthfraction" 1) "Opponent starting health" 0.01 1)
-                :opponent-resource-fraction (numeric (get input "opponentresourcefraction" 1) "Opponent starting resource" 0 1)
-                :samples (numeric (get input "samples" 1) "Trials" 1 64 true) :seed (numeric (get input "seed" 1) "Seed" 0 2147483647 true)
-                :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
+  (merge slots (ability-fields input) {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
+                                       :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
+                                       :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
+                                       :duration (numeric (get input "duration" 5) "Combat window" 0.5 120)
+                                       :target-health (numeric (get input "targethealth" (get input "target-health" 10000)) "Target health" 1 1000000)
+                                       :distance (numeric (get input "distance" 300) "Starting distance" 0 10000)
+                                       :mode mode :opponent opponent :opponentlevel (numeric (get input "opponentlevel" 18) "Opponent level" 1 18 true)
+                                       :opponentitems (if (has-key? input "enemyslot1") (filter |(not= "" $) (map |(slots $) enemy-slot-keys)) (list-field "opponentitems"))
+                                       :runes (map |(numeric $ "Rune ID" 1 99999 true) (list-field "runes"))
+                                       :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true) (list-field "opponentrunes"))
+                                       :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
+                                       :opponentsummoners (if (has-key? input "opponentsummoner1") (filter |(not= $ "") [(get input "opponentsummoner1" "") (get input "opponentsummoner2" "")]) (list-field "opponentsummoners"))
+                                       :priority (plan "priority") :opponentpriority (plan "opponentpriority")
+                                       :movement (get input "movement" "approach") :opponentmovement (get input "opponentmovement" "approach")
+                                       :hit-chance (numeric (get input "hitchance" (get input "hit-chance" 1)) "Hit chance" 0 1)
+                                       :opponent-hit-chance (numeric (get input "opponenthitchance" (get input "opponent-hit-chance" 1)) "Opponent hit chance" 0 1)
+                                       :health-fraction (numeric (get input "healthfraction" (get input "health-fraction" 1)) "Starting health fraction" 0.01 1)
+                                       :resource-fraction (numeric (get input "resourcefraction" (get input "resource-fraction" 1)) "Starting resource fraction" 0 1)
+                                       :opponent-health-fraction (numeric (get input "opponenthealthfraction" (get input "opponent-health-fraction" 1)) "Opponent starting health" 0.01 1)
+                                       :opponent-resource-fraction (numeric (get input "opponentresourcefraction" (get input "opponent-resource-fraction" 1)) "Opponent starting resource" 0 1)
+                                       :attacks (flag input "attacks" true) :abilities (flag input "abilities" true)
+                                       :opponentattacks (flag input "opponentattacks" true) :opponentabilities (flag input "opponentabilities" true)
+                                       :preferredrange (numeric (get input "preferredrange" 500) "Preferred distance" 0 10000)
+                                       :opponentpreferredrange (numeric (get input "opponentpreferredrange" 500) "Opponent preferred distance" 0 10000)
+                                       :objectivelevel (numeric (get input "objectivelevel" 10) "Objective level" 1 30 true)
+                                       :gametime (numeric (get input "gametime" 20) "Game time in minutes" 0 120)
+                                       :minionspresent (flag input "minionspresent" true) :retaliation (flag input "retaliation" true)
+                                       :samples (numeric (get input "samples" 1) "Trials" 1 64 true) :seed (numeric (get input "seed" 1) "Seed" 0 2147483647 true)
+                                       :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
 
 (defn ability-settings [champion totals level ranks]
   (map (fn [ability]
          (def rank (get ranks (ability :slot) (if (= :p (ability :slot)) 1 0)))
          (def cooldown (protect (damage/cooldown (expr/evaluate (ability :cooldown)
                                                                 {:rank rank :level level :stats totals :base {} :buffs {}})
-                                                 (get totals :ability-haste 0))))
+                                                 (if (ability :unhasted) 0 (get totals :ability-haste 0)))))
          (merge ability {:rank rank :effective-cooldown (when (first cooldown) (cooldown 1))})) (get champion :abilities [])))
 (defn estimated-combat [champion totals state ranks]
   (def result (engine/simulate
@@ -155,6 +184,11 @@
 
 (defn definition [state ids]
   (defn spec [opponent]
+    (def prefix (if opponent "enemy" ""))
+    (def ranks (tabseq [slot :in [:q :w :e :r] :let [rank (get state (keyword (string prefix slot "rank")) -1)] :when (>= rank 0)] slot rank))
+    (def activation (tabseq [slot :in scenarios/slots] slot {:after (get state (keyword (string prefix slot "after")) 0)
+                                                             :self-health-below (get state (keyword (string prefix slot "selfbelow")) 1)
+                                                             :target-health-below (get state (keyword (string prefix slot "targetbelow")) 1)}))
     {:champion (get state (if opponent :opponent :champion) (if opponent "Garen" "Annie"))
      :level (get state (if opponent :opponentlevel :level) 18)
      :loadout {:items (if opponent (get state :opponentitems []) ids)
@@ -162,12 +196,19 @@
                :summoners (get state (if opponent :opponentsummoners :summoners) [])}
      :health-fraction (get state (if opponent :opponent-health-fraction :health-fraction) 1)
      :resource-fraction (get state (if opponent :opponent-resource-fraction :resource-fraction) 1)
+     :ranks (when (not (empty? ranks)) ranks)
      :strategy {:priority (get state (if opponent :opponentpriority :priority) scenarios/slots)
                 :movement (keyword (get state (if opponent :opponentmovement :movement) "approach"))
+                :activation activation :attacks (get state (if opponent :opponentattacks :attacks) true)
+                :abilities (get state (if opponent :opponentabilities :abilities) true)
+                :preferred-range (get state (if opponent :opponentpreferredrange :preferredrange) 500)
                 :hit-chance (get state (if opponent :opponent-hit-chance :hit-chance) 1)}})
   {:schema 1 :patch (get state :patch packages/default-version) :snapshot (state :snapshot) :duration (state :duration)
    :seed (get state :seed 1) :samples (get state :samples 1) :player (spec false) :distance (get state :distance 300)
-   :target (if (= "duel" (state :mode)) (merge (spec true) {:kind :champion})
+   :target (cond (= "duel" (state :mode)) (merge (spec true) {:kind :champion})
+             (some |(= (state :mode) (string ($ :id))) objectives/presets)
+             {:kind :objective :objective (keyword (state :mode)) :level (get state :objectivelevel 10)
+              :game-time (* 60 (get state :gametime 20)) :minions-present (get state :minionspresent true) :retaliation (get state :retaliation true)}
              {:kind :practice :hp (get state :target-health 10000) :armor (state :armor) :mr (state :mr)})})
 (defn compare [state]
   (if (or (= "legacy" (state :mode)) (not (state :mode))) (compare-legacy state)
@@ -187,6 +228,7 @@
                          (merge build {:stats (actor :stats) :ranks (actor :ranks) :items items :cost (sum (map |($ :gold) items))
                                        :combat combat :ability-settings (ability-settings (merge champion {:abilities (actor :abilities)})
                                                                                           (actor :stats) (actor :level) (actor :ranks))
+                                       :opponent ((compiled :actors) 1)
                                        :limitations [;(compiled :coverage) ;(combat :unsupported)]})) candidates))
         {:state state :package package :champion champion :rows (sorted rows |(> (get-in $0 [:combat :metrics :damage]) (get-in $1 [:combat :metrics :damage])))
          :selected (or (find |(= ($ :id) (state :selected)) rows) (find |(= "custom" ($ :id)) rows))}))))

@@ -77,6 +77,7 @@
                    :strategy {:attacks true :abilities false :movement :approach}}
                   {:position 1000} 1))
 (close 200 (get-in slow [:actors 0 :position]))
+(close 0.5 (get-in slow [:actors 0 :control-time]))
 (def immune (battle [(effect 0 0 1 {:kind :control :control :stun :duration 3})]
                     nil {:immunities [:stun] :strategy {:attacks true :abilities false}}))
 (close 300 (get-in immune [:actors 1 :damage-dealt]))

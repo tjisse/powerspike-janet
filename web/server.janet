@@ -62,7 +62,7 @@
                                     (ds/with-open-sse gen
                                                       (ds/patch-elements gen
                                                                          (if (first result) (with-dyns [:patch-package ((result 1) :package)]
-                                                                                              (ui/render (ui/results (result 1)) (ui/champion-display (result 1))))
+                                                                                              (ui/render (ui/results (result 1)) (ui/champion-display (result 1)) (ui/tactics (result 1))))
                                                                            (ui/render (ui/error-result (string (result 1))))))))}))
 
 (defn app-inner [req]

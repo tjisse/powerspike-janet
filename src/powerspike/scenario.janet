@@ -4,6 +4,7 @@
 (import ./builds :as builds)
 (import ./engine :as engine)
 (import ./effects :as effects)
+(import ./objectives :as objectives)
 (import ./validation :as v)
 (import ./data-util :as util)
 (import pshash :as hash)
@@ -55,7 +56,8 @@
   (def ids (get loadout :items []))
   (assert (and (indexed? ids) (<= (length ids) 6)) "Inventory supports six slots.")
   (def items (map (fn [id] (def item ((package :item-map) id)) (assert item "Item unavailable on this patch.") item) ids))
-  (def ranks (or (spec :ranks) (when (spec :skill-order) (skills/ranks-from-order (spec :skill-order) level)) (default-ranks champion level)))
+  (def ranks (if (spec :ranks) (merge (default-ranks champion level) (spec :ranks))
+               (or (when (spec :skill-order) (skills/ranks-from-order (spec :skill-order) level)) (default-ranks champion level))))
   (skills/validate-ranks ranks level)
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
@@ -73,7 +75,8 @@
   (def all-ranks (merge ranks (tabseq [spell :in summoners] (spell :slot) 1)))
   (def inspection (builds/inspect-build items {:champion (champion :id)}))
   {:id id :kind :champion :champion (champion :id) :level level :ranged ranged :stats computed
-   :base (merge (stats/base-stats champion level) {:ap 0 :crit-chance 0 :crit-damage (champion :crit-damage)})
+   :base (merge (stats/base-stats champion level) {:ap 0 :attack-speed (champion :attack-speed-base) :attack-range (champion :attack-range)
+                                                   :crit-chance 0 :crit-damage (champion :crit-damage)})
    :health (* (computed :hp) (v/fraction (get spec :health-fraction 1) "Starting health"))
    :resource (* (get computed :mp 0) (v/fraction (get spec :resource-fraction 1) "Starting resource"))
    :abilities [;abilities ;summoners] :ranks all-ranks :position position :attack-range (champion :attack-range)
@@ -99,10 +102,11 @@
   (def opponent
     (case (get target :kind :practice)
       :champion (participant package target "opponent" distance)
-      :practice {:id "target" :kind :practice :level 1 :position distance
+      :practice {:id "target" :kind :practice :tags [:practice :champion] :level 1 :position distance
                  :stats {:hp (v/nonnegative (get target :hp 10000) "Target health") :mp 0
                          :armor (v/finite-number (get target :armor 80) "armor") :mr (v/finite-number (get target :mr 80) "magic resistance")}
                  :strategy {:attacks false :abilities false :movement :hold} :coverage []}
+      :objective (objectives/actor package target distance)
       (error "Objective data requires an available objective preset.")))
   (def warnings [;(player :coverage) ;(opponent :coverage)
                  ;(if (and (definition :model) (not= engine/identity (definition :model)))

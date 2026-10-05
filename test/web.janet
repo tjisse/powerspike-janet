@@ -1,6 +1,7 @@
 (import ../web/model :as model)
 (import ../web/ui :as ui)
 (import ../web/catalog :as catalog)
+(import ../src/powerspike/data-util :as util)
 
 (catalog/initialize "build/runtime-data" "build/seed")
 
@@ -26,7 +27,7 @@
 (test "untrusted scenario fields reject NaN, infinity, invalid levels and unsupported builds"
       (fn [] (each fields [{"level" 0} {"level" 19} {"level" 6.5} {"level" true}
                            {"mr" -1} {"mr" math/inf} {"mr" "NaN"} {"duration" 0}
-                           {"duration" 31} {"selected" "<script>"} {"champion" "<script>"}
+                           {"duration" 121} {"selected" "<script>"} {"champion" "<script>"}
                            {"slot1" "../../secret"} {"slot6" 3089} {"armor" -1}]
                (rejects (fn [] (model/parse-state fields))))))
 (test "all frontend levels produce legal ranks and builds"
@@ -103,5 +104,18 @@
         (assert (> (length (combat :trace)) 0))
         (assert (combat :scenario-id))
         (assert (not (empty? (combat :uncertainty))))))
+
+(test "rank locks, activation thresholds and opponent inventories affect one shared simulation"
+      (fn []
+        (def disabled (model/compare (model/parse-state {"selected" "custom" "qrank" 0 "wrank" 0 "erank" 0 "rrank" 0})))
+        (assert (= 0 (get-in disabled [:selected :combat :ability-dps])))
+        (def delayed (model/compare (model/parse-state {"selected" "custom" "qafter" 2})))
+        (assert (not (some |(and (= "AnnieQ" ($ :source)) (< ($ :at) 2)) (get-in delayed [:selected :combat :trace]))))
+        (def state (model/parse-state {"mode" "duel" "enemyslot2" "3089" "qrank" 0 "hitchance" 0.5 "healthfraction" 0.7}))
+        (def roundtrip (model/parse-state (util/read-json (util/encode-json (ui/signals state)))))
+        (assert (= 0.5 (roundtrip :hit-chance)))
+        (assert (= 0.7 (roundtrip :health-fraction)))
+        (assert (= ["3089"] (tuple ;(roundtrip :opponentitems))))
+        (rejects (fn [] (model/compare (model/parse-state {"level" 1 "qrank" 5}))))))
 
 (print passed " frontend tests passed")

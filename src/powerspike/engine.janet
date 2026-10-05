@@ -7,6 +7,7 @@
 (def identity (hash/sha256 (string version (slurp "src/powerspike/engine.janet")
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
+                                   (slurp "src/powerspike/objectives.janet")
                                    (slurp "data/semantic-overrides.jdn"))))
 (defn less? [a b]
   (cond (not= (a :at) (b :at)) (< (a :at) (b :at))
@@ -44,7 +45,7 @@
                     :position (get actor :position 0) :velocity 0 :busy-until 0 :attack-ready 0
                     :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
                     :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[]
-                    :damage-dealt 0 :attack-damage 0 :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
+                    :damage-dealt 0 :attack-damage 0 :breakdown @{} :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
 (defn context [actor target rank]
   (def stats (merge @{} (actor :stats)
                     {:health (actor :health) :health-percent (/ (actor :health) ((actor :stats) :hp))
@@ -59,6 +60,10 @@
 (defn alive? [actor] (not (actor :dead-at)))
 (defn controlled? [actor controls at]
   (some |(> (get (actor :controls) $ 0) at) controls))
+(defn target-allowed? [effect target]
+  (and (or (not (effect :target-kinds))
+           (some |(some (fn [kind] (= $ kind)) (get target :tags [(target :kind)])) (effect :target-kinds)))
+       (not (some |(= $ (target :objective)) (get effect :exclude-objectives [])))))
 (defn simulate [scenario &opt cancelled]
   (def duration (scenario :duration))
   (assert (and (util/finite? duration) (< 0 duration 180)) "Combat duration must be below 180 seconds.")
@@ -74,6 +79,7 @@
   (var sequence 0)
   (var at 0)
   (var processed 0)
+  (var before nil)
   (def limit (min 100000 (get scenario :event-limit 10000)))
   (defn note [message]
     (unless (some |(= $ message) unsupported) (array/push unsupported message)))
@@ -94,23 +100,28 @@
                           (+ before (modifier :amount))))))
     (put actor :stats totals)
     (put actor :health (min (actor :health) (totals :hp))))
+  (defn participants []
+    (map |{:id ($ :id) :health ($ :health) :resource ($ :resource) :position ($ :position)} actors))
   (defn record [kind fields]
     (when tracing
-      (array/push trace (merge fields {:at at :kind kind
-                                       :participants (map |{:id ($ :id) :health ($ :health) :resource ($ :resource)
-                                                            :position ($ :position)} actors)}))))
+      (array/push trace (merge fields {:at at :kind kind :before before :participants (participants)}))))
   (defn advance [time]
     (def dt (- time at))
     (def positions (map |($ :position) actors))
     (each actor actors
       (when (alive? actor)
-        (put actor :health (min ((actor :stats) :hp) (+ (actor :health) (* dt (/ (get (actor :stats) :hp-regen 0) 5)))))
+        (put actor :health (min ((actor :stats) :hp) (+ (actor :health) (* dt (/ (get (actor :stats) :hp-regen 0) 5) (get (actor :stats) :healing-multiplier 1)))))
         (put actor :resource (min (get (actor :stats) :mp 0) (+ (actor :resource) (* dt (/ (get (actor :stats) :mp-regen 0) 5)))))
-        (when (and (or (get-in actor [:strategy :attacks] false) (get-in actor [:strategy :abilities] false)
-                       (= :approach (get-in actor [:strategy :movement])))
-                   (controlled? actor [:stun :root :charm :fear :airborne :silence :slow] at))
-          (put actor :control-time (+ (actor :control-time) dt)))
-        (unless (or (> (actor :busy-until) at) (controlled? actor [:stun :root :charm :fear :airborne] at))
+        (def active (or (get-in actor [:strategy :attacks] false) (get-in actor [:strategy :abilities] false) (not= 0 (actor :velocity))))
+        (def blocked (and active
+                          (or (controlled? actor [:stun :charm :fear :airborne :suppression] at)
+                              (and (not= 0 (actor :velocity)) (controlled? actor [:root] at))
+                              (and (get-in actor [:strategy :abilities] false) (controlled? actor [:silence] at)))))
+        (def impairment (cond blocked 1
+                          (and (not= 0 (actor :velocity)) (controlled? actor [:slow] at)) (- 1 (get-in actor [:stat-effects :slow :amount] 1))
+                          0))
+        (put actor :control-time (+ (actor :control-time) (* dt impairment)))
+        (unless (or (> (actor :busy-until) at) (controlled? actor [:stun :root :charm :fear :airborne :suppression] at))
           (def step (* dt (actor :velocity)))
           (def position (actor :position))
           (def enemy-position (positions (actor :target)))
@@ -124,11 +135,12 @@
         (when (and (some |(= $ event-key) (get effect :on []))
                    (<= (get (owner :proc-ready) id 0) at)
                    (or (not (effect :requires-buff)) (> (get (owner :buff-counts) (effect :requires-buff) 0) 0))
-                   (or (not (effect :target-kinds)) (some |(= $ (target :kind)) (effect :target-kinds))))
+                   (target-allowed? effect target))
           (def result (protect
                         (def counter (get (owner :proc-counts) id @{:count 0 :last (- math/inf) :origins @[]}))
                         (def window (value (get effect :window 999) owner target 1))
-                        (when (> (- at (counter :last)) window) (put counter :count 0) (put counter :origins @[]))
+                        (when (> (- at (get counter :first (- math/inf))) window) (put counter :count 0) (put counter :origins @[]))
+                        (when (= 0 (counter :count)) (put counter :first at))
                         (unless (some |(= $ origin) (counter :origins))
                           (put counter :count (inc (counter :count))) (array/push (counter :origins) origin))
                         (put counter :last at) (put (owner :proc-counts) id counter)
@@ -146,8 +158,13 @@
     (def rank (get event :rank 1))
     (def depth (get event :depth 0))
     (def source (event :source))
+    (def blocked (and (target :spell-immune) (not= (owner :index) (target :index))
+                      (not= :attack (get event :trigger)) (not (effect :affects-structures))))
+    (def unknown-slow (and (= :control (effect :kind)) (= :slow (effect :control)) (not (effect :strength))))
+    (when blocked (record :immune {:source source :target (target :id)}))
+    (when unknown-slow (note (string source ": Slow strength unresolved; movement reduction and utility contribution excluded.")))
     (when (and (alive? target) (not= :unresolved (get effect :condition :always))
-               (or (not (effect :target-kinds)) (some |(= $ (target :kind)) (effect :target-kinds))))
+               (target-allowed? effect target) (not blocked) (not unknown-slow))
       (def outcome (protect
                      (case (effect :kind)
                        :damage
@@ -172,10 +189,12 @@
                          (put target :absorbed (+ (target :absorbed) (- before remaining)))
                          (put target :damage-taken (+ (target :damage-taken) applied))
                          (put owner :damage-dealt (+ (owner :damage-dealt) applied))
+                         (put (owner :breakdown) source (+ (get (owner :breakdown) source 0) applied))
                          (when (= "attack" source) (put owner :attack-damage (+ (owner :attack-damage) applied)))
                          (def summary (merge hit {:at at :source source :actor (owner :id) :target (target :id)
                                                   :damage applied :absorbed (- before remaining) :health (target :health)
                                                   :origin (event :origin)}))
+                         (put summary :critical (get event :critical false))
                          (when tracing (array/push hits summary))
                          (record :damage summary)
                          (when (<= (target :health) 0) (schedule at 20 :death {:actor (target :index)}))
@@ -267,15 +286,20 @@
       (def travel (if (> speed 0) (/ distance speed) 0))
       (def hit-chance (get-in actor [:strategy :hit-chance] 1))
       (cond
-        (and (= :attack (event :action)) (controlled? actor [:stun :charm :fear :airborne] at))
+        (and (= :attack (event :action)) (controlled? actor [:stun :charm :fear :airborne :suppression] at))
         (record :interrupted {:source "attack" :actor (actor :id)})
         (and (or (= :attack (event :action)) (some |(= :enemy ($ :target)) (get ability :effects [])))
              (>= (random-at seed trial (actor :id) (event :source) (event :counter)) hit-chance))
         (record :miss {:source (event :source) :actor (actor :id)})
         (= :attack (event :action))
         (do
-          (def critical (< (random-at seed trial (actor :id) :crit (event :counter)) (get (actor :stats) :crit-chance 0)))
-          (def raw (* (get (actor :stats) :ad 0) (if critical (get (actor :stats) :crit-damage 1.75) 1)))
+          (def critical (and (not (target :no-crit)) (< (random-at seed trial (actor :id) :crit (event :counter)) (get (actor :stats) :crit-chance 0))))
+          (var raw (* (get (actor :stats) :ad 0) (if critical (get (actor :stats) :crit-damage 1.75) 1)))
+          (when (actor :attack-ramp)
+            (def ramp (actor :attack-ramp))
+            (def stacks (if (> (- at (get actor :ramp-last (- math/inf))) (ramp :window)) 0 (get actor :ramp-stacks 0)))
+            (*= raw (+ 1 (* stacks (ramp :step))))
+            (put actor :ramp-last at) (put actor :ramp-stacks (min (ramp :maximum) (inc stacks))))
           (def modifier (find |(and (> ($ :expires) at) (> ($ :remaining) 0)) (actor :modifiers)))
           (when modifier (put modifier :remaining (dec (modifier :remaining))))
           (def effects (if modifier [(modifier :effect)] [{:kind :damage :damage-type :physical :amount raw :condition :always}]))
@@ -283,7 +307,7 @@
             (schedule (+ at travel) 10 :effect {:actor (actor :index) :target (target :index) :effect effect
                                                 :rank (get modifier :rank 1) :source (get modifier :source "attack")
                                                 :trigger :attack :origin (event :origin) :critical critical})))
-        (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :silence] at))
+        (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
         (each effect (ability :effects)
           (def released (protect (release-effect event actor target ability effect travel)))
@@ -309,7 +333,7 @@
       (var cooldown 0)
       (var next (+ at 0.05))
       (when (and (<= (actor :busy-until) at)
-                 (not (controlled? actor [:stun :charm :fear :airborne :silence] at))
+                 (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
         (each slot (get strategy :priority [:q :w :e :r])
           (unless selected
@@ -323,6 +347,7 @@
                        (some |(= :estimated ($ :status)) (ability :effects)))
               (def result (protect
                             (def cast-time (get ability :cast-time 0.25))
+                            (assert (not= :unresolved (ability :cost-resource)) "Resource cost semantics require a handler.")
                             (assert (and (util/finite? cast-time) (<= 0 cast-time 10)) "Cast timing directive requires a handler.")
                             (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
                             (def resource-cost (if recasting (get-in ability [:recast :cost] 0) (max 0 (value (ability :cost) actor target learned))))
@@ -335,9 +360,12 @@
                                 (assert (<= 1 maximum 10) "Invalid charge count.")
                                 (put (actor :charges) (ability :id) @{:available maximum :maximum maximum :recovering false})))
                             (def charged (get (actor :charges) (ability :id)))
-                            (def self-only (not (some |(= :enemy ($ :target)) (ability :effects))))
+                            (def self-only (not (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (ability :effects))))
+                            (def blocked (and (target :spell-immune) (not self-only)
+                                              (not (some |($ :affects-structures) (ability :effects)))))
+                            (when blocked (note (string (ability :id) ": Target is immune to this ability.")))
                             (def pool (if (= :health (get ability :cost-resource)) (actor :health) (actor :resource)))
-                            (when (and (or self-only (<= distance ability-range)) (>= pool (+ resource-cost (if (= :health (ability :cost-resource)) 1 0)))
+                            (when (and (not blocked) (or self-only (<= distance ability-range)) (>= pool (+ resource-cost (if (= :health (ability :cost-resource)) 1 0)))
                                        (or (not charged) (> (charged :available) 0)))
                               (set selected ability) (set rank learned) (set cost resource-cost) (set cooldown cd))))
               (unless (first result) (note (string (ability :id) ": " (result 1))))))))
@@ -383,7 +411,7 @@
           (set next (max (+ at 0.01) (actor :busy-until))))
         (and (<= (actor :busy-until) at) (<= (actor :attack-ready) at)
              (<= distance range) (get strategy :attacks true)
-             (not (controlled? actor [:stun :charm :fear :airborne] at))
+             (not (controlled? actor [:stun :charm :fear :airborne :suppression] at))
              (> (get (actor :stats) :attack-speed 0) 0))
         (do
           (def period (/ 1 ((actor :stats) :attack-speed)))
@@ -406,6 +434,7 @@
     (when (and cancelled (= 0 (% processed 32)) (cancelled)) (error "Cancelled."))
     (def event (pop queue))
     (advance (event :at))
+    (when tracing (set before (participants)))
     (case (event :kind)
       :decide (decide (actors (event :actor)))
       :release (release event)
@@ -427,17 +456,20 @@
       :expire (do (refresh-stats (actors (event :actor))) (record :expire {:actor ((actors (event :actor)) :id)}))
       (note (string "Unsupported event: " (event :kind)))))
   (advance duration)
+  (when tracing (set before (participants)))
   (record :end {})
   (def player (actors 0))
   (def opponent (actors 1))
   (def attack-damage (player :attack-damage))
-  {:engine version :model identity :actors actors :trace trace :events (filter |(= (player :id) ($ :actor)) hits) :unsupported unsupported
+  {:engine version :model identity :actors actors :trace trace :damage-breakdown (table/to-struct (player :breakdown))
+   :events (filter |(= (player :id) ($ :actor)) hits) :unsupported unsupported
    :assumptions ["Declared ability priority precedes basic attacks."
                  "Cooldowns start on cast unless an override declares otherwise."
                  "Ordinary attack windup is 30% unless configured."
                  "Projectile travel uses distance at release; collision geometry is omitted."
                  "Ability resource costs use the participant's configured resource pool."
-                 "Parsed effects are estimates; unresolved effects are excluded and reported."]
+                 "Parsed effects are estimates; unresolved effects are excluded and reported."
+                 "Damage triggers follow the initiating damage; exact game proc ordering remains unvalidated."]
    :damage (player :damage-dealt) :dps (/ (player :damage-dealt) duration)
    :attack-dps (/ attack-damage duration) :ability-dps (/ (- (player :damage-dealt) attack-damage) duration)
    :resource-left (player :resource)
@@ -450,6 +482,7 @@
   (assert (and (number? samples) (= samples (math/floor samples)) (<= 1 samples 256)) "Trial count must be from 1 to 256.")
   (def totals @{})
   (def squared @{})
+  (def sources @{})
   (var representative nil)
   (var kills 0)
   (var deaths 0)
@@ -461,6 +494,7 @@
     (when (and cancelled (cancelled)) (error "Cancelled."))
     (def result (simulate (merge scenario {:trial trial :trace (= trial 0)}) cancelled))
     (unless representative (set representative result))
+    (eachp [source damage] (result :damage-breakdown) (put sources source (+ (get sources source 0) damage)))
     (each message (result :unsupported) (unless (some |(= $ message) omissions) (array/push omissions message)))
     (def metrics (result :metrics))
     (when (metrics :kill-time) (++ kills) (+= kill-sum (metrics :kill-time)))
@@ -475,6 +509,7 @@
                      key (if (> samples 1)
                            (* 1.96 (math/sqrt (/ (max 0 (- (squared key) (* samples mean mean))) (* samples (dec samples))))) nil)))
   (merge representative {:unsupported omissions :samples samples :uncertainty uncertainty
+                         :damage-breakdown (table/to-struct (tabseq [[source total] :pairs sources] source (/ total samples)))
                          :damage (means :damage) :dps (/ (means :damage) (scenario :duration)) :resource-left (means :resource)
                          :attack-dps (/ (means :attack-damage) (scenario :duration))
                          :ability-dps (/ (- (means :damage) (means :attack-damage)) (scenario :duration))

@@ -2,6 +2,7 @@
 (import ./https :as https)
 (import ./normalize :as normalize)
 (import ./tooltip :as tooltip)
+(import ./objectives :as objectives)
 (import pshash :as hash)
 
 (var data-dir nil)
@@ -112,6 +113,13 @@
   (def item-records (or (obtain (string cd "game/items.cdtb.bin.json?powerspike=1") "sources/item-effects.json" true) {}))
   (def perk-records (or (obtain (string cd "game/perks.cdtb.bin.json?powerspike=1") "sources/rune-effects.json" true) {}))
   (def shared-records (or (obtain (string cd "game/shared.cdtb.bin.json?powerspike=1") "sources/shared-effects.json" true) {}))
+  (def objective-records
+    (map (fn [preset]
+           (progress {:message (string "Downloading " (preset :name)) :completed 0 :total 1})
+           (def name (preset :file))
+           (def records (obtain (string cd "game/data/characters/" name "/" name ".bin.json?powerspike=1")
+                                (string "sources/objectives/" name ".json") true))
+           (objectives/normalize preset (or records {}) item-records version)) objectives/presets))
   (def champions @[])
   (def ids (sorted (keys (champion-data "data"))))
   (eachp [index id] ids
@@ -132,7 +140,7 @@
                                                 (def record (get-in shared-records [(string "Shared/Spells/" (spell "id")) "mSpell"] {}))
                                                 (merge spell {:parsed (tooltip/parse (get spell "tooltip" "") record spell)
                                                               :record record :available true :checked false})) (values (summoners "data"))) [])
-                :objectives [] :coverage missing :sources sources})
+                :objectives objective-records :coverage missing :sources sources})
   (def bytes (util/encode-data package))
   (def id (hash/sha256 bytes))
   (util/write (string staging "/package.jdn") bytes)

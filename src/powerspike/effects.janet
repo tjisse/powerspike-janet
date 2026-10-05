@@ -19,12 +19,14 @@
       "3145" [{:id "item/3145" :on [:damage] :target-kinds [:champion] :kind :damage :damage-type :magic
                :amount (term "DamageAmount") :cooldown (term "Cooldown")}]
       "3153" [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
+               :exclude-objectives [:turret]
                :kind :damage :damage-type :physical
                :amount (multiply (term (if ranged "RangedValue" "MeleeValue")) {:op :target-stat :stat :health})
                :monster-cap (term "MonsterDamageCap") :cooldown 0}]
       "3057" [{:id "item/3057/prime" :on [:cast] :kind :buff :target :self :buff "spellblade" :duration 10 :refresh true}
               {:id "item/3057/hit" :on [:attack] :requires-buff "spellblade" :consume-buff "spellblade"
                :kind :damage :damage-type :physical :amount (term "SpellbladeDamage")
+               :affects-structures true
                :cooldown (term "SpellbladeCooldown")}]
       [])))
 (defn rune-spell [rune patch]
@@ -58,7 +60,7 @@
                          (typed :control :enemy {:control :slow :strength (multiply (constant 0.01) (term "Slow")) :duration (term "DebuffDuration")})]
       "SummonerHaste" [(typed :stat-buff :self {:stat :move-speed :mode :multiply :relative true :amount (term "MoveSpeedMod")
                                                 :duration (term "Duration")})]
-      "SummonerSmite" [(typed :damage :enemy {:damage-type :true :amount (term "SmiteBaseDamage") :target-kinds [:objective]})]
+      "SummonerSmite" [(typed :damage :enemy {:damage-type :true :amount (term "SmiteBaseDamage") :target-kinds [:objective] :exclude-objectives [:turret]})]
       "SummonerBoost" [(typed :cleanse :self {:controls [:stun :root :charm :fear :silence :slow]})
                        (typed :stat-buff :self {:stat :tenacity :amount (term "TenacityValue") :mode :maximum :duration (term "TenacityDuration")})]
       []))

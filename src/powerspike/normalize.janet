@@ -3,7 +3,7 @@
 (import pshash :as hash)
 (import ./data-util :as util)
 
-(def parser-version "3")
+(def parser-version "4")
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
 (defn patch-order [patch]
   (def parts (string/split "." (string/replace "lolpatch_" "" patch)))
@@ -109,6 +109,25 @@
       (map |(if (string/has-prefix? "Characters/" $) $ (string "Characters/" id "/Spells/" $))
            (get root "spellNames" []))))
 
+(defn resource-cost [spell dd]
+  (def type (string/ascii-lower (get dd "costType" "")))
+  (def description (get dd "resource" ""))
+  (def tokens (tooltip/tokens description))
+  (def amount (if (get dd "cost") (expr/ranked (dd "cost") -1 "Data Dragon resource cost")
+                (expr/ranked (get-in spell ["manaValues" "values"]) -1 "CommunityDragon resource cost")))
+  (cond
+    (or (string/find "channeling" (string/ascii-lower description)) (string/find "per second" type))
+    {:kind :unresolved :amount (expr/unresolved "Continuous/channeling resource costs require a handler.")}
+    (string/find "health" type)
+    (let [resolved (if (first tokens) (expr/variable ((first tokens) :name) spell dd)
+                     (expr/unresolved "Health resource cost variable unavailable."))]
+      {:kind :health
+       :amount (if (string/find "%" type)
+                 {:op :multiply :children [resolved {:op :constant :value 0.01}
+                                           {:op :stat :stat (if (string/find "current" type) :health :hp) :formula 0}]}
+                 resolved)})
+    {:kind :resource :amount amount}))
+
 (defn ability [slot path object dd fonts &opt patch]
   (def spell (merge (get object "mSpell" {}) {"__powerspike_patch" (or patch "16.19.1")}))
   (def client (get-in spell ["mClientData" "mTooltipData"] {}))
@@ -116,11 +135,13 @@
   (def text (or (when key (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key)))))
                 (get dd "tooltip") (get dd "description") ""))
   (def parsed (merge @{} (tooltip/parse text spell dd)))
+  (def cost (resource-cost spell dd))
   (when (= slot :p)
     (put parsed :effects (map |(merge $ {:trigger :unresolved :status :unresolved}) (parsed :effects)))
     (array/push (parsed :unresolved) "Passive activation requires an explicit trigger handler."))
   (def maxrank (get dd "maxrank" (if (= slot :r) 3 (if (= slot :p) 1 5))))
   (def problems (array ;(parsed :unresolved)))
+  (each problem (expr/problems (cost :amount)) (array/push problems problem))
   (when (empty? object) (array/push problems "Current spell record unavailable."))
   (when (empty? text) (array/push problems "Ability tooltip unavailable."))
   (when (empty? (parsed :effects)) (array/push problems "No recognized executable effect; this does not imply zero damage."))
@@ -134,8 +155,7 @@
                  :max-rank maxrank :available (or (not (empty? object)) (not (empty? dd))) :checked false
                  :cooldown (if (get dd "cooldown") (expr/ranked (dd "cooldown") -1 "Data Dragon cooldown")
                              (expr/ranked (get spell "cooldownTime") 0 "CommunityDragon cooldown"))
-                 :cost (if (get dd "cost") (expr/ranked (dd "cost") -1 "Data Dragon resource cost")
-                         (expr/ranked (get-in spell ["manaValues" "values"]) -1 "CommunityDragon resource cost"))
+                 :cost (cost :amount) :cost-resource (cost :kind)
                  :range (if (get dd "range") (expr/ranked (dd "range") -1 "Data Dragon range")
                           (expr/ranked (or (get spell "castRangeDisplayOverride") (get spell "castRange")) 0 "CommunityDragon range"))
                  :cast-time (get spell "mCastTime" (get spell "spellCastTime" 0.25))

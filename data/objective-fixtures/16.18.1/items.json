@@ -1,0 +1,263 @@
+{
+  "Items/1502": {
+    "mDisplayName": "game_item_displayname_1502",
+    "itemID": 1502,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default"
+    ],
+    "epicness": 3,
+    "mEffectAmount": [
+      80.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "DamageReduction",
+        "mValue": 80.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MeleeChampionBonusDamage",
+        "mValue": 0.20000000298023224,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "DataValuesModeOverride": {
+      "ONEFORALL": {
+        "DataValues": [
+          {
+            "mName": "DamageReduction",
+            "mValue": 90.0,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      }
+    },
+    "mCategories": [
+      "Armor",
+      "ManaRegen",
+      "OnHit"
+    ],
+    "mItemAttributes": [
+      1
+    ],
+    "mItemDataClient": {
+      "mTooltipData": {
+        "mObjectName": "1502",
+        "mFormat": "{32559c50}",
+        "mLocKeys": {
+          "keyName": "Item_1502_Name",
+          "keyTooltip": "game_item_tooltip_1502"
+        },
+        "mLists": {
+          "Stats": {
+            "__type": "TooltipInstanceList"
+          }
+        },
+        "__type": "TooltipInstanceItem"
+      },
+      "mDescription": "GeneratedTip_Item_1502_Description",
+      "mDynamicTooltip": "GeneratedTip_Item_1502_TooltipInventory",
+      "inventoryIcon": "assets/items/icons2d/3042_netherrift_armor.dds",
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  },
+  "Items/1500": {
+    "mDisplayName": "game_item_displayname_1500",
+    "itemID": 1500,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default"
+    ],
+    "epicness": 3,
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "HeatingUpMultiplier",
+        "mValue": 0.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "HeatingUpMaxStacks",
+        "mValue": 3.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "HeatingUpMaxPerc",
+        "mValue": 1.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "HeatingUpDuration",
+        "mValue": 5.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MaxDamagePercentTooltip",
+        "mValue": 2.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "ArmorPenetration",
+        "mValue": 0.30000001192092896,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "mItemCalculations": {
+      "MaxHitDamage": {
+        "mSimpleTooltipCalculationDisplay": 5,
+        "mFormulaParts": [
+          {
+            "mStat": 2,
+            "mDataValue": "{6c73be58}",
+            "__type": "StatByNamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      }
+    },
+    "mCategories": [
+      "HealthRegen",
+      "ManaRegen",
+      "OnHit"
+    ],
+    "mItemAttributes": [
+      1
+    ],
+    "mItemDataClient": {
+      "mDescription": "game_item_description_1500",
+      "mDynamicTooltip": "game_item_tooltip_1500",
+      "inventoryIcon": "assets/items/icons2d/3056_ohmwrecker.dds",
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  },
+  "Items/1515": {
+    "mDisplayName": "game_item_displayname_1515",
+    "itemID": 1515,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default"
+    ],
+    "epicness": 3,
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "BulwarkResists",
+        "mValue": 30.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "BulwarkResistsPerAdditionalChampion",
+        "mValue": 5.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "BulwarkDuration",
+        "mValue": 20.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Tier1SRPalisadeCount",
+        "mValue": 5.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Tier2PalisadeCount",
+        "mValue": 5.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Tier2PalisadeValue",
+        "mValue": 120.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Tier1PalisadeGold",
+        "mValue": 120.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterDecayPerMinute",
+        "mValue": -15.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterGoldDecay",
+        "mValue": -10.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterDecayBegins",
+        "mValue": 660.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterDecayEnds",
+        "mValue": 900.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterTotalBonusAD",
+        "mValue": 168.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OuterBonusADPerMinute",
+        "mValue": 12.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "OtherBonusADPerMinute",
+        "mValue": 16.0,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "MeleeChampionBonusDamage",
+        "mValue": 0.20000000298023224,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "DataValuesModeOverride": {
+      "SWIFTPLAY": {
+        "DataValues": [
+          {
+            "mName": "Tier1PalisadeGold",
+            "mValue": 190.0,
+            "__type": "ItemDataValue"
+          }
+        ],
+        "__type": "ItemDataValues"
+      }
+    },
+    "mCategories": [
+      "Armor"
+    ],
+    "mItemAttributes": [
+      1
+    ],
+    "mItemDataClient": {
+      "mDescription": "game_item_description_1515",
+      "mDynamicTooltip": "game_item_tooltip_1515",
+      "inventoryIcon": "assets/items/icons2d/1504_turretshielder.dds",
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  }
+}

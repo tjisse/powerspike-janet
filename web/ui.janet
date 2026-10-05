@@ -2,6 +2,7 @@
 (import jayson :as json)
 (import ./catalog :as catalog)
 (import ./model :as model)
+(import ./optimizer :as optimizer)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
@@ -122,13 +123,8 @@
    [:label {:data-show "$mode === 'duel'"} "Opponent level"
     [:input {:name "opponentlevel" :type "number" :min 1 :max 18 :value (get state :opponentlevel 18) :data-bind:opponentlevel true}]]
    [:label "Trials"
-    [:select {:name "samples" :data-bind:samples true}
-     (map |[:option {:value $ :selected (= $ (get state :samples 1))} $] [1 8 32 64])]]
-   [:label "Rune effects"
-    [:select {:name "runes" :data-bind:runes true}
-     [:option {:value "" :selected (empty? (get state :runes []))} "None"]
-     (map |[:option {:value (get $ "id") :selected (some (fn [id] (= id (get $ "id"))) (get state :runes []))}
-            (get $ "name")] (scenarios/runes (result :package)))]]
+    [:input {:name "samples" :type "number" :min 1 :max 64 :step 1 :required true
+             :value (get state :samples 1) :data-bind:samples true}]]
    (seq [index :range [0 2]]
      [:label (if (= index 0) "Summoner spell D" "Summoner spell F")
       [:select {:name (string "summoner" (inc index)) :data-bind (string "summoner" (inc index))}
@@ -235,7 +231,7 @@
                      (case $ "approach" "Approach into attack range" "hold" "Hold position" "Keep preferred range")] ["approach" "hold" "hold-range"])]]
             (setting "Preferred distance" (string stat-prefix "preferredrange") (get state (keyword (string stat-prefix "preferredrange")) 500) 0 10000)
             (setting "Hit chance (0–1)" (string stat-prefix "hitchance") (get state (if opponent :opponent-hit-chance :hit-chance) 1) 0 1 0.05)
-            (setting "Starting health (fraction)" (string stat-prefix "healthfraction") (get state (if opponent :opponent-health-fraction :health-fraction) 1) 0.01 1 0.05)
+            (setting "Starting health (fraction)" (string stat-prefix "healthfraction") (get state (if opponent :opponent-health-fraction :health-fraction) 1) 0.01 1 0.01)
             (setting "Starting resource (fraction)" (string stat-prefix "resourcefraction") (get state (if opponent :opponent-resource-fraction :resource-fraction) 1) 0 1 0.05)
             (map (fn [[suffix title]] [:label title [:input {:form "scenario" :type "checkbox" :name (string stat-prefix suffix)
                                                              :checked (get state (keyword (string stat-prefix suffix)) true) :data-bind (string stat-prefix suffix)}]])
@@ -256,10 +252,6 @@
                     (setting "Target health at most (fraction)" (string base "targetbelow") (get state (keyword (string base "targetbelow")) 1) 0 1 0.05)]) scenarios/slots)]
            (when opponent
              [:div {:class "tactics-grid"}
-              [:label "Opponent rune effects" [:select {:form "scenario" :name "opponentrunes" :data-bind:opponentrunes true}
-                                               [:option {:value ""} "None"]
-                                               (map |[:option {:value (get $ "id") :selected (some (fn [id] (= id (get $ "id"))) (get state :opponentrunes []))}
-                                                      (get $ "name")] (scenarios/runes (result :package)))]]
               (seq [index :range [0 2]]
                 [:label (string "Opponent summoner " (if (= index 0) "D" "F"))
                  [:select {:form "scenario" :name (string "opponentsummoner" (inc index)) :data-bind (string "opponentsummoner" (inc index))}
@@ -485,11 +477,15 @@
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn signals [state]
-  (def values (merge state {:busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (def values (merge optimizer/defaults state {:busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
   (each key [:priority :opponentpriority :runes :opponentrunes]
     (put values key (string/join (map string (get state key [])) ",")))
   (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
     (for index 0 2 (put values (keyword (string prefix (inc index))) (get (get state source []) index ""))))
+  (each [source prefix] [[:runes ""] [:opponentrunes "enemy"]]
+    (for index 0 6 (put values (keyword (string prefix "runepage" (inc index))) (get (get state source []) index ""))))
+  (each [prefix count] [["lockslot" 6] ["lockrune" 6] ["locksummoner" 2] ["lockskill" 18]]
+    (for index 1 (inc count) (put values (keyword (string prefix index)) false)))
   values)
 (defn page [result evidence &opt message]
   (def state (result :state))
@@ -502,11 +498,12 @@
            [:body
             [:div {:id "powerspike" :data-signals (json/encode (signals state))
                    :data-on:jobtick "@get('/patches/status')"
+                   :data-on:searchtick "@get('/search/status')"
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]] [:span {:class "patch"} "Patch " ((result :package) :patch)]]
-             [:main {:class "content"} (patch-panel result nil) (scenario result) (tactics result) (native-inventory result)
-              (if message (error-result message) (results result)) (evidence-panel evidence)]
+             [:main {:class "content"} (patch-panel result nil) (scenario result) (tactics result) (optimizer/rune-editor (result :package) state) (native-inventory result)
+              (if message (error-result message) (results result)) (optimizer/controls) (optimizer/panel result nil) (evidence-panel evidence)]
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Combat damage unverified"]

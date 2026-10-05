@@ -3,6 +3,7 @@
 (import ./model :as model)
 (import ./ui :as ui)
 (import ./catalog :as catalog)
+(import ./optimizer :as optimizer)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
@@ -67,6 +68,28 @@
 
 (defn app-inner [req]
   (cond
+    (and (= "POST" (req :method)) (= "/search" (req :route)))
+    (do (def input (ds/get-signals req)) (def state (model/parse-state input))
+      (def job (model/optimize input))
+      (with-dyns [:patch-package ((model/context state) :package)]
+        (fragment req (ui/render (optimizer/panel (model/context state) job)))))
+    (= "/search/status" (req :route))
+    (do (def input (ds/get-signals req)) (def job (jobs/get-job (get input "searchjob" "")))
+      (def state (model/parse-state input))
+      (fragment req (ui/render (optimizer/panel (model/context state) job))))
+    (and (= "POST" (req :method)) (= "/search/apply" (req :route)))
+    (do (def job (jobs/get-job (get-in req [:query "id"])))
+      (assert (and job (= :optimization (job :kind)) (jobs/terminal? job)) "Wait for the search to finish or cancel it before applying a recommendation.")
+      (def row (find |(= ($ :key) (get-in req [:query "key"])) (get-in job [:result :rows] [])))
+      (assert row "Recommendation is no longer retained. Run the search again.")
+      (def state (model/state-from-definition (row :definition)))
+      (def result (model/compare-async state))
+      (adapter/sse-response req {:on-open (fn [gen]
+                                            (ds/with-open-sse gen
+                                                              (ds/patch-signals gen (ui/signals state))
+                                                              (with-dyns [:patch-package (result :package)]
+                                                                (ds/patch-elements gen (ui/render (ui/results result) (ui/scenario result) (ui/tactics result)
+                                                                                                  (optimizer/rune-editor (result :package) state) (ui/patch-panel result nil))))))}))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
       (def signals (ds/get-signals req))
@@ -80,7 +103,9 @@
       (fragment req (ui/render (ui/patch-panel result job))))
     (and (= "POST" (req :method)) (= "/jobs/cancel" (req :route)))
     (do (def job (jobs/cancel (get-in req [:query "id"])))
-      (fragment req (ui/render (ui/patch-panel (model/context (model/parse-state {})) job))))
+      (fragment req (ui/render (if (= :optimization (job :kind))
+                                 (optimizer/panel (model/context (model/parse-state (ds/get-signals req))) job)
+                                 (ui/patch-panel (model/context (model/parse-state {})) job)))))
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
     (get assets (req :route)) (do (def asset (assets (req :route))) (response 200 (asset :body) (asset :type)))

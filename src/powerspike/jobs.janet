@@ -40,7 +40,9 @@
                    (do
                      (def result (message 1))
                      (cond
-                       (os/stat (selected :cancel-file)) (put selected :status :cancelled)
+                       (os/stat (selected :cancel-file))
+                       (do (put selected :status :cancelled)
+                         (when (and (= :optimization (selected :kind)) (first result)) (put selected :result (result 1))))
                        (first result) (do (put selected :status :done) (put selected :result (result 1)))
                        (do (put selected :status :failed) (put selected :error (string (result 1)))))
                      (util/remove-tree (selected :cancel-file))

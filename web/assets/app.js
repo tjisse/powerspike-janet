@@ -28,6 +28,7 @@
     filter();
   }
   setInterval(() => {
+    if (document.getElementById('search-panel')?.dataset.poll === 'true') app.dispatchEvent(new Event('searchtick'));
     if (document.getElementById('patch-panel')?.dataset.poll === 'true') app.dispatchEvent(new Event('jobtick'));
   }, 1000);
   const ns = 'http://www.w3.org/2000/svg';

@@ -13,6 +13,7 @@
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
+(import ../src/powerspike/search :as search)
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
@@ -85,11 +86,15 @@
                                        :distance (numeric (get input "distance" 300) "Starting distance" 0 10000)
                                        :mode mode :opponent opponent :opponentlevel (numeric (get input "opponentlevel" 18) "Opponent level" 1 18 true)
                                        :opponentitems (if (has-key? input "enemyslot1") (filter |(not= "" $) (map |(slots $) enemy-slot-keys)) (list-field "opponentitems"))
-                                       :runes (map |(numeric $ "Rune ID" 1 99999 true) (list-field "runes"))
-                                       :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true) (list-field "opponentrunes"))
+                                       :runes (map |(numeric $ "Rune ID" 1 99999 true)
+                                                   (if (has-key? input "runepage1") (filter |(not= "" $) (map |(string (get input (string "runepage" $) "")) (range 1 7))) (list-field "runes")))
+                                       :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true)
+                                                           (if (has-key? input "enemyrunepage1") (filter |(not= "" $) (map |(string (get input (string "enemyrunepage" $) "")) (range 1 7))) (list-field "opponentrunes")))
                                        :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
                                        :opponentsummoners (if (has-key? input "opponentsummoner1") (filter |(not= $ "") [(get input "opponentsummoner1" "") (get input "opponentsummoner2" "")]) (list-field "opponentsummoners"))
                                        :priority (plan "priority") :opponentpriority (plan "opponentpriority")
+                                       :skillorder (when (get input "skillorder") (map keyword (list-field "skillorder")))
+                                       :opponentskillorder (when (get input "opponentskillorder") (map keyword (list-field "opponentskillorder")))
                                        :movement (get input "movement" "approach") :opponentmovement (get input "opponentmovement" "approach")
                                        :hit-chance (numeric (get input "hitchance" (get input "hit-chance" 1)) "Hit chance" 0 1)
                                        :opponent-hit-chance (numeric (get input "opponenthitchance" (get input "opponent-hit-chance" 1)) "Opponent hit chance" 0 1)
@@ -196,6 +201,7 @@
                :summoners (get state (if opponent :opponentsummoners :summoners) [])}
      :health-fraction (get state (if opponent :opponent-health-fraction :health-fraction) 1)
      :resource-fraction (get state (if opponent :opponent-resource-fraction :resource-fraction) 1)
+     :skill-order (get state (if opponent :opponentskillorder :skillorder))
      :ranks (when (not (empty? ranks)) ranks)
      :strategy {:priority (get state (if opponent :opponentpriority :priority) scenarios/slots)
                 :movement (keyword (get state (if opponent :opponentmovement :movement) "approach"))
@@ -262,6 +268,82 @@
             (put cache key (job :result)) result)))))
 (defn context [state]
   {:state state :package (packages/load (state :patch) (state :snapshot))})
+(defn item-input [package value]
+  (def entries (if (string? value) (string/split "," value) value))
+  (assert (and (indexed? entries) (<= (length entries) 2000)) "Invalid search item selection.")
+  (map (fn [name]
+         (def key (string/trim (string name)))
+         (def item (or ((package :item-map) key) (find |(= (string/ascii-lower ($ :name)) (string/ascii-lower key)) (package :items))))
+         (assert item (string "Unknown search item: " key)) (item :id))
+       (filter |(not= "" (string/trim (string $))) entries)))
+(defn search-options [input state]
+  (def package (packages/load (state :patch) (state :snapshot)))
+  (defn locks [name count]
+    (seq [index :range [0 count] :when (flag input (string name (inc index)) false)] index))
+  (def pool (item-input package (get input "searchpool" "")))
+  (def owned (filter |(not= "" $) (map |(get state $ "") slot-keys)))
+  (def options {:budget (numeric (get input "searchbudget" 10000) "Search gold budget" 0 100000 true)
+                :slots (numeric (get input "searchslots" 6) "Search slots" 0 6 true)
+                :seconds (numeric (get input "searchseconds" 5) "Search seconds" 0.01 30)
+                :preset (keyword (get input "searchpreset" "burst")) :samples (state :samples)
+                :locked (filter |(not= "" $) (map |(get state (slot-keys $) "") (locks "lockslot" 6)))
+                :exclusions (item-input package (get input "searchexclude" ""))
+                :next-purchase (flag input "nextpurchase" false)
+                :runes (flag input "searchrunes" false) :summoners (flag input "searchsummoners" false) :skills (flag input "searchskills" false)
+                :rune-locks (locks "lockrune" 6) :summoner-locks (locks "locksummoner" 2)
+                :skill-locks (tabseq [index :range [0 (state :level)] :when (flag input (string "lockskill" (inc index)) false)]
+                               index ((or (state :skillorder) default-order) index))})
+  (if (empty? pool) options (merge options {:pool pool})))
+(defn search-task [input progress cancelled]
+  (def package (packages/load (get-in input [:definition :patch]) (get-in input [:definition :snapshot])))
+  (search/run package (input :definition) (input :options) progress cancelled))
+(defn optimize [input]
+  (var state (parse-state input))
+  (when (not= "custom" (state :selected))
+    (def preset (find |(= ($ :id) (state :selected)) builds))
+    (when preset (set state (merge state (tabseq [index :range [0 6]] (slot-keys index) (get (preset :ids) index ""))))))
+  (assert (not= "legacy" (state :mode)) "Choose a combat scenario to optimize.")
+  (def ids (filter |(not= "" $) (map |(get state $ "") slot-keys)))
+  (def canonical ((scenarios/compile (definition state ids)) :definition))
+  # A separate cancellation capability per request prevents one user's cancel
+  # from stopping another user's search, even with identical scenarios.
+  (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
+               {:definition canonical :options (search-options input state)}))
+(defn state-from-definition [definition]
+  (def compiled (scenarios/compile definition))
+  (def input @{"patch" (compiled :patch) "snapshot" (compiled :snapshot) "selected" "custom"
+               "duration" (definition :duration) "distance" (get definition :distance 300)
+               "samples" (min 64 (get definition :samples 1)) "seed" (get definition :seed 1)})
+  (each [spec opponent] [[(definition :player) false] [(definition :target) true]]
+    (when (or (not opponent) (= :champion (get spec :kind)))
+      (def prefix (if opponent "opponent" ""))
+      (def enemy (if opponent "enemy" ""))
+      (put input (if opponent "opponent" "champion") (spec :champion))
+      (put input (string prefix "level") (get spec :level 18))
+      (put input (string prefix "healthfraction") (get spec :health-fraction 1))
+      (put input (string prefix "resourcefraction") (get spec :resource-fraction 1))
+      (for index 0 6 (put input (string enemy "slot" (inc index)) (get-in spec [:loadout :items index] "")))
+      (when (spec :skill-order) (put input (string prefix "skillorder") (map string (spec :skill-order))))
+      (put input (string prefix "runes") (get-in spec [:loadout :runes] []))
+      (put input (string prefix "summoners") (get-in spec [:loadout :summoners] []))
+      (def strategy (get spec :strategy {}))
+      (each [from to fallback] [[:priority "priority" scenarios/slots] [:movement "movement" :approach] [:attacks "attacks" true]
+                                [:abilities "abilities" true] [:hit-chance "hitchance" 1] [:preferred-range "preferredrange" 500]]
+        (put input (string prefix to) (if (= from :movement) (string (get strategy from fallback)) (get strategy from fallback))))
+      (def actor ((compiled :actors) (if opponent 1 0)))
+      (each slot [:q :w :e :r] (put input (string enemy slot "rank") (get-in actor [:ranks slot] 0)))
+      (each slot scenarios/slots
+        (each [from to fallback] [[:after "after" 0] [:self-health-below "selfbelow" 1] [:target-health-below "targetbelow" 1]]
+          (put input (string enemy slot to) (get-in strategy [:activation slot from] fallback))))))
+  (def target (definition :target))
+  (case (get target :kind :practice)
+    :champion (put input "mode" "duel")
+    :objective (do (put input "mode" (string (target :objective)))
+                 (put input "objectivelevel" (get target :level 10)) (put input "gametime" (/ (get target :game-time 1200) 60))
+                 (put input "minionspresent" (get target :minions-present true)) (put input "retaliation" (get target :retaliation true)))
+    (do (put input "mode" "practice") (put input "targethealth" (get target :hp 10000))
+      (put input "armor" (get target :armor 80)) (put input "mr" (get target :mr 80))))
+  (parse-state input))
 (defn evidence []
   (map (fn [file]
          (def records (parse-all (slurp (string "observations/16.19.1/" file))))

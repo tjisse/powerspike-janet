@@ -17,7 +17,7 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
-**Work resumed on 2026-10-05.** Milestones 1–3 are released. Milestone 4 has passed local checks and is being published as v0.5.0. Milestones 5–6 remain in progress; the full accepted plan is unfinished.
+**Work resumed on 2026-10-05.** Milestones 1–3 are released. Milestone 4 is released as v0.5.0, including successful signed DNF verification. Milestone 5 is under release verification and milestone 6 remains required; the full accepted plan is unfinished.
 
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.
 
@@ -25,9 +25,11 @@ Milestone 2 is released as v0.3.0 with successful signed RPM/DNF checks. All 173
 
 Milestone 3 is released as v0.4.0 with successful signed RPM/DNF checks. The shared chronological engine handles health/resources, regeneration, death, projectiles, control/interruptions, shields/healing, periodic hits, attack modifiers/resets, charges/recasts, temporary stats, cleanses and bounded triggers. Real-record regressions cover item/rune/summoner handlers. Canonical scenarios and frontend duels share this engine; seeded trials report mean outcomes and sampling uncertainty. Exceptional forms, pets and passive semantics remain explicit omissions to extend by family. The legacy wrappers and five Annie stat measurements remain regressions.
 
-Milestone 4 has passed local release verification for v0.5.0. Both participants have full inventories, rune/summoner selections, ranks, priorities, activation conditions, starting health/resources, hit assumptions and 1D approach/hold-range controls. Retained records cover turrets, Baron, Herald and seven dragons (six elemental dragons and Elder). Objective level/time, retaliation and minion presence are declared inputs. Sourced restrictions, caps, immunity and turret heating/backdoor effects interact through the event queue. Objective server scaling, special attacks, plating, Baron debuffs and Herald eye behavior remain explicit coverage gaps. Health/resource traces include before/after values; outcomes expose damage sources, kill/death times, healing, absorption and effective control. Health-cost descriptions now override zero-filled cost arrays where resolvable.
+Milestone 4 is released as v0.5.0 with successful signed RPM/DNF checks. Both participants have full inventories, rune/summoner selections, ranks, priorities, activation conditions, starting health/resources, hit assumptions and 1D approach/hold-range controls. Retained records cover turrets, Baron, Herald and seven dragons (six elemental dragons and Elder). Objective level/time, retaliation and minion presence are declared inputs. Sourced restrictions, caps, immunity and turret heating/backdoor effects interact through the event queue. Objective server scaling, special attacks, plating, Baron debuffs and Herald eye behavior remain explicit coverage gaps. Health/resource traces include before/after values; outcomes expose damage sources, kill/death times, healing, absorption and effective control. Health-cost descriptions now override zero-filled cost arrays where resolvable.
 
-Milestones 5–6 remain required: bounded legal optimization with optional loadout choices, and scenario save/share/import/export with evidence and upgrade verification.
+Milestone 5 passed local release verification for v0.6.0: one shared combat evaluator, exact small pools and bounded full-shop search, item group/champion/map/shop restrictions, locks/exclusions/budget, owned-component credit for next purchases, common trial seeds and finalist resampling. Five/thirty-second jobs stream intermediate alternatives and support cancellation. Optional legal rune pages, summoner pairs and standard skill-order families hold opponents/strategies fixed; all choices can be locked. Scores use explicit ordered metrics rather than adding unrelated outcomes. UI controls apply recommendations into the shared scenario engine. Exact search, purchase legality, recipe credit, locks, cancellation, deadlines and optional loadout legality have regressions. A live retained 16.18.1 full-catalog run evaluated 611 builds within its five-second budget. Rankings remain sensitive to missing effects.
+
+Milestone 6 remains required: scenario save/share/import/export, expanded evidence, calibration tooling, complete browser verification and real upgrade checks.
 
 ## Verification checkpoint
 
@@ -36,7 +38,7 @@ Milestones 5–6 remain required: bounded legal optimization with optional loado
 - The complete local milestone 4 command `make format test test-web test-runtime` finished successfully. This includes 83 core tests, the five measured Annie fixtures, 16 Python tests, 15 frontend tests, parser/combat/shared-effect/objective/configuration/package checks, executable compilation and relocated executable checks. Output is retained locally in `build/milestone4-checks.log` (ignored build output).
 - A separate retained 16.18.1 roster check completed for all 173 champions without failures; 156 have recognizable damage abilities. These are source-derived estimates, not 156 calibrated kits.
 - New real-record parser regressions resolve Dr. Mundo's flat Q and current-health W costs and Zac's current-health Q cost. Continuous or ambiguous resource costs remain unresolved. The objective fixtures retain exact matching 16.18.1 source records and provenance.
-- Milestone 4 local RPM build, payload/digest/permission/service checks and relocated runtime checks passed on resume. Its signed DNF release check is pending publication. The browser preview must be checked/restarted when work resumes; its currently running content has not been verified against the final working tree.
+- Milestone 4 local RPM build, payload/digest/permission/service checks and relocated runtime checks passed on resume. Its signed DNF release check subsequently passed (release workflow 37296019740). The browser preview must be checked/restarted when work resumes; its currently running content has not been verified against the final working tree.
 
 ## Remaining delivery order
 
@@ -49,3 +51,5 @@ Known accuracy limits at this checkpoint include exceptional champion forms/pets
 ## Source interpretation
 
 Reuse the original Clojure description-stat parsing approach and structured calculation parsing, while correcting its unsupported-value and damage-semantics shortcuts. Tooltip resolution follows [CommunityDragon's explanation](https://hextechdocs.dev/resolving-variables-in-spell-textsa/). Provider discovery follows [Riot's Data Dragon documentation](https://developer.riotgames.com/docs/lol#data-dragon). Do not substitute `latest` or combine numeric values across patches.
+
+Milestone 5 verification: full formatter/core/frontend/parser/combat/effect/objective/search/storage/configuration/relocated-runtime gates passed. The rebuilt RPM passed digest, payload, permissions, service and extracted-runtime checks. Real browser tests passed bindings, exact search, applying resampled recommendations, cancellation and server responsiveness; the browser regression is retained in CI. Publication through the signed DNF workflow follows this checkpoint.

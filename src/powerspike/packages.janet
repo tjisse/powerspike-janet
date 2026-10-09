@@ -37,8 +37,9 @@
         (assert (= id (hash/sha256 bytes) (manifest "package_sha256")) "Corrupted data snapshot.")
         (def data (util/read-data (string dir "/package.jdn")))
         (assert (and (= 1 (data :schema)) (= version (data :patch))) "Incompatible data package.")
-        (def package (merge data {:snapshot id :directory dir :manifest manifest
-                                  :champion-map (tabseq [champion :in (data :champions)] (champion :id) champion)
+        (def champions (map |(normalize/semantic-kit ($ :id) version $) (data :champions)))
+        (def package (merge data {:snapshot id :directory dir :manifest manifest :champions champions
+                                  :champion-map (tabseq [champion :in champions] (champion :id) champion)
                                   :item-map (tabseq [item :in (data :items)] (item :id) item)}))
         (when (>= (length loaded) 4) (put loaded (first (keys loaded)) nil))
         (put loaded key package)

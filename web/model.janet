@@ -18,7 +18,7 @@
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
-(def default-state {:champion "Annie" :level 18 :armor 80 :mr 80 :duration 5
+(def default-state {:champion "Annie" :level 18 :armor 80 :mr 80 :duration 5 :target-health 2500
                     :selected "penetration" :slot1 "" :slot2 "" :slot3 "" :slot4 "" :slot5 "" :slot6 ""})
 (def slot-keys [:slot1 :slot2 :slot3 :slot4 :slot5 :slot6])
 (def enemy-slot-keys [:enemyslot1 :enemyslot2 :enemyslot3 :enemyslot4 :enemyslot5 :enemyslot6])
@@ -84,7 +84,7 @@
                                        :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
                                        :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
                                        :duration (numeric (get input "duration" 5) "Combat window" 0.5 120)
-                                       :target-health (numeric (get input "targethealth" (get input "target-health" 10000)) "Target health" 1 1000000)
+                                       :target-health (numeric (get input "targethealth" (get input "target-health" (default-state :target-health))) "Target health" 1 1000000)
                                        :distance (numeric (get input "distance" 300) "Starting distance" 0 10000)
                                        :mode mode :opponent opponent :opponentlevel (numeric (get input "opponentlevel" 18) "Opponent level" 1 18 true)
                                        :opponentitems (if (has-key? input "enemyslot1") (filter |(not= "" $) (map |(slots $) enemy-slot-keys)) (list-field "opponentitems"))
@@ -113,6 +113,7 @@
                                        :minionspresent (flag input "minionspresent" true) :retaliation (flag input "retaliation" true)
                                        :samples (numeric (get input "samples" 1) "Trials" 1 64 true) :seed (numeric (get input "seed" 1) "Seed" 0 2147483647 true)
                                        :savedmodel (get input "savedmodel")
+                                       :snapshotlocked (flag input "snapshotlocked" false)
                                        :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
 
 (defn ability-settings [champion totals level ranks]
@@ -129,7 +130,7 @@
                            :base (merge (stats/base-stats champion (state :level)) {:ap 0 :crit-chance 0 :crit-damage (champion :crit-damage)})
                            :abilities (get champion :abilities []) :ranks ranks :attack-range (get champion :attack-range 125)
                            :position 0 :strategy {:priority [:q :w :e :r] :attacks true :abilities true :movement :approach}}
-                          {:id "target" :kind :practice :level 1 :stats {:hp (get state :target-health 10000)
+                          {:id "target" :kind :practice :level 1 :stats {:hp (get state :target-health (default-state :target-health))
                                                                          :armor (state :armor) :mr (state :mr)}
                            :position (get state :distance 300) :strategy {:attacks false :abilities false :movement :hold}}]}))
   (merge result {:events (map |(merge $ {:source (if (= "attack" ($ :source)) :attack ($ :source))}) (result :events))}))
@@ -218,7 +219,7 @@
              (some |(= (state :mode) (string ($ :id))) objectives/presets)
              {:kind :objective :objective (keyword (state :mode)) :level (get state :objectivelevel 10)
               :game-time (* 60 (get state :gametime 20)) :minions-present (get state :minionspresent true) :retaliation (get state :retaliation true)}
-             {:kind :practice :hp (get state :target-health 10000) :armor (state :armor) :mr (state :mr)})})
+             {:kind :practice :hp (get state :target-health (default-state :target-health)) :armor (state :armor) :mr (state :mr)})})
 (defn compare [state]
   (if (or (= "legacy" (state :mode)) (not (state :mode))) (compare-legacy state)
     (do
@@ -307,10 +308,13 @@
   (assert (not= "legacy" (state :mode)) "Choose a combat scenario to optimize.")
   (def ids (filter |(not= "" $) (map |(get state $ "") slot-keys)))
   (def canonical ((scenarios/compile (definition state ids)) :definition))
+  (def options (search-options input state))
   # A separate cancellation capability per request prevents one user's cancel
   # from stopping another user's search, even with identical scenarios.
   (def job (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
-                        {:definition canonical :options (search-options input state)}))
+                        {:definition canonical :options options}))
+  (put job :gold-budget (options :budget))
+  (put job :next-purchase (options :next-purchase))
   (put job :scenario-summary (string (get-in canonical [:player :champion]) " · patch " (canonical :patch)
                                      " · " (canonical :duration) " seconds · " (get-in canonical [:target :kind] :practice)
                                      (if (= :practice (get-in canonical [:target :kind]))
@@ -321,6 +325,7 @@
 (defn state-from-definition [definition]
   (def compiled (scenarios/compile definition))
   (def input @{"patch" (compiled :patch) "snapshot" (compiled :snapshot) "selected" "custom"
+               "snapshotlocked" true
                "savedmodel" (definition :model)
                "duration" (definition :duration) "distance" (get definition :distance 300)
                "samples" (min 64 (get definition :samples 1)) "seed" (get definition :seed 1)})

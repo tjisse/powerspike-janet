@@ -1,0 +1,62 @@
+{
+  "patch": "16.19.1",
+  "sources": [
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/item.json",
+      "path": "sources/items.json",
+      "sha256": "72c996d05a316ca194c0f5c02b25016a553bd204a974db09b4312c40cee3d477"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/items.cdtb.bin.json?powerspike=1",
+      "path": "sources/item-effects.json",
+      "sha256": "6880f35d5a9d82f688192f764e280e6d4bc9c845112b001feb811e3f2ab62726"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "path": "sources/strings.json",
+      "sha256": "8c051cb2a24b31f3fa9af95d39085b832b0da2b8cf51093f98c4ab0620ecb8e8"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/ahri/ahri.bin.json?powerspike=1",
+      "path": "sources/characters/Ahri.json",
+      "sha256": "92515ab5610eff9eb2bdf94b3bf032490f6ba86d3835cdbe304d2d1e76dfa093"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion/Ahri.json",
+      "path": "sources/abilities/Ahri.json",
+      "sha256": "d2b0dad3cee484f8f3541d191ad2aebf95c974e7afe8f1d38df21863f562f88e"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/annie/annie.bin.json?powerspike=1",
+      "path": "sources/characters/Annie.json",
+      "sha256": "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion/Annie.json",
+      "path": "sources/abilities/Annie.json",
+      "sha256": "c733378ea537103e1ea26f956dd998068c457c2955c6e683575d0bb710feee6a"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/viktor/viktor.bin.json?powerspike=1",
+      "path": "sources/characters/Viktor.json",
+      "sha256": "e72a4a72ae3d0686bdf8f8c2b2ba9a169850971878a3fdd8b71d7d42f694e8ba"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion/Viktor.json",
+      "path": "sources/abilities/Viktor.json",
+      "sha256": "6a9b412bfe7d6cc21578fd46008a82d19df286a0d67ed56cb438a2671f9c95a0"
+    }
+  ],
+  "excerpt": true,
+  "fixture_sha256": {
+    "items.json": "36840909dc6c5e58ac2cfefa01acd516e14fec24fea9e7d8d5dadad6ad3249c8",
+    "items-ddragon.json": "07a25a4af25c360394131fc812bd44a0e957b27beb1c0e78d582bad368a41315",
+    "Annie-characters.json": "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d",
+    "Annie-abilities.json": "c733378ea537103e1ea26f956dd998068c457c2955c6e683575d0bb710feee6a",
+    "Viktor-characters.json": "e72a4a72ae3d0686bdf8f8c2b2ba9a169850971878a3fdd8b71d7d42f694e8ba",
+    "Viktor-abilities.json": "6a9b412bfe7d6cc21578fd46008a82d19df286a0d67ed56cb438a2671f9c95a0",
+    "Ahri-characters.json": "92515ab5610eff9eb2bdf94b3bf032490f6ba86d3835cdbe304d2d1e76dfa093",
+    "Ahri-abilities.json": "d2b0dad3cee484f8f3541d191ad2aebf95c974e7afe8f1d38df21863f562f88e",
+    "champion-strings.json": "f839aa14ad7b6cfa00c4c1d16beee6281fb4f798bc0aa5e38af211a3bde97030"
+  }
+}

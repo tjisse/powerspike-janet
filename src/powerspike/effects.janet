@@ -9,26 +9,43 @@
   {"mDataValues" (get-in item [:record "mDataValues"] [])
    "mSpellCalculations" (get-in item [:record "mItemCalculations"] {})
    "__powerspike_patch" (item :patch)})
+(def spellblade-types {"3057" :physical "3100" :magic "3078" :physical "3508" :physical "6662" :physical})
+(defn item-limitations [item]
+  (case (item :id)
+    "3100" ["Lich Bane's empowered attack speed remains excluded."]
+    "3078" ["Trinity Force's Quicken movement speed remains excluded."]
+    "3508" ["Essence Reaver's mana restoration remains excluded."]
+    "6662" ["Iceborn Gauntlet's frost field and slow remain excluded."]
+    "6655" ["Luden's Echo assumes all echoes are available and hit the sole opponent; secondary targets and projectile travel are excluded."]
+    []))
 (defn item-triggers [item ranged]
   (def spell (item-spell item))
   (defn term [name] (expr/variable name spell))
   (def id (item :id))
   (def family (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"]))
   (if (or (not family) (empty? (get item :record {}))) []
-    (case id
-      "3145" [{:id "item/3145" :on [:damage] :target-kinds [:champion] :kind :damage :damage-type :magic
-               :amount (term "DamageAmount") :cooldown (term "Cooldown")}]
-      "3153" [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
-               :exclude-objectives [:turret]
-               :kind :damage :damage-type :physical
-               :amount (multiply (term (if ranged "RangedValue" "MeleeValue")) {:op :target-stat :stat :health})
-               :monster-cap (term "MonsterDamageCap") :cooldown 0}]
-      "3057" [{:id "item/3057/prime" :on [:cast] :kind :buff :target :self :buff "spellblade" :duration 10 :refresh true}
-              {:id "item/3057/hit" :on [:attack] :requires-buff "spellblade" :consume-buff "spellblade"
-               :kind :damage :damage-type :physical :amount (term "SpellbladeDamage")
-               :affects-structures true
-               :cooldown (term "SpellbladeCooldown")}]
-      [])))
+    (if (spellblade-types id)
+      [{:id (string "item/" id "/prime") :on [:cast] :kind :buff :target :self :buff "spellblade"
+        :duration (if (= id "3100") (term "SpellBladeDuration") 10) :refresh true}
+       {:id (string "item/" id "/hit") :on [:attack] :requires-buff "spellblade" :consume-buff "spellblade"
+        :kind :damage :damage-type (spellblade-types id) :amount (term "SpellbladeDamage")
+        :affects-structures true :cooldown (term "SpellbladeCooldown")}]
+      (case id
+        "3145" [{:id "item/3145" :on [:damage] :target-kinds [:champion] :kind :damage :damage-type :magic
+                 :amount (term "DamageAmount") :cooldown (term "Cooldown")}]
+        "3153" [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
+                 :exclude-objectives [:turret]
+                 :kind :damage :damage-type :physical
+                 :amount (multiply (term (if ranged "RangedValue" "MeleeValue")) {:op :target-stat :stat :health})
+                 :monster-cap (term "MonsterDamageCap") :cooldown 0}]
+        "3115" [{:id "item/3115" :on [:attack] :kind :damage :damage-type :magic
+                 :target-kinds [:champion :practice :objective] :exclude-objectives [:turret]
+                 :amount (term "TotalOnHitDamage") :cooldown 0}]
+        "6655" [{:id "item/6655" :on [:spell-hit] :kind :damage :damage-type :magic
+                 :ability-slots [:p :q :w :e :r]
+                 :target-kinds [:champion :practice :objective] :exclude-objectives [:turret]
+                 :amount (term "SingleTargetMax") :cooldown (term "Cooldown")}]
+        []))))
 (defn rune-spell [rune patch]
   (def script (get-in rune [:record "mScript" "mSpellScriptData"] {}))
   {"__powerspike_patch" patch

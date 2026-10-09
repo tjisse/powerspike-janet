@@ -19,6 +19,8 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
+Version 0.9.0 improves initial ability-data downloads, pinned scenario reproduction, manual refresh tracking, source-derived item damage and mage spell coverage. The optimizer explores multiplier/penetration combinations, defaults the practice target to 2,500 HP and displays the applied gold limit. Existing cached records use the current combat semantics without changing snapshot files. See [release notes](releases/0.9.0.md).
+
 Version 0.8.0 adds the simplified loadout tray, shared element popovers, linked attack inspection, passive optimizer modal opening and up to ten ranked build rows. Completed fitness results are cached across workers, cancellation is in memory, and candidate evaluation avoids unnecessary traces/hashes. Local release verification and the GitHub build/browser gate passed. Signed publication was queued during GitHub's hosted-runner delay incident; the [publication workflow](https://github.com/tjisse/powerspike-janet/actions/runs/37369652549) records the live signing, repository deployment and DNF upgrade results. See [release notes](releases/0.8.0.md) and [optimizer performance](optimizer-performance.md).
 
 Milestone 1 is released as v0.2.0 with successful signed RPM/DNF installation checks. Live runtime downloads retained 16.18.1 and 16.17.1 alongside the initial 16.19.1 package, and both were reproduced after an offline restart.

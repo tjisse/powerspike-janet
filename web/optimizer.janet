@@ -11,6 +11,10 @@
 (defn controls [&opt result]
   (def order (or (get-in result [:state :skillorder]) scenario/default-order))
   [:section {:id "optimizer" :class "optimizer"}
+   [:p {:class "muted" :data-text "'Fight: ' + $duration + ' seconds' + ($mode === 'practice' ? ' · ' + $targethealth + ' target HP · ' + $armor + ' armor / ' + $mr + ' MR' : '')"}
+    "Uses the current combat window and target settings."]
+   [:p {:class "muted" :data-show "$searchpreset === 'burst'"}
+    "Burst scores total damage from spells, attacks and item effects during this window. Target health affects percentage-health damage."]
    [:div {:class "tactics-grid"}
     [:label "Search gold budget" [:input {:type "number" :min 0 :max 100000 :step 1 :data-bind:searchbudget true}]]
     [:label "Inventory slots" [:input {:type "number" :min 0 :max 6 :step 1 :data-bind:searchslots true}]]
@@ -48,6 +52,8 @@
    (when job
      [:div
       (when (job :scenario-summary) [:p {:class "muted"} (job :scenario-summary)])
+      (when (has-key? job :gold-budget)
+        [:p {:class "muted"} (if (job :next-purchase) "Available gold: " "Gold limit: ") (job :gold-budget)])
       [:h2 "Recommendations · " (if (get outcome :complete) "Optimal within selected pool" "Best found")]
       [:p (string (job :status) " · " (get progress :message "Queued") " · " (get outcome :evaluated (get progress :completed 0))
                   " builds evaluated · " (number (get outcome :seconds (get progress :seconds 0))) " s")]
@@ -132,7 +138,8 @@
            [:div {:class "tactics-grid"}
             (seq [index :range [0 6]]
               [:label (get ["Primary keystone" "Primary slot 1" "Primary slot 2" "Primary slot 3" "Secondary rune 1" "Secondary rune 2"] index)
-               [:select {:data-bind (string prefix "runepage" (inc index))}
+               [:select {:form "scenario" :name (string prefix "runepage" (inc index))
+                         :data-bind (string prefix "runepage" (inc index))}
                 [:option {:value ""} "None"]
                 (mapcat (fn [style]
                           (mapcat (fn [slot slot-index]

@@ -116,6 +116,8 @@ def verify(binary_path, seed_path=None):
             events = json.loads(page.timeline['data-events'])
             assert {'AnnieQ', 'AnnieW', 'attack'} <= {event['source'] for event in events}
             assert abs(float(page.timeline['data-total']) - 1307.15084388186) < 1e-6
+            initial_scenario = json.loads(page.scenario['data-json'])['scenario']
+            assert initial_scenario['target']['hp'] == 2500
             assert '173 champions' in ''.join(page.text) and '870 items' in ''.join(page.text)
             for path in ['/assets/champion/Ahri.png', '/assets/champion/MonkeyKing.png',
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:
@@ -124,11 +126,17 @@ def verify(binary_path, seed_path=None):
             for path in ['/assets/app.css', '/assets/app.js', '/assets/hud.js', '/assets/datastar.js']:
                 _, content = get(base, path)
                 assert len(content) > 100
-            _, raw = get(base, '/?champion=Ahri&selected=custom&slot1=3031&armor=97')
+            # Pin the retained seed for this offline basic-attack regression.
+            # Automatic download/navigation is covered separately; it must not
+            # race the packaged scenario checks or depend on provider timing.
+            _, raw = get(base, '/?' + urllib.parse.urlencode({
+                'champion': 'Ahri', 'selected': 'custom', 'slot1': '3031',
+                'armor': 97, 'snapshot': initial_scenario['snapshot']}))
             ahri = Page()
             ahri.feed(raw.decode())
             assert all(event['source'] == 'attack' for event in json.loads(ahri.timeline['data-events']))
             assert ahri.timeline['data-label'] == 'Basic attacks over time'
+            assert b'location.assign(next)' not in raw
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}
             path = '/evaluate?' + urllib.parse.urlencode({'datastar': json.dumps(signals)})
             headers, body = get(base, path, {'Datastar-Request': 'true', 'Accept': 'text/event-stream'})

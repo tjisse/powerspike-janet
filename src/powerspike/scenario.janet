@@ -89,7 +89,8 @@
                                  (string (rune "name") ": trigger handler unavailable.")
                                  (string (rune "name") ": interpreted trigger; unvalidated in-game."))) chosen-runes)
               ;(inspection :errors)
-              ;(if (some |(= "3057" ($ :id)) items) ["Spellblade priming window is assumed to be ten seconds; unvalidated."] [])]})
+              ;(mapcat effects/item-limitations items)
+              ;(if (some |(effects/spellblade-types ($ :id)) items) ["Spellblade priming window is assumed to be ten seconds; unvalidated."] [])]})
 (defn compile [definition]
   (assert (and (dictionary? definition) (= schema (get definition :schema schema))) "Unsupported scenario schema.")
   (def package (packages/load (definition :patch) (definition :snapshot)))

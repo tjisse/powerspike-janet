@@ -7,6 +7,25 @@
           :effects [{:kind :damage :damage-type :magic :variable "SingleFireDamage"}
                     {:kind :damage :damage-type :magic :variable "MultiFireDamage" :hits 2}]
           :note "All three fox-fires are assumed to select this opponent. Their separate missile origins are not modeled."}
+         {:champion "Ahri" :slot :r :patch-min "16.17.1" :patch-max "16.19.1"
+          :recast {:count-variable "RMaxCasts" :count-subtract 1 :delay-variable "RDashCooldown"
+                   :window-variable "RRecastWindow" :cost 0}
+          :resolved-notes ["Recasts/charges need explicit semantics."]
+          :note "Spirit Rush uses the source's three casts and recast delay. Each cast targets the opponent; dash movement, takedown resets and healing remain excluded."}
+         {:champion "Viktor" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
+          :preserve-kinds [:shield]
+          :effects [{:kind :damage :damage-type :magic :variable "TotalMissileDamage"}
+                    {:kind :damage :damage-type :magic :variable "AttackTotalDMG" :trigger :attack
+                     :duration 4}]
+          :resolved-notes ["Conditional/maximum effect needs semantics: damage/magic/AttackTotalDMG"]
+          :note "Siphon Power replaces the next basic attack with its total magic damage during the tooltip's four-second window. Augmented shield, movement and critical-strike interactions remain excluded."}
+         {:champion "Viktor" :slot :r :patch-min "16.17.1" :patch-max "16.19.1"
+          :effects [{:kind :damage :damage-type :magic :variable "InitialBurstDamage"}
+                    {:kind :damage :damage-type :magic :variable "SubsequentBurstDamage"
+                     :hits-variable "MaxTicks" :interval-variable "TickCadence" :delay-variable "TickCadence"}]
+          :resolved-notes ["Conditional/maximum effect needs semantics: damage/magic/SubsequentBurstDamage"
+                           "Recasts/charges need explicit semantics."]
+          :note "Arcane Storm deals its initial hit and source-defined periodic ticks. The opponent is assumed to remain in the storm; redirection, evolution and takedown extensions remain excluded."}
          {:champion "Garen" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
           :effects [{:kind :damage :damage-type :physical :variable "TotalDamage" :trigger :attack
                      :duration-variable "AttackWindow" :reset true}]

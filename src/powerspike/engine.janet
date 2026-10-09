@@ -7,6 +7,7 @@
 (def identity (hash/sha256 (string version (slurp "src/powerspike/engine.janet")
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
+                                   (slurp "src/powerspike/normalize.janet")
                                    (slurp "src/powerspike/objectives.janet")
                                    (slurp "src/powerspike/scenario.janet") (slurp "src/powerspike/skills.janet")
                                    (slurp "src/powerspike/builds.janet") (slurp "data/16.19.1/annie.janet")
@@ -130,11 +131,12 @@
           (put actor :position (if (< position enemy-position) (min (+ position step) enemy-position)
                                  (max (+ position step) enemy-position))))))
     (set at time))
-  (defn trigger [owner target event-key origin depth]
+  (defn trigger [owner target event-key origin depth &opt slot]
     (when (< depth 3)
       (each effect (get owner :triggers [])
         (def id (effect :id))
         (when (and (some |(= $ event-key) (get effect :on []))
+                   (or (not (effect :ability-slots)) (some |(= $ slot) (effect :ability-slots)))
                    (<= (get (owner :proc-ready) id 0) at)
                    (or (not (effect :requires-buff)) (> (get (owner :buff-counts) (effect :requires-buff) 0) 0))
                    (target-allowed? effect target))
@@ -203,7 +205,7 @@
                          (when (<= (target :health) 0) (schedule at 20 :death {:actor (target :index)}))
                          # Proc damage does not recursively trigger other damage procs by default.
                          (when (= depth 0)
-                           (trigger owner target (get event :trigger :spell-hit) (event :origin) depth)
+                           (trigger owner target (get event :trigger :spell-hit) (event :origin) depth (event :ability-slot))
                            (trigger owner target :damage (event :origin) depth)
                            (trigger target owner :damage-taken (event :origin) depth)))
                        :heal
@@ -271,13 +273,14 @@
           (when (effect :reset) (put actor :attack-ready at)))
         :cast
         (do
-          (def impact (+ at (* travel (get effect :travel-multiplier 1))))
+          (def impact (+ at (* travel (get effect :travel-multiplier 1))
+                         (value (get effect :delay 0) actor target (event :rank))))
           (def count (min 100 (max 1 (value (get effect :hits 1) actor target (event :rank)))))
           (def interval (value (get effect :interval 0) actor target (event :rank)))
           (for i 0 count
             (schedule (+ impact (* i interval)) 10 :effect
                       {:actor (actor :index) :target (if (= :self (effect :target)) (actor :index) (target :index))
-                       :effect effect :rank (event :rank) :source (ability :id) :origin (event :origin)})))
+                       :effect effect :rank (event :rank) :source (ability :id) :origin (event :origin) :ability-slot (ability :slot)})))
         (note (string (ability :id) ": Unsupported effect trigger")))))
   (defn release [event]
     (def actor (actors (event :actor)))
@@ -404,13 +407,15 @@
               (put (actor :ready) (selected :id) (+ at (max 0.05 (value (get selected :charge-delay cooldown) actor target rank)))))
             (and recast (> (recast :expires) at) (> (recast :remaining) 0))
             (do (put recast :remaining (dec (recast :remaining)))
-              (put recast :next (+ at (get-in selected [:recast :delay] 0.1))))
+              (put recast :next (+ at (value (get-in selected [:recast :delay] 0.1) actor target rank))))
             (do
               (put (actor :ready) (selected :id) (+ at (if (= :end (get selected :cooldown-start :start)) cast-time 0) (max 0.05 cooldown)))
               (when (selected :recast)
                 (def expires (+ at (value (get-in selected [:recast :window]) actor target rank)))
-                (put (actor :recasts) (selected :id) @{:remaining (get-in selected [:recast :count] 1)
-                                                       :next (+ at (get-in selected [:recast :delay] 0.1)) :expires expires}))))
+                (def count (value (get-in selected [:recast :count] 1) actor target rank))
+                (assert (and (= count (math/floor count)) (<= 0 count 10)) "Invalid recast count.")
+                (put (actor :recasts) (selected :id) @{:remaining count
+                                                       :next (+ at (value (get-in selected [:recast :delay] 0.1) actor target rank)) :expires expires}))))
           (record :cast {:actor (actor :id) :source (selected :id) :rank rank :cost cost :cooldown cooldown})
           (def origin (string (actor :id) "/" (selected :id) "/" counter))
           (unless (selected :unhasted) (trigger actor target :cast origin 0))

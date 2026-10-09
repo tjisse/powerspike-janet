@@ -46,7 +46,12 @@
           [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"]])
        (when (= :done (job :status))
          [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
-              :data-init (string "const next = new URL(location.href); next.searchParams.set('patch', '" ((job :result) :patch)
+              :data-init (string "const next = new URL('/', location.href); const form = document.getElementById('scenario'); "
+                                 "if (form) for (const [key, value] of new FormData(form)) next.searchParams.set(key, value); "
+                                 "if (form) for (const field of form.elements) if (field.type === 'checkbox') next.searchParams.set(field.name, field.checked ? 'true' : 'false'); "
+                                 "for (const [prefix, selector] of [['slot', '#loadout-tray .tray-items .item-slot'], ['enemyslot', '#fight-settings .loadout .item-slot']]) "
+                                 "document.querySelectorAll(selector).forEach((slot, index) => next.searchParams.set(prefix + (index + 1), slot.dataset.itemId || '')); "
+                                 "next.searchParams.set('selected', $selected); next.searchParams.set('patch', '" ((job :result) :patch)
                                  "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
           "Open patch"])]
       [:span {:class "patch-progress-message" :title (progress :message)} (progress :message)]
@@ -103,6 +108,7 @@
    (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings))
    [:input {:type "hidden" :name "patch" :value (get state :patch ((result :package) :patch))}]
    [:input {:type "hidden" :name "snapshot" :value ((result :package) :snapshot)}]
+   [:input {:type "hidden" :name "snapshotlocked" :value (if (get state :snapshotlocked) "true" "false")}]
    [:span {:class "update-status" :role "status" :aria-live "polite" :data-text "$busy ? 'Updating…' : ''"} ""]
    [:noscript [:button {:type "submit" :name "selected" :value (state :selected) :class "apply"} "Update comparison"]]])
 
@@ -160,6 +166,7 @@
    (seq [index :range [0 6]]
      (do (def item (catalog/items (ids index)))
        [:button (merge (if item (details/attrs (details/item item)) {}) {:type "button" :class (if item "item-slot" "item-slot empty-slot")
+                                                                         :data-item-id (ids index)
                                                                          :data-attr:disabled "$busy"
                                                                          :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
 
@@ -186,7 +193,7 @@
      [:input {:form "scenario" :id "armor" :name "armor" :type "number" :min "0" :max "1000" :step "1"
               :required true :value (state :armor) :data-bind:armor true}]]
     [:label "Target health"
-     [:input {:form "scenario" :name "targethealth" :type "number" :min "1" :max "1000000" :value (get state :target-health 10000)
+     [:input {:form "scenario" :name "targethealth" :type "number" :min "1" :max "1000000" :value (get state :target-health (model/default-state :target-health))
               :data-bind:targethealth true}]]
     [:label "Starting distance"
      [:input {:form "scenario" :name "distance" :type "number" :min "0" :max "10000" :value (get state :distance 300) :data-bind:distance true}]]
@@ -429,10 +436,15 @@
     (get (find |(= (scan-number ((string/split "/" source) 1)) (get $ "id")) (scenarios/runes (catalog/current))) "name" source)
     (get (find |(= source ($ :id)) (get row :ability-settings [])) :name source)))
 
+(defn- champion-ability? [ability]
+  (some |(= (ability :slot) $) [:p :q :w :e :r]))
+(defn- damage-ability? [ability]
+  (some |(and (= :damage ($ :kind)) (= :estimated ($ :status))) (get ability :effects [])))
+
 (defn coverage [result]
   (def row (result :selected))
   (def combat (row :combat))
-  (def broad (not (empty? (get row :ability-settings []))))
+  (def broad (some champion-ability? (get row :ability-settings [])))
   (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
   [:details {:id "coverage" :class "scope-panel coverage-details" :data-preserve-attr "open" :aria-label "Build model coverage"}
    [:summary "Coverage & assumptions"]
@@ -461,9 +473,14 @@
   (def duration (state :duration))
   (def totals (row :stats))
   (def combat (row :combat))
-  (def broad (not (empty? (get row :ability-settings []))))
-  (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
-  (def spell-label (if broad "Modeled abilities" "Q/W"))
+  (def spell-job (get result :spell-data-job))
+  (def spell-champion (if (and (= "Annie" ((result :champion) :id)) (= "duel" (state :mode)))
+                        (get-in result [:package :champion-map (state :opponent) :name] (state :opponent))
+                        ((result :champion) :name)))
+  (def broad (some champion-ability? (get row :ability-settings [])))
+  (def damage-model (some damage-ability? (get row :ability-settings [])))
+  (def has-spells (or damage-model (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
+  (def spell-label (if damage-model "Modeled abilities" "Q/W"))
   (def chart-title (if has-spells (string spell-label " + attacks over time") "Basic attacks over time"))
   [:div {:id "results" :class "results" :aria-live "polite" :data-attr:aria-busy "$busy"}
    [:div {:class "fight-strip"}
@@ -479,9 +496,20 @@
             :data-scenario (get combat :scenario-id (string ((result :package) :snapshot) "/" (json/encode state)))}]
     [:section {:class "chart-panel" :aria-label "Damage timeline"}
      [:div {:class "section-header"} [:h2 chart-title] [:span {:class "muted"} "Cumulative damage"]]
-     (unless has-spells
-       [:p {:class "chart-coverage muted"} "Spell damage unavailable for " ((result :champion) :name)
-        "; this estimate covers basic attacks. Spells: not modeled."])
+     (when (or (not has-spells) spell-job)
+       [:p {:class "chart-coverage muted"}
+        (cond
+          (and spell-job (some |(= $ (spell-job :status)) [:queued :running :cancelling]))
+          (string "Downloading ability data for " spell-champion " and the rest of this patch. Current estimate shown until the download completes.")
+          (and spell-job (= :failed (spell-job :status)))
+          (string "Ability data download failed for " spell-champion ". Current estimate shown. Open Patch & evidence to retry.")
+          (and spell-job (= :cancelled (spell-job :status)))
+          (string "Ability data download cancelled for " spell-champion ". Current estimate shown. Open Patch & evidence to retry.")
+          (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
+          broad
+          (string "No supported spell damage for " ((result :champion) :name) " in this patch. Other ability effects may be modeled; see coverage.")
+          (string "Spell damage unavailable for " ((result :champion) :name)
+                  "; this estimate covers basic attacks. Spells: not modeled."))])
      (chart row duration chart-title)]
     [:div {:id "event-detail" :class "event-detail" :aria-label "Selected attack details"}
      [:span {:class "muted"} "Hover or select an attack to inspect its damage and state changes."]]
@@ -576,7 +604,7 @@
                (workspace/tools result)
                [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
                 [:summary [:span "Patch & evidence"] [:span {:class "muted"} "Sources · calibration"]]
-                (patch-panel result nil) (coverage result) (workspace/evidence result) (evidence-panel evidence)]]]
+                (patch-panel result (get result :patch-job)) (coverage result) (workspace/evidence result) (evidence-panel evidence)]]]
              [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
              (optimizer/dialog result)
              (catalog-pickers)

@@ -41,10 +41,13 @@ serve: build/web-ready
 
 test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/web.janet
+	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
+	JANET_PATH=build/web-modules $(JANET) test/item-upgrades.janet
+	JANET_PATH=build/web-modules $(JANET) test/mage-burst.janet
 	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	JANET_PATH=build/web-modules $(JANET) test/search.janet
 	JANET_PATH=build/web-modules $(JANET) test/fitness-cache.janet

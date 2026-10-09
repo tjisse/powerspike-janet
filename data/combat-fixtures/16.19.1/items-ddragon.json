@@ -1,0 +1,591 @@
+{
+  "version": "16.19.1",
+  "data": {
+    "3057": {
+      "name": "Sheen",
+      "description": "<mainText><stats><attention>10</attention> Ability Haste</stats><br><br><passive>Spellblade</passive><br>After using an Ability, your next Attack deals <physicalDamage>bonus physical damage</physicalDamage> <OnHit>On-Hit</OnHit>.<br></mainText>",
+      "colloq": ";",
+      "plaintext": "Grants a bonus to next attack after spell cast",
+      "from": [
+        "2022"
+      ],
+      "into": [
+        "3078",
+        "3100",
+        "2510",
+        "3508",
+        "6632",
+        "6662"
+      ],
+      "image": {
+        "full": "3057.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 288,
+        "y": 192,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 650,
+        "purchasable": true,
+        "total": 900,
+        "sell": 630
+      },
+      "tags": [
+        "OnHit",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {},
+      "depth": 2
+    },
+    "3100": {
+      "name": "Lich Bane",
+      "description": "<mainText><stats><attention>100</attention> Ability Power<br><attention>6%</attention> Move Speed<br><attention>10</attention> Ability Haste</stats><br><br><passive>Spellblade</passive><br>After using an Ability, your next Attack deals <magicDamage>bonus magic damage</magicDamage> <OnHit>On-Hit</OnHit>.</mainText>",
+      "colloq": ";",
+      "plaintext": "Grants a bonus to next attack after spell cast",
+      "from": [
+        "3057",
+        "3113",
+        "1026"
+      ],
+      "image": {
+        "full": "3100.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 0,
+        "y": 336,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 250,
+        "purchasable": true,
+        "total": 2900,
+        "sell": 2030
+      },
+      "tags": [
+        "SpellDamage",
+        "OnHit",
+        "NonbootsMovement",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 100,
+        "PercentMovementSpeedMod": 0.06
+      },
+      "depth": 3
+    },
+    "3078": {
+      "name": "Trinity Force",
+      "description": "<mainText><stats><attention>36</attention> Attack Damage<br><attention>30%</attention> Attack Speed<br><attention>333</attention> Health<br><attention>15</attention> Ability Haste</stats><br><br><passive>Spellblade</passive><br>After using an Ability, your next Attack deals <physicalDamage>bonus physical damage</physicalDamage> <OnHit>On-Hit</OnHit>.<br> <br><passive>Quicken</passive><br>Attacking grants <speed>20 Move Speed</speed> for 2 seconds.</mainText>",
+      "colloq": ";triforce;tons of damage",
+      "plaintext": "Tons of Damage",
+      "from": [
+        "3057",
+        "3044",
+        "3051"
+      ],
+      "image": {
+        "full": "3078.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 432,
+        "y": 240,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 133,
+        "purchasable": true,
+        "total": 3333,
+        "sell": 2333
+      },
+      "tags": [
+        "Health",
+        "Damage",
+        "AttackSpeed",
+        "CooldownReduction",
+        "OnHit",
+        "NonbootsMovement",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatHPPoolMod": 333,
+        "FlatPhysicalDamageMod": 36,
+        "PercentAttackSpeedMod": 0.3
+      },
+      "effect": {
+        "Effect1Amount": "25",
+        "Effect2Amount": "60",
+        "Effect3Amount": "2",
+        "Effect4Amount": "1.5",
+        "Effect5Amount": "1.5"
+      },
+      "depth": 3
+    },
+    "3508": {
+      "name": "Essence Reaver",
+      "description": "<mainText><stats><attention>50</attention> Attack Damage<br><attention>20</attention> Ability Haste<br><attention>25%</attention> Critical Strike Chance</stats><br><br><passive>Spellblade</passive><br>After using an Ability, your next Attack deals <physicalDamage>bonus physical damage</physicalDamage> and grants <scaleMana>Mana</scaleMana> <OnHit>On-Hit</OnHit>.</mainText>",
+      "colloq": "",
+      "plaintext": "",
+      "from": [
+        "3057",
+        "3133",
+        "1018"
+      ],
+      "image": {
+        "full": "3508.png",
+        "sprite": "item4.png",
+        "group": "item",
+        "x": 240,
+        "y": 288,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 500,
+        "purchasable": true,
+        "total": 3050,
+        "sell": 2135
+      },
+      "tags": [
+        "Damage",
+        "CriticalStrike",
+        "ManaRegen",
+        "CooldownReduction",
+        "OnHit",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatCritChanceMod": 0.25,
+        "FlatPhysicalDamageMod": 50
+      },
+      "depth": 3
+    },
+    "6662": {
+      "name": "Iceborn Gauntlet",
+      "description": "<mainText><stats><attention>300</attention> Health<br><attention>50</attention> Armor<br><attention>15</attention> Ability Haste</stats><br><br><passive>Spellblade</passive><br>After using an Ability, your next Attack deals <physicalDamage>bonus physical damage</physicalDamage> <OnHit>On-Hit</OnHit> and creates a frost field for 2s that <status>Slows</status>.</mainText>",
+      "colloq": "",
+      "plaintext": "High Magic Resist.Passively slow nearby enemies. When spells are cast near you, release a wave of energy that damages and slows.",
+      "from": [
+        "3057",
+        "1028",
+        "1031"
+      ],
+      "image": {
+        "full": "6662.png",
+        "sprite": "item6.png",
+        "group": "item",
+        "x": 192,
+        "y": 48,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 800,
+        "purchasable": true,
+        "total": 2900,
+        "sell": 2030
+      },
+      "tags": [
+        "Health",
+        "Armor",
+        "CooldownReduction",
+        "Slow",
+        "OnHit",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatHPPoolMod": 300,
+        "FlatArmorMod": 50
+      },
+      "depth": 3
+    },
+    "3115": {
+      "name": "Nashor's Tooth",
+      "description": "<mainText><stats><attention>80</attention> Ability Power<br><attention>50%</attention> Attack Speed<br><attention>15</attention> Ability Haste</stats><br><br><passive>Icathian Bite</passive><br>Attacks deal <magicDamage>bonus magic damage</magicDamage> <OnHit>On-Hit</OnHit>.</mainText>",
+      "colloq": ";",
+      "plaintext": "Increases Attack Speed, Ability Power, and Cooldown Reduction",
+      "from": [
+        "1043",
+        "1026",
+        "3108"
+      ],
+      "image": {
+        "full": "3115.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 48,
+        "y": 384,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 500,
+        "purchasable": true,
+        "total": 2900,
+        "sell": 2030
+      },
+      "tags": [
+        "AttackSpeed",
+        "SpellDamage",
+        "OnHit",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 80,
+        "PercentAttackSpeedMod": 0.5
+      },
+      "depth": 3
+    },
+    "6655": {
+      "name": "Luden's Echo",
+      "description": "<mainText><stats><attention>100</attention> Ability Power<br><attention>600</attention> Mana<br><attention>10</attention> Ability Haste</stats><br><br><passive>Echo</passive><br>Damaging Abilities fire 6 Echoes that deal <magicDamage>bonus magic damage</magicDamage> to the target and nearby enemies. Remaining Echoes fire on the primary target, dealing 20% damage.<br></mainText>",
+      "colloq": "",
+      "plaintext": "High burst damage, good against fragile foes",
+      "from": [
+        "3802",
+        "3145"
+      ],
+      "image": {
+        "full": "6655.png",
+        "sprite": "item6.png",
+        "group": "item",
+        "x": 0,
+        "y": 48,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 450,
+        "purchasable": true,
+        "total": 2750,
+        "sell": 1925
+      },
+      "tags": [
+        "SpellDamage",
+        "Mana",
+        "CooldownReduction",
+        "AbilityHaste"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMPPoolMod": 600,
+        "FlatMagicDamageMod": 100
+      },
+      "depth": 3
+    },
+    "3145": {
+      "name": "Hextech Alternator",
+      "description": "<mainText><stats><attention>45</attention> Ability Power</stats><br><br><passive>Revved</passive><br>Damaging a champion deals <magicDamage>bonus magic damage</magicDamage>.</mainText>",
+      "colloq": ";",
+      "plaintext": "Increases Ability Power. Deal bonus magic damage on attack periodically.",
+      "from": [
+        "1052",
+        "1052"
+      ],
+      "into": [
+        "4645",
+        "4636",
+        "3146",
+        "6655",
+        "3152",
+        "4646"
+      ],
+      "image": {
+        "full": "3145.png",
+        "sprite": "item4.png",
+        "group": "item",
+        "x": 0,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 300,
+        "purchasable": true,
+        "total": 1100,
+        "sell": 770
+      },
+      "tags": [
+        "SpellDamage"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 45
+      },
+      "depth": 2
+    },
+    "3089": {
+      "name": "Rabadon's Deathcap",
+      "description": "<mainText><stats><attention>130</attention> Ability Power</stats><br><br><passive>Magical Opus</passive><br>Increases your total <scaleAP>Ability Power by 30%</scaleAP>.</mainText>",
+      "colloq": ";dc;banksys;hat",
+      "plaintext": "Massively increases Ability Power",
+      "from": [
+        "1058",
+        "1058"
+      ],
+      "image": {
+        "full": "3089.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 288,
+        "y": 288,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 1100,
+        "purchasable": true,
+        "total": 3500,
+        "sell": 2450
+      },
+      "tags": [
+        "SpellDamage"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 130
+      },
+      "depth": 2
+    },
+    "3135": {
+      "name": "Void Staff",
+      "description": "<mainText><stats><attention>95</attention> Ability Power<br><attention>40%</attention> Magic Penetration</stats><br><br></mainText>",
+      "colloq": ";",
+      "plaintext": "Increases magic damage",
+      "from": [
+        "4630",
+        "1026"
+      ],
+      "image": {
+        "full": "3135.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 144,
+        "y": 432,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 1050,
+        "purchasable": true,
+        "total": 3000,
+        "sell": 2100
+      },
+      "tags": [
+        "MagicPenetration",
+        "SpellDamage"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 95
+      },
+      "depth": 3
+    },
+    "3046": {
+      "name": "Phantom Dancer",
+      "description": "<mainText><stats><attention>65%</attention> Attack Speed<br><attention>25%</attention> Critical Strike Chance<br><attention>10%</attention> Move Speed</stats><br><br><passive>Spectral Waltz</passive><br>Become <keyword>Ghosted</keyword>.</mainText>",
+      "colloq": ";pd",
+      "plaintext": "Move faster while attacking enemies and gain a shield when on low health.",
+      "from": [
+        "1042",
+        "3086",
+        "1042"
+      ],
+      "image": {
+        "full": "3046.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 48,
+        "y": 192,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 950,
+        "purchasable": true,
+        "total": 2650,
+        "sell": 1855
+      },
+      "tags": [
+        "CriticalStrike",
+        "AttackSpeed",
+        "NonbootsMovement"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatCritChanceMod": 0.25,
+        "PercentAttackSpeedMod": 0.65,
+        "PercentMovementSpeedMod": 0.1
+      },
+      "depth": 3
+    },
+    "3087": {
+      "name": "Statikk Shiv",
+      "description": "<mainText><stats><attention>45</attention> Attack Damage<br><attention>45</attention> Ability Power<br><attention>30%</attention> Attack Speed<br><attention>4%</attention> Move Speed</stats><br><br><passive>Electrospark</passive><br>Your <keyword>Energized Attacks</keyword> fire chain lightning, applying <OnHit>On-Hit</OnHit> effects and dealing <magicDamage>magic damage</magicDamage> to nearby targets.<br><br><passive>Electroshock</passive> <br>Basic Attacks grant extra <keyword>Energized</keyword> stacks.</mainText>",
+      "colloq": ";",
+      "plaintext": "Movement builds charges that release chain lightning on basic attack",
+      "from": [
+        "3144",
+        "3113",
+        "1037"
+      ],
+      "image": {
+        "full": "3087.png",
+        "sprite": "item3.png",
+        "group": "item",
+        "x": 240,
+        "y": 288,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 625,
+        "purchasable": true,
+        "total": 3000,
+        "sell": 2100
+      },
+      "tags": [
+        "Damage",
+        "AttackSpeed",
+        "SpellDamage",
+        "OnHit",
+        "NonbootsMovement"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatMagicDamageMod": 45,
+        "FlatPhysicalDamageMod": 45,
+        "PercentAttackSpeedMod": 0.3,
+        "PercentMovementSpeedMod": 0.04
+      },
+      "depth": 3
+    },
+    "3153": {
+      "name": "Blade of The Ruined King",
+      "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>10%</attention> Life Steal</stats><br><br><passive>Mist's Edge</passive><br>Attacks deal <physicalDamage>a percentage</physicalDamage> of enemy's current Health as <physicalDamage>bonus physical damage</physicalDamage> <OnHit>On-Hit</OnHit>.<br><br><passive>Clawing Shadows</passive><br>Attacking a champion 3 times <status>Slows</status> them by 30% for 1 second.</mainText>",
+      "colloq": ";brk;bork;bork;bork;botrk",
+      "plaintext": "Deals damage based on target's Health, can steal Move Speed",
+      "from": [
+        "1053",
+        "1043",
+        "1037"
+      ],
+      "image": {
+        "full": "3153.png",
+        "sprite": "item4.png",
+        "group": "item",
+        "x": 192,
+        "y": 0,
+        "w": 48,
+        "h": 48
+      },
+      "gold": {
+        "base": 725,
+        "purchasable": true,
+        "total": 3200,
+        "sell": 2240
+      },
+      "tags": [
+        "Damage",
+        "AttackSpeed",
+        "LifeSteal",
+        "Slow",
+        "OnHit"
+      ],
+      "maps": {
+        "11": true,
+        "12": true,
+        "22": false,
+        "30": false,
+        "453": true
+      },
+      "stats": {
+        "FlatPhysicalDamageMod": 40,
+        "PercentAttackSpeedMod": 0.25,
+        "PercentLifeStealMod": 0.1
+      },
+      "depth": 3
+    }
+  }
+}

@@ -21,6 +21,35 @@
 (def asset-pending @{})
 (var asset-active 0)
 (var asset-waiting 0)
+(def automatic-spell-jobs @{})
+
+(defn needs-spell-data? [result]
+  (def state (result :state))
+  (and (get-in result [:package :manifest "initial"])
+       (or (not= "Annie" (state :champion))
+           (and (= "duel" (state :mode)) (not= "Annie" (state :opponent))))))
+
+(defn spell-data-job [result]
+  (def package (result :package))
+  (when (and (not (get-in result [:state :snapshotlocked])) (needs-spell-data? result))
+    (def current (packages/load (package :patch)))
+    (if (not (get-in current [:manifest "initial"]))
+      {:id "" :key (package :patch) :status :done
+       :result {:patch (current :patch) :snapshot (current :snapshot)}
+       :progress {:message "Champion abilities ready" :completed 1 :total 1}}
+      (or (automatic-spell-jobs (package :patch))
+          (let [job (jobs/fetch-patch (package :patch))]
+            (put automatic-spell-jobs (package :patch) job) job)))))
+
+(defn prepare-result [result &opt job-id]
+  # A browser's explicit refresh remains tracked when combat controls change.
+  # Imported scenarios start without an inherited job and keep their snapshot.
+  (def requested (jobs/get-job (or job-id "")))
+  (def manual (when (= :patch (get requested :kind)) requested))
+  (def upgrade (if manual
+                 (when (and (= (manual :key) (get-in result [:package :patch])) (needs-spell-data? result)) manual)
+                 (spell-data-job result)))
+  (merge result {:spell-data-job upgrade :patch-job (or manual upgrade)}))
 
 (defn response [status body &opt content-type]
   {:status status :body body
@@ -61,7 +90,8 @@
   (merge (response 200 (slurp path) "image/png")
          {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}}))
 
-(defn show-result [req result &opt state]
+(defn show-result [req result &opt state job-id]
+  (def prepared (prepare-result result job-id))
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
@@ -72,16 +102,17 @@
                                                           (each key [:searchbudget :searchslots :searchseconds :searchpreset :searchpool :searchexclude :nextpurchase :searchrunes :searchsummoners :searchskills]
                                                             (when (has-key? input (string key)) (put values key (get input (string key))))))
                                                         (ds/patch-signals gen values))
-                                                      (with-dyns [:patch-package (result :package)]
+                                                      (with-dyns [:patch-package (prepared :package)]
                                                         (ds/patch-elements gen
-                                                                           (ui/render (ui/results result) (ui/loadout result) (ui/fight-controls result)
-                                                                                      (when (= "/search/apply" (req :route)) (optimizer/panel result nil (get-in req [:query "id"])))
-                                                                                      (ui/tactics result) (optimizer/rune-editor (result :package) (result :state))
-                                                                                      (when state (ui/patch-panel result nil))
-                                                                                      (workspace/tools result) (ui/coverage result) (workspace/evidence result))))))}))
+                                                                           (ui/render (ui/results prepared) (ui/loadout prepared) (ui/fight-controls prepared)
+                                                                                      (when (= "/search/apply" (req :route)) (optimizer/panel prepared nil (get-in req [:query "id"])))
+                                                                                      (ui/tactics prepared) (optimizer/rune-editor (prepared :package) (prepared :state))
+                                                                                      (ui/patch-panel prepared (prepared :patch-job))
+                                                                                      (workspace/tools prepared) (ui/coverage prepared) (workspace/evidence prepared))))))}))
 (defn evaluate [req]
-  (def result (protect (model/compare-async (model/parse-state (ds/get-signals req)))))
-  (if (first result) (show-result req (result 1)) (fragment req (ui/render (ui/error-result (string (result 1)))))))
+  (def input (ds/get-signals req))
+  (def result (protect (model/compare-async (model/parse-state input))))
+  (if (first result) (show-result req (result 1) nil (get input "job")) (fragment req (ui/render (ui/error-result (string (result 1)))))))
 
 (defn app-inner [req]
   (cond
@@ -131,14 +162,25 @@
     (= "/patches/status" (req :route))
     (do (def signals (ds/get-signals req))
       (def job (jobs/get-job (get signals "job" "")))
-      (fragment req (ui/render (ui/patch-panel (model/context (model/parse-state signals)) job))))
+      (def state (model/parse-state signals))
+      (def context (model/context state))
+      (def stopped (and job (some |(= $ (job :status)) [:failed :cancelled])
+                        (= (job :key) (state :patch)) (needs-spell-data? context)))
+      (if stopped
+        (do (def result (merge (model/compare-async state) {:spell-data-job job :patch-job job}))
+          (fragment req (with-dyns [:patch-package (result :package)]
+                          (ui/render (ui/patch-panel result job) (ui/results result)))))
+        (fragment req (ui/render (ui/patch-panel context job)))))
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
-    (do (def result (protect (model/compare-async
-                               (if (get-in req [:query "scenario"])
-                                 (model/state-from-definition (wire/decode (get-in req [:query "scenario"])))
-                                 (model/parse-state (get req :query {}))))))
-      (if (first result) (with-dyns [:patch-package ((result 1) :package)] (response 200 (ui/page (result 1) evidence)))
+    (do (def query (get req :query {}))
+      (def result (protect (model/compare-async
+                             (if (get-in req [:query "scenario"])
+                               (model/state-from-definition (wire/decode (get-in req [:query "scenario"])))
+                               (model/parse-state (merge {"snapshotlocked" (has-key? query "snapshot")} query))))))
+      (if (first result) (do
+                           (def prepared (prepare-result (result 1)))
+                           (with-dyns [:patch-package (prepared :package)] (response 200 (ui/page prepared evidence))))
         (response 400 (ui/page (model/compare (model/parse-state {})) evidence (string (result 1))))))
     (= "/evaluate" (req :route)) (evaluate req)
     (response 404 "Not found." "text/plain")))

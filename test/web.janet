@@ -112,6 +112,44 @@
           (assert (string/find marker ahri)))
         (assert (not (string/find "Abilities 0" ahri)))))
 
+(test "downloaded ability descriptions do not count as supported spell damage"
+      (fn []
+        (def result (model/compare (model/parse-state {"champion" "Ahri" "selected" "custom"})))
+        (def row (merge (result :selected)
+                        {:ability-settings [{:slot :q :name "Orb" :effects [{:kind :damage :status :unresolved}]}]}))
+        (def text (ui/render (ui/results (merge result {:selected row}))))
+        (assert (string/find "No supported spell damage for Ahri" text))
+        (assert (not (string/find "Modeled abilities + attacks" text)))))
+
+(test "recommendations display the gold limit captured when the search started"
+      (fn []
+        (def result (model/context (model/parse-state {})))
+        (def job {:id "fixture" :status :done :gold-budget 2000 :next-purchase false
+                  :result {:rows [] :notes []}})
+        (assert (string/find "Gold limit: 2000" (ui/render (optimizer/panel result job))))
+        (assert (string/find "Available gold: 2000" (ui/render (optimizer/panel result (merge job {:next-purchase true})))))))
+
+(test "initial champion spell download explains the temporary estimate and preserves settings on upgrade"
+      (fn []
+        (def result (model/compare (model/parse-state {"champion" "Ahri" "selected" "custom"})))
+        (def pending {:id "fixture" :key "16.19.1" :status :running
+                      :progress {:message "Downloading Ahri" :completed 1 :total 173}})
+        (def text (ui/render (ui/results (merge result {:spell-data-job pending}))))
+        (assert (string/find "Downloading ability data for Ahri" text))
+        (assert (not (string/find "Spells: not modeled" text)))
+        (def failed (ui/render (ui/results (merge result {:spell-data-job (merge pending {:status :failed})}))))
+        (assert (string/find "Ability data download failed for Ahri" failed))
+        (def cancelled (ui/render (ui/results (merge result {:spell-data-job (merge pending {:status :cancelled})}))))
+        (assert (string/find "Ability data download cancelled for Ahri" cancelled))
+        (def done (merge pending {:status :done :result {:patch "16.19.1" :snapshot (string/repeat "a" 64)}}))
+        (def panel (ui/render (ui/patch-panel result done)))
+        (assert (string/find "new FormData(form)" panel))
+        (assert (string/find "field.type === &#x27;checkbox&#x27;" panel))
+        (assert (string/find "slot.dataset.itemId" panel))
+        (assert (string/find "selected&#x27;, $selected" panel))
+        (assert (string/find "data-item-id=\"3089\"" (ui/render (ui/loadout (model/compare model/default-state)))))
+        (assert (string/find (string/repeat "a" 64) panel))))
+
 (test "frontend duels use two acting participants and report sampled health outcomes"
       (fn [] (def result (model/compare (model/parse-state {"mode" "duel" "champion" "Annie" "opponent" "Garen"
                                                             "level" 6 "opponentlevel" 6 "duration" 8 "samples" 3 "selected" "custom"})))

@@ -166,45 +166,67 @@
                  :recharge-unhasted (get spell "mAmmoNotAffectedByCDR" false)
                  :unresolved problems :record spell}))
 
-(defn kit [id objects detail fonts &opt patch]
-  (def root (get objects (string "Characters/" id "/CharacterRecords/Root") {}))
-  (def paths (spell-paths id root))
-  (def dd (get-in detail ["data" id] {}))
-  (def abilities @[])
-  (eachp [index slot] [:q :w :e :r]
-    (def path (get paths index ""))
-    (array/push abilities (ability slot path (get objects path {}) (get (get dd "spells" []) index {}) fonts (get detail "version" (or patch "unknown")))))
-  (def passive-path (get root "mCharacterPassiveSpell" ""))
-  (array/push abilities (ability :p passive-path (get objects passive-path {}) (get dd "passive" {}) fonts (get detail "version" (or patch "unknown"))))
-  (def penetration @{})
-  (each rule (applicable-rules id (get detail "version" (or patch "unknown")))
+(defn semantic-kit [id patch kit]
+  # Reinterpret retained source records with the current combat model. This also
+  # updates cached packages without changing their immutable snapshot bytes.
+  (def abilities (array ;(get kit :abilities [])))
+  (def penetration (merge @{} (get kit :rank-penetration {})))
+  (each rule (applicable-rules id patch)
     (def chosen (find |(= ($ :slot) (rule :slot)) abilities))
     (when chosen
       (def index (find-index |(= ($ :slot) (rule :slot)) abilities))
       (def effects (when (rule :effects)
                      (map (fn [spec]
-                            (def amount (expr/variable (spec :variable) (chosen :record)))
+                            (def spell (chosen :record))
+                            (def amount (expr/variable (spec :variable) spell))
+                            (def duration (if (spec :duration-variable) (expr/variable (spec :duration-variable) spell) (spec :duration)))
+                            (def hits (if (spec :hits-variable) (expr/variable (spec :hits-variable) spell) (get spec :hits 1)))
+                            (def interval (if (spec :interval-variable) (expr/variable (spec :interval-variable) spell) (get spec :interval 0)))
+                            (def hit-delay (if (spec :delay-variable) (expr/variable (spec :delay-variable) spell) (get spec :delay 0)))
                             (merge spec {:id (string id "/" (rule :slot) "/" (spec :variable)) :amount amount
                                          :target :enemy :trigger (get spec :trigger :cast) :condition :always
-                                         :duration (when (spec :duration-variable) (expr/variable (spec :duration-variable) (chosen :record)))
-                                         :status (if (empty? (expr/problems amount)) :estimated :unresolved)
+                                         :duration duration :hits hits :interval interval :delay hit-delay
+                                         :status (if (empty? (mapcat |(if (dictionary? $) (expr/problems $) []) [amount duration hits interval hit-delay])) :estimated :unresolved)
                                          :evidence {:tooltip (rule :note) :override true}})) (rule :effects))))
-      (put abilities index (merge chosen {:effects (or effects (chosen :effects))
-                                          :unresolved [;(chosen :unresolved) (rule :note)]}))
+      (def kept (when effects (filter |(some (fn [kind] (= kind ($ :kind))) (get rule :preserve-kinds [])) (chosen :effects))))
+      (def notes (filter |(and (not= $ (rule :note)) (not (some (fn [note] (= note $)) (get rule :resolved-notes []))))
+                         (get chosen :unresolved [])))
+      (def recast (when (rule :recast)
+                    (def config (rule :recast))
+                    (def spell (chosen :record))
+                    {:count {:op :sum :children [(expr/variable (config :count-variable) spell)
+                                                 {:op :constant :value (- (get config :count-subtract 0))}]}
+                     :delay (expr/variable (config :delay-variable) spell)
+                     :window (expr/variable (config :window-variable) spell) :cost (get config :cost 0)}))
+      (put abilities index (merge chosen {:effects (if effects [;effects ;kept] (chosen :effects))
+                                          :recast (or recast (chosen :recast)) :unresolved [;notes (rule :note)]}))
       (when (rule :rank-penetration)
         (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]
                               :when (and (indexed? values) (not (empty? values)))] stat values))
         (unless (empty? bonuses) (put penetration (rule :slot) bonuses)))))
-  {:abilities abilities
-   :rank-penetration penetration
-   :forms (seq [[path object] :pairs objects
-                :when (and (= "SpellObject" (get object "__type"))
-                           (not= path passive-path) (not (some |(= $ path) paths)))]
-            {:path path :id (get object "ObjectName") :record (get object "mSpell" {}) :status :unresolved})
-   :coverage {:available (count |($ :available) abilities)
-              :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
-              :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}})
+  (merge kit {:abilities abilities :rank-penetration penetration
+              :coverage {:available (count |($ :available) abilities)
+                         :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
+                         :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}}))
+
+(defn kit [id objects detail fonts &opt patch]
+  (def root (get objects (string "Characters/" id "/CharacterRecords/Root") {}))
+  (def paths (spell-paths id root))
+  (def dd (get-in detail ["data" id] {}))
+  (def abilities @[])
+  (def version (get detail "version" (or patch "unknown")))
+  (eachp [index slot] [:q :w :e :r]
+    (def path (get paths index ""))
+    (array/push abilities (ability slot path (get objects path {}) (get (get dd "spells" []) index {}) fonts version)))
+  (def passive-path (get root "mCharacterPassiveSpell" ""))
+  (array/push abilities (ability :p passive-path (get objects passive-path {}) (get dd "passive" {}) fonts version))
+  (semantic-kit id version
+                {:abilities abilities
+                 :forms (seq [[path object] :pairs objects
+                              :when (and (= "SpellObject" (get object "__type"))
+                                         (not= path passive-path) (not (some |(= $ path) paths)))]
+                          {:path path :id (get object "ObjectName") :record (get object "mSpell" {}) :status :unresolved})}))
 
 (defn localized [fonts key fallback]
   (or (when (string? key) (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key))))) fallback))

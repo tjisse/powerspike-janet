@@ -9,12 +9,12 @@
 (import ../../data/16.19.1/snapshot :as initial)
 (import pshash :as hash)
 
-(def version "search-5")
+(def version "search-6")
 (defn fitness-key [package definition]
   (hash/sha256 (util/encode-data (util/canonical ["fitness-1" engine/identity (package :patch) (package :snapshot) definition]))))
 (def presets [:burst :sustained :duel :survival :utility :objective])
 (def explanations
-  {:burst "Damage within the configured combat window; lower cost breaks ties."
+  {:burst "Total damage from abilities, attacks and item effects within the configured combat window; lower cost breaks ties."
    :sustained "Damage per second over the configured window; lower cost breaks ties."
    :duel "Win probability, then kill probability, earlier successful kills, then remaining health. Simultaneous deaths are not wins."
    :survival "Survival probability, then remaining health, then absorbed damage."
@@ -280,6 +280,20 @@
         (when (stop?) (break))
         (def family (filter |(> (get-in package [:item-map $ :stats stat] 0) 0) raw-order))
         (when (not (empty? family)) (visit (replace-items baseline (fill [;family ;raw-order])))))
+      # Multipliers and penetration can have modest standalone scores while
+      # improving a whole inventory. Seed their combinations with their source
+      # stat family so the search can discover that interaction within its cap.
+      (each [stat multiplier penetrations] [[:ap :ap-multiplier [:magic-pen-percent :magic-pen-flat]]
+                                            [:ad :crit-damage-bonus [:armor-pen-percent :armor-pen-flat]]]
+        (when (stop?) (break))
+        (def family (filter |(> (get-in package [:item-map $ :stats stat] 0) 0) raw-order))
+        (def amplifiers (take 2 (filter |(> (get-in package [:item-map $ :stats multiplier] 0) (if (= multiplier :ap-multiplier) 1 0)) raw-order)))
+        (each penetration penetrations
+          (def reducers (take 3 (filter |(> (get-in package [:item-map $ :stats penetration] 0) 0) raw-order)))
+          (each amplifier amplifiers
+            (each reducer reducers
+              (when (stop?) (break))
+              (visit (replace-items baseline (fill [amplifier reducer ;family ;raw-order])))))))
       (when optional? (expand-choices baseline))
       # Seed several full inventories before any exhaustive neighborhood sweep.
       # Mutations and crossovers revisit leaders after each small batch, rather

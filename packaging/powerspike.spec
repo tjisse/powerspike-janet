@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.8.0}
+%{!?app_version:%global app_version 0.9.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
@@ -78,6 +78,11 @@ fi
 %config(noreplace) %attr(0640,root,powerspike) /etc/powerspike/powerspike.env
 
 %changelog
+* Fri Oct 09 2026 PowerSpike contributors - 0.9.0-1
+- Download full ability data for seed champions and duel opponents automatically.
+- Preserve pinned scenarios and keep manual patch refresh progress across edits.
+- Add source-derived upgraded item damage, Viktor Q/R and Ahri R recasts.
+- Correct mage build exploration, default target health and applied gold limits.
 * Mon Oct 05 2026 PowerSpike contributors - 0.8.0-1
 - Simplify the Rift HUD, add shared element popovers and linked graph inspection.
 - Show up to ten ranked optimization rows; start searches explicitly.

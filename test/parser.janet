@@ -72,6 +72,52 @@
                                                   {"__powerspike_patch" "12.2.1"}) context)))
 (def legacy {"spells" ["current"] "spellNames" ["obsolete"]})
 (assert (= ["current"] (normalize/spell-paths "Test" legacy)))
+
+(def attack-source {"DataValues" [{"name" "Damage" "values" [0 30]} {"name" "BuffDuration" "values" [0 5]}
+                                  {"name" "Count" "values" [0 3]}]
+                    "mSpellTags" ["Trait_AttackReset"]})
+(defn attack-effect [text]
+  (first ((tooltip/parse text attack-source) :effects)))
+(def bonus (attack-effect "Your next basic Attack deals an additional <magicDamage>@Damage@ magic damage</magicDamage>."))
+(assert (= :bonus (bonus :attack-mode)))
+(assert (= :attack (bonus :trigger)))
+(assert (bonus :reset))
+(close 5 (expr/evaluate (bonus :duration) context))
+(def total (attack-effect "Your next Attack deals <physicalDamage>@Damage@ physical damage</physicalDamage> and slows for @Count@ seconds."))
+(assert (= :replace (total :attack-mode)))
+(close 5 (expr/evaluate (total :duration) context)) # Slow duration is not empowerment duration.
+(def literal-window (attack-effect "Your next Attack within 4 seconds deals <magicDamage>@Damage@ magic damage</magicDamage>."))
+(close 4 (literal-window :duration))
+(close 2.5 ((attack-effect "Your next Attack within 2.5 seconds deals <magicDamage>@Damage@ magic damage</magicDamage>.") :duration))
+(each [count text] [[3 "Your next 3 Attacks deal an additional <magicDamage>@Damage@ magic damage</magicDamage>."]
+                    [2 "Your next two basic Attacks deal an additional <magicDamage>@Damage@ magic damage</magicDamage>."]]
+  (def effect (attack-effect text))
+  (assert (= count (effect :attack-count)))
+  (assert (= :bonus (effect :attack-mode))))
+(def variable-count (attack-effect "Your next @Count@ Attacks deal an additional <magicDamage>@Damage@ magic damage</magicDamage>."))
+(close 3 (expr/evaluate (variable-count :attack-count) context))
+(def timed (attack-effect "Your Attacks deal an additional <trueDamage>@Damage@ true damage</trueDamage> for @BuffDuration@ seconds."))
+(assert (= :all (timed :attack-count)))
+(close 5 (expr/evaluate (timed :duration) context))
+(def literal-buff (attack-effect "Your Attacks deal an additional <trueDamage>@Damage@ true damage</trueDamage> for 2.5 seconds."))
+(close 2.5 (literal-buff :duration))
+(assert (= :unresolved ((attack-effect "<spellPassive>Passive:</spellPassive> Your Attacks deal an additional <magicDamage>@Damage@ magic damage</magicDamage> and apply a mark for @BuffDuration@ seconds.") :status)))
+(assert (= :unresolved (get-in (tooltip/parse "Your Attacks deal an additional <magicDamage>@Damage@ magic damage</magicDamage>."
+                                              {"DataValues" [{"name" "Damage" "values" [0 30]}]}) [:effects 0 :status])))
+(def missing (first ((tooltip/parse "Your next Attack deals an additional <magicDamage>@Damage@ magic damage</magicDamage>."
+                                    {"DataValues" [{"name" "Damage" "values" [0 30]}]}) :effects)))
+(assert (= :estimated (missing :status)))
+(assert (nil? (missing :duration)))
+(def cc-source {"DataValues" [{"name" "Damage" "values" [0 30]} {"name" "StunDuration" "values" [0 1]}]})
+(def cc-next (first ((tooltip/parse "Your next Attack stuns for @StunDuration@ seconds and deals an additional <magicDamage>@Damage@ magic damage</magicDamage>."
+                                    cc-source) :effects)))
+(assert (nil? (cc-next :duration)))
+(def slow-next (first ((tooltip/parse "Your next Attack deals <magicDamage>@Damage@ magic damage</magicDamage> and slows for @StunDuration@ seconds."
+                                      cc-source) :effects)))
+(assert (nil? (slow-next :duration)))
+(assert (= (util/canonical bonus)
+           (util/canonical (tooltip/attack-semantics "Your next basic Attack deals an additional <magicDamage>@Damage@ magic damage</magicDamage>."
+                                                     attack-source bonus))))
 (each id ["Ahri" "Annie" "Aatrox" "Garen" "Khazix"]
   (def champion (kit id)) (assert (= 5 (length (champion :abilities))))
   (assert (has-key? champion :coverage)))

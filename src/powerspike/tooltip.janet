@@ -32,6 +32,73 @@
     (set offset (+ end (length closing))))
   result)
 
+(defn visible-text [text]
+  (def out @"")
+  (var tag false)
+  (each byte (string/bytes text)
+    (cond (= byte 60) (set tag true)
+      (= byte 62) (set tag false)
+      (not tag) (buffer/push-byte out byte)))
+  (string/ascii-lower (string out)))
+
+(defn attack-semantics [text spell effect]
+  # Use the effect's own paragraph, rather than a nearby slow, heal or recast,
+  # to identify the attack and whether its number includes ordinary AD.
+  (def tag (case (effect :damage-type) :physical "physicalDamage" :magic "magicDamage" :true "trueDamage" nil))
+  (def block (when tag (find |(= ($ :text) (get-in effect [:evidence :tooltip])) (blocks text tag))))
+  (if (not block) effect
+    (do
+      (def prefix (visible-text (last (string/split "<br" (string/slice text 0 (block :start))))))
+      (def suffix (visible-text (first (string/split ". " (first (string/split "<br" (string/slice text (block :end))))))))
+      (def next-at (last (string/find-all "next " prefix)))
+      (def next-text (when next-at (string/slice prefix next-at)))
+      (def counted (when next-text
+                     (peg/match ~(* "next " '(+ (some (range "09")) "two" "three" (* "@" (some (if-not "@" 1)) "@"))
+                                    " " (? "basic ") "attacks") next-text)))
+      (def single (and next-text (or (string/has-prefix? "next attack" next-text)
+                                     (string/has-prefix? "next basic attack" next-text))))
+      (def repeated (and (not single) (not counted) (string/find "attacks deal" prefix)))
+      (if (not (or single counted repeated (= :attack (effect :trigger)))) effect
+        (do
+          (def phrase (if next-text next-text (last (string/split "." prefix))))
+          (def bonus (or (string/find "additional" phrase) (string/find "bonus" (visible-text (block :text)))
+                         (string/find "on-hit" phrase)))
+          (def override (get-in effect [:evidence :override]))
+          (def count (cond repeated :all counted
+                       (let [raw (first counted)]
+                         (cond (= raw "two") 2 (= raw "three") 3 (scan-number raw) (scan-number raw)
+                           (expr/variable (string/slice raw 1 (dec (length raw))) spell)))
+                       1))
+          (def duration-text (string phrase " " suffix))
+          (def explicit-time (or (peg/match ~(* (any (if-not "within " 1)) "within "
+                                                '(* (some (range "09")) (? (* "." (some (range "09"))))) " second") phrase)
+                                 (when repeated
+                                   (peg/match ~(* (any (if-not "for " 1)) "for "
+                                                  '(* (some (range "09")) (? (* "." (some (range "09"))))) " second") duration-text))))
+          (def duration-token (find (fn [token]
+                                      (or (string/find (string "within @" (token :name) "@ second") phrase)
+                                          (and repeated
+                                               (not (some |(string/find $ (token :name)) ["slow" "stun" "knock" "shred" "heal" "mark" "shield"]))
+                                               (string/find (string "for @" (token :name) "@ second") duration-text))))
+                                    (tokens duration-text)))
+          (def values (expr/named-values spell))
+          (def source-window (find |(expr/lookup values $) ["AttackWindow" "AttackBuffDuration" "EmpowerDuration" "BuffDuration" "PrepDuration"]))
+          (def duration (cond override (effect :duration)
+                          explicit-time (scan-number (first explicit-time))
+                          duration-token (expr/variable (duration-token :name) spell)
+                          source-window (expr/variable source-window spell)))
+          (def errors (mapcat |(if (dictionary? $) (expr/problems $) []) [duration count]))
+          (def passive-at (last (string/find-all "passive:" prefix)))
+          (def active-at (last (string/find-all "active:" prefix)))
+          (def passive (and repeated passive-at (or (not active-at) (> passive-at active-at))))
+          (def enriched (merge @{} effect {:trigger :attack :attack-mode (get effect :attack-mode (if bonus :bonus :replace))
+                                           :attack-count (if (has-key? effect :attack-count) (effect :attack-count) count)
+                                           :reset (or (effect :reset) (some |(= $ "Trait_AttackReset") (get spell "mSpellTags" [])))
+                                           :status (if (or passive (not (empty? errors)) (and repeated (not duration))) :unresolved (effect :status))}))
+          # Explicitly remove the old parser's duration when it described CC.
+          (put enriched :duration duration)
+          (table/to-struct enriched))))))
+
 (defn parse [text spell &opt dd]
   (def variables (map (fn [token] (merge token {:expression (expr/variable (token :name) spell dd)})) (tokens text)))
   (def effects @[])
@@ -61,7 +128,8 @@
           (put seen-kind (tuple kind damage-type) true)
           (def following (string/ascii-lower (string/slice text (block :end) (min (length text) (+ (block :end) 80)))))
           (def periodic (or (string/find "per second" lower) (string/find "over " lower) (string/find "over " following)))
-          (def attack (or (string/find "next attack" preceding) (string/find "attacks deal" preceding)))
+          (def attack (or (string/find "next attack" preceding) (string/find "next basic attack" preceding)
+                          (string/find "attacks deal" preceding)))
           (def duration-token (find (fn [candidate]
                                       (and (>= (candidate :start) (block :end))
                                            (< (candidate :start) (+ (block :end) 60))
@@ -73,7 +141,7 @@
                        :duration (when duration-token (duration-token :expression))
                        :status (if (or conditional periodic (not (empty? errors))) :unresolved :estimated)
                        :evidence {:tooltip (block :text) :variable (token :name)}})
-          (array/push effects effect)
+          (array/push effects (attack-semantics text spell effect))
           (each error errors (array/push unresolved error))
           (when conditional (array/push unresolved (string "Conditional/maximum effect needs semantics: " key)))
           (when periodic (array/push unresolved (string "Periodic damage needs tick/duration semantics: " key)))))))

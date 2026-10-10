@@ -19,6 +19,8 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
+Version 0.11.1 is prepared with generic empowered attack semantics, including Yorick Q graph damage, bonus versus replacement damage, attack counts, timed buffs and source-tagged attack resets. Cached snapshots receive current semantics without another download. Core/frontend and nine retained champion regressions pass; release packaging and signed publication verification are pending. See [release notes](releases/0.11.1.md).
+
 Version 0.11.0 is released with colored calculated tooltip values and hover, keyboard-focus and click-pinned formula explanations. Values use starting build/rank inputs; item-picker requests retain exact scenario snapshots. Unknown placeholders remain visible, and combat coverage stays separate from numerical tooltip resolution. Package/browser checks and signed RPM/DNF installation and upgrade verification passed. See [release notes](releases/0.11.0.md).
 
 Version 0.10.1 is released with the gold budget in Optimize build and budget and remaining-gold controls removed from the main tray. Package/browser checks and signed RPM/DNF installation and upgrade verification passed. See [release notes](releases/0.10.1.md).

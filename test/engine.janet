@@ -96,6 +96,57 @@
                                      :monster-cap {:op :constant :value 20}}]
                          :strategy {:attacks true :abilities false}} {:kind :objective} 1))
 (close 120 (bounded :damage))
+
+(defn empowered [effects &opt fields]
+  (merge spell {:cost 0 :cooldown 99 :effects effects} (or fields {})))
+(def bonus-effect {:id "bonus" :kind :damage :damage-type :magic :amount 30 :status :estimated :target :enemy
+                   :trigger :attack :attack-mode :bonus :attack-count 1})
+(defn attacks [abilities &opt duration strategy stats]
+  (battle [] {:abilities abilities :ranks {:q 1 :w 1}
+              :stats (merge ((unit "a") :stats) (or stats {}))
+              :strategy (merge {:attacks true :abilities true :movement :hold} (or strategy {}))} nil duration))
+(def extra (attacks [(empowered [bonus-effect])]))
+(close 330 (extra :damage))
+(close 300 (get (extra :damage-breakdown) "attack"))
+(close 30 (get (extra :damage-breakdown) "spell"))
+(assert (= 1 (count |(= "spell" ($ :source)) (extra :events))))
+(assert (some |(string/find "Empowerment expiry unavailable" $) (extra :unsupported)))
+(def replaced (attacks [(empowered [(merge bonus-effect {:attack-mode :replace :amount 130 :duration 5})])]))
+(close 330 (replaced :damage))
+(close (/ 200 3) (replaced :attack-dps))
+(def multiple (attacks [(empowered [(merge bonus-effect {:attack-count 3})])] 4))
+(close 490 (multiple :damage))
+(assert (= 3 (count |(= "spell" ($ :source)) (multiple :events))))
+(def sustained (attacks [(empowered [(merge bonus-effect {:attack-count :all :duration 2})])] 4))
+(close 460 (sustained :damage))
+(def unbounded (attacks [(empowered [(merge bonus-effect {:attack-count :all})])]))
+(close 300 (unbounded :damage))
+(assert (some |(string/find "requires a duration" $) (unbounded :unsupported)))
+(def expired-attack (attacks [(empowered [(merge bonus-effect {:duration 0.1})])]))
+(close 300 (expired-attack :damage))
+(def no-attacks (attacks [(empowered [bonus-effect])] 3 {:attacks false}))
+(close 0 (no-attacks :damage))
+(def critical-bonus (attacks [(empowered [bonus-effect])] 1 nil {:crit-chance 1 :crit-damage 2}))
+(close 230 (critical-bonus :damage)) # Ordinary AD crits; the bonus is added once.
+(assert (get-in critical-bonus [:events 0 :critical]))
+(assert (not (get-in critical-bonus [:events 1 :critical])))
+(def mitigated (battle [] {:abilities [(empowered [bonus-effect])] :strategy {:attacks true :abilities true}}
+                       {:stats {:hp 1000 :armor 100 :mr 0}}))
+(close 180 (mitigated :damage)) # Physical attack and magic bonus retain separate mitigation.
+(def counted-proc (battle [] {:abilities [(empowered [bonus-effect])] :strategy {:attacks true :abilities true}
+                              :triggers [{:id "two-attacks" :on [:attack] :every 2 :kind :damage :damage-type :true :amount 20}]}))
+(close 350 (counted-proc :damage)) # Base and bonus share an origin and count as one attack.
+(def stacked (attacks [(empowered [(merge bonus-effect {:duration 5})])
+                       (empowered [(merge bonus-effect {:id "second" :damage-type :true :amount 20 :duration 5})]
+                                  {:id "second-spell" :slot :w})]))
+(close 350 (stacked :damage))
+(def refreshed (attacks [(empowered [(merge bonus-effect {:duration 5})] {:cooldown 0.5})] 2))
+(close 260 (refreshed :damage)) # Repeated casts refresh rather than queue bonus hits.
+(def reset (attacks [(empowered [(merge bonus-effect {:duration 5 :reset true})])] 1.5 {:activation {:q {:after 0.4}}}))
+(def waiting (attacks [(empowered [(merge bonus-effect {:duration 5})])] 1.5 {:activation {:q {:after 0.4}}}))
+(def reset-cast (first (filter |(= :cast ($ :kind)) (reset :trace))))
+(close (+ (reset-cast :at) 0.4) (get-in (filter |(= "spell" ($ :source)) (reset :events)) [0 :at]))
+(close 1.3 (get-in (filter |(= "spell" ($ :source)) (waiting :events)) [0 :at]))
 (def sampled (engine/trials seeded 16))
 (def lean (engine/trials (merge seeded {:trace false}) 16))
 (assert (empty? (lean :trace)))

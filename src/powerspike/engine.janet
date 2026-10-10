@@ -8,6 +8,7 @@
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
                                    (slurp "src/powerspike/normalize.janet")
+                                   (slurp "src/powerspike/tooltip.janet")
                                    (slurp "src/powerspike/objectives.janet")
                                    (slurp "src/powerspike/scenario.janet") (slurp "src/powerspike/skills.janet")
                                    (slurp "src/powerspike/builds.janet") (slurp "data/16.19.1/annie.janet")
@@ -268,8 +269,21 @@
       (case (get effect :trigger :cast)
         :attack
         (do
+          (def duration (effect :duration))
+          (def count (if (has-key? effect :attack-count) (effect :attack-count) 1))
+          (assert (or duration (not= count :all)) "Timed attack empowerment requires a duration.")
+          (unless duration (note (string (ability :id) ": Empowerment expiry unavailable; retained until its attack count is consumed.")))
+          (def window (when duration (value duration actor target (event :rank))))
+          (when duration (assert (and (util/finite? window) (>= window 0)) "Empowered attack duration must be nonnegative."))
+          (def expires (if duration (+ at window) math/inf))
+          (def remaining (if (= count :all) math/inf (value count actor target (event :rank))))
+          (assert (and (> remaining 0) (or (= remaining math/inf) (= remaining (math/floor remaining))))
+                  "Empowered attack count must be a positive integer.")
+          # Recasting refreshes this effect; separate abilities may coexist.
+          (put actor :modifiers (filter |(not (and (= ($ :source) (ability :id))
+                                                   (= (get-in $ [:effect :id]) (effect :id)))) (actor :modifiers)))
           (array/push (actor :modifiers) @{:effect effect :source (ability :id) :rank (event :rank)
-                                           :remaining 1 :expires (+ at (value (effect :duration) actor target (event :rank)))})
+                                           :remaining remaining :expires expires})
           (when (effect :reset) (put actor :attack-ready at)))
         :cast
         (do
@@ -306,13 +320,22 @@
             (def stacks (if (> (- at (get actor :ramp-last (- math/inf))) (ramp :window)) 0 (get actor :ramp-stacks 0)))
             (*= raw (+ 1 (* stacks (ramp :step))))
             (put actor :ramp-last at) (put actor :ramp-stacks (min (ramp :maximum) (inc stacks))))
-          (def modifier (find |(and (> ($ :expires) at) (> ($ :remaining) 0)) (actor :modifiers)))
-          (when modifier (put modifier :remaining (dec (modifier :remaining))))
-          (def effects (if modifier [(modifier :effect)] [{:kind :damage :damage-type :physical :amount raw :condition :always}]))
-          (each effect effects
-            (schedule (+ at travel) 10 :effect {:actor (actor :index) :target (target :index) :effect effect
-                                                :rank (get modifier :rank 1) :source (get modifier :source "attack")
-                                                :trigger :attack :origin (event :origin) :critical critical})))
+          (def modifiers (filter |(and (> ($ :expires) at) (> ($ :remaining) 0)) (actor :modifiers)))
+          (def replacement (find |(and (= :damage (get-in $ [:effect :kind]))
+                                       (= :replace (get-in $ [:effect :attack-mode] :replace))) modifiers))
+          (unless replacement
+            (schedule (+ at travel) 10 :effect {:actor (actor :index) :target (target :index)
+                                                :effect {:kind :damage :damage-type :physical :amount raw :condition :always}
+                                                :rank 1 :source "attack" :trigger :attack :origin (event :origin) :critical critical}))
+          (each modifier modifiers
+            (put modifier :remaining (dec (modifier :remaining)))
+            (def effect (modifier :effect))
+            (when (or (= modifier replacement) (not= :damage (effect :kind)) (= :bonus (get effect :attack-mode)))
+              (schedule (+ at travel) 10 :effect {:actor (actor :index)
+                                                  :target (if (= :self (effect :target)) (actor :index) (target :index)) :effect effect
+                                                  :rank (modifier :rank) :source (modifier :source)
+                                                  :trigger :attack :origin (event :origin)
+                                                  :critical (and critical (= modifier replacement))}))))
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
         (each effect (ability :effects)

@@ -57,6 +57,7 @@
     "Viktor-abilities.json": "6a9b412bfe7d6cc21578fd46008a82d19df286a0d67ed56cb438a2671f9c95a0",
     "Ahri-characters.json": "92515ab5610eff9eb2bdf94b3bf032490f6ba86d3835cdbe304d2d1e76dfa093",
     "Ahri-abilities.json": "d2b0dad3cee484f8f3541d191ad2aebf95c974e7afe8f1d38df21863f562f88e",
-    "champion-strings.json": "f839aa14ad7b6cfa00c4c1d16beee6281fb4f798bc0aa5e38af211a3bde97030"
+    "champion-strings.json": "f839aa14ad7b6cfa00c4c1d16beee6281fb4f798bc0aa5e38af211a3bde97030",
+    "empowered-attacks.json": "1412647a64aa3fda5fa457953db792a8ac39ba89e1e84a29d4bc5e6648187d25"
   }
 }

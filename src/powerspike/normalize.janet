@@ -169,7 +169,11 @@
 (defn semantic-kit [id patch kit]
   # Reinterpret retained source records with the current combat model. This also
   # updates cached packages without changing their immutable snapshot bytes.
-  (def abilities (array ;(get kit :abilities [])))
+  (def abilities (map (fn [ability]
+                        (merge ability {:effects (map |(tooltip/attack-semantics (get ability :tooltip "")
+                                                                                 (get ability :record {}) $)
+                                                      (get ability :effects []))}))
+                      (get kit :abilities [])))
   (def penetration (merge @{} (get kit :rank-penetration {})))
   (each rule (applicable-rules id patch)
     (def chosen (find |(= ($ :slot) (rule :slot)) abilities))

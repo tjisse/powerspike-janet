@@ -10,6 +10,31 @@ def verify(base):
         page.on('pageerror', lambda e: errors.append(str(e)))
         page.goto(base+'/?champion=Annie&selected=custom', wait_until='domcontentloaded')
         page.locator('#timeline').wait_for()
+        # Level changes apply the explicit skill order, independently of cast priority.
+        page.get_by_text('Runes & spells',exact=True).click()
+        page.get_by_text('Strategies, ranks & activation rules',exact=True).click()
+        skill_order=page.get_by_label('Player skill order',exact=True)
+        default_order=skill_order.input_value()
+        chosen_order='w,q,w,e,w,r,w,q,w,q,r,q,q,e,e,r,e,e'
+        skill_order.fill(chosen_order)
+        skill_order.press('Tab')
+        page.wait_for_function("JSON.parse(document.getElementById('scenario-data').dataset.json).scenario.player['skill-order'][0] === 'w'")
+        page.locator('#level').select_option('1')
+        page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.unlocked === 'false' && document.querySelector('#ranks [data-ability-slot=w]').dataset.rank === '1'")
+        assert 'locked' in page.locator('#ranks [data-ability-slot=q]').get_attribute('aria-label')
+        locked_bounds=page.locator('#ranks [data-ability-slot=q]').bounding_box()
+        neighbor_bounds=page.locator('#ranks [data-ability-slot=w]').bounding_box()
+        page.locator('#level').select_option('3')
+        page.wait_for_function("document.querySelector('#ranks [data-ability-slot=w]').dataset.rank === '2'")
+        assert page.locator('#ranks [data-ability-slot=q]').bounding_box()==locked_bounds
+        assert page.locator('#ranks [data-ability-slot=w]').bounding_box()==neighbor_bounds
+        page.locator('#level').select_option('1')
+        page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.unlocked === 'false'")
+        page.get_by_label('Player skill order',exact=True).fill(default_order)
+        page.get_by_label('Player skill order',exact=True).press('Tab')
+        page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.rank === '1'")
+        page.locator('#level').select_option('18')
+        page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.rank === '5'")
         # Inspect one real event across all charts, then pin it with the keyboard.
         original_damage=page.locator('#timeline').get_attribute('data-total')
         first_event=json.loads(page.locator('#timeline').get_attribute('data-events'))[0]

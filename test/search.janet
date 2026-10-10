@@ -114,7 +114,7 @@
 (packages/initialize "build/search-tests" "build/seed")
 (def real (packages/load "16.19.1"))
 (def actual (merge definition {:patch "16.19.1" :snapshot (real :snapshot)
-                               :player {:champion "Annie" :level 1 :loadout {:items []}} :target {:kind :practice :hp 10000 :armor 80 :mr 80}}))
+                               :player {:champion "Annie" :level 1 :skill-order [:q] :loadout {:items []}} :target {:kind :practice :hp 10000 :armor 80 :mr 80}}))
 (def found (search/run real actual {:pool ["1052" "1036"] :slots 1 :budget 1000 :samples 1 :final-samples 1 :seconds 5}
                        (fn [p] nil) (fn [] false)))
 (assert (found :complete))

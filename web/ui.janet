@@ -64,18 +64,34 @@
 (defn- level-options [state]
   (seq [level :range [1 19]] [:option {:value level :selected (= level (state :level))} level]))
 
+(defn- spell-visual [slot rank maximum group id name]
+  [[:span {:class "spell-icon" :aria-hidden "true"}
+    (when (not= "" id) (icon group id name))
+    [:span {:class "spell-key"} (string/ascii-upper (string slot))]]
+   [:span {:class "spell-ranks" :aria-hidden "true"}
+    (when (some |(= $ slot) [:q :w :e :r])
+      (seq [index :range [0 maximum]]
+        [:span {:class (if (< index rank) "spell-rank spell-rank-learned" "spell-rank")}]))]])
+
 (defn- rank-markup [champion ranks &opt settings]
   [:div {:id "ranks" :class "spells"}
    (cond (not (empty? settings))
      (map (fn [ability]
-            [:button (merge {:type "button" :class "spell" :aria-label (string (ability :name) " details")}
+            (def learned (> (ability :rank) 0))
+            [:button (merge {:type "button" :class (if learned "spell" "spell spell-locked")
+                             :data-ability-slot (ability :slot) :data-rank (ability :rank) :data-unlocked (if learned "true" "false")
+                             :title (if learned (string (ability :name) " · rank " (ability :rank)) (string (ability :name) " · not learned at this level"))
+                             :aria-label (string (ability :name) (if learned (string " rank " (ability :rank)) " locked") " details")}
                             (details/attrs (details/ability ability) true))
-             (when (not= "" (ability :icon)) (icon (ability :icon-group) (ability :icon) (ability :name)))
-             [:span (string/ascii-upper (string (ability :slot))) (ability :rank)]]) settings)
+             (spell-visual (ability :slot) (ability :rank) (get ability :max-rank (if (= :r (ability :slot)) 3 5))
+                           (ability :icon-group) (ability :icon) (ability :name))]) settings)
      (and (= "Annie" (champion :id)) (get ranks :q))
-     [[:span {:class "spell"} (icon "spell" "AnnieQ" "Disintegrate") "Q" (ranks :q)]
-      [:span {:class "spell"} (icon "spell" "AnnieW" "Incinerate") "W" (ranks :w)]
-      [:span {:class "muted"} "R" (ranks :r) " passive"]]
+     (map (fn [[slot name id maximum]]
+            (def rank (get ranks slot 0))
+            [:span {:class (if (> rank 0) "spell" "spell spell-locked")
+                    :aria-label (string name (if (> rank 0) (string " rank " rank) " locked"))}
+             (spell-visual slot rank maximum "spell" id name)])
+          [[:q "Disintegrate" "AnnieQ" 5] [:w "Incinerate" "AnnieW" 5] [:r "R passive" "" 3]])
      [:span {:class "muted"} "Ability model unavailable"])])
 
 (defn champion-display [result]
@@ -246,7 +262,13 @@
            [:div {:class "tactics-grid"}
             [:label "Ability priority"
              [:input {:form "scenario" :name (string stat-prefix "priority") :value (string/join (map string (get state (keyword (string stat-prefix "priority")) scenarios/slots)) ",")
-                      :data-bind (string stat-prefix "priority")}]]
+                      :data-bind (string stat-prefix "priority")}]
+             [:span {:class "muted"} "Casting order for learned abilities."]]
+            [:label (string (get-in result [:package :champion-map (state (if opponent :opponent :champion)) :name]) " skill order")
+             [:input {:form "scenario" :name (string stat-prefix "skillorder") :required true
+                      :value (string/join (map string (state (keyword (string stat-prefix "skillorder")))) ",")
+                      :data-bind (string stat-prefix "skillorder") :aria-label (if opponent "Opponent skill order" "Player skill order")}]
+             [:span {:class "muted"} "One Q/W/E/R per level, separated by commas. Determines unlocked abilities and ranks."]]
             [:label "Movement"
              [:select {:form "scenario" :name (string stat-prefix "movement") :data-bind (string stat-prefix "movement")}
               (map |[:option {:value $ :selected (= $ (get state (keyword (string stat-prefix "movement")) "approach"))}
@@ -280,7 +302,7 @@
                   [:option {:value ""} "None"]
                   (map |[:option {:value ($ "id") :selected (= ($ "id") (get (get state :opponentsummoners []) index ""))} ($ "name")]
                        (filter |(some (fn [mode] (= mode "CLASSIC")) (get $ "modes" [])) (get (result :package) :summoners [])))]])])
-           [:p {:class "muted"} "Automatic ranks use a standard skill order. Exceptional leveling, forms and decision rules remain listed as omissions."]]) [false true])])
+           [:p {:class "muted"} "Automatic ranks follow this champion's skill order. Manual rank settings override it. Exceptional leveling and forms still require handlers."]]) [false true])])
 
 (defn loadout [result]
   (def row (result :selected))
@@ -573,8 +595,8 @@
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn signals [state]
-  (def values (merge optimizer/defaults state {:skillorder "" :opponentskillorder "" :savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
-  (each key [:priority :opponentpriority :runes :opponentrunes]
+  (def values (merge optimizer/defaults state {:savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (each key [:priority :opponentpriority :skillorder :opponentskillorder :runes :opponentrunes]
     (put values key (string/join (map string (get state key [])) ",")))
   (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
     (for index 0 2 (put values (keyword (string prefix (inc index))) (get (get state source []) index ""))))

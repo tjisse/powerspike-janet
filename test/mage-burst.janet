@@ -114,7 +114,7 @@
   (assert (= 10000 (get-in (definition champion [] {"targethealth" 10000}) [:target :hp]))))
 (def fixed (definition "Ahri" [] {"targethealth" 10000}))
 (assert (= 10000 (get (model/state-from-definition fixed) :target-health)))
-(def text (ui/render (optimizer/controls {:state {}})))
+(def text (ui/render (optimizer/controls {:state model/default-state})))
 (assert (string/find "Target health affects percentage-health damage" text))
 (assert (string/find "$targethealth" text))
 (util/remove-tree root)

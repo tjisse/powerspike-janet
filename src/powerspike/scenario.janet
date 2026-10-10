@@ -27,11 +27,6 @@
     (get champion :abilities [])))
 (defn runes [package]
   (mapcat (fn [style] (mapcat |(get $ "runes" []) (get style "slots" []))) (get package :runes [])))
-(defn default-ranks [champion level]
-  (def ranks (skills/ranks-from-order default-order level))
-  (tabseq [slot :in [:q :w :e :r]
-           :let [ability (find |(= slot ($ :slot)) (get champion :abilities []))]]
-    slot (min (get ranks slot 0) (get ability :max-rank (if (= :r slot) 3 5)))))
 (defn strategy [input]
   (def priority (get input :priority slots))
   (assert (and (indexed? priority) (<= (length priority) 6)
@@ -56,8 +51,10 @@
   (def ids (get loadout :items []))
   (assert (and (indexed? ids) (<= (length ids) 6)) "Inventory supports six slots.")
   (def items (map (fn [id] (def item ((package :item-map) id)) (assert item "Item unavailable on this patch.") item) ids))
-  (def ranks (if (spec :ranks) (merge (default-ranks champion level) (spec :ranks))
-               (or (when (spec :skill-order) (skills/ranks-from-order (spec :skill-order) level)) (default-ranks champion level))))
+  (def tactics (strategy (get spec :strategy {})))
+  (assert (and (indexed? (spec :skill-order)) (not (empty? (spec :skill-order)))) "Set a skill order for this champion.")
+  (def automatic (skills/ranks-from-order (spec :skill-order) level))
+  (def ranks (merge automatic (get spec :ranks {})))
   (skills/validate-ranks ranks level)
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
@@ -80,7 +77,7 @@
    :health (* (computed :hp) (v/fraction (get spec :health-fraction 1) "Starting health"))
    :resource (* (get computed :mp 0) (v/fraction (get spec :resource-fraction 1) "Starting resource"))
    :abilities [;abilities ;summoners] :ranks all-ranks :position position :attack-range (champion :attack-range)
-   :strategy (strategy (get spec :strategy {}))
+   :strategy tactics
    :triggers [;(mapcat |(effects/item-triggers $ ranged) items) ;(mapcat |(effects/rune-triggers $ (package :patch)) chosen-runes)]
    :coverage [;(get champion :limitations []) ;(mapcat |(get $ :unresolved []) abilities)
               ;(mapcat |(map (fn [note] (string ($ :name) ": " note)) (get $ :limitations [])) items)

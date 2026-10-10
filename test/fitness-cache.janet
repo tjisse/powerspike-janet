@@ -36,7 +36,7 @@
 (packages/initialize root "build/seed")
 (def pack (packages/load "16.19.1"))
 (def definition {:schema 1 :patch (pack :patch) :snapshot (pack :snapshot) :duration 1.5 :distance 100 :seed 3 :samples 1
-                 :player {:champion "Annie" :level 6 :loadout {:items []}} :target {:kind :practice :hp 10000 :armor 80 :mr 80}})
+                 :player {:champion "Annie" :level 6 :skill-order [:q :w :e :q :q :r] :loadout {:items []}} :target {:kind :practice :hp 10000 :armor 80 :mr 80}})
 (def options {:pool ["1052" "1036"] :slots 1 :budget 1000 :seconds 2 :samples 1 :final-samples 1})
 (defn run [candidate settings] (search/run pack candidate settings (fn [p] nil) (fn [] false)))
 (def cold (run definition options))

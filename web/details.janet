@@ -51,8 +51,10 @@
    :action "item-picker" :action-label "Change item"})
 (defn ability [ability]
   {:name (ability :name) :icon (asset (ability :icon-group) (ability :icon))
-   :subtitle (string (string/ascii-upper (string (ability :slot))) " · rank " (ability :rank))
-   :stats [["Cooldown" (if (number? (ability :effective-cooldown)) (string (amount (ability :effective-cooldown)) " s") "Unresolved")]
+   :subtitle (string (string/ascii-upper (string (ability :slot))) (if (> (ability :rank) 0) (string " · rank " (ability :rank)) " · Locked (not learned)"))
+   :stats [["Cooldown" (cond (= 0 (ability :rank)) "Not learned"
+                         (number? (ability :effective-cooldown)) (string (amount (ability :effective-cooldown)) " s")
+                         "Unresolved")]
            ["Interpreted effects" (length (get ability :effects []))] ["Unresolved components" (length (get ability :unresolved []))]]
    :body (lines (get ability :tooltip "")) :coverage "Parsed ability · no in-game damage check. Unresolved tooltip variables remain visible."
    :action "ability-settings" :action-label "Ability settings"})

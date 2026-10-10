@@ -4,6 +4,8 @@
 (import ../web/details :as details)
 (import ../web/optimizer :as optimizer)
 (import ../src/powerspike/data-util :as util)
+(import ../src/powerspike/skills :as skills)
+(import ../src/powerspike/scenario :as scenarios)
 
 (catalog/initialize "build/runtime-data" "build/seed")
 
@@ -51,6 +53,58 @@
       (fn [] (loop [level :range [1 19]]
                (def result (model/compare (model/parse-state {"level" level})))
                (assert (= 4 (length (result :rows)))))))
+(def w-order [:w :q :w :e :w :r :w :q :w :q :r :q :q :e :e :r :e :e])
+(test "skill order determines unlocks and ranks at every selected level"
+      (fn []
+        (for level 1 19
+          (def result (model/compare (model/parse-state {"level" level "skillorder" (map string w-order)})))
+          (assert (= (table/to-struct (skills/ranks-from-order w-order level))
+                     (table/to-struct (get-in result [:selected :ranks])))))
+        (def result (model/compare (model/parse-state {"level" 1 "skillorder" (map string w-order) "priority" "q,w,e,r,d,f"})))
+        (def text (ui/render (ui/ranks-fragment result)))
+        (assert (string/find "data-ability-slot=\"w\"" text))
+        (assert (string/find "data-unlocked=\"true\"" text))
+        (assert (string/find "spell spell-locked" text))
+        (assert (string/find "AnnieQ locked details" text))
+        (assert (string/find "class=\"spell-key\"" text))
+        (assert (string/find "class=\"spell-rank spell-rank-learned\"" text))
+        (def locked (find |(= :q ($ :slot)) (get-in result [:selected :ability-settings])))
+        (assert (nil? (locked :effective-cooldown)))
+        (assert (= "Q · Locked (not learned)" ((details/ability locked) :subtitle)))
+        (def events (get-in result [:selected :combat :events]))
+        (assert (some |(= "AnnieW" ($ :source)) events))
+        (assert (not (some |(= "AnnieQ" ($ :source)) events)))
+        (def lowered (model/compare (model/parse-state {"level" 3 "skillorder" (map string w-order)})))
+        (assert (= {:q 1 :w 2 :e 0 :r 0} (table/to-struct (get-in lowered [:selected :ranks]))))))
+(test "both champions require skill orders independent of cast priority and retain manual ranks"
+      (fn []
+        (def state (model/parse-state {"mode" "duel" "level" 1 "priority" "q,w,e,r,d,f" "skillorder" (map string w-order)
+                                       "opponentlevel" 1 "opponentpriority" "w,q,e,r,d,f" "opponentskillorder" "e"}))
+        (def definition (model/definition state []))
+        (def actors ((scenarios/compile definition) :actors))
+        (assert (= 1 (get-in actors [0 :ranks :w])))
+        (assert (= 1 (get-in actors [1 :ranks :e])))
+        (def locked (merge state {:wrank 0}))
+        (assert (= 0 (get-in (scenarios/compile (model/definition locked [])) [:actors 0 :ranks :w])))
+        (def missing-player (merge (definition :player)))
+        (put missing-player :skill-order nil)
+        (def missing (merge definition {:player missing-player}))
+        (rejects (fn [] (scenarios/compile missing)))
+        (each fields [{"skillorder" ""} {"opponentskillorder" ""} {"skillorder" "q,q"}
+                      {"skillorder" "d"} {"skillorder" "r"}]
+          (rejects (fn [] (model/parse-state fields))))
+        (rejects (fn [] (model/compare (model/parse-state {"level" 2 "skillorder" "q"}))))
+        (def restored (model/state-from-definition definition))
+        (def signaled (model/parse-state (util/read-json (util/encode-json (ui/signals restored)))))
+        (assert (= w-order (tuple ;(signaled :skillorder))))
+        (assert (= [:e] (tuple ;(signaled :opponentskillorder))))
+        (assert (= -1 (signaled :wrank)))
+        (def raised (merge signaled {:level 3}))
+        (assert (= 2 (get-in (scenarios/compile (model/definition raised [])) [:actors 0 :ranks :w])))
+        (def text (ui/render (ui/tactics (model/compare state))))
+        (assert (string/find "name=\"skillorder\"" text))
+        (assert (string/find "name=\"opponentskillorder\"" text))
+        (assert (string/find "Annie skill order" text))))
 (test "evidence is computed from identity-free retained game captures"
       (fn [] (def records (model/evidence))
         (assert (= 5 (length records)))
@@ -66,7 +120,7 @@
         (each marker ["Annie.png" "name=\"level\"" "id=\"results\"" "<noscript>" "Combat damage unverified"]
           (assert (string/find marker text)))
         (assert (not (string/find "cdn.jsdelivr.net" text)))
-        (assert (string/find "Q5" (ui/render (ui/ranks-fragment result))))))
+        (assert (string/find "class=\"spell-ranks\"" (ui/render (ui/ranks-fragment result))))))
 
 (test "full catalog coverage remains unvalidated and every champion evaluates generic attacks"
       (fn []

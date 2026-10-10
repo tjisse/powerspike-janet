@@ -8,8 +8,8 @@
 (defn number [value] (if (number? value) (string/format "%.1f" value) "—"))
 (defn checkbox [name caption]
   [:label [:input {:type "checkbox" :data-bind name}] caption])
-(defn controls [&opt result]
-  (def order (or (get-in result [:state :skillorder]) scenario/default-order))
+(defn controls [result]
+  (def order (get-in result [:state :skillorder]))
   [:section {:id "optimizer" :class "optimizer"}
    [:p {:class "muted" :data-text "'Fight: ' + $duration + ' seconds' + ($mode === 'practice' ? ' · ' + $targethealth + ' target HP · ' + $armor + ' armor / ' + $mr + ' MR' : '')"}
     "Uses the current combat window and target settings."]
@@ -32,14 +32,13 @@
     [:div {:class "tactics-grid"} (seq [index :range [1 7]] (checkbox (string "lockrune" index) (string "Keep rune " index)))
      (checkbox "locksummoner1" "Keep summoner D") (checkbox "locksummoner2" "Keep summoner F")]
     [:details [:summary "Keep skill choices at specific levels"]
-     [:p {:class "muted"} "Locks preserve the displayed standard order at those levels. Rank settings remain fixed when skill-order search is off."]
+     [:p {:class "muted"} "Locks preserve this champion's skill order at those levels. Rank settings remain fixed when skill-order search is off."]
      [:div {:class "tactics-grid"}
       (seq [index :range [1 19]]
         [:span {:data-show (string "$level >= " index)}
          (checkbox (string "lockskill" index)
-                   [:span {:data-text (string "'Level " index " · ' + ($skillorder.length > " (dec index) " ? $skillorder[" (dec index) "].toUpperCase() : '"
-                                              (string/ascii-upper (string (scenario/default-order (dec index)))) "')")}
-                    (string "Level " index " · " (string/ascii-upper (string (get order (dec index) :q))))])])]]]
+                   [:span {:data-text (string "'Level " index " · ' + ($skillorder.split(',')[" (dec index) "] || '').trim().toUpperCase()")}
+                    (string "Level " index " · " (string/ascii-upper (string (get order (dec index) ""))))])])]]]
    [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]])
 (defn panel-body [result job &opt applied]
   (def ongoing (and job (some |(= $ (job :status)) [:queued :running :cancelling])))

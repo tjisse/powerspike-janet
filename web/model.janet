@@ -18,14 +18,15 @@
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
+(def default-order [:q :w :e :q :q :r :q :w :q :w :r :w :w :e :e :r :e :e])
 (def default-state {:champion "Annie" :level 18 :armor 80 :mr 80 :duration 5 :target-health 2500
+                    :skillorder default-order :opponentskillorder default-order
                     :selected "penetration" :slot1 "" :slot2 "" :slot3 "" :slot4 "" :slot5 "" :slot6 ""})
 (def slot-keys [:slot1 :slot2 :slot3 :slot4 :slot5 :slot6])
 (def enemy-slot-keys [:enemyslot1 :enemyslot2 :enemyslot3 :enemyslot4 :enemyslot5 :enemyslot6])
 (def builds [{:id "penetration" :name "Penetration" :ids ["3089" "3135" "3020"]}
              {:id "ability-power" :name "More ability power" :ids ["3089" "3135" "1052"]}
              {:id "haste" :name "More haste" :ids ["3089" "3135" "3158"]}])
-(def default-order [:q :w :e :q :q :r :q :w :q :w :r :w :w :e :e :r :e :e])
 
 (defn numeric [value field-name minimum maximum &opt integer]
   (def parsed (if (string? value) (scan-number value) value))
@@ -80,6 +81,12 @@
     (if (empty? values) scenarios/slots
       (map (fn [name] (def slot (find |(= name (string $)) scenarios/slots)) (assert slot "Use Q/W/E/R/D/F in the priority.") slot)
            (map string/ascii-lower values))))
+  (defn skill-order [name]
+    (def order (if (has-key? input name) (map |(keyword (string/ascii-lower $)) (list-field name)) (default-state (keyword name))))
+    (assert (not (empty? order)) "Set a skill order for each champion; it cannot be empty.")
+    (assert (<= (length order) 18) "Skill order supports up to 18 levels.")
+    (skills/ranks-from-order order (length order))
+    order)
   (merge slots (ability-fields input) {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
                                        :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
                                        :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
@@ -95,8 +102,8 @@
                                        :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
                                        :opponentsummoners (if (has-key? input "opponentsummoner1") (filter |(not= $ "") [(get input "opponentsummoner1" "") (get input "opponentsummoner2" "")]) (list-field "opponentsummoners"))
                                        :priority (plan "priority") :opponentpriority (plan "opponentpriority")
-                                       :skillorder (when (not (empty? (list-field "skillorder"))) (map keyword (list-field "skillorder")))
-                                       :opponentskillorder (when (not (empty? (list-field "opponentskillorder"))) (map keyword (list-field "opponentskillorder")))
+                                       :skillorder (skill-order "skillorder")
+                                       :opponentskillorder (skill-order "opponentskillorder")
                                        :movement (get input "movement" "approach") :opponentmovement (get input "opponentmovement" "approach")
                                        :hit-chance (numeric (get input "hitchance" (get input "hit-chance" 1)) "Hit chance" 0 1)
                                        :opponent-hit-chance (numeric (get input "opponenthitchance" (get input "opponent-hit-chance" 1)) "Opponent hit chance" 0 1)
@@ -119,9 +126,9 @@
 (defn ability-settings [champion totals level ranks]
   (map (fn [ability]
          (def rank (get ranks (ability :slot) (if (= :p (ability :slot)) 1 0)))
-         (def cooldown (protect (damage/cooldown (expr/evaluate (ability :cooldown)
-                                                                {:rank rank :level level :stats totals :base {} :buffs {}})
-                                                 (if (ability :unhasted) 0 (get totals :ability-haste 0)))))
+         (def cooldown (when (> rank 0) (protect (damage/cooldown (expr/evaluate (ability :cooldown)
+                                                                                 {:rank rank :level level :stats totals :base {} :buffs {}})
+                                                                  (if (ability :unhasted) 0 (get totals :ability-haste 0))))))
          (merge ability {:rank rank :effective-cooldown (when (first cooldown) (cooldown 1))})) (get champion :abilities [])))
 (defn estimated-combat [champion totals state ranks]
   (def result (engine/simulate
@@ -160,9 +167,9 @@
   (with-dyns [:patch-package package]
     (def champion (catalog/champions (get state :champion "Annie")))
     (def is-annie (and (= "16.19.1" (package :patch)) ((package :manifest) "initial") (= "Annie" (champion :id))))
-    (def ranks (cond is-annie (skills/ranks-from-order annie/skill-order (state :level))
+    (def ranks (cond is-annie (skills/ranks-from-order (state :skillorder) (state :level))
                  (not (empty? (get champion :abilities [])))
-                 (let [standard (skills/ranks-from-order default-order (state :level))]
+                 (let [standard (skills/ranks-from-order (state :skillorder) (state :level))]
                    (tabseq [ability :in (champion :abilities) :when (not= :p (ability :slot))]
                      (ability :slot) (min (get standard (ability :slot) 0) (ability :max-rank))))
                  {}))
@@ -205,7 +212,7 @@
                :summoners (get state (if opponent :opponentsummoners :summoners) [])}
      :health-fraction (get state (if opponent :opponent-health-fraction :health-fraction) 1)
      :resource-fraction (get state (if opponent :opponent-resource-fraction :resource-fraction) 1)
-     :skill-order (get state (if opponent :opponentskillorder :skillorder))
+     :skill-order (state (if opponent :opponentskillorder :skillorder))
      :ranks (when (not (empty? ranks)) ranks)
      :strategy {:priority (get state (if opponent :opponentpriority :priority) scenarios/slots)
                 :movement (keyword (get state (if opponent :opponentmovement :movement) "approach"))
@@ -295,7 +302,7 @@
                 :runes (flag input "searchrunes" false) :summoners (flag input "searchsummoners" false) :skills (flag input "searchskills" false)
                 :rune-locks (locks "lockrune" 6) :summoner-locks (locks "locksummoner" 2)
                 :skill-locks (tabseq [index :range [0 (state :level)] :when (flag input (string "lockskill" (inc index)) false)]
-                               index ((or (state :skillorder) default-order) index))})
+                               index ((state :skillorder) index))})
   (if (empty? pool) options (merge options {:pool pool})))
 (defn search-task [input progress cancelled]
   (def package (packages/load (get-in input [:definition :patch]) (get-in input [:definition :snapshot])))
@@ -345,8 +352,7 @@
       (each [from to fallback] [[:priority "priority" scenarios/slots] [:movement "movement" :approach] [:attacks "attacks" true]
                                 [:abilities "abilities" true] [:hit-chance "hitchance" 1] [:preferred-range "preferredrange" 500]]
         (put input (string prefix to) (if (= from :movement) (string (get strategy from fallback)) (get strategy from fallback))))
-      (def actor ((compiled :actors) (if opponent 1 0)))
-      (each slot [:q :w :e :r] (put input (string enemy slot "rank") (get-in actor [:ranks slot] 0)))
+      (each slot [:q :w :e :r] (put input (string enemy slot "rank") (get-in spec [:ranks slot] -1)))
       (each slot scenarios/slots
         (each [from to fallback] [[:after "after" 0] [:self-health-below "selfbelow" 1] [:target-health-below "targetbelow" 1]]
           (put input (string enemy slot to) (get-in strategy [:activation slot from] fallback))))))

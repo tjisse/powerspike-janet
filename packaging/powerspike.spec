@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.9.0}
+%{!?app_version:%global app_version 0.10.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
@@ -78,6 +78,10 @@ fi
 %config(noreplace) %attr(0640,root,powerspike) /etc/powerspike/powerspike.env
 
 %changelog
+* Sat Oct 10 2026 PowerSpike contributors - 0.10.0-1
+- Require explicit skill orders for both champions and preserve automatic ranks in saved scenarios.
+- Display ability letters on fixed-size icons with circles for learned ranks.
+- Keep locked and learned ability tiles in the same positions.
 * Fri Oct 09 2026 PowerSpike contributors - 0.9.0-1
 - Download full ability data for seed champions and duel opponents automatically.
 - Preserve pinned scenarios and keep manual patch refresh progress across edits.

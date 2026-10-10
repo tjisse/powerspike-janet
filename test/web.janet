@@ -230,9 +230,12 @@
 (test "loadout tray promotes core inputs and keeps the full scenario form associated"
       (fn [] (def result (model/compare model/default-state))
         (def primary (ui/render (ui/loadout result)))
-        (each marker ["id=\"loadout-tray\"" "Gold budget" "Optimize build" "Ability power" "Six editable inventory slots"]
+        (each marker ["id=\"loadout-tray\"" "Optimize build" "Ability power" "Six editable inventory slots"]
           (assert (string/find marker primary)))
         (assert (not (string/find "Combat window" primary)))
+        (assert (not (string/find "searchbudget" primary)))
+        (assert (not (string/find "Remaining" primary)))
+        (assert (string/find "Search gold budget" (ui/render (optimizer/controls result))))
         (def secondary (ui/render (ui/fight-controls result)))
         (each marker ["Opponent &amp; fight" "form=\"scenario\"" "name=\"duration\"" "data-preserve-attr=\"open\""]
           (assert (string/find marker secondary)))))

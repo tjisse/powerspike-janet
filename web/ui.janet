@@ -308,7 +308,7 @@
   (def row (result :selected))
   (def state (result :state))
   (def totals (row :stats))
-  [:section {:id "loadout-tray" :class "loadout-tray" :aria-label "Champion, stats, items and gold"}
+  [:section {:id "loadout-tray" :class "loadout-tray" :aria-label "Champion, stats and items"}
    (when (and (state :savedmodel) (not= workspace/model-identity (state :savedmodel)))
      [:p {:class "model-notice warning"} "Saved model differs. This result uses the current model. "
       [:button {:type "button" :class "quiet-action" :data-ui-toggle "scenario-tools"} "Reproduction details"]])
@@ -333,12 +333,6 @@
    [:section {:class "tray-items" :aria-label "Selected build"}
     [:div {:class "section-header"} [:h2 "Items"] [:span {:class "muted"} (number-text (row :cost)) " gold"]]
     (inventory row state)
-    [:div {:class "gold-controls"}
-     [:label "Gold budget" [:input {:type "number" :min 0 :max 100000 :step 50 :value (optimizer/defaults :searchbudget) :data-bind:searchbudget true}]]
-     [:div {:class "gold-remaining"}
-      [:span {:class "muted" :data-text "$nextpurchase ? 'Available now' : 'Remaining'"} "Remaining"]
-      [:strong {:data-text (string "($nextpurchase ? Number($searchbudget) : Number($searchbudget) - " (row :cost) ").toLocaleString()")}
-       (number-text (- (optimizer/defaults :searchbudget) (row :cost)))]]]
     [:button {:type "button" :class "optimize-primary" :data-search-open true} "Optimize build"]]])
 
 (defn ability-group [result]

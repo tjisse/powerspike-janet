@@ -9,6 +9,19 @@
   {"mDataValues" (get-in item [:record "mDataValues"] [])
    "mSpellCalculations" (get-in item [:record "mItemCalculations"] {})
    "__powerspike_patch" (item :patch)})
+(defn bork-rate [item ranged]
+  (expr/variable (if ranged "RangedValue" "MeleeValue") (item-spell item)))
+(defn item-tooltip-variables [item context]
+  (def variables (get item :effect-variables []))
+  (if (and (= "3153" (item :id)) (dictionary? context) (has-key? context :ranged)
+           (not (empty? (get item :record {})))
+           (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"]))
+    # Resolve on presentation so retained snapshots and both duel participants
+    # use the same melee/ranged rate as combat without rewriting cached data.
+    [{:name "Item_Melee_Ranged_Split_Dynamic" :expression (multiply (bork-rate item (context :ranged)) (constant 100))
+      :suffix "%" :note (string (if (context :ranged) "Ranged" "Melee") " attacks use this percentage of the target's current health.")}
+     ;variables]
+    variables))
 (def spellblade-types {"3057" :physical "3100" :magic "3078" :physical "3508" :physical "6662" :physical})
 (defn item-limitations [item]
   (case (item :id)
@@ -36,7 +49,7 @@
         "3153" [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
                  :exclude-objectives [:turret]
                  :kind :damage :damage-type :physical
-                 :amount (multiply (term (if ranged "RangedValue" "MeleeValue")) {:op :target-stat :stat :health})
+                 :amount (multiply (bork-rate item ranged) {:op :target-stat :stat :health})
                  :monster-cap (term "MonsterDamageCap") :cooldown 0}]
         "3115" [{:id "item/3115" :on [:attack] :kind :damage :damage-type :magic
                  :target-kinds [:champion :practice :objective] :exclude-objectives [:turret]

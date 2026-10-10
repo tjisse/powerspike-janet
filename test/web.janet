@@ -7,6 +7,9 @@
 (import ../src/powerspike/skills :as skills)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/effects :as effects)
+(import ../src/powerspike/expressions :as expr)
+(import ../src/powerspike/engine :as engine)
 (import ../web/tooltip :as tooltip)
 (import ../web/server :as server)
 (import ../src/powerspike/scenario-wire :as wire)
@@ -44,6 +47,45 @@
                                           (util/read-json (slurp (string root "strings.json")))))
         (assert (find |(and (= "30" ($ :text)) ($ :calculation))
                       (mapcat identity (tooltip/body (item :tooltip) (item :effect-variables) (merge context {:rank 1})))))))
+
+(test "BoRK tooltip percentages match combat for melee and ranged participants using retained records"
+      (fn []
+        (def root "data/parser-fixtures/16.18.1/")
+        (def champions (map (fn [id]
+                              (normalize/champion "16.18.1" (get-in (util/read-json (slurp (string root id "-abilities.json"))) ["data" id])
+                                                  (util/read-json (slurp (string root id "-characters.json"))))) ["Garen" "Annie"]))
+        (def package {:patch "16.18.1" :champion-map (tabseq [champion :in champions] (champion :id) champion) :item-map {}})
+        (defn actor [champion index]
+          (engine/state (scenarios/participant package {:champion champion :level 18 :skill-order model/default-order :loadout {:items []}}
+                                               champion 0) index))
+        (def player (actor "Garen" 0))
+        (def opponent (actor "Annie" 1))
+        (def melee (engine/context player opponent 1))
+        (def ranged (engine/context opponent player 1))
+        (assert (not (melee :ranged)))
+        (assert (ranged :ranged))
+        (def text "<passive>Mist's Edge</passive><br>Attacks deal <physicalDamage>{{ Item_Melee_Ranged_Split_Dynamic }}</physicalDamage> of enemy's current Health as bonus physical damage {{ Item_Keyword_OnHit }}.")
+        (each patch ["16.18.1" "16.19.1"]
+          (def records (util/read-json (slurp (string "data/combat-fixtures/" patch "/items.json"))))
+          (def item (normalize/item-effects {:id "3153" :patch patch :name "Blade of the Ruined King" :icon "3153.png" :gold 3200
+                                             :stats {} :limitations [] :tooltip text :description ""} records {}))
+          (def before (util/canonical item))
+          (each [context expected caption] [[melee "9%" "Melee"] [ranged "6%" "Ranged"]]
+            (def segments (mapcat identity ((details/item item context) :body-rich)))
+            (def value (find |($ :calculation) segments))
+            (assert (= expected (value :text)))
+            (assert (string/find (string caption " attacks") (value :calculation)))
+            (assert (string/find "current health" (value :calculation)))
+            (assert (some |(= "{{ Item_Keyword_OnHit }}" ($ :text)) segments))
+            (assert (not (some |(string/find "Item_Melee_Ranged_Split_Dynamic" ($ :text)) segments)))
+            (def trigger (first (effects/item-triggers item (context :ranged))))
+            (def damage (expr/evaluate (trigger :amount) (merge context {:target {:health 1000}})))
+            (assert (< (math/abs (- damage (* 10 (scan-number (string/slice expected 0 (dec (length expected))))))) 0.0001)))
+          (assert (= before (util/canonical item)) "Tooltip resolution must preserve cached records.")
+          (assert (some |(string/find "Item_Melee_Ranged_Split_Dynamic" ($ :text))
+                        (mapcat identity ((details/item item) :body-rich))))
+          (assert (some |(string/find "Item_Melee_Ranged_Split_Dynamic" ($ :text))
+                        (mapcat identity ((details/item (merge item {:record {}}) melee) :body-rich)))))))
 
 (test "tooltip values use the selected build and rank at the start of combat"
       (fn []

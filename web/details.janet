@@ -4,6 +4,7 @@
 (import ../src/powerspike/data-util :as util)
 (import ../src/powerspike/tooltip :as parser)
 (import ../src/powerspike/engine :as engine)
+(import ../src/powerspike/effects :as effects)
 (import ./tooltip :as tooltip)
 
 (defn rune-source [package file]
@@ -52,7 +53,7 @@
   (def body (if (and start end) (string (string/slice tooltip 0 start) (string/slice tooltip (+ end 8))) tooltip))
   {:name (item :name) :icon (asset "item" (item :icon)) :subtitle (string (item :gold) " gold · item")
    :stats (stat-rows (get item :stats {})) :body (lines body)
-   :body-rich (tooltip/body body (get item :effect-variables []) (when context (merge context {:hide-rank true})))
+   :body-rich (tooltip/body body (effects/item-tooltip-variables item context) (when context (merge context {:hide-rank true})))
    :coverage "Patch description. Effects contribute only where the engine has a handler; see coverage for exclusions."
    :action "item-picker" :action-label "Change item"})
 (defn ability [ability]

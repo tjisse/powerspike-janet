@@ -56,9 +56,11 @@
                          (protect
                            (def expression (variable :expression))
                            (def value (expr/evaluate expression context))
-                           {:text (number value) :calculation (string (formula expression context) " = " (number value)
-                                                                      "\nLevel " (context :level) (unless (context :hide-rank) (string " · rank " (context :rank)))
-                                                                      " · start of fight. Damage values are before mitigation.")})))
+                           (def shown (string (number value) (get variable :suffix "")))
+                           {:text shown :calculation (string (formula expression context) " = " shown
+                                                             (when (variable :note) (string "\n" (variable :note)))
+                                                             "\nLevel " (context :level) (unless (context :hide-rank) (string " · rank " (context :rank)))
+                                                             " · start of fight. Damage values are before mitigation.")})))
            (array/push segments (if (first result) (result 1) {:text (string/slice line (token :start) (token :end))}))
            (set offset (token :end)))
          (when (< offset (length line)) (array/push segments {:text (string/slice line offset)}))

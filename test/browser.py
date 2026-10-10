@@ -22,12 +22,18 @@ def verify(base):
         page.locator('#level').select_option('1')
         page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.unlocked === 'false' && document.querySelector('#ranks [data-ability-slot=w]').dataset.rank === '1'")
         assert 'locked' in page.locator('#ranks [data-ability-slot=q]').get_attribute('aria-label')
-        locked_bounds=page.locator('#ranks [data-ability-slot=q]').bounding_box()
-        neighbor_bounds=page.locator('#ranks [data-ability-slot=w]').bounding_box()
+        def tile_bounds(slot):
+            # Page scrolling is independent of movement within the loadout tray.
+            return page.locator(f'#ranks [data-ability-slot={slot}]').evaluate('''node => {
+                const tile=node.getBoundingClientRect(), tray=node.closest('#loadout-tray').getBoundingClientRect();
+                return {x:tile.x-tray.x, y:tile.y-tray.y, width:tile.width, height:tile.height};
+            }''')
+        locked_bounds=tile_bounds('q')
+        neighbor_bounds=tile_bounds('w')
         page.locator('#level').select_option('3')
         page.wait_for_function("document.querySelector('#ranks [data-ability-slot=w]').dataset.rank === '2'")
-        assert page.locator('#ranks [data-ability-slot=q]').bounding_box()==locked_bounds
-        assert page.locator('#ranks [data-ability-slot=w]').bounding_box()==neighbor_bounds
+        assert tile_bounds('q')==locked_bounds
+        assert tile_bounds('w')==neighbor_bounds
         page.locator('#level').select_option('1')
         page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.unlocked === 'false'")
         page.get_by_label('Player skill order',exact=True).fill(default_order)

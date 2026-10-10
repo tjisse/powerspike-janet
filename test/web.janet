@@ -6,13 +6,70 @@
 (import ../src/powerspike/data-util :as util)
 (import ../src/powerspike/skills :as skills)
 (import ../src/powerspike/scenario :as scenarios)
+(import ../src/powerspike/normalize :as normalize)
+(import ../web/tooltip :as tooltip)
+(import ../web/server :as server)
+(import ../src/powerspike/scenario-wire :as wire)
+(import pshash :as hash)
 
-(catalog/initialize "build/runtime-data" "build/seed")
+# Frontend regressions start from the seed, independently of patches refreshed
+# in a running development app.
+(catalog/initialize (string "build/web-tests/" (hash/sha256 (os/cryptorand 8))) "build/seed")
 
 (var passed 0)
 (defn test [description task]
   (task) (++ passed) (print "ok " description))
 (defn rejects [task] (assert (not (first (protect (task)))) "Expected rejection"))
+
+(test "retained tooltip formulas resolve ranks and scaling without replacing unknown values"
+      (fn []
+        (def root "data/parser-fixtures/16.18.1/")
+        (def kit (normalize/kit "Annie" (util/read-json (slurp (string root "Annie-characters.json")))
+                                (util/read-json (slurp (string root "Annie-abilities.json")))
+                                (util/read-json (slurp (string root "strings.json"))) "16.18.1"))
+        (def q (first (kit :abilities)))
+        (def context {:rank 5 :level 18 :stats {:ap 100 :ad 150} :base {:ap 0 :ad 80} :buffs {}})
+        (def segments (mapcat identity (tooltip/body (q :tooltip) (q :variables) context)))
+        (def damage (find |(= "340" ($ :text)) segments))
+        (assert damage)
+        (assert (string/find "260 (rank 5)" (damage :calculation)))
+        (assert (string/find "100 ability power" (damage :calculation)))
+        (assert (string/find "0.8" (damage :calculation)))
+        (def rendered (first (model/ability-settings {:abilities [q]} (context :stats) 18 {:q 5} context)))
+        (assert (find |(= "340" ($ :text)) (mapcat identity ((details/ability rendered) :body-rich))))
+        (assert (not (some |(get $ :calculation) (mapcat identity (tooltip/body "@TotalDamage@" (q :variables) (merge context {:rank 0}))))))
+        (assert (= "@Unknown@" (get-in (tooltip/body "@Unknown@" (q :variables) context) [0 0 :text])))
+        (def item (normalize/item-effects {:id "3089" :patch "16.18.1" :stats {} :limitations []}
+                                          (util/read-json (slurp (string root "items.json")))
+                                          (util/read-json (slurp (string root "strings.json")))))
+        (assert (find |(and (= "30" ($ :text)) ($ :calculation))
+                      (mapcat identity (tooltip/body (item :tooltip) (item :effect-variables) (merge context {:rank 1})))))))
+
+(test "tooltip values use the selected build and rank at the start of combat"
+      (fn []
+        (defn value [input]
+          (def result (model/compare (model/parse-state (merge {"champion" "Annie" "selected" "custom"} input))))
+          (def ability (find |(= :q ($ :slot)) (get-in result [:selected :ability-settings])))
+          ((find |($ :calculation) (mapcat identity ((details/ability ability) :body-rich))) :text))
+        (assert (= "260" (value {})))
+        (assert (= "276" (value {"slot1" "1052"})))
+        (assert (= "80" (value {"level" "1"})))))
+
+(test "item-picker tooltip requests preserve exact scenario identities and reject invalid inputs"
+      (fn []
+        (def result (model/compare (model/parse-state {"champion" "Annie" "selected" "custom"})))
+        (def document (wire/encode (get-in result [:selected :combat :scenario])))
+        (def request {:method "POST" :route "/details/item" :query {"id" "3089"}
+                      :headers {"content-length" (string (length document))} :body document})
+        (def response (server/app request))
+        (assert (= 200 (response :status)))
+        (assert (= "Rabadon's Deathcap" (get (util/read-json (response :body)) "name")))
+        (assert (= 400 ((server/app (merge request {:query {"id" "missing"}})) :status)))
+        (assert (= 400 ((server/app (merge request {:body "{}"})) :status)))
+        (assert (= 400 ((server/app (merge request {:headers {"content-length" "65537"}})) :status)))
+        (def envelope (util/read-json document))
+        (put (envelope "scenario") "snapshot" (string/repeat "0" 64))
+        (assert (= 400 ((server/app (merge request {:body (util/encode-json envelope)})) :status)))))
 
 (test "optimization renders ten ranked rows with shared item details and no graphs"
       (fn []

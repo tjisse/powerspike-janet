@@ -181,13 +181,13 @@
   [:div {:class "inventory" :aria-label "Six editable inventory slots"}
    (seq [index :range [0 6]]
      (do (def item (catalog/items (ids index)))
-       [:button (merge (if item (details/attrs (details/item item)) {}) {:type "button" :class (if item "item-slot" "item-slot empty-slot")
-                                                                         :data-item-id (ids index)
-                                                                         :data-attr:disabled "$busy"
-                                                                         :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
+       [:button (merge (if item (details/attrs (details/item item (get row (if opponent :opponent-tooltip-context :tooltip-context)))) {}) {:type "button" :class (if item "item-slot" "item-slot empty-slot")
+                                                                                                                                            :data-item-id (ids index)
+                                                                                                                                            :data-attr:disabled "$busy"
+                                                                                                                                            :aria-label (string "Edit slot " (inc index) (if item (string ": " (item :name)) ": empty"))
 
-                                                                         :data-on:click (string seed "$editingwho = '" (if opponent "opponent" "player") "'; $editing = " (inc index)
-                                                                                                "; document.getElementById('item-picker').showModal()")})
+                                                                                                                                            :data-on:click (string seed "$editingwho = '" (if opponent "opponent" "player") "'; $editing = " (inc index)
+                                                                                                                                                                   "; document.getElementById('item-picker').showModal()")})
         (if item (icon "item" (item :icon) (item :name)) "+")
         [:span {:class "slot-label"} (inc index)]]))])
 
@@ -319,7 +319,7 @@
               [:button (merge {:type "button" :class (string "effect-icon " (effect :kind)) :aria-label (string (get-in effect [:details :name]) " details")}
                               (details/attrs (effect :details) true))
                [:img {:src (get-in effect [:details :icon]) :alt (get-in effect [:details :name]) :width 32 :height 32}]]))
-          (details/loadout-effects (result :package) state))
+          (details/loadout-effects (result :package) state (row :tooltip-context)))
      [:button {:type "button" :class "quiet-action" :data-ui-toggle "ability-settings"} "Runes & spells"]]]
    [:section {:class "tray-stats" :aria-label "Build stats"}
     [:div {:class "section-header"} [:h2 "Stats"]
@@ -379,7 +379,7 @@
              (icon "champion" (champion :icon) (champion :name))
              [:span (champion :name)] [:small "Unvalidated"]]) (catalog/champion-list))]
     [:p {:class "picker-empty" :hidden true} "No champions match your search."]]
-   [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title"}
+   [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title" :data-attr:data-who "$editingwho"}
     [:div {:class "picker-header"} [:h2 {:id "item-picker-title"} "Choose item"]
      [:button {:type "button" :class "catalog-close" :data-on:click "document.getElementById('item-picker').close()"} "Close"]]
     [:div {:class "picker-toolbar"}
@@ -396,7 +396,7 @@
     [:div {:class "catalog-grid item-grid"}
      (map (fn [item]
             (def rift (and (item :purchasable) (item :in-store) (some |(= 11 $) (item :maps))))
-            [:button (merge (details/attrs (details/item item)) {:type "button" :class "catalog-card" :hidden (not rift)
+            [:button (merge (details/attrs (details/item item)) {:type "button" :class "catalog-card" :hidden (not rift) :data-detail-item (item :id)
                                                                  :data-item-id (item :id)
                                                                  :data-rift (if rift "true" "false")
                                                                  :data-search (string (item :name) " " (item :id) " " (item :description) " " (string/join (item :tags) " "))

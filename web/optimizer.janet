@@ -73,6 +73,7 @@
       (when outcome [:details [:summary "Search limits & coverage"] [:ul (map |[:li $] (outcome :notes))]])
       [:div {:class "search-alternatives" :role "list" :aria-label "Builds ranked best to worst"}
        (seq [[index row] :pairs rows]
+         (def context (details/scenario-context (get row :definition {})))
          [:article {:class "search-alternative" :role "listitem"}
           [:span {:class "search-rank" :aria-label (string "Rank " (inc index))} (inc index)]
           [:div {:class "search-loadout"}
@@ -82,7 +83,7 @@
             (map (fn [id]
                    (def item ((package :item-map) id))
                    [:button (merge {:type "button" :class "search-item" :aria-label (string (get item :name id) " details")}
-                                   (when item (details/attrs (merge (details/item item) {:action nil :action-label nil}) true)))
+                                   (when item (details/attrs (merge (details/item item context) {:action nil :action-label nil}) true)))
                     [:img {:src (string "/assets/" (get-in row [:definition :patch]) "/" (get-in row [:definition :snapshot]) "/item/" id ".png")
                            :alt (get item :name id) :width 40 :height 40 :loading "lazy"}]]) (row :ids))]
            (when (row :purchase) [:p {:class "muted"} (string "Next purchase: " (get ((package :item-map) (row :purchase)) :name (row :purchase))

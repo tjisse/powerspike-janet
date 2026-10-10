@@ -11,6 +11,7 @@
 (import ../src/powerspike/data-util :as util)
 (import ../src/powerspike/https :as https)
 (import ../src/powerspike/scenario-wire :as wire)
+(import spork/http :as http)
 
 (def assets
   {"/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
@@ -116,6 +117,17 @@
 
 (defn app-inner [req]
   (cond
+    (and (= "POST" (req :method)) (= "/details/item" (req :route)))
+    (do
+      (def size (scan-number (get-in req [:headers "content-length"] "0")))
+      (assert (and size (<= 0 size 65536)) "Tooltip scenario must fit within 64 KB.")
+      (def definition (wire/decode (http/read-body req)))
+      (def package (packages/load (definition :patch) (definition :snapshot)))
+      (def item ((package :item-map) (get-in req [:query "id"])))
+      (assert item "Item unavailable on this patch.")
+      (def opponent (= "opponent" (get-in req [:query "who"])))
+      (with-dyns [:patch-package package]
+        (response 200 (util/encode-json (details/item item (details/scenario-context definition opponent))) "application/json")))
     (and (= "POST" (req :method)) (= "/scenario/import" (req :route)))
     (do (def input (ds/get-signals req))
       (def definition (wire/decode (get input "scenariojson" "")))

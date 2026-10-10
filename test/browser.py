@@ -10,6 +10,33 @@ def verify(base):
         page.on('pageerror', lambda e: errors.append(str(e)))
         page.goto(base+'/?champion=Annie&selected=custom', wait_until='domcontentloaded')
         page.locator('#timeline').wait_for()
+        # Calculated tooltip values support hover, keyboard focus and click.
+        q_tile=page.locator('#ranks [data-ability-slot=q]')
+        q_tile.hover()
+        q_value=page.locator('#detail-popover .tooltip-value').first
+        q_value.wait_for()
+        assert q_value.inner_text()=='260'
+        q_value.hover()
+        calculation=page.locator('.tooltip-calculation:popover-open')
+        calculation.wait_for(state='visible')
+        assert '260 (rank 5)' in calculation.inner_text()
+        assert 'ability power' in calculation.inner_text()
+        assert 'before mitigation' in calculation.inner_text()
+        q_value.focus()
+        assert q_value.get_attribute('aria-expanded')=='true'
+        q_value.click()
+        page.locator('.brand').hover()
+        assert calculation.is_visible()
+        page.keyboard.press('Escape')
+        assert page.locator('.tooltip-calculation:popover-open').count()==0
+        # Picker details are calculated on the server for the displayed scenario.
+        page.locator('#loadout-tray .item-slot').first.click()
+        with page.expect_response(lambda response: '/details/item?id=3089&who=player' in response.url) as details_response:
+            page.locator('#item-picker [data-detail-item="3089"]').hover()
+        assert details_response.value.status==200
+        assert details_response.value.json()['name']=="Rabadon's Deathcap"
+        page.locator('#detail-popover').get_by_role('button',name='Close details',exact=True).click()
+        page.locator('#item-picker .catalog-close').click()
         # Level changes apply the explicit skill order, independently of cast priority.
         page.get_by_text('Runes & spells',exact=True).click()
         page.get_by_text('Strategies, ranks & activation rules',exact=True).click()
@@ -108,6 +135,9 @@ def verify(base):
         page.locator('#loadout-tray .item-slot').first.hover()
         assert 'Amplifying Tome' in page.locator('#detail-popover').inner_text()
         assert 'Ability power' in page.locator('#detail-popover').inner_text()
+        page.keyboard.press('Escape')
+        q_tile.hover()
+        assert page.locator('#detail-popover .tooltip-value').first.inner_text()=='276'
         page.keyboard.press('Escape')
         page.get_by_text('Optimization & restrictions',exact=True).click()
         page.get_by_label('Candidate items (comma-separated names or IDs; blank uses the full shop)',exact=True).fill('')

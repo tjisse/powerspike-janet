@@ -123,13 +123,18 @@
                                        :snapshotlocked (flag input "snapshotlocked" false)
                                        :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
 
-(defn ability-settings [champion totals level ranks]
+(defn ability-settings [champion totals level ranks &opt context]
   (map (fn [ability]
          (def rank (get ranks (ability :slot) (if (= :p (ability :slot)) 1 0)))
          (def cooldown (when (> rank 0) (protect (damage/cooldown (expr/evaluate (ability :cooldown)
                                                                                  {:rank rank :level level :stats totals :base {} :buffs {}})
                                                                   (if (ability :unhasted) 0 (get totals :ability-haste 0))))))
-         (merge ability {:rank rank :effective-cooldown (when (first cooldown) (cooldown 1))})) (get champion :abilities [])))
+         (def seed (and (empty? (get ability :tooltip "")) (some |(= $ (ability :id)) ["AnnieQ" "AnnieW"])
+                        (get-in ability [:effects 0 :amount])))
+         (merge ability (if seed {:tooltip "Deals @Damage@ magic damage."
+                                  :variables [{:name "Damage" :expression seed}]} {})
+                {:rank rank :tooltip-context (when context (merge context {:rank rank}))
+                 :effective-cooldown (when (first cooldown) (cooldown 1))})) (get champion :abilities [])))
 (defn estimated-combat [champion totals state ranks]
   (def result (engine/simulate
                 {:duration (state :duration) :seed 1
@@ -238,14 +243,17 @@
         (def rows (map (fn [build]
                          (def compiled (scenarios/compile (definition state (build :ids))))
                          (def actor ((compiled :actors) 0))
+                         (def opponent ((compiled :actors) 1))
+                         (def context (engine/context (engine/state actor 0) (engine/state opponent 1) 1))
                          (def result (engine/trials compiled (get state :samples 1) (dyn :simulation-cancelled)))
                          (def events (map |(merge $ {:source (if (= "attack" ($ :source)) :attack ($ :source))}) (result :events)))
                          (def combat (merge result {:events events :scenario (compiled :definition) :scenario-id (scenarios/identity compiled)}))
                          (def items (map |((package :item-map) $) (build :ids)))
                          (merge build {:stats (actor :stats) :ranks (actor :ranks) :items items :cost (sum (map |($ :gold) items))
+                                       :tooltip-context context :opponent-tooltip-context (engine/context (engine/state opponent 1) (engine/state actor 0) 1)
                                        :combat combat :ability-settings (ability-settings (merge champion {:abilities (actor :abilities)})
-                                                                                          (actor :stats) (actor :level) (actor :ranks))
-                                       :opponent ((compiled :actors) 1)
+                                                                                          (actor :stats) (actor :level) (actor :ranks) context)
+                                       :opponent opponent
                                        :limitations [;(compiled :coverage) ;(combat :unsupported)]})) candidates))
         {:state state :package package :champion champion :rows (sorted rows |(> (get-in $0 [:combat :metrics :damage]) (get-in $1 [:combat :metrics :damage])))
          :selected (or (find |(= ($ :id) (state :selected)) rows) (find |(= "custom" ($ :id)) rows))}))))

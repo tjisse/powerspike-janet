@@ -87,6 +87,13 @@
     (assert (<= (length order) 18) "Skill order supports up to 18 levels.")
     (skills/ranks-from-order order (length order))
     order)
+  (defn shard-list [name prefix]
+    (if (has-key? input (string prefix "shard1"))
+      (map |(numeric (get input (string prefix "shard" $) 0) "Shard ID" 0 99999 true) (range 1 4))
+      (map |(numeric $ "Shard ID" 0 99999 true) (list-field name))))
+  (defn adaptive [name]
+    (def value (get input name "auto"))
+    (assert (some |(= $ value) ["auto" "ad" "ap"]) "Choose automatic, AD or AP adaptive force.") value)
   (merge slots (ability-fields input) {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
                                        :armor (numeric (get input "armor" 80) "Target armor" 0 1000)
                                        :mr (numeric (get input "mr" 80) "Target magic resistance" 0 1000)
@@ -99,6 +106,8 @@
                                                    (if (has-key? input "runepage1") (filter |(not= "" $) (map |(string (get input (string "runepage" $) "")) (range 1 7))) (list-field "runes")))
                                        :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true)
                                                            (if (has-key? input "enemyrunepage1") (filter |(not= "" $) (map |(string (get input (string "enemyrunepage" $) "")) (range 1 7))) (list-field "opponentrunes")))
+                                       :shards (shard-list "shards" "") :opponentshards (shard-list "opponentshards" "enemy")
+                                       :adaptivestat (adaptive "adaptivestat") :opponentadaptivestat (adaptive "opponentadaptivestat")
                                        :summoners (if (has-key? input "summoner1") (filter |(not= $ "") [(get input "summoner1" "") (get input "summoner2" "")]) (list-field "summoners"))
                                        :opponentsummoners (if (has-key? input "opponentsummoner1") (filter |(not= $ "") [(get input "opponentsummoner1" "") (get input "opponentsummoner2" "")]) (list-field "opponentsummoners"))
                                        :priority (plan "priority") :opponentpriority (plan "opponentpriority")
@@ -214,6 +223,8 @@
      :level (get state (if opponent :opponentlevel :level) 18)
      :loadout {:items (if opponent (get state :opponentitems []) ids)
                :runes (get state (if opponent :opponentrunes :runes) [])
+               :shards (get state (if opponent :opponentshards :shards) [])
+               :adaptive-stat (keyword (get state (if opponent :opponentadaptivestat :adaptivestat) "auto"))
                :summoners (get state (if opponent :opponentsummoners :summoners) [])}
      :health-fraction (get state (if opponent :opponent-health-fraction :health-fraction) 1)
      :resource-fraction (get state (if opponent :opponent-resource-fraction :resource-fraction) 1)
@@ -355,6 +366,8 @@
       (for index 0 6 (put input (string enemy "slot" (inc index)) (get-in spec [:loadout :items index] "")))
       (when (spec :skill-order) (put input (string prefix "skillorder") (map string (spec :skill-order))))
       (put input (string prefix "runes") (get-in spec [:loadout :runes] []))
+      (put input (string prefix "shards") (get-in spec [:loadout :shards] []))
+      (put input (string prefix "adaptivestat") (string (get-in spec [:loadout :adaptive-stat] :auto)))
       (put input (string prefix "summoners") (get-in spec [:loadout :summoners] []))
       (def strategy (get spec :strategy {}))
       (each [from to fallback] [[:priority "priority" scenarios/slots] [:movement "movement" :approach] [:attacks "attacks" true]

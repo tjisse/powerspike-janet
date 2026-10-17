@@ -318,14 +318,15 @@
             (when effect
               [:button (merge {:type "button" :class (string "effect-icon " (effect :kind)) :aria-label (string (get-in effect [:details :name]) " details")}
                               (details/attrs (effect :details) true))
-               [:img {:src (get-in effect [:details :icon]) :alt (get-in effect [:details :name]) :width 32 :height 32}]]))
+               (if (= "shard" (effect :kind)) [:span (effect :short)]
+                 [:img {:src (get-in effect [:details :icon]) :alt (get-in effect [:details :name]) :width 32 :height 32}])]))
           (details/loadout-effects (result :package) state (row :tooltip-context)))
      [:button {:type "button" :class "quiet-action" :data-ui-toggle "ability-settings"} "Runes & spells"]]]
    [:section {:class "tray-stats" :aria-label "Build stats"}
     [:div {:class "section-header"} [:h2 "Stats"]
      [:button (merge {:type "button" :class "quiet-action"}
                      (details/attrs {:name "Build stats" :subtitle (row :name) :stats (details/stat-rows totals) :body []
-                                     :coverage "Source stats and modeled item bonuses. Combat exclusions remain in coverage."} true)) "Details"]]
+                                     :coverage "Source stats and modeled item, rune and shard bonuses. Combat exclusions remain in coverage."} true)) "Details"]]
     [:div {:class "build-stats"}
      (map (fn [[key caption]] (stat caption (number-text (get totals key 0) (some |(= key $) [:attack-speed]))))
           [[:ap "Ability power"] [:ad "Attack damage"] [:ability-haste "Ability haste"]
@@ -590,12 +591,14 @@
 
 (defn signals [state]
   (def values (merge optimizer/defaults state {:savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
-  (each key [:priority :opponentpriority :skillorder :opponentskillorder :runes :opponentrunes]
+  (each key [:priority :opponentpriority :skillorder :opponentskillorder :runes :opponentrunes :shards :opponentshards]
     (put values key (string/join (map string (get state key [])) ",")))
   (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
     (for index 0 2 (put values (keyword (string prefix (inc index))) (get (get state source []) index ""))))
   (each [source prefix] [[:runes ""] [:opponentrunes "enemy"]]
     (for index 0 6 (put values (keyword (string prefix "runepage" (inc index))) (get (get state source []) index ""))))
+  (each [source prefix] [[:shards ""] [:opponentshards "enemy"]]
+    (for index 0 3 (put values (keyword (string prefix "shard" (inc index))) (get (get state source []) index 0))))
   (each [prefix count] [["lockslot" 6] ["lockrune" 6] ["locksummoner" 2] ["lockskill" 18]]
     (for index 1 (inc count) (put values (keyword (string prefix index)) false)))
   values)

@@ -1,5 +1,6 @@
 (import ./expressions :as expr)
 (import ./data-util :as util)
+(import ./runes :as runes)
 
 # Semantic handlers use values from the selected snapshot. A missing expression
 # is retained as unresolved and will be reported by the event engine.
@@ -60,16 +61,16 @@
                  :amount (term "SingleTargetMax") :cooldown (term "Cooldown")}]
         []))))
 (defn rune-spell [rune patch]
-  (def script (get-in rune [:record "mScript" "mSpellScriptData"] {}))
-  {"__powerspike_patch" patch
-   "mDataValues" (seq [[name value] :pairs (get script "mEffectAmount" {})] {"mName" name "mValue" value})
-   "mSpellCalculations" (get script "mCalculations" {})})
+  (runes/spell rune patch))
 (defn rune-triggers [rune patch]
   (def spell (rune-spell rune patch))
   (case (get rune "id")
     8112 [{:id "rune/8112" :on [:attack :spell-hit] :target-kinds [:champion]
            :kind :damage :damage-type :adaptive :amount (expr/variable "TotalDamage" spell)
            :every 3 :window (expr/variable "WindowDuration" spell) :cooldown (expr/variable "Cooldown" spell)}]
+    8237 (if (runes/supported-patch? patch) [{:id "rune/8237" :on [:spell-hit] :ability-slots [:p :q :w :e :r] :target-kinds [:champion]
+                                              :kind :damage :damage-type :magic :amount (expr/variable "DamageCalc" spell)
+                                              :delay (expr/variable "DotDuration" spell) :cooldown (expr/variable "BurnlockoutDuration" spell)}] [])
     []))
 (defn summoner-ability [summoner slot patch]
   (def spell (merge (get summoner :record {}) {"__powerspike_patch" patch}))

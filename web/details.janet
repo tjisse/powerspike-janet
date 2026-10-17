@@ -5,6 +5,7 @@
 (import ../src/powerspike/tooltip :as parser)
 (import ../src/powerspike/engine :as engine)
 (import ../src/powerspike/effects :as effects)
+(import ../src/powerspike/runes :as rune-data)
 (import ./tooltip :as tooltip)
 
 (defn rune-source [package file]
@@ -68,8 +69,16 @@
    :coverage "Calculated values use this build at the start of the fight. Effect coverage and in-game checks remain in Patch & evidence."
    :action "ability-settings" :action-label "Ability settings"})
 (defn rune [rune &opt context]
+  (def interpreted (when context (rune-data/compile [rune] (get context :patch "unknown") (context :level))))
   {:name (rune "name") :icon (asset "rune" (string (rune "id"))) :subtitle "Rune"
-   :stats [] :body (lines (get rune "longDesc" (get rune "shortDesc" "")))
+   :stats (when interpreted
+            [;(mapcat stat-rows (interpreted :stats))
+             ;(if (not (empty? (interpreted :rules)))
+                [["Damage bonus at fight start"
+                  (string (tooltip/number (* 100 (- (rune-data/damage-multiplier (interpreted :rules)
+                                                                                 (get-in context [:stats :health-percent] 1)
+                                                                                 (/ (get-in context [:target :health] 1) (get-in context [:target :hp] 1)) :magic (context :champion-target)) 1))) "%")]] [])])
+   :body (lines (get rune "longDesc" (get rune "shortDesc" "")))
    :body-rich (tooltip/body (get-in rune [:parsed :tooltip] (get rune "longDesc" (get rune "shortDesc" "")))
                             (get-in rune [:parsed :variables] []) (when context (merge context {:hide-rank true})))
    :coverage "Patch description · no in-game check. Missing rune handlers are reported in coverage."
@@ -83,7 +92,12 @@
    :coverage "Source description · unvalidated estimate. Activation rules belong to the fight strategy."
    :action "ability-settings" :action-label "Spell settings"})
 (defn loadout-effects [package state &opt context]
-  [;(map (fn [id] (def record (find |(= id (get $ "id")) (scenario/runes package)))
+  [;(map (fn [id modifier]
+           {:kind "shard" :id id :short (case id 5005 "AS" 5007 "AH" 5010 "MS" 5008 (if (modifier :ap) "AP" "AD") "HP")
+            :details {:name (rune-data/shard-names id) :subtitle (string "Stat shard · level " (context :level))
+                      :stats (stat-rows modifier) :body [] :coverage "Selected patch's numerical values. Included in this build and combat simulation."}})
+         (filter |(not= $ 0) (get context :shards [])) (get context :shard-bonuses []))
+   ;(map (fn [id] (def record (find |(= id (get $ "id")) (scenario/runes package)))
            (when record {:kind "rune" :id id :details (rune record context)})) (get state :runes []))
    ;(map (fn [id] (def record (find |(= id (get $ "id")) (get package :summoners [])))
            (when record {:kind "summoner" :id id :details (summoner record context)})) (get state :summoners []))])

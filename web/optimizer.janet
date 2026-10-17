@@ -3,6 +3,7 @@
 (import ../src/powerspike/search :as search)
 (import ../src/powerspike/loadouts :as loadouts)
 (import ../src/powerspike/scenario :as scenario)
+(import ../src/powerspike/runes :as rune-data)
 (def defaults {:searchjob "" :searchbudget 10000 :searchslots 6 :searchseconds 5 :searchpreset "burst"
                :searchpool "" :searchexclude "" :nextpurchase false :searchrunes false :searchsummoners false :searchskills false})
 (defn number [value] (if (number? value) (string/format "%.1f" value) "—"))
@@ -99,6 +100,7 @@
                                            (get-in row [:definition :player :loadout :runes] [])) ", ")]
            [:p "Summoners: " (string/join (map (fn [id] (get (find |(= id (get $ "id")) (get package :summoners [])) "name" id))
                                                (get-in row [:definition :player :loadout :summoners] [])) ", ")]
+           [:p "Stat shards: " (string/join (map |(get rune-data/shard-names $ "None") (get-in row [:definition :player :loadout :shards] [])) ", ")]
            [:p "Skill order: " (if (get-in row [:definition :player :skill-order])
                                  (string/join (map |(string/ascii-upper (string $)) (get-in row [:definition :player :skill-order])) " → ")
                                  "Current rank settings")]
@@ -128,7 +130,7 @@
 (defn rune-editor [package state]
   [:details {:id "rune-editor" :class "scope-panel" :data-preserve-attr "open" :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
    [:summary "Rune pages"]
-   [:p {:class "muted"} "A full page has a primary keystone and one rune from each primary slot, plus two different secondary slots. Leave slots empty for a partial effect estimate. Stat shards are not modeled."]
+   [:p {:class "muted"} "A full page has four primary and two secondary runes. Leave slots empty for a partial estimate. Shards stay fixed during optimization. Tenacity and slow-resist shards are not yet supported."]
    (map (fn [opponent]
           (def prefix (if opponent "enemy" ""))
           (def chosen (get state (if opponent :opponentrunes :runes) []))
@@ -145,4 +147,17 @@
                           (mapcat (fn [slot slot-index]
                                     (map (fn [rune] [:option {:value (rune "id") :selected (= (rune "id") (get chosen index))}
                                                      (string (style "name") " · slot " slot-index " · " (rune "name"))]) (slot "runes")))
-                                  (get style "slots" []) (range 0 (length (get style "slots" []))))) (get package :runes []))]])]]) [false true])])
+                                  (get style "slots" []) (range 0 (length (get style "slots" []))))) (get package :runes []))]])]
+           [:h4 "Stat shards"]
+           [:div {:class "tactics-grid"}
+            (seq [index :range [0 3]]
+              [:label (get ["Offense" "Flex" "Defense"] index)
+               [:select {:form "scenario" :name (string prefix "shard" (inc index)) :data-bind (string prefix "shard" (inc index))}
+                [:option {:value 0} "None"]
+                (seq [id :in (rune-data/shard-rows index) :when (some |(= id ($ :id)) (rune-data/shards package))]
+                  [:option {:value id :selected (= id (get (get state (if opponent :opponentshards :shards) []) index 0))}
+                   (rune-data/shard-names id)])]])
+            [:label "Adaptive force"
+             [:select {:form "scenario" :name (if opponent "opponentadaptivestat" "adaptivestat") :data-bind (if opponent "opponentadaptivestat" "adaptivestat")}
+              (map (fn [[value caption]] [:option {:value value :selected (= value (get state (if opponent :opponentadaptivestat :adaptivestat) "auto"))} caption])
+                   [["auto" "Automatic from build"] ["ad" "Attack damage"] ["ap" "Ability power"]])]]]]) [false true])])

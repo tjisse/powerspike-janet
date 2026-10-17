@@ -1,0 +1,427 @@
+{
+  "Perks/Styles/Domination/Electrocute": {
+    "mPerkId": 8112,
+    "mPerkName": "Electrocute",
+    "mDisplayNameLocalizationKey": "perk_displayname_Electrocute",
+    "mTooltipNameLocalizationKey": "perk_tooltip_Electrocute",
+    "mShortDescLocalizationKey": "perk_short_desc_8112",
+    "mLongDescLocalizationKey": "perk_long_desc_8112",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_Electrocute1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/domination/electrocute/electrocute.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/Electrocute.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "Cooldown": 20.0,
+          "DamageBase": 70.0,
+          "DamageMax": 240.0,
+          "BonusADRatio": 0.10000000149011612,
+          "WindowDuration": 3.0,
+          "APRatio": 0.05000000074505806,
+          "CooldownMin": 20.0
+        },
+        "mEffectAmountGameMode": {
+          "NEXUSBLITZ": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 20.0,
+              "CooldownMin": 15.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "URF": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 10.0,
+              "CooldownMin": 10.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "ARAM": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 15.0,
+              "CooldownMin": 10.0,
+              "DamageBase": 65.0,
+              "DamageMax": 250.0,
+              "BonusADRatio": 0.15000000596046448,
+              "APRatio": 0.10000000149011612
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "KINGPORO": {
+            "mEffectAmountPerMode": {
+              "Cooldown": 15.0,
+              "CooldownMin": 10.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          }
+        },
+        "mCalculations": {
+          "TotalDamage": {
+            "mSimpleTooltipCalculationDisplay": 4,
+            "mFormulaParts": [
+              {
+                "mStartValue": 70.0,
+                "mEndValue": 240.0,
+                "__type": "ByCharLevelInterpolationCalculationPart"
+              },
+              {
+                "mDataValue": "APRatio",
+                "__type": "StatByNamedDataValueCalculationPart"
+              },
+              {
+                "mStat": 2,
+                "mStatFormula": 2,
+                "mDataValue": "BonusADRatio",
+                "__type": "StatByNamedDataValueCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          }
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "mBuffs": [
+      {
+        "mBuffScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/PerkElectrocuteLockout.lua",
+        "mBuffSpellObject": {
+          "mBuff": {
+            "mDescription": "buff_desc_8112Cooldown",
+            "__type": "BuffData"
+          },
+          "__type": "SpellObject"
+        },
+        "__type": "PerkBuff"
+      },
+      {
+        "mBuffScriptName": "ASSETS/Perks/Styles/Domination/Electrocute/Electrocute.lua",
+        "mBuffSpellObject": {
+          "mBuff": {
+            "mDescription": "buff_desc_8112Ready",
+            "__type": "BuffData"
+          },
+          "__type": "SpellObject"
+        },
+        "__type": "PerkBuff"
+      }
+    ],
+    "mVFXResourceResolver": {
+      "resourceMap": {
+        "Perks_Electrocute_AOE": "Perks/Styles/Domination/Electrocute/Particles/Perks_Electrocute_AOE"
+      },
+      "__type": "ResourceResolver"
+    },
+    "mDefault": true,
+    "__type": "Perk"
+  },
+  "Perks/Styles/Sorcery/Scorch": {
+    "mPerkId": 8237,
+    "mPerkName": "Scorch",
+    "mDisplayNameLocalizationKey": "perk_displayname_Scorch",
+    "mTooltipNameLocalizationKey": "perk_tooltip_Scorch",
+    "mShortDescLocalizationKey": "perk_short_desc_Scorch",
+    "mLongDescLocalizationKey": "perk_long_desc_Scorch",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_Scorch1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/sorcery/scorch/scorch.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Sorcery/Scorch/Scorch.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "BurnlockoutDuration": 10.0,
+          "Damage": 20.0,
+          "DamageMax": 40.0,
+          "DotDuration": 1.0,
+          "OOCTimer": 0.0,
+          "{89367404}": 0.10000000149011612
+        },
+        "mCalculations": {
+          "DamageCalc": {
+            "mSimpleTooltipCalculationDisplay": 4,
+            "mFormulaParts": [
+              {
+                "mStartValue": 20.0,
+                "mEndValue": 40.0,
+                "__type": "ByCharLevelInterpolationCalculationPart"
+              }
+            ],
+            "__type": "GameCalculation"
+          }
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "mVFXResourceResolver": {
+      "resourceMap": {
+        "Perks_Scorch_Buildup": "Perks/Styles/Sorcery/Scorch/Particles/Perks_Scorch_Buildup",
+        "Perks_Scorch_GroundParticle": "Perks/Styles/Sorcery/Scorch/Particles/Perks_Scorch_GroundParticle",
+        "Perks_Scorch_Tar": "Perks/Styles/Sorcery/Scorch/Particles/Perks_Scorch_Tar"
+      },
+      "__type": "ResourceResolver"
+    },
+    "mMajorChangePatchVersion": "9.9",
+    "__type": "Perk"
+  },
+  "Perks/Styles/Sorcery/Transcendence": {
+    "mPerkId": 8210,
+    "mPerkName": "Transcendence",
+    "mDisplayNameLocalizationKey": "perk_displayname_Transcendence",
+    "mTooltipNameLocalizationKey": "perk_tooltip_Transcendence",
+    "mShortDescLocalizationKey": "perk_short_desc_Transcendence",
+    "mLongDescLocalizationKey": "perk_long_desc_Transcendence",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_Transcendence"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_Transcendence",
+    "mIconTextureName": "assets/perks/styles/sorcery/transcendence/transcendence.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Sorcery/Transcendence/Transcendence.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "HasteBonus1": 0.05000000074505806,
+          "LevelToTurnOn": 5.0,
+          "LevelToTurnOn2": 8.0,
+          "HasteBonus2": 0.05000000074505806,
+          "KillCooldownRefund": 0.20000000298023224,
+          "LevelToTurnOn3": 11.0
+        },
+        "mEffectAmountGameMode": {
+          "NEXUSBLITZ": {
+            "mEffectAmountPerMode": {
+              "LevelToTurnOn": 5.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          },
+          "URF": {
+            "mEffectAmountPerMode": {
+              "LevelToTurnOn": 5.0
+            },
+            "__type": "PerkEffectAmountPerMode"
+          }
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "mVFXResourceResolver": {
+      "resourceMap": {
+        "Perks_Transcendence_Active": "Perks/Styles/Sorcery/Transcendence/Particles/Perks_Transcendence_Active"
+      },
+      "__type": "ResourceResolver"
+    },
+    "mDefault": true,
+    "__type": "Perk"
+  },
+  "Perks/Styles/Precision/LastStand": {
+    "mPerkId": 8299,
+    "mPerkName": "LastStand",
+    "mDisplayNameLocalizationKey": "perk_displayname_8234",
+    "mTooltipNameLocalizationKey": "perk_tooltip_8234",
+    "mShortDescLocalizationKey": "perk_short_desc_8234",
+    "mLongDescLocalizationKey": "perk_long_desc_8234",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_LastStand1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/sorcery/laststand/laststand.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Sorcery/LastStand/LastStand.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "MinBonusDamagePercent": 0.05000000074505806,
+          "MaxBonusDamagePercent": 0.10999999940395355,
+          "HealthThresholdStart": 0.6000000238418579,
+          "HealthThresholdEnd": 0.30000001192092896
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/Styles/Precision/CutDown": {
+    "mPerkId": 8017,
+    "mPerkName": "CutDown",
+    "mDisplayNameLocalizationKey": "perk_displayname_CutDown",
+    "mTooltipNameLocalizationKey": "perk_tooltip_CutDown",
+    "mShortDescLocalizationKey": "perk_short_desc_CutDown",
+    "mLongDescLocalizationKey": "perk_long_desc_CutDown",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_CutDown1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/precision/cutdown/cutdown.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Precision/CutDown/CutDown.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "MinBonusDamagePercent": 0.05000000074505806,
+          "MaxBonusDamagePercent": 0.15000000596046448,
+          "MinHealthDifference": 0.10000000149011612,
+          "MaxHealthDifference": 1.0,
+          "EnemyHealthPercentageThreshold": 0.6000000238418579,
+          "BonusPercentDamage": 0.07999999821186066
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/Styles/Precision/CoupDeGrace": {
+    "mPerkId": 8014,
+    "mPerkName": "CoupDeGrace",
+    "mDisplayNameLocalizationKey": "perk_displayname_CoupDeGrace",
+    "mTooltipNameLocalizationKey": "perk_tooltip_CoupDeGrace",
+    "mShortDescLocalizationKey": "perk_short_desc_CoupDeGrace",
+    "mLongDescLocalizationKey": "perk_long_desc_CoupDeGrace",
+    "mEndOfGameStatDescriptions": [
+      "perk_eog_stat_desc_CoupDeGrace1"
+    ],
+    "mDisplayStatLocalizationKey": "perk_display_stat_total",
+    "mIconTextureName": "assets/perks/styles/precision/coupdegrace/coupdegrace.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/Styles/Precision/CoupDeGrace/CoupDeGrace.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "EnemyHealthPercentageThreshold": 0.4000000059604645,
+          "BonusPercentDamage": 0.07999999821186066
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "mDefault": true,
+    "__type": "Perk"
+  },
+  "{787ccb97}": {
+    "mPerkId": 5011,
+    "mPerkName": "Health",
+    "mDisplayNameLocalizationKey": "perk_displayname_Health",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModHealth",
+    "mShortDescLocalizationKey": "perk_short_desc_StatModHealth",
+    "mLongDescLocalizationKey": "perk_short_desc_StatModHealth",
+    "mIconTextureName": "assets/perks/statmods/statmodshealthscalingicon.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModHealth.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "StatGain": 65.0
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/StatMods/Adaptive": {
+    "mPerkId": 5008,
+    "mPerkName": "Adaptive",
+    "mDisplayNameLocalizationKey": "perk_displayname_Adaptive",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModAdaptive",
+    "mShortDescLocalizationKey": "perk_long_desc_StatModAdaptive",
+    "mLongDescLocalizationKey": "perk_long_desc_StatModAdaptive",
+    "mIconTextureName": "assets/perks/statmods/statmodsadaptiveforceicon.tex",
+    "mStackable": true,
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModAdaptive.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "StatGain2": 9.0,
+          "StatGain1": 5.400000095367432
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/StatMods/HealthScaling": {
+    "mPerkId": 5001,
+    "mPerkName": "HealthScaling",
+    "mDisplayNameLocalizationKey": "perk_displayname_HealthScaling",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModHealthScaling",
+    "mShortDescLocalizationKey": "perk_long_desc_StatModHealthScaling",
+    "mLongDescLocalizationKey": "perk_long_desc_StatModHealthScaling",
+    "mIconTextureName": "assets/perks/statmods/statmodshealthplusicon.tex",
+    "mStackable": true,
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModHealthScaling.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "StatGainMin": 10.0,
+          "StatGainMax": 180.0
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/StatMods/CDRScaling": {
+    "mPerkId": 5007,
+    "mPerkName": "CDRScaling",
+    "mDisplayNameLocalizationKey": "perk_displayname_CDRScaling",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModCooldownReductionScaling",
+    "mShortDescLocalizationKey": "perk_long_desc_StatModCooldownReductionScaling",
+    "mLongDescLocalizationKey": "perk_long_desc_StatModCooldownReductionScaling",
+    "mIconTextureName": "assets/perks/statmods/statmodscdrscalingicon.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModCDRScaling.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "HasteGain": 8.0
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/StatMods/AttackSpeed": {
+    "mPerkId": 5005,
+    "mPerkName": "AttackSpeed",
+    "mDisplayNameLocalizationKey": "perk_displayname_AttackSpeed",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModAttackSpeed",
+    "mShortDescLocalizationKey": "perk_long_desc_StatModAttackSpeed",
+    "mLongDescLocalizationKey": "perk_long_desc_StatModAttackSpeed",
+    "mIconTextureName": "assets/perks/statmods/statmodsattackspeedicon.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModAttackSpeed.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "StatGain": 10.0
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  },
+  "Perks/StatMods/MovementSpeed": {
+    "mPerkId": 5010,
+    "mPerkName": "MovementSpeed",
+    "mDisplayNameLocalizationKey": "perk_displayname_MovementSpeed",
+    "mTooltipNameLocalizationKey": "perk_tooltip_StatModMovementSpeed",
+    "mShortDescLocalizationKey": "perk_long_desc_StatModMovementSpeed",
+    "mLongDescLocalizationKey": "perk_long_desc_StatModMovementSpeed",
+    "mIconTextureName": "assets/perks/statmods/statmodsmovementspeedicon.tex",
+    "mScript": {
+      "mSpellScriptName": "ASSETS/Perks/StatMods/StatModMovementSpeed.lua",
+      "mSpellScriptData": {
+        "mEffectAmount": {
+          "StatGain1": 2.5
+        },
+        "__type": "PerkScriptData"
+      },
+      "__type": "PerkScript"
+    },
+    "__type": "Perk"
+  }
+}

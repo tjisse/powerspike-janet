@@ -1,7 +1,7 @@
 (import ./skills :as skills)
 
 # Rune pages contain four primary choices (one per slot) and two secondary
-# choices from different non-keystone slots. Shards are outside this schema.
+# choices from different non-keystone slots. Shards remain a separate fixed loadout.
 (defn rune-position [package id]
   (find identity
         (map (fn [style]

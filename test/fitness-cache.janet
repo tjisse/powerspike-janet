@@ -64,7 +64,9 @@
                  (merge definition {:player (merge (definition :player) {:resource-fraction 0.5})})
                  (merge definition {:player (merge (definition :player) {:strategy {:attacks false}})})
                  (merge definition {:player (merge (definition :player) {:ranks {:q 1}})})
-                 (merge definition {:player (merge (definition :player) {:loadout {:items [] :runes [8112]}})})]
+                 (merge definition {:player (merge (definition :player) {:loadout {:items [] :runes [8112]}})})
+                 (merge definition {:player (merge (definition :player) {:loadout {:items [] :shards [5005 5010 5011]}})})
+                 (merge definition {:player (merge (definition :player) {:loadout {:items [] :shards [5008 5008 5011] :adaptive-stat :ad}})})]
   (assert (not= key (search/fitness-key pack candidate))))
 (assert (not= key (search/fitness-key (merge pack {:patch "16.18.1"}) definition)))
 (assert (not= key (search/fitness-key (merge pack {:snapshot "different"}) definition)))

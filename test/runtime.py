@@ -119,6 +119,21 @@ def verify(binary_path, seed_path=None):
             initial_scenario = json.loads(page.scenario['data-json'])['scenario']
             assert initial_scenario['target']['hp'] == 2500
             assert '173 champions' in ''.join(page.text) and '870 items' in ''.join(page.text)
+            # Bundled rune/shard sources and champion adaptive preferences must
+            # work when the executable has no access to the project directory.
+            _, rune_raw = get(base, '/?' + urllib.parse.urlencode({
+                'champion': 'Annie', 'selected': 'custom', 'level': 6,
+                'shards': '5008,5008,5011', 'runes': '8210,8237'}))
+            rune_page = Page()
+            rune_page.feed(rune_raw.decode())
+            rune_document = json.loads(rune_page.scenario['data-json'])
+            assert rune_document['scenario']['player']['loadout']['shards'] == [5008,5008,5011]
+            rune_input = cwd / 'runes.json'
+            rune_input.write_text(json.dumps(rune_document))
+            rune_result = json.loads(subprocess.check_output(
+                [str(binary), '--simulate', str(rune_input)], cwd=cwd, env=configuration(), text=True, timeout=10))
+            assert abs(rune_result['metrics']['damage'] - float(rune_page.timeline['data-total'])) < 1e-6
+            rune_input.unlink()
             for path in ['/assets/champion/Ahri.png', '/assets/champion/MonkeyKing.png',
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:
                 headers, image = get(base, path)

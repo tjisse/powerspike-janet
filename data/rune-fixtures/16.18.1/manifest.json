@@ -1,0 +1,18 @@
+{
+  "patch": "16.18.1",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.18/game/perks.cdtb.bin.json",
+      "sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.18.1/data/en_US/runesReforged.json",
+      "sha256": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44"
+    }
+  ],
+  "sha256": {
+    "records.json": "9f7fa979544dd954dcef74cf0db387da1e84492d99bd86bc5a63c272893e43db",
+    "styles.json": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44"
+  }
+}

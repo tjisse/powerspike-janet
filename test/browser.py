@@ -2,9 +2,48 @@ from playwright.sync_api import sync_playwright
 import argparse, json, os, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
+
+def verify_runes(browser, base):
+    page = browser.new_page(viewport={'width':1440,'height':1080})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.goto(base+'/?champion=Annie&selected=custom&level=6&shard1=5008&shard2=5008&shard3=5011&runepage1=8210&runepage2=8237', wait_until='domcontentloaded')
+    page.locator('#timeline').wait_for()
+    assert page.locator('#loadout-tray .shard').count() == 3
+    page.locator('#loadout-tray .shard').first.hover()
+    assert '9.00' in page.locator('#detail-popover').inner_text()
+    page.locator('#ranks [data-ability-slot=q]').hover()
+    assert page.locator('#detail-popover .tooltip-value').first.inner_text() == '184.4'
+    page.get_by_text('Runes & spells', exact=True).click()
+    page.locator('#rune-editor summary').click()
+    page.locator('#rune-editor [name=shard1]').select_option('5005')
+    page.wait_for_function("JSON.parse(document.querySelector('#scenario-data').dataset.json).scenario.player.loadout.shards[0] === 5005")
+    page.locator('#ranks [data-ability-slot=q]').hover()
+    assert page.locator('#detail-popover .tooltip-value').first.inner_text() == '177.2'
+    page.locator('.brand').hover()
+    document = json.loads(page.locator('#scenario-data').get_attribute('data-json'))
+    assert document['scenario']['player']['loadout']['shards'] == [5005,5008,5011]
+    assert document['scenario']['player']['loadout']['runes'] == [8210,8237]
+    damage = page.locator('#timeline').get_attribute('data-total')
+    page.get_by_text('Saved scenarios', exact=True).click()
+    page.get_by_role('button', name='Create share link', exact=True).click()
+    shared = browser.new_page()
+    shared.goto(page.locator('#scenario-link').input_value(), wait_until='domcontentloaded')
+    assert shared.locator('#timeline').get_attribute('data-total') == damage
+    assert json.loads(shared.locator('#scenario-data').get_attribute('data-json'))['scenario']['player']['loadout'] == document['scenario']['player']['loadout']
+    shared.close()
+    with page.expect_download() as download:
+        page.get_by_role('button', name='Export JSON', exact=True).click()
+    assert json.loads(Path(download.value.path()).read_text()) == document
+    page.goto(base+'/?champion=Annie&selected=custom&mode=duel&opponent=Annie&enemyshard1=5005&enemyshard2=5010&enemyshard3=5001', wait_until='domcontentloaded')
+    assert json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']['target']['loadout']['shards'] == [5005,5010,5001]
+    assert not errors, errors
+    page.close()
+
 def verify(base):
  with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]
         page.on('pageerror', lambda e: errors.append(str(e)))

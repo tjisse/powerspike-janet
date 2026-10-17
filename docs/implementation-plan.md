@@ -19,6 +19,8 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
+Version 0.12.0 adds patch-derived stat shards for both participants and common rune effects shared by tooltips, combat, optimization and scenario storage. Local core/web, browser and relocated-executable checks pass, including standalone rune/shard simulation without source-tree files. See [release notes](releases/0.12.0.md) and [rune coverage](runes.md); GitHub packaging and signed publication verification are pending.
+
 Version 0.11.2 is released with Blade of the Ruined King's patch-derived melee/ranged tooltip percentage, a shared combat calculation and current-participant context for equipped items and the item picker. Local core/frontend/runtime/browser checks, retained melee/ranged regressions, the [GitHub packaging/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/38085442150) and the [signed RPM/DNF publication, installation and upgrade workflow](https://github.com/tjisse/powerspike-janet/actions/runs/38085608960) passed. See [release notes](releases/0.11.2.md).
 
 Version 0.11.1 is released with generic empowered attack semantics, including Yorick Q graph damage, bonus versus replacement damage, attack counts, timed buffs and source-tagged attack resets. Cached snapshots receive current semantics without another download. Local core/frontend/runtime/browser checks, nine retained champion regressions, the [GitHub packaging/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/38075061954) and the [signed RPM/DNF publication, installation and upgrade workflow](https://github.com/tjisse/powerspike-janet/actions/runs/38075251420) passed. The rebuilt executable also reproduces Yorick Q damage against retained cached data. See [release notes](releases/0.11.1.md).
@@ -61,7 +63,7 @@ Milestone 6 is implemented for v0.7.0: local named saves, shared URLs and versio
 
 ## Accuracy and scope
 
-Exceptional champion forms/pets/passives, many item/rune triggers, ambiguous tooltip semantics, stat shards, exceptional leveling and some objective server mechanics remain explicit coverage gaps. Source data, modeled semantics and in-game evidence remain separate. The tool supplies broad estimates within declared strategies and one-dimensional movement; team fights, terrain/pathfinding and optimal player decisions remain outside this version. The five Annie measurements check their original stat cases, not every new combat handler. Further calibration adds reviewed evidence rather than fitting or inventing measurements.
+Exceptional champion forms/pets/passives, many item/rune triggers, ambiguous tooltip semantics, tenacity/slow-resist shards, exceptional leveling and some objective server mechanics remain explicit coverage gaps. Source data, modeled semantics and in-game evidence remain separate. The tool supplies broad estimates within declared strategies and one-dimensional movement; team fights, terrain/pathfinding and optimal player decisions remain outside this version. The five Annie measurements check their original stat cases, not every new combat handler. Further calibration adds reviewed evidence rather than fitting or inventing measurements.
 
 ## Source interpretation
 

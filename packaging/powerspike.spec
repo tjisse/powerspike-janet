@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.11.0}
+%{!?app_version:%global app_version 0.12.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
@@ -78,6 +78,10 @@ fi
 %config(noreplace) %attr(0640,root,powerspike) /etc/powerspike/powerspike.env
 
 %changelog
+* Sat Oct 17 2026 PowerSpike contributors - 0.12.0-1
+- Add patch-derived stat shards for both participants and common rune effects.
+- Share rune and shard calculations across tooltips, combat, optimization and saved scenarios.
+- Embed retained rune records and adaptive preferences for standalone runtime use.
 * Sat Oct 10 2026 PowerSpike contributors - 0.11.0-1
 - Show calculated tooltip values with hover, focus and pinned formula explanations.
 - Use current build, rank and exact snapshot inputs while retaining unknown placeholders.

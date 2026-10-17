@@ -3,6 +3,7 @@
 (import ./normalize :as normalize)
 (import ./tooltip :as tooltip)
 (import ./objectives :as objectives)
+(import ./runes :as rune-data)
 (import pshash :as hash)
 
 (var data-dir nil)
@@ -38,9 +39,21 @@
         (def data (util/read-data (string dir "/package.jdn")))
         (assert (and (= 1 (data :schema)) (= version (data :patch))) "Incompatible data package.")
         (def champions (map |(normalize/semantic-kit ($ :id) version $) (data :champions)))
+        (def shard-source (string dir "/sources/rune-effects.json"))
+        (def shard-data (when (and (not (has-key? data :shards)) (os/stat shard-source))
+                          (def bytes (slurp shard-source))
+                          (def source (find |(= "sources/rune-effects.json" (get $ "path")) (get manifest "sources" [])))
+                          (assert (and source (= (source "sha256") (hash/sha256 bytes))) "Rune source integrity check failed.")
+                          (rune-data/shard-records (util/read-json bytes) version)))
         (def package (merge data {:snapshot id :directory dir :manifest manifest :champions champions
                                   :champion-map (tabseq [champion :in champions] (champion :id) champion)
                                   :item-map (tabseq [item :in (data :items)] (item :id) item)}))
+        (when shard-data (put package :shards shard-data))
+        (when (and (not (has-key? package :shards)) (rune-data/source-data version))
+          (put package :rune-sources ((rune-data/source-data version) :sources)))
+        (when (and (manifest "initial") (empty? (get package :runes [])) (rune-data/source-data version))
+          (def retained (rune-data/source-data version))
+          (put package :runes (normalize/rune-effects (retained :styles) (retained :records) {} version)))
         (when (>= (length loaded) 4) (put loaded (first (keys loaded)) nil))
         (put loaded key package)
         package)))
@@ -137,6 +150,7 @@
                 :items (seq [id :in (sorted (keys (item-data "data")))]
                          (normalize/item-effects (normalize/item version id ((item-data "data") id)) item-records fonts))
                 :runes (normalize/rune-effects (if (indexed? runes) runes []) perk-records fonts version)
+                :shards (rune-data/shard-records perk-records version)
                 :summoners (if summoners (map (fn [spell]
                                                 (def record (get-in shared-records [(string "Shared/Spells/" (spell "id")) "mSpell"] {}))
                                                 (merge spell {:parsed (tooltip/parse (get spell "tooltip" "") record spell)

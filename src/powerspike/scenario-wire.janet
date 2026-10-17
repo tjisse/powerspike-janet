@@ -3,7 +3,7 @@
 (import ./engine :as engine)
 (def format-name "powerspike-scenario")
 (def fields [:schema :patch :snapshot :model :duration :distance :seed :samples :player :target :champion :level :loadout
-             :items :runes :summoners :health-fraction :resource-fraction :ranks :skill-order :strategy :priority :activation
+             :items :runes :shards :adaptive-stat :summoners :health-fraction :resource-fraction :ranks :skill-order :strategy :priority :activation
              :movement :attacks :abilities :hit-chance :preferred-range :after :self-health-below :target-health-below
              :kind :hp :armor :mr :objective :game-time :minions-present :retaliation :q :w :e :r :d :f])
 (defn normalize [value &opt depth parent]
@@ -21,9 +21,9 @@
       (tuple ;(map |(normalize $ (inc at) parent) value)))
     (string? value)
     (do (assert (<= (length value) 128) "Scenario string is excessive.")
-      (if (some |(= $ parent) ["kind" "movement" "objective" "priority" "skill-order"])
+      (if (some |(= $ parent) ["kind" "movement" "objective" "priority" "skill-order" "adaptive-stat"])
         (do (assert (some |(= value (string $)) [:champion :practice :objective :hold :approach :hold-range :q :w :e :r :d :f
-                                                 :turret :baron :herald :dragon-fire :dragon-air :dragon-earth :dragon-water :dragon-hextech :dragon-chemtech :dragon-elder])
+                                                 :auto :ad :ap :turret :baron :herald :dragon-fire :dragon-air :dragon-earth :dragon-water :dragon-hextech :dragon-chemtech :dragon-elder])
                     "Unsupported scenario choice.") (keyword value)) value))
     (or (number? value) (boolean? value) (nil? value)) value
     (error "Scenario values must be JSON data.")))

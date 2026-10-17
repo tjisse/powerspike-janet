@@ -31,6 +31,7 @@
 (defn evidence [result]
   (def package (result :package))
   (def manifest (package :manifest))
+  (def sources [;(get manifest "sources" []) ;(get package :rune-sources [])])
   [:details {:id "source-evidence" :class "scope-panel source-evidence"}
    [:summary "Source records & model identity"]
    [:dl
@@ -39,13 +40,13 @@
     [:dt "Snapshot SHA-256"] [:dd [:code (package :snapshot)]]
     [:dt "Parser"] [:dd (get manifest "parser" (get package :parser "Unavailable"))]
     [:dt "Combat model"] [:dd [:code engine/identity]]
-    [:dt "Providers retained"] [:dd (length (get manifest "sources" []))]]
+    [:dt "Providers retained"] [:dd (length sources)]]
    [:p "Available source records and interpreted mechanics are separate from in-game checks. Unsupported effects remain in each result's coverage notes."]
    [:div {:class "source-records"}
     [:table [:thead [:tr [:th "Source"] [:th "SHA-256"]]]
      [:tbody (map (fn [record]
                     [:tr [:td [:a {:href (record "url") :target "_blank" :rel "noopener noreferrer"} (record "url")]]
-                     [:td [:code (record "sha256")]]]) (get manifest "sources" []))]]]
+                     [:td [:code (record "sha256")]]]) sources)]]]
    (when (get manifest "initial") [:p "This is the bundled catalog excerpt. Refresh this patch to retain complete spell and effect records with their source hashes."])
    [:h3 "Calibration by mechanic family"]
    [:p "The five retained Annie captures check their original stat conditions on 26.19. Other families await reviewed measurements; missing measurements are not measured zero."]

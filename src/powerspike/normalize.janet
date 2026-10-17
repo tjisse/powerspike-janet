@@ -3,7 +3,7 @@
 (import pshash :as hash)
 (import ./data-util :as util)
 
-(def parser-version "4")
+(def parser-version "5")
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
 (defn patch-order [patch]
   (def parts (string/split "." (string/replace "lolpatch_" "" patch)))
@@ -94,6 +94,7 @@
   {:patch patch :id (source "id") :name (source "name") :title (source "title")
    :icon ((source "image") "full") :tags (source "tags") :resource (source "partype")
    :base base :growth growth :status "unvalidated" :abilities [] :root root-path
+   :adaptive-stat (when (not (empty? root)) (if (> (get root "mAdaptiveForceToAbilityPowerWeight" 0) 0) :ap :ad))
    :attack-speed-base (number-field root "attackSpeedModifiable" (get dd "attackspeed" 0.625))
    :attack-speed-ratio (number-field root "attackSpeedRatioModifiable" (get dd "attackspeed" 0.625))
    :attack-speed-growth (/ (number-field root "attackSpeedPerLevelModifiable" (get dd "attackspeedperlevel" 0)) 100)

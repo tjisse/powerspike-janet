@@ -1,0 +1,107 @@
+{
+  "format": "powerspike-riot-replay-access-check",
+  "version": 1,
+  "checked-at": "2026-10-17",
+  "scope": "One authorized player lookup and randomly selected replay download; current-build container and packet framing verified, combat semantics and model not verified.",
+  "source": {
+    "documentation": "https://developer.riotgames.com/apis#match-v5/GET_getReplay",
+    "endpoint": "GET /lol/match/v5/matches/by-puuid/{puuid}/replays",
+    "routing-region": "europe",
+    "platform": "EUW1",
+    "authentication": "User-provided key; key, account identifier and signed download URLs retained only in ignored local files",
+    "replay-list-http-status": 200,
+    "download-http-status": 200,
+    "available-replay-count": 5,
+    "selection": {
+      "seed": 3697392625,
+      "index": 4,
+      "method": "Random(seed).randrange over API-returned URLs; not a representative game-population sample"
+    }
+  },
+  "replay": {
+    "bytes": 7419485,
+    "sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+    "wire-bytes": 7297451,
+    "wire-sha256": "61ae624301cbc8b34ed93e4e3de55845d6f1c7e933ee2c0c9250dc0cc60c7af1",
+    "content-encoding": "gzip",
+    "gzip-integrity-check": "passed",
+    "format-version": 2,
+    "client-build": "16.20.824.8524",
+    "protocol-digest": "142cabd45e45d83f"
+  },
+  "metadata": {
+    "game-duration-seconds": 940.808,
+    "participant-count": 10,
+    "requested-player-found": true,
+    "requested-player-champions": [
+      "Sion"
+    ]
+  },
+  "current-patch": {
+    "official-versions-url": "https://ddragon.leagueoflegends.com/api/versions.json",
+    "latest-data-dragon-version": "16.20.1",
+    "replay-patch": "16.20",
+    "matches-latest-patch": true
+  },
+  "verification": {
+    "packet-framing": "passed",
+    "blocks": 779977,
+    "stream-blocks": {
+      "startKeyframe": 1,
+      "startSentinel": 1,
+      "keyframe": 163020,
+      "gameChunk": 616955
+    },
+    "distinct-opcodes": 258,
+    "first-timestamp": 0.0,
+    "last-timestamp": 940.8084291992207,
+    "damage-events-verified": 0,
+    "model-comparisons": 0
+  },
+  "cost": {
+    "download-and-decompression-wall-seconds": 0.47241418799967505,
+    "packet-framing-wall-seconds": 1.6279947990005894,
+    "download-bytes": 7297451,
+    "retained-replay-bytes": 7419485,
+    "timing-scope": "Single local run; excludes dependency setup, research, decoder development and manual review"
+  },
+  "decoder-check": {
+    "matching-semantic-profile-found": false,
+    "checked-tools": [
+      {
+        "name": "RoflLens 0.1.0",
+        "url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+        "bundled-builds": [
+          "16.14.794.5912"
+        ],
+        "result": "Current replay container and packet framing supported; no matching semantic profile bundled"
+      },
+      {
+        "name": "rofl-parser",
+        "url": "https://github.com/shyunku-libraries/rofl-parser",
+        "bundled-patches": [
+          "16.15",
+          "16.16"
+        ],
+        "result": "No 16.20 bundled artifact; advertised decoder-artifacts index URLs under shyunku and shyunku-libraries both returned HTTP 404"
+      },
+      {
+        "name": "League Replay Analyzer",
+        "url": "https://github.com/Danmoreng/league-replay-analyzer/blob/main/packages/rofl-core/profiles/replay-decoder-profiles.v1.json",
+        "result": "Inspected registry contains nine patch groups, latest patch 16.14; no 16.20 profile"
+      }
+    ],
+    "limits": "Absence from the inspected tools does not establish that no matching decoder exists anywhere. Older packet IDs/layouts were not applied to this build.",
+    "generation-attempt": {
+      "report": "observations/replays/decoder-investigation-2026-10-17.json",
+      "exact-executable-downloaded": true,
+      "executable-version-verified": true,
+      "builder-preflight": "passed",
+      "generation-result": "failed-static-packet-registration-discovery",
+      "generated-artifacts": 0
+    }
+  },
+  "next-step": "Expand current-build skill/inventory recovery on discovery games while reserving fresh held-out games, then reconstruct exact pre-hit state for independently attributable damage. Keep historical completeness deferred.",
+  "coverage-policy": "Transport/framing checks count as acquisition coverage only. Zero combat events or model comparisons admitted. One player and one replay do not establish representative supply or future access policy.",
+  "follow-up-study": "observations/replays/recovery-study-2026-10-18.json"
+}

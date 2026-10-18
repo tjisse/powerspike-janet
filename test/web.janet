@@ -1,5 +1,6 @@
 (import ../web/model :as model)
 (import ../web/ui :as ui)
+(import ../web/verification :as verification)
 (import ../web/catalog :as catalog)
 (import ../web/details :as details)
 (import ../web/optimizer :as optimizer)
@@ -209,6 +210,23 @@
         (assert (= 5 (length records)))
         (each record records (assert (= :consistent (record :status))))
         (assert (= [10 11 12 12 12] (tuple ;(map |($ :checked) records))))))
+(test "replay verification separates provisional checks, coverage and unknown agreement"
+      (fn []
+        (def report (verification/read-report))
+        (assert (>= (get-in report ["pipeline" "events"]) (get-in report ["pipeline" "admitted"])))
+        (assert (= "Not measured" (verification/percentage :null)))
+        (def response (server/app {:method "GET" :route "/verification" :query {}}))
+        (assert (= 200 (response :status)))
+        (assert (string/has-prefix? "<!doctype html>" (response :body)))
+        (def api (server/app {:method "GET" :route "/api/verification" :query {}}))
+        (assert (= 200 (api :status)))
+        (assert (= (get-in report ["ledger" "head"]) (get-in (util/read-json (api :body)) ["ledger" "head"])))
+        (each marker ["Verification progress" "Provisional checks"
+                      "not all League behavior" "Independent identification of the attack"]
+          (assert (string/find marker (response :body))))
+        (def stale (merge report {"model" "different-model"}))
+        (assert (string/find "Historical model snapshot" (ui/render (verification/dashboard stale))))
+        (assert (string/find "selected patch differs" (ui/render (verification/panel (model/compare model/default-state)))))))
 (test "rendered errors escape markup rather than executing it"
       (fn [] (def text (ui/render (ui/error-result "<script>alert('bad')</script>")))
         (assert (string/find "&lt;script&gt;" text))

@@ -1,6 +1,6 @@
 %global debug_package %{nil}
 %global _build_id_links none
-%{!?app_version:%global app_version 0.12.0}
+%{!?app_version:%global app_version 0.13.0}
 %{!?app_release:%global app_release 1}
 %{!?min_glibc:%global min_glibc 2.38}
 Name: powerspike
@@ -78,6 +78,10 @@ fi
 %config(noreplace) %attr(0640,root,powerspike) /etc/powerspike/powerspike.env
 
 %changelog
+* Sun Oct 18 2026 PowerSpike contributors - 0.13.0-1
+- Add replay decoding, reviewed comparison tooling and verification progress tracking.
+- Show mechanic coverage, blockers, fresh-game evidence, resource use and history.
+- Embed an offline progress snapshot while keeping provisional diagnostics separate.
 * Sat Oct 17 2026 PowerSpike contributors - 0.12.0-1
 - Add patch-derived stat shards for both participants and common rune effects.
 - Share rune and shard calculations across tooltips, combat, optimization and saved scenarios.

@@ -1,0 +1,53 @@
+{
+  "format": "powerspike-replay-stat-fields",
+  "version": 1,
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+  "group-4": {
+    "3": "base-attack-damage",
+    "4": "base-ability-power",
+    "6": "crit-chance",
+    "7": "armor",
+    "8": "magic-resist",
+    "12": "flat-attack-damage",
+    "13": "percent-attack-damage",
+    "14": "flat-ability-power",
+    "15": "percent-ability-power",
+    "23": "flat-armor-penetration",
+    "24": "armor-remaining-fraction",
+    "25": "flat-magic-penetration",
+    "26": "magic-resist-remaining-fraction"
+  },
+  "group-8-float-prefix": {
+    "0": "bonus-armor-remaining-fraction",
+    "1": "crit-bonus-armor-remaining-fraction",
+    "2": "crit-total-armor-remaining-fraction",
+    "3": "bonus-magic-resist-remaining-fraction",
+    "4": "physical-lethality",
+    "5": "magic-lethality",
+    "13": "flat-base-attack-damage",
+    "14": "percent-base-attack-damage",
+    "15": "base-attack-damage-sans-percent-scale",
+    "17": "bonus-armor",
+    "18": "bonus-magic-resist",
+    "19": "percent-bonus-attack-damage",
+    "20": "percent-base-attack-damage-as-bonus",
+    "23": "crit-damage-multiplier"
+  },
+  "group-8-prefix-end": 26,
+  "native-descriptors": {
+    "group-4-function": "0x10006b010",
+    "group-8-function": "0x10006b4c0"
+  },
+  "compositions": {
+    "attack-damage": "(baseAttackDamage + flatAttackDamage * (1 + percentBonusAttackDamage) + baseAttackDamage * percentBaseAttackDamageAsBonus) * (1 + percentAttackDamage)",
+    "ability-power": "(baseAbilityPower + flatAbilityPower) * (1 + percentAbilityPower)"
+  },
+  "evidence": {
+    "descriptor-interpretation": "Names and order read from the exact matching native registration functions; armor/MR anchors bind group4 positions, group8 name order and numeric snapshots cross-check the extended mapping. Later group8 mixed-type fields stay raw.",
+    "composition-discovery": "Derived from named stat components and 170 independent Riot stat snapshots in discovery. No damage amount used.",
+    "composition-check": "Frozen composition checked at 360 snapshots of the separate game: AD358/360, AP360/360 within one point. API and replay updates have differing sampling times; discrepancies retained.",
+    "limits": "Composition of replicated observations is not build/stat-model validation. Nonzero lethality and crit outcome semantics remain unverified; baseline zero penetration checks do not establish all penetration mechanics."
+  }
+}

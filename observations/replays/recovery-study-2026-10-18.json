@@ -1,0 +1,218 @@
+{
+  "format": "powerspike-replay-only-recovery-study",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "checked-at": "2026-10-17T22:01:59.355915+00:00",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "profile": "observations/replays/16.20.824.8524-skill-recovery-profile.json",
+  "profile-sha256": "35cee5db2de3127bf9080be5af7b69b42ad4b7557a2bc902026c14cf4bd73889",
+  "adapters": {
+    "replay_framing.py": "5692b517fc3b594b3797215d2df2ad19408bbfe6a6a7f30ceead86cf50c4bd33",
+    "replay_recovery.py": "7d0791227c8978ee3719988de9c1fb564f4ac02acbfb323dc2aa8114820d03d8"
+  },
+  "framing-correction": {
+    "issue": "RoflLens 0.1.0 adds relative param bytes unsigned; negative signed deltas fabricate entity IDs offset by multiples of 256.",
+    "fix": "Repository adapter reads signed int8 deltas, preserves uint32 wrapping, updates framing state before packet filtering, and resets state per chunk. RoflLens remains the container/decompression dependency.",
+    "primary-reference": "https://github.com/Toastaspiring/ROFL-X/blob/88954be66da506f188fbd134944fdfd8334ad846/src/rofl/block.rs",
+    "consequence": "This invalidates some entity classifications and historical candidate counts, not the prior packet boundary counts. No model comparisons had been admitted."
+  },
+  "method": {
+    "acquisition": "Riot Match-v5 replay URLs; signed downloads without API token. Full Match and Timeline responses retained privately.",
+    "matching-inputs": "Exact build, signed-URL match ID, duration within 3 seconds, full champion/team/KDA roster, and timeline/match participant identities checked. ROFL PUUID-like strings are not assumed to be API PUUIDs.",
+    "discovery": "First replay identified opcode 421 as death timing/victim and opcode 810 as skill-upgrade timing/actor. Whole-payload skill labels learned only from uniquely time-aligned discovery events.",
+    "holdout": "Death profile was frozen before processing the unseen Summoner\u2019s Rift replay. Skill codebook was learned solely from the first replay, frozen before its held-out skill check, and not expanded from held-out labels.",
+    "runtime": "Recovery reads replay and exact-build profile only. Optional Match/Timeline inputs are used after recovery solely for validation. Unknown skill payloads abstain.",
+    "skill-limit": "The 37-entry codebook matches entire payloads; it is an empirical subset, not a complete bit-level layout or rank decoder."
+  },
+  "replays": [
+    {
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "duration-seconds": 940.808,
+      "gameplay-blocks": 616955,
+      "champion-entity-start": 1073741998,
+      "coverage": {
+        "recovered-death-events": 44,
+        "recovered-skill-upgrade-packets": 103,
+        "skill-upgrades-with-labels": 102,
+        "skill-upgrades-without-labels": 1,
+        "verified-damage-events": 0,
+        "model-comparisons": 0
+      },
+      "validation": {
+        "expected": 44,
+        "recovered": 44,
+        "matched": 44,
+        "unexpected": 0,
+        "missing": 0,
+        "ambiguous": 0,
+        "max-timestamp-error-seconds": 0.0013156738303337079,
+        "tolerance-seconds": 0.01,
+        "passed": true,
+        "scope": "Death timestamp and victim only; killer, assists, damage, and combat model unchecked",
+        "match-roster-build-duration-checked": true,
+        "timeline-event-counts": {
+          "PAUSE_END": 1,
+          "ITEM_PURCHASED": 146,
+          "SKILL_LEVEL_UP": 103,
+          "ITEM_UNDO": 4,
+          "WARD_PLACED": 124,
+          "LEVEL_UP": 95,
+          "ITEM_DESTROYED": 107,
+          "CHAMPION_KILL": 44,
+          "CHAMPION_SPECIAL_KILL": 9,
+          "TURRET_PLATE_DESTROYED": 30,
+          "WARD_KILL": 12,
+          "ITEM_SOLD": 4,
+          "ELITE_MONSTER_KILL": 5,
+          "BUILDING_KILL": 4,
+          "DRAGON_SOUL_GIVEN": 1,
+          "GAME_END": 1
+        },
+        "timeline-stat-snapshots": 170,
+        "timeline-death-recap-damage-rows": 857,
+        "skill-upgrades": {
+          "expected": 103,
+          "recovered": 102,
+          "matched": 102,
+          "unexpected": 0,
+          "missing": 1,
+          "ambiguous": 0,
+          "max-timestamp-error-seconds": 0.001337524407233559,
+          "tolerance-seconds": 0.01,
+          "passed": false,
+          "recovered-packets": 103,
+          "unknown-payloads": 1,
+          "complete": false,
+          "known-predictions-consistent": true,
+          "scope": "Timestamp, actor, skill slot and upgrade type for known whole-payload patterns only; no rank or cast decoding"
+        }
+      },
+      "cost": {
+        "recovery-wall-seconds": 1.3420064780002576
+      },
+      "match-sha256": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+      "timeline-sha256": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067",
+      "role": "discovery",
+      "private-report": "observations/local/riot-thebausffs-access/timeline-research/skill-recovery.json"
+    },
+    {
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "duration-seconds": 2091.145,
+      "gameplay-blocks": 1595640,
+      "champion-entity-start": 1073741998,
+      "coverage": {
+        "recovered-death-events": 78,
+        "recovered-skill-upgrade-packets": 170,
+        "skill-upgrades-with-labels": 126,
+        "skill-upgrades-without-labels": 44,
+        "verified-damage-events": 0,
+        "model-comparisons": 0
+      },
+      "validation": {
+        "expected": 78,
+        "recovered": 78,
+        "matched": 78,
+        "unexpected": 0,
+        "missing": 0,
+        "ambiguous": 0,
+        "max-timestamp-error-seconds": 0.0011152343677167664,
+        "tolerance-seconds": 0.01,
+        "passed": true,
+        "scope": "Death timestamp and victim only; killer, assists, damage, and combat model unchecked",
+        "match-roster-build-duration-checked": true,
+        "timeline-event-counts": {
+          "PAUSE_END": 1,
+          "ITEM_PURCHASED": 261,
+          "SKILL_LEVEL_UP": 171,
+          "ITEM_UNDO": 9,
+          "ITEM_DESTROYED": 232,
+          "WARD_PLACED": 166,
+          "LEVEL_UP": 159,
+          "CHAMPION_KILL": 78,
+          "CHAMPION_SPECIAL_KILL": 9,
+          "ITEM_SOLD": 16,
+          "WARD_KILL": 44,
+          "TURRET_PLATE_DESTROYED": 68,
+          "ELITE_MONSTER_KILL": 10,
+          "BUILDING_KILL": 16,
+          "DRAGON_SOUL_GIVEN": 1,
+          "GAME_END": 1
+        },
+        "timeline-stat-snapshots": 360,
+        "timeline-death-recap-damage-rows": 1292,
+        "skill-upgrades": {
+          "expected": 171,
+          "recovered": 126,
+          "matched": 126,
+          "unexpected": 0,
+          "missing": 45,
+          "ambiguous": 0,
+          "max-timestamp-error-seconds": 0.0012270507847915724,
+          "tolerance-seconds": 0.01,
+          "passed": false,
+          "recovered-packets": 170,
+          "unknown-payloads": 44,
+          "complete": false,
+          "known-predictions-consistent": true,
+          "scope": "Timestamp, actor, skill slot and upgrade type for known whole-payload patterns only; no rank or cast decoding"
+        }
+      },
+      "cost": {
+        "recovery-wall-seconds": 3.5417384729989863
+      },
+      "match-sha256": "2b3059f7d01b065b34976814f71d906557ec6f395e162e8097233ee8f7021cd3",
+      "timeline-sha256": "b7d278eb7d85a31f2eaa55ac620375392ddbf7bd6ec2e4e6db1544667ae28b7f",
+      "role": "held-out",
+      "private-report": "observations/local/riot-thebausffs-access/heldout-4/skill-recovery.json"
+    }
+  ],
+  "unsupported-mode-check": {
+    "replay-sha256": "efd40a0d66f0f2ff19fbf5e4b3615c37bda18f35ffff05421eab89fba1c77ce3",
+    "mode": "CHERRY",
+    "participants": 18,
+    "result": "Rejected: recovery requires ten distinct champion/team pairs",
+    "coverage-admitted": 0,
+    "note": "An unsupported Arena sample was downloaded before its mode was known; included in cost accounting."
+  },
+  "coverage": {
+    "discovery-deaths-matched": 44,
+    "heldout-deaths-matched": 78,
+    "heldout-deaths-expected": 78,
+    "heldout-skill-labels-matched": 126,
+    "heldout-skill-upgrades-expected": 171,
+    "heldout-skill-payloads-unknown": 44,
+    "heldout-skill-events-not-covered": 45,
+    "current-build-damage-events-verified": 0,
+    "model-comparisons": 0,
+    "limits": "One discovery and one held-out Summoner\u2019s Rift game, one exact build. No aggregate model accuracy percentage. No killer, assist, item ID, champion level, pre-hit stats, cast or damage decoding claimed."
+  },
+  "additional-available-anchors": {
+    "riot-timeline-stat-snapshots": 530,
+    "riot-death-recap-damage-rows": 2149,
+    "limits": "Minute/frame state samples and death recap rows are API observations. They are not exact pre-hit state or time-stamped individual replay damage events."
+  },
+  "negative-results": {
+    "item-events": "Opcode 63 overlaps 144/146 purchases but emits 186 records; transformations and other inventory activity unresolved. No complete inventory or item IDs admitted.",
+    "level-events": "No complete champion-level stream identified by the discovery timing/actor check. Skill upgrades are not champion level-ups.",
+    "simple-death-killer-byte": "Byte-at-fixed-offset lookup has conflicting discovery labels; rejected rather than transferred from older patches."
+  },
+  "cost": {
+    "additional-replay-wire-bytes": 32233598,
+    "additional-replay-storage-bytes": 32729364,
+    "discovery-recovery-wall-seconds": 1.3420064780002576,
+    "heldout-recovery-wall-seconds": 3.5417384729989863,
+    "scope": "Replay recovery times exclude acquisition, repeated development scans, API history search, dependencies and researcher time. This investigation also downloaded one unsupported Arena replay.",
+    "researcher-wall-seconds": null
+  },
+  "next-step": "Expand current-build skill/inventory recovery on discovery games while reserving fresh held-out games, then reconstruct exact pre-hit state for independently attributable damage. Keep historical completeness deferred.",
+  "historical-pilot-correction": {
+    "previous-target-player-candidates": 3859,
+    "corrected-target-player-candidates": 4783,
+    "previous-player-to-player-candidates": 1546,
+    "corrected-player-to-player-candidates": 2419,
+    "unchanged-total-damage-packets": 43107,
+    "verified-model-comparisons": 0,
+    "corrected-report": "observations/replays/pilot-2026-10-17.json"
+  }
+}

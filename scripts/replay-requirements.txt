@@ -1,0 +1,6 @@
+# Optional offline evidence tooling; not an application/runtime dependency.
+rofllens @ https://github.com/ss26367098/rofllens/releases/download/v0.1.0/rofllens-0.1.0-py3-none-any.whl#sha256=54a62c32a037600f16a2cd2ba5e8d1bb92b5bf21a32c92fdbdd54fee18432946
+zstandard==0.25.0
+pefile==2024.8.26
+capstone==5.0.9
+unicorn==2.1.4

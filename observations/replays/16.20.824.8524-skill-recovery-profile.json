@@ -1,0 +1,176 @@
+{
+  "format": "powerspike-replay-recovery-profile",
+  "version": 1,
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "discovery-replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "discovery-evidence": "44 death timestamps and victim roster slots agree with independent Riot timeline, using signed relative params",
+  "champion-entities": {
+    "method": "Highest-variety consecutive roster-sized entity run, observed within 90 seconds of both replay ends; reject a tied highest score",
+    "roster-order": "Replay metadata participant order; checked against match champion/team roster"
+  },
+  "events": {
+    "champion-death": {
+      "opcode": 421,
+      "read": "Timestamp and victim from block framing only; payload remains uninterpreted"
+    },
+    "skill-upgrade": {
+      "opcode": 810,
+      "read": "Timestamp and actor from framing; complete-payload codebook for learned skill-slot/type pairs; unknown payloads abstain",
+      "payload-codebook": {
+        "5650": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "6e50": {
+          "skill-slot": 2,
+          "level-up-type": "NORMAL"
+        },
+        "4e50": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "0e51": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "1651": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "ce5012": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "2e51": {
+          "skill-slot": 2,
+          "level-up-type": "NORMAL"
+        },
+        "d65112": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "d65012": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "7e50de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "4650de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "965112": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "8e5112": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "6650de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "ae5112": {
+          "skill-slot": 2,
+          "level-up-type": "NORMAL"
+        },
+        "5e50de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "ce5160": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "d65160": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "165012": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "165060": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "d65060": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "965160": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "d65070": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "ce5060": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "8e5170": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "d65170": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "165070": {
+          "skill-slot": 1,
+          "level-up-type": "NORMAL"
+        },
+        "1e51de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "ce5170": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "ce5070": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "ce5112": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "2e5012": {
+          "skill-slot": 2,
+          "level-up-type": "NORMAL"
+        },
+        "ee5112": {
+          "skill-slot": 2,
+          "level-up-type": "NORMAL"
+        },
+        "0651de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "8e5160": {
+          "skill-slot": 3,
+          "level-up-type": "NORMAL"
+        },
+        "3e51de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        },
+        "2651de": {
+          "skill-slot": 4,
+          "level-up-type": "NORMAL"
+        }
+      },
+      "discovery-unique-time-labels": 101,
+      "conflicting-payloads": {}
+    }
+  },
+  "validation-tolerance-seconds": 0.01,
+  "scope": "Candidate exact-build profile, frozen before inspecting a second replay; does not decode killer, assists or damage and does not verify combat formulas"
+}

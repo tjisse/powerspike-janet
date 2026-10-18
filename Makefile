@@ -2,9 +2,13 @@ JANET ?= build/janet
 PYTHON ?= python3
 
 .PHONY: test verify-sources demo optimize rotation optimize-abilities optimize-total web-setup serve test-web build rpm format format-check test-format test-runtime test-package
+.PHONY: verification-report
 
 build/janet: scripts/bootstrap-janet.sh
 	sh scripts/bootstrap-janet.sh
+
+verification-report:
+	$(PYTHON) scripts/replay_coverage.py report --output observations/verification/progress.json
 
 test: $(JANET) format-check
 	JANET=$(JANET) bash test/format.sh

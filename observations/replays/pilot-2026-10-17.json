@@ -1,0 +1,352 @@
+{
+  "format": "powerspike-replay-pilot",
+  "version": 1,
+  "recorded-at": "2026-10-17",
+  "receipt": {
+    "format": "powerspike-replay-receipt",
+    "version": 1,
+    "source-id": "rofllens-v0.1.0",
+    "source-url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+    "sample": {
+      "filename": "KR_8305643709.rofl",
+      "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8305643709.rofl",
+      "bytes": 10371426,
+      "sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85"
+    },
+    "seed": 1829709103,
+    "population": [
+      "KR_8301706226.rofl",
+      "KR_8301824424.rofl",
+      "KR_8305643709.rofl",
+      "KR_8306192899.rofl",
+      "KR_8306239966.rofl"
+    ],
+    "selection-method": "Python Random(seed).choice(sorted filenames); uniform within this corpus only",
+    "client-build": "16.14.794.5912",
+    "protocol-digest": "509c49fd988fca11",
+    "client-sha256": "34de26710352fcf4360b27691cecf77843a0ea338cd455be4fabb63fb467984f",
+    "parser": {
+      "name": "rofllens",
+      "version": "0.1.0",
+      "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/rofllens-0.1.0.tar.gz",
+      "sha256": "75548c090ad9923046804de81166b1c5a3df53459daf96ff3cafab41718b845b",
+      "profile": "16.14.794.5912-34de26710352/profile.json"
+    },
+    "captured-at": "2026-10-17T12:46:03.509528+00:00",
+    "cost": {
+      "download-bytes": 10371426,
+      "download-seconds": 0.482765474000189
+    }
+  },
+  "extraction": {
+    "format": "powerspike-replay-extraction",
+    "version": 1,
+    "adapter-sha256": "84af209e0c86a32f0957d592af112c6a27ed8829925b110ee8e10efd98c420f5",
+    "framing-adapter-sha256": "5692b517fc3b594b3797215d2df2ad19408bbfe6a6a7f30ceead86cf50c4bd33",
+    "relative-param-decoding": "signed-int8",
+    "source-id": "rofllens-v0.1.0",
+    "source-url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+    "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+    "client-build": "16.14.794.5912",
+    "protocol-digest": "509c49fd988fca11",
+    "client-sha256": "34de26710352fcf4360b27691cecf77843a0ea338cd455be4fabb63fb467984f",
+    "parser": {
+      "name": "rofllens",
+      "version": "0.1.0",
+      "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/rofllens-0.1.0.tar.gz",
+      "sha256": "75548c090ad9923046804de81166b1c5a3df53459daf96ff3cafab41718b845b",
+      "profile": "16.14.794.5912-34de26710352/profile.json"
+    },
+    "profile-sha256": "ac6447572d58f0e1ab84c1dc68c8ffc1fb63a84b21eacfc3abb386d3a46660b1",
+    "dependency-versions": {
+      "rofllens": "0.1.0",
+      "zstandard": "0.25.0",
+      "pefile": "2024.8.26",
+      "capstone": "5.0.9",
+      "unicorn": "2.1.4"
+    },
+    "champions": [
+      "KSante",
+      "Belveth",
+      "Katarina",
+      "DrMundo",
+      "Shen",
+      "Vayne",
+      "Talon",
+      "Ryze",
+      "Sylas",
+      "Nautilus"
+    ],
+    "game-duration-seconds": 1193.474,
+    "counts": {
+      "damage-packets-seen": 43107,
+      "non-player-target-packets-skipped": 38324,
+      "decoded-damage-events": 4783,
+      "candidate-player-to-player-events": 2419
+    },
+    "decode-failures": {},
+    "skip-reasons": {
+      "pre-hit-state-and-packet-semantics-unreviewed": 4783
+    },
+    "candidate-damage-types": {
+      "physical": 3490,
+      "magic": 1023,
+      "true": 270
+    },
+    "bounded-by": null,
+    "scan-complete": true,
+    "limits": {
+      "max-events": 10000,
+      "max-seconds": 30
+    },
+    "coverage": {
+      "verified-comparisons": 0,
+      "consistent": 0,
+      "mismatch": 0,
+      "mechanics-verified": [],
+      "champions-verified": [],
+      "scope": "Extracted candidates; no champion, mechanic or patch accuracy established."
+    },
+    "cost": {
+      "download-bytes": 10371426,
+      "download-seconds": 0.482765474000189,
+      "extract-wall-seconds": 3.462114685000415,
+      "extract-cpu-seconds": 3.1213279480000002,
+      "replay-bytes": 10371426,
+      "client-bytes": 34384312,
+      "human-review-seconds": null,
+      "events-bytes": 7703020
+    },
+    "container": {
+      "chunkCount": 62,
+      "compressedBytes": 10248985,
+      "uncompressedBytes": 25433595
+    },
+    "events-sha256": "89bf113b26bed099dc1b7e2c3f2274ad0301adb0aaa73503fd483567d0c67c46"
+  },
+  "comparison": {
+    "format": "powerspike-replay-comparison",
+    "version": 1,
+    "adapter-sha256": "84af209e0c86a32f0957d592af112c6a27ed8829925b110ee8e10efd98c420f5",
+    "events-sha256": "89bf113b26bed099dc1b7e2c3f2274ad0301adb0aaa73503fd483567d0c67c46",
+    "reviews-sha256": "2aa35ed7fbaf829c68b633f62d2b50323623ad01bc9b9ff785094b206d3fa19e",
+    "rows": [
+      {
+        "event-id": "gameChunk:4:38478",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:38709",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:43430",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:49128",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:49155",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:50453",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:54588",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:54636",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:63374",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:63398",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:63807",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:65267",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:65294",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:72708",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:84222",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:85648",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:91918",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:92235",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:99529",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      },
+      {
+        "event-id": "gameChunk:4:101204",
+        "replay-sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85",
+        "client-build": "16.14.794.5912",
+        "mechanic": null,
+        "champion": null,
+        "status": "unreviewed",
+        "checked": false
+      }
+    ],
+    "coverage": {
+      "extracted-events": 4783,
+      "submitted-cases": 20,
+      "reviewed-cases": 0,
+      "unsubmitted-events": 4763,
+      "verified-comparisons": 0,
+      "consistent": 0,
+      "mismatch": 0,
+      "statuses": {
+        "unreviewed": 20
+      },
+      "by-patch-mechanic-champion": []
+    },
+    "cost": {
+      "comparison-wall-seconds": 0.040750634001597064,
+      "human-review-seconds": null
+    }
+  },
+  "blockers": [
+    "pre-hit-state-not-reconstructed",
+    "damage-packet-semantics-not-independently-reviewed",
+    "no-matching-16.14-static-snapshot-retained"
+  ],
+  "decision": "Keep this extraction fixture; prioritize one fully reconstructed mechanic and a supported patch over historical completeness.",
+  "model-changes": [],
+  "source-policy": "Public archives plus participant-contributed files; each pinned by origin, build and checksum.",
+  "setup-notes": [
+    "The Node 16 downloader transferred the exact 34,384,312-byte executable but stalled during file finalization on the mounted Windows filesystem. A separate SHA-256 check matched the pinned profile; the verified bytes were copied to the final file and the stalled downloader was stopped. Use the documented Node 20+ requirement.",
+    "Dependency installation, initial client download and researcher time are excluded from the extraction benchmark."
+  ],
+  "framing-correction": {
+    "recorded-local-date": "2026-10-18",
+    "superseded-extraction-adapter-sha256": "9233441f881f4bc12a87b30f07f6eb5efae41492dde50637ea38a213762a37ca",
+    "superseded-candidate-damage-events": 3859,
+    "superseded-player-to-player-candidates": 1546,
+    "reason": "Signed relative param fix changes target classification; original raw replay and unsigned reports retained locally. No formulas or admitted model comparisons changed."
+  }
+}

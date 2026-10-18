@@ -1,0 +1,55 @@
+{
+  "format": "powerspike-replay-sources",
+  "version": 1,
+  "sources": [
+    {
+      "id": "rofllens-v0.1.0",
+      "kind": "fixed-research-corpus",
+      "url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+      "notice": "https://github.com/ss26367098/rofllens/blob/v0.1.0/SAMPLE_DATA_NOTICE.md",
+      "availability": "download-verified-2026-10-17; ongoing supply not established",
+      "client-build": "16.14.794.5912",
+      "protocol-digest": "509c49fd988fca11",
+      "client-sha256": "34de26710352fcf4360b27691cecf77843a0ea338cd455be4fabb63fb467984f",
+      "parser": {
+        "name": "rofllens",
+        "version": "0.1.0",
+        "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/rofllens-0.1.0.tar.gz",
+        "sha256": "75548c090ad9923046804de81166b1c5a3df53459daf96ff3cafab41718b845b",
+        "profile": "16.14.794.5912-34de26710352/profile.json"
+      },
+      "samples": [
+        {
+          "filename": "KR_8301706226.rofl",
+          "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8301706226.rofl",
+          "bytes": 27577675,
+          "sha256": "83131da1c29a425a04aff2eade3f4fbad93dae21a5e0fb1fd94b5a1133e8f607"
+        },
+        {
+          "filename": "KR_8301824424.rofl",
+          "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8301824424.rofl",
+          "bytes": 22221676,
+          "sha256": "fabe7c8179bb3fc8f5dc2a3a585f25d435d0f778c1729b8be343e43b9957c638"
+        },
+        {
+          "filename": "KR_8305643709.rofl",
+          "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8305643709.rofl",
+          "bytes": 10371426,
+          "sha256": "c4b19a56c2451601591815febb3513d53e7b38f95ab8937e4b417293aead6d85"
+        },
+        {
+          "filename": "KR_8306192899.rofl",
+          "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8306192899.rofl",
+          "bytes": 16739870,
+          "sha256": "cd594263269818569f93d14d17541d3897e3e6ca662ab1870b448219a7774eda"
+        },
+        {
+          "filename": "KR_8306239966.rofl",
+          "url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8306239966.rofl",
+          "bytes": 16514699,
+          "sha256": "8d7b1f1fe19857d76e1d53aee213bed5ab1536199db1f9c044564d8582358bb8"
+        }
+      ]
+    }
+  ]
+}

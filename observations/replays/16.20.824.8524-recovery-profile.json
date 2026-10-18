@@ -1,0 +1,20 @@
+{
+  "format": "powerspike-replay-recovery-profile",
+  "version": 1,
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "discovery-replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "discovery-evidence": "44 death timestamps and victim roster slots agree with independent Riot timeline, using signed relative params",
+  "champion-entities": {
+    "method": "Highest-variety consecutive roster-sized entity run, observed within 90 seconds of both replay ends; reject a tied highest score",
+    "roster-order": "Replay metadata participant order; checked against match champion/team roster"
+  },
+  "events": {
+    "champion-death": {
+      "opcode": 421,
+      "read": "Timestamp and victim from block framing only; payload remains uninterpreted"
+    }
+  },
+  "validation-tolerance-seconds": 0.01,
+  "scope": "Candidate exact-build profile, frozen before inspecting a second replay; does not decode killer, assists or damage and does not verify combat formulas"
+}

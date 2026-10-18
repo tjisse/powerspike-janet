@@ -1,0 +1,73 @@
+{
+  "format": "powerspike-native-buff-regressions",
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "scope": "Frozen extraction regressions, not additional independent accuracy checks",
+  "cases": [
+    {
+      "event-id": "gameChunk:3:11226",
+      "opcode": 435,
+      "payload-hex": "a8ba5800cbc79714f87672bc2eac57f9bef99478b187",
+      "expected": {
+        "kind": "add",
+        "name-hash": 43539120,
+        "slot-token": 249,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0
+      }
+    },
+    {
+      "event-id": "gameChunk:3:79039",
+      "opcode": 262,
+      "payload-hex": "d72a95e827db",
+      "expected": {
+        "kind": "remove",
+        "name-hash": 134470116,
+        "slot-token": 32
+      }
+    },
+    {
+      "event-id": "gameChunk:3:6397",
+      "opcode": 430,
+      "payload-hex": "2314bd307d0bc6",
+      "expected": {
+        "kind": "counter",
+        "name-hash": 95298804,
+        "slot-token": 198,
+        "counter": 0
+      }
+    },
+    {
+      "event-id": "gameChunk:4:24138",
+      "opcode": 430,
+      "payload-hex": "871617d4e7da1d",
+      "expected": {
+        "kind": "counter",
+        "name-hash": 205256130,
+        "slot-token": 29,
+        "counter": 1
+      }
+    },
+    {
+      "event-id": "gameChunk:4:48143",
+      "opcode": 430,
+      "payload-hex": "991505d7f780",
+      "expected": {
+        "kind": "counter",
+        "name-hash": 230965361,
+        "slot-token": 32,
+        "counter": 2
+      }
+    },
+    {
+      "event-id": "gameChunk:4:53313",
+      "opcode": 430,
+      "payload-hex": "f915ef05d7f780",
+      "expected": {
+        "kind": "counter",
+        "name-hash": 230965361,
+        "slot-token": 32,
+        "counter": 3
+      }
+    }
+  ]
+}

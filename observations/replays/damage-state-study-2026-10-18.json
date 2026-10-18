@@ -1,0 +1,228 @@
+{
+  "format": "powerspike-replay-damage-state-study",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "checked-at": "2026-10-17T22:36:56.153270+00:00",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "profile": "observations/replays/16.20.824.8524-native-profile.json",
+  "profile-sha256": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9",
+  "adapters": {
+    "replay_combat.py": "5c4a17b6efcd8aaeb9d02e5e3e7f7a610e4d8add1ba2e105ac73f1a53baecded",
+    "replay_native.py": "51f1d7ee8263474d9e15d7fc62522baf247189814d4fd45e45fed5c4ebcf2d37",
+    "replay_state.py": "fc9c68769fbccc668bd72b0548be88f979865230b72e1d1249a48e8e7c38ad35",
+    "replay_framing.py": "5692b517fc3b594b3797215d2df2ad19408bbfe6a6a7f30ceead86cf50c4bd33",
+    "replay_recovery.py": "7cfd2361fc46fe7b868d4b6d8d66afd953eaba0cbcd525e89a3d98c45f8681e5"
+  },
+  "dependencies": {
+    "rofllens": "0.1.0",
+    "unicorn": "2.1.4"
+  },
+  "native-image": {
+    "build": "16.20.824.8524",
+    "manifest": "https://lol.secure.dyn.riotcdn.net/channels/public/releases/66B91DB25E5AD56E.manifest",
+    "architecture": "x86_64",
+    "universalSliceOffset": 16384,
+    "bytes": 41725312,
+    "wireBytesIncludingPrefix": 12959805,
+    "sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+    "wallSeconds": 1.3134419419999999
+  },
+  "replays": [
+    {
+      "role": "discovery",
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "duration-seconds": 940.808,
+      "private-output": "observations/local/riot-thebausffs-access/combat-discovery-v2",
+      "summary-sha256": "8a6de69362a9aca9e7fb2e4212382f0da47eb0f73b446017e0a94f5f06288e5d",
+      "evidence-files": {
+        "damage.jsonl.gz": "b2c7a3ef93978f68becc696ee49e1c45d31d1aea74087aa5669389d77f85118a",
+        "state.jsonl.gz": "4d4f2c8b9bbbb93c17b88a7eb254f93ea2f6598132fb7f9a1232a950b61671f1"
+      },
+      "match-sha256": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+      "timeline-sha256": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067",
+      "counts": {
+        "gameplay-blocks": 616955,
+        "state-packets": 8568,
+        "state-records": 68453,
+        "champion-state-records": 33391,
+        "state-accepted": 8568,
+        "damage-packets": 27754,
+        "champion-target-damage": 3076,
+        "champion-target-with-all-partial-fields": 3076,
+        "unknown-damage-type": 0,
+        "damage-accepted": 27754
+      },
+      "failures": {},
+      "damage-validation": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.9699840545654297,
+        "scope": "Aggregate decoder checks; not independently labelled individual hits or model checks"
+      },
+      "snapshot-validation": {
+        "health": {
+          "checks": 170,
+          "within-one": 161,
+          "different": 9
+        },
+        "health-max": {
+          "checks": 170,
+          "within-one": 169,
+          "different": 1
+        },
+        "armor": {
+          "checks": 170,
+          "within-one": 170,
+          "different": 0
+        },
+        "magic-resist": {
+          "checks": 170,
+          "within-one": 170,
+          "different": 0
+        }
+      },
+      "health-observation-age-seconds": {
+        "0.5": 0.16700000000003,
+        "0.9": 0.4670000000000982,
+        "0.99": 21.514000000003875,
+        "1.0": 55.38343605041528
+      },
+      "cost": {
+        "wall-seconds": 12.075599630999932,
+        "output-bytes": 3932173
+      }
+    },
+    {
+      "role": "held-out",
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "duration-seconds": 2091.145,
+      "private-output": "observations/local/riot-thebausffs-access/combat-heldout",
+      "summary-sha256": "5b5fc24496c3ec61bd93c7a52788b29197c6cc78ea14bd9b59a2946bc1289f30",
+      "evidence-files": {
+        "damage.jsonl.gz": "91731898971429591a9694707c66e37390bfe557bff1f1de61bae71208dd3207",
+        "state.jsonl.gz": "e01c95be55e6c8e396634269ab8570bc56dd94f9fcc41fb206234b3db7b0efae"
+      },
+      "match-sha256": "2b3059f7d01b065b34976814f71d906557ec6f395e162e8097233ee8f7021cd3",
+      "timeline-sha256": "b7d278eb7d85a31f2eaa55ac620375392ddbf7bd6ec2e4e6db1544667ae28b7f",
+      "counts": {
+        "gameplay-blocks": 1595640,
+        "state-packets": 18943,
+        "state-records": 154818,
+        "champion-state-records": 70922,
+        "state-accepted": 18943,
+        "damage-packets": 62476,
+        "champion-target-damage": 8144,
+        "champion-target-with-all-partial-fields": 8144,
+        "unknown-damage-type": 0,
+        "damage-accepted": 62476
+      },
+      "failures": {},
+      "damage-validation": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.9968303442001343,
+        "scope": "Aggregate decoder checks; not independently labelled individual hits or model checks"
+      },
+      "snapshot-validation": {
+        "health": {
+          "checks": 360,
+          "within-one": 333,
+          "different": 27
+        },
+        "health-max": {
+          "checks": 360,
+          "within-one": 359,
+          "different": 1
+        },
+        "armor": {
+          "checks": 360,
+          "within-one": 359,
+          "different": 1
+        },
+        "magic-resist": {
+          "checks": 360,
+          "within-one": 359,
+          "different": 1
+        }
+      },
+      "health-observation-age-seconds": {
+        "0.5": 0.16699999999991633,
+        "0.9": 0.43499999999986017,
+        "0.99": 24.563999999990074,
+        "1.0": 56.47174218749001
+      },
+      "cost": {
+        "wall-seconds": 26.989029486998334,
+        "output-bytes": 8854243
+      }
+    }
+  ],
+  "coverage": {
+    "damage-packets-decoded": 90230,
+    "state-packets-decoded": 27511,
+    "champion-target-events-with-partial-state": 11220,
+    "aggregate-damage-checks": 100,
+    "aggregate-damage-checks-within-one": 100,
+    "model-comparisons": 0,
+    "exact-pre-hit-states": 0,
+    "supported-builds": 1,
+    "supported-mode": "ten-player Summoners Rift",
+    "fields": [
+      "health",
+      "health-max",
+      "health-max-penalty",
+      "shield-all-candidate",
+      "shield-physical-candidate",
+      "shield-magic-candidate",
+      "armor",
+      "magic-resist"
+    ],
+    "limits": "One discovery and one held-out game on one exact build. Aggregate totals validate the decoder, not each hit independently or combat-model accuracy. Shield fields remain candidates. Non-champion layouts and later champion-state fields are retained raw."
+  },
+  "method": {
+    "native-code": "Exact official macOS Intel Mach-O read as data in bounded Unicorn; never launched as a process. Windows image remains unusable by the automatic builder.",
+    "damage-opcode": 150,
+    "state-opcode": 287,
+    "float-transform": "256 exhaustive native byte probes, bijective substitution; no API damage label fitting.",
+    "scalar-guards": [
+      "fixed image SHA-256",
+      "exact replay build/protocol",
+      "instruction/time budget with sentinel-return check",
+      "true deserializer return",
+      "complete payload consumption",
+      "finite nonnegative amount",
+      "decoded target equals signed-framed block param"
+    ],
+    "state-guards": [
+      "bounded allocations and memory copies",
+      "vector pointer/length/capacity checks",
+      "full group envelope parsing",
+      "champion-only stat interpretation",
+      "only health component fields 0..5 interpreted; remaining body and mask retained",
+      "last-observed samples ordered by timestamp then wire order",
+      "no future values or API values substituted",
+      "state decode failure invalidates continuity"
+    ],
+    "independent-validation": "API inputs loaded only after replay decoding; full champion/team/KDA, exact build, duration and API identity binding reused. Each of 20 players checked for incoming total, outgoing-to-champion total and incoming physical/magic/true totals.",
+    "holdout": "Native decoder and named field mappings frozen on discovery before separate held-out combined extraction; no layouts or byte transforms learned from held-out labels.",
+    "state-interpretation": "Health/max health/armor/MR checked against 530 periodic API snapshots. Differences remain in private summaries; age is reported rather than interpolating. Shield names supported by matching native reflection order and older schema, pending independent shield observations."
+  },
+  "negative-results": {
+    "all-entity-state-layout": "Development run decoded all damage but hit 1642 state interpretation failures when champion schema was applied to non-champions. Fix was restricting named fields to the independently recovered champion run; raw other-entity data retained. Prior failed output is retained locally.",
+    "later-field10": "Old defaultable varuint assumptions lose bytes in some current group32 field10 updates. Parse only known float prefix and preserve the later fields; no guessed level/rank/resource semantics.",
+    "exact-health": "API health differences: 9/170 discovery and 27/360 held-out. Snapshot ages and periodic updates do not establish exact health at every hit."
+  },
+  "cost": {
+    "combined-extraction-wall-seconds": 39.064629117998265,
+    "compressed-evidence-output-bytes": 12786416,
+    "additional-replay-download-bytes": 0,
+    "additional-riot-api-requests": 0,
+    "mac-manifest-bytes": 16942591,
+    "mac-slice-bundle-wire-bytes": 12959805,
+    "native-image-storage-bytes": 41725312,
+    "scope": "Two final combined extraction runs only; excludes previous research probes, failed run, acquisition, dependencies and human research time. Manifest/catalog metadata overhead not included in bundle bytes.",
+    "researcher-wall-seconds": null
+  },
+  "next-step": "Recover full offensive stats, inventory/buffs and cast/attack attribution; independently review a few basic attacks with matching patch data. Preserve exact-state and model-comparison abstention until required context is complete."
+}

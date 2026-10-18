@@ -4,6 +4,7 @@
 (import ./model :as model)
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
+(import ./verification :as verification)
 (import ./details :as details)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
@@ -623,7 +624,7 @@
                (workspace/tools result)
                [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
                 [:summary [:span "Patch & evidence"] [:span {:class "muted"} "Sources · calibration"]]
-                (patch-panel result (get result :patch-job)) (coverage result) (workspace/evidence result) (evidence-panel evidence)]]]
+                (patch-panel result (get result :patch-job)) (coverage result) (verification/panel result) (workspace/evidence result) (evidence-panel evidence)]]]
              [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
              (optimizer/dialog result)
              (catalog-pickers)

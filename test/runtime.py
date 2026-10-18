@@ -109,6 +109,12 @@ def verify(binary_path, seed_path=None):
             assert bad.returncode != 0 and b'1024' in bad.stderr, (invalid, bad.stderr)
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
+            _, verification_raw = get(base, '/api/verification')
+            verification = json.loads(verification_raw)
+            assert verification['format'] == 'powerspike-verification-progress'
+            assert verification['pipeline']['events'] >= verification['pipeline']['admitted']
+            _, verification_page = get(base, '/verification')
+            assert verification_page.startswith(b'<!doctype html>') and b'Verification progress' in verification_page
             headers, raw = get(base, '/')
             assert headers['Content-Type'].startswith('text/html')
             page = Page()
@@ -158,6 +164,7 @@ def verify(binary_path, seed_path=None):
             assert headers['Content-Type'].startswith('text/event-stream')
             assert b'datastar-patch-elements' in body and b'id="results"' in body and b'data-duration="6.5"' in body
             assert b'id="scenario-data"' in body
+            assert b'id="verification-progress"' in body and b'selected patch differs' in body
             # The packaged commands consume the same versioned document as the UI.
             scenario_page = Page()
             scenario_page.feed(body.decode())
@@ -187,10 +194,25 @@ def verify(binary_path, seed_path=None):
             get(base, '/healthz')
         # CLI port overrides even an invalid environment value at runtime.
         chosen = port()
-        with running(binary, cwd, ['--port', str(chosen)], configuration(PS_PORT='invalid'), chosen) as base:
+        progress_file = cwd / 'data' / 'verification.json'
+        progress_file.write_text(json.dumps(verification))
+        with running(binary, cwd, ['--port', str(chosen)], configuration(
+                PS_PORT='invalid', PS_VERIFICATION_REPORT=str(progress_file)), chosen) as base:
             get(base, '/healthz')
+            verification['generated-at'] = 'runtime-reload-regression'
+            progress_file.write_text(json.dumps(verification))
+            assert json.loads(get(base, '/api/verification')[1])['generated-at'] == 'runtime-reload-regression'
+            progress_file.write_text('{invalid report')
+            try:
+                get(base, '/api/verification')
+            except urllib.error.HTTPError as error:
+                assert error.code == 503
+                assert json.loads(error.read()) == {'error': 'Verification report unavailable.'}
+            else:
+                raise AssertionError('Malformed override must not silently fall back to old evidence')
+            assert b'Verification report unavailable' in get(base, '/verification')[1]
         assert set(cwd.iterdir()) == {binary, seed, cwd / 'data'}, 'Runtime wrote outside its data directory'
-    print('Relocated executable: runtime config, embedded catalog/art/assets, Q/W, SSE and disconnect checks passed.')
+    print('Relocated executable: runtime config, catalog/art/assets, Q/W, SSE, verification snapshot/reload and failure checks passed.')
 
 
 if __name__ == '__main__':

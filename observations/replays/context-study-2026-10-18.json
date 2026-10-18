@@ -1,0 +1,3850 @@
+{
+  "format": "powerspike-replay-context-study",
+  "version": 1,
+  "patch": "16.20.1",
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "witness-event-id": "gameChunk:4:43918",
+  "witness-buffs-before-event": {
+    "source": {
+      "observed-active": [
+        {
+          "event-id": "gameChunk:3:9273",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 95298804,
+          "slot-token": 45,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:9301",
+            "timestamp": 0.0,
+            "entity": 1073742003,
+            "opcode": 430,
+            "kind": "counter",
+            "name-hash": 95298804,
+            "slot-token": 45,
+            "counter": 0
+          },
+          "name-candidates": [
+            {
+              "name": "SR_2026_S1_RoleBound_Top_Quest",
+              "source": "shared.cdtb.bin.json",
+              "source-sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:9498",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 244870598,
+          "slot-token": 46,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "ChallengesChampionTrackerBuff",
+              "source": "shared.cdtb.bin.json",
+              "source-sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:66874",
+          "timestamp": 2.7530933313369754,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 68854229,
+          "slot-token": 48,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "ItemCrystalFlaskCharge",
+              "source": "shared.cdtb.bin.json",
+              "source-sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:9453",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 205256130,
+          "slot-token": 53,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:9485",
+            "timestamp": 0.0,
+            "entity": 1073742003,
+            "opcode": 430,
+            "kind": "counter",
+            "name-hash": 205256130,
+            "slot-token": 53,
+            "counter": 0
+          },
+          "name-candidates": []
+        },
+        {
+          "event-id": "gameChunk:3:11462",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 116434581,
+          "slot-token": 77,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "SionPassive",
+              "source": "sion.bin.json",
+              "source-sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:11514",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 73655932,
+          "slot-token": 88,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "SionVOControl",
+              "source": "sion.bin.json",
+              "source-sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:11488",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 233678514,
+          "slot-token": 190,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "SionRunCycleManager",
+              "source": "sion.bin.json",
+              "source-sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:9557",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 246098369,
+          "slot-token": 206,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "ASSETS/Perks/Styles/Sorcery/ManaflowBand/PerkManaflowBandBuff.lua",
+              "source": "perks.cdtb.bin.json",
+              "source-sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+              "status": "hash-label-candidate"
+            }
+          ]
+        }
+      ],
+      "lifecycle-issues": [],
+      "complete-buff-state": false,
+      "unlabelled-active-hashes": [
+        205256130
+      ]
+    },
+    "target": {
+      "observed-active": [
+        {
+          "event-id": "gameChunk:4:35714",
+          "timestamp": 37.1574360504151,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 230965361,
+          "slot-token": 32,
+          "caster": 1073741998,
+          "duration-seconds": 4.0,
+          "counter-update": {
+            "event-id": "gameChunk:4:43430",
+            "timestamp": 38.22543605041511,
+            "entity": 1073741998,
+            "opcode": 430,
+            "kind": "counter",
+            "name-hash": 230965361,
+            "slot-token": 32,
+            "counter": 1
+          },
+          "name-candidates": [
+            {
+              "name": "ASSETS/Perks/Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.lua",
+              "source": "perks.cdtb.bin.json",
+              "source-sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:6549",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 205256130,
+          "slot-token": 74,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:6581",
+            "timestamp": 0.0,
+            "entity": 1073741998,
+            "opcode": 430,
+            "kind": "counter",
+            "name-hash": 205256130,
+            "slot-token": 74,
+            "counter": 0
+          },
+          "name-candidates": []
+        },
+        {
+          "event-id": "gameChunk:3:7480",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 8942209,
+          "slot-token": 117,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "ASSETS/Perks/Styles/Resolve/Demolish/Demolish_SEASONAL.lua",
+              "source": "perks.cdtb.bin.json",
+              "source-sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:7507",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 22450393,
+          "slot-token": 132,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "name-candidates": []
+        },
+        {
+          "event-id": "gameChunk:3:6594",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 244870598,
+          "slot-token": 138,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "ChallengesChampionTrackerBuff",
+              "source": "shared.cdtb.bin.json",
+              "source-sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:4:43891",
+          "timestamp": 38.32643605041511,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 79295857,
+          "slot-token": 178,
+          "caster": 1073741998,
+          "duration-seconds": 10.0,
+          "name-candidates": []
+        },
+        {
+          "event-id": "gameChunk:3:6369",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 95298804,
+          "slot-token": 198,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:6397",
+            "timestamp": 0.0,
+            "entity": 1073741998,
+            "opcode": 430,
+            "kind": "counter",
+            "name-hash": 95298804,
+            "slot-token": 198,
+            "counter": 0
+          },
+          "name-candidates": [
+            {
+              "name": "SR_2026_S1_RoleBound_Top_Quest",
+              "source": "shared.cdtb.bin.json",
+              "source-sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:4:35821",
+          "timestamp": 37.1574360504151,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 43539121,
+          "slot-token": 233,
+          "caster": 1073741998,
+          "duration-seconds": 6.0,
+          "name-candidates": [
+            {
+              "name": "KSanteQ",
+              "source": "ksante.bin.json",
+              "source-sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26",
+              "status": "hash-label-candidate"
+            }
+          ]
+        },
+        {
+          "event-id": "gameChunk:3:11226",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "kind": "add",
+          "name-hash": 43539120,
+          "slot-token": 249,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "name-candidates": [
+            {
+              "name": "KSanteP",
+              "source": "ksante.bin.json",
+              "source-sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26",
+              "status": "hash-label-candidate"
+            }
+          ]
+        }
+      ],
+      "lifecycle-issues": [
+        {
+          "event-id": "gameChunk:3:71785",
+          "reason": "counter-without-matching-add"
+        },
+        {
+          "event-id": "gameChunk:3:71799",
+          "reason": "counter-without-matching-add"
+        },
+        {
+          "event-id": "gameChunk:3:71812",
+          "reason": "counter-without-matching-add"
+        }
+      ],
+      "complete-buff-state": false,
+      "unlabelled-active-hashes": [
+        22450393,
+        79295857,
+        205256130
+      ]
+    }
+  },
+  "input-receipts": {
+    "combat-summary-sha256": "8a6de69362a9aca9e7fb2e4212382f0da47eb0f73b446017e0a94f5f06288e5d",
+    "gap-summary-sha256": "03048eb712d440f0ff8e4bacaabf1f97d58ca368708617e0245c959ba33fa311",
+    "witness-sha256": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+    "buff-summary-sha256": "111326999be9c5560d10c6c57191d8a16ec30d53f45ede38ff4ce2f174a64760",
+    "buff-archive-sha256": "d37a984a588362c0c3494b3f6441b39f6e95de7ce99712506ee12e49cf1997a1"
+  },
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/sion/sion.bin.json",
+      "bytes": 94623,
+      "sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/ksante/ksante.bin.json",
+      "bytes": 119051,
+      "sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "bytes": 99870,
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/item.json",
+      "bytes": 688560,
+      "sha256": "bcd7100b7f6c336f585fccaa28324b9d676bf1b2932ae3bb79ee56b5775c47d6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/shared.cdtb.bin.json",
+      "bytes": 8657379,
+      "sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+      "file": "shared.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/perks.cdtb.bin.json",
+      "bytes": 2177261,
+      "sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "file": "perks.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/items.cdtb.bin.json",
+      "bytes": 15950061,
+      "sha256": "ef2f355af6b63f37f44af5e8556d959ccae21cf2983e7ee85f50e4c95cc99206",
+      "file": "items.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/globals.cdtb.bin.json",
+      "bytes": 433980,
+      "sha256": "b0d5d839b6496ca2de124c52c28a6f591ecd283b68cdb438f56142e4f73b87c3",
+      "file": "globals.cdtb.bin.json"
+    }
+  ],
+  "stat-model-inputs": {
+    "cases": [
+      {
+        "id": "source",
+        "champion": {
+          "patch": "16.20.1",
+          "id": "Sion",
+          "base": {
+            "ad": 68.0,
+            "armor": 36.0,
+            "mr": 32.0,
+            "hp": 655.0
+          },
+          "growth": {
+            "ad": 4.0,
+            "armor": 4.199999809265137,
+            "mr": 2.049999952316284,
+            "hp": 87.0
+          },
+          "attack-speed-base": 0.6790000200271606,
+          "attack-speed-ratio": 0.6790000200271606,
+          "attack-speed-growth": 0.012999999523162841,
+          "attack-speed-cap": 2.5,
+          "crit-damage": 2.0
+        },
+        "level": 1,
+        "items": [
+          {
+            "id": "1036",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {
+              "ad": 10
+            }
+          },
+          {
+            "id": "3340",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {}
+          },
+          {
+            "id": "2031",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {}
+          }
+        ],
+        "fields": [
+          "ad",
+          "armor",
+          "mr"
+        ]
+      },
+      {
+        "id": "target",
+        "champion": {
+          "patch": "16.20.1",
+          "id": "KSante",
+          "base": {
+            "ad": 64.0,
+            "armor": 36.0,
+            "mr": 30.0,
+            "hp": 625.0
+          },
+          "growth": {
+            "ad": 3.5,
+            "armor": 5.199999809265137,
+            "mr": 2.0999999046325684,
+            "hp": 120.0
+          },
+          "attack-speed-base": 0.6880000233650208,
+          "attack-speed-ratio": 0.625,
+          "attack-speed-growth": 0.025,
+          "attack-speed-cap": 2.5,
+          "crit-damage": 2.0
+        },
+        "level": 1,
+        "items": [
+          {
+            "id": "1120",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {
+              "mr": 8,
+              "hp": 150,
+              "armor": 8
+            }
+          },
+          {
+            "id": "2003",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {}
+          },
+          {
+            "id": "3340",
+            "patch": "16.20.1",
+            "supported": true,
+            "stats": {}
+          }
+        ],
+        "fields": [
+          "ad",
+          "armor",
+          "mr",
+          "hp"
+        ]
+      }
+    ],
+    "hits": [
+      {
+        "id": "first-attack-conditional",
+        "source": "source",
+        "target": "target"
+      }
+    ]
+  },
+  "stat-observations": [
+    {
+      "id": "source",
+      "champion": "Sion",
+      "inventory": [
+        1036,
+        3340,
+        2031
+      ],
+      "timestamp": 60.006,
+      "observed": {
+        "ad": 78,
+        "armor": 36,
+        "mr": 32
+      }
+    },
+    {
+      "id": "target",
+      "champion": "KSante",
+      "inventory": [
+        1120,
+        2003,
+        3340
+      ],
+      "timestamp": 60.006,
+      "observed": {
+        "ad": 64,
+        "armor": 44,
+        "mr": 38,
+        "hp": 775
+      }
+    }
+  ],
+  "stat-checks": [
+    {
+      "role": "source",
+      "champion": "Sion",
+      "timestamp": 60.006,
+      "stat": "ad",
+      "model": 78.0,
+      "observed": 78,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "source",
+      "champion": "Sion",
+      "timestamp": 60.006,
+      "stat": "armor",
+      "model": 36.0,
+      "observed": 36,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "source",
+      "champion": "Sion",
+      "timestamp": 60.006,
+      "stat": "mr",
+      "model": 32.0,
+      "observed": 32,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "target",
+      "champion": "KSante",
+      "timestamp": 60.006,
+      "stat": "ad",
+      "model": 64.0,
+      "observed": 64,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "target",
+      "champion": "KSante",
+      "timestamp": 60.006,
+      "stat": "armor",
+      "model": 44.0,
+      "observed": 44,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "target",
+      "champion": "KSante",
+      "timestamp": 60.006,
+      "stat": "mr",
+      "model": 38.0,
+      "observed": 38,
+      "difference": 0.0,
+      "consistent": true
+    },
+    {
+      "role": "target",
+      "champion": "KSante",
+      "timestamp": 60.006,
+      "stat": "hp",
+      "model": 775.0,
+      "observed": 775,
+      "difference": 0.0,
+      "consistent": true
+    }
+  ],
+  "stat-check-count": 7,
+  "conditional-damage-check": {
+    "model": 54.166666666666664,
+    "recorded": 54.166664123535156,
+    "difference": 2.543131508048191e-06,
+    "tolerance": 0.001,
+    "consistent-under-assumptions": true,
+    "model-admissible": false,
+    "assumptions": "Ordinary noncritical physical attack, unchanged level-one stats, no other damage modifiers or shield absorption. Buff/protocol and attribution review still required; agreement does not discharge these assumptions."
+  },
+  "stat-mismatches": 0,
+  "stat-scope": "Seven conditional static-stat checks at one periodic snapshot in one discovery game; not damage, timing, full loadout or held-out validation. Sion HP excluded because scaling-health shard is outside this harness.",
+  "model-admissible-damage-cases": 0,
+  "remaining-damage-blockers": [
+    "unlabelled-or-behavior-unreviewed-buffs",
+    "unmatched-counter-records",
+    "full-buff-protocol-coverage-unproven",
+    "attack-to-damage-attribution",
+    "exact-stat-sampling-window",
+    "shield-and-packet-amount-semantics"
+  ],
+  "adapters": {
+    "replay_context.py": "9abaf278a4554e390de79d7db96ddcc0305db8f0e7d3c0d697d4b71e3edb52eb",
+    "replay_stat_model.janet": "3b844d7122c4646a170a146c38961920a994f244dfdeee1c2e1e2e996de13dd0",
+    "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe"
+  },
+  "model": {
+    "stats.janet": "0839beef7e4978d13e362669a9c155a89a24f26dd2b1f6b2deafe26a1e7c36f3",
+    "damage.janet": "eb060f964cc2cbe3d0405e0e3ad6e3c8a958bca458108cba8a3d257005216c51",
+    "validation.janet": "abe80dd4323d758d1fc8d3464b80ee1ff34445e18f62e448e554e485331546a8"
+  },
+  "recorded-local-date": "2026-10-18",
+  "replays": [
+    {
+      "format": "powerspike-replay-buffs",
+      "version": 1,
+      "client-build": "16.20.824.8524",
+      "protocol-digest": "142cabd45e45d83f",
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+      "profile-sha256": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9",
+      "adapters": {
+        "replay_buffs.py": "f79f4751d798adb058f6a2e1042f60d80b73e5056a0d4949e34de89fb074fa13",
+        "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+        "replay_framing.py": "5692b517fc3b594b3797215d2df2ad19408bbfe6a6a7f30ceead86cf50c4bd33"
+      },
+      "counts": {
+        "435": 5050,
+        "430": 10077,
+        "262": 4918
+      },
+      "lifecycle": {
+        "add": 5050,
+        "counter": 10077,
+        "counter-matched": 9920,
+        "counter-without-matching-add": 157,
+        "remove": 4918,
+        "remove-matched": 4911,
+        "remove-without-matching-add": 7,
+        "replacement-without-removal": 4
+      },
+      "archives": {
+        "buffs.jsonl.gz": "d37a984a588362c0c3494b3f6441b39f6e95de7ce99712506ee12e49cf1997a1"
+      },
+      "failures": {},
+      "rejected": [],
+      "complete-buff-state": false,
+      "scope": "Observed add/remove/counter associations only; no global buff absence, type or behavior inferred",
+      "cost": {
+        "wall-seconds": 5.911196334999886
+      },
+      "role": "discovery",
+      "summary-sha256": "111326999be9c5560d10c6c57191d8a16ec30d53f45ede38ff4ce2f174a64760",
+      "api-validation-inputs": {
+        "match-sha256": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+        "timeline-sha256": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067"
+      },
+      "counter-correlation": {
+        "initial-ward-rule": {
+          "checks": 64,
+          "consistent": 64,
+          "rows": [
+            {
+              "event-id": "gameChunk:3:6581",
+              "timestamp": 0.0,
+              "entity": 1073741998,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7753",
+              "timestamp": 0.0,
+              "entity": 1073741999,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8251",
+              "timestamp": 0.0,
+              "entity": 1073742000,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8619",
+              "timestamp": 0.0,
+              "entity": 1073742001,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9139",
+              "timestamp": 0.0,
+              "entity": 1073742002,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9485",
+              "timestamp": 0.0,
+              "entity": 1073742003,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9800",
+              "timestamp": 0.0,
+              "entity": 1073742004,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10283",
+              "timestamp": 0.0,
+              "entity": 1073742005,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10595",
+              "timestamp": 0.0,
+              "entity": 1073742006,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:11101",
+              "timestamp": 0.0,
+              "entity": 1073742007,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:24138",
+              "timestamp": 34.652436050415076,
+              "entity": 1073742007,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:41527",
+              "timestamp": 37.72443605041511,
+              "entity": 1073741999,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:46002",
+              "timestamp": 38.79343605041512,
+              "entity": 1073742003,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:254274",
+              "timestamp": 167.4143375244087,
+              "entity": 1073742006,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:383716",
+              "timestamp": 176.8013375244057,
+              "entity": 1073741999,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:9:253519",
+              "timestamp": 192.3197912597619,
+              "entity": 1073742001,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:9:461846",
+              "timestamp": 206.54779125975745,
+              "entity": 1073742000,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:383841",
+              "timestamp": 226.65969848632278,
+              "entity": 1073742005,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:384761",
+              "timestamp": 226.72669848632276,
+              "entity": 1073742006,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:369375",
+              "timestamp": 261.32029467773026,
+              "entity": 1073742003,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:411572",
+              "timestamp": 264.02629467773073,
+              "entity": 1073742007,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:64821",
+              "timestamp": 272.8433867187505,
+              "entity": 1073742001,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:249447",
+              "timestamp": 282.2423867187521,
+              "entity": 1073741998,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:199830",
+              "timestamp": 341.90470166015825,
+              "entity": 1073742000,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:16:375538",
+              "timestamp": 416.7723156738325,
+              "entity": 1073742006,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:361662",
+              "timestamp": 443.31219531250383,
+              "entity": 1073742003,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:388563",
+              "timestamp": 444.6481953125041,
+              "entity": 1073742002,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:449241",
+              "timestamp": 447.82119531250464,
+              "entity": 1073742007,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:478151",
+              "timestamp": 449.3271953125049,
+              "entity": 1073742001,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:485681",
+              "timestamp": 449.828195312505,
+              "entity": 1073742007,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:52133",
+              "timestamp": 451.93182080078157,
+              "entity": 1073741999,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:223532",
+              "timestamp": 460.051820800783,
+              "entity": 1073742005,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:266464",
+              "timestamp": 463.25782080078346,
+              "entity": 1073741998,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:533501",
+              "timestamp": 507.68765893555167,
+              "entity": 1073742002,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:20:441556",
+              "timestamp": 536.7821247558642,
+              "entity": 1073741998,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:315700",
+              "timestamp": 555.2595634765652,
+              "entity": 1073742005,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:396946",
+              "timestamp": 561.2375634765663,
+              "entity": 1073742000,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:22:370497",
+              "timestamp": 587.1764980468779,
+              "entity": 1073742003,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:106517",
+              "timestamp": 603.018907226563,
+              "entity": 1073742007,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:178031",
+              "timestamp": 608.897907226564,
+              "entity": 1073742007,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:235711",
+              "timestamp": 613.9869072265649,
+              "entity": 1073742001,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:241103",
+              "timestamp": 614.386907226565,
+              "entity": 1073742007,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:217295",
+              "timestamp": 643.2128984375022,
+              "entity": 1073741998,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:260623",
+              "timestamp": 646.2858984375027,
+              "entity": 1073742000,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:267451",
+              "timestamp": 646.8538984375028,
+              "entity": 1073742002,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:467919",
+              "timestamp": 659.7238984375051,
+              "entity": 1073742002,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:2969",
+              "timestamp": 690.50830859375,
+              "entity": 1073742006,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:381901",
+              "timestamp": 713.0903085937541,
+              "entity": 1073742007,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:235336",
+              "timestamp": 729.2636220703141,
+              "entity": 1073742002,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:269363",
+              "timestamp": 733.6776220703149,
+              "entity": 1073742002,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:330132",
+              "timestamp": 738.0196220703157,
+              "entity": 1073742007,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:425632",
+              "timestamp": 744.2066220703168,
+              "entity": 1073742007,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:42363",
+              "timestamp": 752.6907221679692,
+              "entity": 1073742002,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:29:169211",
+              "timestamp": 786.9142661132825,
+              "entity": 1073742000,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:29:418075",
+              "timestamp": 802.7112661132853,
+              "entity": 1073742002,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:122359",
+              "timestamp": 818.9406372070328,
+              "entity": 1073742001,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:331056",
+              "timestamp": 836.4846372070359,
+              "entity": 1073742003,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:282118",
+              "timestamp": 855.536445800784,
+              "entity": 1073742007,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:356944",
+              "timestamp": 859.9444458007848,
+              "entity": 1073741998,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:501676",
+              "timestamp": 868.1604458007863,
+              "entity": 1073742002,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:114239",
+              "timestamp": 880.9665166015644,
+              "entity": 1073742007,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:123941",
+              "timestamp": 881.6675166015646,
+              "entity": 1073742002,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:247024",
+              "timestamp": 888.5575166015658,
+              "entity": 1073742007,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:314082",
+              "timestamp": 891.6295166015664,
+              "entity": 1073742002,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            }
+          ],
+          "api-timestamp-tolerance-ms": 1,
+          "includes-herald-consumption": false,
+          "scope": "Candidate non-control ward/trinket-use counter correlation; no damage behavior or exact internal name inferred"
+        },
+        "ward-plus-herald-rule": {
+          "checks": 64,
+          "consistent": 64,
+          "rows": [
+            {
+              "event-id": "gameChunk:3:6581",
+              "timestamp": 0.0,
+              "entity": 1073741998,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7753",
+              "timestamp": 0.0,
+              "entity": 1073741999,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8251",
+              "timestamp": 0.0,
+              "entity": 1073742000,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8619",
+              "timestamp": 0.0,
+              "entity": 1073742001,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9139",
+              "timestamp": 0.0,
+              "entity": 1073742002,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9485",
+              "timestamp": 0.0,
+              "entity": 1073742003,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9800",
+              "timestamp": 0.0,
+              "entity": 1073742004,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10283",
+              "timestamp": 0.0,
+              "entity": 1073742005,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10595",
+              "timestamp": 0.0,
+              "entity": 1073742006,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:11101",
+              "timestamp": 0.0,
+              "entity": 1073742007,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:24138",
+              "timestamp": 34.652436050415076,
+              "entity": 1073742007,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:41527",
+              "timestamp": 37.72443605041511,
+              "entity": 1073741999,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:46002",
+              "timestamp": 38.79343605041512,
+              "entity": 1073742003,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:254274",
+              "timestamp": 167.4143375244087,
+              "entity": 1073742006,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:383716",
+              "timestamp": 176.8013375244057,
+              "entity": 1073741999,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:9:253519",
+              "timestamp": 192.3197912597619,
+              "entity": 1073742001,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:9:461846",
+              "timestamp": 206.54779125975745,
+              "entity": 1073742000,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:383841",
+              "timestamp": 226.65969848632278,
+              "entity": 1073742005,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:384761",
+              "timestamp": 226.72669848632276,
+              "entity": 1073742006,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:369375",
+              "timestamp": 261.32029467773026,
+              "entity": 1073742003,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:411572",
+              "timestamp": 264.02629467773073,
+              "entity": 1073742007,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:64821",
+              "timestamp": 272.8433867187505,
+              "entity": 1073742001,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:249447",
+              "timestamp": 282.2423867187521,
+              "entity": 1073741998,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:199830",
+              "timestamp": 341.90470166015825,
+              "entity": 1073742000,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:16:375538",
+              "timestamp": 416.7723156738325,
+              "entity": 1073742006,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:361662",
+              "timestamp": 443.31219531250383,
+              "entity": 1073742003,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:388563",
+              "timestamp": 444.6481953125041,
+              "entity": 1073742002,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:449241",
+              "timestamp": 447.82119531250464,
+              "entity": 1073742007,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:478151",
+              "timestamp": 449.3271953125049,
+              "entity": 1073742001,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:17:485681",
+              "timestamp": 449.828195312505,
+              "entity": 1073742007,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:52133",
+              "timestamp": 451.93182080078157,
+              "entity": 1073741999,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:223532",
+              "timestamp": 460.051820800783,
+              "entity": 1073742005,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:266464",
+              "timestamp": 463.25782080078346,
+              "entity": 1073741998,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:533501",
+              "timestamp": 507.68765893555167,
+              "entity": 1073742002,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:20:441556",
+              "timestamp": 536.7821247558642,
+              "entity": 1073741998,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:315700",
+              "timestamp": 555.2595634765652,
+              "entity": 1073742005,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:396946",
+              "timestamp": 561.2375634765663,
+              "entity": 1073742000,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:22:370497",
+              "timestamp": 587.1764980468779,
+              "entity": 1073742003,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:106517",
+              "timestamp": 603.018907226563,
+              "entity": 1073742007,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:178031",
+              "timestamp": 608.897907226564,
+              "entity": 1073742007,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:235711",
+              "timestamp": 613.9869072265649,
+              "entity": 1073742001,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:241103",
+              "timestamp": 614.386907226565,
+              "entity": 1073742007,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:217295",
+              "timestamp": 643.2128984375022,
+              "entity": 1073741998,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:260623",
+              "timestamp": 646.2858984375027,
+              "entity": 1073742000,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:267451",
+              "timestamp": 646.8538984375028,
+              "entity": 1073742002,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:24:467919",
+              "timestamp": 659.7238984375051,
+              "entity": 1073742002,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:2969",
+              "timestamp": 690.50830859375,
+              "entity": 1073742006,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:381901",
+              "timestamp": 713.0903085937541,
+              "entity": 1073742007,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:235336",
+              "timestamp": 729.2636220703141,
+              "entity": 1073742002,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:269363",
+              "timestamp": 733.6776220703149,
+              "entity": 1073742002,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:330132",
+              "timestamp": 738.0196220703157,
+              "entity": 1073742007,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:425632",
+              "timestamp": 744.2066220703168,
+              "entity": 1073742007,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:42363",
+              "timestamp": 752.6907221679692,
+              "entity": 1073742002,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:29:169211",
+              "timestamp": 786.9142661132825,
+              "entity": 1073742000,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:29:418075",
+              "timestamp": 802.7112661132853,
+              "entity": 1073742002,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:122359",
+              "timestamp": 818.9406372070328,
+              "entity": 1073742001,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:331056",
+              "timestamp": 836.4846372070359,
+              "entity": 1073742003,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:282118",
+              "timestamp": 855.536445800784,
+              "entity": 1073742007,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:356944",
+              "timestamp": 859.9444458007848,
+              "entity": 1073741998,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:501676",
+              "timestamp": 868.1604458007863,
+              "entity": 1073742002,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:114239",
+              "timestamp": 880.9665166015644,
+              "entity": 1073742007,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:123941",
+              "timestamp": 881.6675166015646,
+              "entity": 1073742002,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:247024",
+              "timestamp": 888.5575166015658,
+              "entity": 1073742007,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:314082",
+              "timestamp": 891.6295166015664,
+              "entity": 1073742002,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            }
+          ],
+          "api-timestamp-tolerance-ms": 1,
+          "includes-herald-consumption": true,
+          "scope": "Candidate non-control ward/trinket-use counter correlation; no damage behavior or exact internal name inferred"
+        },
+        "holdout-note": "Herald extension was discovered after inspecting second-game discrepancies. These games are now discovery data for that expanded rule."
+      }
+    },
+    {
+      "format": "powerspike-replay-buffs",
+      "version": 1,
+      "client-build": "16.20.824.8524",
+      "protocol-digest": "142cabd45e45d83f",
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+      "profile-sha256": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9",
+      "adapters": {
+        "replay_buffs.py": "f79f4751d798adb058f6a2e1042f60d80b73e5056a0d4949e34de89fb074fa13",
+        "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+        "replay_framing.py": "5692b517fc3b594b3797215d2df2ad19408bbfe6a6a7f30ceead86cf50c4bd33"
+      },
+      "counts": {
+        "435": 9214,
+        "430": 14482,
+        "262": 9060
+      },
+      "lifecycle": {
+        "add": 9214,
+        "counter": 14482,
+        "counter-matched": 14398,
+        "remove": 9060,
+        "remove-matched": 9054,
+        "remove-without-matching-add": 6,
+        "counter-without-matching-add": 84,
+        "replacement-without-removal": 10
+      },
+      "archives": {
+        "buffs.jsonl.gz": "6d377bcf4c9efe54287fac2ed4c8939179cd3894032c05052f7ddcc63c969c6d"
+      },
+      "failures": {},
+      "rejected": [],
+      "complete-buff-state": false,
+      "scope": "Observed add/remove/counter associations only; no global buff absence, type or behavior inferred",
+      "cost": {
+        "wall-seconds": 9.343512603999898
+      },
+      "role": "heldout",
+      "summary-sha256": "a5902b17141d6f74b2a528a4835354060948a16d631e6034933dfe3320bcdda6",
+      "api-validation-inputs": {
+        "match-sha256": "2b3059f7d01b065b34976814f71d906557ec6f395e162e8097233ee8f7021cd3",
+        "timeline-sha256": "b7d278eb7d85a31f2eaa55ac620375392ddbf7bd6ec2e4e6db1544667ae28b7f"
+      },
+      "counter-correlation": {
+        "initial-ward-rule": {
+          "checks": 116,
+          "consistent": 107,
+          "rows": [
+            {
+              "event-id": "gameChunk:3:6581",
+              "timestamp": 0.0,
+              "entity": 1073741998,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:6898",
+              "timestamp": 0.0,
+              "entity": 1073741999,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7396",
+              "timestamp": 0.0,
+              "entity": 1073742000,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7756",
+              "timestamp": 0.0,
+              "entity": 1073742001,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8254",
+              "timestamp": 0.0,
+              "entity": 1073742002,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8615",
+              "timestamp": 0.0,
+              "entity": 1073742003,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8908",
+              "timestamp": 0.0,
+              "entity": 1073742004,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9391",
+              "timestamp": 0.0,
+              "entity": 1073742005,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9727",
+              "timestamp": 0.0,
+              "entity": 1073742006,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10342",
+              "timestamp": 0.0,
+              "entity": 1073742007,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:130021",
+              "timestamp": 29.094108657836937,
+              "entity": 1073742004,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:15463",
+              "timestamp": 31.999734603881844,
+              "entity": 1073742002,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:18780",
+              "timestamp": 32.56773460388185,
+              "entity": 1073742006,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:51777",
+              "timestamp": 38.81573460388191,
+              "entity": 1073742005,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:105295",
+              "timestamp": 54.43473460388202,
+              "entity": 1073742000,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:5:289961",
+              "timestamp": 76.17314752197379,
+              "entity": 1073742007,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:7:487359",
+              "timestamp": 142.13480450439076,
+              "entity": 1073742001,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:402639",
+              "timestamp": 172.43366650389908,
+              "entity": 1073742004,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:280773",
+              "timestamp": 225.62117395019052,
+              "entity": 1073741998,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:301183",
+              "timestamp": 226.8921739501901,
+              "entity": 1073742006,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:128511",
+              "timestamp": 244.75818054199073,
+              "entity": 1073741998,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:215461",
+              "timestamp": 286.86721484375283,
+              "entity": 1073742005,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:274490",
+              "timestamp": 293.11421484375387,
+              "entity": 1073742002,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:13:381457",
+              "timestamp": 318.9670676269562,
+              "entity": 1073742001,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:13:431902",
+              "timestamp": 322.4410676269568,
+              "entity": 1073742003,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:315403",
+              "timestamp": 346.1450969238308,
+              "entity": 1073742007,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:417804",
+              "timestamp": 355.1020969238323,
+              "entity": 1073741999,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:257455",
+              "timestamp": 374.4582277832054,
+              "entity": 1073742006,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:267167",
+              "timestamp": 375.5272277832056,
+              "entity": 1073741999,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:350736",
+              "timestamp": 383.35022778320683,
+              "entity": 1073742000,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:16:505063",
+              "timestamp": 418.709277832036,
+              "entity": 1073742007,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:269466",
+              "timestamp": 466.0503132324244,
+              "entity": 1073742000,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:271751",
+              "timestamp": 466.28431323242444,
+              "entity": 1073742005,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:145393",
+              "timestamp": 484.1530854492194,
+              "entity": 1073742002,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:313449",
+              "timestamp": 491.9740854492208,
+              "entity": 1073742003,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:383245",
+              "timestamp": 494.44908544922123,
+              "entity": 1073741998,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:504336",
+              "timestamp": 504.19508544922274,
+              "entity": 1073742001,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:414011",
+              "timestamp": 559.0127539062522,
+              "entity": 1073741999,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:22:281988",
+              "timestamp": 586.2564731445333,
+              "entity": 1073742005,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:295735",
+              "timestamp": 614.4950312500018,
+              "entity": 1073741998,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:25:417467",
+              "timestamp": 683.7034736328159,
+              "entity": 1073742003,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:25:426674",
+              "timestamp": 684.171473632816,
+              "entity": 1073742002,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:186695",
+              "timestamp": 697.9556953125012,
+              "entity": 1073742006,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:355527",
+              "timestamp": 712.8776953125035,
+              "entity": 1073742002,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:366094",
+              "timestamp": 714.1876953125036,
+              "entity": 1073742006,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:353758",
+              "timestamp": 739.9886909179714,
+              "entity": 1073742001,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:127179",
+              "timestamp": 757.1771660156261,
+              "entity": 1073742005,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:354894",
+              "timestamp": 767.7471660156277,
+              "entity": 1073742007,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:361048",
+              "timestamp": 768.3871660156278,
+              "entity": 1073741999,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:170673",
+              "timestamp": 820.4942270507828,
+              "entity": 1073741999,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:225883",
+              "timestamp": 824.9722270507833,
+              "entity": 1073742003,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:290515",
+              "timestamp": 852.1540820312515,
+              "entity": 1073742007,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:482473",
+              "timestamp": 863.297082031253,
+              "entity": 1073742007,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:72983",
+              "timestamp": 875.663420410157,
+              "entity": 1073742005,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:169774",
+              "timestamp": 884.3684204101581,
+              "entity": 1073742002,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:278139",
+              "timestamp": 891.5914204101592,
+              "entity": 1073742002,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:352203",
+              "timestamp": 895.0034204101595,
+              "entity": 1073742007,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:33:210090",
+              "timestamp": 908.3807216796887,
+              "entity": 1073742007,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:34:427618",
+              "timestamp": 951.6516186523473,
+              "entity": 1073741999,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:34:544559",
+              "timestamp": 960.2526186523488,
+              "entity": 1073742001,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:35:203194",
+              "timestamp": 968.1186943359387,
+              "entity": 1073742002,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:35:421058",
+              "timestamp": 977.5756943359402,
+              "entity": 1073742002,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:36:313106",
+              "timestamp": 1010.2500419921906,
+              "entity": 1073742001,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:38:362855",
+              "timestamp": 1070.698615234367,
+              "entity": 1073742007,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:287920",
+              "timestamp": 1094.1315263671816,
+              "entity": 1073742002,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:320640",
+              "timestamp": 1096.5695263671803,
+              "entity": 1073742002,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:337946",
+              "timestamp": 1097.73952636718,
+              "entity": 1073742005,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:40:265642",
+              "timestamp": 1129.681042968741,
+              "entity": 1073742002,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:40:286582",
+              "timestamp": 1131.41804296874,
+              "entity": 1073742005,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:41:154513",
+              "timestamp": 1145.993502929685,
+              "entity": 1073741999,
+              "decoded-counter": 7,
+              "api-event-count": 6,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:42:294241",
+              "timestamp": 1188.0943388671806,
+              "entity": 1073742007,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:42:308848",
+              "timestamp": 1189.7643388671797,
+              "entity": 1073742007,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:43:147285",
+              "timestamp": 1205.5054609374981,
+              "entity": 1073742002,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:44:88533",
+              "timestamp": 1233.9216494140612,
+              "entity": 1073742005,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:46:278457",
+              "timestamp": 1299.7605087890588,
+              "entity": 1073741999,
+              "decoded-counter": 8,
+              "api-event-count": 7,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:47:128914",
+              "timestamp": 1328.2507812499969,
+              "entity": 1073742007,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:47:355095",
+              "timestamp": 1341.5667812499921,
+              "entity": 1073741999,
+              "decoded-counter": 9,
+              "api-event-count": 8,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:48:331532",
+              "timestamp": 1368.6145234374926,
+              "entity": 1073742005,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:49:428123",
+              "timestamp": 1404.7491152343669,
+              "entity": 1073742007,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:67728",
+              "timestamp": 1415.1287353515606,
+              "entity": 1073742007,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:251053",
+              "timestamp": 1426.3547353515567,
+              "entity": 1073742007,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:399482",
+              "timestamp": 1435.180735351553,
+              "entity": 1073742002,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:270558",
+              "timestamp": 1454.6040732421827,
+              "entity": 1073742002,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:291749",
+              "timestamp": 1456.3660732421822,
+              "entity": 1073742007,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:499460",
+              "timestamp": 1466.6270732421779,
+              "entity": 1073741999,
+              "decoded-counter": 10,
+              "api-event-count": 9,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:52:96967",
+              "timestamp": 1475.8319091796852,
+              "entity": 1073742002,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:52:214222",
+              "timestamp": 1480.1589091796843,
+              "entity": 1073742005,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:53:534730",
+              "timestamp": 1530.2004355468641,
+              "entity": 1073742005,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:54:244879",
+              "timestamp": 1548.6034404296809,
+              "entity": 1073742002,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:55:523964",
+              "timestamp": 1575.6010605468705,
+              "entity": 1073741999,
+              "decoded-counter": 11,
+              "api-event-count": 10,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:56:139249",
+              "timestamp": 1600.0866005859352,
+              "entity": 1073742002,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:57:216798",
+              "timestamp": 1629.2686806640604,
+              "entity": 1073742002,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:57:557983",
+              "timestamp": 1646.6316806640561,
+              "entity": 1073742005,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:58:302478",
+              "timestamp": 1664.8925078124962,
+              "entity": 1073742002,
+              "decoded-counter": 20,
+              "api-event-count": 20,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:59:475587",
+              "timestamp": 1707.207925781243,
+              "entity": 1073742005,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:59:526021",
+              "timestamp": 1709.5579257812421,
+              "entity": 1073742007,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:61:158168",
+              "timestamp": 1748.8083583984358,
+              "entity": 1073742007,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:61:419218",
+              "timestamp": 1757.0193583984337,
+              "entity": 1073741999,
+              "decoded-counter": 12,
+              "api-event-count": 11,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:61:528338",
+              "timestamp": 1762.200358398432,
+              "entity": 1073742007,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:62:143965",
+              "timestamp": 1779.5560537109345,
+              "entity": 1073741999,
+              "decoded-counter": 13,
+              "api-event-count": 12,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:62:198338",
+              "timestamp": 1782.5650537109332,
+              "entity": 1073742007,
+              "decoded-counter": 20,
+              "api-event-count": 20,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:64:396186",
+              "timestamp": 1857.280932617178,
+              "entity": 1073742005,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:140674",
+              "timestamp": 1865.6867119140607,
+              "entity": 1073742007,
+              "decoded-counter": 21,
+              "api-event-count": 21,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:249232",
+              "timestamp": 1871.970711914058,
+              "entity": 1073742007,
+              "decoded-counter": 22,
+              "api-event-count": 22,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:310594",
+              "timestamp": 1876.1827119140569,
+              "entity": 1073742007,
+              "decoded-counter": 23,
+              "api-event-count": 23,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:66:260221",
+              "timestamp": 1912.0892656249923,
+              "entity": 1073742005,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:66:350512",
+              "timestamp": 1917.9112656249904,
+              "entity": 1073741999,
+              "decoded-counter": 14,
+              "api-event-count": 13,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:67:182009",
+              "timestamp": 1928.689801757809,
+              "entity": 1073742002,
+              "decoded-counter": 21,
+              "api-event-count": 21,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:67:604430",
+              "timestamp": 1950.2818017578006,
+              "entity": 1073741999,
+              "decoded-counter": 15,
+              "api-event-count": 14,
+              "consistent": false
+            },
+            {
+              "event-id": "gameChunk:68:234839",
+              "timestamp": 1960.0638779296835,
+              "entity": 1073742005,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:68:266451",
+              "timestamp": 1961.857877929683,
+              "entity": 1073742007,
+              "decoded-counter": 24,
+              "api-event-count": 24,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:69:258021",
+              "timestamp": 1998.420022460932,
+              "entity": 1073742005,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:69:434789",
+              "timestamp": 2010.3710224609274,
+              "entity": 1073742007,
+              "decoded-counter": 25,
+              "api-event-count": 25,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:70:6014",
+              "timestamp": 2011.573647460937,
+              "entity": 1073742002,
+              "decoded-counter": 22,
+              "api-event-count": 22,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:70:377165",
+              "timestamp": 2024.8106474609326,
+              "entity": 1073742002,
+              "decoded-counter": 23,
+              "api-event-count": 23,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:71:560206",
+              "timestamp": 2064.8323652343656,
+              "entity": 1073742005,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            }
+          ],
+          "api-timestamp-tolerance-ms": 1,
+          "includes-herald-consumption": false,
+          "scope": "Candidate non-control ward/trinket-use counter correlation; no damage behavior or exact internal name inferred"
+        },
+        "ward-plus-herald-rule": {
+          "checks": 116,
+          "consistent": 116,
+          "rows": [
+            {
+              "event-id": "gameChunk:3:6581",
+              "timestamp": 0.0,
+              "entity": 1073741998,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:6898",
+              "timestamp": 0.0,
+              "entity": 1073741999,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7396",
+              "timestamp": 0.0,
+              "entity": 1073742000,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:7756",
+              "timestamp": 0.0,
+              "entity": 1073742001,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8254",
+              "timestamp": 0.0,
+              "entity": 1073742002,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8615",
+              "timestamp": 0.0,
+              "entity": 1073742003,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:8908",
+              "timestamp": 0.0,
+              "entity": 1073742004,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9391",
+              "timestamp": 0.0,
+              "entity": 1073742005,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:9727",
+              "timestamp": 0.0,
+              "entity": 1073742006,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:10342",
+              "timestamp": 0.0,
+              "entity": 1073742007,
+              "decoded-counter": 0,
+              "api-event-count": 0,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:3:130021",
+              "timestamp": 29.094108657836937,
+              "entity": 1073742004,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:15463",
+              "timestamp": 31.999734603881844,
+              "entity": 1073742002,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:18780",
+              "timestamp": 32.56773460388185,
+              "entity": 1073742006,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:51777",
+              "timestamp": 38.81573460388191,
+              "entity": 1073742005,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:4:105295",
+              "timestamp": 54.43473460388202,
+              "entity": 1073742000,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:5:289961",
+              "timestamp": 76.17314752197379,
+              "entity": 1073742007,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:7:487359",
+              "timestamp": 142.13480450439076,
+              "entity": 1073742001,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:8:402639",
+              "timestamp": 172.43366650389908,
+              "entity": 1073742004,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:280773",
+              "timestamp": 225.62117395019052,
+              "entity": 1073741998,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:10:301183",
+              "timestamp": 226.8921739501901,
+              "entity": 1073742006,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:11:128511",
+              "timestamp": 244.75818054199073,
+              "entity": 1073741998,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:215461",
+              "timestamp": 286.86721484375283,
+              "entity": 1073742005,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:12:274490",
+              "timestamp": 293.11421484375387,
+              "entity": 1073742002,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:13:381457",
+              "timestamp": 318.9670676269562,
+              "entity": 1073742001,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:13:431902",
+              "timestamp": 322.4410676269568,
+              "entity": 1073742003,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:315403",
+              "timestamp": 346.1450969238308,
+              "entity": 1073742007,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:14:417804",
+              "timestamp": 355.1020969238323,
+              "entity": 1073741999,
+              "decoded-counter": 1,
+              "api-event-count": 1,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:257455",
+              "timestamp": 374.4582277832054,
+              "entity": 1073742006,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:267167",
+              "timestamp": 375.5272277832056,
+              "entity": 1073741999,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:15:350736",
+              "timestamp": 383.35022778320683,
+              "entity": 1073742000,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:16:505063",
+              "timestamp": 418.709277832036,
+              "entity": 1073742007,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:269466",
+              "timestamp": 466.0503132324244,
+              "entity": 1073742000,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:18:271751",
+              "timestamp": 466.28431323242444,
+              "entity": 1073742005,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:145393",
+              "timestamp": 484.1530854492194,
+              "entity": 1073742002,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:313449",
+              "timestamp": 491.9740854492208,
+              "entity": 1073742003,
+              "decoded-counter": 2,
+              "api-event-count": 2,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:383245",
+              "timestamp": 494.44908544922123,
+              "entity": 1073741998,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:19:504336",
+              "timestamp": 504.19508544922274,
+              "entity": 1073742001,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:21:414011",
+              "timestamp": 559.0127539062522,
+              "entity": 1073741999,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:22:281988",
+              "timestamp": 586.2564731445333,
+              "entity": 1073742005,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:23:295735",
+              "timestamp": 614.4950312500018,
+              "entity": 1073741998,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:25:417467",
+              "timestamp": 683.7034736328159,
+              "entity": 1073742003,
+              "decoded-counter": 3,
+              "api-event-count": 3,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:25:426674",
+              "timestamp": 684.171473632816,
+              "entity": 1073742002,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:186695",
+              "timestamp": 697.9556953125012,
+              "entity": 1073742006,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:355527",
+              "timestamp": 712.8776953125035,
+              "entity": 1073742002,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:26:366094",
+              "timestamp": 714.1876953125036,
+              "entity": 1073742006,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:27:353758",
+              "timestamp": 739.9886909179714,
+              "entity": 1073742001,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:127179",
+              "timestamp": 757.1771660156261,
+              "entity": 1073742005,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:354894",
+              "timestamp": 767.7471660156277,
+              "entity": 1073742007,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:28:361048",
+              "timestamp": 768.3871660156278,
+              "entity": 1073741999,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:170673",
+              "timestamp": 820.4942270507828,
+              "entity": 1073741999,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:30:225883",
+              "timestamp": 824.9722270507833,
+              "entity": 1073742003,
+              "decoded-counter": 4,
+              "api-event-count": 4,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:290515",
+              "timestamp": 852.1540820312515,
+              "entity": 1073742007,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:31:482473",
+              "timestamp": 863.297082031253,
+              "entity": 1073742007,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:72983",
+              "timestamp": 875.663420410157,
+              "entity": 1073742005,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:169774",
+              "timestamp": 884.3684204101581,
+              "entity": 1073742002,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:278139",
+              "timestamp": 891.5914204101592,
+              "entity": 1073742002,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:32:352203",
+              "timestamp": 895.0034204101595,
+              "entity": 1073742007,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:33:210090",
+              "timestamp": 908.3807216796887,
+              "entity": 1073742007,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:34:427618",
+              "timestamp": 951.6516186523473,
+              "entity": 1073741999,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:34:544559",
+              "timestamp": 960.2526186523488,
+              "entity": 1073742001,
+              "decoded-counter": 5,
+              "api-event-count": 5,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:35:203194",
+              "timestamp": 968.1186943359387,
+              "entity": 1073742002,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:35:421058",
+              "timestamp": 977.5756943359402,
+              "entity": 1073742002,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:36:313106",
+              "timestamp": 1010.2500419921906,
+              "entity": 1073742001,
+              "decoded-counter": 6,
+              "api-event-count": 6,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:38:362855",
+              "timestamp": 1070.698615234367,
+              "entity": 1073742007,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:287920",
+              "timestamp": 1094.1315263671816,
+              "entity": 1073742002,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:320640",
+              "timestamp": 1096.5695263671803,
+              "entity": 1073742002,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:39:337946",
+              "timestamp": 1097.73952636718,
+              "entity": 1073742005,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:40:265642",
+              "timestamp": 1129.681042968741,
+              "entity": 1073742002,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:40:286582",
+              "timestamp": 1131.41804296874,
+              "entity": 1073742005,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:41:154513",
+              "timestamp": 1145.993502929685,
+              "entity": 1073741999,
+              "decoded-counter": 7,
+              "api-event-count": 7,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:42:294241",
+              "timestamp": 1188.0943388671806,
+              "entity": 1073742007,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:42:308848",
+              "timestamp": 1189.7643388671797,
+              "entity": 1073742007,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:43:147285",
+              "timestamp": 1205.5054609374981,
+              "entity": 1073742002,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:44:88533",
+              "timestamp": 1233.9216494140612,
+              "entity": 1073742005,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:46:278457",
+              "timestamp": 1299.7605087890588,
+              "entity": 1073741999,
+              "decoded-counter": 8,
+              "api-event-count": 8,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:47:128914",
+              "timestamp": 1328.2507812499969,
+              "entity": 1073742007,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:47:355095",
+              "timestamp": 1341.5667812499921,
+              "entity": 1073741999,
+              "decoded-counter": 9,
+              "api-event-count": 9,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:48:331532",
+              "timestamp": 1368.6145234374926,
+              "entity": 1073742005,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:49:428123",
+              "timestamp": 1404.7491152343669,
+              "entity": 1073742007,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:67728",
+              "timestamp": 1415.1287353515606,
+              "entity": 1073742007,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:251053",
+              "timestamp": 1426.3547353515567,
+              "entity": 1073742007,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:50:399482",
+              "timestamp": 1435.180735351553,
+              "entity": 1073742002,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:270558",
+              "timestamp": 1454.6040732421827,
+              "entity": 1073742002,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:291749",
+              "timestamp": 1456.3660732421822,
+              "entity": 1073742007,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:51:499460",
+              "timestamp": 1466.6270732421779,
+              "entity": 1073741999,
+              "decoded-counter": 10,
+              "api-event-count": 10,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:52:96967",
+              "timestamp": 1475.8319091796852,
+              "entity": 1073742002,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:52:214222",
+              "timestamp": 1480.1589091796843,
+              "entity": 1073742005,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:53:534730",
+              "timestamp": 1530.2004355468641,
+              "entity": 1073742005,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:54:244879",
+              "timestamp": 1548.6034404296809,
+              "entity": 1073742002,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:55:523964",
+              "timestamp": 1575.6010605468705,
+              "entity": 1073741999,
+              "decoded-counter": 11,
+              "api-event-count": 11,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:56:139249",
+              "timestamp": 1600.0866005859352,
+              "entity": 1073742002,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:57:216798",
+              "timestamp": 1629.2686806640604,
+              "entity": 1073742002,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:57:557983",
+              "timestamp": 1646.6316806640561,
+              "entity": 1073742005,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:58:302478",
+              "timestamp": 1664.8925078124962,
+              "entity": 1073742002,
+              "decoded-counter": 20,
+              "api-event-count": 20,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:59:475587",
+              "timestamp": 1707.207925781243,
+              "entity": 1073742005,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:59:526021",
+              "timestamp": 1709.5579257812421,
+              "entity": 1073742007,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:61:158168",
+              "timestamp": 1748.8083583984358,
+              "entity": 1073742007,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:61:419218",
+              "timestamp": 1757.0193583984337,
+              "entity": 1073741999,
+              "decoded-counter": 12,
+              "api-event-count": 12,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:61:528338",
+              "timestamp": 1762.200358398432,
+              "entity": 1073742007,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:62:143965",
+              "timestamp": 1779.5560537109345,
+              "entity": 1073741999,
+              "decoded-counter": 13,
+              "api-event-count": 13,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:62:198338",
+              "timestamp": 1782.5650537109332,
+              "entity": 1073742007,
+              "decoded-counter": 20,
+              "api-event-count": 20,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:64:396186",
+              "timestamp": 1857.280932617178,
+              "entity": 1073742005,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:140674",
+              "timestamp": 1865.6867119140607,
+              "entity": 1073742007,
+              "decoded-counter": 21,
+              "api-event-count": 21,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:249232",
+              "timestamp": 1871.970711914058,
+              "entity": 1073742007,
+              "decoded-counter": 22,
+              "api-event-count": 22,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:65:310594",
+              "timestamp": 1876.1827119140569,
+              "entity": 1073742007,
+              "decoded-counter": 23,
+              "api-event-count": 23,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:66:260221",
+              "timestamp": 1912.0892656249923,
+              "entity": 1073742005,
+              "decoded-counter": 16,
+              "api-event-count": 16,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:66:350512",
+              "timestamp": 1917.9112656249904,
+              "entity": 1073741999,
+              "decoded-counter": 14,
+              "api-event-count": 14,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:67:182009",
+              "timestamp": 1928.689801757809,
+              "entity": 1073742002,
+              "decoded-counter": 21,
+              "api-event-count": 21,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:67:604430",
+              "timestamp": 1950.2818017578006,
+              "entity": 1073741999,
+              "decoded-counter": 15,
+              "api-event-count": 15,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:68:234839",
+              "timestamp": 1960.0638779296835,
+              "entity": 1073742005,
+              "decoded-counter": 17,
+              "api-event-count": 17,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:68:266451",
+              "timestamp": 1961.857877929683,
+              "entity": 1073742007,
+              "decoded-counter": 24,
+              "api-event-count": 24,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:69:258021",
+              "timestamp": 1998.420022460932,
+              "entity": 1073742005,
+              "decoded-counter": 18,
+              "api-event-count": 18,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:69:434789",
+              "timestamp": 2010.3710224609274,
+              "entity": 1073742007,
+              "decoded-counter": 25,
+              "api-event-count": 25,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:70:6014",
+              "timestamp": 2011.573647460937,
+              "entity": 1073742002,
+              "decoded-counter": 22,
+              "api-event-count": 22,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:70:377165",
+              "timestamp": 2024.8106474609326,
+              "entity": 1073742002,
+              "decoded-counter": 23,
+              "api-event-count": 23,
+              "consistent": true
+            },
+            {
+              "event-id": "gameChunk:71:560206",
+              "timestamp": 2064.8323652343656,
+              "entity": 1073742005,
+              "decoded-counter": 19,
+              "api-event-count": 19,
+              "consistent": true
+            }
+          ],
+          "api-timestamp-tolerance-ms": 1,
+          "includes-herald-consumption": true,
+          "scope": "Candidate non-control ward/trinket-use counter correlation; no damage behavior or exact internal name inferred"
+        },
+        "holdout-note": "Herald extension was discovered after inspecting second-game discrepancies. These games are now discovery data for that expanded rule."
+      }
+    }
+  ],
+  "private-context-report-sha256": "780fdffafeca0f124154eaa5ba805497109ab0ff7ca100bafb8d470ddd302e55",
+  "naming-hypotheses": [
+    {
+      "hash": 205256130,
+      "meaning": "Non-control ward/trinket-use counter; Eye of Herald adds one in the second game",
+      "status": "API-correlated candidate; exact internal name and complete behavior unresolved"
+    },
+    {
+      "hash": 22450393,
+      "name": "SR_2026_S1_DemolishReady",
+      "status": "Generated ELF32 name hypothesis, not independently observed text",
+      "context-source": "Matching 16.20 Demolish definition affects attacks on towers"
+    },
+    {
+      "hash": 79295857,
+      "name": "ASSETS/Perks/Styles/Resolve/SecondWind/SecondWindHealBuff.lua",
+      "status": "Generated ELF32 name hypothesis, not independently observed text",
+      "context-source": "Matching 16.20 Second Wind definition heals over 10 seconds after enemy champion damage; observed add duration is 10 seconds"
+    }
+  ],
+  "coverage": {
+    "replays": 2,
+    "buff-records": 52801,
+    "conditional-stat-checks": 7,
+    "conditional-stat-mismatches": 0,
+    "conditional-damage-diagnostics": 1,
+    "admitted-damage-cases": 0,
+    "sealed-model-holdouts": 0
+  },
+  "cost-notes": "Per-replay decoder wall times exclude dependency setup, client acquisition, manual reverse engineering and source/dictionary downloads. Historical patch completeness deferred.",
+  "native-compatibility-regression": {
+    "counts": {
+      "combat-discovery-v2/damage": 27754,
+      "combat-discovery-v2/state": 8568,
+      "combat-heldout/damage": 62476,
+      "combat-heldout/state": 18943
+    },
+    "wall-seconds": 27.042651008999655,
+    "decoder-sha256": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+    "result": "Identical to retained original decoded damage fields and state buffers; regression, not new independent validation"
+  },
+  "research-source-receipts": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/sion/sion.bin.json",
+      "bytes": 94623,
+      "sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/ksante/ksante.bin.json",
+      "bytes": 119051,
+      "sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "bytes": 99870,
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/item.json",
+      "bytes": 688560,
+      "sha256": "bcd7100b7f6c336f585fccaa28324b9d676bf1b2932ae3bb79ee56b5775c47d6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/shared.cdtb.bin.json",
+      "bytes": 8657379,
+      "sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+      "file": "shared.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/perks.cdtb.bin.json",
+      "bytes": 2177261,
+      "sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "file": "perks.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/items.cdtb.bin.json",
+      "bytes": 15950061,
+      "sha256": "ef2f355af6b63f37f44af5e8556d959ccae21cf2983e7ee85f50e4c95cc99206",
+      "file": "items.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/globals.cdtb.bin.json",
+      "bytes": 433980,
+      "sha256": "b0d5d839b6496ca2de124c52c28a6f591ecd283b68cdb438f56142e4f73b87c3",
+      "file": "globals.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/maps/shipping/map11/map11.bin.json",
+      "bytes": 9597548,
+      "sha256": "68aec4f56ef93e8f35b49b2ab4ea345d838945a13dc549090a673bb3c7528317",
+      "file": "map11.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/maps/shipping/map11/",
+      "bytes": 7908,
+      "sha256": "4ea262915c982abffd9c07af436d14a5a687a65f61e2ffadea42625188be6757",
+      "file": "index-game_data_maps_shipping_map11_"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/shared/",
+      "bytes": 8156,
+      "sha256": "7872a22c61c71b5e401225a4d765c8a1a2ba6632fa2977bd9be77003f656ccce",
+      "file": "index-game_data_shared_"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/",
+      "bytes": 320331,
+      "sha256": "7e61a64815f9f06cf70df37783f6165836fae1e8c10b45cb82afe67eb6245d26",
+      "file": "index-game_data_characters_"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/",
+      "bytes": 148636,
+      "sha256": "26dc58201649bb3419ad41ecf8882bc519dfe1b0b2e8788d8b88dc97b7e65d24",
+      "file": "index-game_"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/",
+      "bytes": 9131,
+      "sha256": "67cc580e485b4b99ad30c1774239408c3da15b6dbd5ecf2e5a718b0662aa643d",
+      "file": "index-game_data_"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/CommunityDragon/Data/master/hashes/lol/hashes.binentries.txt",
+      "bytes": 34561991,
+      "sha256": "ed5bc45c5c2d11bf72e118b2f939095aac7268098fee84e25871e6aedcd755aa",
+      "scope": "Unpinned naming hints only; not current-patch behavior evidence"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/en_us/data/menu/en_us/lol.stringtable.json",
+      "bytes": 31990199,
+      "sha256": "8ecc5117aab8b6fced2f5a1d221da24301d5894aeff9b4109f6be757eed45099"
+    }
+  ],
+  "resource-cost": {
+    "new-retained-download-bytes": 104864685,
+    "buff-decode-wall-seconds": 15.254708938999784,
+    "buff-archive-bytes": 1194551,
+    "manual-research-seconds": null,
+    "note": "Download total includes HTML directory discovery and broad naming/localization dictionaries; these are setup research, not a required per-replay download."
+  }
+}

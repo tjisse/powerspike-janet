@@ -1,0 +1,213 @@
+{
+  "format": "powerspike-replay-source-audit",
+  "version": 1,
+  "checked-at": "2026-10-17",
+  "scope": "Source discovery and bounded availability/schema checks. No model validation or new decoder implementation.",
+  "recommended": [
+    "riot-match-v5-replays-for-current-games",
+    "participant-contributed-current-replays"
+  ],
+  "sources": [
+    {
+      "id": "riot-match-v5-replays-for-current-games",
+      "url": "https://developer.riotgames.com/apis#match-v5/GET_getReplay",
+      "kind": "official-replay-download-discovery-api",
+      "endpoint": "GET /lol/match/v5/matches/by-puuid/{puuid}/replays",
+      "response-fields": {
+        "total": "int",
+        "matchFileURLs": "List[string], replay file URLs (.rofl)"
+      },
+      "documentation-verified": true,
+      "authenticated-download-tested": true,
+      "access": "Authorized key resolved the requested EUW player, returned five replay URLs and downloaded one current-patch replay; future access rules and production quotas remain untested",
+      "announced-in": "https://www.leagueoflegends.com/en-au/news/game-updates/patch-25-23-notes/",
+      "policy-update": "https://x.com/LeagueOfLegends/status/2107875798825021469",
+      "policy-note": "Riot announced replay changes delayed to 26.21. Do not assume arbitrary other-player access remains available.",
+      "cost": "API quotas plus replay transfer and patch decoder maintenance",
+      "access-report": "observations/replays/riot-access-2026-10-17.json"
+    },
+    {
+      "id": "maknee-organized-for-decoded-historical-events",
+      "url": "https://huggingface.co/datasets/maknee/league-of-legends-decoded-replay-packets",
+      "kind": "decoded-event-corpus",
+      "revision": "04f9c7350e9ffcc689b731875ad9baf3ff6eaa6d",
+      "gated": false,
+      "published-license": "apache-2.0",
+      "advertised-replay-count": "700k+; not independently counted",
+      "listed-compressed-batches": 1348,
+      "actual-patch-directory-counts": {
+        "12_22": 191,
+        "12_23": 768,
+        "13_1": 258,
+        "13_2": 131
+      },
+      "last-modified": "2025-09-28T15:41:00.000Z",
+      "sample-download": {
+        "url": "https://huggingface.co/datasets/maknee/league-of-legends-decoded-replay-packets/resolve/04f9c7350e9ffcc689b731875ad9baf3ff6eaa6d/13_2/batch_106.jsonl.gz",
+        "revision": "04f9c7350e9ffcc689b731875ad9baf3ff6eaa6d",
+        "path": "13_2/batch_106.jsonl.gz",
+        "bytes": 3888336,
+        "sha256": "f77752760430405ea02597e9514fc470203af964a510f64e3b564ebda3fefad8",
+        "complete-download-checksum-verified": true,
+        "first-line-bytes": 67108865,
+        "first-line-complete": false
+      },
+      "sample-content-profile": {
+        "streamed-games-started": 1,
+        "event-counts": {
+          "CreateHero": 160,
+          "DoSetCooldown": 15507,
+          "CreateTurret": 379,
+          "SpawnMinion": 1882,
+          "LeaveFog": 274828,
+          "EnterFog": 18824,
+          "Replication": 76068,
+          "WaypointGroup": 21628,
+          "WaypointGroupWithSpeed": 11077,
+          "BuyItem": 158,
+          "RemoveItem": 65,
+          "SwapItem": 16,
+          "CastSpellAns": 2800,
+          "UseItem": 154,
+          "BarrackSpawnUnit": 1809,
+          "BasicAttackPos": 2523,
+          "UnitApplyDamage": 24142,
+          "NPCDieMapView": 2146,
+          "CreateNeutral": 277,
+          "NPCDieMapViewBroadcast": 4
+        },
+        "replicated-state-fields": {
+          "mIsTargetableToTeamFlags": 755,
+          "mMoveSpeed": 29183,
+          "mFlatBaseSpellBlockMod": 37,
+          "mMaxHP": 280,
+          "mBonusArmor": 41,
+          "mPAR": 136418,
+          "mPercentAttackSpeedMod": 2716,
+          "mHP": 25779,
+          "mAllShield": 744,
+          "mBaseGoldGivenOnDeath": 117,
+          "mStopShieldFade": 846,
+          "mPARState": 758,
+          "mPercentCCReduction": 3867,
+          "mSAR": 6305,
+          "mExp": 5987,
+          "mNumNeutralMinionsKilled": 1137,
+          "mMaxPAR": 607,
+          "mLevelRef": 1125,
+          "mVisionScore": 442,
+          "mScaleSkinCoef": 11822,
+          "mPhysicalLethality": 13,
+          "mAbilityHasteMod": 63,
+          "mShutdownValue": 127,
+          "mBonusSpellBlock": 78,
+          "mGold": 4,
+          "mReplicatedSpellCanCastBitsLower1": 181,
+          "mPARRegenRate": 4583,
+          "mGoldTotal": 3422,
+          "mFlatPhysicalDamageMod": 162,
+          "mMagicalDamagePercentageModifier": 12,
+          "mPhysicalDamagePercentageModifier": 13,
+          "mHPRegenRate": 319,
+          "mPercentLifeStealMod": 45,
+          "mPassiveCooldownEndTime": 304,
+          "mAttackRange": 31,
+          "mFlatMagicDamageMod": 65,
+          "mSpellBlock": 1,
+          "mCrit": 1730
+        },
+        "expanded-bytes": 87379789,
+        "profile-wall-seconds": 1.4575592809997033,
+        "budget-reached": false,
+        "inside-events-at-eof": false
+      },
+      "limits": [
+        "Old patches; no claim of current-game accuracy",
+        "Full single-match JSON can exceed 64 MiB; stream event objects instead of loading a line into memory",
+        "UnitApplyDamage schema lacks a damage-type field",
+        "State completeness, keyframe duplication, decoder correctness and patch/build provenance still require review"
+      ],
+      "cost": "Verified 3,888,336-byte compressed sample expanded to 87,379,789 bytes; complete stream profiled without retaining expanded data",
+      "role": "Deferred historical reference; investigate only when it helps implement current replay decoding"
+    },
+    {
+      "id": "maknee-unorganized-backup",
+      "url": "https://huggingface.co/datasets/maknee/leaague-of-legends-decoded-replay-packets-s12-unorganized",
+      "kind": "decoded-event-corpus",
+      "availability": "Public dataset card and partial directory listing verified; data file not downloaded",
+      "displayed-size": "356 GB",
+      "published-license": "apache-2.0",
+      "role": "Secondary, same publisher; no independent source diversity assumed"
+    },
+    {
+      "id": "rofllens-v0.1.0",
+      "url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+      "kind": "raw-rofl-research-fixtures",
+      "public-file-count": 5,
+      "client-build": "16.14.794.5912",
+      "availability": "One full file previously downloaded, checksum verified and damage candidates extracted",
+      "catalog": "observations/replays/sources.json",
+      "role": "Small reproducible decoder fixtures, not ongoing supply"
+    },
+    {
+      "id": "danmoreng-public-fixture",
+      "url": "https://github.com/Danmoreng/league-replay-analyzer/tree/main/replays",
+      "kind": "raw-rofl-research-fixture",
+      "revision": "955974a68adc0d08b26cca7d4e9411d6219d786c",
+      "path": "replays/EUW1-7779216102.rofl",
+      "git-blob-sha1": "d63d7be1409fecce8b8a6ac36d7f2b1e16f01e9b",
+      "file-bytes": 15013275,
+      "availability": {
+        "name": "analyzer-raw-header",
+        "http-status": 206,
+        "bytes-read": 256,
+        "content-range": "bytes 0-255/15013275",
+        "sha256-of-prefix": "1c06464b50cc23099bbae7e7aebe25e04ce68e55387aee7d211d35d48e2d197e",
+        "client-build": "16.5.752.7101",
+        "magic-hex": "52494f540200"
+      },
+      "role": "One publicly tracked fixture; repository corpus claims do not establish that its other replay files are public"
+    },
+    {
+      "id": "leagueofgraphs-current-replays",
+      "url": "https://www.leagueofgraphs.com/replays/all/",
+      "kind": "current-match-discovery-service",
+      "availability": "Current replay listing visible through browser retrieval; direct HTTP request returned 403; no raw replay transfer verified",
+      "role": "Candidate for fresh match discovery, not a verified bulk file archive"
+    },
+    {
+      "id": "replayit",
+      "url": "https://www.replayit.gg/developers",
+      "kind": "replay-viewing-and-recording-service",
+      "availability": "Public developer documentation retrieved",
+      "access": "API token and quotas; some streaming features require Premium partner access",
+      "documented-outputs": [
+        "Video recording/download",
+        "Browser stream",
+        "Local-client launcher attachment"
+      ],
+      "raw-rofl-bulk-endpoint-verified": false,
+      "role": "Potential visual cross-check service; no verified raw archive access"
+    }
+  ],
+  "excluded": [
+    {
+      "url": "https://huggingface.co/datasets/Qacen/rofls",
+      "reason": "File listing contains notebooks and no replay files."
+    },
+    {
+      "url": "https://github.com/Toastaspiring/ROFL-X",
+      "reason": "Useful decoder research and dataset references, but replay inputs are not committed."
+    },
+    {
+      "url": "https://github.com/fraxiinus/ReplayBook",
+      "reason": "Replay management software; no public raw replay files found in current tree."
+    },
+    {
+      "url": "https://huggingface.co/datasets/lusung33/AAAI26_LoL_MinimapDetection_Dataset",
+      "reason": "Metadata request returned 401; availability and raw replay content unverified."
+    }
+  ],
+  "next-step": "Expand current-build skill/inventory recovery on discovery games while reserving fresh held-out games, then reconstruct exact pre-hit state for independently attributable damage. Keep historical completeness deferred.",
+  "follow-up-study": "observations/replays/recovery-study-2026-10-18.json"
+}

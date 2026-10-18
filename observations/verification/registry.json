@@ -1,0 +1,781 @@
+{
+  "format": "powerspike-verification-registry",
+  "version": 1,
+  "revision": "16.20-plan-1",
+  "client-build": "16.20.824.8524",
+  "patch": "16.20.1",
+  "scope-note": "Initial 27 combat obligations and 3 stat-generation obligations, not an exhaustive catalogue of League behavior. Partial model support remains in the denominator. Older builds are historical. Candidate labels never imply admission.",
+  "families": [
+    {
+      "id": "isolated-damage",
+      "label": "Isolated damage"
+    },
+    {
+      "id": "mitigation",
+      "label": "Mitigation"
+    },
+    {
+      "id": "timing",
+      "label": "Timing"
+    },
+    {
+      "id": "on-hit",
+      "label": "On-hit effects"
+    },
+    {
+      "id": "healing-shields",
+      "label": "Healing and shields"
+    },
+    {
+      "id": "control",
+      "label": "Control"
+    },
+    {
+      "id": "objectives",
+      "label": "Objectives"
+    },
+    {
+      "id": "combinations",
+      "label": "Combinations"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "ordinary-physical",
+      "label": "Ordinary physical attacks",
+      "family": "isolated-damage",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {
+          "armor-band": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "attack-style": [
+            "melee",
+            "ranged"
+          ]
+        }
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "simple-magic",
+      "label": "Simple magic damage",
+      "family": "isolated-damage",
+      "layer": "conditional-damage",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "true-damage",
+      "label": "True damage",
+      "family": "isolated-damage",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "critical-attacks",
+      "label": "Actual critical outcomes",
+      "family": "isolated-damage",
+      "layer": "conditional-damage",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "positive-armor",
+      "label": "Positive armor mitigation",
+      "family": "mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {
+          "armor-band": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "attack-style": [
+            "melee",
+            "ranged"
+          ]
+        }
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "positive-mr",
+      "label": "Positive magic resistance mitigation",
+      "family": "mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "negative-resistance",
+      "label": "Zero and negative resistance boundaries",
+      "family": "mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "penetration",
+      "label": "Flat and percentage penetration",
+      "family": "mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "resistance-reduction",
+      "label": "Resistance reduction ordering",
+      "family": "mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "attack-windup",
+      "label": "Attack windup",
+      "family": "timing",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "attack-cadence",
+      "label": "Repeated attack timing",
+      "family": "timing",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "projectile-travel",
+      "label": "Projectile travel time",
+      "family": "timing",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "cooldown",
+      "label": "Cooldown start and readiness",
+      "family": "timing",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "on-hit-trigger",
+      "label": "On-hit triggering",
+      "family": "on-hit",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "on-hit-stacks",
+      "label": "On-hit stacking",
+      "family": "on-hit",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "on-hit-cooldown",
+      "label": "On-hit internal cooldown",
+      "family": "on-hit",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "all-shield",
+      "label": "Universal shield absorption and overflow",
+      "family": "healing-shields",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "typed-shield",
+      "label": "Typed shield absorption and bypass",
+      "family": "healing-shields",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "healing",
+      "label": "Healing and overheal",
+      "family": "healing-shields",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "control-duration",
+      "label": "Control duration and resistance",
+      "family": "control",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "cleanse",
+      "label": "Control removal",
+      "family": "control",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "interruption",
+      "label": "Action interruption",
+      "family": "control",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "objective-outgoing",
+      "label": "Damage to objectives",
+      "family": "objectives",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "objective-incoming",
+      "label": "Objective retaliation",
+      "family": "objectives",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "crit-on-hit",
+      "label": "Critical attacks with on-hit effects",
+      "family": "combinations",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "shield-component-order",
+      "label": "Shields with multiple damage components",
+      "family": "combinations",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "expiry-impact-order",
+      "label": "Expiry before and after impact",
+      "family": "combinations",
+      "layer": "sequence",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "flat-loadout-stats",
+      "label": "Flat champion and item stats",
+      "family": null,
+      "layer": "stat-generation",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "stat-growth",
+      "label": "Level growth",
+      "family": null,
+      "layer": "stat-generation",
+      "model-support": "implemented",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    },
+    {
+      "id": "rank-passives",
+      "label": "Permanent bonuses from ability ranks",
+      "family": null,
+      "layer": "stat-generation",
+      "model-support": "partial",
+      "scope": "current",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "diversity": {
+        "games": 3,
+        "encounters": 6,
+        "actors": 4,
+        "conditions": {}
+      },
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement."
+    }
+  ],
+  "interactions": [
+    {
+      "id": "damage-resistance",
+      "label": "Damage type \u00d7 resistance regime",
+      "dimensions": {
+        "damage-type": [
+          "physical",
+          "magic"
+        ],
+        "resistance-band": [
+          "negative",
+          "zero",
+          "low",
+          "medium",
+          "high"
+        ]
+      },
+      "requires-obligations": [
+        "positive-armor",
+        "positive-mr",
+        "negative-resistance"
+      ]
+    },
+    {
+      "id": "shield-damage",
+      "label": "Shield type \u00d7 damage type",
+      "dimensions": {
+        "shield-type": [
+          "all",
+          "physical",
+          "magic"
+        ],
+        "damage-type": [
+          "physical",
+          "magic",
+          "true"
+        ]
+      },
+      "requires-obligations": [
+        "all-shield",
+        "typed-shield"
+      ]
+    }
+  ],
+  "selection-policy": {
+    "revision": "balanced-1",
+    "audit-effort-fraction": 0.2,
+    "batch-games-maximum": 3,
+    "ranking": "Lowest checked-family coverage first, then marginal new-obligation gain per estimated review hour; list blocker bundles as prerequisites. Unknown costs are not fabricated."
+  },
+  "bootstrap": {
+    "admitted-ordinary-attacks": 20,
+    "games": 3,
+    "source-champions": 4,
+    "armor-bands": 3,
+    "note": "Breadth goals, not confidence guarantees."
+  }
+}

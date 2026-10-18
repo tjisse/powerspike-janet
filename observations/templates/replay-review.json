@@ -1,0 +1,31 @@
+{
+  "format": "powerspike-replay-reviews",
+  "version": 1,
+  "human-review-seconds": null,
+  "cases": [
+    {
+      "event-id": "copy from events.json",
+      "replay-sha256": null,
+      "client-build": null,
+      "reviewed": false,
+      "mechanic": null,
+      "required-source": null,
+      "tolerance": null,
+      "evidence": {
+        "packet-semantics": null,
+        "pre-hit-state": null,
+        "actions": null,
+        "patch-data": null
+      },
+      "scenario-document": null,
+      "verification": {
+        "registry": null,
+        "obligations": [],
+        "encounter": null,
+        "independent-oracle": null,
+        "resolved-blockers": [],
+        "conditions": {}
+      }
+    }
+  ]
+}

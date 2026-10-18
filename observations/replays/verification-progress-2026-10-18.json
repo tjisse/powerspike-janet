@@ -1,0 +1,177 @@
+{
+  "format": "powerspike-verification-progress-baseline",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "kind": "frozen measured baseline; live ledger, scheduler and dashboard not implemented",
+  "target": {
+    "client-build": "16.20.824.8524",
+    "patch": "16.20.1",
+    "population": "Champion-to-champion damage events in two retained development replays; not a representative League sample",
+    "obligation-registry-version": null
+  },
+  "sources": {
+    "damage-state-study-2026-10-18.json": {
+      "sha256": "b6764d2cb805eb19848b5525a500981fe38070aa23961c6c6e23310e47477386"
+    },
+    "gap-study-2026-10-18.json": {
+      "sha256": "e4e4016f27028f187341a40f1a337dee6ee5626c8cd775d7b6f80452ab71b939"
+    },
+    "context-study-2026-10-18.json": {
+      "sha256": "330793d0633320c2a6ed4a6bbd9e3cdb0f9cfb5837a7944248e7d9a736ae763b"
+    }
+  },
+  "game-breadth": {
+    "development-games": 2,
+    "sealed-model-audit-games": 0,
+    "supported-exact-builds": 1
+  },
+  "pipeline": {
+    "all-damage-packets-decoded": 90230,
+    "champion-target-damage-events": 11220,
+    "champion-to-champion-damage-events": 6306,
+    "ordinary-attack-candidates": 638,
+    "ordinary-attack-candidates-without-extra-numeric-gaps": 439,
+    "admitted-damage-cases": 0,
+    "evaluated-admitted-damage-cases": 0,
+    "note": "Conditional diagnostics are not admitted cases. Numeric readiness does not discharge any semantic blocker."
+  },
+  "progress-ratios": [
+    {
+      "id": "candidate-numeric-readiness",
+      "numerator": 439,
+      "denominator": 638,
+      "fraction": 0.6880877742946708,
+      "meaning": "Numeric readiness only, among ordinary-attack candidates"
+    },
+    {
+      "id": "unclassified-effect-share",
+      "numerator": 2850,
+      "denominator": 6306,
+      "fraction": 0.4519505233111323,
+      "meaning": "Effect label unresolved among champion-to-champion events; not the full uncheckable share"
+    },
+    {
+      "id": "admitted-damage-replay-reach",
+      "numerator": 0,
+      "denominator": 6306,
+      "fraction": 0.0,
+      "meaning": "Reach in this development corpus only"
+    }
+  ],
+  "conditional-diagnostics": {
+    "stat-field-checks": 7,
+    "stat-mismatches": 0,
+    "stat-snapshots": 1,
+    "stat-champions": 2,
+    "distinct-games": 1,
+    "damage-diagnostics": 1,
+    "damage-result": {
+      "model": 54.166666666666664,
+      "recorded": 54.166664123535156,
+      "difference": 2.543131508048191e-06,
+      "tolerance": 0.001,
+      "consistent-under-assumptions": true,
+      "model-admissible": false,
+      "assumptions": "Ordinary noncritical physical attack, unchanged level-one stats, no other damage modifiers or shield absorption. Buff/protocol and attribution review still required; agreement does not discharge these assumptions."
+    },
+    "note": "No population accuracy or independent-trial confidence is inferred."
+  },
+  "decoder-evidence": {
+    "aggregate-damage-checks": 100,
+    "aggregate-within-one": 100,
+    "buff-records-decoded": 52801,
+    "note": "Kept separate from combat-model verification."
+  },
+  "mechanic-families": [
+    {
+      "id": "isolated-damage",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "mitigation",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "timing",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "on-hit",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "healing-shields",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "control",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "objectives",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    },
+    {
+      "id": "combinations",
+      "admitted-damage-or-sequence-cases": 0,
+      "checked-stage-reached": false,
+      "obligation-count": null,
+      "obligation-coverage-fraction": null,
+      "observed-candidate-count": null
+    }
+  ],
+  "coverage": {
+    "families-with-an-admitted-combat-check": 0,
+    "calibration-family-count": 8,
+    "overall-obligation-coverage": null,
+    "representative-gameplay-reach": null,
+    "feasible-pairwise-obligation-coverage": null,
+    "agreement-on-admitted-damage": null,
+    "reason": "No frozen obligation denominator, no admitted damage cases and no representative fresh-game audit."
+  },
+  "blockers": [
+    "unlabelled-or-behavior-unreviewed-buffs",
+    "unmatched-counter-records",
+    "full-buff-protocol-coverage-unproven",
+    "attack-to-damage-attribution",
+    "exact-stat-sampling-window",
+    "shield-and-packet-amount-semantics"
+  ],
+  "resources": {
+    "damage-state-extraction-wall-seconds": 39.064629117998265,
+    "buff-extraction-wall-seconds": 15.254708938999784,
+    "additional-context-research-download-bytes": 104864685,
+    "manual-review-hours": null,
+    "cost-per-new-admitted-case": null,
+    "note": "Separate historical runs, not a combined-pipeline benchmark; excludes unmeasured maintenance/research time."
+  },
+  "recommended-next-work": "Freeze the obligation registry and case ledger, resolve the first ordinary-attack admission bundle, then balance feasible families and reserve fresh-game audit evidence."
+}

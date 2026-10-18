@@ -1,0 +1,288 @@
+{
+  "format": "powerspike-replay-gap-study",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "checked-at": "2026-10-17T23:04:07.949971+00:00",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "stat-profile": "observations/replays/16.20.824.8524-stat-fields.json",
+  "stat-profile-sha256": "8c47f4d04c2ff3361063de283b8638481f2f041c0be42a936fa3e9dc3c6908f5",
+  "adapters": {
+    "replay_gaps.py": "9c9e68dad42287d347e2e6d5b1ad046ee3d2a19604a97c63d78ff7456ef9b73c",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0"
+  },
+  "replays": [
+    {
+      "role": "discovery",
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "source-files": {
+        "summary.json": "8a6de69362a9aca9e7fb2e4212382f0da47eb0f73b446017e0a94f5f06288e5d",
+        "state.jsonl.gz": "4d4f2c8b9bbbb93c17b88a7eb254f93ea2f6598132fb7f9a1232a950b61671f1",
+        "damage.jsonl.gz": "b2c7a3ef93978f68becc696ee49e1c45d31d1aea74087aa5669389d77f85118a"
+      },
+      "private-output": "observations/local/riot-thebausffs-access/gaps-discovery-v3",
+      "summary-sha256": "03048eb712d440f0ff8e4bacaabf1f97d58ca368708617e0245c959ba33fa311",
+      "case-archive-sha256": "da9352678d2e6a6e3ee5d0d1bff69c3830d58e10739945e8a9a3f6ad4dd512f1",
+      "witness-sha256": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+      "counts": {
+        "state-packets": 8568,
+        "all-damage-packets": 27754,
+        "champion-target-events": 3076,
+        "champion-to-champion-events": 1803,
+        "source-ad-present-before-audit": 0,
+        "source-ad-present-after-audit": 1803,
+        "source-ap-present-after-audit": 1803,
+        "complete-first-mechanic-stat-inputs": 1803,
+        "physical-events": 906,
+        "outside-scope:nonchampion-source": 1273
+      },
+      "effect-label-counts": {
+        "other-effect": 931,
+        "basic-attack-candidate": 349,
+        "unknown-effect": 498,
+        "critical-attack-candidate": 25
+      },
+      "data-gap-counts": {
+        "other-effect": 931,
+        "outside-first-mechanic:nonphysical": 897,
+        "observed-shield-candidate-nonzero": 92,
+        "unknown-effect": 498,
+        "bonus-armor-penetration-semantics-unverified": 70,
+        "critical-outcome-unresolved": 158,
+        "critical-attack-candidate": 25,
+        "nonzero-lethality-semantics-unverified": 201
+      },
+      "offensive-stat-checks": {
+        "attack-damage": {
+          "checks": 170,
+          "api-nonzero-checks": 170,
+          "within-one": 170,
+          "different": 0
+        },
+        "ability-power": {
+          "checks": 170,
+          "api-nonzero-checks": 64,
+          "within-one": 169,
+          "different": 1
+        },
+        "flat-armor-penetration": {
+          "checks": 170,
+          "api-nonzero-checks": 0,
+          "within-one": 170,
+          "different": 0
+        },
+        "armor-remaining-fraction": {
+          "checks": 170,
+          "api-nonzero-checks": 3,
+          "within-one": 170,
+          "different": 0
+        },
+        "flat-magic-penetration": {
+          "checks": 170,
+          "api-nonzero-checks": 0,
+          "within-one": 170,
+          "different": 0
+        },
+        "magic-resist-remaining-fraction": {
+          "checks": 170,
+          "api-nonzero-checks": 0,
+          "within-one": 170,
+          "different": 0
+        },
+        "bonus-armor-remaining-fraction": {
+          "checks": 170,
+          "api-nonzero-checks": 0,
+          "within-one": 170,
+          "different": 0
+        },
+        "bonus-magic-resist-remaining-fraction": {
+          "checks": 170,
+          "api-nonzero-checks": 0,
+          "within-one": 170,
+          "different": 0
+        }
+      },
+      "cost": {
+        "wall-seconds": 1.1099354190009763,
+        "evidence-bytes": 717672
+      }
+    },
+    {
+      "role": "previous-decoder-holdout",
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "source-files": {
+        "summary.json": "5b5fc24496c3ec61bd93c7a52788b29197c6cc78ea14bd9b59a2946bc1289f30",
+        "state.jsonl.gz": "e01c95be55e6c8e396634269ab8570bc56dd94f9fcc41fb206234b3db7b0efae",
+        "damage.jsonl.gz": "91731898971429591a9694707c66e37390bfe557bff1f1de61bae71208dd3207"
+      },
+      "private-output": "observations/local/riot-thebausffs-access/gaps-heldout-v3",
+      "summary-sha256": "e1461c9f27cefe7fc697667786a19529a9007e55c54c34c545905cde5fe0552d",
+      "case-archive-sha256": "df0a73cfb91bdccd73ec71f5b3fbafe26064fcfc4383fd67ec2eb51cbe56e153",
+      "witness-sha256": "fd4ce9d41d2bb38e28d5ffc9dbf94b24b9c0a3662b806faef51cbb9f5a5fadea",
+      "counts": {
+        "state-packets": 18943,
+        "all-damage-packets": 62476,
+        "champion-target-events": 8144,
+        "champion-to-champion-events": 4503,
+        "source-ad-present-before-audit": 0,
+        "source-ad-present-after-audit": 4503,
+        "source-ap-present-after-audit": 4503,
+        "complete-first-mechanic-stat-inputs": 4503,
+        "physical-events": 1094,
+        "outside-scope:nonchampion-source": 3641
+      },
+      "effect-label-counts": {
+        "other-effect": 1842,
+        "unknown-effect": 2352,
+        "basic-attack-candidate": 289,
+        "critical-attack-candidate": 20
+      },
+      "data-gap-counts": {
+        "other-effect": 1842,
+        "outside-first-mechanic:nonphysical": 3409,
+        "unknown-effect": 2352,
+        "observed-shield-candidate-nonzero": 130,
+        "nonzero-lethality-semantics-unverified": 1142,
+        "critical-outcome-unresolved": 535,
+        "critical-attack-candidate": 20
+      },
+      "offensive-stat-checks": {
+        "attack-damage": {
+          "checks": 360,
+          "api-nonzero-checks": 360,
+          "within-one": 358,
+          "different": 2
+        },
+        "ability-power": {
+          "checks": 360,
+          "api-nonzero-checks": 216,
+          "within-one": 360,
+          "different": 0
+        },
+        "flat-armor-penetration": {
+          "checks": 360,
+          "api-nonzero-checks": 0,
+          "within-one": 360,
+          "different": 0
+        },
+        "armor-remaining-fraction": {
+          "checks": 360,
+          "api-nonzero-checks": 52,
+          "within-one": 360,
+          "different": 0
+        },
+        "flat-magic-penetration": {
+          "checks": 360,
+          "api-nonzero-checks": 111,
+          "within-one": 360,
+          "different": 0
+        },
+        "magic-resist-remaining-fraction": {
+          "checks": 360,
+          "api-nonzero-checks": 62,
+          "within-one": 360,
+          "different": 0
+        },
+        "bonus-armor-remaining-fraction": {
+          "checks": 360,
+          "api-nonzero-checks": 0,
+          "within-one": 360,
+          "different": 0
+        },
+        "bonus-magic-resist-remaining-fraction": {
+          "checks": 360,
+          "api-nonzero-checks": 0,
+          "within-one": 360,
+          "different": 0
+        }
+      },
+      "cost": {
+        "wall-seconds": 2.487712818001455,
+        "evidence-bytes": 1520091
+      }
+    }
+  ],
+  "counts": {
+    "all-damage-packets": 90230,
+    "champion-target-events": 11220,
+    "champion-to-champion-events": 6306,
+    "complete-first-mechanic-stat-inputs": 6306,
+    "outside-scope:nonchampion-source": 4914,
+    "physical-events": 2000,
+    "source-ad-present-after-audit": 6306,
+    "source-ad-present-before-audit": 0,
+    "source-ap-present-after-audit": 6306,
+    "state-packets": 27511
+  },
+  "effect-label-counts": {
+    "basic-attack-candidate": 638,
+    "critical-attack-candidate": 45,
+    "other-effect": 2773,
+    "unknown-effect": 2850
+  },
+  "basic-attack-candidates-without-additional-data-gaps": 439,
+  "candidate-subsets-by-replay": {
+    "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c": 255,
+    "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411": 184
+  },
+  "semantic-blockers": [
+    "buff-and-on-hit-context-unresolved",
+    "inventory-and-rune-state-unresolved",
+    "attack-classification-not-independently-verified",
+    "stat-sampling-window-unresolved",
+    "shield-semantics-not-independently-verified",
+    "damage-packet-amount-semantics-incomplete"
+  ],
+  "admissible-cases": 0,
+  "model-comparisons": 0,
+  "priority": [
+    {
+      "order": 1,
+      "gap": "offensive stat components",
+      "status": "Recovered AD/AP and physical/magic penetration components from retained native-decoded buffers. Observed AD/AP available for all 6,306 champion-to-champion events; no model-derived inputs used."
+    },
+    {
+      "order": 2,
+      "gap": "attack/buff/item context",
+      "status": "638 basic-attack hash-label candidates, with a saved first witness. API labels are candidate attribution only; absent buffs/items are not inferred."
+    },
+    {
+      "order": 3,
+      "gap": "sampling and shield/amount semantics",
+      "status": "Per-input provenance retained; an isolated first witness has matching packet damage and observed health loss. This does not prove pre-hit context or every shield case."
+    }
+  ],
+  "first-witness": {
+    "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+    "event-id": "gameChunk:4:43918",
+    "selection": "Earliest physical basic-attack candidate with no additional data gaps, independently of damage magnitude or model prediction.",
+    "source": "Sion",
+    "target": "KSante",
+    "timestamp": 38.32643605041511,
+    "observed-ad": 78.0,
+    "observed-armor": 44.0,
+    "recorded-damage": 54.166664123535156,
+    "health-drop": 54.16668701171875,
+    "health-before-time": 5.025256216049195,
+    "health-after-time": 38.392436050415114,
+    "damage-packets-between-health-samples": 1,
+    "model-admissible": false,
+    "note": "Health bracket is retrospective evidence only. A long age of the preceding full-health observation is retained. No future observation enters the pre-hit state. The witness includes API rune, shard, summoner, purchase and skill-event context without treating that event prefix as a complete buff/inventory state."
+  },
+  "method": {
+    "population": "All 11,220 champion-target events screened; 4,914 nonchampion-source events excluded from the first champion-attack mechanic.6306 champion-to-champion cases retained in private JSONL.",
+    "labels": "Spell-name strings from the already bound API death recap are hashed with ELF32-lowercase. Dictionary collisions abstain; unique labels remain candidates. No new replay byte layout learned from those strings. This is post-hoc gap research, not a fresh model holdout.",
+    "inputs": "State bytes replayed in original timestamp/wire order. Derived AD/AP retain each component observation, including time and packet origin. Missing fields never default to zero.",
+    "negative-results": "A generic bounded native factory experiment catalogued 941 packet classes but did not establish buff lifecycle semantics. Packet candidates were not promoted to buff decoders. The old add-base-and-flat-only AD composition missed 10 discovery snapshots; the named bonus-AD component accounts for them without using damage values.",
+    "limits": "No model formula changes, model validation or admissible full-hit cases. Crit/lethality semantics, shield behavior, action sampling and complete relevant buff/inventory state remain unresolved."
+  },
+  "cost": {
+    "additional-download-bytes": 0,
+    "additional-api-requests": 0,
+    "final-audit-wall-seconds": 3.5976482370024314,
+    "final-audit-evidence-bytes": 2237763,
+    "scope": "Two final audits including witnesses; excludes development runs, native reverse engineering, dependency setup and human research time. Existing state archives were reused instead of rerunning native extraction.",
+    "researcher-wall-seconds": null
+  },
+  "next-step": "Resolve attack/buff lifecycle and relevant inventory/rune semantics around the saved Sion witness; verify sampling and shield behavior independently before a model comparison. Matching 16.20 model data remains a separate prerequisite for full-build comparisons."
+}

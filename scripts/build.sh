@@ -16,6 +16,7 @@ import sys
 sys.path.insert(0, 'scripts')
 from jdn import dumps
 paths = {'VERSION', 'project.janet', 'web/deps.lock', 'scripts/jpm-config.janet'}
+paths.add('observations/verification/progress.json')
 for folder in ('web', 'src', 'native', 'data', 'observations/16.19.1', 'build/web-modules', 'build/web-assets'):
     paths.update(str(p) for p in Path(folder).rglob('*') if p.is_file())
 Path('build/executable-inputs.jdn').write_text(dumps(sorted(paths)) + '\n')

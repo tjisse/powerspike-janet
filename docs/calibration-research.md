@@ -1,5 +1,17 @@
 # Calibration and validation research
 
+Update 2026-10-18: [Replay verification](replay-verification.md) is now the
+preferred next step for scaling damage evidence. The exact-build 16.20 native
+adapter now decodes 90,230 damage packets across two games; all 100 aggregate
+checks agree with Riot's final damage statistics to within one point. Partial
+preceding health, shield candidates, armor and magic resistance now carry sample
+times and wire order. This establishes bounded decoder evidence, not combat
+model accuracy; no replay damage event has yet passed the complete pre-hit-state
+and exact-patch review required for comparison. See the
+[damage/state study](../observations/replays/damage-state-study-2026-10-18.json).
+The manual measurement sequence below remains useful for independently checking
+decoder semantics and filling gaps.
+
 Checked 2026-10-04. Target: Summoner's Rift patch 26.19, Data Dragon 16.19.1, CommunityDragon 16.19. Source verification, a local API collector and Janet stat comparison are implemented; [the collection guide](stat-validation.md) describes their use. Five measured Practice Tool snapshots agree: ten baseline, eleven single-Cloak, and twelve stats in each single-Void-Staff capture. The level-6 pair checks nonlinear growth and learned-R penetration combining multiplicatively with Void Staff. Movement speed is excluded; see [validation results](validation-results.md). Broader damage and timing measurements remain proposed.
 
 ## Is a rules-only model possible?

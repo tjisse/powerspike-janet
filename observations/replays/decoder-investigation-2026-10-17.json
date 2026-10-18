@@ -1,0 +1,139 @@
+{
+  "format": "powerspike-current-replay-decoder-investigation",
+  "version": 1,
+  "checked-at": "2026-10-17T21:49:09.556122+00:00",
+  "client-build": "16.20.824.8524",
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "executable": {
+    "size": 46635448,
+    "sha256": "f6fd49d6fb21c6cec23e329ca8a9a7c0809393cb950daf29ca62cf60a08455c6",
+    "architecture": "x64",
+    "version": "16.20.8248524",
+    "patch": "16.20",
+    "catalogUrl": "https://raw.githubusercontent.com/Morilli/riot-manifests/master/LoL/EUW1/windows/lol-game-client/16.20.8248524.txt",
+    "manifestUrl": "https://lol.secure.dyn.riotcdn.net/channels/public/releases/CB4BCB7E1F5C1831.manifest",
+    "manifestId": "CB4BCB7E1F5C1831",
+    "source": "riot",
+    "region": "EUW1"
+  },
+  "executable-version-resource": {
+    "FileVersion": "16.20.824.8524",
+    "ProductVersion": "16.20.824.8524",
+    "matches-replay": true
+  },
+  "builder": {
+    "repository": "https://github.com/shyunku-libraries/rofl-parser",
+    "commit": "73530424162672aa7daafe233f647cc655607880",
+    "source-url": "https://codeload.github.com/shyunku-libraries/rofl-parser/tar.gz/73530424162672aa7daafe233f647cc655607880",
+    "source-archive-bytes": 837832,
+    "source-archive-sha256": "91ac3dbd4d3233d4dfac33847cbc8d5310b926efd6da1e9526b89cd94c410556",
+    "node": "22.23.3",
+    "python": "3.12.3",
+    "unicorn": "2.1.4",
+    "preflight": "passed",
+    "exit-code": 1,
+    "wall-seconds": 0.2140408409977681,
+    "failure-stage": "static-packet-registration-discovery",
+    "error": "Could not identify the common packet registration function",
+    "generated-artifacts": 0,
+    "emulated-decoder-calls": 0,
+    "command-template": "ROFL_PYTHON=<isolated-python> node src/cli/build-artifacts.js --input <exact-client-exe> --game-version 16.20.824.8524 --registry <local-output>"
+  },
+  "static-comparison": [
+    {
+      "label": "historical-16.14",
+      "sections": [
+        {
+          "name": ".text",
+          "raw-bytes": 27250688,
+          "entropy-bits-per-byte": 6.5485,
+          "direct-call-opcode-bytes": 528189
+        },
+        {
+          "name": ".rdata",
+          "raw-bytes": 4444160,
+          "entropy-bits-per-byte": 5.8634,
+          "direct-call-opcode-bytes": 7446
+        },
+        {
+          "name": ".data",
+          "raw-bytes": 618496,
+          "entropy-bits-per-byte": 5.3619,
+          "direct-call-opcode-bytes": 161
+        }
+      ],
+      "packet-name-marker-count": 974,
+      "rtti-marker-count": 2048
+    },
+    {
+      "label": "current-16.20",
+      "sections": [
+        {
+          "name": ".text",
+          "raw-bytes": 27246592,
+          "entropy-bits-per-byte": 8.0,
+          "direct-call-opcode-bytes": 106228
+        },
+        {
+          "name": ".rdata",
+          "raw-bytes": 4497408,
+          "entropy-bits-per-byte": 7.9998,
+          "direct-call-opcode-bytes": 17482
+        },
+        {
+          "name": ".data",
+          "raw-bytes": 598016,
+          "entropy-bits-per-byte": 7.9997,
+          "direct-call-opcode-bytes": 2362
+        },
+        {
+          "name": ".riot0",
+          "raw-bytes": 2396160,
+          "entropy-bits-per-byte": 6.8722,
+          "direct-call-opcode-bytes": 16472
+        },
+        {
+          "name": ".riot1",
+          "raw-bytes": 9539584,
+          "entropy-bits-per-byte": 6.6126,
+          "direct-call-opcode-bytes": 50026
+        }
+      ],
+      "packet-name-marker-count": 0,
+      "rtti-marker-count": 0
+    }
+  ],
+  "interpretation": {
+    "observation": "Current executable has no PKT_ or MSVC RTTI name markers; .text/.rdata/.data entropy is approximately 8 bits per byte and additional .riot0/.riot1 sections are present. Older available 16.14 executable retains readable packet names and lower entropy.",
+    "inference": "The current download appears packed/encrypted on disk; the inspected scanner cannot recover the required packet registrations from this input. Entropy alone is not a decryption test.",
+    "scope": "Failure established for this exact download and pinned builder, not every build or possible decoder."
+  },
+  "alternative": {
+    "name": "ROFL-X replay-only recovery",
+    "repository": "https://github.com/Toastaspiring/ROFL-X",
+    "commit": "88954be66da506f188fbd134944fdfd8334ad846",
+    "documentation": "https://github.com/Toastaspiring/ROFL-X/blob/88954be66da506f188fbd134944fdfd8334ad846/docs/EXPLORE.md",
+    "checked": "Source and documentation inspected; current replay was not processed with ROFL-X",
+    "published-capability": "Some visibility and killer fields recovered from replay-only constraints on 16.19; behavioural packet matches remain hypotheses",
+    "published-limitation": "Damage numbers, item IDs and spell casts are not recovered by the replay-only path",
+    "current-build-combat-decoder": false
+  },
+  "cost": {
+    "additional-game-executable-bytes": 46635448,
+    "linux-node-runtime-download-bytes": 31001304,
+    "parser-source-archive-bytes": 837832,
+    "alternative-source-archive-bytes": 261982,
+    "builder-wall-seconds": 0.2140408409977681,
+    "download-wall-seconds": null,
+    "research-and-review-wall-seconds": null,
+    "large-decoded-json-produced": false
+  },
+  "coverage": {
+    "current-build-semantic-damage-events": 0,
+    "model-comparisons": 0,
+    "static-model-formulas-changed": false
+  },
+  "decision": "Automatic executable-derived generation is unavailable with this input. Defer broad replay collection and historical expansion. Investigate replay-only recovery with independent Match-v5 timeline anchors, or an exact-build decoder artifact if one becomes available, before committing to a full current decoder.",
+  "private-evidence": "Exact executable, source archives, detailed logs and acquisition metadata are retained under ignored observations/local/riot-thebausffs-access/decoder-research/",
+  "follow-up-study": "observations/replays/recovery-study-2026-10-18.json"
+}

@@ -1,0 +1,1773 @@
+{
+  "format": "powerspike-verification-progress",
+  "version": 1,
+  "generated-at": "2026-10-18T09:40:18.740863+00:00",
+  "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+  "registry-revision": "16.20-plan-1",
+  "reporter-sha256": "1eb2ea6580801fa526074dcd2c78dd3525045b3ec45b48f859958fd4c63a71a6",
+  "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+  "client-build": "16.20.824.8524",
+  "patch": "16.20.1",
+  "ledger": {
+    "head": "eeed12609ea297bf3b3599436008394c8cc7d46e14d15b556e91a958ad43844c",
+    "records": 6314
+  },
+  "scope": "Initial 27 combat obligations and 3 stat-generation obligations, not an exhaustive catalogue of League behavior. Partial model support remains in the denominator. Older builds are historical. Candidate labels never imply admission.",
+  "pipeline": {
+    "games": 2,
+    "events": 6306,
+    "ordinary-candidates": 638,
+    "numeric-ready": 439,
+    "admitted": 0,
+    "evaluated": 0,
+    "unknown-effects": 2850
+  },
+  "coverage": {
+    "combat-checked": 0,
+    "combat-total": 27,
+    "implemented-checked": 0,
+    "implemented-total": 7,
+    "balanced-fraction": 0.0,
+    "minimum-family-fraction": 0.0,
+    "replay-reach": 0.0,
+    "evaluated-reach": 0.0,
+    "overall-league-coverage": null
+  },
+  "agreement": {
+    "checked": 0,
+    "consistent": 0,
+    "mismatches": 0,
+    "fraction": null,
+    "max-absolute-error": null,
+    "confidence": null,
+    "note": "No independent-trial confidence inferred from correlated replay hits."
+  },
+  "diagnostics": {
+    "stat-checks": 7,
+    "stat-mismatches": 0,
+    "damage-checks": 1,
+    "source": "330793d0633320c2a6ed4a6bbd9e3cdb0f9cfb5837a7944248e7d9a736ae763b",
+    "components-current": true,
+    "note": "Latest conditional study, not additive reruns and not admitted evidence."
+  },
+  "audit": {
+    "reserved-games": 0,
+    "fresh-evaluated-games": 0,
+    "representative-reach": null
+  },
+  "bootstrap": {
+    "target": {
+      "admitted-ordinary-attacks": 20,
+      "armor-bands": 3,
+      "games": 3,
+      "note": "Breadth goals, not confidence guarantees.",
+      "source-champions": 4
+    },
+    "checked-attacks": 0,
+    "games": 0,
+    "source-champions": 0,
+    "armor-bands": 0
+  },
+  "slices": {
+    "source-champions": [
+      {
+        "champion": "Blitzcrank",
+        "observed-events": 71,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Chogath",
+        "observed-events": 185,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Darius",
+        "observed-events": 389,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Diana",
+        "observed-events": 173,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Gwen",
+        "observed-events": 1197,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Ivern",
+        "observed-events": 223,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Janna",
+        "observed-events": 206,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "KSante",
+        "observed-events": 198,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "LeeSin",
+        "observed-events": 219,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Qiyana",
+        "observed-events": 583,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Rengar",
+        "observed-events": 215,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Senna",
+        "observed-events": 642,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Sion",
+        "observed-events": 106,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Syndra",
+        "observed-events": 285,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Teemo",
+        "observed-events": 327,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Tristana",
+        "observed-events": 188,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Vex",
+        "observed-events": 560,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Vladimir",
+        "observed-events": 212,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Yasuo",
+        "observed-events": 96,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      },
+      {
+        "champion": "Yuumi",
+        "observed-events": 231,
+        "games": 1,
+        "checked": 0,
+        "mismatches": 0
+      }
+    ],
+    "damage-types": {
+      "physical": 2000,
+      "magic": 2751,
+      "true": 1555
+    },
+    "items-and-runes": null,
+    "note": "Observed champion counts do not establish champion-wide verification. Item/rune slices await sufficient reconstructed context."
+  },
+  "history": {
+    "comparisons": 0,
+    "admissions": 0,
+    "invalidated": 0,
+    "all-revision-mismatches": 0,
+    "outside-current-view": 0
+  },
+  "families": [
+    {
+      "id": "isolated-damage",
+      "label": "Isolated damage",
+      "total": 4,
+      "checked": 0,
+      "blocked": 4,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "mitigation",
+      "label": "Mitigation",
+      "total": 5,
+      "checked": 0,
+      "blocked": 1,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "timing",
+      "label": "Timing",
+      "total": 4,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "on-hit",
+      "label": "On-hit effects",
+      "total": 3,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "healing-shields",
+      "label": "Healing and shields",
+      "total": 3,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "control",
+      "label": "Control",
+      "total": 3,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "objectives",
+      "label": "Objectives",
+      "total": 2,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    },
+    {
+      "id": "combinations",
+      "label": "Combinations",
+      "total": 3,
+      "checked": 0,
+      "blocked": 0,
+      "varied": 0,
+      "fresh": 0,
+      "open-mismatches": 0
+    }
+  ],
+  "obligations": [
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {
+          "armor-band": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "attack-style": [
+            "melee",
+            "ranged"
+          ]
+        },
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "isolated-damage",
+      "id": "ordinary-physical",
+      "label": "Ordinary physical attacks",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "observed, blocked",
+      "candidates": 637,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {
+        "armor-band": [],
+        "attack-style": []
+      },
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "isolated-damage",
+      "id": "simple-magic",
+      "label": "Simple magic damage",
+      "layer": "conditional-damage",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "observed, blocked",
+      "candidates": 1528,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "isolated-damage",
+      "id": "true-damage",
+      "label": "True damage",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "observed, blocked",
+      "candidates": 499,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "isolated-damage",
+      "id": "critical-attacks",
+      "label": "Actual critical outcomes",
+      "layer": "conditional-damage",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "observed, blocked",
+      "candidates": 45,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {
+          "armor-band": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "attack-style": [
+            "melee",
+            "ranged"
+          ]
+        },
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "mitigation",
+      "id": "positive-armor",
+      "label": "Positive armor mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "observed, blocked",
+      "candidates": 637,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {
+        "armor-band": [],
+        "attack-style": []
+      },
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "mitigation",
+      "id": "positive-mr",
+      "label": "Positive magic resistance mitigation",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "mitigation",
+      "id": "negative-resistance",
+      "label": "Zero and negative resistance boundaries",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "mitigation",
+      "id": "penetration",
+      "label": "Flat and percentage penetration",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "mitigation",
+      "id": "resistance-reduction",
+      "label": "Resistance reduction ordering",
+      "layer": "conditional-damage",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "timing",
+      "id": "attack-windup",
+      "label": "Attack windup",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "timing",
+      "id": "attack-cadence",
+      "label": "Repeated attack timing",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "timing",
+      "id": "projectile-travel",
+      "label": "Projectile travel time",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "timing",
+      "id": "cooldown",
+      "label": "Cooldown start and readiness",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "on-hit",
+      "id": "on-hit-trigger",
+      "label": "On-hit triggering",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "on-hit",
+      "id": "on-hit-stacks",
+      "label": "On-hit stacking",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "on-hit",
+      "id": "on-hit-cooldown",
+      "label": "On-hit internal cooldown",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "healing-shields",
+      "id": "all-shield",
+      "label": "Universal shield absorption and overflow",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "healing-shields",
+      "id": "typed-shield",
+      "label": "Typed shield absorption and bypass",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "healing-shields",
+      "id": "healing",
+      "label": "Healing and overheal",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "control",
+      "id": "control-duration",
+      "label": "Control duration and resistance",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "control",
+      "id": "cleanse",
+      "label": "Control removal",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "control",
+      "id": "interruption",
+      "label": "Action interruption",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "objectives",
+      "id": "objective-outgoing",
+      "label": "Damage to objectives",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "objectives",
+      "id": "objective-incoming",
+      "label": "Objective retaliation",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "combinations",
+      "id": "crit-on-hit",
+      "label": "Critical attacks with on-hit effects",
+      "layer": "single-hit",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "combinations",
+      "id": "shield-component-order",
+      "label": "Shields with multiple damage components",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": "combinations",
+      "id": "expiry-impact-order",
+      "label": "Expiry before and after impact",
+      "layer": "sequence",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": null,
+      "id": "flat-loadout-stats",
+      "label": "Flat champion and item stats",
+      "layer": "stat-generation",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": null,
+      "id": "stat-growth",
+      "label": "Level growth",
+      "layer": "stat-generation",
+      "model-support": "implemented",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    },
+    {
+      "diversity": {
+        "actors": 4,
+        "conditions": {},
+        "encounters": 6,
+        "games": 3
+      },
+      "family": null,
+      "id": "rank-passives",
+      "label": "Permanent bonuses from ability ranks",
+      "layer": "stat-generation",
+      "model-support": "partial",
+      "required-evidence": [
+        "packet-semantics",
+        "pre-hit-state",
+        "actions",
+        "patch-data",
+        "independent-oracle"
+      ],
+      "scope": "current",
+      "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
+      "stage": "unseen",
+      "candidates": 0,
+      "admitted": 0,
+      "checked": 0,
+      "mismatches": 0,
+      "games": 0,
+      "actors": 0,
+      "encounters": 0,
+      "conditions-seen": {},
+      "fresh-game-comparisons": 0
+    }
+  ],
+  "interactions": [
+    {
+      "dimensions": {
+        "damage-type": [
+          "physical",
+          "magic"
+        ],
+        "resistance-band": [
+          "negative",
+          "zero",
+          "low",
+          "medium",
+          "high"
+        ]
+      },
+      "id": "damage-resistance",
+      "label": "Damage type \u00d7 resistance regime",
+      "requires-obligations": [
+        "positive-armor",
+        "positive-mr",
+        "negative-resistance"
+      ],
+      "cells": [
+        {
+          "values": {
+            "damage-type": "physical",
+            "resistance-band": "negative"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "resistance-band": "zero"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "resistance-band": "low"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "resistance-band": "medium"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "resistance-band": "high"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "resistance-band": "negative"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "resistance-band": "zero"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "resistance-band": "low"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "resistance-band": "medium"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "resistance-band": "high"
+          },
+          "checked": false
+        }
+      ],
+      "total": 10,
+      "checked": 0
+    },
+    {
+      "dimensions": {
+        "damage-type": [
+          "physical",
+          "magic",
+          "true"
+        ],
+        "shield-type": [
+          "all",
+          "physical",
+          "magic"
+        ]
+      },
+      "id": "shield-damage",
+      "label": "Shield type \u00d7 damage type",
+      "requires-obligations": [
+        "all-shield",
+        "typed-shield"
+      ],
+      "cells": [
+        {
+          "values": {
+            "damage-type": "physical",
+            "shield-type": "all"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "shield-type": "physical"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "physical",
+            "shield-type": "magic"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "shield-type": "all"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "shield-type": "physical"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "magic",
+            "shield-type": "magic"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "true",
+            "shield-type": "all"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "true",
+            "shield-type": "physical"
+          },
+          "checked": false
+        },
+        {
+          "values": {
+            "damage-type": "true",
+            "shield-type": "magic"
+          },
+          "checked": false
+        }
+      ],
+      "total": 9,
+      "checked": 0
+    }
+  ],
+  "next-unlocks": [
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 439,
+      "games": 2,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": true,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 1720,
+      "games": 2,
+      "obligations": [
+        "simple-magic",
+        "true-damage"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "nonzero-lethality-semantics-unverified",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 219,
+      "games": 2,
+      "obligations": [
+        "simple-magic",
+        "true-damage"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "nonzero-lethality-semantics-unverified",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 106,
+      "games": 2,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "observed-shield-candidate-nonzero",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 66,
+      "games": 2,
+      "obligations": [
+        "simple-magic",
+        "true-damage"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 59,
+      "games": 2,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 15,
+      "games": 2,
+      "obligations": [
+        "simple-magic",
+        "true-damage"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "observed-shield-candidate-nonzero",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 14,
+      "games": 2,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "observed-shield-candidate-nonzero",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 8,
+      "games": 2,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "nonzero-lethality-semantics-unverified",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 5,
+      "games": 1,
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "new-obligations": 2,
+      "family-floor": 0.0,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    }
+  ],
+  "resources": {
+    "recorded-seconds": {
+      "review": null,
+      "compute": 2.239467513999898,
+      "maintenance": null
+    },
+    "recorded-bytes": 0,
+    "recorded-requests": 0,
+    "review-seconds-per-admitted-case": null,
+    "setup-research": {
+      "buff-archive-bytes": 1194551,
+      "buff-decode-wall-seconds": 15.254708938999784,
+      "manual-research-seconds": null,
+      "new-retained-download-bytes": 104864685,
+      "note": "Download total includes HTML directory discovery and broad naming/localization dictionaries; these are setup research, not a required per-replay download."
+    }
+  },
+  "previous-report": {
+    "sha256": "74b23f89a4120dd22e0f3f492cc8ea84ba248f7f5021e5f91cc6f1ff88908afc",
+    "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+    "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+    "generated-at": "2026-10-18T09:37:48.505995+00:00",
+    "pipeline": {
+      "games": 2,
+      "events": 6306,
+      "ordinary-candidates": 638,
+      "numeric-ready": 439,
+      "admitted": 0,
+      "evaluated": 0,
+      "unknown-effects": 2850
+    },
+    "coverage": {
+      "combat-checked": 0,
+      "combat-total": 27,
+      "implemented-checked": 0,
+      "implemented-total": 7,
+      "balanced-fraction": 0.0,
+      "minimum-family-fraction": 0.0,
+      "replay-reach": 0.0,
+      "evaluated-reach": 0.0,
+      "overall-league-coverage": null
+    },
+    "scope-changed": false,
+    "model-changed": false,
+    "delta": {
+      "evaluated-cases": 0,
+      "checked-conditions": 0
+    }
+  }
+}

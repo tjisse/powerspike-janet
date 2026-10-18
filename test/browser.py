@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 import argparse, json, os, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
@@ -117,7 +117,7 @@ def verify(base):
         event_button.focus()
         event_button.press('Enter')
         page.locator('.brand').hover()
-        assert 'pinned' in page.locator('#event-detail').inner_text()
+        expect(page.locator('#event-detail')).to_contain_text('pinned')
         page.keyboard.press('Escape')
         assert page.locator('#timeline').get_attribute('data-total')==original_damage
         assert not page.locator('#fight-settings').evaluate('(node)=>node.open')

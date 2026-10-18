@@ -53,7 +53,7 @@
     optimizer.querySelectorAll('#optimizer input,#optimizer select').forEach(node=>{node.disabled=awaitingSearch || ongoing;});
     if(panel.dataset.applied && panel.dataset.applied!==lastApplied){
       lastApplied=panel.dataset.applied;awaitingSearch=false;requestStatus.hidden=true;
-      optimizer.close();document.querySelector('#loadout-tray .optimize-primary')?.focus({preventScroll:true});
+      optimizer.close();document.querySelector('#loadout-tray [data-search-open]')?.focus({preventScroll:true});
     }
   }
   document.addEventListener('click',event=>{
@@ -71,6 +71,15 @@
   optimizer.addEventListener('close',()=>{if(searchOpener?.isConnected)searchOpener.focus({preventScroll:true});});
   document.addEventListener('datastar-fetch',event=>{
     const {type,el}=event.detail;
+    if(type==='finished' && el?.id==='import-scenario')setTimeout(()=>{
+      const documentText=document.getElementById('scenario-data')?.dataset.json;
+      if(!documentText)return;
+      try{
+        const scenario=JSON.parse(documentText).scenario;
+        const layout=scenario.target.kind==='champion'?'matchup':'legacy';
+        if(app.dataset.layout!==layout){const url=new URL('/',location.origin);url.searchParams.set('scenario',documentText);location.assign(url);}
+      }catch{}
+    },0);
     if(type==='finished' && el?.matches('[data-search-start]'))setTimeout(()=>{
       updateSearch();
       if(awaitingSearch){
@@ -103,6 +112,7 @@
     select.value = selected;
   }
   function canonicalDocument() {
+    if(app.dataset.stale==='true')throw new Error('Run the matchup before saving or sharing the changed configuration.');
     const text = document.getElementById('scenario-data')?.dataset.json;
     if (!text || text.length > 65536) throw new Error('No completed scenario is available to save.');
     return text;

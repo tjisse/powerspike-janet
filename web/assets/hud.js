@@ -83,7 +83,7 @@
     clearTimeout(detailTimer);
     if(!payload && pin && detailAnchor===trigger && detailPinned){closeDetails();return;}
     let data;try{data=payload || JSON.parse(trigger.dataset.details);}catch{return;}
-    const scenario=document.getElementById('scenario-data')?.dataset.json;
+    const scenario=document.getElementById('configuration-data')?.dataset.json || document.getElementById('scenario-data')?.dataset.json;
     const who=trigger.closest('#item-picker')?.dataset.who || 'player';
     const cacheKey=trigger.dataset.detailItem && scenario?JSON.stringify([trigger.dataset.detailItem,who,scenario]):null;
     if(!payload && cacheKey && itemDetailsCache.has(cacheKey))data=itemDetailsCache.get(cacheKey);
@@ -110,7 +110,15 @@
     popover.replaceChildren(header,stats,body,htmlNode('p','detail-coverage',data.coverage || 'Unvalidated patch description.'));
     if(['champion-picker','item-picker','ability-settings','rune-editor'].includes(data.action)){
       const button=htmlNode('button','detail-action',trigger.classList.contains('catalog-card')?'Choose item':data['action-label']);button.type='button';
-      button.addEventListener('click',()=>{const anchor=detailAnchor;closeDetails();if(data.action.endsWith('-picker'))anchor?.click();else reveal(document.getElementById(data.action));});popover.append(button);
+      button.addEventListener('click',()=>{
+        const anchor=detailAnchor,card=anchor?.closest('.matchup-card');closeDetails();
+        if(data.action.endsWith('-picker'))anchor?.click();
+        else if(card){
+          if(card.querySelector('[data-collapse]')?.getAttribute('aria-expanded')==='false')card.querySelector('[data-collapse]').click();
+          const tab=card.querySelector(`[data-tab="${data.action==='rune-editor'?'runes':'abilities'}"]`);
+          tab?.click();tab?.scrollIntoView({block:'nearest'});
+        }else reveal(document.getElementById(data.action));
+      });popover.append(button);
     }
     if(nativePopover && !popover.matches(':popover-open'))popover.showPopover();
     if(!nativePopover)popover.hidden=false;

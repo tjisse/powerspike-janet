@@ -14,6 +14,7 @@
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
 (import ../src/powerspike/search :as search)
+(import ../src/powerspike/fitness-cache :as fitness-cache)
 (import ../src/powerspike/scenario-wire :as wire)
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
@@ -297,6 +298,26 @@
             (put cache key (job :result)) result)))))
 (defn context [state]
   {:state state :package (packages/load (state :patch) (state :snapshot))})
+
+# Compile loadouts without running combat. Configuration edits must not replace
+# the last completed fight or enqueue a simulation for every changed field.
+(defn preview [state]
+  (def package (packages/load (state :patch) (state :snapshot)))
+  (def preset (find |(= ($ :id) (state :selected)) builds))
+  (def ids (if (and preset (get-in package [:manifest "initial"])) (preset :ids)
+             (filter |(not= "" $) (map |(get state $ "") slot-keys))))
+  (def compiled (scenarios/compile (definition state ids)))
+  (def actor ((compiled :actors) 0))
+  (def opponent ((compiled :actors) 1))
+  (def champion ((package :champion-map) (state :champion)))
+  (def context (engine/context (engine/state actor 0) (engine/state opponent 1) 1))
+  {:state state :package package :champion champion :definition (compiled :definition)
+   :selected {:id (state :selected) :ids ids :items (map |((package :item-map) $) ids)
+              :cost (sum (map |(get-in package [:item-map $ :gold] 0) ids))
+              :stats (actor :stats) :ranks (actor :ranks) :opponent opponent
+              :tooltip-context context :opponent-tooltip-context (engine/context (engine/state opponent 1) (engine/state actor 0) 1)
+              :ability-settings (ability-settings (merge champion {:abilities (actor :abilities)})
+                                                  (actor :stats) (actor :level) (actor :ranks) context)}})
 (defn item-input [package value]
   (def entries (if (string? value) (string/split "," value) value))
   (assert (and (indexed? entries) (<= (length entries) 2000)) "Invalid search item selection.")
@@ -325,29 +346,31 @@
   (if (empty? pool) options (merge options {:pool pool})))
 (defn search-task [input progress cancelled]
   (def package (packages/load (get-in input [:definition :patch]) (get-in input [:definition :snapshot])))
-  (search/run package (input :definition) (input :options) progress cancelled))
-(defn optimize [input]
-  (var state (parse-state input))
-  (when (not= "custom" (state :selected))
-    (def preset (find |(= ($ :id) (state :selected)) builds))
-    (when preset (set state (merge state (tabseq [index :range [0 6]] (slot-keys index) (get (preset :ids) index ""))))))
-  (assert (not= "legacy" (state :mode)) "Choose a combat scenario to optimize.")
-  (def ids (filter |(not= "" $) (map |(get state $ "") slot-keys)))
-  (def canonical ((scenarios/compile (definition state ids)) :definition))
-  (def options (search-options input state))
-  # A separate cancellation capability per request prevents one user's cancel
-  # from stopping another user's search, even with identical scenarios.
-  (def job (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
-                        {:definition canonical :options options}))
-  (put job :gold-budget (options :budget))
-  (put job :next-purchase (options :next-purchase))
-  (put job :scenario-summary (string (get-in canonical [:player :champion]) " · patch " (canonical :patch)
-                                     " · " (canonical :duration) " seconds · " (get-in canonical [:target :kind] :practice)
-                                     (if (= :practice (get-in canonical [:target :kind]))
-                                       (string " · " (get-in canonical [:target :hp]) " target HP · " (get-in canonical [:target :armor])
-                                               " armor / " (get-in canonical [:target :mr]) " MR") "")))
-  (put job :limit (get-in job [:input :options :seconds] 5))
-  job)
+  (def options (input :options))
+  (def started (os/clock :monotonic))
+  (def limit (get options :seconds 5))
+  # Measure the current inventory independently of the candidate pool and gold
+  # limit, using the same seeds and finalist trials as the recommendations.
+  (def baseline-definition (merge (search/replace-items (input :definition)
+                                                        (tuple ;(sorted (get-in input [:definition :player :loadout :items]))))
+                                  {:samples (get options :final-samples (max 16 (get options :samples 1))) :model engine/identity}))
+  (def baseline-key (search/fitness-key package baseline-definition))
+  (def cached (fitness-cache/lookup baseline-key))
+  (progress {:message "Evaluating current build" :completed 0 :total 0 :seconds 0})
+  (def baseline (protect (or cached
+                             (let [value (scenarios/fitness baseline-definition
+                                                            (fn [] (or (cancelled) (>= (- (os/clock :monotonic) started) limit))))]
+                               (or (fitness-cache/store baseline-key value) value)))))
+  (def elapsed (- (os/clock :monotonic) started))
+  (def outcome (search/run package (input :definition) (merge options {:seconds (max 0.01 (- limit elapsed))}) progress cancelled))
+  (merge outcome {:seconds (+ elapsed (outcome :seconds)) :limit limit
+                  :cache-hits (+ (get outcome :cache-hits 0) (if cached 1 0))
+                  :simulated (+ (get outcome :simulated 0) (if (and (not cached) (first baseline)) 1 0))
+                  :baseline (if (first baseline)
+                              {:ids (get-in baseline-definition [:player :loadout :items])
+                               :cost (sum (map |(get-in package [:item-map $ :gold] 0) (get-in baseline-definition [:player :loadout :items])))
+                               :metrics (get-in baseline [1 :metrics]) :samples (baseline-definition :samples)}
+                              (outcome :baseline))}))
 (defn state-from-definition [definition]
   (def compiled (scenarios/compile definition))
   (def input @{"patch" (compiled :patch) "snapshot" (compiled :snapshot) "selected" "custom"
@@ -386,6 +409,38 @@
     (do (put input "mode" "practice") (put input "targethealth" (get target :hp 10000))
       (put input "armor" (get target :armor 80)) (put input "mr" (get target :mr 80))))
   (parse-state input))
+(defn optimize [input]
+  (var state (parse-state input))
+  (when (not= "custom" (state :selected))
+    (def preset (find |(= ($ :id) (state :selected)) builds))
+    (when preset (set state (merge state (tabseq [index :range [0 6]] (slot-keys index) (get (preset :ids) index ""))))))
+  (assert (not= "legacy" (state :mode)) "Choose a combat scenario to optimize.")
+  (def ids (filter |(not= "" $) (map |(get state $ "") slot-keys)))
+  (def original ((scenarios/compile (definition state ids)) :definition))
+  (def opponent? (= "opponent" (get input "searchwho" "player")))
+  (when opponent? (assert (= "duel" (state :mode)) "Opponent optimization requires a champion matchup."))
+  (def canonical (if opponent?
+                   (merge original {:player (merge (original :target) {:kind :champion})
+                                    :target (merge (original :player) {:kind :champion})}) original))
+  (def search-state (if opponent?
+                      (merge (state-from-definition canonical)
+                             (tabseq [index :range [0 6]] (slot-keys index) (get state (enemy-slot-keys index) ""))) state))
+  (def options (search-options input search-state))
+  # A separate cancellation capability per request prevents one user's cancel
+  # from stopping another user's search, even with identical scenarios.
+  (def job (jobs/submit :optimization (hash/sha256 (os/cryptorand 16)) search-task
+                        {:definition canonical :options options}))
+  (put job :gold-budget (options :budget))
+  (put job :search-who (if opponent? "opponent" "player"))
+  (put job :original-definition original)
+  (put job :next-purchase (options :next-purchase))
+  (put job :scenario-summary (string (get-in canonical [:player :champion]) " · patch " (canonical :patch)
+                                     " · " (canonical :duration) " seconds · " (get-in canonical [:target :kind] :practice)
+                                     (if (= :practice (get-in canonical [:target :kind]))
+                                       (string " · " (get-in canonical [:target :hp]) " target HP · " (get-in canonical [:target :armor])
+                                               " armor / " (get-in canonical [:target :mr]) " MR") "")))
+  (put job :limit (get-in job [:input :options :seconds] 5))
+  job)
 (defn evidence []
   (map (fn [file]
          (def records (parse-all (slurp (string "observations/16.19.1/" file))))

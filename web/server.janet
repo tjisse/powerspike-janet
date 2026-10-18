@@ -18,6 +18,7 @@
   {"/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
    "/assets/hud.js" {:type "text/javascript" :body (slurp "web/assets/hud.js")}
    "/assets/app.js" {:type "text/javascript" :body (slurp "web/assets/app.js")}
+   "/assets/matchup.js" {:type "text/javascript" :body (slurp "web/assets/matchup.js")}
    "/assets/datastar.js" {:type "text/javascript" :body (slurp "build/web-assets/datastar.js")}})
 (def evidence (model/evidence))
 (def asset-pending @{})
@@ -106,15 +107,33 @@
                                                         (ds/patch-signals gen values))
                                                       (with-dyns [:patch-package (prepared :package)]
                                                         (ds/patch-elements gen
-                                                                           (ui/render (ui/results prepared) (ui/loadout prepared) (ui/fight-controls prepared)
+                                                                           (ui/render (ui/results prepared)
+                                                                                      (when (or state (not= "duel" (get-in prepared [:state :mode]))) (ui/loadout prepared)) (ui/fight-controls prepared)
                                                                                       (when (= "/search/apply" (req :route)) (optimizer/panel prepared nil (get-in req [:query "id"])))
-                                                                                      (ui/tactics prepared) (optimizer/rune-editor (prepared :package) (prepared :state))
+                                                                                      (when (not= "duel" (get-in prepared [:state :mode]))
+                                                                                        [(ui/tactics prepared) (optimizer/rune-editor (prepared :package) (prepared :state))])
                                                                                       (ui/patch-panel prepared (prepared :patch-job))
                                                                                       (workspace/tools prepared) (ui/coverage prepared) (verification/panel prepared) (workspace/evidence prepared))))))}))
 (defn evaluate [req]
   (def input (ds/get-signals req))
   (def result (protect (model/compare-async (model/parse-state input))))
   (if (first result) (show-result req (result 1) nil (get input "job")) (fragment req (ui/render (ui/error-result (string (result 1)))))))
+
+(defn configure [req state &opt applied]
+  (assert (= "duel" (state :mode)) "Configuration previews require a champion matchup.")
+  (def prepared (prepare-result (model/preview state) (get (ds/get-signals req) "job")))
+  (adapter/sse-response req
+                        {:on-open (fn [gen]
+                                    (ds/with-open-sse gen
+                                                      (when applied
+                                                        (def values (ui/signals state))
+                                                        (def current (ds/get-signals req))
+                                                        (each key [:searchwho :searchbudget :searchslots :searchseconds :searchpreset :searchpool :searchexclude :nextpurchase :searchjob]
+                                                          (when (has-key? current (string key)) (put values key (get current (string key)))))
+                                                        (ds/patch-signals gen values))
+                                                      (with-dyns [:patch-package (prepared :package)]
+                                                        (ds/patch-elements gen (ui/render (ui/loadout prepared) (ui/patch-panel prepared (prepared :patch-job))
+                                                                                          (when applied (optimizer/panel prepared nil applied)))))))}))
 
 (defn app-inner [req]
   (cond
@@ -137,7 +156,7 @@
       (show-result req result state))
     (and (= "POST" (req :method)) (= "/search" (req :route)))
     (do (def input (ds/get-signals req)) (def state (model/parse-state input))
-      (def job (model/optimize input))
+      (def job (model/optimize (if (= "duel" (state :mode)) (merge input {"searchrunes" false "searchsummoners" false "searchskills" false}) input)))
       (with-dyns [:patch-package ((model/context state) :package)]
         (fragment req (ui/render (optimizer/panel (model/context state) job)))))
     (= "/search/status" (req :route))
@@ -149,9 +168,21 @@
       (assert (and job (= :optimization (job :kind)) (jobs/terminal? job)) "Wait for the search to finish or cancel it before applying a recommendation.")
       (def row (find |(= ($ :key) (get-in req [:query "key"])) (get-in job [:result :rows] [])))
       (assert row "Recommendation is no longer retained. Run the search again.")
-      (def state (model/state-from-definition (row :definition)))
-      (def result (model/compare-async state))
-      (show-result req result state))
+      (def input (ds/get-signals req))
+      (def current (model/parse-state input))
+      (if (= "duel" (current :mode))
+        (do
+          (def opponent? (= "opponent" (get job :search-who "player")))
+          (assert (and (= (current :patch) (get-in row [:definition :patch]))
+                       (= (current :snapshot) (get-in row [:definition :snapshot]))
+                       (= (current (if opponent? :opponent :champion)) (get-in row [:definition :player :champion])))
+                  "The champion or patch changed. Run the item search again.")
+          (def updated (merge input (tabseq [index :range [0 6]]
+                                      (string (if opponent? "enemyslot" "slot") (inc index)) (get (row :ids) index ""))))
+          (unless opponent? (put updated "selected" "custom"))
+          (configure req (model/parse-state updated) (string (job :id) "/" (row :key))))
+        (do (def state (model/state-from-definition (row :definition)))
+          (show-result req (model/compare-async state) state))))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
       (def signals (ds/get-signals req))
@@ -192,15 +223,24 @@
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
     (do (def query (get req :query {}))
+      (def fields (merge {"snapshotlocked" (has-key? query "snapshot")}
+                         (if (= "duel" (get query "mode" "duel")) {"mode" "duel" "selected" "custom" "duration" "10"} {}) query))
+      (when (= "true" (get query "nativeform"))
+        (put fields "selected" "custom")
+        (each key [;model/slot-keys ;model/enemy-slot-keys]
+          (when (has-key? query (string "native" key)) (put fields (string key) (get query (string "native" key)))))
+        (each key ["attacks" "abilities" "opponentattacks" "opponentabilities"]
+          (put fields key (has-key? query key))))
       (def result (protect (model/compare-async
                              (if (get-in req [:query "scenario"])
                                (model/state-from-definition (wire/decode (get-in req [:query "scenario"])))
-                               (model/parse-state (merge {"snapshotlocked" (has-key? query "snapshot")} query))))))
+                               (model/parse-state fields)))))
       (if (first result) (do
                            (def prepared (prepare-result (result 1)))
                            (with-dyns [:patch-package (prepared :package)] (response 200 (ui/page prepared evidence))))
         (response 400 (ui/page (model/compare (model/parse-state {})) evidence (string (result 1))))))
     (= "/evaluate" (req :route)) (evaluate req)
+    (= "/configure" (req :route)) (configure req (model/parse-state (ds/get-signals req)))
     (response 404 "Not found." "text/plain")))
 
 (defn app [req]
@@ -208,7 +248,9 @@
   (if (first result) (result 1)
     (if (= "true" (get-in req [:headers "datastar-request"]))
       (fragment req (ui/render (if (string/has-prefix? "/search" (req :route))
-                                 (optimizer/error-panel (string (result 1))) (ui/error-result (string (result 1))))))
+                                 (optimizer/error-panel (string (result 1)))
+                                 (if (= "/configure" (req :route)) [:p {:id "config-status" :class "measurement-error" :role "alert"} (string (result 1))]
+                                   (ui/error-result (string (result 1)))))))
       (response 400 (string (result 1)) "text/plain"))))
 
 (defn start [port &opt host data seed]

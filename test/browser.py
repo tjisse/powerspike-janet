@@ -7,7 +7,7 @@ def verify_runes(browser, base):
     page = browser.new_page(viewport={'width':1440,'height':1080})
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    page.goto(base+'/?champion=Annie&selected=custom&level=6&shard1=5008&shard2=5008&shard3=5011&runepage1=8210&runepage2=8237', wait_until='domcontentloaded')
+    page.goto(base+'/?mode=practice&champion=Annie&selected=custom&level=6&shard1=5008&shard2=5008&shard3=5011&runepage1=8210&runepage2=8237', wait_until='domcontentloaded')
     page.locator('#timeline').wait_for()
     assert page.locator('#loadout-tray .shard').count() == 3
     page.locator('#loadout-tray .shard').first.hover()
@@ -47,7 +47,7 @@ def verify(base):
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]
         page.on('pageerror', lambda e: errors.append(str(e)))
-        page.goto(base+'/?champion=Annie&selected=custom', wait_until='domcontentloaded')
+        page.goto(base+'/?mode=practice&champion=Annie&selected=custom', wait_until='domcontentloaded')
         page.locator('#timeline').wait_for()
         # Calculated tooltip values support hover, keyboard focus and click.
         q_tile=page.locator('#ranks [data-ability-slot=q]')

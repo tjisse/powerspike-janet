@@ -4,12 +4,33 @@
 (import ../src/powerspike/loadouts :as loadouts)
 (import ../src/powerspike/scenario :as scenario)
 (import ../src/powerspike/runes :as rune-data)
-(def defaults {:searchjob "" :searchbudget 10000 :searchslots 6 :searchseconds 5 :searchpreset "burst"
+(def defaults {:searchjob "" :searchwho "player" :searchbudget 10000 :searchslots 6 :searchseconds 5 :searchpreset "burst"
                :searchpool "" :searchexclude "" :nextpurchase false :searchrunes false :searchsummoners false :searchskills false})
 (defn number [value] (if (number? value) (string/format "%.1f" value) "—"))
 (defn checkbox [name caption]
   [:label [:input {:type "checkbox" :data-bind name}] caption])
-(defn controls [result]
+(defn item-controls [result]
+  [:section {:id "optimizer" :class "optimizer"}
+   [:div {:class "tactics-grid"}
+    [:label "Gold budget" [:input {:type "number" :min 0 :max 100000 :step 1 :name "searchbudget" :data-bind:searchbudget true}]]
+    [:label "Optimize for" [:select {:name "searchpreset" :data-bind:searchpreset true}
+                            [:option {:value "burst"} "Damage dealt"] [:option {:value "duel"} "Duel outcome"]
+                            [:option {:value "survival"} "Survival"] [:option {:value "sustained"} "Damage per second"]
+                            [:option {:value "utility"} "Control, healing & shields"]]]]
+   [:h3 "Keep items"]
+   [:div {:class "matchup-item-locks"}
+    (seq [index :range [1 7]]
+      [:label {:class "matchup-item-lock" :data-lock-slot index}
+       [:span {:class "matchup-lock-icon"} "—"]
+       [:span [:input {:type "checkbox" :name (string "lockslot" index) :data-bind (string "lockslot" index)}] " Keep"]])]
+   [:details {:class "optimizer-advanced" :data-preserve-attr "open"} [:summary "Advanced item search options"]
+    [:div {:class "tactics-grid"}
+     [:label "Inventory slots" [:input {:type "number" :min 0 :max 6 :name "searchslots" :data-bind:searchslots true}]]
+     [:label "Compute budget" [:select {:name "searchseconds" :data-bind:searchseconds true} [:option {:value 5} "5 seconds"] [:option {:value 30} "30 seconds"]]]
+     (checkbox "nextpurchase" "Next purchase")]
+    [:label "Candidate items (names or IDs; blank uses the shop)" [:input {:type "text" :name "searchpool" :data-bind:searchpool true}]]
+    [:label "Exclude items (names or IDs)" [:input {:type "text" :name "searchexclude" :data-bind:searchexclude true}]]]])
+(defn legacy-controls [result]
   (def order (get-in result [:state :skillorder]))
   [:section {:id "optimizer" :class "optimizer"}
    [:p {:class "muted" :data-text "'Fight: ' + $duration + ' seconds' + ($mode === 'practice' ? ' · ' + $targethealth + ' target HP · ' + $armor + ' armor / ' + $mr + ' MR' : '')"}
@@ -41,6 +62,7 @@
                    [:span {:data-text (string "'Level " index " · ' + ($skillorder.split(',')[" (dec index) "] || '').trim().toUpperCase()")}
                     (string "Level " index " · " (string/ascii-upper (string (get order (dec index) ""))))])])]]]
    [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]])
+(defn controls [result] (if (= "duel" (get-in result [:state :mode])) (item-controls result) (legacy-controls result)))
 (defn panel-body [result job &opt applied]
   (def ongoing (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
   (def outcome (get job :result))
@@ -48,7 +70,8 @@
   (def rows (or (get outcome :rows) (get progress :best) []))
   (def package (result :package))
   [:section {:id "search-panel" :class "scope-panel search-panel" :data-poll (if ongoing "true" "false")
-             :data-job (get job :id "") :data-status (get job :status :idle) :data-applied applied :aria-live "polite"}
+             :data-job (get job :id "") :data-status (get job :status :idle) :data-applied applied :aria-live "polite"
+             :data-search-who (get job :search-who "player")}
    (when job
      [:div
       (when (job :scenario-summary) [:p {:class "muted"} (job :scenario-summary)])
@@ -92,8 +115,16 @@
           [:dl {:class "search-metrics"}
            (map (fn [[field caption]] [:div [:dt caption] [:dd (number (get (row :metrics) field))]])
                 [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"] [:control "Control (s)"] [:healing "Healing"] [:absorbed "Absorbed"]])]
-          (unless ongoing [:button {:class "apply" :type "button" :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
-                           "Apply & inspect"])
+          (when (get outcome :baseline)
+            [:table {:class "search-comparison"}
+             [:thead [:tr [:th ""] [:th "Current"] [:th "Proposed"]]]
+             [:tbody
+              [:tr [:th "Gold"] [:td (number (get-in outcome [:baseline :cost]))] [:td (number (row :cost))]]
+              (map (fn [[field caption]] [:tr [:th caption] [:td (number (get-in outcome [:baseline :metrics field]))] [:td (number (get-in row [:metrics field]))]])
+                   [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"]])]])
+          (unless ongoing [:button {:class "apply" :type "button" :data-apply-build (get job :search-who "player")
+                                    :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
+                           (if (= "duel" (get-in result [:state :mode])) "Apply items" "Apply & inspect")])
           [:details {:class "search-build-details"} [:summary "Build details & coverage"]
            [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
            [:p "Runes: " (string/join (map (fn [id] (def rune (find |(= id (get $ "id")) (scenario/runes package))) (get rune "name" (string id)))
@@ -117,14 +148,13 @@
   [:dialog {:id "optimizer-dialog" :class "optimizer-dialog" :aria-labelledby "optimizer-title" :aria-describedby "optimizer-description"
             :data-on:searchtick "@get('/search/status')"}
    [:header {:class "picker-header"}
-    [:div [:h2 {:id "optimizer-title" :tabindex "-1"} "Optimize build"]
-     [:p {:id "optimizer-description" :class "muted"} "Compare builds for your current opponent and fight strategy."]]
+    [:div [:h2 {:id "optimizer-title" :tabindex "-1"} (if (= "duel" (get-in result [:state :mode])) "Optimize items" "Optimize build")]
+     [:p {:id "optimizer-description" :class "muted"} (if (= "duel" (get-in result [:state :mode])) "Opponent build fixed" "Compare builds for your current opponent and fight strategy.")]]
     [:button {:type "button" :class "catalog-close" :data-search-close true :aria-label "Close optimization"} "Close"]]
    (controls result)
    [:div {:class "optimizer-actions"}
     [:button {:id "search-start" :type "button" :class "optimize-primary" :data-search-start true
-              :data-on:click "@post('/search', {retry: 'never'})"} "Run search"]
-    [:span {:class "muted"} "Closing this window keeps the search running."]]
+              :data-on:click "@post('/search', {retry: 'never'})"} "Run search"]]
    [:p {:id "search-request-status" :role "status" :hidden true} "Starting search…"]
    (panel result nil)])
 (defn rune-editor [package state]

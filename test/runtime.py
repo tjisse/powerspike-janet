@@ -20,6 +20,7 @@ class Page(HTMLParser):
         super().__init__()
         self.timeline = None
         self.scenario = None
+        self.matchup = None
         self.assets = set()
         self.text = []
 
@@ -29,6 +30,8 @@ class Page(HTMLParser):
             self.timeline = attrs
         if attrs.get('id') == 'scenario-data':
             self.scenario = attrs
+        if 'data-matchup-result' in attrs:
+            self.matchup = json.loads(attrs['data-matchup-result'])
         for name in ['href', 'src']:
             if attrs.get(name, '').startswith('/assets/'):
                 self.assets.add(attrs[name])
@@ -115,7 +118,15 @@ def verify(binary_path, seed_path=None):
             assert verification['pipeline']['events'] >= verification['pipeline']['admitted']
             _, verification_page = get(base, '/verification')
             assert verification_page.startswith(b'<!doctype html>') and b'Verification progress' in verification_page
-            headers, raw = get(base, '/')
+            retained = next(path.name for path in (seed / '16.19.1').iterdir() if path.is_dir() and len(path.name) == 64)
+            _, matchup_raw = get(base, '/?' + urllib.parse.urlencode({'snapshot': retained}))
+            matchup = Page()
+            matchup.feed(matchup_raw.decode())
+            assert matchup.matchup['names'] == ['Annie', 'Garen']
+            assert {event['actor'] for event in matchup.matchup['trace'] if event['kind'] == 'damage'} == {'player', 'opponent'}
+            assert b'name="armor"' not in matchup_raw
+            assert b'Optimize items' in matchup_raw and '/assets/matchup.js' in matchup.assets
+            headers, raw = get(base, '/?' + urllib.parse.urlencode({'mode': 'practice', 'snapshot': retained}))
             assert headers['Content-Type'].startswith('text/html')
             page = Page()
             page.feed(raw.decode())
@@ -128,7 +139,7 @@ def verify(binary_path, seed_path=None):
             # Bundled rune/shard sources and champion adaptive preferences must
             # work when the executable has no access to the project directory.
             _, rune_raw = get(base, '/?' + urllib.parse.urlencode({
-                'champion': 'Annie', 'selected': 'custom', 'level': 6,
+                'mode': 'practice', 'champion': 'Annie', 'selected': 'custom', 'level': 6, 'snapshot': retained,
                 'shards': '5008,5008,5011', 'runes': '8210,8237'}))
             rune_page = Page()
             rune_page.feed(rune_raw.decode())
@@ -144,14 +155,14 @@ def verify(binary_path, seed_path=None):
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:
                 headers, image = get(base, path)
                 assert headers['Content-Type'] == 'image/png' and image.startswith(b'\x89PNG')
-            for path in ['/assets/app.css', '/assets/app.js', '/assets/hud.js', '/assets/datastar.js']:
+            for path in ['/assets/app.css', '/assets/app.js', '/assets/hud.js', '/assets/matchup.js', '/assets/datastar.js']:
                 _, content = get(base, path)
                 assert len(content) > 100
             # Pin the retained seed for this offline basic-attack regression.
             # Automatic download/navigation is covered separately; it must not
             # race the packaged scenario checks or depend on provider timing.
             _, raw = get(base, '/?' + urllib.parse.urlencode({
-                'champion': 'Ahri', 'selected': 'custom', 'slot1': '3031',
+                'mode': 'practice', 'champion': 'Ahri', 'selected': 'custom', 'slot1': '3031',
                 'armor': 97, 'snapshot': initial_scenario['snapshot']}))
             ahri = Page()
             ahri.feed(raw.decode())

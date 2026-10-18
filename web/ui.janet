@@ -1,6 +1,7 @@
 (import janet-html :as html)
 (import jayson :as json)
 (import ./catalog :as catalog)
+(import ./matchup :as matchup)
 (import ./model :as model)
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
@@ -192,7 +193,7 @@
         (if item (icon "item" (item :icon) (item :name)) "+")
         [:span {:class "slot-label"} (inc index)]]))])
 
-(defn fight-controls [result]
+(defn legacy-fight-controls [result]
   (def state (result :state))
   (def row (result :selected))
   [:details {:id "fight-settings" :class "control-group" :data-preserve-attr "open"
@@ -305,7 +306,7 @@
                        (filter |(some (fn [mode] (= mode "CLASSIC")) (get $ "modes" [])) (get (result :package) :summoners [])))]])])
            [:p {:class "muted"} "Automatic ranks follow this champion's skill order. Manual rank settings override it. Exceptional leveling and forms still require handlers."]]) [false true])])
 
-(defn loadout [result]
+(defn legacy-loadout [result]
   (def row (result :selected))
   (def state (result :state))
   (def totals (row :stats))
@@ -375,9 +376,9 @@
             [:button {:type "button" :class "catalog-card"
                       :data-champion-id (champion :id)
                       :data-search (string (champion :name) " " (string/join (champion :tags) " "))
-                      :data-on:click (string "$champion = '" (champion :id) "'; $selected = 'custom'; "
+                      :data-on:click (string "if ($mode === 'duel' && $editingwho === 'opponent') $opponent = '" (champion :id) "'; else { $champion = '" (champion :id) "'; $selected = 'custom'; } "
                                              "document.getElementById('champion-picker').close(); "
-                                             "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")}
+                                             "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")}
              (icon "champion" (champion :icon) (champion :name))
              [:span (champion :name)] [:small "Unvalidated"]]) (catalog/champion-list))]
     [:p {:class "picker-empty" :hidden true} "No champions match your search."]]
@@ -392,7 +393,7 @@
                :data-on:click (string (string/join (seq [index :range [1 7]]
                                                      (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = ''; else $slot" index " = ''; }")) " ")
                                       " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
-                                      "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")} "Empty slot"]]
+                                      "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")} "Empty slot"]]
     [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length (catalog/item-list)) " items"]
      " · Unvalidated. Permanent stats only; effect exclusions appear below the build."]
     [:div {:class "catalog-grid item-grid"}
@@ -405,7 +406,7 @@
                                                                  :data-on:click (string (string/join (seq [index :range [1 7]]
                                                                                                        (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = '" (item :id) "'; else $slot" index " = '" (item :id) "'; }")) " ")
                                                                                         " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
-                                                                                        "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))")})
+                                                                                        "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")})
              (icon "item" (item :icon) (item :name))
              [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
              [:small {:class "validation-badge"} "Unvalidated"]
@@ -485,7 +486,7 @@
    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
    (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])])
 
-(defn results [result]
+(defn legacy-results [result]
   (def row (merge (result :selected) {:champion-id ((result :champion) :icon)}))
   (def state (result :state))
   (def duration (state :duration))
@@ -566,6 +567,10 @@
                [:span (event-label row {:source (if (= source "attack") :attack source)})] [:strong (number-text amount)]])
             (sorted (pairs (combat :damage-breakdown)) |(> ($0 1) ($1 1))))]])])
 
+(defn loadout [result] (if (= "duel" (get-in result [:state :mode])) (matchup/loadout result) (legacy-loadout result)))
+(defn results [result] (if (= "duel" (get-in result [:state :mode])) (matchup/results result) (legacy-results result)))
+(defn fight-controls [result] (if (= "duel" (get-in result [:state :mode])) (matchup/fight-controls result) (legacy-fight-controls result)))
+
 (defn error-result [message]
   [:div {:id "results" :class "results" :role "alert"}
    [:section {:class "error-panel"} [:h2 "Check the scenario"] [:p message]]])
@@ -592,6 +597,11 @@
 
 (defn signals [state]
   (def values (merge optimizer/defaults state {:savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (def preset (find |(= ($ :id) (state :selected)) model/builds))
+  (when preset (for index 0 6 (put values (model/slot-keys index) (get (preset :ids) index ""))))
+  (each [source target] [[:health-fraction :healthfraction] [:resource-fraction :resourcefraction] [:hit-chance :hitchance]
+                         [:opponent-health-fraction :opponenthealthfraction] [:opponent-resource-fraction :opponentresourcefraction] [:opponent-hit-chance :opponenthitchance]]
+    (put values target (get state source 1)))
   (each key [:priority :opponentpriority :skillorder :opponentskillorder :runes :opponentrunes :shards :opponentshards]
     (put values key (string/join (map string (get state key [])) ",")))
   (each [source prefix] [[:summoners "summoner"] [:opponentsummoners "opponentsummoner"]]
@@ -608,19 +618,21 @@
   (render (html/doctype :html5)
           [:html {:lang "en"}
            [:head [:meta {:charset "utf-8"}] [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-            [:title "PowerSpike · Build comparisons"] [:link {:rel "stylesheet" :href "/assets/app.css"}]
+            [:title (if (= "duel" (state :mode)) "PowerSpike · Matchup" "PowerSpike · Build comparisons")] [:link {:rel "stylesheet" :href "/assets/app.css"}]
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
-            [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}] [:script {:defer true :src "/assets/hud.js"}]]
+            [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}] [:script {:defer true :src "/assets/hud.js"}] [:script {:defer true :src "/assets/matchup.js"}]]
            [:body
             [:div {:id "powerspike" :data-signals (json/encode (signals state))
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
-                   :data-indicator:busy true :data-class:is-pending "$busy"}
+                   :data-indicator:busy true :data-class:is-pending "$busy"
+                   :data-layout (if (= "duel" (state :mode)) "matchup" "legacy")
+                   :data-on:configurationchange "if(document.getElementById('scenario').reportValidity()) @get('/configure', {requestCancellation: 'auto', retry: 'never'})"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
               [:div {:class "top-meta"} [:button {:type "button" :class "quiet-action" :data-ui-toggle "patch-settings" :data-text "'Patch ' + $patch + ' ▾'"} "Patch " ((result :package) :patch) " ▾"]]]
-             [:main {:class "content"} (loadout result) (native-inventory result)
+             [:main {:class "content"} (loadout result) (if (= "duel" (state :mode)) (matchup/fightbar result) (native-inventory result))
               (if message (error-result message) (results result))
-              [:div {:class "secondary-controls"} (fight-controls result) (ability-group result)
-               [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"]
+              [:div {:class "secondary-controls"} (fight-controls result) (when (not= "duel" (state :mode)) (ability-group result))
+               (when (not= "duel" (state :mode)) [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"])
                (workspace/tools result)
                [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
                 [:summary [:span "Patch & evidence"] [:span {:class "muted"} "Sources · calibration"]]

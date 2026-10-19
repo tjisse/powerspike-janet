@@ -22,7 +22,7 @@ both duel participants. See [the source and timing notes](lich-bane.md) for the
 developer evidence boundary. Existing verification records retain their model
 identities; synthetic tests do not become in-game measurements.
 
-## Attack improvement after v0.16.0
+## Attack improvement in v0.17.0
 
 The catalog now retains baseline attack range for all 173 champions and repairs
 missing ranges when loading existing 16.19.1 snapshots. This removes the

@@ -1,5 +1,11 @@
 {:schema 1
- :rules [{:champion "Ahri" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
+ :rules [{:champion "Fiora" :slot :w :patch-min "16.19.1" :patch-max "16.19.1"
+          :cast-lock-variable "ParryDuration"
+          :effects [{:kind :parry :variable "ParryDuration" :duration-variable "ParryDuration"
+                     :target :self :trigger :cast-start :source-kinds [:champion]}]
+          :resolved-notes ["No recognized executable effect; this does not imply zero damage."]
+          :note "Riposte blocks incoming champion damage, control and negative effects for its source-defined duration, beginning at cast start. Fiora cannot move, attack or cast during this window. The return stab, its slows, immobilization-to-stun conversion and defense against objectives are excluded. Shields are assumed to remain intact during Riposte; exceptional debuff interactions and summoner casts during the window remain unreviewed."}
+         {:champion "Ahri" :slot :q :patch-min "16.17.1" :patch-max "16.19.1"
           :effects [{:kind :damage :damage-type :magic :variable "TotalDamage" :travel-multiplier 1}
                     {:kind :damage :damage-type :true :variable "TotalDamage" :travel-multiplier 2}]
           :note "Both orb phases are assumed to hit; the return uses twice the release distance. Orb turning behavior is not modeled."}

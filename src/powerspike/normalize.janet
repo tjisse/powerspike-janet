@@ -191,7 +191,7 @@
                             (def interval (if (spec :interval-variable) (expr/variable (spec :interval-variable) spell) (get spec :interval 0)))
                             (def hit-delay (if (spec :delay-variable) (expr/variable (spec :delay-variable) spell) (get spec :delay 0)))
                             (merge spec {:id (string id "/" (rule :slot) "/" (spec :variable)) :amount amount
-                                         :target :enemy :trigger (get spec :trigger :cast) :condition :always
+                                         :target (get spec :target :enemy) :trigger (get spec :trigger :cast) :condition :always
                                          :duration duration :hits hits :interval interval :delay hit-delay
                                          :status (if (empty? (mapcat |(if (dictionary? $) (expr/problems $) []) [amount duration hits interval hit-delay])) :estimated :unresolved)
                                          :evidence {:tooltip (rule :note) :override true}})) (rule :effects))))
@@ -206,7 +206,10 @@
                      :delay (expr/variable (config :delay-variable) spell)
                      :window (expr/variable (config :window-variable) spell) :cost (get config :cost 0)}))
       (put abilities index (merge chosen {:effects (if effects [;effects ;kept] (chosen :effects))
-                                          :recast (or recast (chosen :recast)) :unresolved [;notes (rule :note)]}))
+                                          :recast (or recast (chosen :recast))
+                                          :cast-lock (if (rule :cast-lock-variable)
+                                                       (expr/variable (rule :cast-lock-variable) (chosen :record)) (chosen :cast-lock))
+                                          :unresolved [;notes (rule :note)]}))
       (when (rule :rank-penetration)
         (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]

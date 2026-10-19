@@ -152,3 +152,7 @@ The [ranged replay timing study](docs/replay-attack-timing.md) now records
 Ahri/Lich Bane and Viktor Q packet context, including ambiguous announcements
 and a possible Fiora W interaction. These are developer diagnostics, not new
 admitted combat-model comparisons.
+
+Fiora W now supports its sourced champion-only parry window and Spellblade
+consumption on parried attacks. Its return stab and exceptional interactions
+remain explicit limitations; see [Riposte defense](docs/fiora-parry.md).

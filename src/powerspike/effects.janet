@@ -54,7 +54,7 @@
         :requires-ready (string "item/" id "/hit")
         :stat-bonuses (if (= id "3100") {:attack-speed-bonus (term "SheenASBuff")} {})
         :duration (if (= id "3100") (term "SpellBladeDuration") 10) :refresh true}
-       {:id (string "item/" id "/hit") :on [:attack] :requires-buff "spellblade" :consume-buff "spellblade"
+       {:id (string "item/" id "/hit") :on [:attack :parried-attack] :requires-buff "spellblade" :consume-buff "spellblade"
         :kind :damage :damage-type (spellblade-types id) :amount (term "SpellbladeDamage")
         :affects-structures true :cooldown (term "SpellbladeCooldown")}]
       (case id

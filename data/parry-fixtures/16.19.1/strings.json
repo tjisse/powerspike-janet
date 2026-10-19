@@ -1,0 +1,6 @@
+{
+  "spell_fioraw_name": "Riposte",
+  "spell_fioraw_summary": "Fiora parries all incoming damage and disables for a short time, then stabs in a direction. This stab slows the first enemy champion hit, or stuns them if Fiora blocked an immobilizing effect with this ability.",
+  "spell_fioraw_tooltip": "Fiora parries all incoming damage, disables, and negative effects for @ParryDuration@ seconds, then stabs. The stab deals <magicDamage>@StabDamage@ magic damage</magicDamage> to the first champion hit and <status>Slows</status> <speed>Move Speed</speed> by @MSSlowPercent*-100@%<attackSpeed> and Attack Speed by @AttackSlowPercent*-100@% </attackSpeed> for @CCDuration@ seconds. If Fiora parries an <status>Immobilizing</status> effect, the stabbed enemy is <status>Stunned</status> rather than <status>Slowed</status>.",
+  "game_buff_tooltip_fioraw": "<titleLeft>Riposte</titleLeft><mainText>Fiora is immune to all incoming damage and disables.</mainText><postScriptLeft>Source: @SourceName@</postScriptLeft>"
+}

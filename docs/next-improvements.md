@@ -16,8 +16,10 @@ diagnostics remain in the developer tools.
    preserving empowered Q's explicit zero-travel assumption. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
-   Exact release timing, parried-hit consumption and complete expiry/refresh
-   context remain next.
+   The [Riposte defense handler](fiora-parry.md) now models the champion-only
+   parry window and shared Spellblade consumption. Its return stab, shield
+   ordering, exceptional interactions, exact release timing and complete
+   expiry/refresh context remain next.
 2. **Level and form transitions.** Start with Kayle's level-dependent attack
    type and range, then add explicit supported forms for Elise, Gnar, Jayce and
    Nidalee. The selected form/level must drive damage, range, tooltips and both

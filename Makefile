@@ -57,6 +57,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/runes.janet
 	JANET_PATH=build/web-modules $(JANET) test/item-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/lich-bane.janet
+	JANET_PATH=build/web-modules $(JANET) test/parry.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-projectiles.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-styles.janet
 	JANET_PATH=build/web-modules $(JANET) test/mage-burst.janet
@@ -82,7 +83,8 @@ format-check: build/formatter-ready
 	JANET=$(JANET) bash scripts/format.sh --check
 
 test-runtime: build
-	$(PYTHON) test/runtime.py dist/bin/powerspike
+	JANET_PATH=build/web-modules PS_PARRY_FIXTURE=$(CURDIR)/build/parry-runtime-fixture $(JANET) test/parry.janet
+	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture
 
 test-package:
 	$(PYTHON) test/package.py $(RPM)

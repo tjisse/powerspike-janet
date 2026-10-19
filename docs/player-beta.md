@@ -88,3 +88,8 @@ The [ranged replay timing investigation](replay-attack-timing.md) adds developer
 evidence for Ahri/Lich Bane and Viktor Q, with all exceptions retained. It
 identifies a potential Fiora W/Spellblade interaction for further review; no
 additional combat cases are admitted or simulation timing parameters changed.
+
+Fiora W now has [partial defensive support](fiora-parry.md) on 16.19.1: the
+champion-only 0.75-second parry window, its action lock and Spellblade consumption
+on parried impacts. Simulation details retain the missing return stab, objective
+defense, shield-ordering assumption and exceptional interaction limits.

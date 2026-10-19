@@ -105,3 +105,11 @@ of mixed, incomplete or changed archives. All 170 Python tests ran in the native
 build container: 162 passed and eight optional tests were skipped. New replay
 extractions independently passed both 50-check aggregate suites. Application
 runtime and UI code are unchanged.
+
+## Subsequent implementation
+
+The [Riposte defense follow-up](fiora-parry.md) implements a source-bounded
+16.19.1 champion-only defensive window and parried Spellblade consumption. The
+return stab, shield ordering and exceptional interactions remain outside that
+handler. The timing study above remains a historical diagnostic record; no
+additional combat-model case is admitted.

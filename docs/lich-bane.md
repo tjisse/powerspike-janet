@@ -155,3 +155,8 @@ removals remain in the dossier. The short exception has observed Fiora W context
 identifying a possible parried-hit consumption gap. These observations support
 retaining the successful-impact policy for supported hits, but do not establish
 exact server release timing or admit new combat-model comparisons.
+
+The subsequent [Riposte handler](fiora-parry.md) separates parried impacts from
+successful damage. A parried attack consumes the primed Spellblade and starts
+its cooldown while suppressing its damage. Misses, interrupted windups and
+projectiles arriving after defense expiry retain their existing behavior.

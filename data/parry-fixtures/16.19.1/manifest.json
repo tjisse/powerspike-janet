@@ -1,0 +1,28 @@
+{
+  "patch": "16.19.1",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/fiora/fiora.bin.json?powerspike=1",
+      "complete-sha256": "e19fd4230a8ccc231887f2e00aad30b597c7c04fe917a5e6f3da0632086d9255",
+      "path": "Fiora-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.19.1/data/en_US/champion/Fiora.json",
+      "complete-sha256": "5345321c92ee512e8f05c35b520d3ed16aa14760b4021b896552617fb1fda543",
+      "path": "Fiora-abilities.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "8c051cb2a24b31f3fa9af95d39085b832b0da2b8cf51093f98c4ab0620ecb8e8",
+      "path": "strings.json",
+      "excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Fiora-characters.json": "e19fd4230a8ccc231887f2e00aad30b597c7c04fe917a5e6f3da0632086d9255",
+    "Fiora-abilities.json": "5345321c92ee512e8f05c35b520d3ed16aa14760b4021b896552617fb1fda543",
+    "strings.json": "c39d18e8f8cfc377ba48ad8086d1575bc8aa50b9cfb49e6a67b36c335ea8addf"
+  }
+}

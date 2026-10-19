@@ -64,7 +64,7 @@
                     :health (min (stats :hp) (get actor :health (stats :hp)))
                     :resource (min (get stats :mp 0) (get actor :resource (get stats :mp 0)))
                     :position (get actor :position 0) :velocity 0 :busy-until 0 :attack-ready 0
-                    :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
+                    :parry-until 0 :parry-source-kinds [] :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
                     :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[]
                     :damage-dealt 0 :attack-damage 0 :breakdown @{} :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
 (defn context [actor target rank]
@@ -201,11 +201,21 @@
     (def source (event :source))
     (def blocked (and (target :spell-immune) (not= (owner :index) (target :index))
                       (not= :attack (get event :trigger)) (not (effect :affects-structures))))
+    (def parried (and (not= (owner :index) (target :index)) (> (target :parry-until) at)
+                      (some |(= $ (owner :kind)) (target :parry-source-kinds))
+                      (some |(= $ (effect :kind)) [:damage :control :buff :stat-buff])))
+    (when (and parried (alive? target) (target-allowed? effect target)
+               (not= :unresolved (get effect :condition :always)))
+      (record :parried {:source source :actor (owner :id) :target (target :id) :effect-kind (effect :kind) :origin (event :origin)})
+      # Only Spellblade subscribes to a parried attack. Ordinary damage/on-hit
+      # counters never run, and generated proc damage cannot recursively consume.
+      (when (and (= :damage (effect :kind)) (= :attack (get event :trigger)) (= depth 0))
+        (trigger owner target :parried-attack (event :origin) depth)))
     (def unknown-slow (and (= :control (effect :kind)) (= :slow (effect :control)) (not (effect :strength))))
     (when blocked (record :immune {:source source :target (target :id)}))
     (when unknown-slow (note (string source ": Slow strength unresolved; movement reduction and utility contribution excluded.")))
     (when (and (alive? target) (not= :unresolved (get effect :condition :always))
-               (target-allowed? effect target) (not blocked) (not unknown-slow))
+               (target-allowed? effect target) (not blocked) (not unknown-slow) (not parried))
       (def outcome (protect
                      (case (effect :kind)
                        :damage
@@ -248,6 +258,17 @@
                            (trigger owner target (get event :trigger :spell-hit) (event :origin) depth (event :ability-slot))
                            (trigger owner target :damage (event :origin) depth)
                            (trigger target owner :damage-taken (event :origin) depth)))
+                       :parry
+                       (do
+                         (assert (= (owner :index) (target :index)) "Parry must target its caster.")
+                         (def duration (value (effect :duration) owner target rank))
+                         (assert (and (util/finite? duration) (< 0 duration 10)) "Invalid parry duration.")
+                         (def expires (+ at duration))
+                         (assert (and (indexed? (effect :source-kinds)) (not (empty? (effect :source-kinds))))
+                                 "Parry requires explicitly supported incoming source kinds.")
+                         (put target :parry-source-kinds (effect :source-kinds))
+                         (put target :parry-until (max (target :parry-until) expires))
+                         (record :parry-start {:source source :actor (owner :id) :expires expires}))
                        :heal
                        (do (def amount (min (- ((target :stats) :hp) (target :health))
                                             (max 0 (* (value (effect :amount) owner target rank) (get (target :stats) :healing-multiplier 1)))))
@@ -288,7 +309,7 @@
                                                                      (+ (get (target :buff-counts) (effect :buff) 0) (get effect :stacks 1))))
                          (when (effect :refresh) (put (target :buffs) (effect :buff) expires))
                          (eachp [stat amount] bonuses
-                           (put (target :stat-effects) (tuple :buff (effect :buff) stat)
+                           (put (target :stat-effects) (string/format "%j" (tuple :buff (effect :buff) stat))
                                 {:stat stat :mode :add :amount amount :expires expires :requires-buff (effect :buff)}))
                          (refresh-stats target)
                          (schedule expires 0 :buff-expire
@@ -297,7 +318,7 @@
                        :stat-buff
                        (do (def amount (value (effect :amount) owner target rank))
                          (def expires (+ at (value (effect :duration) owner target rank)))
-                         (def id (get effect :buff (tuple source (effect :stat))))
+                         (def id (string/format "%j" (tuple :stat-buff (get effect :buff source) (effect :stat))))
                          (put (target :stat-effects) id {:stat (effect :stat) :mode (get effect :mode :add)
                                                          :amount (if (effect :relative) (+ 1 amount) amount) :expires expires})
                          (refresh-stats target) (schedule expires 0 :expire {:actor (target :index)})
@@ -309,6 +330,10 @@
                        :reset (put owner :attack-ready at)
                        (note (string source ": Unsupported effect kind " (effect :kind))))))
       (unless (first outcome) (note (string source ": " (outcome 1))))))
+  (defn cast-lock [ability actor target rank]
+    (def duration (if (ability :cast-lock) (value (ability :cast-lock) actor target rank) 0))
+    (assert (and (util/finite? duration) (<= 0 duration 10)) "Unsupported cast action-lock duration.")
+    (max (get ability :cast-time 0.25) duration))
   (defn permitted? [actor target ability]
     (def activation (get-in actor [:strategy :activation (ability :slot)] {}))
     (and (>= at (get activation :after 0))
@@ -397,7 +422,7 @@
                                                          :critical (and critical (= modifier replacement))}))))
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
-        (each effect (ability :effects)
+        (each effect (filter |(not= :cast-start (get $ :trigger)) (ability :effects))
           (def released (protect (release-effect event actor target ability effect travel)))
           (unless (first released) (note (string (ability :id) ": " (released 1))))))))
   (defn decide [actor]
@@ -437,6 +462,7 @@
                             (def cast-time (get ability :cast-time 0.25))
                             (assert (not= :unresolved (ability :cost-resource)) "Resource cost semantics require a handler.")
                             (assert (and (util/finite? cast-time) (<= 0 cast-time 10)) "Cast timing directive requires a handler.")
+                            (cast-lock ability actor target learned)
                             (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
                             (def resource-cost (if recasting (get-in ability [:recast :cost] 0) (max 0 (value (ability :cost) actor target learned))))
                             (def ability-range (max 0 (value (ability :range) actor target learned)))
@@ -472,7 +498,7 @@
           (put actor :actions (inc (actor :actions)))
           (def resource-key (if (= :health (selected :cost-resource)) :health :resource))
           (put actor resource-key (- (actor resource-key) cost))
-          (put actor :busy-until (+ at cast-time))
+          (put actor :busy-until (+ at (cast-lock selected actor target rank)))
           (def charged ((actor :charges) (selected :id)))
           (def recast ((actor :recasts) (selected :id)))
           (cond
@@ -501,6 +527,10 @@
           (record :cast {:actor (actor :id) :source (selected :id) :rank rank :cost cost :cooldown cooldown})
           (def origin (string (actor :id) "/" (selected :id) "/" counter))
           (unless (selected :unhasted) (trigger actor target :cast origin 0))
+          (each effect (filter |(= :cast-start (get $ :trigger)) (selected :effects))
+            (def started (protect (release-effect {:rank rank :origin origin} actor target selected
+                                                  (merge effect {:trigger :cast}) 0)))
+            (unless (first started) (note (string (selected :id) ": " (started 1)))))
           (schedule (+ at cast-time) 5 :release {:actor (actor :index) :target (target :index) :ability selected
                                                  :rank rank :action :spell :source (selected :id) :counter counter :origin origin})
           (set next (max (+ at 0.01) (actor :busy-until))))

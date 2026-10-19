@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None):
+def verify(binary_path, seed_path=None, parry_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -110,6 +110,25 @@ def verify(binary_path, seed_path=None):
         for invalid in ['bad', '8090.5', '1023', '65536']:
             bad = subprocess.run([str(binary)], cwd=cwd, env=configuration(PS_PORT=invalid), capture_output=True, timeout=10)
             assert bad.returncode != 0 and b'1024' in bad.stderr, (invalid, bad.stderr)
+        if parry_fixture:
+            # Load an old raw-source snapshot with the copied executable and no
+            # checkout access. Cast-start defense and proc consumption must be
+            # embedded in the runtime, rather than read from fixture files.
+            with tempfile.TemporaryDirectory(prefix='parry-', dir=cwd) as check:
+                check = Path(check)
+                fixture = Path(parry_fixture).resolve()
+                shutil.copytree(fixture / 'seed', check / 'seed')
+                shutil.copyfile(fixture / 'scenario.json', check / 'scenario.json')
+                env = clean_env(PS_SEED_DIR=str(check / 'seed'), PS_DATA_DIR=str(check / 'data'))
+                outcome = json.loads(subprocess.check_output(
+                    [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
+                    env=env, text=True, timeout=10))
+                assert outcome['metrics']['damage'] == 0
+                assert abs(outcome['actors'][1]['parry-until'] - .75) < 1e-6
+                assert outcome['actors'][0]['buff-counts']['spellblade'] == 0
+                assert any('return stab' in note for note in outcome['coverage'])
+                assert sum(event['kind'] == 'parried' and event['source'] == 'item/3100/hit'
+                           for event in outcome['trace']) == 1
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             _, verification_raw = get(base, '/api/verification')
@@ -274,4 +293,6 @@ def verify(binary_path, seed_path=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('binary')
-    verify(parser.parse_args().binary)
+    parser.add_argument('--parry-fixture')
+    args = parser.parse_args()
+    verify(args.binary, parry_fixture=args.parry_fixture)

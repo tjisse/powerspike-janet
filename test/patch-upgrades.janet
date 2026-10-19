@@ -35,6 +35,13 @@
 (assert (= pending (prepared :patch-job) (prepared :spell-data-job)))
 (assert (string/find "Downloading ability data for Ahri" (ui/render (ui/results prepared))))
 (assert (nil? (server/spell-data-job (compare {"champion" "Annie" "opponent" "Annie" "mode" "duel"}))))
+(def fixed-form (compare {"champion" "Nidalee" "form" "cougar"}))
+(assert (nil? (server/spell-data-job fixed-form)))
+(assert (string/find "Fixed form · ordinary attacks only" (ui/render (ui/results fixed-form))))
+(assert (nil? (server/spell-data-job (compare {"champion" "Nidalee" "form" "human" "mode" "duel"
+                                               "opponent" "Nidalee" "opponentform" "cougar"}))))
+(assert (= pending (server/spell-data-job (compare {"champion" "Nidalee"}))))
+(assert (= pending (server/spell-data-job (compare {"champion" "Nidalee" "form" "human" "mode" "duel" "opponent" "Ahri"}))))
 
 (def document (wire/encode (get-in ahri [:selected :combat :scenario])))
 (def restored (model/state-from-definition (wire/decode document)))

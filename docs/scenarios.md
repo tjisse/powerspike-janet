@@ -8,6 +8,12 @@ Supported tooltip placeholders appear as colored calculated values. Hover or foc
 
 Blade of the Ruined King's tooltip selects the current participant's melee or ranged on-hit percentage from the same patch values used in combat. Its explanation identifies the attack type and states that the percentage applies to the target's current health on each hit. Existing cached item records use this display without another download.
 
+[Nidalee's fixed-form selector](nidalee-forms.md) supports Human and Cougar
+ordinary attacks on 16.19.1. An optional participant `form` string (`human` or
+`cougar`) retains the choice through export, import, sharing and optimization.
+Each duel participant chooses independently. No form keeps the previous unknown
+identity; selecting a form does not enable abilities or switching forms.
+
 Each champion has a populated skill order under Strategies, ranks & activation rules. Edit the comma-separated Q/W/E/R sequence to choose one skill point per level. Changing champion level applies that sequence up to the selected level. Ability tiles keep their size, with the letter in the bottom-left corner and filled circles below the icon for learned ranks; unlearned icons appear dimmed. Ability priority controls casting order independently. Manual rank settings override the learned ranks. Skill orders survive saves, imports, sharing and optimization; imported scenarios must include a skill order for each champion, with enough entries to cover their level. Exceptional champion leveling rules remain outside the current standard rank validation.
 
 Use a combat preset, configure both participants and their strategies, then choose a trial count and seed. Optimization evaluates this fixed scenario; it does not search the opponent or player decisions. Scores display their comparison order. Burst uses the configured window; sustained damage divides modeled damage by that window. Duel prioritizes win/kill probability and successful kill times. Survival prioritizes survival and health. Utility compares effective control, healing and absorption in order. Objective scoring uses objective kills, kill times and damage. Each chart has its own units and scale.

@@ -93,7 +93,7 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   await native.locator('[name=level]').selectOption('6');
   await native.locator('#player-card noscript summary').click();
   await native.locator('noscript select[name=nativeslot1]').selectOption('1052');
-  await Promise.all([native.waitForURL(url => url.searchParams.get('level') === '6'), native.locator('.matchup-run').click()]);
+  await Promise.all([native.waitForURL(url => url.searchParams.get('level') === '6', {waitUntil: 'domcontentloaded'}), native.locator('.matchup-run').click()]);
   assert.equal(await native.locator('[name=level]').inputValue(), '6');
   assert((await native.locator('#player-card').getAttribute('data-items')).includes('1052'));
   console.log('Shared chart, events, mobile and native form fallback passed.');

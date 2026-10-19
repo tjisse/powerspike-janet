@@ -10,6 +10,7 @@
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
+(import ../src/powerspike/forms :as forms)
 
 (defn- safe-tree [node]
   (if (indexed? node)
@@ -120,7 +121,11 @@
       (map (fn [champion] [:option {:value (champion :id) :selected (= (champion :id) (state :champion))}
                            (champion :name)]) (catalog/champion-list))]]
     [:label {:for "level" :class "champion-level"} "Level"
-     [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]]
+     [:select {:id "level" :name "level" :data-bind:level true} (level-options state)]]
+    (when (and (not= "legacy" (state :mode)) (not (empty? (forms/choices (state :champion) (state :patch)))))
+      [:div {:class "form-control"}
+       (matchup/select-field "form" "Form (fixed)" (get state :form "")
+                             [["" "Choose form"] ;(forms/choices (state :champion) (state :patch))])])]
    [:div {:class "champion-vitals"}
     (map (fn [[key caption]] [:div [:span caption] [:strong (number-text (get-in result [:selected :stats key] 0))]]) [[:hp "Health"] [:mp "Resource"]])]
    (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings))
@@ -591,6 +596,8 @@
           (and spell-job (= :cancelled (spell-job :status)))
           (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
           (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
+          (forms/fixed? (state :champion) (state :patch) (state :form))
+          "Fixed form · ordinary attacks only. See Simulation details for omissions."
           broad
           (string "No supported spell damage for " ((result :champion) :name) " in this patch. See Simulation details for included effects.")
           (string "Spell damage unavailable for " ((result :champion) :name)

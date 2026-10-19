@@ -236,6 +236,24 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                     assert not any(event['source'] == 'item/3153/mist'
                                    for event in identity_result['events'])
                 identity_file.unlink()
+            for form, ranged, attack_range in [('human', True, 525), ('cougar', False, 125)]:
+                _, form_raw = get(base, '/?' + urllib.parse.urlencode({
+                    'mode': 'practice', 'champion': 'Nidalee', 'form': form, 'selected': 'custom',
+                    'level': 1, 'abilities': 'false', 'movement': 'hold', 'distance': attack_range,
+                    'duration': 1, 'snapshot': initial_scenario['snapshot']}))
+                form_page = Page()
+                form_page.feed(form_raw.decode())
+                form_file = cwd / 'attack-form.json'
+                form_file.write_text(form_page.scenario['data-json'])
+                assert json.loads(form_page.scenario['data-json'])['scenario']['player']['form'] == form
+                form_result = json.loads(subprocess.check_output(
+                    [str(binary), '--simulate', str(form_file)], cwd=cwd,
+                    env=configuration(), text=True, timeout=10))
+                assert form_result['actors'][0]['form'] == form
+                assert form_result['actors'][0]['ranged'] is ranged
+                assert form_result['actors'][0]['attack-range'] == attack_range
+                assert any(event['source'] == 'attack' for event in form_result['events'])
+                form_file.unlink()
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}
             path = '/evaluate?' + urllib.parse.urlencode({'datastar': json.dumps(signals)})
             headers, body = get(base, path, {'Datastar-Request': 'true', 'Accept': 'text/event-stream'})

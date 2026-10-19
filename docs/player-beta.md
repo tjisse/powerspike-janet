@@ -104,3 +104,9 @@ both participants in practice/duel simulations and optimization. Supported item
 effects use her melee/ranged rate at the selected level, and champion Details
 shows attack range. Her attack-speed stacks, movement bonus, fire waves and
 other unsupported attacks remain explicit omissions.
+
+[Nidalee's fixed Human/Cougar form](nidalee-forms.md) can now be selected for
+either participant. The choice drives ordinary attack range and supported item
+scaling, survives exported/shared scenarios, and remains fixed during item
+optimization. Her abilities, Hunt/Prowl and form switching stay excluded in
+this mode. Older scenarios with no form retain their unknown-form behavior.

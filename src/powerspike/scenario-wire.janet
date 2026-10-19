@@ -3,7 +3,7 @@
 (import ./engine :as engine)
 (def format-name "powerspike-scenario")
 (def fields [:schema :patch :snapshot :model :duration :distance :seed :samples :player :target :champion :level :loadout
-             :items :runes :shards :adaptive-stat :summoners :health-fraction :resource-fraction :ranks :skill-order :strategy :priority :activation
+             :items :runes :shards :adaptive-stat :summoners :form :health-fraction :resource-fraction :ranks :skill-order :strategy :priority :activation
              :movement :attacks :abilities :hit-chance :preferred-range :after :self-health-below :target-health-below
              :kind :hp :armor :mr :objective :game-time :minions-present :retaliation :q :w :e :r :d :f])
 (defn normalize [value &opt depth parent]

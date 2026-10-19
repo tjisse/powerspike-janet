@@ -60,6 +60,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/parry.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-projectiles.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-styles.janet
+	JANET_PATH=build/web-modules $(JANET) test/forms.janet
 	JANET_PATH=build/web-modules $(JANET) test/mage-burst.janet
 	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	JANET_PATH=build/web-modules $(JANET) test/search.janet

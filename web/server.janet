@@ -12,6 +12,7 @@
 (import ../src/powerspike/data-util :as util)
 (import ../src/powerspike/https :as https)
 (import ../src/powerspike/scenario-wire :as wire)
+(import ../src/powerspike/forms :as forms)
 (import spork/http :as http)
 
 (def assets
@@ -28,9 +29,11 @@
 
 (defn needs-spell-data? [result]
   (def state (result :state))
+  (defn needs-kit? [id form]
+    (and (not= "Annie" id) (not (forms/fixed? id (get-in result [:package :patch]) form))))
   (and (get-in result [:package :manifest "initial"])
-       (or (not= "Annie" (state :champion))
-           (and (= "duel" (state :mode)) (not= "Annie" (state :opponent))))))
+       (or (needs-kit? (state :champion) (state :form))
+           (and (= "duel" (state :mode)) (needs-kit? (state :opponent) (state :opponentform))))))
 
 (defn spell-data-job [result]
   (def package (result :package))

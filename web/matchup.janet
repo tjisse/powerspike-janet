@@ -4,6 +4,7 @@
 (import ./details :as details)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/runes :as rune-data)
+(import ../src/powerspike/forms :as forms)
 
 (defn text-number [n] (string/format "%.0f" (or n 0)))
 (defn icon [package group id name]
@@ -126,7 +127,11 @@
      [:button {:type "button" :class "matchup-champion" :aria-label (if opponent "Select opponent" "Select champion")
                :data-on:click (string "$editingwho = '" who "'; document.getElementById('champion-picker').showModal()")}
       (icon package "champion" (champion :icon) (champion :name)) [:h1 (champion :name)] [:span {:class "matchup-caret"} "⌄"]]
-     (select-field (if opponent "opponentlevel" "level") "Level" (state (if opponent :opponentlevel :level)) (map |[$ (string $)] (range 1 19)))]
+     (select-field (if opponent "opponentlevel" "level") "Level" (state (if opponent :opponentlevel :level)) (map |[$ (string $)] (range 1 19)))
+     (when (not (empty? (forms/choices (champion :id) (package :patch))))
+       [:div {:class "form-control"}
+        (select-field (if opponent "opponentform" "form") "Form (fixed)" (get state (if opponent :opponentform :form) "")
+                      [["" "Choose form"] ;(forms/choices (champion :id) (package :patch))])])]
     [:label {:class "native-only"} (if opponent "Opponent" "Champion")
      [:select {:form "scenario" :name (if opponent "opponent" "champion") :data-bind (if opponent "opponent" "champion")}
       (map |[:option {:value ($ :id) :selected (= ($ :id) (champion :id))} ($ :name)] (catalog/champion-list))]]
@@ -212,7 +217,10 @@
   (def combat (get-in result [:selected :combat]))
   (def actors (get combat :actors []))
   (def state (result :state))
-  (def names (map |(get-in result [:package :champion-map $ :name] $) [(state :champion) (state :opponent)]))
+  (def names (map (fn [id actor]
+                    (string (get-in result [:package :champion-map id :name] id)
+                            (if (actor :form-name) (string " (" (actor :form-name) ")") "")))
+                  [(state :champion) (state :opponent)] actors))
   (def deaths (map |(get $ :dead-at) actors))
   (def simultaneous (and (get deaths 0) (get deaths 1) (= (deaths 0) (deaths 1))))
   (def loser (cond simultaneous nil
@@ -245,7 +253,9 @@
         :failed "Ability data unavailable. Refresh patch data to retry."
         :cancelled "Ability data download cancelled."
         :done "Ability data ready."
-        (string "Downloading ability data for " (if (= "Annie" (state :champion)) (names 1) (names 0)) "."))])
+        (let [player-ready (or (= "Annie" (state :champion)) (forms/fixed? (state :champion) (state :patch) (state :form)))
+              id (state (if player-ready :opponent :champion))]
+          (string "Downloading ability data for " (get-in result [:package :champion-map id :name] id) ".")))])
    [:div {:class "matchup-legend"}
     (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])]
    [:div {:id "matchup-chart" :class "matchup-chart" :role "img" :aria-label "Both champions over time"}]

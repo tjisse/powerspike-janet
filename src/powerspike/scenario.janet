@@ -9,6 +9,7 @@
 (import ./validation :as v)
 (import ./data-util :as util)
 (import ./attacks :as attacks)
+(import ./forms :as forms)
 (import pshash :as hash)
 (import ../../data/16.19.1/annie :as annie)
 
@@ -58,7 +59,7 @@
   (def automatic (skills/ranks-from-order (spec :skill-order) level))
   (def ranks (merge automatic (get spec :ranks {})))
   (skills/validate-ranks ranks level)
-  (def champion (attacks/at-level source-champion level ranks))
+  (def champion (forms/apply-form (attacks/at-level source-champion level ranks) (spec :form)))
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
   (assert (and (indexed? page) (<= (length page) 6)
@@ -81,6 +82,7 @@
   (def all-ranks (merge ranks (tabseq [spell :in summoners] (spell :slot) 1)))
   (def inspection (builds/inspect-build items {:champion (champion :id)}))
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
+   :form (champion :form) :form-name (champion :form-name)
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :windup-fraction (get-in champion [:attack-windup :fraction] 0.3)

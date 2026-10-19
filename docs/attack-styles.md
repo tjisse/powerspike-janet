@@ -29,7 +29,9 @@ champion.
 
 Elise, Gnar, Jayce, Kayle and Nidalee have both identities. The
 [Kayle follow-up](kayle-levels.md) now resolves her ordinary attack type and range
-at a fixed selected level on 16.19.1. The other four champions' current attack
+at a fixed selected level on 16.19.1. [Nidalee's selected fixed form](nidalee-forms.md)
+now supplies her ordinary attack type and range; unselected forms remain unknown.
+The other three champions' current attack
 type depends on forms the model does not yet reconstruct. The compiler keeps
 their type unknown and excludes Mist's Edge's conditional on-hit damage;
 the item's supported ordinary stats still apply. Simulation details explain the
@@ -48,7 +50,8 @@ preserving the saved-scenario compatibility notice.
 exceptions, patch isolation, missing and invalid identities, immutable cached
 snapshot repair, independently calculated on-hit damage, both participants,
 tooltip values, direct/optimizer equality, Kayle's levels and abstention for the
-four unmodeled transforming champions. The standalone runtime checks Lillia,
+unselected transforming champions. The form suite adds Nidalee's explicit
+selection and both optimizer perspectives. The standalone runtime checks Lillia,
 Ahri, Elise and Kayle through the packaged HTTP and simulation interfaces.
 
 Core/source/Python checks, frontend and combat regressions, relocated runtime

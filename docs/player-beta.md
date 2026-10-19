@@ -12,6 +12,20 @@ In practice and objective simulations, players can pin an inventory and compare 
 
 Simulation details are reachable beside the headline metrics. Current results and pinned results retain their separate omissions and inventory notes. Verification-only annotations stay in the developer view. Failed scenario evaluations disable save, export and share actions until a successful evaluation replaces them. The saved artifact remains a single reproducible scenario; comparisons live in the open page session.
 
+## Next improvement after v0.15.1
+
+Complete Lich Bane's empowered attack-speed behavior in the shared combat engine.
+The damage proc is already modeled, while `effects/item-limitations` explicitly
+excludes the speed effect. The retained 16.19.1 item record supplies
+`SheenASBuff`; its lifetime, cooldown eligibility and consumption need to be
+confirmed against the matching mechanic before implementation.
+
+Acceptance should cover attack windup/timestamps, priming and consumption,
+repeated casts during cooldown, subsequent ordinary attacks, and both duel
+participants. Use the same evaluator for direct simulation and optimization,
+and retain reviewed evidence and diagnostics in the developer view. This closes
+a concrete gap that can affect short-fight damage and item recommendations.
+
 ## Remaining rollout priorities
 
 1. **Establish combat evidence.** Admit reviewed basic attacks and isolated spell hits through the existing verification workflow. Start with mechanics that affect common item decisions: mitigation, penetration, crit, attack timing, cooldowns and supported item triggers. Track exact patch/model identities and unresolved hit context. The five Annie stat captures and replay decoder agreement do not establish combat accuracy.

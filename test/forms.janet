@@ -20,8 +20,9 @@
 (def dd (get-in (util/read-json (slurp "data/combat-fixtures/16.19.1/items-ddragon.json")) ["data" "3153"]))
 (def item (merge (normalize/item-effects (normalize/item "16.19.1" "3153" dd) records {})
                  {:tooltip "Attacks deal {{ Item_Melee_Ranged_Split_Dynamic }} of current Health as bonus damage."}))
+(def sheen (normalize/item-effects (normalize/item "16.19.1" "3057" (get-in (util/read-json (slurp "data/combat-fixtures/16.19.1/items-ddragon.json")) ["data" "3057"])) records {}))
 (def root (string "build/form-tests/" (hash/sha256 (os/cryptorand 8))))
-(def bytes (util/encode-data {:schema 1 :patch "16.19.1" :champions champions :items [item]}))
+(def bytes (util/encode-data {:schema 1 :patch "16.19.1" :champions champions :items [item sheen]}))
 (def snapshot (hash/sha256 bytes))
 (def directory (string root "/patches/16.19.1/" snapshot))
 (util/write (string directory "/package.jdn") bytes)
@@ -37,8 +38,10 @@
    :player (spec form level champion) :target {:kind :practice :hp 1000 :armor 0 :mr 0}})
 (each [champion form ranged range rate] [["Nidalee" "human" true 525 0.06] ["Nidalee" "cougar" false 125 0.09]
                                          ["Jayce" "hammer" false 125 0.09] ["Jayce" "cannon" true 500 0.06]
-                                         ["Elise" "human" true 550 0.06] ["Elise" "spider" false 125 0.09]]
+                                         ["Elise" "human" true 550 0.06] ["Elise" "spider" false 125 0.09]
+                                         ["Gnar" "mini" true 400 0.06] ["Gnar" "mega" false 175 0.09]]
   (each level (if (= champion "Jayce") [1 5 6 10 11 15 16 18] [1 6 18])
+    (def range (if (and (= champion "Gnar") (= form "mini")) (+ range (* 100 (/ (dec level) 17))) range))
     (def definition (definition form level champion))
     (def compiled (scenario/compile definition))
     (def actor (get-in compiled [:actors 0]))
@@ -225,6 +228,61 @@
 (assert (not (first (protect (scenario/compile (definition "cougar" 1 "Elise"))))))
 (assert (= "form-dependent" (get-in package [:champion-map "Elise" :attack-style])))
 (assert (empty? (forms/choices "Elise" "16.18.1")))
+
+# Independent complete stat table: passive additions are BASE stats, not item
+# bonuses. GnarBig's conflicting rounded defenses/old AD growth must not win.
+(each level (range 1 19)
+  (def n (dec level))
+  (def factor (+ (* 0.7025 n) (* 0.0175 n n)))
+  (each form ["mini" "mega"]
+    (def spec (merge (spec form level "Gnar") {:loadout {:items []} :health-fraction 0.5}))
+    (def actor (scenario/participant package spec "player" 0))
+    (def mega (= form "mega"))
+    (each [key base growth] (if mega [[:hp 640 122] [:ad 66 5.7] [:armor 35.5 6.7] [:mr 33.5 4.8] [:hp-regen 4.5 1.25]]
+                              [[:hp 540 79] [:ad 60 3.2] [:armor 32 3.7] [:mr 30 1.3] [:hp-regen 4.5 1.25]])
+      (close (+ base (* growth factor)) (get-in actor [:stats key]))
+      (close (+ base (* growth factor)) (get-in actor [:base key])))
+    (close 0 (get-in actor [:stats :bonus-ad]))
+    (close (get-in actor [:base :ad]) (get-in actor [:stats :base-ad]))
+    (close (* 0.625 (+ 1 (* (if mega 0.005 0.06) factor))) (get-in actor [:stats :attack-speed]))
+    (close (+ 335 (if mega 0 ([0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 16 18 20] n))) (get-in actor [:stats :move-speed]))
+    (close (* 0.5 (get-in actor [:stats :hp])) (actor :health))
+    (close (if mega 175 (+ 400 (/ (* 100 n) 17))) (actor :attack-range))
+    # Item AD is bonus AD; form AD must instead feed source-backed Sheen.
+    (def armed (scenario/participant package (merge spec {:loadout {:items ["3057"]}}) "player" 0))
+    (def priming {:at 0 :kind :effect :actor 0 :target 0 :source "fixture" :origin "prime"
+                  :effect {:kind :buff :buff "spellblade" :duration 1}})
+    (def target (merge dummy {:stats {:hp 10000 :armor 0 :mr 0}}))
+    (def result (engine/simulate {:duration 0.7 :actors [armed target] :initial-events [priming]}))
+    (def hit (find |(and (= :damage ($ :kind)) (not= "attack" ($ :source))) (result :trace)))
+    (assert hit)
+    (close (get-in actor [:base :ad]) (hit :damage))
+    (assert (empty? (get-in result [:actors 0 :abilities])))))
+
+(def gnar-duel (merge (definition "mini" 15 "Gnar") {:distance 200 :target (merge (spec "mega" 18 "Gnar") {:kind :champion})}))
+(def gnar-decoded (wire/decode (wire/encode ((scenario/compile gnar-duel) :definition))))
+(def gnar-restored (model/state-from-definition gnar-decoded))
+(assert (= "mini" (gnar-restored :form))) (assert (= "mega" (gnar-restored :opponentform)))
+(assert (= ((scenario/simulate gnar-duel) :metrics) ((scenario/simulate (model/definition gnar-restored ["3153"])) :metrics)))
+(def compared (model/compare gnar-restored))
+(def html (ui/render (matchup/loadout compared) (matchup/results compared)))
+(each text ["Gnar (Mini)" "Gnar (Mega)" "Mini · ranged" "Mega · melee"] (assert (string/find text html) text))
+(assert (string/find "Rage, automatic transformations" (ui/render (ui/coverage compared))))
+(each definition [gnar-duel (merge gnar-duel {:player (gnar-duel :target) :target (merge (gnar-duel :player) {:kind :champion})})]
+  (def result (search/run package definition {:pool ["3153"] :slots 1 :budget 4000 :seconds 5 :final-samples 1}
+                          (fn [progress] nil) (fn [] false)))
+  (assert (result :complete))
+  (each row (result :rows)
+    (assert (= (get-in definition [:player :form]) (get-in row [:definition :player :form])))
+    (assert (= (get-in definition [:target :form]) (get-in row [:definition :target :form])))
+    (assert (= (row :metrics) ((scenario/fitness (row :definition)) :metrics)))))
+(assert (nil? (get-in (scenario/compile (definition nil 1 "Gnar")) [:actors 0 :ranged])))
+(assert (not (first (protect (scenario/compile (definition "cannon" 1 "Gnar"))))))
+(assert (not (first (protect (scenario/compile (definition "mini" 1 "Jayce"))))))
+(assert (= "" ((model/parse-state {"champion" "Gnar" "form" "spider"}) :form)))
+(assert (= "" ((model/parse-state {"champion" "Elise" "form" "mega"}) :form)))
+(assert (empty? (forms/choices "Gnar" "16.18.1")))
+(assert (= "form-dependent" (get-in package [:champion-map "Gnar" :attack-style])))
 (assert (= snapshot (hash/sha256 (slurp (string directory "/package.jdn")))))
 (util/remove-tree root)
-(print "Sourced Nidalee/Jayce/Elise forms: both roles, ranges, item scaling, Hammer resistances, Spider Queen damage/healing and live modifiers, cached repair, scenario/UI round trips and optimizer preservation passed.")
+(print "Sourced Nidalee/Jayce/Elise/Gnar forms: both roles, ranges, item scaling, form stats, base-AD Spellblade, passive effects, cached repair, scenario/UI round trips and optimizer preservation passed.")

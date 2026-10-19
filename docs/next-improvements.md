@@ -27,10 +27,17 @@ diagnostics remain in the developer tools.
    for ordinary attacks and supported item scaling. Jayce now has [fixed Hammer/Cannon forms](jayce-forms.md),
    including Hammer's level/bonus-AD resistance scaling. Elise now has
    [fixed Human/Spider forms](elise-forms.md), including movement speed and
-   Spider Queen's champion/practice on-hit damage and healing. Next add supported
-   forms for Gnar. The selected form/level must drive damage, range,
-   tooltips and both optimizer perspectives consistently. Remove an omission only when its
-   replacement is implemented and checked.
+   Spider Queen's champion/practice on-hit damage and healing. Gnar now has
+   [fixed Mini/Mega forms](gnar-forms.md), including level-scaled range, movement,
+   attack speed and base stats. All five ambiguous ordinary attack identities
+   now have fixed-level/form handling. Automatic transitions and the remaining
+   passive/ability effects still need reviewed handlers. Extend them only when
+   the selected state drives damage, range, tooltips and both optimizer
+   perspectives consistently; remove an omission only after its replacement
+   is implemented and checked. Before expanding passive support, audit the
+   generic expression parser's handling of stat-progression interpolation
+   flags. Gnar's fixed-form profile handles its reviewed nonlinear base-stat
+   additions explicitly; that does not establish general formula support.
 3. **Broader combat regression evidence.** Expand reviewed comparisons across
    independent games and common build decisions: armor/penetration, critical
    hits, current-health on-hits, shields and changing health. Keep exact patch

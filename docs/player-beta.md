@@ -123,3 +123,11 @@ magic damage and self-healing against champions/practice targets. The free
 first R rank is included; rank controls allocate additional points. Both forms
 remain fixed in comparisons, item searches and shared scenarios. Active casts,
 Spiderlings, Rappel amplification and objective passive effects remain excluded.
+
+[Gnar's fixed Mini/Mega forms](gnar-forms.md) now cover the last of the five
+ambiguous attack identities. Both participants use their form's level-scaled
+range, movement speed, attack speed and base stats, and Spellblade uses Mega's
+increased base AD. The form stays fixed in comparisons, searches and shared
+scenarios. Rage, Hyper, casts and transformations remain excluded, including
+Mega's usual time limit. Completing this pass does not mean full champion kits
+or every ordinary attack mechanic are modeled.

@@ -242,7 +242,11 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                                                                ('Jayce', 'hammer', 16, False, 125),
                                                                ('Elise', 'human', 1, True, 550), ('Elise', 'spider', 1, False, 125),
                                                                ('Elise', 'spider', 6, False, 125), ('Elise', 'spider', 11, False, 125),
-                                                               ('Elise', 'spider', 16, False, 125)]:
+                                                               ('Elise', 'spider', 16, False, 125),
+                                                               ('Gnar', 'mini', 1, True, 400), ('Gnar', 'mega', 1, False, 175),
+                                                               ('Gnar', 'mini', 15, True, 400 + 1400 / 17),
+                                                               ('Gnar', 'mini', 16, True, 400 + 1500 / 17),
+                                                               ('Gnar', 'mini', 18, True, 500), ('Gnar', 'mega', 18, False, 175)]:
                 _, form_raw = get(base, '/?' + urllib.parse.urlencode({
                     'mode': 'practice', 'champion': champion, 'form': form, 'selected': 'custom',
                     'level': level, 'abilities': 'false', 'movement': 'hold', 'distance': attack_range,
@@ -276,6 +280,19 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                         assert b'Additional R points (free first rank included)' in form_raw
                     else:
                         assert not passive and not healing
+                if champion == 'Gnar':
+                    actor = form_result['actors'][0]
+                    n = level - 1
+                    factor = .7025 * n + .0175 * n * n
+                    mega = form == 'mega'
+                    for stat, base_stat, growth in ([('hp', 640, 122), ('ad', 66, 5.7), ('armor', 35.5, 6.7), ('mr', 33.5, 4.8)] if mega else
+                                                    [('hp', 540, 79), ('ad', 60, 3.2), ('armor', 32, 3.7), ('mr', 30, 1.3)]):
+                        assert abs(actor['stats'][stat] - base_stat - growth * factor) < 1e-4
+                        assert abs(actor['base'][stat] - actor['stats'][stat]) < 1e-6
+                    expected_ms = 335 if mega else 335 + (n if level <= 15 else {16:16,17:18,18:20}[level])
+                    assert actor['stats']['move-speed'] == expected_ms
+                    assert abs(actor['stats']['attack-speed'] - .625 * (1 + (.005 if mega else .06) * factor)) < 1e-6
+                    assert b'Rage, automatic transformations' in form_raw
                 assert any(event['source'] == 'attack' for event in form_result['events'])
                 form_file.unlink()
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}

@@ -38,6 +38,11 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
         assert float(stats_for('player')['Move speed']) == 330
         assert float(stats_for('opponent')['Move speed']) == 355
         expect(page.locator('[name=rrank]').locator('..')).to_contain_text('Additional R points (free first rank included)')
+    if champion == 'Gnar':
+        for who, expected in [('player', {'Health':540, 'Attack damage':60, 'Armor':32, 'Magic resist':30, 'Attack range':400}),
+                              ('opponent', {'Health':640, 'Attack damage':66, 'Armor':35.5, 'Magic resist':33.5, 'Attack range':175})]:
+            for label, value in expected.items():
+                assert float(stats_for(who)[label]) == value
     assert 'Downloading ability data' not in page.locator('#results').inner_text()
     assert all(row['actor'] == 'player' for row in result()['trace'] if row['kind'] == 'damage')
     assert any(row['kind'] == 'damage' for row in result()['trace'])
@@ -95,6 +100,32 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
         page.get_by_text('Strategies, ranks & activation rules', exact=True).click()
         expect(page.locator('[name=rrank]').locator('..')).to_contain_text('Additional R points (free first rank included)')
         page.locator('#results').screenshot(path='build/elise-spider-queen-desktop.png')
+    if champion == 'Gnar':
+        page.set_viewport_size({'width':1200,'height':1000})
+        page.goto(base+'/?mode=practice&champion=Gnar&form=mini&level=15&selected=custom&snapshotlocked=true'
+                  '&abilities=false&movement=hold&distance=200&duration=1', wait_until='domcontentloaded')
+        expect(page.locator('#timeline')).to_be_visible()
+        def practice_stats():
+            return dict(json.loads(page.locator('#champion-display button[data-details]').get_attribute('data-details'))['stats'])
+        assert float(practice_stats()['Move speed']) == 349
+        assert abs(float(practice_stats()['Attack range']) - (400 + 1400 / 17)) < .01
+        page.locator('#level').select_option('16')
+        page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.level === 16')
+        assert float(practice_stats()['Move speed']) == 351
+        page.locator('#level').select_option('18')
+        page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.level === 18')
+        assert float(practice_stats()['Move speed']) == 355
+        assert float(practice_stats()['Attack range']) == 500
+        page.locator('#scenario [name=form]').select_option('mega')
+        page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === "mega"')
+        assert float(practice_stats()['Move speed']) == 335
+        assert float(practice_stats()['Health']) == 2714
+        assert abs(float(practice_stats()['Attack damage']) - 162.9) < .01
+        assert not json.loads(page.locator('#timeline').get_attribute('data-events'))
+        page.locator('.coverage-link').click()
+        expect(page.locator('#coverage')).to_contain_text('Rage, automatic transformations')
+        expect(page.locator('#coverage')).to_contain_text('15-second duration')
+        page.locator('#loadout-tray').screenshot(path='build/gnar-form-level18.png')
     assert not errors, errors
     page.close()
     native_context = browser.new_context(java_script_enabled=False)
@@ -252,6 +283,7 @@ def verify(base):
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
         verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')
         verify_fixed_forms(browser, base, 'Elise', 'human', 'spider', 'Human', 'Spider')
+        verify_fixed_forms(browser, base, 'Gnar', 'mini', 'mega', 'Mini', 'Mega')
         verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]

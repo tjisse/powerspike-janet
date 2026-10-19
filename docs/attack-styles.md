@@ -34,8 +34,10 @@ now supplies her ordinary attack type and range; unselected forms remain unknown
 Jayce's [fixed Hammer/Cannon form](jayce-forms.md) now supplies his type, range
 and Hammer resistance passive. Elise's [fixed Human/Spider form](elise-forms.md)
 now supplies her type, range, movement speed and Spider Queen passive. Gnar's
-current attack type still depends on a form the model does not reconstruct.
-The compiler keeps his type unknown and excludes Mist's Edge's conditional on-hit damage;
+[fixed Mini/Mega form](gnar-forms.md) now supplies his type, level-scaled range,
+movement, attack speed and base stats. All five ambiguous identities now have
+fixed-level/form handling. Without a selected form, the transforming champions
+keep an unknown type and exclude Mist's Edge's conditional on-hit damage;
 the item's supported ordinary stats still apply. Simulation details explain the
 omission. The tooltip retains a readable percentage description without a
 fabricated 6%/9% value or an internal template token. Other champions with missing
@@ -53,7 +55,7 @@ exceptions, patch isolation, missing and invalid identities, immutable cached
 snapshot repair, independently calculated on-hit damage, both participants,
 tooltip values, direct/optimizer equality, Kayle's levels and abstention for the
 unselected transforming champions. The form suite adds Nidalee's explicit
-selection, Jayce and Elise form effects, and both optimizer perspectives. The standalone runtime checks Lillia,
+selection, Jayce/Elise/Gnar form effects, and both optimizer perspectives. The standalone runtime checks Lillia,
 Ahri, Elise and Kayle through the packaged HTTP and simulation interfaces.
 
 Core/source/Python checks, frontend and combat regressions, relocated runtime

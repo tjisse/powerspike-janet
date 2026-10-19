@@ -1,0 +1,62 @@
+{
+  "patch": "16.19.1",
+  "scope": "Fixed Mini/Mega Gnar: ordinary attack identity, range and level-scaled form stats. Rage, transformations, transformation healing, Hyper and ability casts excluded.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/gnar/gnar.bin.json?powerspike=1",
+      "path": "Gnar-characters.json",
+      "complete-sha256": "2891edf3dbd17519ad0e1203de71890ce77777482c2191ffeeaadf85df4ec9aa",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/gnarbig/gnarbig.bin.json?powerspike=1",
+      "path": "GnarBig-characters.json",
+      "complete-sha256": "6e892e6a718c13098af8ec88151755ca724ad9664ea9973b91c648b1ad9a28d0",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "path": "Gnar-strings.json",
+      "complete-sha256": "8c051cb2a24b31f3fa9af95d39085b832b0da2b8cf51093f98c4ab0620ecb8e8",
+      "excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Gnar-characters.json": "2891edf3dbd17519ad0e1203de71890ce77777482c2191ffeeaadf85df4ec9aa",
+    "GnarBig-characters.json": "6e892e6a718c13098af8ec88151755ca724ad9664ea9973b91c648b1ad9a28d0",
+    "Gnar-strings.json": "c6361cb01d9aeb81c62bbf4bc68b2485aeb4f5a91806065950fa4108aef32c4f"
+  },
+  "reviewed_semantics": {
+    "mini_range_at_level1": 400,
+    "mini_attack_speed_already_in_growth": true,
+    "mega_passive_increases_base_stats": true
+  },
+  "references": [
+    {
+      "original": "https://na.leagueoflegends.com/en/news/game-updates/patch/patch-613-notes",
+      "retained-reprint": "https://www.surrenderat20.net/2016/06/patch-613-notes.html",
+      "author": "Riot Games patch notes, reproduced verbatim by Surrender at 20",
+      "supports": "Mini attack range endpoints 400 and 500 at levels 1 and 18. The current client calculation supplies the 100-unit linear level increase. Original Riot URL now redirects to the news index."
+    },
+    {
+      "original": "https://na.leagueoflegends.com/en/news/game-updates/patch/patch-420-notes",
+      "retained-reprint": "https://www.nerfplz.com/2014/11/official-patch-420-notes-released.html",
+      "author": "Riot Pwyff patch notes, reproduced by Nerfplz",
+      "supports": "Mini passive attack speed was folded into the 6% growth stat. Mega stat increases use the nonlinear stat growth progression. Current values come from retained 16.19 records, not historical values."
+    },
+    {
+      "url": "https://www.leagueoflegends.com/en-us/news/game-updates/patch-10-4-notes/",
+      "supports": "Base movement speed 335 and Mini bonus movement speed 0 to 20."
+    },
+    {
+      "url": "https://www.leagueoflegends.com/en-us/news/game-updates/patch-11-13-notes/",
+      "supports": "Mega passive base AD was corrected to match the tooltip; use the named passive additions instead of conflicting GnarBig root AD/resistance values."
+    }
+  ],
+  "discrepancies": [
+    "GnarBig root AD growth 5.5 conflicts with Mini 3.2 plus named passive 2.5; effective Mega growth is 5.7.",
+    "GnarBig root armor/MR 36/33 conflict with Mini 32/30 plus named passive 3.5 each; use effective 35.5/33.5.",
+    "Do not add TotalAS tooltip values on top of the already-folded 6% Mini attack-speed growth.",
+    "TotalAttackRange only supplies the 0-to-100 level increase; the 400 baseline is a reviewed semantic rule from Riot patch 6.13."
+  ]
+}

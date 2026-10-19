@@ -604,6 +604,7 @@
           (case (state :champion)
             "Elise" "Fixed form · ordinary attacks, form stats and Spider Queen in Spider form. See Simulation details for omissions."
             "Jayce" "Fixed form · ordinary attacks and form stats. See Simulation details for omissions."
+            "Gnar" "Fixed form · ordinary attacks and form stats. Rage, Hyper and transformations excluded. See Simulation details."
             "Fixed form · ordinary attacks only. See Simulation details for omissions.")
           broad
           (string "No supported spell damage for " ((result :champion) :name) " in this patch. See Simulation details for included effects.")

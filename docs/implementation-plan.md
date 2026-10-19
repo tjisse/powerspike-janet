@@ -17,6 +17,8 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
+Version 0.15.0 is prepared with a player-facing simulated-fight view, separate developer diagnostics, pinned item comparisons for practice/objective scenarios and failed-evaluation save protection. It preserves the paired matchup interface from v0.14.0 and includes the indexed replay evidence work on main. See [release notes](releases/0.15.0.md).
+
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.
 
 Version 0.14.0 is released with paired champion configuration, responsive mobile summaries, a shared health/damage graph and item optimization for either participant. Local checks and the [GitHub packaging/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39162283988) passed, along with [signed RPM/DNF publication, installation and upgrade checks](https://github.com/tjisse/powerspike-janet/actions/runs/39162547774). See [release notes](releases/0.14.0.md).

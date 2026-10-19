@@ -2,14 +2,18 @@
 const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const assert = require('node:assert/strict');
 const base = process.env.PS_TEST_URL || 'http://localhost:8090';
-const seed = '77faf829fe522030377108ee4d2222dba283b0df865f1826236fcbed04152f9c';
+const snapshotQuery = process.env.PS_TEST_SNAPSHOT
+  ? `snapshot=${encodeURIComponent(process.env.PS_TEST_SNAPSHOT)}`
+  : 'snapshotlocked=true';
 (async () => {
   const browser = await chromium.launch({headless: true, ...(process.env.BROWSER_EXECUTABLE ? {executablePath: process.env.BROWSER_EXECUTABLE} : {})});
   const page = await browser.newPage({viewport: {width: 1200, height: 1000}}), errors = [];
   page.on('pageerror', error => { errors.push(error.message); console.error('Page error:', error.message); });
-  await page.goto(`${base}/?snapshot=${seed}`, {waitUntil: 'domcontentloaded'});
+  await page.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
   await page.locator('#matchup-chart svg').waitFor();
   assert.equal(await page.locator('.matchup-card').count(), 2);
+  assert.equal(await page.locator('.coverage-link').innerText(), 'Simulated fight · details ▾');
+  assert.equal(await page.locator('#verification-progress, #source-evidence, #evidence').count(), 0);
   assert.equal(await page.locator('[name=mode]').inputValue(), 'duel');
   assert.equal(await page.locator('#fight-settings [name=armor]').count(), 0);
   const items = who => page.locator(`#${who}-card`).getAttribute('data-items').then(JSON.parse);
@@ -85,7 +89,7 @@ const seed = '77faf829fe522030377108ee4d2222dba283b0df865f1826236fcbed04152f9c';
   }
   assert.deepEqual(errors, []);
   const noJS = await browser.newContext({javaScriptEnabled: false}), native = await noJS.newPage();
-  await native.goto(`${base}/?snapshot=${seed}`, {waitUntil: 'domcontentloaded'});
+  await native.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
   await native.locator('[name=level]').selectOption('6');
   await native.locator('#player-card noscript summary').click();
   await native.locator('noscript select[name=nativeslot1]').selectOption('1052');

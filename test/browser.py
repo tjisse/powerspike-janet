@@ -1,5 +1,6 @@
 from playwright.sync_api import expect, sync_playwright
-import argparse, json, os, tempfile, time, urllib.request
+import playwright
+import argparse, json, os, subprocess, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
 
@@ -96,7 +97,7 @@ def verify_runes(browser, base):
     page.close()
 
 def verify(base):
- with sync_playwright() as p:
+    with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         verify_item_comparison(browser, base)
         verify_runes(browser, base)
@@ -305,6 +306,13 @@ def verify(base):
         assert not errors, errors
         print('Browser: item comparisons, failed-evaluation recovery, linked graphs, loadout details, responsive layout, optimize/apply/cancel, save/share and exact reproduction passed.')
         browser.close()
+    # Exercise the paired interface in the same release/CI browser gate using
+    # Playwright's bundled runtime; the app itself has no Node dependency.
+    driver = Path(playwright.__file__).parent / 'driver'
+    subprocess.run([str(driver / ('node.exe' if os.name == 'nt' else 'node')),
+                    str(Path(__file__).with_name('matchup-browser.cjs').resolve())],
+                   env={**os.environ, 'PLAYWRIGHT_MODULE': str(driver / 'package'),
+                        'PS_TEST_URL': base}, check=True)
 
 if __name__ == '__main__':
     parser=argparse.ArgumentParser()

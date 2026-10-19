@@ -153,6 +153,7 @@
                  :actors [{:id "player" :kind :champion :level (state :level) :stats totals
                            :base (merge (stats/base-stats champion (state :level)) {:ap 0 :crit-chance 0 :crit-damage (champion :crit-damage)})
                            :abilities (get champion :abilities []) :ranks ranks :attack-range (get champion :attack-range 125)
+                           :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
                            :position 0 :strategy {:priority [:q :w :e :r] :attacks true :abilities true :movement :approach}}
                           {:id "target" :kind :practice :level 1 :stats {:hp (get state :target-health (default-state :target-health))
                                                                          :armor (state :armor) :mr (state :mr)}
@@ -200,8 +201,10 @@
                      (def totals (stats/apply-rank-penetration champion
                                                                (stats/total-stats champion (state :level) items) ranks))
                      (def target {:armor (get state :armor 80) :mr (state :mr)})
+                     (def missile-speed (get-in champion [:attack-projectile :missile-speed] 0))
                      (def scenario {:duration (state :duration) :windup-fraction 0.3 :distance 300
-                                    :attack-travel-time 0 :travel-time 0 :include-attacks true})
+                                    :attack-travel-time (if (> missile-speed 0) (/ 300 missile-speed) 0)
+                                    :travel-time 0 :include-attacks true})
                      (def outcome (if is-annie (rotation/evaluate totals target scenario annie/spells ranks)
                                     (if (empty? (get champion :abilities []))
                                       (do (def result (combat/auto-attacks totals target scenario))

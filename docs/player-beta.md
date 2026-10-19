@@ -22,6 +22,16 @@ both duel participants. See [the source and timing notes](lich-bane.md) for the
 developer evidence boundary. Existing verification records retain their model
 identities; synthetic tests do not become in-game measurements.
 
+## Attack improvement after v0.16.0
+
+The catalog now retains baseline attack range for all 173 champions and repairs
+missing ranges when loading existing 16.19.1 snapshots. This removes the
+unintended 125-unit default in the bundled catalog. Ahri's ordinary attacks
+also use the matching source's fixed projectile speed, so damage arrives after
+travel. Both duel participants and optimization use these rules. See
+[ordinary attack range and projectile timing](attack-projectiles.md) for sources,
+regressions and the remaining timing assumptions.
+
 The next priority is reviewed combat evidence for isolated attacks and Spellblade
 timing, especially ranged impact versus launch and attack-speed changes during
 an existing attack. Those observations can resolve the remaining timing policies

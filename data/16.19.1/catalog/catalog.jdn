@@ -25,6 +25,7 @@
  :attack-speed-base 0.651
  :attack-speed-ratio 0.651
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -53,6 +54,7 @@
  :attack-speed-base 0.668
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.022000000000000002
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -81,6 +83,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.032
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -109,6 +112,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.4
  :attack-speed-growth 0.04
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -137,6 +141,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02125
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -165,6 +170,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -193,6 +199,7 @@
  :attack-speed-base 0.736
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.0218
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -221,6 +228,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0168
+ :attack-range 600
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -249,6 +257,7 @@
  :attack-speed-base 0.61
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.013600000000000001
+ :attack-range 625
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -277,6 +286,7 @@
  :attack-speed-base 0.665
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.021
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -305,6 +315,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.03
+ :attack-range 600
  :attack-speed-cap 2.5
  :crit-damage 1.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -333,6 +344,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -361,6 +373,7 @@
  :attack-speed-base 0.668
  :attack-speed-ratio 0.668
  :attack-speed-growth 0.02
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -389,6 +402,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.05
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -417,6 +431,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.02
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -445,6 +460,7 @@
  :attack-speed-base 0.67
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.0
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field attackSpeedPerLevelModifiable; using Data Dragon attackspeedperlevel."]} {:patch "16.19.1"
@@ -473,6 +489,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0113
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -501,6 +518,7 @@
  :attack-speed-base 0.681
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -529,6 +547,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.035
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -557,6 +576,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.669
  :attack-speed-growth 0.02
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field hpRegenPerLevelModifiable; using Data Dragon hpregenperlevel."]} {:patch "16.19.1"
@@ -585,6 +605,7 @@
  :attack-speed-base 0.681
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.04
+ :attack-range 650
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -613,6 +634,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.025
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -641,6 +663,7 @@
  :attack-speed-base 0.647
  :attack-speed-ratio 0.647
  :attack-speed-growth 0.015
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -669,6 +692,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0144
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -697,6 +721,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.027999999999999997
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -725,6 +750,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.01
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -753,6 +779,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.02
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -781,6 +808,7 @@
  :attack-speed-base 0.67
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.033
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -809,6 +837,7 @@
  :attack-speed-base 0.679
  :attack-speed-ratio 0.679
  :attack-speed-growth 0.027000000000000003
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -837,6 +866,7 @@
  :attack-speed-base 0.688
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.033
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -865,6 +895,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0175
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -893,6 +924,7 @@
  :attack-speed-base 0.667
  :attack-speed-ratio 0.667
  :attack-speed-growth 0.021
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -921,6 +953,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -949,6 +982,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 480
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -977,6 +1011,7 @@
  :attack-speed-base 0.69
  :attack-speed-ratio 0.69
  :attack-speed-growth 0.032
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1005,6 +1040,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.031
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1033,6 +1069,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1061,6 +1098,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.69
  :attack-speed-growth 0.032
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1089,6 +1127,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0365
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1117,6 +1156,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.06
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1145,6 +1185,7 @@
  :attack-speed-base 0.675
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.020499999999999997
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1173,6 +1214,7 @@
  :attack-speed-base 0.475
  :attack-speed-ratio 0.49
  :attack-speed-growth 0.03
+ :attack-range 425
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1201,6 +1243,7 @@
  :attack-speed-base 0.69
  :attack-speed-ratio 0.69
  :attack-speed-growth 0.0225
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1229,6 +1272,7 @@
  :attack-speed-base 0.67
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1257,6 +1301,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.013600000000000001
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1285,6 +1330,7 @@
  :attack-speed-base 0.69
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.025
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1313,6 +1359,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1341,6 +1388,7 @@
  :attack-speed-base 0.656
  :attack-speed-ratio 0.656
  :attack-speed-growth 0.025
+ :attack-range 200
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1369,6 +1417,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.034
+ :attack-range 475
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1397,6 +1446,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.03
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1425,6 +1475,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1453,6 +1504,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.034
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1481,6 +1533,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1509,6 +1562,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.0
  :attack-speed-growth 0.0
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field attackSpeedPerLevelModifiable; using Data Dragon attackspeedperlevel."]} {:patch "16.19.1"
@@ -1537,6 +1591,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.01
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1565,6 +1620,7 @@
  :attack-speed-base 0.688
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1593,6 +1649,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.018000000000000002
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1621,6 +1678,7 @@
  :attack-speed-base 0.694
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.045
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1649,6 +1707,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.023
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1677,6 +1736,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 450
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1705,6 +1765,7 @@
  :attack-speed-base 0.64
  :attack-speed-ratio 0.64
  :attack-speed-growth 0.037000000000000005
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1733,6 +1794,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.0274
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1761,6 +1823,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.667
  :attack-speed-growth 0.015
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -1789,6 +1852,7 @@
  :attack-speed-base 0.669
  :attack-speed-ratio 0.669
  :attack-speed-growth 0.027000000000000003
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1817,6 +1881,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.69
  :attack-speed-growth 0.034
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1845,6 +1910,7 @@
  :attack-speed-base 0.668
  :attack-speed-ratio 0.668
  :attack-speed-growth 0.027000000000000003
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1873,6 +1939,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1901,6 +1968,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1929,6 +1997,7 @@
  :attack-speed-base 0.665
  :attack-speed-ratio 0.665
  :attack-speed-growth 0.0265
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1957,6 +2026,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -1985,6 +2055,7 @@
  :attack-speed-base 0.651
  :attack-speed-ratio 0.651
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2013,6 +2084,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.028999999999999998
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2041,6 +2113,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.027000000000000003
+ :attack-range 325
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2069,6 +2142,7 @@
  :attack-speed-base 0.656
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2097,6 +2171,7 @@
  :attack-speed-base 0.688
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.033
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2125,6 +2200,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.025
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2153,6 +2229,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0225
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2181,6 +2258,7 @@
  :attack-speed-base 0.669
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.03
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2209,6 +2287,7 @@
  :attack-speed-base 0.736
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.034
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2237,6 +2316,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2265,6 +2345,7 @@
  :attack-speed-base 0.8
  :attack-speed-ratio 0.695
  :attack-speed-growth 0.02125
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -2293,6 +2374,7 @@
  :attack-speed-base 0.679
  :attack-speed-ratio 0.679
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2321,6 +2403,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2349,6 +2432,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.03
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -2377,6 +2461,7 @@
  :attack-speed-base 0.656
  :attack-speed-ratio 0.656
  :attack-speed-growth 0.03
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2405,6 +2490,7 @@
  :attack-speed-base 0.69
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.03
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2433,6 +2519,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.01
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -2461,6 +2548,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.015300000000000001
+ :attack-range 450
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2489,6 +2577,7 @@
  :attack-speed-base 0.663
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2517,6 +2606,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.026099999999999998
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2545,6 +2635,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.0348
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2573,6 +2664,7 @@
  :attack-speed-base 0.706
  :attack-speed-ratio 0.612
  :attack-speed-growth 0.01
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2601,6 +2693,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.035
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2629,6 +2722,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.0322
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2657,6 +2751,7 @@
  :attack-speed-base 0.697
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.0125
+ :attack-range 225
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2685,6 +2780,7 @@
  :attack-speed-base 0.721
  :attack-speed-ratio 0.721
  :attack-speed-growth 0.027000000000000003
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2713,6 +2809,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0225
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -2741,6 +2838,7 @@
  :attack-speed-base 0.72
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.027000000000000003
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2769,6 +2867,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.035
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2797,6 +2896,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2825,6 +2925,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.029500000000000002
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2853,6 +2954,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2881,6 +2983,7 @@
  :attack-speed-base 0.667
  :attack-speed-ratio 0.667
  :attack-speed-growth 0.025
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2909,6 +3012,7 @@
  :attack-speed-base 0.688
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2937,6 +3041,7 @@
  :attack-speed-base 0.668
  :attack-speed-ratio 0.668
  :attack-speed-growth 0.031
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -2965,6 +3070,7 @@
  :attack-speed-base 0.635
  :attack-speed-ratio 0.635
  :attack-speed-growth 0.03
+ :attack-range 300
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -2993,6 +3099,7 @@
  :attack-speed-base 0.7
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02215
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3021,6 +3128,7 @@
  :attack-speed-base 0.667
  :attack-speed-ratio 0.667
  :attack-speed-growth 0.02
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3049,6 +3157,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3077,6 +3186,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3105,6 +3215,7 @@
  :attack-speed-base 0.665
  :attack-speed-ratio 0.665
  :attack-speed-growth 0.0275
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3133,6 +3244,7 @@
  :attack-speed-base 0.667
  :attack-speed-ratio 0.667
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3161,6 +3273,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3189,6 +3302,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.018500000000000003
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3217,6 +3331,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3245,6 +3360,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.033
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3273,6 +3389,7 @@
  :attack-speed-base 0.688
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3301,6 +3418,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.4
  :attack-speed-growth 0.026000000000000002
+ :attack-range 600
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field damagePerLevelModifiable; using Data Dragon attackdamageperlevel."]} {:patch "16.19.1"
@@ -3329,6 +3447,7 @@
  :attack-speed-base 0.669
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3357,6 +3476,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0175
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3385,6 +3505,7 @@
  :attack-speed-base 0.694
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3413,6 +3534,7 @@
  :attack-speed-base 0.751
  :attack-speed-ratio 0.651
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3441,6 +3563,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.02
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3469,6 +3592,7 @@
  :attack-speed-base 0.7
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.019
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3497,6 +3621,7 @@
  :attack-speed-base 0.679
  :attack-speed-ratio 0.679
  :attack-speed-growth 0.013000000000000001
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3525,6 +3650,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.016
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3553,6 +3679,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3581,6 +3708,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.04
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3609,6 +3737,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.023
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3637,6 +3766,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021400000000000002
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3665,6 +3795,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3693,6 +3824,7 @@
  :attack-speed-base 0.645
  :attack-speed-ratio 0.645
  :attack-speed-growth 0.035
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3721,6 +3853,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3749,6 +3882,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3777,6 +3911,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.013600000000000001
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3805,6 +3940,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.028999999999999998
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3833,6 +3969,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3861,6 +3998,7 @@
  :attack-speed-base 0.69
  :attack-speed-ratio 0.69
  :attack-speed-growth 0.0338
+ :attack-range 500
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3889,6 +4027,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 450
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field armorPerLevelModifiable; using Data Dragon armorperlevel."]} {:patch "16.19.1"
@@ -3917,6 +4056,7 @@
  :attack-speed-base 0.656
  :attack-speed-ratio 0.694
  :attack-speed-growth 0.015
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3945,6 +4085,7 @@
  :attack-speed-base 0.67
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.028999999999999998
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -3973,6 +4114,7 @@
  :attack-speed-base 0.67
  :attack-speed-ratio 0.725
  :attack-speed-growth 0.034
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4001,6 +4143,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.651
  :attack-speed-growth 0.025
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4029,6 +4172,7 @@
  :attack-speed-base 0.679
  :attack-speed-ratio 0.679
  :attack-speed-growth 0.03
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4057,6 +4201,7 @@
  :attack-speed-base 0.65
  :attack-speed-ratio 0.65
  :attack-speed-growth 0.03
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4085,6 +4230,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0375
+ :attack-range 350
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4113,6 +4259,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.035
+ :attack-range 575
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4141,6 +4288,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.027999999999999997
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4169,6 +4317,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.022400000000000003
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4197,6 +4346,7 @@
  :attack-speed-base 0.643
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0159
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4225,6 +4375,7 @@
  :attack-speed-base 0.669
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.01
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4253,6 +4404,7 @@
  :attack-speed-base 0.644
  :attack-speed-ratio 0.644
  :attack-speed-growth 0.02
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4281,6 +4433,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.0275
+ :attack-range 200
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4309,6 +4462,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.021099999999999997
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4337,6 +4491,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.02
+ :attack-range 450
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4365,6 +4520,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.7
  :attack-speed-growth 0.02
+ :attack-range 150
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4393,6 +4549,7 @@
  :attack-speed-base 0.638
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.02
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4421,6 +4578,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.658
  :attack-speed-growth 0.039
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4449,6 +4607,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.013600000000000001
+ :attack-range 525
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4477,6 +4636,7 @@
  :attack-speed-base 0.645
  :attack-speed-ratio 0.645
  :attack-speed-growth 0.035
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4505,6 +4665,7 @@
  :attack-speed-base 0.697
  :attack-speed-ratio 0.67
  :attack-speed-growth 0.035
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4533,6 +4694,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.035
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4561,6 +4723,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4589,6 +4752,7 @@
  :attack-speed-base 0.65
  :attack-speed-ratio 0.65
  :attack-speed-growth 0.02
+ :attack-range 575
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4617,6 +4781,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.01
+ :attack-range 425
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -4645,6 +4810,7 @@
  :attack-speed-base 0.625
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4673,6 +4839,7 @@
  :attack-speed-base 0.736
  :attack-speed-ratio 0.638
  :attack-speed-growth 0.016
+ :attack-range 175
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions." "Missing character field baseStaticHPRegenModifiable; using Data Dragon hpregen."]} {:patch "16.19.1"
@@ -4701,6 +4868,7 @@
  :attack-speed-base 0.651
  :attack-speed-ratio 0.651
  :attack-speed-growth 0.033
+ :attack-range 125
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4729,6 +4897,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.02
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4757,6 +4926,7 @@
  :attack-speed-base 0.656
  :attack-speed-ratio 0.656
  :attack-speed-growth 0.02
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4785,6 +4955,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.0213
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4813,6 +4984,7 @@
  :attack-speed-base 0.658
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.025
+ :attack-range 550
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]} {:patch "16.19.1"
@@ -4841,6 +5013,7 @@
  :attack-speed-base 0.681
  :attack-speed-ratio 0.625
  :attack-speed-growth 0.021099999999999997
+ :attack-range 575
  :attack-speed-cap 2.5
  :crit-damage 2.0
  :limitations ["Ordinary basic attacks only; champion abilities, passives and special attack rules excluded." "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]}]

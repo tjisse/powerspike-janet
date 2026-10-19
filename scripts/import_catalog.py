@@ -116,6 +116,7 @@ def normalize_champion(champion, source):
             'attack-speed-base': field('attackSpeedModifiable'),
             'attack-speed-ratio': field('attackSpeedRatioModifiable'),
             'attack-speed-growth': field('attackSpeedPerLevelModifiable') / 100,
+            'attack-range': champion['stats']['attackrange'],
             'attack-speed-cap': 2.5, 'crit-damage': field('critDamageMultiplier'),
             'limitations': ['Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.',
                             'Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions.'] + fallbacks}

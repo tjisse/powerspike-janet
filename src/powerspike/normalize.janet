@@ -2,6 +2,7 @@
 (import ./expressions :as expr)
 (import pshash :as hash)
 (import ./data-util :as util)
+(import ./attacks :as attacks)
 
 (def parser-version "5")
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
@@ -210,10 +211,10 @@
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]
                               :when (and (indexed? values) (not (empty? values)))] stat values))
         (unless (empty? bonuses) (put penetration (rule :slot) bonuses)))))
-  (merge kit {:abilities abilities :rank-penetration penetration
-              :coverage {:available (count |($ :available) abilities)
-                         :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
-                         :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}}))
+  (merge (attacks/apply-profile id patch kit) {:abilities abilities :rank-penetration penetration
+                                               :coverage {:available (count |($ :available) abilities)
+                                                          :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
+                                                          :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}}))
 
 (defn kit [id objects detail fonts &opt patch]
   (def root (get objects (string "Characters/" id "/CharacterRecords/Root") {}))

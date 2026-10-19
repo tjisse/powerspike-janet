@@ -37,7 +37,7 @@ optimize-abilities: $(JANET)
 optimize-total: $(JANET)
 	$(JANET) main.janet optimize-total
 
-build/web-ready: build/janet scripts/bootstrap-web.sh scripts/fetch_web_assets.py scripts/seed-data.janet native/hash.c web/deps.lock docs/design/art-assets.json data/16.19.1/catalog/art-manifest.json
+build/web-ready: build/janet scripts/bootstrap-web.sh scripts/fetch_web_assets.py scripts/seed-data.janet native/hash.c web/deps.lock docs/design/art-assets.json data/16.19.1/catalog/art-manifest.json data/16.19.1/catalog/catalog.jdn
 	PYTHON=$(PYTHON) sh scripts/bootstrap-web.sh
 
 web-setup: build/web-ready
@@ -57,6 +57,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/runes.janet
 	JANET_PATH=build/web-modules $(JANET) test/item-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/lich-bane.janet
+	JANET_PATH=build/web-modules $(JANET) test/attack-projectiles.janet
 	JANET_PATH=build/web-modules $(JANET) test/mage-burst.janet
 	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	JANET_PATH=build/web-modules $(JANET) test/search.janet

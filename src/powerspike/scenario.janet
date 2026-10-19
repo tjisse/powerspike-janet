@@ -78,6 +78,7 @@
   (def inspection (builds/inspect-build items {:champion (champion :id)}))
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :stats computed
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
+   :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :base (merge (stats/base-stats champion level) {:ap 0 :attack-speed (champion :attack-speed-base) :attack-range (champion :attack-range)
                                                    :crit-chance 0 :crit-damage (champion :crit-damage)})
    :health (* (computed :hp) (v/fraction (get spec :health-fraction 1) "Starting health"))
@@ -92,6 +93,8 @@
               ;(mapcat |(get $ :unresolved []) summoners)
               ;(rune-effects :coverage)
               ;(inspection :errors)
+              ;(if (and ranged (tactics :attacks) (not (champion :attack-projectile)))
+                 ["Basic-attack projectile travel is assumed zero for this champion."] [])
               ;(mapcat effects/item-limitations items)
               ;(if (some |(and (not= "3100" ($ :id)) (effects/spellblade-types ($ :id))) items)
                  ["Spellblade priming window is assumed to be ten seconds."] [])]})

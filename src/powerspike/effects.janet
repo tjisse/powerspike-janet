@@ -11,24 +11,30 @@
    "mSpellCalculations" (get-in item [:record "mItemCalculations"] {})
    "__powerspike_patch" (item :patch)})
 (defn bork-rate [item ranged]
-  (expr/variable (if ranged "RangedValue" "MeleeValue") (item-spell item)))
+  (if (boolean? ranged)
+    (expr/variable (if ranged "RangedValue" "MeleeValue") (item-spell item))
+    (expr/unresolved "Melee/ranged attack type is unresolved.")))
 (defn item-tooltip-variables [item context]
   (def variables (get item :effect-variables []))
-  (if (and (= "3153" (item :id)) (dictionary? context) (has-key? context :ranged)
+  (if (and (= "3153" (item :id)) (dictionary? context)
            (not (empty? (get item :record {})))
            (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"]))
     # Resolve on presentation so retained snapshots and both duel participants
     # use the same melee/ranged rate as combat without rewriting cached data.
     [{:name "Item_Melee_Ranged_Split_Dynamic" :expression (multiply (bork-rate item (context :ranged)) (constant 100))
-      :suffix "%" :note (string (if (context :ranged) "Ranged" "Melee") " attacks use this percentage of the target's current health.")}
+      :unavailable-label "a percentage"
+      :suffix "%" :note (if (boolean? (context :ranged))
+                          (string (if (context :ranged) "Ranged" "Melee") " attacks use this percentage of the target's current health.")
+                          "Melee/ranged attack type is unresolved; this on-hit effect is excluded.")}
      ;variables]
     variables))
 (def spellblade-types {"3057" :physical "3100" :magic "3078" :physical "3508" :physical "6662" :physical})
 (defn item-supported? [item]
   (and (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"])
        (not (empty? (get item :record {})))))
-(defn item-limitations [item]
+(defn item-limitations [item &opt ranged]
   (case (item :id)
+    "3153" (if (boolean? ranged) [] ["Blade of the Ruined King's Mist's Edge on-hit damage is excluded because melee/ranged attack type is unresolved."])
     "3100" (if (and (item-supported? item)
                     (not= :unresolved ((expr/variable "SheenASBuff" (item-spell item)) :op))
                     (not= :unresolved ((expr/variable "SpellBladeDuration" (item-spell item)) :op)))
@@ -54,11 +60,11 @@
       (case id
         "3145" [{:id "item/3145" :on [:damage] :target-kinds [:champion] :kind :damage :damage-type :magic
                  :amount (term "DamageAmount") :cooldown (term "Cooldown")}]
-        "3153" [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
-                 :exclude-objectives [:turret]
-                 :kind :damage :damage-type :physical
-                 :amount (multiply (bork-rate item ranged) {:op :target-stat :stat :health})
-                 :monster-cap (term "MonsterDamageCap") :cooldown 0}]
+        "3153" (if (boolean? ranged) [{:id "item/3153/mist" :on [:attack] :target-kinds [:champion :practice :objective]
+                                       :exclude-objectives [:turret]
+                                       :kind :damage :damage-type :physical
+                                       :amount (multiply (bork-rate item ranged) {:op :target-stat :stat :health})
+                                       :monster-cap (term "MonsterDamageCap") :cooldown 0}] [])
         "3115" [{:id "item/3115" :on [:attack] :kind :damage :damage-type :magic
                  :target-kinds [:champion :practice :objective] :exclude-objectives [:turret]
                  :amount (term "TotalOnHitDamage") :cooldown 0}]

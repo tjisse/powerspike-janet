@@ -718,6 +718,6 @@
       "sha256": "72c996d05a316ca194c0f5c02b25016a553bd204a974db09b4312c40cee3d477"
     }
   ],
-  "catalog_sha256": "c7c89ed9793562a8e1ac0d5d80ecfbb935758e0bb542492934e4ef7976d7d6a5",
+  "catalog_sha256": "f1deffe40e11a183fb0e019a8a82d3b41945b1562518240c663f11c332dd74aa",
   "scope": "All catalog entries; permanent modeled stats and generic attacks only. No inferred champion kits or item procs."
 }

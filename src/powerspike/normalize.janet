@@ -101,6 +101,7 @@
    :attack-speed-growth (/ (number-field root "attackSpeedPerLevelModifiable" (get dd "attackspeedperlevel" 0)) 100)
    :attack-speed-cap 2.5 :crit-damage (number-field root "critDamageMultiplier" 1.75)
    :attack-range (get dd "attackrange" 125)
+   :attack-style (attacks/style-from-identities (get root "purchaseIdentities" []))
    :limitations [(if (empty? root) "Character record unavailable; Data Dragon fallback stats." "Character root supplies base stats; ability coverage is reported separately.")
                  "Special champion attack rules and transformations require handlers."
                  "Attack-speed cap 2.5 and windup 30% remain estimates."]})

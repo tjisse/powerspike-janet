@@ -6,6 +6,34 @@
 (def fixtures "data/combat-fixtures/16.19.1/")
 (def manifest (util/read-json (slurp (string fixtures "manifest.json"))))
 (def retained @{})
+(def styles @{})
+(defn style-from-identities [identities]
+  (if (indexed? identities)
+    (let [melee (some |(= $ "Melee") identities)
+          ranged (some |(= $ "Ranged") identities)]
+      (cond (and melee ranged) "form-dependent" melee "melee" ranged "ranged" "unknown"))
+    "unknown"))
+(defn attack-style [champion patch configured]
+  (if (not= configured nil)
+    (do (assert (some |(= configured $) ["melee" "ranged" "form-dependent" "unknown"]) "Invalid champion attack style.") configured)
+    (if (= patch "16.19.1")
+      (do
+        (when (empty? styles)
+          (def root "data/16.19.1/catalog/")
+          (def manifest (util/read-json (slurp (string root "manifest.json"))))
+          (each receipt (manifest "retained")
+            (def path (receipt "path"))
+            (when (string/has-prefix? "sources/characters/" path)
+              (def bytes (slurp (string root path)))
+              (assert (= (receipt "sha256") (hash/sha256 bytes)) "Attack-style source integrity check failed.")
+              (def source (util/read-json bytes))
+              (def file (last (string/split "/" path)))
+              (def id (string/slice file 0 (- (length file) 5)))
+              (put styles id (style-from-identities (get-in source ["record" "purchaseIdentities"] []))))))
+        (get styles champion "unknown"))
+      "unknown")))
+(defn ranged? [style]
+  (case style "ranged" true "melee" false nil))
 (var ranges nil)
 (defn attack-range [champion patch configured]
   (if (not= configured nil)
@@ -57,11 +85,13 @@
 # JPM serializes these values. Resolve bundled sources during module import so
 # relocated executables never need source-tree files when loading a snapshot.
 (attack-range "Ahri" "16.19.1" nil)
+(attack-style "Ahri" "16.19.1" nil)
 (profile "Ahri" "16.19.1")
 
 (defn apply-profile [champion patch kit]
   (def movement (profile champion patch))
-  (def corrected (merge kit (if-let [range (attack-range champion patch (kit :attack-range))] {:attack-range range} {})))
+  (def corrected (merge kit {:attack-style (attack-style champion patch (kit :attack-style))}
+                        (if-let [range (attack-range champion patch (kit :attack-range))] {:attack-range range} {})))
   (if movement
     (merge corrected {:attack-projectile movement
                       :limitations [;(filter |(not= $ "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions.")

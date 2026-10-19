@@ -21,9 +21,9 @@
   (effects/item-triggers {:patch "16.18.1" :id id :record (records (string "Items/" id))} ranged))
 (def alternator (run {:triggers (triggers "3145")}))
 (close 365 (alternator :damage))
-(def bork (run {:triggers (triggers "3153")}))
+(def bork (run {:triggers (triggers "3153" false)}))
 (close 81 ((find |(= "item/3153/mist" ($ :source)) (bork :events)) :damage))
-(def monster (run {:triggers (triggers "3153")} {:kind :objective :stats {:hp 100000 :armor 0 :mr 0}}))
+(def monster (run {:triggers (triggers "3153" false)} {:kind :objective :stats {:hp 100000 :armor 0 :mr 0}}))
 (close 600 (monster :damage))
 (def ability {:id "fixture" :slot :q :cost 0 :range 200 :cooldown 99 :cast-time 0.1
               :effects [{:kind :damage :target :enemy :status :estimated :damage-type :true :amount 10}]})

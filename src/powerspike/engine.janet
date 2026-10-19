@@ -70,7 +70,7 @@
                      :missing-health (- ((actor :stats) :hp) (actor :health))
                      :missing-health-percent (- 1 (/ (actor :health) ((actor :stats) :hp)))}))
   {:stats stats :base (actor :base) :rank rank :level (actor :level) :patch (get actor :patch "unknown") :buffs (actor :buff-counts)
-   :ranged (get actor :ranged false)
+   :ranged (get actor :ranged)
    :shards (get actor :shards []) :shard-bonuses (get actor :shard-bonuses [])
    :champion-target (some |(= $ :champion) (get target :tags [(target :kind)]))
    :target (merge (target :stats) {:health (target :health)

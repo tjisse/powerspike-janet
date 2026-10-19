@@ -178,6 +178,27 @@ def verify(binary_path, seed_path=None):
             assert abs(ahri_events[0]['at'] - (.3 / .668 + 350 / 1750)) < 1e-6
             assert ahri.timeline['data-label'] == 'Basic attacks over time'
             assert b'location.assign(next)' not in raw
+            # The packed model must retain attack identities when loading both
+            # current seeds and older snapshots with no attack-style field.
+            for champion, ranged in [('Lillia', False), ('Ahri', True), ('Elise', None), ('Kayle', None)]:
+                _, identity_raw = get(base, '/?' + urllib.parse.urlencode({
+                    'mode': 'practice', 'champion': champion, 'selected': 'custom',
+                    'slot1': '3153', 'level': 1, 'abilities': 'false', 'movement': 'hold',
+                    'distance': 0, 'duration': 1, 'snapshot': initial_scenario['snapshot']}))
+                identity_page = Page()
+                identity_page.feed(identity_raw.decode())
+                identity_file = cwd / 'attack-identity.json'
+                identity_file.write_text(identity_page.scenario['data-json'])
+                identity_result = json.loads(subprocess.check_output(
+                    [str(binary), '--simulate', str(identity_file)], cwd=cwd,
+                    env=configuration(), text=True, timeout=10))
+                assert identity_result['actors'][0].get('ranged') is ranged
+                if ranged is None:
+                    assert any("Mist's Edge on-hit damage is excluded" in note
+                               for note in identity_result['coverage'])
+                    assert not any(event['source'] == 'item/3153/mist'
+                                   for event in identity_result['events'])
+                identity_file.unlink()
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}
             path = '/evaluate?' + urllib.parse.urlencode({'datastar': json.dumps(signals)})
             headers, body = get(base, path, {'Datastar-Request': 'true', 'Accept': 'text/event-stream'})

@@ -8,6 +8,7 @@
 (import ./objectives :as objectives)
 (import ./validation :as v)
 (import ./data-util :as util)
+(import ./attacks :as attacks)
 (import pshash :as hash)
 (import ../../data/16.19.1/annie :as annie)
 
@@ -73,10 +74,11 @@
   (def rune-effects (rune-data/compile chosen-runes (package :patch) level))
   (def computed (stats/apply-rank-penetration champion (stats/total-stats champion level items
                                                                           [;shard-modifiers ;(rune-effects :stats)]) ranks))
-  (def ranged (> (champion :attack-range) 300))
+  (def attack-style (get champion :attack-style "unknown"))
+  (def ranged (attacks/ranged? attack-style))
   (def all-ranks (merge ranks (tabseq [spell :in summoners] (spell :slot) 1)))
   (def inspection (builds/inspect-build items {:champion (champion :id)}))
-  {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :stats computed
+  {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :base (merge (stats/base-stats champion level) {:ap 0 :attack-speed (champion :attack-speed-base) :attack-range (champion :attack-range)
@@ -93,9 +95,11 @@
               ;(mapcat |(get $ :unresolved []) summoners)
               ;(rune-effects :coverage)
               ;(inspection :errors)
-              ;(if (and ranged (tactics :attacks) (not (champion :attack-projectile)))
+              ;(if (and (not (false? ranged)) (tactics :attacks) (not (champion :attack-projectile)))
                  ["Basic-attack projectile travel is assumed zero for this champion."] [])
-              ;(mapcat effects/item-limitations items)
+              ;(if (= attack-style "form-dependent")
+                 ["Changing attack forms and level-based melee/ranged changes are not included; effects requiring an attack type are excluded."] [])
+              ;(mapcat |(effects/item-limitations $ ranged) items)
               ;(if (some |(and (not= "3100" ($ :id)) (effects/spellblade-types ($ :id))) items)
                  ["Spellblade priming window is assumed to be ten seconds."] [])]})
 (defn compile [definition]

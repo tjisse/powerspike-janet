@@ -109,6 +109,9 @@ def normalize_champion(champion, source):
     base['move-speed'] = field('baseMoveSpeedModifiable')
     for stat, first, per_level in [('mp', 'mp', 'mpperlevel'), ('mp-regen', 'mpregen', 'mpregenperlevel')]:
         base[stat], growth[stat] = champion['stats'][first], champion['stats'][per_level]
+    identities = set(record.get('purchaseIdentities', [])) & {'Melee', 'Ranged'}
+    attack_style = ('form-dependent' if len(identities) == 2 else
+                    next(iter(identities)).lower() if identities else 'unknown')
     return {'patch': PATCH, 'id': champion['id'], 'name': champion['name'],
             'icon': champion['image']['full'].removesuffix('.png'),
             'title': champion['title'], 'tags': champion['tags'], 'resource': champion['partype'],
@@ -117,6 +120,7 @@ def normalize_champion(champion, source):
             'attack-speed-ratio': field('attackSpeedRatioModifiable'),
             'attack-speed-growth': field('attackSpeedPerLevelModifiable') / 100,
             'attack-range': champion['stats']['attackrange'],
+            'attack-style': attack_style,
             'attack-speed-cap': 2.5, 'crit-damage': field('critDamageMultiplier'),
             'limitations': ['Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.',
                             'Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions.'] + fallbacks}

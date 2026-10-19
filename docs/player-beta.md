@@ -32,6 +32,16 @@ travel. Both duel participants and optimization use these rules. See
 [ordinary attack range and projectile timing](attack-projectiles.md) for sources,
 regressions and the remaining timing assumptions.
 
+## Attack identity improvement after v0.17.0
+
+Melee/ranged scaling now uses the champion's retained identity instead of an
+attack-range threshold. Lillia receives melee Blade of the Ruined King scaling.
+The five champions with both identities retain an unknown type until their form
+or level transitions are modeled; the conditional on-hit proc is excluded and
+Simulation details explain why. Item stats still apply. Tooltips, both duel
+participants and optimization share this classification. See
+[melee/ranged item scaling](attack-styles.md) for sources and regression checks.
+
 The next priority is reviewed combat evidence for isolated attacks and Spellblade
 timing, especially ranged impact versus launch and attack-speed changes during
 an existing attack. Those observations can resolve the remaining timing policies

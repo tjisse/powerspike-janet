@@ -58,6 +58,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/item-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/lich-bane.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-projectiles.janet
+	JANET_PATH=build/web-modules $(JANET) test/attack-styles.janet
 	JANET_PATH=build/web-modules $(JANET) test/mage-burst.janet
 	JANET_PATH=build/web-modules $(JANET) test/objectives.janet
 	JANET_PATH=build/web-modules $(JANET) test/search.janet

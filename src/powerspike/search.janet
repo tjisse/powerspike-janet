@@ -5,6 +5,7 @@
 (import ./validation :as v)
 (import ./engine :as engine)
 (import ./effects :as effects)
+(import ./attacks :as attacks)
 (import ./fitness-cache :as cache)
 (import ../../data/16.19.1/snapshot :as initial)
 (import pshash :as hash)
@@ -106,7 +107,7 @@
   (def requested (get options :pool (map |($ :id) (package :items))))
   (assert (and (indexed? requested) (<= (length requested) 2000)) "Invalid item pool.")
   (inventory package requested)
-  (def ranged (> (get-in package [:champion-map champion :attack-range] 125) 300))
+  (def ranged (attacks/ranged? (get-in package [:champion-map champion :attack-style])))
   (def priorities
     (tabseq [id :in requested :let [item ((package :item-map) id)]] id
       (+ (if (and (item :patch) (not (empty? (get item :record {}))) (not (empty? (effects/item-triggers item ranged)))) 4 0)

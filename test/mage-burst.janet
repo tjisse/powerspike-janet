@@ -136,5 +136,16 @@
 (assert (some |(= ["3100"] ($ :ids)) (lich-search :rows)))
 (each row (lich-search :rows)
   (assert (= (row :metrics) ((scenario/fitness (row :definition)) :metrics))))
+# Ahri's reviewed windup also applies while source-based Lich Bane attack speed
+# is active. Check launch plus travel independently of the damage formulas.
+(def ahri-lich (definition "Ahri" ["3100"] {"mode" "practice" "level" 1 "distance" 350 "duration" 2 "samples" 1}))
+(def ahri-compiled (scenario/compile ahri-lich))
+(def ahri-actor (get-in ahri-compiled [:actors 0]))
+(def ahri-q (find |(= :q ($ :slot)) (ahri-actor :abilities)))
+(def boosted-speed (+ (get-in ahri-actor [:stats :attack-speed]) (* 0.5 (ahri-actor :attack-speed-ratio))))
+(def ahri-result (scenario/simulate ahri-lich))
+(def first-attack (first (filter |(= "attack" ($ :source)) (ahri-result :events))))
+(close (+ (ahri-q :cast-time) (/ 0.2 boosted-speed) (/ 350 1750)) (first-attack :at))
+(assert (= (ahri-result :metrics) ((scenario/fitness ahri-lich) :metrics)))
 (util/remove-tree root)
 (print "Retained mage kits: cached semantics, Viktor empowered attack/storm ticks, Ahri recasts, AP burst ranking, editable health and unbiased attack-only scores passed.")

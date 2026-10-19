@@ -1,0 +1,13 @@
+{:patch "16.19.1"
+ :reference {:url "https://www.leagueoflegends.com/en-sg/news/game-updates/patch-13-22-notes/"
+             :date "2023-11-07"
+             :scope "Historical named values corroborated by the guarded 16.19.1 records; not an in-game timing capture."}
+ :champions {"Ahri" {:source-sha256 "92515ab5610eff9eb2bdf94b3bf032490f6ba86d3835cdbe304d2d1e76dfa093"
+                      :windup-fraction 0.2
+                      :cast-offset -0.10000000149011612
+                      :ordinary-variants ["AhriBasicAttack" "AhriBasicAttack2"]
+                      :critical-variants ["AhriCritAttack"]}
+             "Annie" {:source-sha256 "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d"
+                       :movement-speed 1500 :legacy-speed 1200
+                       :ordinary-variants ["AnnieBasicAttack" "AnnieBasicAttack2"]
+                       :critical-variants ["AnnieCritAttack"]}}}

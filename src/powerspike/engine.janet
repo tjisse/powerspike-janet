@@ -11,6 +11,8 @@
                                    (slurp "src/powerspike/normalize.janet")
                                    (slurp "src/powerspike/attacks.janet")
                                    (slurp "data/combat-fixtures/16.19.1/Ahri-characters.json")
+                                   (slurp "data/combat-fixtures/16.19.1/Annie-characters.json")
+                                   (slurp "data/attack-fixtures/16.19.1/reviewed-timing.jdn")
                                    (slurp "data/combat-fixtures/16.19.1/manifest.json")
                                    (slurp "data/16.19.1/catalog/sources/champions-ddragon.json")
                                    (slurp "data/16.19.1/catalog/manifest.json")
@@ -550,7 +552,7 @@
    :events (filter |(= (player :id) ($ :actor)) hits) :unsupported unsupported
    :assumptions ["Declared ability priority precedes basic attacks."
                  "Cooldowns start on cast unless an override declares otherwise."
-                 "Ordinary attack windup is 30% unless configured."
+                 "Ordinary attacks use each actor's windup fraction; unsupported champions default to an assumed 30%."
                  "Projectile travel uses distance at release; collision geometry is omitted."
                  "Ability resource costs use the participant's configured resource pool."
                  "Parsed effects are estimates; unresolved effects are excluded and reported."

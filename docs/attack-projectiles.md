@@ -25,19 +25,21 @@ either duel participant and optimizer fitness receive the same semantics.
 Damage is scheduled at release time plus distance at release divided by speed.
 A projectile still in flight contributes no early damage, and an impact at the
 fight's endpoint is excluded. Travel does not delay the next attack's timer.
-At one attack/second, the existing 30% windup and a 350-unit distance produce a
-first impact at 0.5 seconds, rather than 0.3 seconds.
+The initial profile used the 30% windup assumption. The subsequent
+[mage timing correction](attack-timing.md) supplies Ahri's reviewed 20% fraction:
+at one attack/second and 350 distance, the first impact is now at 0.4 seconds.
 
 This is source-derived simulation behavior, not a newly admitted in-game timing
-measurement. Windup remains the configured 30% assumption. Movement during
+measurement. Unreviewed windups retain the configured 30% assumption. Movement during
 flight, collision geometry, launch offsets and Spellblade's launch-versus-impact
 consumption still need review. The player interface continues to call the result
 a simulation; source hashes and review details remain developer information.
 
-Other projectile profiles deliberately await review. Annie's movement speed
-(1,500) conflicts with its legacy speed (1,200). Viktor's ordinary attack needs
-to coexist with his empowered Q attack's distinct behavior. Neither receives
-Ahri's profile. Ranged actors without a supported profile report the zero-travel
+Annie's movement speed (1,500) conflicts with its legacy speed (1,200); the
+[reviewed timing correction](attack-timing.md) now resolves that specific case
+using Riot's patch notes and exact source guards. Viktor's ordinary attack still
+needs to coexist with his empowered Q attack's distinct behavior. Ranged actors
+without a supported profile report the zero-travel
 assumption in Simulation details.
 
 `test/attack-projectiles.janet` checks all 173 retained baseline ranges, missing
@@ -50,7 +52,9 @@ change.
 
 Formatting, core/source/Python suites, frontend and combat regressions passed.
 The relocated executable checks Ahri holding at 350 units and its first impact
-against the independent windup-plus-travel calculation. Its Annie comparison
-checks four attacks at the correct range plus two Qs and one W. Packaged
+against the independent windup-plus-travel calculation. The initial Annie
+comparison checked four attacks at the correct range plus two Qs and one W;
+the subsequent projectile correction moves the fourth impact beyond five seconds.
+Packaged
 Chromium practice comparisons, paired matchups, optimizer apply/undo, mobile
 layouts and native form checks also passed.

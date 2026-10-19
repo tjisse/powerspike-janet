@@ -42,6 +42,15 @@ Simulation details explain why. Item stats still apply. Tooltips, both duel
 participants and optimization share this classification. See
 [melee/ranged item scaling](attack-styles.md) for sources and regression checks.
 
+## Mage timing improvement after v0.18.0
+
+Ahri's ordinary windup now uses the reviewed 20% fraction, and Annie's ordinary
+and critical attacks use the reviewed 1,500 projectile speed. The profiles bind
+to exact retained records and apply to both participants, comparisons and
+optimization. This resolves the first two source-level timing gaps without
+applying their rules to champions with different modifiers. See
+[reviewed mage attack timing](attack-timing.md) for sources and evidence limits.
+
 The next priority is reviewed combat evidence for isolated attacks and Spellblade
 timing, especially ranged impact versus launch and attack-speed changes during
 an existing attack. Those observations can resolve the remaining timing policies

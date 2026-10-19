@@ -133,9 +133,12 @@ def verify(binary_path, seed_path=None):
             events = json.loads(page.timeline['data-events'])
             assert {'AnnieQ', 'AnnieW', 'attack'} <= {event['source'] for event in events}
             # Annie's retained 625-unit range avoids the old melee approach at
-            # 300 distance, allowing four attacks alongside two Qs and one W.
-            assert sum(event['source'] == 'attack' for event in events) == 4
-            expected_damage = (2 * 494 + 464) / 1.264 + 4 * 95.05 / 1.8
+            # 300 distance. Three attacks arrive within five seconds alongside
+            # two Qs and one W; the fourth projectile arrives after the window.
+            attacks = [event for event in events if event['source'] == 'attack']
+            assert len(attacks) == 3
+            assert abs(attacks[0]['at'] - (.5 + .3 / .7545 + 300 / 1500)) < 1e-6
+            expected_damage = (2 * 494 + 464) / 1.264 + 3 * 95.05 / 1.8
             assert abs(float(page.timeline['data-total']) - expected_damage) < 1e-6
             initial_scenario = json.loads(page.scenario['data-json'])['scenario']
             assert initial_scenario['target']['hp'] == 2500
@@ -175,7 +178,7 @@ def verify(binary_path, seed_path=None):
             assert ahri_events and all(event['source'] == 'attack' for event in ahri_events)
             # Baseline range permits attacks while holding at 350 units. The
             # bundled projectile profile delays impact without source-tree IO.
-            assert abs(ahri_events[0]['at'] - (.3 / .668 + 350 / 1750)) < 1e-6
+            assert abs(ahri_events[0]['at'] - (.2 / .668 + 350 / 1750)) < 1e-6
             assert ahri.timeline['data-label'] == 'Basic attacks over time'
             assert b'location.assign(next)' not in raw
             # The packed model must retain attack identities when loading both

@@ -81,6 +81,7 @@
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
+   :windup-fraction (get-in champion [:attack-windup :fraction] 0.3)
    :base (merge (stats/base-stats champion level) {:ap 0 :attack-speed (champion :attack-speed-base) :attack-range (champion :attack-range)
                                                    :crit-chance 0 :crit-damage (champion :crit-damage)})
    :health (* (computed :hp) (v/fraction (get spec :health-fraction 1) "Starting health"))

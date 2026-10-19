@@ -141,3 +141,5 @@ Scenarios can be saved locally, shared through URLs and imported/exported as ver
 Baseline attack ranges now survive catalog import for all 173 champions, including repair of missing ranges in existing 16.19.1 snapshots. Ahri's ordinary attacks also use the retained fixed projectile speed in simulations and optimization. See [attack range and projectile timing](docs/attack-projectiles.md) for the source mapping, regression cases and remaining timing assumptions.
 
 Melee/ranged item scaling uses retained champion identities rather than attack range. Lillia receives melee scaling; unresolved form-dependent rates are excluded with an explanation in Simulation details. See [attack identities and item scaling](docs/attack-styles.md).
+
+The current simulation also uses Ahri's reviewed 20% ordinary windup and Annie's reviewed 1,500 basic-attack projectile speed. See [mage attack timing](docs/attack-timing.md) for the pinned source review and remaining scheduling assumptions.

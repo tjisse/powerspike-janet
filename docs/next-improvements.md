@@ -11,7 +11,9 @@ diagnostics remain in the developer tools.
    Spellblade consumption at launch versus impact. Use matching-patch sources
    and reviewed replay context; retain discrepancies instead of fitting timing
    to the desired result. Finish with reproducible release/impact cases before
-   expanding the projectile profiles.
+   expanding the projectile profiles. The first [source-level corrections](attack-timing.md)
+   now supply Ahri's reviewed windup and resolve Annie's projectile fields;
+   matching replay measurements and the remaining timing policies are still next.
 2. **Level and form transitions.** Start with Kayle's level-dependent attack
    type and range, then add explicit supported forms for Elise, Gnar, Jayce and
    Nidalee. The selected form/level must drive damage, range, tooltips and both

@@ -64,3 +64,15 @@
 (assert (string/find "Annie wins at 2.00 s" text))
 (assert (string/find "400 HP remaining (40&#37;)" text))
 (print "ok outcome headlines use the first knockout and its health state")
+
+# Event labels come from the completed snapshot and actual trigger metadata.
+(def sources (matchup/event-sources (result :package)
+                                    [{:abilities [{:id "FioraW" :name "Riposte"}]
+                                      :triggers [{:id "item/3100/hit" :consume-buff "spellblade"}]}]
+                                    [{:source "attack"} {:source "FioraW"} {:source "item/3100/hit"}]))
+(assert (= "Basic attack" (get-in sources ["attack" :name])))
+(assert (= "Riposte" (get-in sources ["FioraW" :name])))
+(assert (= "Lich Bane" (get-in sources ["item/3100/hit" :name])))
+(assert (= "Spellblade consumed" (get-in sources ["item/3100/hit" :consumption])))
+(assert (nil? (get-in sources ["attack" :consumption])))
+(print "ok completed-snapshot event names and empowerment consumption labels")

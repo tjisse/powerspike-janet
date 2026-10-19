@@ -318,6 +318,7 @@ if __name__ == '__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--url')
     parser.add_argument('--binary', default='dist/bin/powerspike')
+    parser.add_argument('--parry-fixture', help='Also check sourced Riposte outcomes using an exported cached fixture')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -330,3 +331,7 @@ if __name__ == '__main__':
             with running(Path(args.binary).resolve(), root, [], clean_env(PS_PORT=str(chosen), PS_HOST='127.0.0.1',
                          PS_DATA_DIR=data, PS_SEED_DIR=str(root/'dist/share/powerspike/seed')), chosen) as base:
                 verify(base)
+
+    if args.parry_fixture:
+        from parry_browser import verify as verify_parry
+        verify_parry(args.binary, args.parry_fixture)

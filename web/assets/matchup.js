@@ -140,7 +140,7 @@
       if (record.kind === 'damage' && actor >= 0) totals[actor] += record.damage;
       return {...record, dealt: [...totals]};
     });
-    events = rows.filter(record => ['damage', 'heal', 'shield', 'control', 'death'].includes(record.kind));
+    events = rows.filter(record => ['damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried'].includes(record.kind));
     baseline = pending || configuration(); pending = null;
     const select = $('.matchup-event-select');
     select.replaceChildren(new Option('Select event', ''));
@@ -155,7 +155,12 @@
     return result.actors.findIndex(actor => actor.id === (record.actor || record.target));
   }
   function eventName(record) {
-    const who = actorIndex(record), source = record.source === 'attack' ? 'AA' : record.source || record.kind;
+    const who = actorIndex(record), source = result.sources?.[record.source]?.name || (record.source === 'attack' ? 'Basic attack' : record.source || record.kind);
+    if (record.kind === 'parry-start') return `${result.names[who] || ''} · ${source} begins`;
+    if (record.kind === 'parried') {
+      const target = result.actors.findIndex(actor => actor.id === record.target);
+      return `${result.names[who] || ''} · ${source} · parried${target >= 0 ? ' by ' + result.names[target] : ''}`;
+    }
     return `${who >= 0 ? result.names[who] + ' · ' : ''}${source} · ${record.kind === 'control' ? 'control received' : record.kind}`;
   }
   function selectEvent(index) { selected = index; time = events[index].at; draw(); }
@@ -213,10 +218,10 @@
       events.forEach((record, index) => {
         if (actorIndex(record) !== side) return;
         const position = record.at / result.duration * (right - left);
-        if (position - previous < minDistance) return;
+        if (position - previous < minDistance && selected !== index) return;
         previous = position;
-        const label = record.source === 'attack' ? 'AA' : record.kind === 'death' ? 'KO' : record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.kind === 'control' ? 'CC' : record.source?.match(/[QWER]$/)?.[0] || 'Hit';
-        const button = node('button', 'matchup-event', label); button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}`); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
+        const label = record.kind === 'parried' ? '×' : record.kind === 'parry-start' ? 'W' : record.source === 'attack' ? 'AA' : record.kind === 'death' ? 'KO' : record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.kind === 'control' ? 'CC' : record.source?.match(/[QWER]$/)?.[0] || 'Hit';
+        const button = node('button', `matchup-event ${['parried', 'parry-start'].includes(record.kind) ? record.kind : ''}`, label); button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}`); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
       });
       lane.append(label, track); return lane;
     }));
@@ -228,6 +233,12 @@
       if (['heal', 'shield'].includes(event.kind)) values.push(`${format(event.amount)} ${event.kind === 'heal' ? 'HP healed' : 'shield'}`);
       if (event.kind === 'control') values.push(`${event.control} · ${Number(event.duration).toFixed(2)} s`);
       if (event.kind === 'death') values.push('Knockout');
+      if (event.kind === 'parry-start') values.push(`Defense active for ${Number(Math.max(0, event.expires - event.at).toFixed(2))} s`);
+      if (event.kind === 'parried') {
+        values.push(event['effect-kind'] === 'damage' ? '0 damage' : event['effect-kind'] === 'control' ? 'Control blocked' : 'Effect blocked');
+        const consumption = result.sources?.[event.source]?.consumption;
+        if (consumption) values.push(consumption);
+      }
       detail.replaceChildren(node('strong', '', `${event.at.toFixed(2)} s · ${eventName(event)}`), node('span', '', values.join(' · ')));
     }
   }

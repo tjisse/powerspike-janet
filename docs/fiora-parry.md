@@ -42,6 +42,18 @@ Lich Bane is the directly observed item. Sheen, Trinity Force, Essence Reaver
 and Iceborn Gauntlet follow the shared Spellblade consumption policy. Their
 parried consumption is a modeling rule, not five independent replay findings.
 
+### Shield follow-up
+
+The [shield screen](../observations/replays/riposte-shield-screen-2026-10-19.json)
+records two retained replay hashes and decoder summary identities. Across 25
+matched observed Riposte windows, none overlapped a positive shield-candidate
+observation. The archives contain 15 positive candidate updates elsewhere.
+The second archive was selected for a shield-item-owning Fiora from a bounded
+replay-list search. Candidate state fields are not independently calibrated;
+this result establishes neither shield absence nor server shield/parry ordering.
+The shield-intact assumption remains explicit and unchanged. A useful next case
+needs an overlapping shield, Riposte and interpretable incoming hit.
+
 ## Engine behavior
 
 A semantic effect can now run at `:cast-start`. A separately evaluated cast lock
@@ -95,3 +107,18 @@ Core/source checks, all 170 Python tests (162 passed, eight optional skips),
 frontend and combat regressions, the new relocated parry/JSON scenario and
 packaged Chromium desktop/mobile flows passed. The relocated suite also passed
 using the published v0.18.0 RPM's older seed and the parry fixture.
+
+## Player-facing event inspection
+
+The duel timeline includes Riposte activation and parried effects. Selecting
+activation shows its defensive duration; selecting a blocked effect identifies
+the attacker, source and defender, with zero damage or a blocked-effect label.
+Parried Spellblade damage also reports consumption using the completed actor's
+trigger metadata. Item and ability names come from the completed snapshot.
+Parried effects do not enter damage totals.
+
+Every event remains available in the selector even when timeline markers are
+crowded. A selected marker remains visible. `test/parry_browser.py` exercises
+the source-backed cached fixture, duration, blocked Lich Bane damage and
+consumption, snapshot labels and layouts down to 320 pixels. CI runs this flow
+alongside the full browser suite after `make test-runtime` exports the fixture.

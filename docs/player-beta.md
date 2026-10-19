@@ -83,6 +83,8 @@ after v0.18.0, starting with attack timing and projectile behavior.
 `make test test-web` covers core calculations, retained sources, replay tooling, model/rendering regressions and the comparison cases. `python test/browser.py` runs against the packaged binary, or accepts `--url` for a running app. Its comparison flow checks pinning, item changes, recomputation against an independent result, replacement/removal, responsive layouts, coverage navigation, failed-evaluation recovery and retaining pinned items after applying optimization.
 
 Screenshots from browser verification are written under ignored `build/`. Run `make test-runtime` to check the executable independently of the source tree before preparing a release.
+Then run `python test/browser.py --parry-fixture build/parry-runtime-fixture`
+to include the source-backed Riposte event flow used in CI.
 
 The [ranged replay timing investigation](replay-attack-timing.md) adds developer
 evidence for Ahri/Lich Bane and Viktor Q, with all exceptions retained. It
@@ -93,3 +95,6 @@ Fiora W now has [partial defensive support](fiora-parry.md) on 16.19.1: the
 champion-only 0.75-second parry window, its action lock and Spellblade consumption
 on parried impacts. Simulation details retain the missing return stab, objective
 defense, shield-ordering assumption and exceptional interaction limits.
+The duel's Combat events now show parry activation and blocked effects with
+readable spell/item names. Players can inspect zero damage and Spellblade
+consumption, including on mobile; overlapping events remain selectable.

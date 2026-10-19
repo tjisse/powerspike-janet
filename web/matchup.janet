@@ -197,6 +197,17 @@
     (input "distance" "Starting distance" (get state :distance 300) 0 10000)
     (input "samples" "Trials" (get state :samples 1) 1 64)
     (input "seed" "Random seed" (get state :seed 1) 0 2147483647)]])
+(defn event-sources [package actors trace]
+  (def abilities (mapcat |(get $ :abilities []) actors))
+  (def triggers (mapcat |(get $ :triggers []) actors))
+  (tabseq [source :in (keys (tabseq [event :in trace :when (string? (event :source))] (event :source) true))]
+    source
+    (let [parts (string/split "/" source)
+          item (when (and (= "item" (first parts)) (>= (length parts) 2)) (get-in package [:item-map (parts 1)]))
+          ability (find |(= source ($ :id)) abilities)
+          trigger (find |(= source ($ :id)) triggers)]
+      {:name (cond (= source "attack") "Basic attack" item (item :name) ability (ability :name) source)
+       :consumption (when (= "spellblade" (get trigger :consume-buff)) "Spellblade consumed")})))
 (defn results [result]
   (def combat (get-in result [:selected :combat]))
   (def actors (get combat :actors []))
@@ -213,6 +224,7 @@
   (def endpoint (or (find |(<= ($ :at) end) (reverse trace)) (last trace)))
   (def hp (when winner (get-in endpoint [:participants winner :health] (get-in actors [winner :health] 0))))
   [:section {:id "results" :class "results matchup-results" :data-matchup-result (json/encode {:trace trace :duration (state :duration) :end end :names names
+                                                                                               :sources (event-sources (result :package) actors trace)
                                                                                                :actors (map |{:id ($ :id) :hp (get-in $ [:stats :hp] 1)} actors)})
              :data-run-id (string (os/clock :monotonic)) :aria-busy "false"}
    [:div {:class "matchup-result-header"}
@@ -241,6 +253,8 @@
    [:label {:class "matchup-scrubber"} "Time" [:input {:type "range" :min 0 :max end :step 0.01 :value 0 :aria-label "Inspect fight time"}] [:output "0.00 s"]]
    [:p {:class "muted matchup-advantage"}]
    [:details {:id "matchup-events" :class "matchup-events" :data-preserve-attr "open" :open true} [:summary "Combat events"]
+    (when (some |(= :parried ($ :kind)) trace)
+      [:p {:class "muted matchup-parry-hint"} "× Parried hit · Select an event for details."])
     [:div {:class "matchup-event-lanes"}]
     [:label "Event" [:select {:class "matchup-event-select" :aria-label "Select combat event"} [:option {:value ""} "Select event"]]]
     [:div {:class "matchup-event-detail" :hidden true :aria-live "polite"}]]])

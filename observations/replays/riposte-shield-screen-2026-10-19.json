@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-19",
+  "purpose": "Find a shield observation overlapping Fiora Riposte before reviewing shield/parry ordering",
+  "status": "inconclusive-no-observed-overlap",
+  "selection": "Existing Ahri/Lich Bane/Fiora archive, followed by the first uninspected 16.20 replay with a shield-item-owning Fiora in a bounded five-entry replay-list search. This is targeted selection, not a random sample.",
+  "method": {
+    "parry": "Match Fiora buff hash 0x06d06887 add/remove records by slot token in wire order; use only matched observed windows.",
+    "shield": "Read Fiora health and shield-* candidate state fields in wire order. Check positive updates within each window and last-observed positive fields before its start. Missing fields are not zero.",
+    "limits": "Shield candidate fields are not independently calibrated. No positive overlap is not proof that shields were absent, nor evidence of server shield/parry ordering. No damage case is admitted."
+  },
+  "adapters": {
+    "scripts/replay_combat.py": "7f0393e0d1ec88d483a3f3e92231a0d94db81a6ac532f257caed4987d1308ece",
+    "scripts/replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe"
+  },
+  "archives": [
+    {
+      "replay-sha256": "6a6172ecd5466d9cf9505c1cc0d1b7bcd4f1510b23569ee023789070102373d7",
+      "combat-summary-sha256": "d3ae39f1b9b38cb50981b54cd4e6ffa08d5b5af13f3ce819ddc3354bd9a08ec4",
+      "buff-summary-sha256": "a2ed34c9b275a719315a1b3fc22263a7f05df77af0dac3fb02c5939d7ab93f7a",
+      "matched-riposte-windows": 14,
+      "positive-shield-candidate-updates": 13,
+      "positive-overlap-windows": 0
+    },
+    {
+      "replay-sha256": "33c282489c99565344cf676eeb23517facf4292d3f5a5edf9e5939f0256a9653",
+      "combat-summary-sha256": "2f25657bcb8e018b64da79572440b4fa1406a20b6a18d14f36182b2e9f0c3768",
+      "buff-summary-sha256": "42df35f93027286f86eb769254fd7bfd22831167f9857a889a055f1d20f71278",
+      "matched-riposte-windows": 11,
+      "positive-shield-candidate-updates": 2,
+      "positive-overlap-windows": 0
+    }
+  ],
+  "decision": "Retain the explicit shield-intact simulation assumption. Seek an observed overlapping shield/parry case with interpretable damage context before changing ordering."
+}

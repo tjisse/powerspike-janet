@@ -19,7 +19,8 @@ diagnostics remain in the developer tools.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only
    parry window and shared Spellblade consumption. Its return stab, shield
    ordering, exceptional interactions, exact release timing and complete
-   expiry/refresh context remain next.
+   expiry/refresh context remain next. A two-replay shield screen found no
+   positive overlap with observed Riposte windows; it leaves ordering unresolved.
 2. **Level and form transitions.** Start with Kayle's level-dependent attack
    type and range, then add explicit supported forms for Elise, Gnar, Jayce and
    Nidalee. The selected form/level must drive damage, range, tooltips and both
@@ -34,7 +35,9 @@ diagnostics remain in the developer tools.
    completed-item swaps, equal-gold alternatives and survival tradeoffs. Make
    the reason for a difference easy to inspect and keep controls, explanations
    and comparisons readable on mobile. Preserve reproducible scenario exports
-   and the existing Rift HUD.
+   and the existing Rift HUD. The duel timeline now exposes parry activation,
+   blocked effects and Spellblade consumption, with all crowded events available
+   through the selector.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before

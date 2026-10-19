@@ -85,7 +85,7 @@
             (def base (string prefix slot))
             [:article [:strong (string/ascii-upper (string slot))]
              (when (some |(= slot $) [:q :w :e :r])
-               (select-field (string base "rank") "Rank" (get state (keyword (string base "rank")) -1)
+               (select-field (string base "rank") (if (and (= "Elise" (champion :id)) (= slot :r)) "Additional R points (free first rank included)" "Rank") (get state (keyword (string base "rank")) -1)
                              [[-1 "Automatic"] ;(map |[$ (string $)] (range 0 (if (= slot :r) 4 6)))]))
              (input (string base "after") "Cast after (s)" (get state (keyword (string base "after")) 0) 0 120 0.1)
              (input (string base "selfbelow") "Self health below (0–1)" (get state (keyword (string base "selfbelow")) 1) 0 1 0.05)
@@ -211,7 +211,7 @@
           item (when (and (= "item" (first parts)) (>= (length parts) 2)) (get-in package [:item-map (parts 1)]))
           ability (find |(= source ($ :id)) abilities)
           trigger (find |(= source ($ :id)) triggers)]
-      {:name (cond (= source "attack") "Basic attack" item (item :name) ability (ability :name) source)
+      {:name (cond (= source "attack") "Basic attack" item (item :name) ability (ability :name) (get trigger :name) (trigger :name) source)
        :consumption (when (= "spellblade" (get trigger :consume-buff)) "Spellblade consumed")})))
 (defn results [result]
   (def combat (get-in result [:selected :combat]))

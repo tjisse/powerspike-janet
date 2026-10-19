@@ -25,8 +25,10 @@ diagnostics remain in the developer tools.
    now drive both participants and supported item scaling on 16.19.1, with her
    remaining passive effects explicit. Nidalee now has [fixed Human/Cougar forms](nidalee-forms.md)
    for ordinary attacks and supported item scaling. Jayce now has [fixed Hammer/Cannon forms](jayce-forms.md),
-   including Hammer's level/bonus-AD resistance scaling. Next add supported forms
-   for Elise and Gnar. The selected form/level must drive damage, range,
+   including Hammer's level/bonus-AD resistance scaling. Elise now has
+   [fixed Human/Spider forms](elise-forms.md), including movement speed and
+   Spider Queen's champion/practice on-hit damage and healing. Next add supported
+   forms for Gnar. The selected form/level must drive damage, range,
    tooltips and both optimizer perspectives consistently. Remove an omission only when its
    replacement is implemented and checked.
 3. **Broader combat regression evidence.** Expand reviewed comparisons across

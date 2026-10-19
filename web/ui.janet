@@ -76,7 +76,7 @@
       (seq [index :range [0 maximum]]
         [:span {:class (if (< index rank) "spell-rank spell-rank-learned" "spell-rank")}]))]])
 
-(defn- rank-markup [champion ranks &opt settings]
+(defn- rank-markup [champion ranks &opt settings form]
   [:div {:id "ranks" :class "spells"}
    (cond (not (empty? settings))
      (map (fn [ability]
@@ -95,7 +95,7 @@
                     :aria-label (string name (if (> rank 0) (string " rank " rank) " locked"))}
              (spell-visual slot rank maximum "spell" id name)])
           [[:q "Disintegrate" "AnnieQ" 5] [:w "Incinerate" "AnnieW" 5] [:r "R passive" "" 3]])
-     [:span {:class "muted"} "Ability model unavailable"])])
+     [:span {:class "muted"} (if form "Active abilities excluded in this fixed form" "Ability model unavailable")])])
 
 (defn champion-display [result]
   (def champion (result :champion))
@@ -128,7 +128,7 @@
                              [["" "Choose form"] ;(forms/choices (state :champion) (state :patch))])])]
    [:div {:class "champion-vitals"}
     (map (fn [[key caption]] [:div [:span caption] [:strong (number-text (get-in result [:selected :stats key] 0))]]) [[:hp "Health"] [:mp "Resource"]])]
-   (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings))
+   (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings) (get-in result [:selected :combat :actors 0 :form]))
    [:input {:type "hidden" :name "patch" :value (get state :patch ((result :package) :patch))}]
    [:input {:type "hidden" :name "snapshot" :value ((result :package) :snapshot)}]
    [:input {:type "hidden" :name "snapshotlocked" :value (if (get state :snapshotlocked) "true" "false")}]
@@ -136,7 +136,7 @@
    [:noscript [:button {:type "submit" :name "selected" :value (state :selected) :class "apply"} "Update comparison"]]])
 
 (defn ranks-fragment [result]
-  (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings)))
+  (rank-markup (result :champion) ((result :selected) :ranks) ((result :selected) :ability-settings) (get-in result [:selected :combat :actors 0 :form])))
 
 (defn- build-row [row index selected]
   [:button {:type "submit" :form "scenario" :name "selected" :value (row :id)
@@ -293,7 +293,7 @@
                    [:article
                     [:strong (string/ascii-upper (string slot))]
                     (when (some |(= $ slot) [:q :w :e :r])
-                      [:label "Rank"
+                      [:label (if (and (= "Elise" (state (if opponent :opponent :champion))) (= slot :r)) "Additional R points (free first rank included)" "Rank")
                        [:select {:form "scenario" :name (string base "rank") :data-bind (string base "rank")}
                         [:option {:value -1 :selected (= -1 (get state (keyword (string base "rank")) -1))} "Automatic"]
                         (seq [rank :range [0 (if (= slot :r) 4 6)]]
@@ -447,7 +447,8 @@
   (cond (= :attack source) (icon "champion" (get-in row [:champion :icon] (get row :champion-id "Annie")) "Basic attack")
     (and (string? source) (string/has-prefix? "item/" source)) (icon "item" ((string/split "/" source) 1) "Item effect")
     (and (string? source) (string/has-prefix? "rune/" source)) (icon "rune" ((string/split "/" source) 1) "Rune effect")
-    (do (def ability (find |(= source ($ :id)) (get row :ability-settings [])))
+    (do (def ability (or (find |(= source ($ :id)) (get row :ability-settings []))
+                         (find |(and (= source ($ :id)) ($ :name)) (get-in row [:combat :actors 0 :triggers] []))))
       (if (and ability (not= "" (ability :icon))) (icon (ability :icon-group) (ability :icon) (ability :name))
         [:b source]))))
 
@@ -457,7 +458,8 @@
     (and (string? source) (string/has-prefix? "item/" source)) (get (catalog/items ((string/split "/" source) 1)) :name source)
     (and (string? source) (string/has-prefix? "rune/" source))
     (get (find |(= (scan-number ((string/split "/" source) 1)) (get $ "id")) (scenarios/runes (catalog/current))) "name" source)
-    (get (find |(= source ($ :id)) (get row :ability-settings [])) :name source)))
+    (get (or (find |(= source ($ :id)) (get row :ability-settings []))
+             (find |(and (= source ($ :id)) ($ :name)) (get-in row [:combat :actors 0 :triggers] []))) :name source)))
 
 (defn- champion-ability? [ability]
   (some |(= (ability :slot) $) [:p :q :w :e :r]))
@@ -473,6 +475,7 @@
    [:summary "Coverage & assumptions"]
    [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Your declared priority, activation conditions and movement drive this run. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions."
+         (get-in row [:combat :actors 0 :form]) "Fixed-form attacks and the form effects listed below are included. Other champion effects remain excluded."
          has-spells
          "Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun excluded."
          "Ordinary basic attacks using base stats and item stats. Champion abilities, passives and special attack rules are excluded.")]
@@ -499,6 +502,7 @@
    [:summary "Simulation details"]
    [:p "This fight follows the selected ability priorities, movement, hit chances and starting conditions. Results describe that simulated fight; a live match also depends on player decisions and positioning."]
    [:p (cond broad "Abilities and attacks use the selected patch, skill ranks and activation rules."
+         (get-in row [:combat :actors 0 :form]) "Includes ordinary attacks and the selected form's supported effects. See the list below for included form effects and remaining omissions."
          has-spells "Includes Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun are not included."
          "Basic attacks only. Champion abilities, passives and special attack rules are not included.")]
    (when (not (empty? notes))
@@ -597,8 +601,9 @@
           (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
           (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
           (forms/fixed? (state :champion) (state :patch) (state :form))
-          (if (= "Jayce" (state :champion))
-            "Fixed form · ordinary attacks and form stats. See Simulation details for omissions."
+          (case (state :champion)
+            "Elise" "Fixed form · ordinary attacks, form stats and Spider Queen in Spider form. See Simulation details for omissions."
+            "Jayce" "Fixed form · ordinary attacks and form stats. See Simulation details for omissions."
             "Fixed form · ordinary attacks only. See Simulation details for omissions.")
           broad
           (string "No supported spell damage for " ((result :champion) :name) " in this patch. See Simulation details for included effects.")

@@ -116,3 +116,10 @@ Hammer's armor/MR scales with level and bonus AD, including temporary AD changes
 during combat. His casts, transformation attack bonuses, Hextech Capacitor and
 switching forms remain excluded. Item searches and exported/shared scenarios
 retain both participants' form choices.
+
+[Elise's fixed Human/Spider forms](elise-forms.md) include their attack range,
+melee/ranged item scaling and movement speed. Spider attacks add Spider Queen's
+magic damage and self-healing against champions/practice targets. The free
+first R rank is included; rank controls allocate additional points. Both forms
+remain fixed in comparisons, item searches and shared scenarios. Active casts,
+Spiderlings, Rappel amplification and objective passive effects remain excluded.

@@ -59,7 +59,7 @@
   (def automatic (skills/ranks-from-order (spec :skill-order) level))
   (def ranks (merge automatic (get spec :ranks {})))
   (skills/validate-ranks ranks level)
-  (def champion (forms/apply-form (attacks/at-level source-champion level ranks) (spec :form) level))
+  (def champion (forms/apply-form (attacks/at-level source-champion level ranks) (spec :form) level ranks))
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
   (assert (and (indexed? page) (<= (length page) 6)
@@ -95,7 +95,8 @@
    :strategy tactics
    :shards (get loadout :shards []) :shard-bonuses shard-modifiers
    :damage-rules (rune-effects :rules)
-   :triggers [;(mapcat |(effects/item-triggers $ ranged) items) ;(mapcat |(effects/rune-triggers $ (package :patch)) chosen-runes)]
+   :triggers [;(mapcat |(effects/item-triggers $ ranged) items) ;(mapcat |(effects/rune-triggers $ (package :patch)) chosen-runes)
+              ;(get champion :form-triggers [])]
    :coverage [;(get champion :limitations []) ;(mapcat |(get $ :unresolved []) abilities)
               ;(mapcat |(map (fn [note] (string ($ :name) ": " note)) (get $ :limitations [])) items)
               ;(mapcat |(get $ :unresolved []) summoners)

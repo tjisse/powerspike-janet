@@ -1,0 +1,10 @@
+{
+  "entries": {
+    "spell_elisepassive_tooltip": "Elise begins the game with a point in her Ultimate, allowing her to shapeshift between <keywordMajor>Human Form</keywordMajor> and <keywordMajor>Spider Form</keywordMajor>.<br><br><keywordMajor>Human Form:</keywordMajor> Elise's Ability hits grant her a dormant <keywordMajor>Spiderling</keywordMajor>, up to @spell.EliseR:BaseSpiderlingsStored@.<br><br><keywordMajor>Spider Form:</keywordMajor> Attacks deal an additional <magicDamage>@spell.EliseR:PassiveTotalDamage@ magic damage</magicDamage> and restore <healing>@spell.EliseR:PassiveTotalHealing@ Health</healing>.",
+    "spell_eliser_tooltip": "<keywordMajor>Human Form</keywordMajor>: Elise transforms into a menacing spider, becoming melee, gaining access to <keywordMajor>Spider Form</keywordMajor> Abilities and summons all dormant <keywordMajor>Spiderlings</keywordMajor>.",
+    "spell_eliser_summary": "Transforms into a menacing spider, reducing her attack range in exchange for Move Speed, new abilities, and a Spiderling swarm that will attack her foes.",
+    "spell_eliserspider_tooltip": "<keywordMajor>Spider Form</keywordMajor>: Elise returns to <keywordMajor>Human Form</keywordMajor> and all remaining <keywordMajor>Spiderlings</keywordMajor> become dormant.",
+    "game_buff_tooltip_buffelisespiderform": "<titleLeft>Spider Form</titleLeft><mainText>Elise is transformed into a menacing spider. She deals bonus Magic Damage on attack and has access to her arachnid abilities.</mainText><postScriptLeft>Source: @SourceName@</postScriptLeft>",
+    "spell_elisespiderw_tooltip": "<keywordMajor>Spider Form</keywordMajor> <spellPassive>Passive</spellPassive>: <keywordMajor>Spiderlings</keywordMajor> gain <attackSpeed>@spell.EliseSpiderW:PassiveAttackSpeed*100@% Attack Speed</attackSpeed>.<br><br><keywordMajor>Spider Form</keywordMajor> <spellActive>Active:</spellActive> Elise grants herself and her <keywordMajor>Spiderlings</keywordMajor> <attackSpeed>@spell.EliseSpiderW:ActiveAttackSpeed*100@% Attack Speed</attackSpeed> for @spell.EliseSpiderW:BuffDuration@ seconds."
+  }
+}

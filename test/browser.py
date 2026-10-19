@@ -34,6 +34,10 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
     if champion == 'Jayce':
         for label in ('Armor', 'Magic resist'):
             assert abs(float(stats_for('opponent')[label]) - float(stats_for('player')[label]) - 5.75) < .01
+    if champion == 'Elise':
+        assert float(stats_for('player')['Move speed']) == 330
+        assert float(stats_for('opponent')['Move speed']) == 355
+        expect(page.locator('[name=rrank]').locator('..')).to_contain_text('Additional R points (free first rank included)')
     assert 'Downloading ability data' not in page.locator('#results').inner_text()
     assert all(row['actor'] == 'player' for row in result()['trace'] if row['kind'] == 'damage')
     assert any(row['kind'] == 'damage' for row in result()['trace'])
@@ -61,6 +65,7 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
               '&abilities=false&movement=hold&distance=200&duration=1', wait_until='domcontentloaded')
     expect(page.locator('#timeline')).to_be_visible()
     assert json.loads(page.locator('#timeline').get_attribute('data-events'))
+    expect(page.locator('#ranks')).to_contain_text('Active abilities excluded in this fixed form')
     page.locator('#scenario [name=form]').select_option(melee_form)
     page.wait_for_function('(form)=>JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === form', arg=melee_form)
     assert not json.loads(page.locator('#timeline').get_attribute('data-events'))
@@ -77,6 +82,19 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
             if next_champion == 'Nidalee':
                 page.locator('#scenario [name=form]').select_option('human')
                 page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === "human"')
+    if champion == 'Elise':
+        page.set_viewport_size({'width':1200,'height':1000})
+        page.goto(base+'/?mode=practice&champion=Elise&form=spider&level=1&selected=custom&snapshotlocked=true'
+                  '&abilities=false&movement=hold&distance=0&duration=1&healthfraction=0.5&mr=0', wait_until='domcontentloaded')
+        expect(page.locator('#timeline')).to_be_visible()
+        events = json.loads(page.locator('#timeline').get_attribute('data-events'))
+        assert len([event for event in events if event['source'] == 'EliseSpiderQueen']) == 1
+        expect(page.locator('#results')).to_contain_text('Spider Queen')
+        assert 'EliseSpiderQueen' not in page.locator('#results').inner_text()
+        page.get_by_text('Runes & spells', exact=True).click()
+        page.get_by_text('Strategies, ranks & activation rules', exact=True).click()
+        expect(page.locator('[name=rrank]').locator('..')).to_contain_text('Additional R points (free first rank included)')
+        page.locator('#results').screenshot(path='build/elise-spider-queen-desktop.png')
     assert not errors, errors
     page.close()
     native_context = browser.new_context(java_script_enabled=False)
@@ -233,6 +251,7 @@ def verify(base):
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
         verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')
+        verify_fixed_forms(browser, base, 'Elise', 'human', 'spider', 'Human', 'Spider')
         verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]

@@ -239,11 +239,14 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
             for champion, form, level, ranged, attack_range in [('Nidalee', 'human', 1, True, 525), ('Nidalee', 'cougar', 1, False, 125),
                                                                ('Jayce', 'hammer', 1, False, 125), ('Jayce', 'cannon', 1, True, 500),
                                                                ('Jayce', 'hammer', 6, False, 125), ('Jayce', 'hammer', 11, False, 125),
-                                                               ('Jayce', 'hammer', 16, False, 125)]:
+                                                               ('Jayce', 'hammer', 16, False, 125),
+                                                               ('Elise', 'human', 1, True, 550), ('Elise', 'spider', 1, False, 125),
+                                                               ('Elise', 'spider', 6, False, 125), ('Elise', 'spider', 11, False, 125),
+                                                               ('Elise', 'spider', 16, False, 125)]:
                 _, form_raw = get(base, '/?' + urllib.parse.urlencode({
                     'mode': 'practice', 'champion': champion, 'form': form, 'selected': 'custom',
                     'level': level, 'abilities': 'false', 'movement': 'hold', 'distance': attack_range,
-                    'duration': 1, 'snapshot': initial_scenario['snapshot']}))
+                    'duration': 1, 'healthfraction': .5, 'snapshot': initial_scenario['snapshot']}))
                 form_page = Page()
                 form_page.feed(form_raw.decode())
                 form_file = cwd / 'attack-form.json'
@@ -260,6 +263,19 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                     for stat in ('armor', 'mr'):
                         actor = form_result['actors'][0]
                         assert abs(actor['stats'][stat] - actor['base'][stat] - (5 + 7 * ((level - 1) // 5) if form == 'hammer' else 0)) < 1e-6
+                if champion == 'Elise':
+                    assert form_result['actors'][0]['stats']['move-speed'] == (355 if form == 'spider' else 330)
+                    passive = [event for event in form_result['events'] if event['source'] == 'EliseSpiderQueen']
+                    healing = [event for event in form_result['trace'] if event.get('source') == 'EliseSpiderQueenHeal']
+                    if form == 'spider':
+                        rank = 1 + (level >= 6) + (level >= 11) + (level >= 16)
+                        assert len(passive) == len(healing) == 1
+                        assert abs(passive[0]['raw'] - (4 + 10 * rank)) < 1e-6
+                        assert abs(healing[0]['amount'] - (4 + 2 * rank)) < 1e-6
+                        assert b'Spider Queen' in form_raw
+                        assert b'Additional R points (free first rank included)' in form_raw
+                    else:
+                        assert not passive and not healing
                 assert any(event['source'] == 'attack' for event in form_result['events'])
                 form_file.unlink()
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}

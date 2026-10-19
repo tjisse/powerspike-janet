@@ -16,6 +16,11 @@ identity; selecting a form does not enable abilities or switching forms.
 Jayce also supports `hammer` and `cannon` on this patch, including Hammer's
 level/bonus-AD resistance passive. Each champion accepts only its own supported
 forms; changing champions clears a previous incompatible UI selection.
+Elise supports `human` and `spider`, including form movement speed and Spider
+Queen's magic on-hit damage and self-healing against champions/practice targets.
+Her R allocation counts additional points on top of the free first rank; the
+controls explain this. See [Elise's fixed forms](elise-forms.md) for scope and
+the source discrepancy resolved against matching patch notes.
 
 Each champion has a populated skill order under Strategies, ranks & activation rules. Edit the comma-separated Q/W/E/R sequence to choose one skill point per level. Changing champion level applies that sequence up to the selected level. Ability tiles keep their size, with the letter in the bottom-left corner and filled circles below the icon for learned ranks; unlearned icons appear dimmed. Ability priority controls casting order independently. Manual rank settings override the learned ranks. Skill orders survive saves, imports, sharing and optimization; imported scenarios must include a skill order for each champion, with enough entries to cover their level. Exceptional champion leveling rules remain outside the current standard rank validation.
 

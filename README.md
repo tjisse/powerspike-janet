@@ -104,6 +104,7 @@ The demo uses a stationary target with 80 armor and 80 magic resistance, a five-
 - [Kayle's ordinary attack type and range](docs/kayle-levels.md) follow the selected level on 16.19.1 for both participants; her remaining passive effects stay excluded.
 - [Nidalee's fixed Human/Cougar form](docs/nidalee-forms.md) drives ordinary attack range and supported item scaling on 16.19.1; abilities, Hunt/Prowl and switching forms remain excluded in this mode.
 - [Jayce's fixed Hammer/Cannon form](docs/jayce-forms.md) includes ordinary attack type/range and Hammer's level/bonus-AD armor/MR; casts and transformation attacks stay excluded.
+- [Elise's fixed Human/Spider form](docs/elise-forms.md) includes attack type/range, movement speed and Spider Queen's magic on-hit damage/self-healing against champions and practice targets; casts, Spiderlings and switching forms stay excluded.
 - Builds obey inventory slots, gold, map availability, duplicate rules and item groups. Boots are optional.
 - A bounded exhaustive search provides an exact reference result for small candidate pools. It reports when the evaluation limit prevents completion.
 

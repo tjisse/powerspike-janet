@@ -36,7 +36,8 @@
   {:schema 1 :patch "16.19.1" :snapshot snapshot :duration 0.7 :distance 0 :seed 1
    :player (spec form level champion) :target {:kind :practice :hp 1000 :armor 0 :mr 0}})
 (each [champion form ranged range rate] [["Nidalee" "human" true 525 0.06] ["Nidalee" "cougar" false 125 0.09]
-                                         ["Jayce" "hammer" false 125 0.09] ["Jayce" "cannon" true 500 0.06]]
+                                         ["Jayce" "hammer" false 125 0.09] ["Jayce" "cannon" true 500 0.06]
+                                         ["Elise" "human" true 550 0.06] ["Elise" "spider" false 125 0.09]]
   (each level (if (= champion "Jayce") [1 5 6 10 11 15 16 18] [1 6 18])
     (def definition (definition form level champion))
     (def compiled (scenario/compile definition))
@@ -145,6 +146,85 @@
        (get-in (scenario/compile no-r) [:actors 0 :stats :armor]))
 (assert (not (first (protect (scenario/compile (definition "human" 1 "Jayce"))))))
 (assert (not (first (protect (scenario/compile (definition "hammer" 1 "Nidalee"))))))
+
+# Elise gets one free R rank. Independent expected values use the reviewed
+# patch notes (14/24/34/44), not the stale alternate tooltip's 12/22/32/42.
+(defn elise-actor [form level &opt allocated]
+  (def spec (merge (spec form level "Elise") {:loadout {:items []}}))
+  (def spec (if (nil? allocated) spec (merge spec {:ranks {:r allocated}})))
+  (def actor (scenario/participant package spec "player" 0))
+  (merge actor {:health 100 :stats (merge (actor :stats) {:ap 100 :hp-regen 0 :ad 100 :attack-speed 1 :crit-chance 1 :crit-damage 2})}))
+(def dummy {:id "target" :kind :practice :tags [:practice :champion] :position 0
+            :stats {:hp 10000 :armor 0 :mr 100} :strategy {:attacks false :abilities false :movement :hold}})
+(defn passive-events [outcome source] (filter |(= source ($ :source)) (outcome :trace)))
+(each [level base heal] [[1 14 6] [6 24 8] [11 34 10] [16 44 12] [18 44 12]]
+  (each side [0 1]
+    (def actor (elise-actor "spider" level))
+    (def result (engine/simulate {:duration 0.7 :actors (if (= side 0) [actor dummy] [dummy actor])}))
+    (def proc (passive-events result "EliseSpiderQueen"))
+    (assert (= 1 (length proc)))
+    (close (/ (+ base 15) 2) ((first proc) :damage))
+    (assert (false? ((first proc) :critical)))
+    (close (+ heal 8) ((first (passive-events result "EliseSpiderQueenHeal")) :amount))
+    (close 200 ((first (filter |(and (= "attack" ($ :source)) (= :damage ($ :kind))) (result :trace))) :damage))))
+(def spider (elise-actor "spider" 1))
+(def human (elise-actor "human" 1))
+(each [actor speed] [[human 330] [spider 355]]
+  (close speed (get-in actor [:base :move-speed]))
+  (close speed (get-in actor [:stats :move-speed]))
+  (def mover (merge actor {:strategy {:attacks false :abilities false :movement :approach}}))
+  (def moved (engine/simulate {:duration 0.5 :actors [mover (merge dummy {:position 1000})]}))
+  (close (* speed 0.5) (get-in moved [:actors 0 :position])))
+(def withheld (engine/simulate {:duration 0.7 :actors [(elise-actor "spider" 18 0) dummy]}))
+(close 14.5 ((first (passive-events withheld "EliseSpiderQueen")) :damage))
+(assert (empty? (passive-events (engine/simulate {:duration 0.7 :actors [human dummy]}) "EliseSpiderQueen")))
+(def capped (engine/simulate {:duration 0.7 :actors [(merge spider {:health (dec (get-in spider [:stats :hp]))}) dummy]}))
+(close 1 ((first (passive-events capped "EliseSpiderQueenHeal")) :amount))
+
+# The amounts follow live AP and expire with its modifier; generated damage
+# never recursively generates Spider Queen. Misses, interrupted windups,
+# parried attacks and objectives must produce neither passive damage nor heal.
+(def buffed (engine/simulate {:duration 1.7 :actors [spider dummy]
+                              :initial-events [(event 0 {:kind :stat-buff :stat :ap :amount 100 :duration 1})]}))
+(def procs (passive-events buffed "EliseSpiderQueen"))
+(def heals (passive-events buffed "EliseSpiderQueenHeal"))
+(assert (= 2 (length procs) (length heals)))
+(close 22 ((procs 0) :damage)) (close 14.5 ((procs 1) :damage))
+(close 22 ((heals 0) :amount)) (close 14 ((heals 1) :amount))
+(def parry {:at 0 :kind :effect :actor 1 :target 1 :source "fixture" :origin "parry"
+            :effect {:kind :parry :duration 1 :source-kinds [:champion]}})
+(each compiled [{:actors [(merge spider {:strategy {:attacks true :abilities false :movement :hold :hit-chance 0}}) dummy]}
+                {:actors [spider dummy] :initial-events [(event 0.1 {:kind :control :control :stun :duration 1})]}
+                {:actors [spider dummy] :initial-events [parry]}
+                {:actors [spider (merge dummy {:kind :objective :tags [:monster]})]}]
+  (def outcome (engine/simulate (merge compiled {:duration 0.7})))
+  (assert (empty? (passive-events outcome "EliseSpiderQueen")))
+  (assert (empty? (passive-events outcome "EliseSpiderQueenHeal"))))
+
+(def elise-duel (merge (definition "spider" 6 "Elise") {:target (merge (spec "human" 18 "Elise") {:kind :champion})}))
+(def elise-decoded (wire/decode (wire/encode ((scenario/compile elise-duel) :definition))))
+(def elise-restored (model/state-from-definition elise-decoded))
+(assert (= "spider" (elise-restored :form)))
+(assert (= "human" (elise-restored :opponentform)))
+(assert (= ((scenario/simulate elise-duel) :metrics) ((scenario/simulate (model/definition elise-restored ["3153"])) :metrics)))
+(def compared (model/compare elise-restored))
+(def html (ui/render (matchup/loadout compared) (matchup/results compared)))
+(each text ["Elise (Spider)" "Elise (Human)" "Spider Queen" "Additional R points (free first rank included)"] (assert (string/find text html)))
+(def metadata (matchup/event-sources package [(elise-actor "spider" 1)] [{:source "EliseSpiderQueen"} {:source "EliseSpiderQueenHeal"}]))
+(assert (= "Spider Queen" (get-in metadata ["EliseSpiderQueen" :name])))
+(assert (= "Spider Queen healing" (get-in metadata ["EliseSpiderQueenHeal" :name])))
+(each definition [elise-duel (merge elise-duel {:player (elise-duel :target) :target (merge (elise-duel :player) {:kind :champion})})]
+  (def result (search/run package definition {:pool ["3153"] :slots 1 :budget 4000 :seconds 5 :final-samples 1}
+                          (fn [progress] nil) (fn [] false)))
+  (assert (result :complete))
+  (each row (result :rows)
+    (assert (= (get-in definition [:player :form]) (get-in row [:definition :player :form])))
+    (assert (= (get-in definition [:target :form]) (get-in row [:definition :target :form])))
+    (assert (= (row :metrics) ((scenario/fitness (row :definition)) :metrics)))))
+(assert (nil? (get-in (scenario/compile (definition nil 1 "Elise")) [:actors 0 :ranged])))
+(assert (not (first (protect (scenario/compile (definition "cougar" 1 "Elise"))))))
+(assert (= "form-dependent" (get-in package [:champion-map "Elise" :attack-style])))
+(assert (empty? (forms/choices "Elise" "16.18.1")))
 (assert (= snapshot (hash/sha256 (slurp (string directory "/package.jdn")))))
 (util/remove-tree root)
-(print "Sourced Nidalee/Jayce forms: both roles, ranges, item scaling/tooltips, Hammer resistances and temporary modifiers, cached repair, scenario/UI round trips and optimizer preservation passed.")
+(print "Sourced Nidalee/Jayce/Elise forms: both roles, ranges, item scaling, Hammer resistances, Spider Queen damage/healing and live modifiers, cached repair, scenario/UI round trips and optimizer preservation passed.")

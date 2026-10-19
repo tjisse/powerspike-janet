@@ -1,0 +1,35 @@
+{
+  "patch": "16.19.1",
+  "scope": "Fixed Elise forms: ordinary attacks, range/type, base movement speed, and champion/practice Spider Queen on-hit damage/healing. No active casts, Spiderlings, Rappel amplification or form switching.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/elise/elise.bin.json?powerspike=1",
+      "complete-sha256": "3bc5c29e36ff90f2eab159bb2ed37d7700d69120c14eb8a1f029729a3695eb29",
+      "path": "Elise-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/data/characters/elisespider/elisespider.bin.json?powerspike=1",
+      "complete-sha256": "86cb8a11648e89f2bd746f8c368315da0550a145551b020e2a4a6e50fd9c8674",
+      "path": "EliseSpider-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.19/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "8c051cb2a24b31f3fa9af95d39085b832b0da2b8cf51093f98c4ab0620ecb8e8",
+      "path": "Elise-strings.json",
+      "excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Elise-characters.json": "3bc5c29e36ff90f2eab159bb2ed37d7700d69120c14eb8a1f029729a3695eb29",
+    "EliseSpider-characters.json": "86cb8a11648e89f2bd746f8c368315da0550a145551b020e2a4a6e50fd9c8674",
+    "Elise-strings.json": "aa55a62c041250c01fab6049c2e21410a65a157e1df85b28278a458512e375d3"
+  },
+  "references": [
+    {
+      "url": "https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-19-notes/",
+      "supports": "Spider Queen on-hit base damage changed from 12/22/32/42 to 14/24/34/44; prefer canonical EliseR calculation over stale EliseRSpider tooltip-only values."
+    }
+  ]
+}

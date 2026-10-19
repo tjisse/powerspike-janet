@@ -1,0 +1,935 @@
+{
+  "format": "powerspike-damage-accumulation-resolution",
+  "version": 1,
+  "date": "2026-10-19",
+  "status": "resolved",
+  "scope": "The reported Ornn incoming aggregate discrepancy; no claim of complete combat/timing verification.",
+  "cause": "The checker accumulated binary32 packet amounts in Python binary64. The exact client numeric-stat implementation stores and adds binary32 scalars, then truncates its integer output. Rounding only once at the end does not reproduce sequential accumulation.",
+  "policy": {
+    "policy": "ordered-binary32-v1",
+    "order": "original gameplay wire order, independently per metric",
+    "rounding": "IEEE binary32 after every addition",
+    "api-comparison": "unchanged strict absolute difference < 1"
+  },
+  "native-proof": {
+    "path": "observations/replays/damage-accumulation-native-proof-2026-10-19.json",
+    "sha256": "af95b3d00041af14e97074a64e7718025f1812e0a60b775691106098710f663b",
+    "all-1012-additions-bit-exact": true
+  },
+  "original-case": {
+    "replay-sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+    "champion": "Ornn",
+    "metric": "incoming",
+    "api-integer": 27666,
+    "legacy-binary64-total": 27667.00943517685,
+    "legacy-error": 1.0094351768493652,
+    "native-and-corrected-binary32-total": 27666.984375,
+    "corrected-error": 0.984375,
+    "native-integer": 27666,
+    "api-tolerance": 1,
+    "comparison": "strict absolute difference < 1, unchanged"
+  },
+  "unchanged-packet-evidence": {
+    "damage.jsonl.gz": {
+      "decompressed-sha256": "0196f3b6f752c1e17b9301e476b38f01227736f8785c2013a6edb8a32e039912",
+      "identical-before-and-after": true
+    },
+    "state.jsonl.gz": {
+      "decompressed-sha256": "91ffc8871fcaa6ff3ecb61db4c884f67e3488e7eab5d42be14255b2de434bbff",
+      "identical-before-and-after": true
+    }
+  },
+  "runs": [
+    {
+      "role": "discovery/regression",
+      "summary-path": "observations/local/lich-bane-current/combat-binary32-final/summary.json",
+      "summary-sha256": "85d3123e1e647f035d7e9006e966962c9e76395f954b38c39eaf8247848f22fc",
+      "replay-sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+      "counts": {
+        "gameplay-blocks": 1192808,
+        "state-packets": 15658,
+        "state-records": 125785,
+        "champion-state-records": 55355,
+        "state-accepted": 15658,
+        "damage-packets": 55045,
+        "unknown-damage-type": 0,
+        "damage-accepted": 55045,
+        "champion-target-damage": 5159,
+        "champion-target-with-all-partial-fields": 5159
+      },
+      "damage-accumulation": {
+        "policy": "ordered-binary32-v1",
+        "order": "original gameplay wire order, independently per metric",
+        "rounding": "IEEE binary32 after every addition",
+        "api-comparison": "unchanged strict absolute difference < 1"
+      },
+      "validation": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.984375,
+        "rows": [
+          {
+            "slot": 0,
+            "metric": "incoming",
+            "decoded": 32628.12890625,
+            "api": 32628,
+            "difference": 0.12890625,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "outgoing-champions",
+            "decoded": 20326.60546875,
+            "api": 20326,
+            "difference": 0.60546875,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "physical",
+            "decoded": 15007.173828125,
+            "api": 15007,
+            "difference": 0.173828125,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "magic",
+            "decoded": 15483.75390625,
+            "api": 15483,
+            "difference": 0.75390625,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "true",
+            "decoded": 2137.18798828125,
+            "api": 2137,
+            "difference": 0.18798828125,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "incoming",
+            "decoded": 30544.076171875,
+            "api": 30544,
+            "difference": 0.076171875,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "outgoing-champions",
+            "decoded": 9702.0546875,
+            "api": 9702,
+            "difference": 0.0546875,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "physical",
+            "decoded": 17375.748046875,
+            "api": 17375,
+            "difference": 0.748046875,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "magic",
+            "decoded": 10319.978515625,
+            "api": 10319,
+            "difference": 0.978515625,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "true",
+            "decoded": 2848.30078125,
+            "api": 2848,
+            "difference": 0.30078125,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "incoming",
+            "decoded": 21467.34375,
+            "api": 21467,
+            "difference": 0.34375,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "outgoing-champions",
+            "decoded": 9350.7587890625,
+            "api": 9350,
+            "difference": 0.7587890625,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "physical",
+            "decoded": 13553.767578125,
+            "api": 13553,
+            "difference": 0.767578125,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "magic",
+            "decoded": 6429.494140625,
+            "api": 6429,
+            "difference": 0.494140625,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "true",
+            "decoded": 1484.084716796875,
+            "api": 1484,
+            "difference": 0.084716796875,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "incoming",
+            "decoded": 20221.08203125,
+            "api": 20221,
+            "difference": 0.08203125,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "outgoing-champions",
+            "decoded": 23227.091796875,
+            "api": 23227,
+            "difference": 0.091796875,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "physical",
+            "decoded": 12700.078125,
+            "api": 12700,
+            "difference": 0.078125,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "magic",
+            "decoded": 6242.87353515625,
+            "api": 6242,
+            "difference": 0.87353515625,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "true",
+            "decoded": 1278.130126953125,
+            "api": 1278,
+            "difference": 0.130126953125,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "incoming",
+            "decoded": 29332.552734375,
+            "api": 29332,
+            "difference": 0.552734375,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "outgoing-champions",
+            "decoded": 13902.8154296875,
+            "api": 13902,
+            "difference": 0.8154296875,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "physical",
+            "decoded": 14203.3359375,
+            "api": 14203,
+            "difference": 0.3359375,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "magic",
+            "decoded": 13322.486328125,
+            "api": 13322,
+            "difference": 0.486328125,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "true",
+            "decoded": 1806.692138671875,
+            "api": 1806,
+            "difference": 0.692138671875,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "incoming",
+            "decoded": 27666.984375,
+            "api": 27666,
+            "difference": 0.984375,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "outgoing-champions",
+            "decoded": 21041.71484375,
+            "api": 21041,
+            "difference": 0.71484375,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "physical",
+            "decoded": 15603.6708984375,
+            "api": 15603,
+            "difference": 0.6708984375,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "magic",
+            "decoded": 6349.22265625,
+            "api": 6349,
+            "difference": 0.22265625,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "true",
+            "decoded": 5714.11572265625,
+            "api": 5714,
+            "difference": 0.11572265625,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "incoming",
+            "decoded": 24465.09765625,
+            "api": 24465,
+            "difference": 0.09765625,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "outgoing-champions",
+            "decoded": 33815.5546875,
+            "api": 33815,
+            "difference": 0.5546875,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "physical",
+            "decoded": 15883.2841796875,
+            "api": 15883,
+            "difference": 0.2841796875,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "magic",
+            "decoded": 7341.8857421875,
+            "api": 7341,
+            "difference": 0.8857421875,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "true",
+            "decoded": 1239.911376953125,
+            "api": 1239,
+            "difference": 0.911376953125,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "incoming",
+            "decoded": 17772.12109375,
+            "api": 17772,
+            "difference": 0.12109375,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "outgoing-champions",
+            "decoded": 29929.47265625,
+            "api": 29929,
+            "difference": 0.47265625,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "physical",
+            "decoded": 9025.05078125,
+            "api": 9025,
+            "difference": 0.05078125,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "magic",
+            "decoded": 8063.77587890625,
+            "api": 8063,
+            "difference": 0.77587890625,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "true",
+            "decoded": 683.3018188476562,
+            "api": 683,
+            "difference": 0.30181884765625,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "incoming",
+            "decoded": 16239.06640625,
+            "api": 16239,
+            "difference": 0.06640625,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "outgoing-champions",
+            "decoded": 19804.82421875,
+            "api": 19804,
+            "difference": 0.82421875,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "physical",
+            "decoded": 8754.4296875,
+            "api": 8754,
+            "difference": 0.4296875,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "magic",
+            "decoded": 6051.4794921875,
+            "api": 6051,
+            "difference": 0.4794921875,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "true",
+            "decoded": 1433.1600341796875,
+            "api": 1433,
+            "difference": 0.1600341796875,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "incoming",
+            "decoded": 24512.66015625,
+            "api": 24512,
+            "difference": 0.66015625,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "outgoing-champions",
+            "decoded": 10270.8515625,
+            "api": 10270,
+            "difference": 0.8515625,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "physical",
+            "decoded": 14033.2958984375,
+            "api": 14033,
+            "difference": 0.2958984375,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "magic",
+            "decoded": 9102.197265625,
+            "api": 9102,
+            "difference": 0.197265625,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "true",
+            "decoded": 1377.1788330078125,
+            "api": 1377,
+            "difference": 0.1788330078125,
+            "within-one": true
+          }
+        ],
+        "scope": "Aggregate decoder checks; not independently labelled individual hits or model checks"
+      },
+      "decoder-failures": {}
+    },
+    {
+      "role": "preselected unused audit replay",
+      "summary-path": "observations/local/damage-accumulation-audit/combat-binary32-final/summary.json",
+      "summary-sha256": "7cbe6feb8aebec30cc07ff0fc28c4e8b2d43e1944654c1fb8ce9f88b095f8d96",
+      "replay-sha256": "40069c8340e505d5c591f3a6fae956306ec08ff5390e4fd1edc4cc74fb7835a9",
+      "counts": {
+        "gameplay-blocks": 1383924,
+        "state-packets": 15576,
+        "state-records": 124876,
+        "champion-state-records": 54141,
+        "state-accepted": 15576,
+        "damage-packets": 54650,
+        "unknown-damage-type": 0,
+        "damage-accepted": 54650,
+        "champion-target-damage": 5309,
+        "champion-target-with-all-partial-fields": 5309
+      },
+      "validation": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.9429931640625,
+        "rows": [
+          {
+            "slot": 0,
+            "metric": "incoming",
+            "decoded": 58606.30078125,
+            "api": 58606,
+            "difference": 0.30078125,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "outgoing-champions",
+            "decoded": 21610.49609375,
+            "api": 21610,
+            "difference": 0.49609375,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "physical",
+            "decoded": 24952.09765625,
+            "api": 24952,
+            "difference": 0.09765625,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "magic",
+            "decoded": 31610.208984375,
+            "api": 31610,
+            "difference": 0.208984375,
+            "within-one": true
+          },
+          {
+            "slot": 0,
+            "metric": "true",
+            "decoded": 2043.9429931640625,
+            "api": 2043,
+            "difference": 0.9429931640625,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "incoming",
+            "decoded": 30361.279296875,
+            "api": 30361,
+            "difference": 0.279296875,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "outgoing-champions",
+            "decoded": 27268.248046875,
+            "api": 27268,
+            "difference": 0.248046875,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "physical",
+            "decoded": 15287.0390625,
+            "api": 15287,
+            "difference": 0.0390625,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "magic",
+            "decoded": 14015.478515625,
+            "api": 14015,
+            "difference": 0.478515625,
+            "within-one": true
+          },
+          {
+            "slot": 1,
+            "metric": "true",
+            "decoded": 1058.764404296875,
+            "api": 1058,
+            "difference": 0.764404296875,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "incoming",
+            "decoded": 22711.349609375,
+            "api": 22711,
+            "difference": 0.349609375,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "outgoing-champions",
+            "decoded": 22245.689453125,
+            "api": 22245,
+            "difference": 0.689453125,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "physical",
+            "decoded": 12128.1552734375,
+            "api": 12128,
+            "difference": 0.1552734375,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "magic",
+            "decoded": 9791.029296875,
+            "api": 9791,
+            "difference": 0.029296875,
+            "within-one": true
+          },
+          {
+            "slot": 2,
+            "metric": "true",
+            "decoded": 792.1552734375,
+            "api": 792,
+            "difference": 0.1552734375,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "incoming",
+            "decoded": 17462.84765625,
+            "api": 17462,
+            "difference": 0.84765625,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "outgoing-champions",
+            "decoded": 13237.12109375,
+            "api": 13237,
+            "difference": 0.12109375,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "physical",
+            "decoded": 9093.640625,
+            "api": 9093,
+            "difference": 0.640625,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "magic",
+            "decoded": 7803.90576171875,
+            "api": 7803,
+            "difference": 0.90576171875,
+            "within-one": true
+          },
+          {
+            "slot": 3,
+            "metric": "true",
+            "decoded": 565.2958984375,
+            "api": 565,
+            "difference": 0.2958984375,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "incoming",
+            "decoded": 27137.70703125,
+            "api": 27137,
+            "difference": 0.70703125,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "outgoing-champions",
+            "decoded": 14571.5341796875,
+            "api": 14571,
+            "difference": 0.5341796875,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "physical",
+            "decoded": 10818.45703125,
+            "api": 10818,
+            "difference": 0.45703125,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "magic",
+            "decoded": 15098.791015625,
+            "api": 15098,
+            "difference": 0.791015625,
+            "within-one": true
+          },
+          {
+            "slot": 4,
+            "metric": "true",
+            "decoded": 1220.468017578125,
+            "api": 1220,
+            "difference": 0.468017578125,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "incoming",
+            "decoded": 29369.294921875,
+            "api": 29369,
+            "difference": 0.294921875,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "outgoing-champions",
+            "decoded": 49171.640625,
+            "api": 49171,
+            "difference": 0.640625,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "physical",
+            "decoded": 20868.681640625,
+            "api": 20868,
+            "difference": 0.681640625,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "magic",
+            "decoded": 8208.6728515625,
+            "api": 8208,
+            "difference": 0.6728515625,
+            "within-one": true
+          },
+          {
+            "slot": 5,
+            "metric": "true",
+            "decoded": 291.88677978515625,
+            "api": 291,
+            "difference": 0.88677978515625,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "incoming",
+            "decoded": 27488.908203125,
+            "api": 27488,
+            "difference": 0.908203125,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "outgoing-champions",
+            "decoded": 21527.921875,
+            "api": 21527,
+            "difference": 0.921875,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "physical",
+            "decoded": 17819.7578125,
+            "api": 17819,
+            "difference": 0.7578125,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "magic",
+            "decoded": 9175.2705078125,
+            "api": 9175,
+            "difference": 0.2705078125,
+            "within-one": true
+          },
+          {
+            "slot": 6,
+            "metric": "true",
+            "decoded": 493.8999328613281,
+            "api": 493,
+            "difference": 0.899932861328125,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "incoming",
+            "decoded": 29454.189453125,
+            "api": 29454,
+            "difference": 0.189453125,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "outgoing-champions",
+            "decoded": 26373.068359375,
+            "api": 26373,
+            "difference": 0.068359375,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "physical",
+            "decoded": 18920.693359375,
+            "api": 18920,
+            "difference": 0.693359375,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "magic",
+            "decoded": 9440.939453125,
+            "api": 9440,
+            "difference": 0.939453125,
+            "within-one": true
+          },
+          {
+            "slot": 7,
+            "metric": "true",
+            "decoded": 1092.56005859375,
+            "api": 1092,
+            "difference": 0.56005859375,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "incoming",
+            "decoded": 19694.158203125,
+            "api": 19694,
+            "difference": 0.158203125,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "outgoing-champions",
+            "decoded": 22804.09765625,
+            "api": 22804,
+            "difference": 0.09765625,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "physical",
+            "decoded": 11377.90234375,
+            "api": 11377,
+            "difference": 0.90234375,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "magic",
+            "decoded": 7831.6494140625,
+            "api": 7831,
+            "difference": 0.6494140625,
+            "within-one": true
+          },
+          {
+            "slot": 8,
+            "metric": "true",
+            "decoded": 484.6029357910156,
+            "api": 484,
+            "difference": 0.602935791015625,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "incoming",
+            "decoded": 22881.67578125,
+            "api": 22881,
+            "difference": 0.67578125,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "outgoing-champions",
+            "decoded": 15443.55859375,
+            "api": 15443,
+            "difference": 0.55859375,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "physical",
+            "decoded": 12893.1689453125,
+            "api": 12893,
+            "difference": 0.1689453125,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "magic",
+            "decoded": 9136.6103515625,
+            "api": 9136,
+            "difference": 0.6103515625,
+            "within-one": true
+          },
+          {
+            "slot": 9,
+            "metric": "true",
+            "decoded": 851.8941040039062,
+            "api": 851,
+            "difference": 0.89410400390625,
+            "within-one": true
+          }
+        ],
+        "scope": "Aggregate decoder checks; not independently labelled individual hits or model checks"
+      },
+      "decoder-failures": {},
+      "selection-plan-sha256": "64438edfb87f4e1a4ffcbb879032d4957c18a6ba9945ce90419a77f4e15a9b68",
+      "acquisition-receipt": {
+        "bytes": 14726096,
+        "replay-sha256": "40069c8340e505d5c591f3a6fae956306ec08ff5390e4fd1edc4cc74fb7835a9",
+        "wire-bytes": 14520853,
+        "wire-sha256": "0520921098d3f4a7e7d0aba8baf4c6c84826ecca2da916bc6d0003ffd4246b05",
+        "match-sha256": "ef44ac10b682a53be836617248291c384a4eb43f586d490b9339825b61a69474",
+        "timeline-sha256": "606f440fbd96db7371a81379e834c2355e0338e1a2ee46406d81ad9f6af07e5c",
+        "plan-sha256": "64438edfb87f4e1a4ffcbb879032d4957c18a6ba9945ce90419a77f4e15a9b68"
+      }
+    }
+  ],
+  "validation": {
+    "python-tests-run": 166,
+    "python-tests-skipped": 8,
+    "focused-native-enabled-tests": 15,
+    "python-test-failures": 0,
+    "aggregate-checks": 100,
+    "within-one": 100,
+    "tolerance-expanded": false,
+    "individual-packet-values-changed": false,
+    "new-admitted-simulation-cases": 0
+  },
+  "adapters": {
+    "replay_combat.py": "7f0393e0d1ec88d483a3f3e92231a0d94db81a6ac532f257caed4987d1308ece",
+    "replay_accumulation.py": "63aab0a9f4a71627824ea42d103f63f6a33d53f27c03f031e68da24b43afa0d3",
+    "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc"
+  },
+  "limits": [
+    "This resolves numerical accumulation in the replay aggregate checker. It does not validate individual simulated hits, attack timing, complete state reconstruction or cross-patch behavior.",
+    "Existing periodic state comparisons retain their own sampling discrepancies. No future sample or interpolation was used to repair them.",
+    "Both replays are now development evidence for this policy. The second replay was selected and the arithmetic policy frozen before its damage values were decoded."
+  ]
+}

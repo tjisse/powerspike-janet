@@ -1,0 +1,100 @@
+{
+  "format": "powerspike-native-stat-accumulation-proof",
+  "version": 1,
+  "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+  "stat-name": "TOTAL_DAMAGE_TAKEN",
+  "constructor": {
+    "name-load": "0x1001473c8",
+    "object-offset": "0x1358",
+    "sum-mode-store": "0x1001473e2",
+    "mode": 1,
+    "float-vtable-store": "0x100147401",
+    "vtable": "0x1025794d8"
+  },
+  "native-instructions": {
+    "add-function": "0x100143fb0",
+    "addss": "0x100143fcb",
+    "float-store": "0x100143fe8",
+    "integer-format-cvttss2si": "0x100143f97"
+  },
+  "control-vectors": [
+    {
+      "amounts": [
+        0.0
+      ],
+      "additions": 1,
+      "native-total": 0.0,
+      "native-integer": 0,
+      "python-binary64-sum": 0.0,
+      "all-python-additions-bit-exact": true,
+      "step-transcript-sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "amounts": [
+        1.5,
+        0.125
+      ],
+      "additions": 2,
+      "native-total": 1.625,
+      "native-integer": 1,
+      "python-binary64-sum": 1.625,
+      "all-python-additions-bit-exact": true,
+      "step-transcript-sha256": "963ea2832b0699480c2ed4a29688d86f4ef57968e9f540b073d865bfc4952a89"
+    },
+    {
+      "amounts": [
+        16777216.0,
+        1.0,
+        1.0
+      ],
+      "additions": 3,
+      "native-total": 16777216.0,
+      "native-integer": 16777216,
+      "python-binary64-sum": 16777218.0,
+      "all-python-additions-bit-exact": true,
+      "step-transcript-sha256": "f757a188af7ffb6c007588fce7243eb12b7005b3ad6ab88ba1ec2a7528d057cb"
+    },
+    {
+      "amounts": [
+        16777218.0,
+        1.0
+      ],
+      "additions": 2,
+      "native-total": 16777220.0,
+      "native-integer": 16777220,
+      "python-binary64-sum": 16777219.0,
+      "all-python-additions-bit-exact": true,
+      "step-transcript-sha256": "2cc3ed8225eb9a1925c1493dafcc7e02e428f82c434c48adf2abfec150800f5e"
+    }
+  ],
+  "replay-sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+  "damage-archive-sha256": "28458a1049834876ad13be3253473bfb74e2fc6bb2e5218b5c9f3006b2b23c80",
+  "target": "Ornn",
+  "observed-sequence": {
+    "additions": 1012,
+    "native-total": 27666.984375,
+    "native-integer": 27666,
+    "python-binary64-sum": 27667.00943517685,
+    "all-python-additions-bit-exact": true,
+    "step-transcript-sha256": "ba4c7686bcab9b1f2d4ed782240507f9ac74ee3886e448d1bd77a10a8b646c50"
+  },
+  "scope": "Guarded native scalar operations only. Damage packets are unchanged; no API value enters native calls or Python addition. This is aggregate representation evidence, not per-hit simulation validation.",
+  "reproduction": {
+    "format": "powerspike-native-stat-accumulation-proof",
+    "version": 1,
+    "client-build": "16.20.824.8524",
+    "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+    "inputs-sha256": "8529bbd033df0e47fba8cca3813e3102d45b9cfd59ae0671e730bad3a754acdd",
+    "adapter-sha256": "63aab0a9f4a71627824ea42d103f63f6a33d53f27c03f031e68da24b43afa0d3",
+    "accumulation-adapter-sha256": "7f0393e0d1ec88d483a3f3e92231a0d94db81a6ac532f257caed4987d1308ece",
+    "result": {
+      "additions": 1012,
+      "native-total": 27666.984375,
+      "native-integer": 27666,
+      "python-binary64-sum": 27667.00943517685,
+      "all-python-additions-bit-exact": true,
+      "binary32-operands-sha256": "b306d7f36fcb4420e9188b551f00a4f033b07528e0523d39079ea08a085bfb86",
+      "step-transcript-sha256": "ba4c7686bcab9b1f2d4ed782240507f9ac74ee3886e448d1bd77a10a8b646c50"
+    }
+  }
+}

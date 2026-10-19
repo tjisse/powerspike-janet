@@ -10,13 +10,37 @@ from collections import Counter, defaultdict
 import gzip
 import importlib.metadata
 import json
+import math
 from pathlib import Path
+import struct
 import time
 
 from replay_framing import iter_blocks
 from replay_native import NativeDecoder, BUILD, PROTOCOL
 from replay_recovery import bind_api, champion_start, digest, load
 from replay_state import ObservedState, NAMED_FIELDS, replication_records
+
+
+def add_damage_total(total, amount):
+    """Match the exact client's binary32 numeric-stat addition (ADDSS).
+
+    Round the operands and every sum to binary32, not just the final total.
+    The wider intermediate preserves the binary32 rounding decision here.
+    This does not change individual decoded damage or the API tolerance.
+    """
+    if (type(total) not in (int, float) or type(amount) not in (int, float)
+            or not math.isfinite(total) or not math.isfinite(amount)
+            or total < 0 or amount < 0):
+        raise ValueError('Damage accumulation requires finite nonnegative scalars')
+    try:
+        left = struct.unpack('<f', struct.pack('<f', total))[0]
+        right = struct.unpack('<f', struct.pack('<f', amount))[0]
+        result = struct.unpack('<f', struct.pack('<f', left + right))[0]
+    except (OverflowError, struct.error) as error:
+        raise ValueError('Damage accumulation exceeds binary32 range') from error
+    if not math.isfinite(result):
+        raise ValueError('Damage accumulation exceeds binary32 range')
+    return result
 
 
 def totals_check(totals, roster, start, slots, match):
@@ -143,16 +167,16 @@ def decode(replay_path, image_path, profile_path, output, match_path=None, timel
                         row['model-admissible'] = False
                         amount = row['amount']
                         if row['target'] in champions:
-                            totals[row['target']]['incoming'] += amount
+                            totals[row['target']]['incoming'] = add_damage_total(totals[row['target']]['incoming'], amount)
                             if row['damage-type']:
-                                totals[row['target']][row['damage-type']] += amount
+                                totals[row['target']][row['damage-type']] = add_damage_total(totals[row['target']][row['damage-type']], amount)
                             counts['champion-target-damage'] += 1
                             snapshot = row['target-last-observed']
                             counts['champion-target-with-all-partial-fields'] += all(n in snapshot for n in NAMED_FIELDS)
                             if 'health' in snapshot:
                                 ages.append(snapshot['health']['age-seconds'])
                         if row['source'] in champions and row['target'] in champions:
-                            totals[row['source']]['outgoing-champions'] += amount
+                            totals[row['source']]['outgoing-champions'] = add_damage_total(totals[row['source']]['outgoing-champions'], amount)
                         counts['unknown-damage-type'] += row['damage-type'] is None
                     counts[kind + '-accepted'] += 1
                     handle = damages if kind == 'damage' else updates
@@ -173,6 +197,10 @@ def decode(replay_path, image_path, profile_path, output, match_path=None, timel
               'client-build': BUILD, 'protocol-digest': PROTOCOL,
               'replay-sha256': digest(replay_path), 'image-sha256': digest(image_path),
               'profile-sha256': digest(profile_path),
+              'damage-accumulation': {'policy': 'ordered-binary32-v1',
+                                      'order': 'original gameplay wire order, independently per metric',
+                                      'rounding': 'IEEE binary32 after every addition',
+                                      'api-comparison': 'unchanged strict absolute difference < 1'},
               'adapters': {name: digest(Path(__file__).with_name(name)) for name in
                            ('replay_combat.py', 'replay_native.py', 'replay_state.py', 'replay_framing.py', 'replay_recovery.py')},
               'dependencies': {name: importlib.metadata.version(name) for name in ('rofllens', 'unicorn')},

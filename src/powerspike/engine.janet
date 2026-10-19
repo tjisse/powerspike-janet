@@ -105,14 +105,28 @@
       (++ sequence) (push queue (merge fields {:at time :priority priority :kind kind :sequence sequence}))))
   (defn refresh-stats [actor]
     (def totals (merge @{} (actor :original-stats)))
-    (each modifier (values (actor :stat-effects))
-      (when (> (modifier :expires) at)
-        (def key (modifier :stat))
-        (def before (get totals key (if (some |(= key $) [:outgoing-multiplier :healing-multiplier]) 1 0)))
-        (put totals key (case (modifier :mode)
-                          :multiply (* before (modifier :amount))
-                          :maximum (max before (modifier :amount))
-                          (+ before (modifier :amount))))))
+    (def active (filter |(and (> ($ :expires) at)
+                              (or (not ($ :requires-buff)) (> (get (actor :buff-counts) ($ :requires-buff) 0) 0)))
+                        (values (actor :stat-effects))))
+    (defn apply-modifier [modifier]
+      (def key (modifier :stat))
+      (def before (get totals key (if (some |(= key $) [:outgoing-multiplier :healing-multiplier]) 1 0)))
+      (put totals key (case (modifier :mode)
+                        :multiply (* before (modifier :amount))
+                        :maximum (max before (modifier :amount))
+                        (+ before (modifier :amount)))))
+    # Bonus attack speed scales with the champion's ratio, not total speed.
+    # Derive it before applying any direct attack-speed multipliers.
+    (each modifier active (when (= :attack-speed-bonus (modifier :stat)) (apply-modifier modifier)))
+    (def delta (- (get totals :attack-speed-bonus 0) (get (actor :original-stats) :attack-speed-bonus 0)))
+    (when (not= delta 0)
+      (assert (and (util/finite? (actor :attack-speed-ratio)) (util/finite? (actor :attack-speed-cap)))
+              "Bonus attack speed requires the champion's attack-speed ratio and cap.")
+      (def raw (+ (get (actor :original-stats) :attack-speed-uncapped (totals :attack-speed))
+                  (* delta (actor :attack-speed-ratio))))
+      (put totals :attack-speed-uncapped raw)
+      (put totals :attack-speed (max 0 (min raw (actor :attack-speed-cap)))))
+    (each modifier active (unless (= :attack-speed-bonus (modifier :stat)) (apply-modifier modifier)))
     (put actor :stats totals)
     (put actor :health (min (actor :health) (totals :hp))))
   (defn participants []
@@ -150,6 +164,7 @@
         (when (and (some |(= $ event-key) (get effect :on []))
                    (or (not (effect :ability-slots)) (some |(= $ slot) (effect :ability-slots)))
                    (<= (get (owner :proc-ready) id 0) at)
+                   (or (not (effect :requires-ready)) (<= (get (owner :proc-ready) (effect :requires-ready) 0) at))
                    (or (not (effect :requires-buff)) (> (get (owner :buff-counts) (effect :requires-buff) 0) 0))
                    (target-allowed? effect target))
           (def result (protect
@@ -162,7 +177,9 @@
                         (put counter :last at) (put (owner :proc-counts) id counter)
                         (when (>= (counter :count) (value (get effect :every 1) owner target 1))
                           (put counter :count 0) (put counter :origins @[])
-                          (when (effect :consume-buff) (put (owner :buff-counts) (effect :consume-buff) 0))
+                          (when (effect :consume-buff)
+                            (put (owner :buff-counts) (effect :consume-buff) 0)
+                            (refresh-stats owner))
                           (put (owner :proc-ready) id (+ at (max 0.001 (value (get effect :cooldown 0) owner target 1))))
                           (schedule (+ at (max 0 (value (get effect :delay 0) owner target 1))) 10 :effect {:actor (owner :index) :target (if (= :self (effect :target)) (owner :index) (target :index)) :effect effect :rank 1
                                                                                                             :source id :origin origin :depth (inc depth)}))))
@@ -250,11 +267,23 @@
                          (schedule (+ at length) 0 :expire {:actor (target :index)})
                          (record :control {:source source :control (effect :control) :duration length :target (target :id)}))
                        :buff
-                       (do (put (target :buff-counts) (effect :buff) (if (effect :refresh) (get effect :stacks 1)
-                                                                       (+ (get (target :buff-counts) (effect :buff) 0) (get effect :stacks 1))))
+                       (do
                          (def expires (+ at (value (effect :duration) owner target rank)))
+                         # Resolve all bonuses before changing the buff, so missing
+                         # source values cannot leave a partially applied effect.
+                         (def bonuses (tabseq [[stat expression] :pairs (get effect :stat-bonuses {})]
+                                        stat (value expression owner target rank)))
+                         (when (has-key? bonuses :attack-speed-bonus)
+                           (assert (and (util/finite? (target :attack-speed-ratio)) (util/finite? (target :attack-speed-cap)))
+                                   "Bonus attack speed requires the champion's attack-speed ratio and cap."))
+                         (put (target :buff-counts) (effect :buff) (if (effect :refresh) (get effect :stacks 1)
+                                                                     (+ (get (target :buff-counts) (effect :buff) 0) (get effect :stacks 1))))
                          (when (effect :refresh) (put (target :buffs) (effect :buff) expires))
-                         (schedule (+ at (value (effect :duration) owner target rank)) 0 :buff-expire
+                         (eachp [stat amount] bonuses
+                           (put (target :stat-effects) (tuple :buff (effect :buff) stat)
+                                {:stat stat :mode :add :amount amount :expires expires :requires-buff (effect :buff)}))
+                         (refresh-stats target)
+                         (schedule expires 0 :buff-expire
                                    {:actor (target :index) :buff (effect :buff) :stacks (get effect :stacks 1) :refresh (effect :refresh) :expires expires})
                          (record :buff {:source source :buff (effect :buff) :target (target :id)}))
                        :stat-buff
@@ -496,7 +525,8 @@
                  (trigger (actors (actor :target)) actor :kill (string "death/" (actor :id)) 0)))
       :buff-expire (let [actor (actors (event :actor))]
                      (when (or (not (event :refresh)) (= (event :expires) ((actor :buffs) (event :buff))))
-                       (put (actor :buff-counts) (event :buff) (max 0 (- (get (actor :buff-counts) (event :buff) 0) (event :stacks))))))
+                       (put (actor :buff-counts) (event :buff) (max 0 (- (get (actor :buff-counts) (event :buff) 0) (event :stacks))))
+                       (refresh-stats actor)))
       :charge (let [actor (actors (event :actor)) charged ((actor :charges) (event :id))]
                 (put charged :available (min (charged :maximum) (inc (charged :available))))
                 (if (< (charged :available) (charged :maximum))

@@ -20,6 +20,7 @@
 (def ability {:id "fixture" :slot :q :cost 0 :range 200 :cooldown 99 :cast-time 0.1
               :effects [{:kind :damage :target :enemy :status :estimated :damage-type :true :amount 10}]})
 (def unit {:id "a" :kind :champion :level 18 :position 0 :attack-range 200 :ranks {:q 1}
+           :attack-speed-ratio 1 :attack-speed-cap 2.5
            :base {:ad 100 :ap 0 :hp 1000} :stats {:hp 1000 :mp 1000 :ad 250 :bonus-ad 150 :ap 100
                                                   :crit-chance 0.25 :crit-damage 2 :armor 0 :mr 0 :attack-speed 1}
            :strategy {:attacks true :abilities true :priority [:q] :movement :hold}})

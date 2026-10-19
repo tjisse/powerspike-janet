@@ -24,9 +24,15 @@
      ;variables]
     variables))
 (def spellblade-types {"3057" :physical "3100" :magic "3078" :physical "3508" :physical "6662" :physical})
+(defn item-supported? [item]
+  (and (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"])
+       (not (empty? (get item :record {})))))
 (defn item-limitations [item]
   (case (item :id)
-    "3100" ["Lich Bane's empowered attack speed remains excluded."]
+    "3100" (if (and (item-supported? item)
+                    (not= :unresolved ((expr/variable "SheenASBuff" (item-spell item)) :op))
+                    (not= :unresolved ((expr/variable "SpellBladeDuration" (item-spell item)) :op)))
+             [] ["Lich Bane's empowered attack-speed data is unavailable on this snapshot."])
     "3078" ["Trinity Force's Quicken movement speed remains excluded."]
     "3508" ["Essence Reaver's mana restoration remains excluded."]
     "6662" ["Iceborn Gauntlet's frost field and slow remain excluded."]
@@ -36,10 +42,11 @@
   (def spell (item-spell item))
   (defn term [name] (expr/variable name spell))
   (def id (item :id))
-  (def family (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"]))
-  (if (or (not family) (empty? (get item :record {}))) []
+  (if (not (item-supported? item)) []
     (if (spellblade-types id)
       [{:id (string "item/" id "/prime") :on [:cast] :kind :buff :target :self :buff "spellblade"
+        :requires-ready (string "item/" id "/hit")
+        :stat-bonuses (if (= id "3100") {:attack-speed-bonus (term "SheenASBuff")} {})
         :duration (if (= id "3100") (term "SpellBladeDuration") 10) :refresh true}
        {:id (string "item/" id "/hit") :on [:attack] :requires-buff "spellblade" :consume-buff "spellblade"
         :kind :damage :damage-type (spellblade-types id) :amount (term "SpellbladeDamage")

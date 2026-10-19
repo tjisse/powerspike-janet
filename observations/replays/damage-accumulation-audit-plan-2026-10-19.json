@@ -1,0 +1,11 @@
+{
+  "format": "powerspike-damage-accumulation-audit-plan",
+  "version": 1,
+  "frozen-at": "2026-10-19T13:31:36.688803+00:00",
+  "candidate-policy": "Sequential IEEE binary32 addition of nonnegative decoded binary32 amounts in original gameplay wire order, separately for each metric; incoming, per damage type and outgoing-to-champions. Integer API value compared with the existing strict absolute difference < 1.",
+  "selection": "Replay list index 3: first available replay after the discovery match (index 2) not yet decoded or compared. Selection fixed before its bytes or damage values are inspected.",
+  "match-sha256": "ef44ac10b682a53be836617248291c384a4eb43f586d490b9339825b61a69474",
+  "api-error-used-for-selection": false,
+  "tolerance-changed": false,
+  "decoder-or-model-predictions-used-for-selection": false
+}

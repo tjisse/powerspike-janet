@@ -1,0 +1,95 @@
+{
+  "format": "powerspike-replay-attack-speed-regressions",
+  "version": 1,
+  "client-build": "16.20.824.8524",
+  "replay-sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+  "state-archive-sha256": "debff4b62bd9e4c82e6ba164f420ec4876da503679325690b5df296c089e945e",
+  "scope": "Native-decoded component regressions from one discovery game; labels describe surrounding observations, not independently verified server effect timing.",
+  "cases": [
+    {
+      "context": "ordinary modifier before purchase",
+      "event-id": "gameChunk:31:797",
+      "timestamp": 840.42100390625,
+      "components": [
+        {
+          "group": 4,
+          "mask": 4294967295,
+          "data-hex": "8f8080080400a470a242ffffff18048142cf773f42fb05fd400043b2410000fa42ff8fc2f53c00001c438fc2f53cffff677eed3fffffffffff0000803f000040410000803fffffffffff"
+        },
+        {
+          "group": 8,
+          "mask": 4294967295,
+          "data-hex": "0000803f0000803f0000803f0000803fffff645d4c408cdb28400000803f0000803fcdccccbeffffffffa470a242ffffffffffcefc5a3f0000803f0000004000002042ff33c30d4152e105440000aa43010000"
+        }
+      ],
+      "expected-fields": {
+        "attack-speed-modifier": 1.8554199934005737,
+        "percent-attack-speed-modifier": 0.8554199934005737,
+        "multiplicative-attack-speed-modifier": 1.0
+      }
+    },
+    {
+      "context": "modifier after priming",
+      "event-id": "gameChunk:33:215394",
+      "timestamp": 910.4593095703142,
+      "components": [
+        {
+          "group": 4,
+          "mask": 262145,
+          "data-hex": "8e80800834bf1640"
+        },
+        {
+          "group": 8,
+          "mask": 2097152,
+          "data-hex": "677ead3f"
+        }
+      ],
+      "expected-fields": {
+        "attack-speed-modifier": 2.3554201126098633,
+        "percent-attack-speed-modifier": 1.3554199934005737
+      }
+    },
+    {
+      "context": "modifier after expiry",
+      "event-id": "gameChunk:33:398497",
+      "timestamp": 920.984309570316,
+      "components": [
+        {
+          "group": 4,
+          "mask": 262144,
+          "data-hex": "677eed3f"
+        },
+        {
+          "group": 8,
+          "mask": 2097152,
+          "data-hex": "cefc5a3f"
+        }
+      ],
+      "expected-fields": {
+        "attack-speed-modifier": 1.8554199934005737,
+        "percent-attack-speed-modifier": 0.8554199934005737
+      }
+    },
+    {
+      "context": "modifier after empowered attack",
+      "event-id": "gameChunk:33:498370",
+      "timestamp": 925.7133095703168,
+      "components": [
+        {
+          "group": 4,
+          "mask": 264192,
+          "data-hex": "0000fa42677eed3f"
+        },
+        {
+          "group": 8,
+          "mask": 2097152,
+          "data-hex": "cefc5a3f"
+        }
+      ],
+      "expected-fields": {
+        "attack-speed-modifier": 1.8554199934005737,
+        "percent-attack-speed-modifier": 0.8554199934005737
+      }
+    }
+  ]
+}

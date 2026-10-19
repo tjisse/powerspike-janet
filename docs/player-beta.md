@@ -12,19 +12,26 @@ In practice and objective simulations, players can pin an inventory and compare 
 
 Simulation details are reachable beside the headline metrics. Current results and pinned results retain their separate omissions and inventory notes. Verification-only annotations stay in the developer view. Failed scenario evaluations disable save, export and share actions until a successful evaluation replaces them. The saved artifact remains a single reproducible scenario; comparisons live in the open page session.
 
-## Next improvement after v0.15.1
+## Combat improvement in v0.16.0
 
-Complete Lich Bane's empowered attack-speed behavior in the shared combat engine.
-The damage proc is already modeled, while `effects/item-limitations` explicitly
-excludes the speed effect. The retained 16.19.1 item record supplies
-`SheenASBuff`; its lifetime, cooldown eligibility and consumption need to be
-confirmed against the matching mechanic before implementation.
+Lich Bane's temporary attack-speed bonus now uses the shared combat engine,
+including champion scaling, caps, priming, consumption and expiry. Spellblade
+cannot prime during its hit cooldown. Regression cases cover windup/timestamps,
+refreshes, subsequent ordinary attacks, misses, interruptions, projectiles and
+both duel participants. See [the source and timing notes](lich-bane.md) for the
+developer evidence boundary. Existing verification records retain their model
+identities; synthetic tests do not become in-game measurements.
 
-Acceptance should cover attack windup/timestamps, priming and consumption,
-repeated casts during cooldown, subsequent ordinary attacks, and both duel
-participants. Use the same evaluator for direct simulation and optimization,
-and retain reviewed evidence and diagnostics in the developer view. This closes
-a concrete gap that can affect short-fight damage and item recommendations.
+The next priority is reviewed combat evidence for isolated attacks and Spellblade
+timing, especially ranged impact versus launch and attack-speed changes during
+an existing attack. Those observations can resolve the remaining timing policies
+before expanding the supported mechanics further.
+
+A matching-decoder 16.20 Ekko replay is now retained with an independently
+recorded Lich Bane purchase and raw attack-speed/buff observations. The initial
+study supports the bonus magnitude; ordinary/ranged timing and comparison with
+the simulator's 16.19 snapshot still require review. Acquisition and diagnostic
+details remain in [the developer notes](lich-bane.md).
 
 ## Remaining rollout priorities
 

@@ -1,0 +1,143 @@
+{
+  "Items/3100": {
+    "mDisplayName": "Item_3100_Name",
+    "mDeathRecapName": "LichBane",
+    "itemID": 3100,
+    "maxStack": 1,
+    "mItemGroups": [
+      "Items/ItemGroups/Default",
+      "{123d7d35}",
+      "{8b55a7b3}"
+    ],
+    "price": 250,
+    "mItemCalloutSpectator": true,
+    "ShowCooldownVfxToAllies": false,
+    "ShowCooldownInPings": false,
+    "mCanBeSold": true,
+    "epicness": 5,
+    "recipeItemLinks": [
+      "Items/3057",
+      "Items/3113",
+      "Items/1026"
+    ],
+    "mEffectAmount": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mDataValues": [
+      {
+        "mName": "SpellbladeCooldown",
+        "mValue": 1.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "LichBaneAPValue",
+        "mValue": 0.44999998807907104,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "SpellbladeADRatio",
+        "mValue": 0.75,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "SheenASBuff",
+        "mValue": 0.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "Cooldown",
+        "mValue": 1.5,
+        "__type": "ItemDataValue"
+      },
+      {
+        "mName": "SpellBladeDuration",
+        "mValue": 10.0,
+        "__type": "ItemDataValue"
+      }
+    ],
+    "mItemCalculations": {
+      "SpellbladeDamage": {
+        "mFormulaParts": [
+          {
+            "mStat": 2,
+            "mStatFormula": 1,
+            "mDataValue": "SpellbladeADRatio",
+            "__type": "StatByNamedDataValueCalculationPart"
+          },
+          {
+            "mDataValue": "LichBaneAPValue",
+            "__type": "StatByNamedDataValueCalculationPart"
+          }
+        ],
+        "__type": "GameCalculation"
+      }
+    },
+    "mAbilityHasteMod": 10.0,
+    "mPercentMovementSpeedMod": 0.05999999865889549,
+    "mFlatMagicDamageMod": 100.0,
+    "mCategories": [
+      "SpellDamage",
+      "OnHit",
+      "NonbootsMovement",
+      "AbilityHaste"
+    ],
+    "mItemDataAvailability": {
+      "mInStore": true,
+      "__type": "ItemDataAvailability"
+    },
+    "mItemAttributes": [
+      16
+    ],
+    "mItemDataClient": {
+      "mTooltipData": {
+        "mObjectName": "3100",
+        "mFormat": "{32559c50}",
+        "mLocKeys": {
+          "keyName": "Item_3100_Name",
+          "keyBrief": "Item_3100_Brief",
+          "keyTooltip": "Item_3100_Tooltip",
+          "keyColloquialism": "Item_3100_Colloquialism",
+          "keySecondaryBrief": "Item_Unique_Spellblade",
+          "keyInventoryOnlyText": "Item_223100_InventoryOnlyText",
+          "keyTooltipExternal": "Item_3100_TooltipExternal"
+        },
+        "mLists": {
+          "Stats": {
+            "Elements": [
+              {
+                "type": "AbilityPower",
+                "__type": "TooltipInstanceListElement"
+              },
+              {
+                "type": "MoveSpeedPercent",
+                "__type": "TooltipInstanceListElement"
+              },
+              {
+                "type": "AbilityHaste",
+                "__type": "TooltipInstanceListElement"
+              }
+            ],
+            "__type": "TooltipInstanceList"
+          }
+        },
+        "__type": "TooltipInstanceItem"
+      },
+      "mDescription": "GeneratedTip_Item_3100_Description",
+      "mDynamicTooltip": "GeneratedTip_Item_3100_TooltipInventory",
+      "mShopTooltip": "GeneratedTip_Item_3100_TooltipShop",
+      "inventoryIcon": "assets/items/icons2d/3100_mage_t3_lichbane.dds",
+      "InventoryIconSmall": "ASSETS/Items/Icons2D/AutoAtlas/SmallIcons/3100_Mage_T3_Lichbane.png",
+      "InventoryIconLarge": "ASSETS/Items/Icons2D/AutoAtlas/LargeIcons/3100_Mage_T3_Lichbane.png",
+      "epicness": 5,
+      "__type": "ItemDataClient"
+    },
+    "__type": "ItemData"
+  }
+}

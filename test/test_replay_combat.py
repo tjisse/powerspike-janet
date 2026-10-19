@@ -1,4 +1,5 @@
 """Evidence must preserve uncertainty, causal order and decoder boundaries."""
+import importlib.util
 import json
 from pathlib import Path
 import struct
@@ -9,7 +10,7 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from replay_native import accepted_call, verify_inputs
 from replay_state import ObservedState, replication_records, float_field
-from replay_combat import snapshots_check, totals_check
+from replay_combat import add_damage_total, snapshots_check, totals_check
 
 
 def record(entity, group, mask, data):
@@ -35,6 +36,44 @@ class NativeGuards(unittest.TestCase):
                      (100, 100, 1, 16, 17), (100, 100, 1, 18, 17)]:
             with self.assertRaises(ValueError):
                 accepted_call(*args)
+
+
+class DamageAccumulation(unittest.TestCase):
+    def test_rounds_each_addition_to_nearest_even_not_only_at_the_end(self):
+        total = 0.
+        for amount in [2 ** 24, 1., 1.]:
+            total = add_damage_total(total, amount)
+        self.assertEqual(total, 2 ** 24)
+        self.assertEqual(add_damage_total(2 ** 24 + 2, 1.), 2 ** 24 + 4)
+        self.assertEqual(add_damage_total(1.5, .125), 1.625)
+
+    def test_invalid_inputs_and_overflow_cannot_become_valid_totals(self):
+        for amount in [True, -1, float('nan'), float('inf'), 1e100]:
+            with self.subTest(amount=amount), self.assertRaises(ValueError):
+                add_damage_total(0., amount)
+        with self.assertRaises(ValueError):
+            add_damage_total(3e38, 3e38)
+
+    def test_retained_ornn_sequence_matches_native_total_without_relaxing_tolerance(self):
+        path = Path(__file__).resolve().parents[1] / 'observations/replays/16.20.824.8524-damage-accumulation-case.json'
+        fixture = json.loads(path.read_text())
+        total = 0.
+        for amount in fixture['amounts']:
+            total = add_damage_total(total, amount)
+        self.assertEqual(total, fixture['native-total'])
+        self.assertEqual(int(total), fixture['api-integer'])
+        self.assertLess(abs(total - fixture['api-integer']), 1)
+        self.assertGreaterEqual(abs(sum(fixture['amounts']) - fixture['api-integer']), 1)
+
+    def test_guarded_native_addition_and_integer_conversion(self):
+        image = Path(__file__).resolve().parents[1] / 'observations/local/lich-bane-current/LeagueofLegends-16.20-x64.macho'
+        if not image.is_file() or importlib.util.find_spec('unicorn') is None:
+            self.skipTest('optional guarded native image and Unicorn unavailable')
+        from replay_accumulation import native_check
+        result = native_check(image, [float(2 ** 24), 1., 1.])
+        self.assertEqual(result['native-total'], 2 ** 24)
+        self.assertEqual(result['native-integer'], 2 ** 24)
+        self.assertTrue(result['all-python-additions-bit-exact'])
 
 
 class ReplicationTests(unittest.TestCase):

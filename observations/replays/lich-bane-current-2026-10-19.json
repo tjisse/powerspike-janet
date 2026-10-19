@@ -1,0 +1,1206 @@
+{
+  "format": "powerspike-lich-bane-replay-study",
+  "version": 1,
+  "checked-at": "2026-10-19",
+  "evidence-role": "development",
+  "selection": "Targeted item search over the five available replays of a public challenger account; first matching-build game with an item-3100 owner and a purchase timeline. Not a random sample or held-out validation.",
+  "acquisition": {
+    "method": "Riot Match-v5 replay discovery and signed HTTPS download",
+    "documentation": "https://developer.riotgames.com/apis#match-v5/GET_getReplay",
+    "signed-url-and-account-identifiers": "Retained only in ignored local files",
+    "candidates-screened": 5,
+    "selected-candidate-index": 2,
+    "current-build-owners-in-other-screened-matches": [
+      "Evelynn"
+    ]
+  },
+  "replay": {
+    "local-path": "observations/local/lich-bane-current/replay.rofl",
+    "bytes": 13587769,
+    "sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+    "wire-bytes": 13396498,
+    "wire-sha256": "30a944ff8ef4fc5842d057b3d662be1ac0b850012c758849fcb9dd07824219a1",
+    "client-build": "16.20.824.8524",
+    "protocol-digest": "142cabd45e45d83f",
+    "duration-seconds": 1717.2757392578092,
+    "stream-blocks": {
+      "startKeyframe": 1,
+      "startSentinel": 1,
+      "keyframe": 328313,
+      "gameChunk": 1192808
+    }
+  },
+  "purchase": {
+    "champion": "Ekko",
+    "participant-slot": 7,
+    "item-events": [
+      {
+        "itemId": 3100,
+        "timestamp": 908989,
+        "type": "ITEM_PURCHASED"
+      }
+    ],
+    "final-inventory": [
+      3115,
+      2421,
+      3100,
+      3041,
+      3089,
+      3020,
+      3364
+    ]
+  },
+  "identity-checks": {
+    "roster": "All ten champion slots, final inventories, kills and game duration agree; API encrypted PUUIDs are not comparable to replay UUIDs",
+    "inventory": "API and replay metadata agree",
+    "match-sha256": "cfbf9c22e88f188dba79c730eafc7c4f4b6c6db7addaaa0e0eec557425a85df6",
+    "timeline-sha256": "0fea532cb0cdc5e7fde03f0ed9035c371b0b45975e59ee999ba86e7914a04d0d"
+  },
+  "decoder": {
+    "native-image-manifest": "https://lol.secure.dyn.riotcdn.net/channels/public/releases/66B91DB25E5AD56E.manifest",
+    "native-image": {
+      "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+      "image-bytes": 41725312,
+      "manifest-sha256": "cf88c7c3df0fd3f98e3aa961252f0e823850bc41a106b421d02d4812d54fa58a",
+      "cdtb-commit": "3367589fdd3ee3d0d01383d2f98dba12b04d1371",
+      "bundle-wire-bytes": 12959805,
+      "requests": 5,
+      "chunks": [
+        {
+          "bundle": "1125C60331A92127",
+          "chunk": "58DB6EA262643F61",
+          "offset": 2736157,
+          "bytes": 2422406,
+          "sha256": "ab7d0e40fdcc6ac7870bb81501cc3c8463a07499c6dad410796cbbc4bf6f5763"
+        },
+        {
+          "bundle": "1125C60331A92127",
+          "chunk": "CE39428496B3BBF0",
+          "offset": 5158563,
+          "bytes": 2291089,
+          "sha256": "fa51adfde3a4fa90cddfda02e81bfa00721e45d6b6fceb5abc4b981e41459ea6"
+        },
+        {
+          "bundle": "1125C60331A92127",
+          "chunk": "C596CD79367002DC",
+          "offset": 7449652,
+          "bytes": 2125952,
+          "sha256": "9a66bc79be8e4e886a96e995295569b366e60ae8ee894a638bcfb42fa6c48e0b"
+        },
+        {
+          "bundle": "1125C60331A92127",
+          "chunk": "B8268D0F9649A6FF",
+          "offset": 9575604,
+          "bytes": 3130309,
+          "sha256": "70c6ead213c9b3c89194e8483e2f9407cf8bcd3603b82b5cb3714691e1763ea5"
+        },
+        {
+          "bundle": "1125C60331A92127",
+          "chunk": "1A71834E47193DCD",
+          "offset": 12705913,
+          "bytes": 2990049,
+          "sha256": "e56a43c33a9cf3fa851b1cd6bedbc1e2b41581477e8360c5a5c3176919a46fd3"
+        }
+      ]
+    },
+    "damage-packets": 55045,
+    "state-packets": 15658,
+    "action-packets": {
+      "1215": 3443,
+      "906": 3184
+    },
+    "buff-packets": {
+      "435": 7197,
+      "430": 14297,
+      "262": 7044
+    },
+    "packet-decode-failures": {},
+    "aggregate-damage-checks": {
+      "checks": 50,
+      "within-one": 49,
+      "mismatches": [
+        {
+          "slot": 5,
+          "metric": "incoming",
+          "decoded": 27667.00943517685,
+          "api": 27666,
+          "difference": 1.0094351768493652,
+          "within-one": false,
+          "champion": "Ornn"
+        }
+      ]
+    },
+    "buff-lifecycle-diagnostics": {
+      "add": 7197,
+      "counter": 14297,
+      "counter-matched": 14243,
+      "remove": 7044,
+      "remove-matched": 7035,
+      "remove-without-matching-add": 9,
+      "counter-without-matching-add": 54,
+      "replacement-without-removal": 7
+    }
+  },
+  "attack-speed-extraction": {
+    "format": "powerspike-replay-attack-speed",
+    "version": 1,
+    "client-build": "16.20.824.8524",
+    "protocol-digest": "142cabd45e45d83f",
+    "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+    "replay-sha256": "012ab2e675d27626a78712d5fdeb6b76d117b5767a13526f0a9c4ebef0111655",
+    "source-summary-sha256": "fe6a3640842a981aa21c7fa8165958cc3acaec7703d19a5af748a25ce7e9930d",
+    "source-state-sha256": "debff4b62bd9e4c82e6ba164f420ec4876da503679325690b5df296c089e945e",
+    "adapters": {
+      "replay_attack_speed.py": "dd885084fb01065bbf5d042b7a7447e52beffe1627847a95e89d39d959c1a71b",
+      "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0",
+      "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe",
+      "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+      "replay_recovery.py": "7cfd2361fc46fe7b868d4b6d8d66afd953eaba0cbcd525e89a3d98c45f8681e5"
+    },
+    "archive-sha256": "85a01e541d28fae9614616431bbc5ae693c29117471ab4124c56f48649d60a1e",
+    "records": 1657,
+    "source-damage-totals": {
+      "checks": 50,
+      "within-one": 49,
+      "max-absolute-error": 1.0094351768493652
+    },
+    "model-admissible-cases": 0,
+    "scope": "Raw named client scalars with original timestamps and wire IDs. No total-speed formula, server sampling instant, full buff state or combat timing is established."
+  },
+  "native-descriptors": {
+    "group-4": {
+      "bit18": {
+        "name": "mAttackSpeedMod",
+        "registration-instruction": "0x10006b205"
+      }
+    },
+    "group-8": {
+      "bit21": {
+        "name": "mPercentAttackSpeedMod",
+        "registration-instruction": "0x10006b76c"
+      },
+      "bit22": {
+        "name": "mPercentMultiplicativeAttackSpeedMod",
+        "registration-instruction": "0x10006b78b"
+      }
+    },
+    "proof": "Names and registration order read from the fixed-hash Intel image; existing AD/armor and group-8 anchors are unchanged. Raw components are not converted to attacks per second."
+  },
+  "item-source": {
+    "url": "https://raw.communitydragon.org/16.20/game/items.cdtb.bin.json?powerspike=1",
+    "sha256": "ef2f355af6b63f37f44af5e8556d959ccae21cf2983e7ee85f50e4c95cc99206",
+    "retained-excerpt": "observations/replays/16.20.1-lich-bane-item.json",
+    "excerpt-sha256": "3485f19f829a62f14c82f3ea56976f29f543f6f644df47ac5be18a3b8b607387",
+    "values": {
+      "SpellbladeCooldown": 1.5,
+      "LichBaneAPValue": 0.44999998807907104,
+      "SpellbladeADRatio": 0.75,
+      "SheenASBuff": 0.5,
+      "Cooldown": 1.5,
+      "SpellBladeDuration": 10.0
+    }
+  },
+  "observations": {
+    "buff-name": {
+      "name": "LichBane",
+      "elf-hash": "0xf9e8165",
+      "status": "Hash-label candidate from matching item death-recap name, corroborated by purchase chronology; not a complete buff semantic specification."
+    },
+    "buff-records": 168,
+    "buff-records-before-purchase": 0,
+    "matched-add-remove-cycles": 84,
+    "target-buff-pairing-issues": [],
+    "still-active-at-end": 0,
+    "sequence-examples": [
+      {
+        "add": {
+          "event-id": "gameChunk:33:214577",
+          "timestamp": 910.4263095703142,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 138,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:33:386022",
+          "timestamp": 920.6503095703159,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 138
+        },
+        "replicated-lifetime-seconds": 10.224000000001752,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:33:572",
+            "timestamp": 900.4343095703125,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:33:215394",
+            "timestamp": 910.4593095703142,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5000001192092896,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.03300000000001546
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:33:215394",
+            "timestamp": 910.4593095703142,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:33:398497",
+            "timestamp": 920.984309570316,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5000001192092896,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.33400000000006
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:33:456064",
+          "timestamp": 923.8573095703165,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 138,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:33:497509",
+          "timestamp": 925.7133095703168,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 138
+        },
+        "replicated-lifetime-seconds": 1.8560000000003356,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:33:398497",
+            "timestamp": 920.984309570316,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:33:458107",
+            "timestamp": 923.8913095703165,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5000001192092896,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.033999999999991815
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:33:458107",
+            "timestamp": 923.8913095703165,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:33:498370",
+            "timestamp": 925.7133095703168,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5000001192092896,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.0
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:34:147740",
+          "timestamp": 938.4004453125013,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 4,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:34:218977",
+          "timestamp": 942.512445312502,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 4
+        },
+        "replicated-lifetime-seconds": 4.1120000000006485,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:33:498370",
+            "timestamp": 925.7133095703168,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:149999",
+            "timestamp": 938.4684453125013,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5000001192092896,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.06799999999998363
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:34:149999",
+            "timestamp": 938.4684453125013,
+            "fields": {
+              "attack-speed-modifier": 2.3554201126098633,
+              "percent-attack-speed-modifier": 1.3554199934005737
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:221422",
+            "timestamp": 942.579445312502,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5000001192092896,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.06700000000000728
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:34:315393",
+          "timestamp": 948.917445312503,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 138,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:34:325005",
+          "timestamp": 949.5184453125031,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 138
+        },
+        "replicated-lifetime-seconds": 0.6010000000001128,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:34:231931",
+            "timestamp": 943.083445312502,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:316364",
+            "timestamp": 948.917445312503,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.0
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:34:316364",
+            "timestamp": 948.917445312503,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:325369",
+            "timestamp": 949.5184453125031,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.0
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:34:442205",
+          "timestamp": 957.1034453125044,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 124,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:34:451224",
+          "timestamp": 957.7374453125045,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 124
+        },
+        "replicated-lifetime-seconds": 0.6340000000001282,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:34:325369",
+            "timestamp": 949.5184453125031,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:443213",
+            "timestamp": 957.1364453125044,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.03300000000001546
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:34:443213",
+            "timestamp": 957.1364453125044,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:34:451621",
+            "timestamp": 957.7374453125045,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.0
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:35:107026",
+          "timestamp": 963.3204555664067,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 138,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:35:115996",
+          "timestamp": 963.9214555664068,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 138
+        },
+        "replicated-lifetime-seconds": 0.6010000000001128,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:35:262",
+            "timestamp": 960.3794555664062,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:108936",
+            "timestamp": 963.3874555664067,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.06700000000000728
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:35:108936",
+            "timestamp": 963.3874555664067,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:117945",
+            "timestamp": 963.9884555664069,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.06700000000000728
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:35:199419",
+          "timestamp": 969.6364555664078,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 138,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:35:209924",
+          "timestamp": 970.2374555664079,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 138
+        },
+        "replicated-lifetime-seconds": 0.6010000000001128,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:35:117945",
+            "timestamp": 963.9884555664069,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:200524",
+            "timestamp": 969.7034555664078,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.06700000000000728
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:35:200524",
+            "timestamp": 969.7034555664078,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:212432",
+            "timestamp": 970.3044555664079,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.06700000000000728
+        }
+      },
+      {
+        "add": {
+          "event-id": "gameChunk:35:288815",
+          "timestamp": 975.8924555664089,
+          "kind": "add",
+          "name-hash": 262046053,
+          "slot-token": 132,
+          "duration-seconds": 10.0
+        },
+        "remove": {
+          "event-id": "gameChunk:35:299613",
+          "timestamp": 976.494455566409,
+          "kind": "remove",
+          "name-hash": 262046053,
+          "slot-token": 132
+        },
+        "replicated-lifetime-seconds": 0.6020000000000891,
+        "speed-around-add": {
+          "last-before": {
+            "event-id": "gameChunk:35:212432",
+            "timestamp": 970.3044555664079,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:290880",
+            "timestamp": 975.9264555664089,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": 0.5,
+            "percent-attack-speed-modifier": 0.5
+          },
+          "after-lag-seconds": 0.033999999999991815
+        },
+        "speed-around-remove": {
+          "last-before": {
+            "event-id": "gameChunk:35:290880",
+            "timestamp": 975.9264555664089,
+            "fields": {
+              "attack-speed-modifier": 2.3895750045776367,
+              "percent-attack-speed-modifier": 1.3895750045776367
+            }
+          },
+          "first-after": {
+            "event-id": "gameChunk:35:300781",
+            "timestamp": 976.527455566409,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "delta": {
+            "attack-speed-modifier": -0.5,
+            "percent-attack-speed-modifier": -0.5
+          },
+          "after-lag-seconds": 0.03300000000001546
+        }
+      }
+    ],
+    "api-snapshot-checks": {
+      "count": 29,
+      "within-one-api-unit": 29,
+      "comparison": "100 times last-observed mAttackSpeedMod versus integer timeline championStats.attackSpeed; one integer unit accommodates display quantization. No interpolation or future sample; timestamps are separate clocks. This is component decoding corroboration, not simulation timing validation.",
+      "rows": [
+        {
+          "api-timestamp-seconds": 60.009,
+          "api-attack-speed-integer": 110,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:3:56532",
+            "timestamp": 0.322,
+            "fields": {
+              "attack-speed-modifier": 1.100000023841858,
+              "percent-attack-speed-modifier": 0.10000000149011612
+            }
+          },
+          "replay-modifier-times-100": 110.00000238418579,
+          "difference": 2.384185791015625e-06,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 120.042,
+          "api-attack-speed-integer": 114,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:6:368316",
+            "timestamp": 111.45321276855671,
+            "fields": {
+              "attack-speed-modifier": 1.1486750841140747,
+              "percent-attack-speed-modifier": 0.14867499470710754
+            }
+          },
+          "replay-modifier-times-100": 114.86750841140747,
+          "difference": 0.8675084114074707,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 180.127,
+          "api-attack-speed-integer": 117,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:8:383001",
+            "timestamp": 177.82143286131912,
+            "fields": {
+              "attack-speed-modifier": 1.174744963645935,
+              "percent-attack-speed-modifier": 0.17474499344825745
+            }
+          },
+          "replay-modifier-times-100": 117.4744963645935,
+          "difference": 0.47449636459350586,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 240.142,
+          "api-attack-speed-integer": 132,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:10:353631",
+            "timestamp": 228.43997192382213,
+            "fields": {
+              "attack-speed-modifier": 1.3247449398040771,
+              "percent-attack-speed-modifier": 0.3247449994087219
+            }
+          },
+          "replay-modifier-times-100": 132.47449398040771,
+          "difference": 0.47449398040771484,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 300.143,
+          "api-attack-speed-integer": 135,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:12:72071",
+            "timestamp": 274.58308520507893,
+            "fields": {
+              "attack-speed-modifier": 1.3519699573516846,
+              "percent-attack-speed-modifier": 0.35197001695632935
+            }
+          },
+          "replay-modifier-times-100": 135.19699573516846,
+          "difference": 0.19699573516845703,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 360.161,
+          "api-attack-speed-integer": 135,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:13:41541",
+            "timestamp": 300.24394091796876,
+            "fields": {
+              "attack-speed-modifier": 1.3519699573516846,
+              "percent-attack-speed-modifier": 0.35197001695632935,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "replay-modifier-times-100": 135.19699573516846,
+          "difference": 0.19699573516845703,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 420.193,
+          "api-attack-speed-integer": 138,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:16:397430",
+            "timestamp": 413.8039799804727,
+            "fields": {
+              "attack-speed-modifier": 1.3803499937057495,
+              "percent-attack-speed-modifier": 0.3803499937057495
+            }
+          },
+          "replay-modifier-times-100": 138.03499937057495,
+          "difference": 0.03499937057495117,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 480.195,
+          "api-attack-speed-integer": 138,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:17:35714",
+            "timestamp": 420.26044750976564,
+            "fields": {
+              "attack-speed-modifier": 1.3803499937057495,
+              "percent-attack-speed-modifier": 0.3803499937057495,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "replay-modifier-times-100": 138.03499937057495,
+          "difference": 0.03499937057495117,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 540.204,
+          "api-attack-speed-integer": 140,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:19:302995",
+            "timestamp": 494.88091235351817,
+            "fields": {
+              "attack-speed-modifier": 1.409885048866272,
+              "percent-attack-speed-modifier": 0.4098849892616272
+            }
+          },
+          "replay-modifier-times-100": 140.9885048866272,
+          "difference": 0.9885048866271973,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 600.236,
+          "api-attack-speed-integer": 179,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:22:76020",
+            "timestamp": 573.3760195312506,
+            "fields": {
+              "attack-speed-modifier": 1.7905750274658203,
+              "percent-attack-speed-modifier": 0.7905750274658203
+            }
+          },
+          "replay-modifier-times-100": 179.05750274658203,
+          "difference": 0.05750274658203125,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 660.259,
+          "api-attack-speed-integer": 179,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:23:426",
+            "timestamp": 600.3369584960938,
+            "fields": {
+              "attack-speed-modifier": 1.7905750274658203,
+              "percent-attack-speed-modifier": 0.7905750274658203,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "replay-modifier-times-100": 179.05750274658203,
+          "difference": 0.05750274658203125,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 720.291,
+          "api-attack-speed-integer": 182,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:26:184757",
+            "timestamp": 701.4426918945331,
+            "fields": {
+              "attack-speed-modifier": 1.8224200010299683,
+              "percent-attack-speed-modifier": 0.8224200010299683
+            }
+          },
+          "replay-modifier-times-100": 182.24200010299683,
+          "difference": 0.24200010299682617,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 780.304,
+          "api-attack-speed-integer": 182,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:27:3188",
+            "timestamp": 720.3920732421875,
+            "fields": {
+              "attack-speed-modifier": 1.8224200010299683,
+              "percent-attack-speed-modifier": 0.8224200010299683,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "replay-modifier-times-100": 182.24200010299683,
+          "difference": 0.24200010299682617,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 840.316,
+          "api-attack-speed-integer": 185,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:30:340539",
+            "timestamp": 836.2082290039108,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737
+            }
+          },
+          "replay-modifier-times-100": 185.54199934005737,
+          "difference": 0.541999340057373,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 900.318,
+          "api-attack-speed-integer": 185,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:31:797",
+            "timestamp": 840.42100390625,
+            "fields": {
+              "attack-speed-modifier": 1.8554199934005737,
+              "percent-attack-speed-modifier": 0.8554199934005737,
+              "multiplicative-attack-speed-modifier": 1.0
+            }
+          },
+          "replay-modifier-times-100": 185.54199934005737,
+          "difference": 0.541999340057373,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 960.335,
+          "api-attack-speed-integer": 188,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:34:451621",
+            "timestamp": 957.7374453125045,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "replay-modifier-times-100": 188.95750045776367,
+          "difference": 0.9575004577636719,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1020.346,
+          "api-attack-speed-integer": 188,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:36:450886",
+            "timestamp": 1019.8737802734423,
+            "fields": {
+              "attack-speed-modifier": 1.8895750045776367,
+              "percent-attack-speed-modifier": 0.8895750045776367
+            }
+          },
+          "replay-modifier-times-100": 188.95750045776367,
+          "difference": 0.9575004577636719,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1080.369,
+          "api-attack-speed-integer": 242,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:38:309244",
+            "timestamp": 1068.3800195312415,
+            "fields": {
+              "attack-speed-modifier": 2.4248850345611572,
+              "percent-attack-speed-modifier": 1.4248850345611572
+            }
+          },
+          "replay-modifier-times-100": 242.48850345611572,
+          "difference": 0.48850345611572266,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1140.388,
+          "api-attack-speed-integer": 242,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:40:276229",
+            "timestamp": 1123.7035791015564,
+            "fields": {
+              "attack-speed-modifier": 2.4248850345611572,
+              "percent-attack-speed-modifier": 1.4248850345611572
+            }
+          },
+          "replay-modifier-times-100": 242.48850345611572,
+          "difference": 0.48850345611572266,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1200.389,
+          "api-attack-speed-integer": 196,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:42:350791",
+            "timestamp": 1196.5425849609255,
+            "fields": {
+              "attack-speed-modifier": 1.9613500833511353,
+              "percent-attack-speed-modifier": 0.9613500833511353
+            }
+          },
+          "replay-modifier-times-100": 196.13500833511353,
+          "difference": 0.1350083351135254,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1260.404,
+          "api-attack-speed-integer": 210,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:44:427740",
+            "timestamp": 1259.9289316406114,
+            "fields": {
+              "attack-speed-modifier": 2.1089701652526855,
+              "percent-attack-speed-modifier": 1.108970046043396
+            }
+          },
+          "replay-modifier-times-100": 210.89701652526855,
+          "difference": 0.8970165252685547,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1320.437,
+          "api-attack-speed-integer": 210,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:45:506157",
+            "timestamp": 1288.018260742174,
+            "fields": {
+              "attack-speed-modifier": 2.1089701652526855,
+              "percent-attack-speed-modifier": 1.108970046043396
+            }
+          },
+          "replay-modifier-times-100": 210.89701652526855,
+          "difference": 0.8970165252685547,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1380.462,
+          "api-attack-speed-integer": 264,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:48:377498",
+            "timestamp": 1376.573624023425,
+            "fields": {
+              "attack-speed-modifier": 2.647745132446289,
+              "percent-attack-speed-modifier": 1.647745132446289
+            }
+          },
+          "replay-modifier-times-100": 264.7745132446289,
+          "difference": 0.7745132446289062,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1440.472,
+          "api-attack-speed-integer": 268,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:50:510735",
+            "timestamp": 1434.0577519531134,
+            "fields": {
+              "attack-speed-modifier": 2.6876749992370605,
+              "percent-attack-speed-modifier": 1.68767511844635
+            }
+          },
+          "replay-modifier-times-100": 268.76749992370605,
+          "difference": 0.7674999237060547,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1500.478,
+          "api-attack-speed-integer": 268,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:52:345768",
+            "timestamp": 1491.3957656249904,
+            "fields": {
+              "attack-speed-modifier": 2.6876749992370605,
+              "percent-attack-speed-modifier": 1.68767511844635
+            }
+          },
+          "replay-modifier-times-100": 268.76749992370605,
+          "difference": 0.7674999237060547,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1560.487,
+          "api-attack-speed-integer": 272,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:54:491149",
+            "timestamp": 1555.9452167968625,
+            "fields": {
+              "attack-speed-modifier": 2.728760242462158,
+              "percent-attack-speed-modifier": 1.728760004043579
+            }
+          },
+          "replay-modifier-times-100": 272.8760242462158,
+          "difference": 0.8760242462158203,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1620.502,
+          "api-attack-speed-integer": 222,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:56:429099",
+            "timestamp": 1619.671945312486,
+            "fields": {
+              "attack-speed-modifier": 2.228760004043579,
+              "percent-attack-speed-modifier": 1.228760004043579
+            }
+          },
+          "replay-modifier-times-100": 222.8760004043579,
+          "difference": 0.8760004043579102,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1680.513,
+          "api-attack-speed-integer": 222,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:58:466915",
+            "timestamp": 1677.9074248046743,
+            "fields": {
+              "attack-speed-modifier": 2.228760004043579,
+              "percent-attack-speed-modifier": 1.228760004043579
+            }
+          },
+          "replay-modifier-times-100": 222.8760004043579,
+          "difference": 0.8760004043579102,
+          "within-one-api-unit": true
+        },
+        {
+          "api-timestamp-seconds": 1717.443,
+          "api-attack-speed-integer": 227,
+          "prior-replay-observation": {
+            "event-id": "gameChunk:60:45775",
+            "timestamp": 1713.563739257811,
+            "fields": {
+              "attack-speed-modifier": 2.2710001468658447,
+              "percent-attack-speed-modifier": 1.2710001468658447
+            }
+          },
+          "replay-modifier-times-100": 227.10001468658447,
+          "difference": 0.10001468658447266,
+          "within-one-api-unit": true
+        }
+      ]
+    }
+  },
+  "verification": {
+    "new-model-comparisons": 0,
+    "new-admitted-cases": 0,
+    "existing-evidence-and-frozen-adapters": "unchanged",
+    "scope": "The observed +0.5 component transitions support the bonus magnitude. Server attack windup, cadence, launch/impact ordering, all cooldown cases and cross-patch fidelity remain unreviewed."
+  },
+  "limits": [
+    "The simulator uses 16.19.1 data. These observations are build 16.20.824.8524; matching item values do not establish complete cross-patch agreement.",
+    "Ekko EAttack is an empowered attack; it must not be treated as an ordinary swing or a ranged projectile.",
+    "Replay update delivery times do not establish exact server application or expiry times; no timing parameter is fitted to replication lag.",
+    "One Ornn incoming-damage aggregate differs by 1.0094351768493652, outside the existing one-point bound. The decoder run returned failure for that check; its tolerance remains unchanged.",
+    "Buff coverage is partial and global lifecycle issues remain retained. Missing events cannot prove global absence."
+  ],
+  "tooling-checks": {
+    "python-tests-run": 162,
+    "python-tests-skipped": 7,
+    "failures": 0,
+    "git-diff-check": "passed",
+    "retained-replay-state-and-adapter-hashes": "matched"
+  },
+  "aggregate-discrepancy-resolution": {
+    "status": "resolved",
+    "report": "observations/replays/damage-accumulation-resolution-2026-10-19.json",
+    "report-sha256": "0fa97a13eb399641111b96356909bc6dd7d3686b0beb434948d5b30ea5467900",
+    "initial-run": "Original 49/50 result and source fingerprints above remain historical evidence.",
+    "corrected-original-run": "50/50 with native-equivalent binary32 accumulation and unchanged tolerance.",
+    "unused-audit-run": "50/50 on the separately selected replay."
+  }
+}

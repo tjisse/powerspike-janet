@@ -117,5 +117,24 @@
 (def text (ui/render (optimizer/controls {:state model/default-state})))
 (assert (string/find "Target health affects percentage-health damage" text))
 (assert (string/find "$targethealth" text))
+# Real package compilation supplies each champion's distinct attack-speed ratio
+# to both sides, and optimization scores exactly the same Lich Bane lifecycle.
+(def lich-duel (definition "Annie" ["3100"] {"mode" "duel" "opponent" "Viktor" "enemyslot1" "3100"
+                                             "distance" 0 "duration" 5 "samples" 1}))
+(def lich-compiled (scenario/compile lich-duel))
+(each actor (lich-compiled :actors)
+  (def champion ((package :champion-map) (actor :champion)))
+  (close (champion :attack-speed-ratio) (actor :attack-speed-ratio))
+  (close (champion :attack-speed-cap) (actor :attack-speed-cap)))
+(def lich-outcome (scenario/simulate lich-duel))
+(each actor (lich-outcome :actors)
+  (assert (> (get-in actor [:breakdown "item/3100/hit"] 0) 0)))
+(assert (= (lich-outcome :metrics) ((scenario/fitness lich-duel) :metrics)))
+(def lich-search (search/run package lich-duel {:pool ["3057" "3100"] :slots 1 :budget 4000 :seconds 5 :final-samples 1}
+                             (fn [progress] nil) (fn [] false)))
+(assert (lich-search :complete))
+(assert (some |(= ["3100"] ($ :ids)) (lich-search :rows)))
+(each row (lich-search :rows)
+  (assert (= (row :metrics) ((scenario/fitness (row :definition)) :metrics))))
 (util/remove-tree root)
 (print "Retained mage kits: cached semantics, Viktor empowered attack/storm ticks, Ahri recasts, AP burst ranking, editable health and unbiased attack-only scores passed.")

@@ -1,0 +1,62 @@
+{
+  "format": "powerspike-item-replay-source",
+  "version": 1,
+  "checked-at": "2026-10-19",
+  "purpose": "Find a retained raw replay containing a Lich Bane owner for subsequent timing research.",
+  "selection": "Targeted screening by final item ID 3100; not a random combat-validation sample.",
+  "source": {
+    "corpus": "rofllens-v0.1.0",
+    "release-url": "https://github.com/ss26367098/rofllens/releases/tag/v0.1.0",
+    "replay-url": "https://github.com/ss26367098/rofllens/releases/download/v0.1.0/KR_8306192899.rofl",
+    "notice-url": "https://github.com/ss26367098/rofllens/blob/v0.1.0/SAMPLE_DATA_NOTICE.md"
+  },
+  "replay": {
+    "filename": "KR_8306192899.rofl",
+    "bytes": 16739870,
+    "sha256": "cd594263269818569f93d14d17541d3897e3e6ca662ab1870b448219a7774eda",
+    "formatVersion": 2,
+    "clientVersion": "16.14.794.5912",
+    "patch": "16.14",
+    "protocolDigest": "509c49fd988fca11",
+    "headerField0x06": 40016,
+    "headerBytes0x08": "49fd988fca11",
+    "headerSize": 29,
+    "game-duration-seconds": 1913.6310058593663
+  },
+  "ownership": {
+    "champion": "Akali",
+    "item-id": "3100",
+    "metadata-slot": "ITEM4",
+    "final-inventory": {
+      "ITEM0": "3157",
+      "ITEM1": "3146",
+      "ITEM2": "3175",
+      "ITEM3": "1026",
+      "ITEM4": "3100",
+      "ITEM5": "4630",
+      "ITEM6": "3363"
+    },
+    "source": "ROFL2 final participant statsJson; purchase time not recovered."
+  },
+  "checks": {
+    "pinned-size-and-sha256": "passed",
+    "all-chunk-decompression-and-framing": "passed",
+    "stream-blocks": {
+      "startKeyframe": 1,
+      "startSentinel": 1,
+      "keyframe": 404759,
+      "gameChunk": 1350644
+    },
+    "participants": 10,
+    "purchase-timeline-reviewed": false,
+    "combat-timing-reviewed": false,
+    "new-model-comparisons": 0,
+    "new-admitted-cases": 0
+  },
+  "limits": [
+    "Final inventory proves recorded end-of-game ownership, not purchase time or a specific empowered attack.",
+    "Build 16.14.794.5912 differs from the simulator data 16.19.1 and the existing exact-build native adapter 16.20.824.8524. Neither may be substituted silently.",
+    "A current-build Ekko replay with a confirmed purchase is now retained; see lich-bane-current-2026-10-19.json. This older file remains a fallback.",
+    "Raw replay remains in ignored observations/local/lich-bane-search; account identifiers are omitted from this report."
+  ]
+}

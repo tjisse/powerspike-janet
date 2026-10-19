@@ -2,6 +2,10 @@
 
 Design and first local implementation, 2026-10-04. The user selected **Rift HUD** after reviewing the League-themed alternatives. The frontend lives under `web/`; the calculation core retains its independent CLI and tests.
 
+## Current audience direction, 2026-10-19
+
+Players should be able to trust the calculated result under the configured simulation conditions. Label it a simulated fight, describe its assumptions and keep actual omitted mechanics explicit. Verification progress, source hashes, calibration records and implementation diagnostics belong in `/developer` and `/verification`, outside the player comparison flow. Remove blanket unvalidated labels from results and pickers. Verification remains a developer responsibility and a release gate. The historical design notes below record earlier iterations.
+
 ## Main purpose
 
 Help a player answer “Which item choice helps in this fight, and why?” Start with a champion, level, budget and combat scenario; compare builds under exactly the same conditions. Keep the item's cost and damage tradeoff visible. Avoid a universal “best build” claim.

@@ -107,7 +107,7 @@
       for(const segment of line)paragraph.append(segment.calculation?calculatedValue(segment):document.createTextNode(segment.text));
       body.append(paragraph);
     }else for(const line of data.body || [])body.append(htmlNode('p',line.length<45 && !line.includes('.')?'detail-effect-label':'',line));
-    popover.replaceChildren(header,stats,body,htmlNode('p','detail-coverage',data.coverage || 'Unvalidated patch description.'));
+    popover.replaceChildren(header,stats,body,htmlNode('p','detail-coverage',data.coverage || 'Description for the selected patch.'));
     if(['champion-picker','item-picker','ability-settings','rune-editor'].includes(data.action)){
       const button=htmlNode('button','detail-action',trigger.classList.contains('catalog-card')?'Choose item':data['action-label']);button.type='button';
       button.addEventListener('click',()=>{

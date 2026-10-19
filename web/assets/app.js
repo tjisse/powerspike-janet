@@ -113,6 +113,10 @@
   }
   function canonicalDocument() {
     if(app.dataset.stale==='true')throw new Error('Run the matchup before saving or sharing the changed configuration.');
+    if (document.getElementById('results')?.dataset.evaluationError === 'true' ||
+        !document.getElementById('scenario')?.checkValidity()) {
+      throw new Error('Fix the scenario and wait for an updated result before saving or sharing.');
+    }
     const text = document.getElementById('scenario-data')?.dataset.json;
     if (!text || text.length > 65536) throw new Error('No completed scenario is available to save.');
     return text;

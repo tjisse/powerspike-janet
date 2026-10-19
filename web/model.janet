@@ -55,6 +55,8 @@
 
 (defn parse-state [input]
   (assert (dictionary? input) "Expected scenario fields.")
+  (def referencejson (get input "referencejson" ""))
+  (assert (and (string? referencejson) (<= (length referencejson) 65536)) "Pinned items must fit within 64 KB.")
   (assert (or (nil? (get input "savedmodel")) (and (string? (get input "savedmodel")) (= 64 (length (get input "savedmodel"))))) "Invalid saved model identity.")
   (def patch (get input "patch" packages/default-version))
   (def package (packages/load patch (get input "snapshot")))
@@ -129,7 +131,7 @@
                                        :gametime (numeric (get input "gametime" 20) "Game time in minutes" 0 120)
                                        :minionspresent (flag input "minionspresent" true) :retaliation (flag input "retaliation" true)
                                        :samples (numeric (get input "samples" 1) "Trials" 1 64 true) :seed (numeric (get input "seed" 1) "Seed" 0 2147483647 true)
-                                       :savedmodel (get input "savedmodel")
+                                       :savedmodel (get input "savedmodel") :referencejson referencejson
                                        :snapshotlocked (flag input "snapshotlocked" false)
                                        :selected (if (and (= champion "Annie") ((package :manifest) "initial")) selected "custom")}))
 
@@ -244,6 +246,18 @@
              {:kind :objective :objective (keyword (state :mode)) :level (get state :objectivelevel 10)
               :game-time (* 60 (get state :gametime 20)) :minions-present (get state :minionspresent true) :retaliation (get state :retaliation true)}
              {:kind :practice :hp (get state :target-health (default-state :target-health)) :armor (state :armor) :mr (state :mr)})})
+(defn reference-build [state]
+  (when (not= "" (get state :referencejson ""))
+    (def checked (protect
+                   (def saved (wire/decode (state :referencejson)))
+                   (assert (= (get-in saved [:player :champion]) (state :champion))
+                           "Pinned items belong to another champion. Pin this champion's items to compare.")
+                   (assert (and (= (saved :patch) (state :patch)) (= (saved :snapshot) (state :snapshot)))
+                           "The patch snapshot changed. Pin items again to compare on the same data.")
+                   (assert (not= "legacy" (state :mode)) "Switch to a practice target or duel to compare pinned items.")
+                   {:id "reference" :name "Pinned items" :ids (get-in saved [:player :loadout :items] [])}))
+    (if (first checked) (checked 1) {:error (string (checked 1))})))
+
 (defn compare [state]
   (if (or (= "legacy" (state :mode)) (not (state :mode))) (compare-legacy state)
     (do
@@ -251,7 +265,9 @@
       (def champion ((package :champion-map) (state :champion)))
       (with-dyns [:patch-package package]
         (def custom {:id "custom" :name "Custom build" :ids (filter |(not= "" $) (map |(get state $ "") slot-keys))})
-        (def candidates (if (and (= "Annie" (state :champion)) (get-in package [:manifest "initial"])) [;builds custom] [custom]))
+        (def reference (reference-build state))
+        (def candidates [;(if (and (= "Annie" (state :champion)) (get-in package [:manifest "initial"])) [;builds custom] [custom])
+                         ;(if (get reference :ids) [reference] [])])
         (def rows (map (fn [build]
                          (def compiled (scenarios/compile (definition state (build :ids))))
                          (def actor ((compiled :actors) 0))
@@ -267,7 +283,9 @@
                                                                                           (actor :stats) (actor :level) (actor :ranks) context)
                                        :opponent opponent
                                        :limitations [;(compiled :coverage) ;(combat :unsupported)]})) candidates))
-        {:state state :package package :champion champion :rows (sorted rows |(> (get-in $0 [:combat :metrics :damage]) (get-in $1 [:combat :metrics :damage])))
+        {:state state :package package :champion champion
+         :reference (find |(= "reference" ($ :id)) rows) :reference-error (get reference :error)
+         :rows (sorted (filter |(not= "reference" ($ :id)) rows) |(> (get-in $0 [:combat :metrics :damage]) (get-in $1 [:combat :metrics :damage])))
          :selected (or (find |(= ($ :id) (state :selected)) rows) (find |(= "custom" ($ :id)) rows))}))))
 
 (def fixture-files ["annie-level1-no-items.jdn" "annie-level1-cloak.jdn"

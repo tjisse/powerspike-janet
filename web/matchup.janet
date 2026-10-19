@@ -226,7 +226,7 @@
      [:button {:type "button" :data-matchup-metric "damage" :aria-pressed "false"} "Damage dealt"]]]
    [:div {:class "matchup-stale" :hidden true :role "status"} [:span "Configuration changed. Previous result shown."]
     [:button {:type "submit" :form "scenario" :data-attr:disabled "$busy"} "Rerun matchup"]]
-   [:p {:class "muted matchup-estimate"} "Combat estimate · unverified"]
+   [:button {:type "button" :class "validation-badge coverage-link" :data-ui-toggle "coverage"} "Simulated fight · details ▾"]
    (when (result :spell-data-job)
      [:p {:class "muted"}
       (case (get-in result [:spell-data-job :status])

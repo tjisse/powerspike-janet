@@ -61,7 +61,7 @@
          (checkbox (string "lockskill" index)
                    [:span {:data-text (string "'Level " index " · ' + ($skillorder.split(',')[" (dec index) "] || '').trim().toUpperCase()")}
                     (string "Level " index " · " (string/ascii-upper (string (get order (dec index) ""))))])])]]]
-   [:p {:class "muted"} "Your opponent and fight strategy stay fixed. Missing effects may change the ranking; recommendations include their coverage."]])
+   [:p {:class "muted"} "Builds are compared in the same simulated fight. Your opponent and fight strategy stay fixed."]])
 (defn controls [result] (if (= "duel" (get-in result [:state :mode])) (item-controls result) (legacy-controls result)))
 (defn panel-body [result job &opt applied]
   (def ongoing (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
@@ -94,7 +94,7 @@
       (when (and outcome (empty? rows)) [:p "No recommendation fits these constraints. Increase the budget, relax locks or change the item pool."])
       (when (not (empty? rows)) [:p {:class "muted"} "Top " (length rows) " builds · ranked by "
                                  (get outcome :preset (get progress :preset :burst))])
-      (when outcome [:details [:summary "Search limits & coverage"] [:ul (map |[:li $] (outcome :notes))]])
+      (when outcome [:details [:summary "Search settings & simulation details"] [:ul (map |[:li $] (details/simulation-notes (outcome :notes)))]])
       [:div {:class "search-alternatives" :role "list" :aria-label "Builds ranked best to worst"}
        (seq [[index row] :pairs rows]
          (def context (details/scenario-context (get row :definition {})))
@@ -125,7 +125,7 @@
           (unless ongoing [:button {:class "apply" :type "button" :data-apply-build (get job :search-who "player")
                                     :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
                            (if (= "duel" (get-in result [:state :mode])) "Apply items" "Apply & inspect")])
-          [:details {:class "search-build-details"} [:summary "Build details & coverage"]
+          [:details {:class "search-build-details"} [:summary "Build & simulation details"]
            [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
            [:p "Runes: " (string/join (map (fn [id] (def rune (find |(= id (get $ "id")) (scenario/runes package))) (get rune "name" (string id)))
                                            (get-in row [:definition :player :loadout :runes] [])) ", ")]
@@ -135,8 +135,9 @@
            [:p "Skill order: " (if (get-in row [:definition :player :skill-order])
                                  (string/join (map |(string/ascii-upper (string $)) (get-in row [:definition :player :skill-order])) " → ")
                                  "Current rank settings")]
-           [:p (string (length (row :coverage)) " coverage notes")]
-           [:ul (map |[:li $] (row :coverage))]]])]
+           (when (not (empty? (details/simulation-notes (row :coverage))))
+             [:div [:p "Effects not included & inventory rules"]
+              [:ul (map |[:li $] (details/simulation-notes (row :coverage)))]])]])]
       [:span {:data-init (string "$searchjob = '" (job :id) "'")}]])])
 (defn panel [result job &opt applied]
   (with-dyns [:patch-package (result :package)] (panel-body result job applied)))

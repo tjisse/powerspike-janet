@@ -235,13 +235,36 @@
       (fn [] (def text (ui/render (ui/error-result "<script>alert('bad')</script>")))
         (assert (string/find "&lt;script&gt;" text))
         (assert (not (string/find "<script>" text)))))
-(test "page and stream fragments render local art, native form fallback, and scoped evidence"
+(test "player views describe a simulation and keep verification in developer tools"
       (fn [] (def result (model/compare model/default-state))
         (def text (ui/page result (model/evidence)))
-        (each marker ["Annie.png" "name=\"level\"" "id=\"results\"" "<noscript>" "Combat damage unverified"]
+        (each marker ["Annie.png" "name=\"level\"" "id=\"results\"" "<noscript>" "Simulated fight" "Simulation details"]
           (assert (string/find marker text)))
+        (each marker ["Unvalidated" "unverified" "Checked in-game" "No in-game check" "Interpreted effects" "Replay verification progress" "Snapshot SHA-256"]
+          (assert (not (string/find marker text)) (string "Developer detail in player page: " marker)))
+        (def developer (ui/developer-page result (model/evidence)))
+        (each marker ["Developer tools" "Replay verification progress" "Snapshot SHA-256" "stat captures" "Unvalidated estimate"]
+          (assert (string/find marker developer)))
         (assert (not (string/find "cdn.jsdelivr.net" text)))
         (assert (string/find "class=\"spell-ranks\"" (ui/render (ui/ranks-fragment result))))))
+
+(test "player simulation notes preserve omitted effects while verification annotations stay with the developer"
+      (fn []
+        (def original (model/compare (model/parse-state {"champion" "Annie"})))
+        (def notes ["Scorch: patch-derived estimate; unvalidated in-game."
+                    "Spellblade priming window is assumed to be ten seconds; unvalidated."
+                    "Trinity Force's Quicken movement speed remains excluded."
+                    "Example rune: trigger handler unavailable."])
+        (def result (merge original {:selected (merge (original :selected) {:limitations notes})}))
+        (def player (ui/render (ui/coverage result)))
+        (each marker ["ten seconds" "Quicken movement speed remains excluded" "Example rune: effect not included"]
+          (assert (string/find marker player)))
+        (assert (not (string/find "unvalidated" player)))
+        (assert (not (string/find "Scorch" player)))
+        (def developer (ui/render (ui/developer-coverage result)))
+        (each marker ["Scorch" "unvalidated in-game." "ten seconds; unvalidated." "trigger handler unavailable."]
+          (assert (string/find marker developer)))
+        (assert (= notes (get-in result [:selected :limitations])))))
 
 (test "full catalog coverage remains unvalidated and every champion evaluates generic attacks"
       (fn []
@@ -271,7 +294,7 @@
 (test "excluded on-hit effects and other-mode inventory restrictions remain visible"
       (fn [] (def result (model/compare (model/parse-state {"champion" "Jhin" "slot1" "6672" "slot2" "222051"})))
         (def text (ui/render (ui/results result) (ui/coverage result)))
-        (each marker ["Basic" "Unvalidated estimate" "Kraken Slayer" "Passive and active effects excluded"
+        (each marker ["Basic" "Simulated fight" "Kraken Slayer" "Passive and active effects excluded"
                       "not available on map"]
           (assert (string/find (if (= marker "Basic") "basic attacks" marker) text)))))
 
@@ -364,7 +387,7 @@
       (fn [] (def result (model/compare model/default-state))
         (def payload (details/item (catalog/items "3089")))
         (assert (= "Rabadon's Deathcap" (payload :name)))
-        (assert (string/find "handler" (payload :coverage)))
+        (assert (string/find "Simulation details" (payload :coverage)))
         (def text (ui/render [:button (details/attrs (merge payload {:body ["<script>alert(1)</script>"]}) true) "Details"]))
         (assert (string/find "data-details=" text))
         (assert (not (string/find "<script>" text)))
@@ -376,5 +399,55 @@
         (each path ["https://example.com/x.png" "perk-images/../secret.png" "perk-images/%2e%2e/secret.png" "perk-images/x.svg"]
           (rejects (fn [] (details/rune-source (package path) "8112.png"))))
         (rejects (fn [] (details/rune-source (package "perk-images/x.png") "9999.png")))))
+
+(test "pinned items rerun against current fight settings and share identical trials"
+      (fn []
+        (def original (model/compare (model/parse-state {"selected" "custom" "slot1" "1052" "duration" 2})))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def input {"selected" "custom" "slot1" "1026" "duration" 7 "level" 6 "mode" "duel" "opponent" "Annie"
+                    "opponentlevel" 6 "enemyslot1" "1052" "samples" 3 "seed" 42 "hitchance" 0.6})
+        (def current (model/compare (model/parse-state (merge input {"referencejson" pinned}))))
+        (def expected (model/compare (model/parse-state (merge input {"slot1" "1052"}))))
+        (assert (= ["1052"] (tuple ;(get-in current [:reference :ids]))))
+        (assert (= ["1026"] (tuple ;(get-in current [:selected :ids]))))
+        (assert (= (get-in expected [:selected :combat :scenario-id]) (get-in current [:reference :combat :scenario-id])))
+        (assert (= (get-in expected [:selected :combat :damage]) (get-in current [:reference :combat :damage])))
+        (assert (= (util/canonical (get-in expected [:selected :combat :events])) (util/canonical (get-in current [:reference :combat :events]))))
+        (assert (not (some |(= "reference" ($ :id)) (current :rows))))
+        (assert (= pinned (get-in (ui/signals (current :state)) [:referencejson])))
+        (assert (string/find "Difference" (ui/render (ui/item-comparison current))))))
+
+(test "invalid and incompatible pinned scenarios preserve the current result with an explanation"
+      (fn []
+        (def original (model/compare (model/parse-state {"selected" "custom"})))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def changed (model/reference-build (merge (original :state) {:referencejson pinned :snapshot (string/repeat "0" 64)})))
+        (assert (string/find "snapshot changed" (changed :error)))
+        (each [input message] [[{"champion" "Garen" "referencejson" pinned} "another champion"]
+                               [{"referencejson" "{}"} "Unsupported scenario document"]]
+          (def result (model/compare (model/parse-state input)))
+          (assert (nil? (result :reference)))
+          (assert (string/find message (result :reference-error)))
+          (assert (> (get-in result [:selected :combat :damage]) 0)))
+        (def document (util/read-json pinned))
+        (put (document "scenario") "snapshot" (string/repeat "0" 64))
+        (def result (model/compare (model/parse-state {"referencejson" (string (util/encode-json document))})))
+        (assert (result :reference-error))
+        (assert (nil? (result :reference)))
+        (rejects (fn [] (model/parse-state {"referencejson" []})))
+        (rejects (fn [] (model/parse-state {"referencejson" (string/repeat "x" 65537)})))))
+
+(test "empty inventories and zero-damage references compare without a fabricated percentage"
+      (fn []
+        (def input {"selected" "custom" "attacks" false "abilities" false})
+        (def original (model/compare (model/parse-state input)))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def result (model/compare (model/parse-state (merge input {"referencejson" pinned}))))
+        (assert (empty? (get-in result [:reference :items])))
+        (assert (= 0 (get-in result [:reference :combat :damage])))
+        (def text (ui/render (ui/item-comparison result)))
+        (assert (string/find "Empty inventory" text))
+        (assert (not (string/find "%" text)))
+        (assert (not (string/find "NaN" text)))))
 
 (print passed " frontend tests passed")

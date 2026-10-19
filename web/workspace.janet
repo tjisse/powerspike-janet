@@ -13,9 +13,9 @@
         [:p {:class "warning"} "The saved model differs from this release. Its exact patch snapshot is retained, and this result uses the current model. Use the original release to reproduce the original calculation."])
       [:div {:class "scenario-actions"}
        [:input {:id "scenario-name" :type "text" :maxlength 80 :aria-label "Scenario name" :placeholder "Scenario name"}]
-       [:button {:type "button" :data-scenario-action "save" :data-attr:disabled "$busy"} "Save locally"]
-       [:button {:type "button" :data-scenario-action "export" :data-attr:disabled "$busy"} "Export JSON"]
-       [:button {:type "button" :data-scenario-action "share" :data-attr:disabled "$busy"} "Create share link"]]
+       [:button {:type "button" :data-scenario-action "save" :data-attr:disabled "$busy || $evaluationerror"} "Save locally"]
+       [:button {:type "button" :data-scenario-action "export" :data-attr:disabled "$busy || $evaluationerror"} "Export JSON"]
+       [:button {:type "button" :data-scenario-action "share" :data-attr:disabled "$busy || $evaluationerror"} "Create share link"]]
       [:label "Share link" [:input {:id "scenario-link" :type "text" :readonly true}]]
       [:div {:class "scenario-actions"}
        [:select {:id "saved-scenarios" :aria-label "Locally saved scenarios"} [:option {:value ""} "Choose a local save"]]

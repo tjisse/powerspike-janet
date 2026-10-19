@@ -328,7 +328,7 @@
     [:div {:class "section-header"} [:h2 "Stats"]
      [:button (merge {:type "button" :class "quiet-action"}
                      (details/attrs {:name "Build stats" :subtitle (row :name) :stats (details/stat-rows totals) :body []
-                                     :coverage "Source stats and modeled item, rune and shard bonuses. Combat exclusions remain in coverage."} true)) "Details"]]
+                                     :coverage "Champion stats with the selected items, runes and stat shards."} true)) "Details"]]
     [:div {:class "build-stats"}
      (map (fn [[key caption]] (stat caption (number-text (get totals key 0) (some |(= key $) [:attack-speed]))))
           [[:ap "Ability power"] [:ad "Attack damage"] [:ability-haste "Ability haste"]
@@ -380,7 +380,7 @@
                                              "document.getElementById('champion-picker').close(); "
                                              "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")}
              (icon "champion" (champion :icon) (champion :name))
-             [:span (champion :name)] [:small "Unvalidated"]]) (catalog/champion-list))]
+             [:span (champion :name)]]) (catalog/champion-list))]
     [:p {:class "picker-empty" :hidden true} "No champions match your search."]]
    [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title" :data-attr:data-who "$editingwho"}
     [:div {:class "picker-header"} [:h2 {:id "item-picker-title"} "Choose item"]
@@ -395,7 +395,7 @@
                                       " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
                                       "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")} "Empty slot"]]
     [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length (catalog/item-list)) " items"]
-     " · Unvalidated. Permanent stats only; effect exclusions appear below the build."]
+     " · Select an item to add it to this fight."]
     [:div {:class "catalog-grid item-grid"}
      (map (fn [item]
             (def rift (and (item :purchasable) (item :in-store) (some |(= 11 $) (item :maps))))
@@ -409,7 +409,6 @@
                                                                                         "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")})
              (icon "item" (item :icon) (item :name))
              [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
-             [:small {:class "validation-badge"} "Unvalidated"]
              [:span {:class "item-description"} (item :description)]]) (catalog/item-list))]
     [:p {:class "picker-empty" :hidden true} "No items match your search."]]])
 
@@ -460,12 +459,12 @@
 (defn- damage-ability? [ability]
   (some |(and (= :damage ($ :kind)) (= :estimated ($ :status))) (get ability :effects [])))
 
-(defn coverage [result]
+(defn developer-coverage [result]
   (def row (result :selected))
   (def combat (row :combat))
   (def broad (some champion-ability? (get row :ability-settings [])))
   (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
-  [:details {:id "coverage" :class "scope-panel coverage-details" :data-preserve-attr "open" :aria-label "Build model coverage"}
+  [:details {:id "developer-coverage" :class "scope-panel coverage-details" :aria-label "Build model coverage"}
    [:summary "Coverage & assumptions"]
    [:div {:class "section-header"} [:h2 "Unvalidated estimate"] [:span {:class "validation-badge"} "Patch data · not tested in-game"]]
    [:p (cond broad "Recognized tooltip effects use the selected patch's calculations. Your declared priority, activation conditions and movement drive this run. Unresolved conditions, alternate forms, pets and passive triggers remain explicit omissions."
@@ -486,6 +485,72 @@
    (when (combat :assumptions) [:details [:summary "Simulation assumptions"] [:ul (map |[:li $] (combat :assumptions))]])
    (when (combat :sampling-note) [:p {:class "muted"} (combat :sampling-note)])])
 
+(defn coverage [result]
+  (def row (result :selected))
+  (def notes (details/simulation-notes (row :limitations)))
+  (def broad (some champion-ability? (get row :ability-settings [])))
+  (def has-spells (or broad (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
+  [:details {:id "coverage" :class "scope-panel coverage-details" :data-preserve-attr "open" :aria-label "Simulation details"}
+   [:summary "Simulation details"]
+   [:p "This fight follows the selected ability priorities, movement, hit chances and starting conditions. Results describe that simulated fight; a live match also depends on player decisions and positioning."]
+   [:p (cond broad "Abilities and attacks use the selected patch, skill ranks and activation rules."
+         has-spells "Includes Annie Q/W, learned-R penetration and ordinary attacks. E, R casts, Tibbers and stun are not included."
+         "Basic attacks only. Champion abilities, passives and special attack rules are not included.")]
+   (when (not (empty? notes))
+     [:details [:summary "Effects not included & inventory rules"]
+      [:ul (map |[:li $] notes)]])
+   [:p {:class "muted"} "With multiple trials, the headline values are averages. Charts show the first trial. Changing the trial count can reveal variation from crits and hit chances."]])
+
+(defn- signed-text [value]
+  (string (cond (> value 0) "+" (< value 0) "−" "") (number-text (math/abs value))))
+
+(defn- comparison-row [row caption]
+  [:tr
+   [:th {:scope "row"} [:span caption]
+    [:span {:class "comparison-items"}
+     (if (empty? (row :items)) "Empty inventory" (map |(icon "item" ($ :icon) ($ :name)) (row :items)))]]
+   [:td (number-text (get-in row [:combat :damage]))]
+   [:td (number-text (get-in row [:combat :dps]))]
+   [:td (number-text (row :cost))]])
+
+(defn item-comparison [result]
+  (def row (result :selected))
+  (def reference (result :reference))
+  (def pinned (not= "" (get-in result [:state :referencejson] "")))
+  (def available (get-in row [:combat :scenario]))
+  [:section {:id "item-comparison" :class "item-comparison" :aria-label "Item comparison"}
+   [:div {:class "section-header"} [:h2 "Compare items"]
+    [:div {:class "comparison-actions"}
+     (when available
+       [:button {:type "button" :class "quiet-action" :data-attr:disabled "$busy || $evaluationerror"
+                 :data-on:click "$referencejson = document.getElementById('scenario-data').dataset.json; document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+        (if pinned "Replace pinned items" "Pin current items")])
+     (when pinned
+       [:button {:type "button" :class "quiet-action" :data-attr:disabled "$busy"
+                 :data-on:click "$referencejson = ''; document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"} "Clear comparison"])]]
+   (cond (result :reference-error) [:p {:class "warning" :role "status"} (result :reference-error)]
+     reference
+     [[:p {:class "muted comparison-context"} "Both builds use the current champion, level, opponent, runes, skills and fight settings, with the same trial seeds. Only items change."]
+      [:div {:class "comparison-table-scroll"}
+       [:table {:class "item-comparison-table"}
+        [:caption {:class "visually-hidden"} "Current items compared with pinned items under the same fight settings"]
+        [:thead [:tr [:th {:scope "col"} "Build"] [:th {:scope "col"} "Damage"] [:th {:scope "col"} "DPS"] [:th {:scope "col"} "Gold"]]]
+        [:tbody
+         (comparison-row reference "Pinned items")
+         (comparison-row row "Current items")
+         [:tr {:class "comparison-difference"} [:th {:scope "row"} "Difference"]
+          [:td (signed-text (- (get-in row [:combat :damage]) (get-in reference [:combat :damage])))
+           (when (> (get-in reference [:combat :damage]) 0)
+             [:small (string/format "%+.1f%%" (* 100 (dec (/ (get-in row [:combat :damage]) (get-in reference [:combat :damage])))))])]
+          [:td (signed-text (- (get-in row [:combat :dps]) (get-in reference [:combat :dps])))]
+          [:td (signed-text (- (row :cost) (reference :cost)))]]]]]
+      [:p {:class "muted comparison-context"} "Both results describe the configured fight. A higher damage total can cost more gold or trade away survivability."]
+      (when (not (empty? (details/simulation-notes (reference :limitations))))
+        [:details {:class "comparison-notes"} [:summary "Pinned build exclusions & inventory notes"]
+         [:ul (map |[:li $] (details/simulation-notes (reference :limitations)))]])]
+     [:p {:class "muted comparison-context"} (if available "Pin your items, then swap an item or apply an optimized build to see the difference in the same fight."
+                                               "Choose a practice target or duel to compare items.")])])
+
 (defn legacy-results [result]
   (def row (merge (result :selected) {:champion-id ((result :champion) :icon)}))
   (def state (result :state))
@@ -505,11 +570,12 @@
    [:div {:class "fight-strip"}
     [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} (if (= "practice" (state :mode)) "Practice target" (state :mode)) " ▾"]
     [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} duration " seconds"]
-    [:button {:type "button" :class "quiet-action" :data-ui-toggle "optimizer" :data-text "'Goal: ' + $searchpreset"} "Goal: burst"]
-    [:span {:class "validation-badge"} "Unvalidated estimate"]]
+    [:button {:type "button" :class "quiet-action" :data-search-open true :data-text "'Goal: ' + $searchpreset"} "Goal: burst"]
+    [:button {:type "button" :class "validation-badge coverage-link" :data-ui-toggle "coverage"} "Simulated fight · details ▾"]]
    [:div {:class "numbers outcome-summary"}
-    (metric "Mean damage dealt" (combat :damage)) (metric "Damage per second" (combat :dps) true)
+    (metric (if (> (get combat :samples 1) 1) "Mean damage dealt" "Damage dealt") (combat :damage)) (metric "Damage per second" (combat :dps) true)
     [:span {:class "muted"} (get combat :samples 1) " trial(s) · graphs show trial 0"]]
+   (item-comparison result)
    [:div {:id "combat-graphs" :class "combat-graphs"}
     [:span {:id "combat-trace" :hidden true :data-trace (json/encode (get combat :trace []))
             :data-scenario (get combat :scenario-id (string ((result :package) :snapshot) "/" (json/encode state)))}]
@@ -521,12 +587,12 @@
           (and spell-job (some |(= $ (spell-job :status)) [:queued :running :cancelling]))
           (string "Downloading ability data for " spell-champion " and the rest of this patch. Current estimate shown until the download completes.")
           (and spell-job (= :failed (spell-job :status)))
-          (string "Ability data download failed for " spell-champion ". Current estimate shown. Open Patch & evidence to retry.")
+          (string "Ability data download failed for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
           (and spell-job (= :cancelled (spell-job :status)))
-          (string "Ability data download cancelled for " spell-champion ". Current estimate shown. Open Patch & evidence to retry.")
+          (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
           (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
           broad
-          (string "No supported spell damage for " ((result :champion) :name) " in this patch. Other ability effects may be modeled; see coverage.")
+          (string "No supported spell damage for " ((result :champion) :name) " in this patch. See Simulation details for included effects.")
           (string "Spell damage unavailable for " ((result :champion) :name)
                   "; this estimate covers basic attacks. Spells: not modeled."))])
      (chart row duration chart-title)]
@@ -572,7 +638,7 @@
 (defn fight-controls [result] (if (= "duel" (get-in result [:state :mode])) (matchup/fight-controls result) (legacy-fight-controls result)))
 
 (defn error-result [message]
-  [:div {:id "results" :class "results" :role "alert"}
+  [:div {:id "results" :class "results" :role "alert" :data-evaluation-error "true"}
    [:section {:class "error-panel"} [:h2 "Check the scenario"] [:p message]]])
 
 (defn evidence-panel [evidence]
@@ -596,7 +662,7 @@
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn signals [state]
-  (def values (merge optimizer/defaults state {:savedmodel workspace/model-identity :scenariojson "" :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (def values (merge optimizer/defaults {:referencejson ""} state {:savedmodel workspace/model-identity :scenariojson "" :evaluationerror false :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
   (def preset (find |(= ($ :id) (state :selected)) model/builds))
   (when preset (for index 0 6 (put values (model/slot-keys index) (get (preset :ids) index ""))))
   (each [source target] [[:health-fraction :healthfraction] [:resource-fraction :resourcefraction] [:hit-chance :hitchance]
@@ -613,6 +679,20 @@
   (each [prefix count] [["lockslot" 6] ["lockrune" 6] ["locksummoner" 2] ["lockskill" 18]]
     (for index 1 (inc count) (put values (keyword (string prefix index)) false)))
   values)
+
+(defn developer-page [result evidence]
+  (render (html/doctype :html5)
+          [:html {:lang "en"}
+           [:head [:meta {:charset "utf-8"}] [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
+            [:title "PowerSpike · Developer tools"] [:link {:rel "stylesheet" :href "/assets/app.css"}]]
+           [:body
+            [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
+             [:a {:class "verification-back" :href "/"} "Back to simulations"]]
+            [:main {:class "content"}
+             [:h1 "Developer tools"]
+             [:p {:class "muted"} "Verification, source provenance and model diagnostics for " ((result :champion) :name) " · patch " ((result :package) :patch)]
+             (developer-coverage result) (verification/panel result) (workspace/evidence result) (evidence-panel evidence)]]]))
+
 (defn page [result evidence &opt message]
   (def state (result :state))
   (render (html/doctype :html5)
@@ -622,7 +702,7 @@
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
             [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}] [:script {:defer true :src "/assets/hud.js"}] [:script {:defer true :src "/assets/matchup.js"}]]
            [:body
-            [:div {:id "powerspike" :data-signals (json/encode (signals state))
+            [:div {:id "powerspike" :data-signals (json/encode (merge (signals state) {:evaluationerror (not (nil? message))}))
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"
                    :data-layout (if (= "duel" (state :mode)) "matchup" "legacy")
@@ -635,11 +715,11 @@
                (when (not= "duel" (state :mode)) [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"])
                (workspace/tools result)
                [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
-                [:summary [:span "Patch & evidence"] [:span {:class "muted"} "Sources · calibration"]]
-                (patch-panel result (get result :patch-job)) (coverage result) (verification/panel result) (workspace/evidence result) (evidence-panel evidence)]]]
+                [:summary [:span "Patch & simulation"] [:span {:class "muted"} "Game data · fight details"]]
+                (patch-panel result (get result :patch-job)) (coverage result)]]]
              [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
              (optimizer/dialog result)
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
-              [:span "Combat damage unverified"]
+              [:span "Simulated combat · configured fight conditions"]
               [:small "PowerSpike is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc."]]]]]))

@@ -3,6 +3,61 @@ import argparse, json, os, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
 
+def verify_item_comparison(browser, base):
+    page = browser.new_page(viewport={'width':1440,'height':1080})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.goto(base+'/?mode=practice&champion=Annie&selected=custom', wait_until='domcontentloaded')
+    expect(page.locator('.coverage-link')).to_have_text('Simulated fight · details ▾')
+    assert page.locator('#verification-progress, #source-evidence, #evidence').count() == 0
+    page.get_by_role('button', name='Pin current items', exact=True).click()
+    table = page.locator('.item-comparison-table')
+    expect(table.locator('tbody tr')).to_have_count(3)
+    expect(table.locator('.comparison-difference td').first).to_have_text('0+0.0%')
+    page.locator('#loadout-tray .item-slot').first.click()
+    page.locator('#item-picker [data-detail-item="1052"]').click()
+    expect(table.locator('tbody tr').nth(1).locator('td').last).to_have_text('400')
+    assert table.locator('.comparison-difference td').first.inner_text().startswith('+')
+    page.get_by_text('Opponent & fight', exact=True).click()
+    page.locator('#duration').fill('7')
+    page.locator('#duration').press('Tab')
+    page.wait_for_function("document.querySelector('#timeline').dataset.duration === '7'")
+    independent = browser.new_page()
+    independent.goto(base+'/?mode=practice&champion=Annie&selected=custom&duration=7', wait_until='domcontentloaded')
+    assert table.locator('tbody tr').first.locator('td').first.inner_text() == independent.locator('.metric-value').first.inner_text()
+    independent.close()
+    page.get_by_role('button', name='Replace pinned items', exact=True).click()
+    expect(table.locator('.comparison-difference td').first).to_have_text('0+0.0%')
+    page.locator('#fight-settings summary').click()
+    page.screenshot(path='build/item-comparison-desktop.png', full_page=True)
+    for width in [736,360,320]:
+        page.set_viewport_size({'width':width,'height':1080})
+        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth'), width
+    page.screenshot(path='build/item-comparison-mobile.png', full_page=True)
+    page.set_viewport_size({'width':1440,'height':1080})
+    page.get_by_role('button', name='Clear comparison', exact=True).click()
+    expect(table).to_have_count(0)
+    page.get_by_role('button', name='Goal: burst', exact=True).click()
+    assert page.locator('#optimizer-dialog').evaluate('(node)=>node.open')
+    page.get_by_role('button', name='Close optimization', exact=True).click()
+    page.locator('.coverage-link').click()
+    assert page.locator('#coverage').evaluate('(node)=>node.open')
+    assert page.locator('#patch-settings').evaluate('(node)=>node.open')
+    page.locator('#level').select_option('1')
+    page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.rank === '1'")
+    page.get_by_text('Runes & spells', exact=True).click()
+    page.get_by_text('Strategies, ranks & activation rules', exact=True).click()
+    page.locator('[name=qrank]').select_option('5')
+    page.locator('#results[data-evaluation-error=true]').wait_for()
+    page.get_by_text('Saved scenarios', exact=True).click()
+    for name in ['Save locally', 'Export JSON', 'Create share link']:
+        expect(page.get_by_role('button', name=name, exact=True)).to_be_disabled()
+    page.locator('[name=qrank]').select_option('-1')
+    page.locator('#timeline').wait_for()
+    expect(page.get_by_role('button', name='Save locally', exact=True)).to_be_enabled()
+    assert not errors, errors
+    page.close()
+
 def verify_runes(browser, base):
     page = browser.new_page(viewport={'width':1440,'height':1080})
     errors = []
@@ -43,6 +98,7 @@ def verify_runes(browser, base):
 def verify(base):
  with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        verify_item_comparison(browser, base)
         verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]
@@ -120,6 +176,8 @@ def verify(base):
         expect(page.locator('#event-detail')).to_contain_text('pinned')
         page.keyboard.press('Escape')
         assert page.locator('#timeline').get_attribute('data-total')==original_damage
+        page.get_by_role('button', name='Pin current items', exact=True).click()
+        page.locator('.item-comparison-table').wait_for()
         assert not page.locator('#fight-settings').evaluate('(node)=>node.open')
         page.get_by_text('Opponent & fight',exact=True).click()
         page.locator('#duration').fill('7')
@@ -171,6 +229,7 @@ def verify(base):
         page.get_by_role('button', name='Apply & inspect').first.click()
         page.wait_for_function("!document.getElementById('optimizer-dialog').open")
         page.wait_for_function("document.querySelector('#loadout-tray .item-slot img')?.src.endsWith('/1052.png')")
+        expect(page.locator('.item-comparison-table tbody tr').first.locator('td').last).to_have_text('0')
         page.locator('#loadout-tray .item-slot').first.hover()
         assert 'Amplifying Tome' in page.locator('#detail-popover').inner_text()
         assert 'Ability power' in page.locator('#detail-popover').inner_text()
@@ -227,9 +286,15 @@ def verify(base):
         page.get_by_role('button',name='Load scenario',exact=True).click()
         page.wait_for_function("document.getElementById('scenario-json').value === ''")
         assert page.locator('#timeline').get_attribute('data-total')==damage
-        page.get_by_text('Patch & evidence',exact=True).click()
-        page.get_by_text('Source records & model identity',exact=True).click()
-        assert 'Snapshot SHA-256' in page.locator('#source-evidence').inner_text()
+        page.get_by_text('Patch & simulation',exact=True).click()
+        assert page.locator('#verification-progress, #source-evidence, #evidence').count() == 0
+        developer=browser.new_page()
+        developer.goto(base+'/developer',wait_until='domcontentloaded')
+        expect(developer.get_by_role('heading',name='Developer tools',exact=True)).to_be_visible()
+        developer.get_by_text('Source records & model identity',exact=True).click()
+        assert 'Snapshot SHA-256' in developer.locator('#source-evidence').inner_text()
+        assert developer.locator('#verification-progress').count()==1
+        developer.close()
         page.screenshot(path='build/browser-verification.png', full_page=True)
         page.get_by_text('Optimization & restrictions',exact=True).click()
         for width in [736,360,320]:
@@ -238,7 +303,7 @@ def verify(base):
             assert not page.evaluate('document.documentElement.scrollWidth>innerWidth'), width
             assert page.locator('#optimizer-dialog').evaluate('(node)=>node.scrollWidth<=node.clientWidth'), width
         assert not errors, errors
-        print('Browser: linked graph hover/pinning, loadout popovers, responsive layout, configure, optimize, apply, cancel, save, share and exact reproduction passed.')
+        print('Browser: item comparisons, failed-evaluation recovery, linked graphs, loadout details, responsive layout, optimize/apply/cancel, save/share and exact reproduction passed.')
         browser.close()
 
 if __name__ == '__main__':

@@ -65,6 +65,12 @@
   (adapter/sse-response req {:on-open (fn [gen]
                                         (ds/with-open-sse gen (ds/patch-elements gen content)))}))
 
+(defn evaluation-error [req message]
+  (adapter/sse-response req {:on-open (fn [gen]
+                                        (ds/with-open-sse gen
+                                                          (ds/patch-signals gen {:evaluationerror true})
+                                                          (ds/patch-elements gen (ui/render (ui/error-result message)))))}))
+
 (defn asset-response [route]
   (def parts (string/split "/" route))
   (def scoped (= 6 (length parts)))
@@ -98,6 +104,7 @@
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
+                                                      (ds/patch-signals gen {:evaluationerror false})
                                                       (when state
                                                         (def values (ui/signals state))
                                                         (when (= "/search/apply" (req :route))
@@ -113,11 +120,11 @@
                                                                                       (when (not= "duel" (get-in prepared [:state :mode]))
                                                                                         [(ui/tactics prepared) (optimizer/rune-editor (prepared :package) (prepared :state))])
                                                                                       (ui/patch-panel prepared (prepared :patch-job))
-                                                                                      (workspace/tools prepared) (ui/coverage prepared) (verification/panel prepared) (workspace/evidence prepared))))))}))
+                                                                                      (workspace/tools prepared) (ui/coverage prepared))))))}))
 (defn evaluate [req]
   (def input (ds/get-signals req))
   (def result (protect (model/compare-async (model/parse-state input))))
-  (if (first result) (show-result req (result 1) nil (get input "job")) (fragment req (ui/render (ui/error-result (string (result 1)))))))
+  (if (first result) (show-result req (result 1) nil (get input "job")) (evaluation-error req (string (result 1)))))
 
 (defn configure [req state &opt applied]
   (assert (= "duel" (state :mode)) "Configuration previews require a champion matchup.")
@@ -181,7 +188,7 @@
                                       (string (if opponent? "enemyslot" "slot") (inc index)) (get (row :ids) index ""))))
           (unless opponent? (put updated "selected" "custom"))
           (configure req (model/parse-state updated) (string (job :id) "/" (row :key))))
-        (do (def state (model/state-from-definition (row :definition)))
+        (do (def state (merge (model/state-from-definition (row :definition)) {:referencejson (get input "referencejson" "")}))
           (show-result req (model/compare-async state) state))))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
@@ -202,6 +209,12 @@
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
     (= "/verification" (req :route)) (response 200 (string "<!doctype html>" (ui/render (verification/page))))
+    (= "/developer" (req :route))
+    (do (def query (get req :query {}))
+      (def result (model/compare-async (if (query "scenario")
+                                         (model/state-from-definition (wire/decode (query "scenario")))
+                                         (model/parse-state query))))
+      (with-dyns [:patch-package (result :package)] (response 200 (ui/developer-page result evidence))))
     (= "/api/verification" (req :route))
     (do (def report (protect (verification/read-report)))
       (if (first report) (response 200 (util/encode-json (report 1)) "application/json")
@@ -247,10 +260,11 @@
   (def result (protect (app-inner req)))
   (if (first result) (result 1)
     (if (= "true" (get-in req [:headers "datastar-request"]))
-      (fragment req (ui/render (if (string/has-prefix? "/search" (req :route))
-                                 (optimizer/error-panel (string (result 1)))
-                                 (if (= "/configure" (req :route)) [:p {:id "config-status" :class "measurement-error" :role "alert"} (string (result 1))]
-                                   (ui/error-result (string (result 1)))))))
+      (cond (string/has-prefix? "/search" (req :route))
+        (fragment req (ui/render (optimizer/error-panel (string (result 1)))))
+        (= "/configure" (req :route))
+        (fragment req (ui/render [:p {:id "config-status" :class "measurement-error" :role "alert"} (string (result 1))]))
+        (evaluation-error req (string (result 1))))
       (response 400 (string (result 1)) "text/plain"))))
 
 (defn start [port &opt host data seed]

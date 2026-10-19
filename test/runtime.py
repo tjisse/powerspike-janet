@@ -175,7 +175,10 @@ def verify(binary_path, seed_path=None):
             assert headers['Content-Type'].startswith('text/event-stream')
             assert b'datastar-patch-elements' in body and b'id="results"' in body and b'data-duration="6.5"' in body
             assert b'id="scenario-data"' in body
-            assert b'id="verification-progress"' in body and b'selected patch differs' in body
+            assert b'id="verification-progress"' not in body and b'id="source-evidence"' not in body
+            _, developer = get(base, '/developer')
+            assert b'Developer tools' in developer and b'Snapshot SHA-256' in developer
+            assert b'id="verification-progress"' in developer and b'selected patch differs' in developer
             # The packaged commands consume the same versioned document as the UI.
             scenario_page = Page()
             scenario_page.feed(body.decode())

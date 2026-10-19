@@ -33,6 +33,24 @@
   {:data-details (json/encode payload) :data-detail-pin (if pinnable "true" "false") :aria-haspopup "dialog"})
 (defn amount [value]
   (if (number? value) (string/format "%.2f" value) (string value)))
+
+(defn simulation-notes [notes]
+  # Keep omissions and numerical assumptions; verification-only annotations stay
+  # in the developer view. Never change the underlying engine diagnostics.
+  (distinct
+    (map (fn [note]
+           (var text note)
+           (each [from to] [["; unvalidated." "."]
+                            ["; server scaling remains unvalidated." "; server-specific scaling is not included."]
+                            ["trigger handler unavailable" "effect not included"]
+                            ["require handlers" "are not included"]
+                            ["requires a handler" "is not included"]
+                            ["requires an explicit trigger handler" "is not included"]]
+             (set text (string/replace-all from to text)))
+           text)
+         (filter |(and (not (string/has-prefix? "Character root supplies base stats;" $))
+                       (not (string/has-suffix? ": patch-derived estimate; unvalidated in-game." $))) (or notes [])))))
+
 (def stat-labels
   [[:hp "Health"] [:mp "Mana"] [:ad "Attack damage"] [:ap "Ability power"] [:armor "Armor"] [:mr "Magic resist"]
    [:ability-haste "Ability haste"] [:attack-speed "Attack speed"] [:attack-speed-bonus "Bonus attack speed"]
@@ -46,7 +64,7 @@
 (defn champion [champion level totals]
   {:name (champion :name) :icon (asset "champion" (champion :icon)) :subtitle (string "Level " level " · champion")
    :stats (stat-rows totals) :body (lines (get champion :description ""))
-   :coverage "Source stats and modeled bonuses. In-game checks remain in the evidence view." :action "champion-picker" :action-label "Change champion"})
+   :coverage "Champion stats with this build at the selected level." :action "champion-picker" :action-label "Change champion"})
 (defn item [item &opt context]
   (def tooltip (get item :tooltip (item :description)))
   (def start (string/find "<stats>" tooltip))
@@ -55,18 +73,17 @@
   {:name (item :name) :icon (asset "item" (item :icon)) :subtitle (string (item :gold) " gold · item")
    :stats (stat-rows (get item :stats {})) :body (lines body)
    :body-rich (tooltip/body body (effects/item-tooltip-variables item context) (when context (merge context {:hide-rank true})))
-   :coverage "Patch description. Effects contribute only where the engine has a handler; see coverage for exclusions."
+   :coverage "Item description for this patch. See Simulation details for effects not included in the fight."
    :action "item-picker" :action-label "Change item"})
 (defn ability [ability]
   {:name (ability :name) :icon (asset (ability :icon-group) (ability :icon))
    :subtitle (string (string/ascii-upper (string (ability :slot))) (if (> (ability :rank) 0) (string " · rank " (ability :rank)) " · Locked (not learned)"))
    :stats [["Cooldown" (cond (= 0 (ability :rank)) "Not learned"
                          (number? (ability :effective-cooldown)) (string (amount (ability :effective-cooldown)) " s")
-                         "Unresolved")]
-           ["Interpreted effects" (length (get ability :effects []))] ["Unresolved components" (length (get ability :unresolved []))]]
+                         "Not available")]]
    :body (lines (get ability :tooltip ""))
    :body-rich (tooltip/body (get ability :tooltip "") (get ability :variables []) (when (> (ability :rank) 0) (ability :tooltip-context)))
-   :coverage "Calculated values use this build at the start of the fight. Effect coverage and in-game checks remain in Patch & evidence."
+   :coverage "Calculated values use this build at the start of the fight. See Simulation details for effects not included."
    :action "ability-settings" :action-label "Ability settings"})
 (defn rune [rune &opt context]
   (def interpreted (when context (rune-data/compile [rune] (get context :patch "unknown") (context :level))))
@@ -81,7 +98,7 @@
    :body (lines (get rune "longDesc" (get rune "shortDesc" "")))
    :body-rich (tooltip/body (get-in rune [:parsed :tooltip] (get rune "longDesc" (get rune "shortDesc" "")))
                             (get-in rune [:parsed :variables] []) (when context (merge context {:hide-rank true})))
-   :coverage "Patch description · no in-game check. Missing rune handlers are reported in coverage."
+   :coverage "Rune description for this patch. See Simulation details for effects not included."
    :action "rune-editor" :action-label "Edit rune page"})
 (defn summoner [spell &opt context]
   (def text (get spell "tooltip" (get spell "description" "")))
@@ -89,7 +106,7 @@
   {:name (spell "name") :icon (asset "spell" (get-in spell ["image" "full"])) :subtitle "Summoner spell"
    :stats [["Cooldown" (string (get-in spell ["cooldown" 0] "Unknown") " s")]]
    :body (lines text) :body-rich (tooltip/body text (parsed :variables) (when context (merge context {:hide-rank true})))
-   :coverage "Source description · unvalidated estimate. Activation rules belong to the fight strategy."
+   :coverage "Spell description for this patch. Activation follows your fight strategy."
    :action "ability-settings" :action-label "Spell settings"})
 (defn loadout-effects [package state &opt context]
   [;(map (fn [id modifier]

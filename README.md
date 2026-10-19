@@ -26,11 +26,19 @@ The parser reuses the prototype's description interpretation strategy while keep
 
 Simulation runs on one compute worker; downloads use a separate network worker. Queues and result history are bounded. Evaluation caches include scenario state, snapshot and engine identity. The browser renders supplied events and never calculates combat damage. Inventory restrictions and unimplemented effects remain in Patch & evidence. Item searches retain the selected runes, summoners and strategies.
 
-The evidence panel reports comparisons against the five identity-free Practice Tool fixtures. They are evaluated on import in development and embedded during the release build. Its stat evidence is separate from combat estimates. The browser renders the supplied hit events as a responsive chart; it does not calculate combat damage.
+The developer page at `/developer` reports comparisons against the five identity-free Practice Tool fixtures, source identities and mechanic diagnostics. Verification progress remains available at `/verification`. The player view describes a simulated fight and exposes its conditions separately from this engineering evidence. The fixture comparisons are evaluated on import in development and embedded during the release build. This stat evidence is separate from combat estimates. The browser renders the supplied hit events as a responsive chart; it does not calculate combat damage.
 
 `make test-web` runs the frontend model/rendering checks. With Playwright installed and the local app running, `node test/matchup-browser.cjs` checks the paired configuration flow, optimization, Undo, mobile layouts and native form fallback. `PS_TEST_URL`, `PLAYWRIGHT_MODULE` and `BROWSER_EXECUTABLE` can select a test server or browser runtime. `web/deps.lock` pins the SDK and rendering dependencies; generated modules and downloaded assets stay under ignored `build/`. The local development server binds to loopback. Restart it after changing frontend files.
 
 The [catalog notes](data/16.19.1/catalog/README.md) explain retained sources, normalization boundaries and reproducibility. The unvalidated catalog does not expand the scope of the five measured Annie fixtures.
+
+### Comparing your item choices
+
+Select **Pin current items** below the damage summary, then edit an inventory slot or apply an optimized build. The comparison shows pinned and current damage, DPS, gold and their differences. Both builds rerun with the current champion, level, opponent, runes, skill configuration, fight settings and trial seeds; only the item inventory changes. An empty inventory can be pinned. Pinned items stay in the current page session; saved scenarios, exports and share links retain the selected build rather than the comparison.
+
+Pinned scenarios require the same champion and exact patch snapshot. Incompatible or invalid references show an explanation while the current simulation remains available. Simulation details beside the headline result explain the fight conditions; the pinned build also retains its own exclusions. A scenario that fails evaluation must be corrected before its previous result can be saved, exported or shared.
+
+See the [player beta rollout notes](docs/player-beta.md) for remaining release work.
 
 ## Build, format and deploy
 
@@ -120,7 +128,7 @@ The [buff/context pilot](docs/replay-verification.md#current-buffcontext-pilot-1
 
 The [coverage strategy](docs/replay-coverage-strategy.md) proposes balancing evidence across mechanics and selected interactions, with a separate fresh-game audit. A [frozen progress baseline](observations/replays/verification-progress-2026-10-18.json) records the current evidence pipeline and explicitly leaves overall coverage unknown until its obligation catalogue is defined.
 
-The [verification tracker](docs/replay-coverage.md) now implements a 27-condition combat catalogue plus three stat-generation targets, an append-only private ledger and a public progress report. Open **Patch & evidence → Replay verification progress**, or `/verification`, to inspect the pipeline, mechanic coverage, unresolved work, fresh-game results and resource/history records. `make verification-report` regenerates the view after imports. The initial ledger contains all 6,306 retained champion-to-champion hits; provisional diagnostics remain separate from admitted evidence.
+The [verification tracker](docs/replay-coverage.md) now implements a 27-condition combat catalogue plus three stat-generation targets, an append-only private ledger and a public progress report. Open `/developer` or `/verification` to inspect the pipeline, mechanic coverage, unresolved work, fresh-game results and resource/history records. `make verification-report` regenerates the view after imports. The initial ledger contains all 6,306 retained champion-to-champion hits; provisional diagnostics remain separate from admitted evidence.
 
 Annie's learned-R penetration is included in rotation evaluation. Stat comparison supports the static attack-speed, movement-speed and flat-health shards from the first measurement. The combat/optimization CLI still omits rune effects and shards. Annie E, R casts/Tibbers, passive stun, other champion abilities, attack resets, buffs, target-health changes, resource regeneration, shields, item procs, role quests and champion-specific attack exceptions are not modeled yet. Those exclusions describe the legacy curated CLI. The frontend uses the shared stateful engine and reports handler coverage for each scenario; exceptional champion behavior remains incomplete.
 

@@ -32,7 +32,7 @@ travel. Both duel participants and optimization use these rules. See
 [ordinary attack range and projectile timing](attack-projectiles.md) for sources,
 regressions and the remaining timing assumptions.
 
-## Attack identity improvement after v0.17.0
+## Attack identity improvement in v0.18.0
 
 Melee/ranged scaling now uses the champion's retained identity instead of an
 attack-range threshold. Lillia receives melee Blade of the Ruined King scaling.
@@ -54,6 +54,9 @@ the simulator's 16.19 snapshot still require review. Acquisition and diagnostic
 details remain in [the developer notes](lich-bane.md).
 
 ## Remaining rollout priorities
+
+The ordered [next-improvement queue](next-improvements.md) describes the work
+after v0.18.0, starting with attack timing and projectile behavior.
 
 1. **Establish combat evidence.** Admit reviewed basic attacks and isolated spell hits through the existing verification workflow. Start with mechanics that affect common item decisions: mitigation, penetration, crit, attack timing, cooldowns and supported item triggers. Track exact patch/model identities and unresolved hit context. The five Annie stat captures and replay decoder agreement do not establish combat accuracy.
 2. **Close simulation gaps before rollout.** Implement missing interactions needed for the supported player decisions and check their behavior. Keep actual simulation scope understandable to players. Verification status and evidence sufficiency are developer responsibilities.

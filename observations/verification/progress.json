@@ -1,16 +1,16 @@
 {
   "format": "powerspike-verification-progress",
   "version": 1,
-  "generated-at": "2026-10-18T10:01:07.398687+00:00",
+  "generated-at": "2026-10-19T06:13:58.395462+00:00",
   "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
   "registry-revision": "16.20-plan-1",
-  "reporter-sha256": "771766b695e10c08525c66dee42a43b0a3dbf248251b6ef264093f966ed0241d",
+  "reporter-sha256": "ac54c2a86a7a7c1fe2fccd248ee242ea20815800b236f067e8a2e60555ef3e34",
   "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
   "client-build": "16.20.824.8524",
   "patch": "16.20.1",
   "ledger": {
-    "head": "a50d2d5a3fc99afc02fc511743729e77a136b01a4cee2bfb43f11896d03393dc",
-    "records": 6316
+    "head": "45e9640edcf032b680c21224141591a5e87b1044202ae1829d823395d9975da8",
+    "records": 6364
   },
   "scope": "Initial 27 combat obligations and 3 stat-generation obligations, not an exhaustive catalogue of League behavior. Partial model support remains in the denominator. Older builds are historical. Candidate labels never imply admission.",
   "pipeline": {
@@ -18,33 +18,49 @@
     "events": 6306,
     "ordinary-candidates": 638,
     "numeric-ready": 439,
-    "admitted": 0,
-    "evaluated": 0,
+    "admitted": 4,
+    "evaluated": 4,
     "unknown-effects": 2850
   },
   "pending-evaluations": 0,
   "coverage": {
-    "combat-checked": 0,
+    "combat-checked": 2,
     "combat-total": 27,
-    "implemented-checked": 0,
+    "implemented-checked": 2,
     "implemented-total": 7,
-    "balanced-fraction": 0.0,
+    "balanced-fraction": 0.05625,
     "minimum-family-fraction": 0.0,
-    "replay-reach": 0.0,
-    "evaluated-reach": 0.0,
+    "replay-reach": 0.0006343165239454488,
+    "evaluated-reach": 0.0006343165239454488,
     "overall-league-coverage": null
   },
   "agreement": {
-    "checked": 0,
-    "consistent": 0,
+    "checked": 4,
+    "consistent": 4,
     "mismatches": 0,
-    "fraction": null,
-    "max-absolute-error": null,
+    "fraction": 1.0,
+    "max-absolute-error": 4.3857340941144685e-06,
     "confidence": null,
     "note": "No independent-trial confidence inferred from correlated replay hits."
   },
   "diagnostics": {
     "stat-checks": 7,
+    "attack-context": {
+      "games": 1,
+      "decoded-actions": 7912,
+      "decode-failures": 0,
+      "counts": {
+        "ambiguous": 97,
+        "numeric-ready": 184,
+        "numeric-ready:ambiguous": 56,
+        "numeric-ready:observed-stable": 114,
+        "numeric-ready:unique-candidate": 128,
+        "observed-stable": 172,
+        "ordinary-candidates": 288,
+        "unique-candidate": 191
+      },
+      "note": "Provisional action associations and client stat continuity; no semantic blocker or admission credit."
+    },
     "stat-mismatches": 0,
     "damage-checks": 1,
     "source": "330793d0633320c2a6ed4a6bbd9e3cdb0f9cfb5837a7944248e7d9a736ae763b",
@@ -64,10 +80,10 @@
       "note": "Breadth goals, not confidence guarantees.",
       "source-champions": 4
     },
-    "checked-attacks": 0,
-    "games": 0,
-    "source-champions": 0,
-    "armor-bands": 0
+    "checked-attacks": 4,
+    "games": 1,
+    "source-champions": 3,
+    "armor-bands": 2
   },
   "slices": {
     "source-champions": [
@@ -124,7 +140,7 @@
         "champion": "KSante",
         "observed-events": 198,
         "games": 1,
-        "checked": 0,
+        "checked": 1,
         "mismatches": 0
       },
       {
@@ -159,7 +175,7 @@
         "champion": "Sion",
         "observed-events": 106,
         "games": 1,
-        "checked": 0,
+        "checked": 2,
         "mismatches": 0
       },
       {
@@ -180,7 +196,7 @@
         "champion": "Tristana",
         "observed-events": 188,
         "games": 1,
-        "checked": 0,
+        "checked": 1,
         "mismatches": 0
       },
       {
@@ -221,8 +237,8 @@
     "note": "Observed champion counts do not establish champion-wide verification. Item/rune slices await sufficient reconstructed context."
   },
   "history": {
-    "comparisons": 0,
-    "admissions": 0,
+    "comparisons": 4,
+    "admissions": 4,
     "invalidated": 0,
     "all-revision-mismatches": 0,
     "outside-current-view": 0
@@ -232,8 +248,8 @@
       "id": "isolated-damage",
       "label": "Isolated damage",
       "total": 4,
-      "checked": 0,
-      "blocked": 4,
+      "checked": 1,
+      "blocked": 3,
       "varied": 0,
       "fresh": 0,
       "open-mismatches": 0
@@ -242,8 +258,8 @@
       "id": "mitigation",
       "label": "Mitigation",
       "total": 5,
-      "checked": 0,
-      "blocked": 1,
+      "checked": 1,
+      "blocked": 0,
       "varied": 0,
       "fresh": 0,
       "open-mismatches": 0
@@ -341,19 +357,25 @@
       ],
       "scope": "current",
       "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
-      "stage": "observed, blocked",
+      "stage": "checked",
       "candidates": 637,
       "candidate-unit": "damage events",
       "provisional-field-checks": 0,
-      "admitted": 0,
-      "checked": 0,
+      "admitted": 4,
+      "checked": 4,
       "mismatches": 0,
-      "games": 0,
-      "actors": 0,
-      "encounters": 0,
+      "games": 1,
+      "actors": 3,
+      "encounters": 4,
       "conditions-seen": {
-        "armor-band": [],
-        "attack-style": []
+        "armor-band": [
+          "low",
+          "medium"
+        ],
+        "attack-style": [
+          "melee",
+          "ranged"
+        ]
       },
       "fresh-game-comparisons": 0
     },
@@ -490,19 +512,25 @@
       ],
       "scope": "current",
       "tolerance-policy": "Explicit reviewed per-case tolerance in native measurement units; never inferred from model agreement.",
-      "stage": "observed, blocked",
+      "stage": "checked",
       "candidates": 637,
       "candidate-unit": "damage events",
       "provisional-field-checks": 0,
-      "admitted": 0,
-      "checked": 0,
+      "admitted": 4,
+      "checked": 4,
       "mismatches": 0,
-      "games": 0,
-      "actors": 0,
-      "encounters": 0,
+      "games": 1,
+      "actors": 3,
+      "encounters": 4,
       "conditions-seen": {
-        "armor-band": [],
-        "attack-style": []
+        "armor-band": [
+          "low",
+          "medium"
+        ],
+        "attack-style": [
+          "melee",
+          "ranged"
+        ]
       },
       "fresh-game-comparisons": 0
     },
@@ -1399,14 +1427,14 @@
             "damage-type": "physical",
             "resistance-band": "low"
           },
-          "checked": false
+          "checked": true
         },
         {
           "values": {
             "damage-type": "physical",
             "resistance-band": "medium"
           },
-          "checked": false
+          "checked": true
         },
         {
           "values": {
@@ -1452,7 +1480,7 @@
         }
       ],
       "total": 10,
-      "checked": 0
+      "checked": 2
     },
     {
       "dimensions": {
@@ -1549,28 +1577,6 @@
         "buff-and-on-hit-context-unresolved",
         "damage-packet-amount-semantics-incomplete",
         "inventory-and-rune-state-unresolved",
-        "shield-semantics-not-independently-verified",
-        "stat-sampling-window-unresolved"
-      ],
-      "candidates": 439,
-      "games": 2,
-      "obligations": [
-        "ordinary-physical",
-        "positive-armor"
-      ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
-      "bootstrap-ready": true,
-      "estimated-review-hours": null,
-      "estimated-obligations-per-hour": null,
-      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
-    },
-    {
-      "blockers": [
-        "attack-classification-not-independently-verified",
-        "buff-and-on-hit-context-unresolved",
-        "damage-packet-amount-semantics-incomplete",
-        "inventory-and-rune-state-unresolved",
         "other-effect",
         "outside-first-mechanic:nonphysical",
         "shield-semantics-not-independently-verified",
@@ -1583,7 +1589,7 @@
         "true-damage"
       ],
       "new-obligations": 2,
-      "family-floor": 0.0,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1608,30 +1614,7 @@
         "true-damage"
       ],
       "new-obligations": 2,
-      "family-floor": 0.0,
-      "bootstrap-ready": false,
-      "estimated-review-hours": null,
-      "estimated-obligations-per-hour": null,
-      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
-    },
-    {
-      "blockers": [
-        "attack-classification-not-independently-verified",
-        "buff-and-on-hit-context-unresolved",
-        "damage-packet-amount-semantics-incomplete",
-        "inventory-and-rune-state-unresolved",
-        "nonzero-lethality-semantics-unverified",
-        "shield-semantics-not-independently-verified",
-        "stat-sampling-window-unresolved"
-      ],
-      "candidates": 106,
-      "games": 2,
-      "obligations": [
-        "ordinary-physical",
-        "positive-armor"
-      ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1656,30 +1639,7 @@
         "true-damage"
       ],
       "new-obligations": 2,
-      "family-floor": 0.0,
-      "bootstrap-ready": false,
-      "estimated-review-hours": null,
-      "estimated-obligations-per-hour": null,
-      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
-    },
-    {
-      "blockers": [
-        "attack-classification-not-independently-verified",
-        "buff-and-on-hit-context-unresolved",
-        "critical-outcome-unresolved",
-        "damage-packet-amount-semantics-incomplete",
-        "inventory-and-rune-state-unresolved",
-        "shield-semantics-not-independently-verified",
-        "stat-sampling-window-unresolved"
-      ],
-      "candidates": 59,
-      "games": 2,
-      "obligations": [
-        "ordinary-physical",
-        "positive-armor"
-      ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1704,7 +1664,7 @@
         "true-damage"
       ],
       "new-obligations": 2,
-      "family-floor": 0.0,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1714,44 +1674,20 @@
       "blockers": [
         "attack-classification-not-independently-verified",
         "buff-and-on-hit-context-unresolved",
-        "damage-packet-amount-semantics-incomplete",
-        "inventory-and-rune-state-unresolved",
-        "observed-shield-candidate-nonzero",
-        "shield-semantics-not-independently-verified",
-        "stat-sampling-window-unresolved"
-      ],
-      "candidates": 14,
-      "games": 2,
-      "obligations": [
-        "ordinary-physical",
-        "positive-armor"
-      ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
-      "bootstrap-ready": false,
-      "estimated-review-hours": null,
-      "estimated-obligations-per-hour": null,
-      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
-    },
-    {
-      "blockers": [
-        "attack-classification-not-independently-verified",
-        "buff-and-on-hit-context-unresolved",
+        "critical-attack-candidate",
         "critical-outcome-unresolved",
         "damage-packet-amount-semantics-incomplete",
         "inventory-and-rune-state-unresolved",
-        "observed-shield-candidate-nonzero",
         "shield-semantics-not-independently-verified",
         "stat-sampling-window-unresolved"
       ],
-      "candidates": 8,
+      "candidates": 27,
       "games": 2,
       "obligations": [
-        "ordinary-physical",
-        "positive-armor"
+        "critical-attacks"
       ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
+      "new-obligations": 1,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1761,6 +1697,7 @@
       "blockers": [
         "attack-classification-not-independently-verified",
         "buff-and-on-hit-context-unresolved",
+        "critical-attack-candidate",
         "critical-outcome-unresolved",
         "damage-packet-amount-semantics-incomplete",
         "inventory-and-rune-state-unresolved",
@@ -1768,14 +1705,112 @@
         "shield-semantics-not-independently-verified",
         "stat-sampling-window-unresolved"
       ],
-      "candidates": 5,
+      "candidates": 13,
       "games": 1,
       "obligations": [
-        "ordinary-physical",
-        "positive-armor"
+        "critical-attacks"
       ],
-      "new-obligations": 2,
-      "family-floor": 0.0,
+      "new-obligations": 1,
+      "family-floor": 0.25,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "nonzero-lethality-semantics-unverified",
+        "observed-shield-candidate-nonzero",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 5,
+      "games": 2,
+      "obligations": [
+        "simple-magic"
+      ],
+      "new-obligations": 1,
+      "family-floor": 0.25,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-attack-candidate",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "observed-shield-candidate-nonzero",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 4,
+      "games": 2,
+      "obligations": [
+        "critical-attacks"
+      ],
+      "new-obligations": 1,
+      "family-floor": 0.25,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-attack-candidate",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "nonzero-lethality-semantics-unverified",
+        "observed-shield-candidate-nonzero",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 1,
+      "games": 1,
+      "obligations": [
+        "critical-attacks"
+      ],
+      "new-obligations": 1,
+      "family-floor": 0.25,
+      "bootstrap-ready": false,
+      "estimated-review-hours": null,
+      "estimated-obligations-per-hour": null,
+      "note": "Potential review candidates only; every listed blocker must be discharged. Counts are not additive across overlapping work."
+    },
+    {
+      "blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "critical-outcome-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "observed-shield-candidate-nonzero",
+        "other-effect",
+        "outside-first-mechanic:nonphysical",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "candidates": 1,
+      "games": 1,
+      "obligations": [
+        "simple-magic"
+      ],
+      "new-obligations": 1,
+      "family-floor": 0.25,
       "bootstrap-ready": false,
       "estimated-review-hours": null,
       "estimated-obligations-per-hour": null,
@@ -1785,8 +1820,8 @@
   "resources": {
     "recorded-seconds": {
       "review": null,
-      "compute": 2.561225688999457,
-      "maintenance": null
+      "compute": 49.279535384000155,
+      "maintenance": 1.2071687490024487
     },
     "review-seconds-by-lane": {
       "discovery": 0,
@@ -1795,8 +1830,8 @@
     },
     "audit-review-fraction": null,
     "audit-review-target": 0.2,
-    "recorded-bytes": 0,
-    "recorded-requests": 0,
+    "recorded-bytes": 265375,
+    "recorded-requests": 13,
     "review-seconds-per-admitted-case": null,
     "setup-research": {
       "buff-archive-bytes": 1194551,
@@ -1807,34 +1842,34 @@
     }
   },
   "previous-report": {
-    "sha256": "5f4676a3464e81b0d8bcf7496be5179055677caf5ac7db40fefed531d4d1d79d",
+    "sha256": "58b639c1eff1e1d31d43890febdbe86b697bd85e80338c26fa9707a380c4c66b",
     "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
     "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
-    "generated-at": "2026-10-18T09:59:26.415386+00:00",
+    "generated-at": "2026-10-18T20:41:54.326503+00:00",
     "pipeline": {
       "games": 2,
       "events": 6306,
       "ordinary-candidates": 638,
       "numeric-ready": 439,
-      "admitted": 0,
-      "evaluated": 0,
+      "admitted": 1,
+      "evaluated": 1,
       "unknown-effects": 2850
     },
     "coverage": {
-      "combat-checked": 0,
+      "combat-checked": 2,
       "combat-total": 27,
-      "implemented-checked": 0,
+      "implemented-checked": 2,
       "implemented-total": 7,
-      "balanced-fraction": 0.0,
+      "balanced-fraction": 0.05625,
       "minimum-family-fraction": 0.0,
-      "replay-reach": 0.0,
-      "evaluated-reach": 0.0,
+      "replay-reach": 0.0001585791309863622,
+      "evaluated-reach": 0.0001585791309863622,
       "overall-league-coverage": null
     },
     "scope-changed": false,
     "model-changed": false,
     "delta": {
-      "evaluated-cases": 0,
+      "evaluated-cases": 3,
       "checked-conditions": 0
     }
   }

@@ -1,0 +1,467 @@
+{
+  "format": "powerspike-replay-action-context-study",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "scope": "Two previously inspected development games. Action packet/field labels remain research candidates; zero admitted model comparisons.",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "replays": [
+    {
+      "role": "discovery",
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "client-build": "16.20.824.8524",
+      "decoded-action-counts": {
+        "1215": 1920,
+        "906": 2106
+      },
+      "decode-failures": {},
+      "context-counts": {
+        "ordinary-candidates": 349,
+        "unique-candidate": 178,
+        "numeric-ready": 255,
+        "numeric-ready:unique-candidate": 146,
+        "observed-stable": 163,
+        "numeric-ready:observed-stable": 141,
+        "ambiguous": 166,
+        "numeric-ready:ambiguous": 106,
+        "no-candidate": 5,
+        "numeric-ready:no-candidate": 3
+      },
+      "action-summary-sha256": "1552272713e85a0e1958eb55757a8207922c08bd9431e1d5cff423d367607d5d",
+      "action-archive-sha256": "bd9104a93557fdc305d12ecdc38c031c0be60c6e7bdd94c19275c156e2e082bd",
+      "review-summary-sha256": "06694bc6eb79aff2321342116602629836f98b4c05b206ecf4e00fa5cfe809f4",
+      "review-archive-sha256": "b02a9584ae6e0e4551375dfbdff0599152613e6f04902f121a154501579a3def",
+      "cost": {
+        "extraction-wall-seconds": 4.029838058999303,
+        "context-wall-seconds": 0.6758008910001081
+      }
+    },
+    {
+      "role": "second-development",
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "client-build": "16.20.824.8524",
+      "decoded-action-counts": {
+        "1215": 4750,
+        "906": 3162
+      },
+      "decode-failures": {},
+      "context-counts": {
+        "ordinary-candidates": 288,
+        "unique-candidate": 191,
+        "numeric-ready": 184,
+        "numeric-ready:unique-candidate": 128,
+        "observed-stable": 172,
+        "numeric-ready:observed-stable": 114,
+        "ambiguous": 97,
+        "numeric-ready:ambiguous": 56
+      },
+      "action-summary-sha256": "25052affb42029c6f21e513603f5101d9bf5e1293b297b3cbb6c6f4468cba082",
+      "action-archive-sha256": "741c9dfdc3f08ef365b7796c90f44f349123f3ccbc9d6fdb85849383d4ec7f9f",
+      "review-summary-sha256": "28be876b16c4899ef4ff2e8e79e5e5af6c3e3595fd53b0c640a78558a7fbd33f",
+      "review-archive-sha256": "2d874498fec44dbbe2592155b65672995024d5b2d73ccafad81bd0e610ca6cd2",
+      "cost": {
+        "extraction-wall-seconds": 7.345363661999727,
+        "context-wall-seconds": 1.5099263660013094
+      }
+    }
+  ],
+  "aggregate": {
+    "action-packets-decoded": 11938,
+    "action-counts": {
+      "1215": 6670,
+      "906": 5268
+    },
+    "context-counts": {
+      "ordinary-candidates": 637,
+      "unique-candidate": 369,
+      "numeric-ready": 439,
+      "numeric-ready:unique-candidate": 274,
+      "observed-stable": 335,
+      "numeric-ready:observed-stable": 255,
+      "ambiguous": 263,
+      "numeric-ready:ambiguous": 162,
+      "no-candidate": 5,
+      "numeric-ready:no-candidate": 3
+    },
+    "ordinary-physical-candidates": 637,
+    "other-basic-candidate-excluded-for-nonphysical-damage": 1,
+    "admitted-damage-cases": 0
+  },
+  "association-policy": {
+    "window-seconds": 2,
+    "rule": "All earlier same-source/same-target basic-action candidates within the fixed window; retain ambiguity and unmatched rows. Do not pick the nearest or inspect model error.",
+    "known-limit": "Unique in the search window is not independent proof of action completion or true causation. Missing packet types can leave unobserved actions."
+  },
+  "selected-discovery-witness": {
+    "event-id": "gameChunk:4:43918",
+    "source": 1073742003,
+    "target": 1073741998,
+    "timestamp": 38.32643605041511,
+    "action-candidates": [
+      {
+        "kind": "basic-attack-announcement-candidate",
+        "source": 1073742003,
+        "target": 1073741998,
+        "missile-id-candidate": 1073742507,
+        "encoded-slot": 196,
+        "auxiliary-cast-count": 0,
+        "event-id": "gameChunk:4:42928",
+        "timestamp": 37.99243605041511,
+        "opcode": 906,
+        "raw-payload-hex": "0aa0498dc41979e97617ceba74a6e68d8278c63f4cff0afea585858383a005"
+      }
+    ],
+    "status": "unique-candidate",
+    "model-admissible": false,
+    "resolved-semantic-blockers": [],
+    "announcement-to-damage-seconds": 0.3340000000000032,
+    "stat-continuity": {
+      "fields": [
+        {
+          "role": "source",
+          "field": "base-attack-damage",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 68.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "flat-attack-damage",
+          "before-action": {
+            "wire-key": [
+              3,
+              65644
+            ],
+            "event-id": "gameChunk:3:65644",
+            "timestamp": 2.219093331336975,
+            "value": 10.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-attack-damage",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-bonus-attack-damage",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-base-attack-damage-as-bonus",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "crit-chance",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "flat-armor-penetration",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "armor-remaining-fraction",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 1.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "physical-lethality",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "bonus-armor-remaining-fraction",
+          "before-action": {
+            "wire-key": [
+              3,
+              12575
+            ],
+            "event-id": "gameChunk:3:12575",
+            "timestamp": 0.0,
+            "value": 1.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "target",
+          "field": "armor",
+          "before-action": {
+            "wire-key": [
+              3,
+              71962
+            ],
+            "event-id": "gameChunk:3:71962",
+            "timestamp": 5.025256216049195,
+            "value": 44.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        }
+      ],
+      "complete-observed-inputs": true,
+      "observed-stable": true,
+      "server-sampling-resolved": false,
+      "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+    },
+    "decode-failures-in-window": [],
+    "original-witness-sha256": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+    "remaining-semantic-blockers": [
+      "buff-and-on-hit-context-unresolved",
+      "inventory-and-rune-state-unresolved",
+      "attack-classification-not-independently-verified",
+      "stat-sampling-window-unresolved",
+      "shield-semantics-not-independently-verified",
+      "damage-packet-amount-semantics-incomplete"
+    ],
+    "health-bracket-diagnostic": {
+      "health-before": {
+        "event-id": "gameChunk:3:71962",
+        "timestamp": 5.025256216049195,
+        "order": 27,
+        "health": 775.0
+      },
+      "health-after": {
+        "event-id": "gameChunk:4:44032",
+        "timestamp": 38.392436050415114,
+        "order": 192,
+        "health": 720.8333129882812
+      },
+      "damage-between-health-samples": [
+        {
+          "event-id": "gameChunk:4:43918",
+          "amount": 54.166664123535156
+        }
+      ],
+      "health-drop": 54.16668701171875
+    }
+  },
+  "nearby-action-packets": [
+    {
+      "kind": "spell-cast-announcement-candidate",
+      "source": 1073741998,
+      "effect-hash": 43539121,
+      "start-time-candidate": 36.6895866394043,
+      "secondary-hash-candidate": 43539121,
+      "source-name": "KSante",
+      "event-id": "gameChunk:4:34433",
+      "timestamp": 36.6894360504151,
+      "opcode": 1215,
+      "raw-payload-hex": "d28dfa6a65ce8f1588c2c82c78caa81379f034ba34346b7fab0b2901394d5a71972629969c3e04374a12cdeaa0e004855c0e0e606426f8b8ef305479ecececec4640e7e31bd0d6f3a4393e7f4c489d09cf205281e57ff312977d22e7f317c8556066b03ad8f43eef364d1ed4916b3e3e9198f813a6eee81863bee978cba0"
+    },
+    {
+      "kind": "basic-attack-announcement-candidate",
+      "source": 1073741998,
+      "target": 1073742003,
+      "missile-id-candidate": 1073742499,
+      "encoded-slot": 126,
+      "auxiliary-cast-count": 1,
+      "event-id": "gameChunk:4:36830",
+      "timestamp": 37.2904360504151,
+      "opcode": 906,
+      "raw-payload-hex": "0a54048c7e19bce96ec6cee29196e66f0368c6374c550a38d55a6a650a0515c7c3c84ab8caa2b7550ae51e20d834ba34341edb3a976b3c01a8b912f41215cdeacce0044640e7e31b6ebe669e3920a55d4865945e20e950b56df3309cbc23abecf317c8556066b03ad8f447ef916bf8838bb3e8186154e9782a8e48908885623ca105"
+    },
+    {
+      "kind": "basic-attack-announcement-candidate",
+      "source": 1073742003,
+      "target": 1073741998,
+      "missile-id-candidate": 1073742507,
+      "encoded-slot": 196,
+      "auxiliary-cast-count": 0,
+      "event-id": "gameChunk:4:42928",
+      "timestamp": 37.99243605041511,
+      "opcode": 906,
+      "raw-payload-hex": "0aa0498dc41979e97617ceba74a6e68d8278c63f4cff0afea585858383a005"
+    }
+  ],
+  "counter-name-review": {
+    "rows": [
+      {
+        "event-id": "gameChunk:3:71785",
+        "timestamp": 4.958256216049195,
+        "entity": 1073741998,
+        "opcode": 430,
+        "raw-payload-hex": "53155f17ce0fe02b",
+        "kind": "counter",
+        "name-hash": 103795778,
+        "slot-token": 43,
+        "counter": 8,
+        "source-name-matches": [
+          {
+            "name": "KSanteRConversionArmor",
+            "source": "ksante.bin.json",
+            "source-sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26",
+            "status": "hash-label-candidate"
+          }
+        ]
+      },
+      {
+        "event-id": "gameChunk:3:71799",
+        "timestamp": 4.958256216049195,
+        "entity": 1073741998,
+        "opcode": 430,
+        "raw-payload-hex": "4317b6cf9716cba6b4",
+        "kind": "counter",
+        "name-hash": 43581896,
+        "slot-token": 180,
+        "counter": 150,
+        "source-name-matches": [
+          {
+            "name": "KSanteRConversionHealth",
+            "source": "ksante.bin.json",
+            "source-sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26",
+            "status": "hash-label-candidate"
+          }
+        ]
+      },
+      {
+        "event-id": "gameChunk:3:71812",
+        "timestamp": 4.958256216049195,
+        "entity": 1073741998,
+        "opcode": 430,
+        "raw-payload-hex": "71145fbd2028532d",
+        "kind": "counter",
+        "name-hash": 213443956,
+        "slot-token": 45,
+        "counter": 8,
+        "source-name-matches": [
+          {
+            "name": "KSanteRConversionMagicResist",
+            "source": "ksante.bin.json",
+            "source-sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26",
+            "status": "hash-label-candidate"
+          }
+        ]
+      }
+    ],
+    "status": "Exact name-hash matches in retained 16.20 KSante data. Lifecycle records remain unmatched; names are not proof of behavior.",
+    "independent-context": {
+      "item-id": 1120,
+      "item-name": "Doran's Helm",
+      "declared-item-stats": {
+        "armor": 8,
+        "health": 150,
+        "magic-resist": 8
+      },
+      "source-sha256": "bcd7100b7f6c336f585fccaa28324b9d676bf1b2932ae3bb79ee56b5775c47d6"
+    },
+    "inference": "The three counter values align with the recorded early item bonuses. This does not establish an active ultimate or a damage modifier."
+  },
+  "remaining-admission-work": [
+    "Verify ordinary/critical/empowered outcome and action completion; slot bytes and auxiliary cast records remain uninterpreted.",
+    "Independently review relevant passive, rune, item and incoming/outgoing effects; labelled buff names are not behavioral proof.",
+    "Verify damage amount and shield absorption semantics for the selected context.",
+    "Resolve server sampling uncertainty or justify conditional-input scope with independently sufficient evidence."
+  ],
+  "resource-cost": {
+    "measured-extraction-and-context-wall-seconds": 13.560928978000447,
+    "new-api-requests": 0,
+    "new-client-download-bytes": 0,
+    "manual-research-seconds": null,
+    "scope": "Final extraction/context passes only; excludes exploratory probes, development, test/build runs and unmeasured manual review."
+  },
+  "adapters": {
+    "replay_actions.py": "c19dfd1efdda225402509d61acda9b25fd7e3eaa0a02eb760e01bfae82c6c899",
+    "replay_attack_review.py": "37ca95d01c0c1fe15f493369db0504142e616c295a6a5085b3146478947383c0",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0"
+  },
+  "historical-design-reference": {
+    "url": "https://github.com/LeagueSandbox/LeaguePackets/blob/master/LeaguePackets/Game/Common/BasicAttackData.cs",
+    "use": "Field-label motivation only; not validation of the current build. Native image guards and retained regressions define the current extraction."
+  }
+}

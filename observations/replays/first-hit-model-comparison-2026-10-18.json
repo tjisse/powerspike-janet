@@ -1,0 +1,48 @@
+{
+  "format": "powerspike-conditional-model-comparison",
+  "version": 1,
+  "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:4:43918",
+  "client-build": "16.20.824.8524",
+  "patch": "16.20.1",
+  "layer": "conditional-damage",
+  "evidence-role": "development",
+  "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+  "snapshot": "8df4190e48a6b9ad1ec55053d65c9f5a20fb136ad88611319c5f951ce4b2a2e8",
+  "snapshot-kind": "reviewed-observed-scalars",
+  "plan-sha256": "972518de11bccab810df7e40aac82818fb2344883bd8948e7cda674a3339fda5",
+  "adapter-sha256": "0af9df0fc5c6197bb351b6219cc9e1b9d8737edea4dd24ffdc1f26e36647edc9",
+  "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+  "janet-sha256": "b848b4911ef7f7f49e372e060279b74f4121c5b3b4f40fa5fe325d3be49aba82",
+  "production-output": {
+    "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+    "raw": 78.0,
+    "effective-resistance": 44.0,
+    "predicted": 54.166666666666664
+  },
+  "result": {
+    "predicted": 54.166666666666664,
+    "observed": 54.166664123535156,
+    "error": 2.543131508048191e-06,
+    "absolute-error": 2.543131508048191e-06,
+    "tolerance": 2.2411350869334603e-05,
+    "status": "consistent"
+  },
+  "obligations": [
+    "ordinary-physical",
+    "positive-armor"
+  ],
+  "conditions": {
+    "armor-band": "low",
+    "damage-type": "physical",
+    "resistance-band": "low",
+    "attack-style": "melee"
+  },
+  "scope": "One conditional ordinary physical attack from reviewed observed scalars. Does not verify loadout/stat generation, critical outcomes, penetration, shields, sequences, or whole-model accuracy.",
+  "uses-runtime-build-data": false,
+  "recorded-at": "2026-10-18T20:41:27.434255+00:00",
+  "cost": {
+    "wall-seconds": 0.17176851499971235,
+    "new-requests": 0,
+    "new-download-bytes": 0
+  }
+}

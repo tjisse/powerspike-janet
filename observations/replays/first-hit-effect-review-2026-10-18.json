@@ -1,0 +1,703 @@
+{
+  "format": "powerspike-first-hit-effect-review",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "event-id": "gameChunk:4:43918",
+  "client-build": "16.20.824.8524",
+  "shield-context-review": {
+    "status": "reviewed-no-eligible-shield-source-for-this-case",
+    "target-self": "K'Sante E (shield), W (reduction) and R (transformation) are unlearned; Q and the passive describe outgoing effects.",
+    "target-allies": "Diana and Blitzcrank shields protect themselves, as do Yasuo passive and Tristana Barrier. Their abilities are unlearned and none grants a passive shield to K'Sante.",
+    "items-and-runes": "The exact five-player prefixes contain starter items, potions and trinkets; no ally shield item or Guardian/Aery selection on the target team. Shield Bash is an outgoing proc on Yasuo, not a shield grant to K'Sante.",
+    "teleport-quest": "The target has the unfinished quest with counter zero and no observed Teleport cast; the matching-patch tooltip makes the Teleport shield a quest reward.",
+    "scope": "Shield-free eligibility for this frozen ordinary match context only. This does not verify shield field meanings, nonzero shields, absorption, complete buff replication or other cases."
+  },
+  "target-team": [
+    {
+      "champion": "KSante",
+      "team": 100,
+      "items": [
+        1120,
+        2003,
+        3340
+      ],
+      "summoner-spell-ids": [
+        4,
+        12
+      ],
+      "rune-ids": [
+        8437,
+        8446,
+        8444,
+        8242,
+        8299,
+        9105
+      ],
+      "skill-upgrades-before-hit": [
+        {
+          "timestamp": 36.422,
+          "slot": 1
+        }
+      ]
+    },
+    {
+      "champion": "Diana",
+      "team": 100,
+      "items": [
+        1103,
+        3340
+      ],
+      "summoner-spell-ids": [
+        4,
+        11
+      ],
+      "rune-ids": [
+        8010,
+        9111,
+        9104,
+        8017,
+        8304,
+        8347
+      ],
+      "skill-upgrades-before-hit": []
+    },
+    {
+      "champion": "Yasuo",
+      "team": 100,
+      "items": [
+        1086,
+        2003,
+        2003,
+        3340
+      ],
+      "summoner-spell-ids": [
+        14,
+        4
+      ],
+      "rune-ids": [
+        8008,
+        9101,
+        9104,
+        8299,
+        8444,
+        8401
+      ],
+      "skill-upgrades-before-hit": []
+    },
+    {
+      "champion": "Tristana",
+      "team": 100,
+      "items": [
+        1086,
+        2003,
+        2003,
+        3340
+      ],
+      "summoner-spell-ids": [
+        4,
+        21
+      ],
+      "rune-ids": [
+        8008,
+        9111,
+        9104,
+        8014,
+        8139,
+        8135
+      ],
+      "skill-upgrades-before-hit": []
+    },
+    {
+      "champion": "Blitzcrank",
+      "team": 100,
+      "items": [
+        2003,
+        2003,
+        3364
+      ],
+      "summoner-spell-ids": [
+        14,
+        4
+      ],
+      "rune-ids": [
+        8351,
+        8306,
+        8345,
+        8347,
+        8275,
+        8234
+      ],
+      "skill-upgrades-before-hit": []
+    }
+  ],
+  "champion-capabilities": [
+    {
+      "champion": "KSante",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/KSante.json",
+        "file": "KSante.json",
+        "bytes": 11937,
+        "sha256": "a1b0421810affbe9642fec44584dcf2632a6c50d6eb9e83c4facd31f6146b58d",
+        "wall-seconds": 0.14078384599997662
+      },
+      "passive": "K'Sante's Abilities mark targets to take more damage on his next Attack.<br><br>When All Out, K'Sante deals more damage with all Attacks and Abilities.",
+      "abilities": [
+        {
+          "id": "KSanteQ",
+          "description": "K'Sante strikes, damaging and slowing enemies in a short line.<br><br>On hit, grants a stack of Ntofo Strikes. At 2 stacks, K'Sante fires a shockwave that pulls enemies in.<br><br>When All Out, cooldown is reduced."
+        },
+        {
+          "id": "KSanteW",
+          "description": "K'Sante charges up, taking reduced damage, then dashes, knocking back and stunning enemies.<br><br>When All Out, deals increased damage and no longer knocks back or stuns."
+        },
+        {
+          "id": "KSanteE",
+          "description": "K'Sante dashes and gains a shield. If targeting an ally, K'Sante dashes to the ally with increased range and both gain a shield.<br><br>When All Out, cooldown is reduced and speed is increased."
+        },
+        {
+          "id": "KSanteR",
+          "description": "K'Sante knocks an enemy back, launching them through any wall in their path. Then, K'Sante goes All Out and dashes after them, gaining increased damage, healing, and transformed abilities at the cost of reduced defenses."
+        }
+      ]
+    },
+    {
+      "champion": "Diana",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Diana.json",
+        "file": "Diana.json",
+        "bytes": 15878,
+        "sha256": "16798f9434bd88d0b61ca7cc60f270c3090720d7a5130456ba260a386a1b345a",
+        "wall-seconds": 0.5353478770011861
+      },
+      "passive": "Every third strike cleaves nearby enemies for an additional magic damage. After casting a spell, Diana gains Attack Speed for 5 seconds.",
+      "abilities": [
+        {
+          "id": "DianaQ",
+          "description": "Unleashes a bolt of lunar energy in an arc dealing magic damage.<br><br>Afflicts enemies struck with Moonlight, revealing them if they are not stealthed for 3 seconds."
+        },
+        {
+          "id": "DianaOrbs",
+          "description": "Diana creates three orbiting spheres that detonate on contact with enemies to deal damage in an area. She also gains a temporary shield that absorbs damage. If her third sphere detonates, the shield gains additional strength."
+        },
+        {
+          "id": "DianaTeleport",
+          "description": "Becomes the living embodiment of the vengeful moon, dashing to an enemy and dealing magic damage.<br><br>Lunar Rush has no cooldown when used to dash to an enemy afflicted with Moonlight. All other enemies will have the Moonlight debuff removed regardless of whether they were the target of Lunar Rush."
+        },
+        {
+          "id": "DianaR",
+          "description": "Diana reveals and draws in all nearby enemies and slows them.<br><br>If Diana pulls in one or more enemy champions, the moonlight crashes down onto her after a short delay, dealing magic damage in an area around her, increased for each target beyond the first pulled."
+        }
+      ]
+    },
+    {
+      "champion": "Yasuo",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Yasuo.json",
+        "file": "Yasuo.json",
+        "bytes": 16788,
+        "sha256": "564dc77d2e721ac15208e03c1b2e040d0fc09ddf465798844e4705f09090f873",
+        "wall-seconds": 0.5808590410015313
+      },
+      "passive": "Yasuo's Critical Strike Chance is increased. Additionally, Yasuo builds toward a shield whenever he is moving. The shield triggers when he takes damage from a champion or monster.",
+      "abilities": [
+        {
+          "id": "YasuoQ1Wrapper",
+          "description": "Thrusts forward, damaging all enemies in a line.<br><br>On hit, grants a stack of Gathering Storm for a few seconds. At 2 stacks, Steel Tempest fires a whirlwind that knocks <font color='#6655CC'>Airborne</font>.<br><br>Steel Tempest is treated as a basic attack and scales with all the same things."
+        },
+        {
+          "id": "YasuoW",
+          "description": "Creates a moving wall that blocks all enemy projectiles for 4 seconds."
+        },
+        {
+          "id": "YasuoE",
+          "description": "Dashes through target enemy, dealing magic damage. Each cast increases subsequent dash's damage, up to a max amount.<br><br>Cannot be re-cast on the same enemy for a few seconds.<br><br><font color='#99FF99'>If Steel Tempest is cast while dashing, it will strike as a circle.</font>"
+        },
+        {
+          "id": "YasuoR",
+          "description": "Blinks to an <factionIonia1>Airborne</factionIonia1> enemy champion, dealing physical damage and holding all <factionIonia1>Airborne</factionIonia1> enemies in the area in the air. Grants maximum Flow but resets all stacks of Gathering Storm.<br><br>For a moderate time afterwards, Yasuo's critical strikes gain significant Bonus Armor Penetration."
+        }
+      ]
+    },
+    {
+      "champion": "Tristana",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Tristana.json",
+        "file": "Tristana.json",
+        "bytes": 15368,
+        "sha256": "08a098ef940e81168859357aa751c71280aa3761faa04b83152ee299a6a2b115",
+        "wall-seconds": 0.5468487380021543
+      },
+      "passive": "Increases Tristana's Attack Range as she levels.",
+      "abilities": [
+        {
+          "id": "TristanaQ",
+          "description": "Tristana fires her weapon rapidly, increasing her Attack Speed for a short time."
+        },
+        {
+          "id": "TristanaW",
+          "description": "Tristana fires at the ground to propel her to a distant location, dealing damage and slowing surrounding units for a brief period where she lands."
+        },
+        {
+          "id": "TristanaE",
+          "description": "When Tristana kills a unit, her cannonballs burst into shrapnel, dealing damage to surrounding enemies. Can be activated to place a bomb on a target enemy that explodes after a short duration dealing damage to surrounding units."
+        },
+        {
+          "id": "TristanaR",
+          "description": "Tristana loads a massive cannonball into her weapon and fires it at an enemy unit. This deals Magic Damage and knocks the target back. If the target is carrying the Explosive Charge bomb, the bomb detonation radius is doubled."
+        }
+      ]
+    },
+    {
+      "champion": "Blitzcrank",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Blitzcrank.json",
+        "file": "Blitzcrank.json",
+        "bytes": 14266,
+        "sha256": "993fab7d9129f312df4d64fe05456987fa25d8ee01fdd3249a1c46e5d7f0eb6f",
+        "wall-seconds": 0.4512689629991655
+      },
+      "passive": "Blitzcrank gains a shield based on their mana when dropping to low health.",
+      "abilities": [
+        {
+          "id": "RocketGrab",
+          "description": "Blitzcrank fires their right hand to grab an opponent on its path, dealing damage and dragging it back to them."
+        },
+        {
+          "id": "Overdrive",
+          "description": "Blitzcrank super charges themself to get dramatically increased Move and Attack Speed. They are temporarily slowed after the effect ends."
+        },
+        {
+          "id": "PowerFist",
+          "description": "Blitzcrank charges up their fist to make the next attack deal double damage and pop their target up in the air."
+        },
+        {
+          "id": "StaticField",
+          "description": "Enemies attacked by Blitzcrank are marked and take lightning damage after 1 second. Additionally, Blitzcrank can activate this ability to remove nearby enemies' shields, damage them, and silence them briefly."
+        }
+      ]
+    }
+  ],
+  "loadout-capabilities": {
+    "items": {
+      "1120": {
+        "name": "Doran's Helm",
+        "description": "<mainText><stats><attention>150</attention> Health<br><attention>8</attention> Armor<br><attention>8</attention> Magic Resist</stats><br><br><passive>Helping Hand</passive><br>Attacks deal <physicalDamage>5 bonus physical damage</physicalDamage> to minions.</mainText>"
+      },
+      "2003": {
+        "name": "Health Potion",
+        "description": "<mainText><stats></stats><br><br><active>Consume</active><br>Restores <healing>120 Health</healing> over 15 seconds.</mainText>"
+      },
+      "3340": {
+        "name": "Stealth Ward",
+        "description": "<mainText><stats></stats><br><br><active>Active</active> (<scaleLevel>210 - 90</scaleLevel>s, max 2 charges)<br>Places an <keyword>Invisible</keyword> Stealth Ward that grants vision for <scaleLevel>90-120</scaleLevel> seconds.</mainText>"
+      },
+      "1103": {
+        "name": "Mosstomper Seedling",
+        "description": "<mainText><stats></stats><br><br><passive>Jungle Companions</passive><br>Summon a <font color='#1CA935'>Mosstomper</font> that assists you against monsters.<br><br>The companion grows as you hunt monsters, empowering your <spellName>Smite</spellName>. When fully grown, it completes your Jungle Quest and grants a Shield while out of combat and after killing large monsters.</mainText>"
+      },
+      "1086": {
+        "name": "Doran's Bow",
+        "description": "<mainText><stats><attention>8</attention> Attack Damage<br><attention>15%</attention> Attack Speed<br><attention>1.5%</attention> Omnivamp</stats><br><br></mainText>"
+      },
+      "3364": {
+        "name": "Oracle Lens",
+        "description": "<mainText><stats></stats><br><br><active>Active</active> (<scaleLevel>160 - 100</scaleLevel>s, max 2 charges)<br>Reveals enemy Stealth Wards and traps around you for 8 seconds.</mainText>"
+      }
+    },
+    "runes": {
+      "8437": {
+        "name": "Grasp of the Undying",
+        "description": "Every 4s in combat, your next basic attack on a champion will:<li>Deal bonus magic damage equal to 3.5% of your max health<li>Heal you for 1.3% of your max health<li>Permanently increase your health by 5<br><rules><i>Ranged Champions:</i> Damage, healing, and permanent health gained are 40% effective.</rules>"
+      },
+      "8446": {
+        "name": "Demolish",
+        "description": "Your third attack against towers deals [85 (+28% max Health) Melee || 50 (+20% max Health) Ranged] bonus physical damage.<br><br>Cooldown: 30s"
+      },
+      "8444": {
+        "name": "Second Wind",
+        "description": "After taking damage from an enemy champion, heal for 4% of your missing health over 10s."
+      },
+      "8242": {
+        "name": "Unflinching",
+        "description": "Gain 10 Armor and Magic Resist when crowd controlled and for 2 seconds after."
+      },
+      "8299": {
+        "name": "Last Stand",
+        "description": "Deal 5% - 11% increased damage to champions while you are below 60% health. Max damage gained at 30% health."
+      },
+      "9105": {
+        "name": "Legend: Haste",
+        "description": "Gain 1.5 basic ability haste for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill."
+      },
+      "8010": {
+        "name": "Conqueror",
+        "description": "Basic attacks or spells that deal damage to an enemy champion grant 2 stacks of Conqueror for 5s, gaining 1.8-4 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword> per stack. Stacks up to 12 times. Ranged champions gain only 1 stack per basic attack.<br><br>When fully stacked, heal for 8% of the damage you deal to champions (5% for ranged champions)."
+      },
+      "9111": {
+        "name": "Triumph",
+        "description": "Takedowns restore 5% of your missing health, 2.5% of your max health, and grant an additional 20 gold. <br><br><hr><br><i>'The most dangerous game brings the greatest glory.' <br>\u2014Noxian Reckoner</i>"
+      },
+      "9104": {
+        "name": "Legend: Alacrity",
+        "description": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill."
+      },
+      "8017": {
+        "name": "Cut Down",
+        "description": "Deal 8% more damage to champions who have more than 60% health."
+      },
+      "8304": {
+        "name": "Magical Footwear",
+        "description": "You get free Slightly Magical Footwear at 12 min, but you cannot buy boots before then. For each takedown you acquire the boots 45s sooner.<br><br>Slightly Magical Footwear grants you an additional <speed>10 Move Speed</speed>."
+      },
+      "8347": {
+        "name": "Cosmic Insight",
+        "description": "+<attention>18</attention> Summoner Spell Haste<br>+<attention>10</attention> Item Haste"
+      },
+      "8008": {
+        "name": "Lethal Tempo",
+        "description": "Attacking an enemy champion grants you [6% Melee || 4% Ranged] Attack Speed for 6 seconds, up to 6. At max stacks, deal [9 - 30 Melee || 6 - 24 Ranged] <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'>bonus adaptive damage On-Attack, increased by 1% per 1% Bonus Attack Speed</lol-uikit-tooltipped-keyword>."
+      },
+      "9101": {
+        "name": "Absorb Life",
+        "description": "Killing a target restores 1 - 23 Health based on level."
+      },
+      "8401": {
+        "name": "Shield Bash",
+        "description": "Whenever you gain a new shield,  your next basic attack against a champion deals <scaleLevel>5 - 30</scaleLevel> <scaleHealth>(+2.5% Bonus Health)</scaleHealth> <scaleMana>(+15.0% New Shield Amount)</scaleMana> bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword> damage.<br><br>You have up to 2s after the shield expires to use this effect."
+      },
+      "8014": {
+        "name": "Coup de Grace",
+        "description": "Deal 8% more damage to champions who have less than 40% health."
+      },
+      "8139": {
+        "name": "Taste of Blood",
+        "description": "Heal when you damage an enemy champion.<br><br>Healing: 16-40 (+0.1 bonus AD, +0.05 AP) health (based on level)<br><br>Cooldown: 20s"
+      },
+      "8135": {
+        "name": "Treasure Hunter",
+        "description": "Gain an additional <gold>50 gold</gold> the next time you collect a <i>Bounty Hunter</i> stack. Increase the gold gained by <gold>20 gold</gold> for each <i>Bounty Hunter</i> stack, up to <gold>130 gold</gold>.<br><br><i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion."
+      },
+      "8351": {
+        "name": "Glacial Augment",
+        "description": "Immobilizing an enemy champion will cause 3 glacial rays to emanate from them towards you and other nearby champions, creating frozen zones for 3 (+ the immobilizing effect's duration) seconds that slow enemies for 20% (+90% per 100% Heal and Shield Power) (+6% per 100 Ability Power) (+7% per 100 bonus Attack Damage) and reduce their damage by 15% against your allies (not including yourself). <br><br>Cooldown: 25s"
+      },
+      "8306": {
+        "name": "Hextech Flashtraption",
+        "description": "While Flash is on cooldown it is replaced by <i>Hexflash</i>.<br><br><i>Hexflash</i>: Channel for 2s to blink to a new location.<br><br>Cooldown: 20s. Goes on a 10s cooldown when you enter champion combat."
+      },
+      "8345": {
+        "name": "Biscuit Delivery",
+        "description": "Biscuit Delivery: Gain a Total Biscuit of Everlasting Will every 2 mins, until 6 min.<br><br>Biscuits restore 20 + 2% of your maximum health, increased by up to 100% based on missing Health. Consuming or selling a Biscuit permanently increases your max health by 30. "
+      },
+      "8275": {
+        "name": "Nimbus Cloak",
+        "description": "After casting a Summoner Spell, gain a <speed>Move Speed</speed> increase that lasts for 2s and allows you to pass through units.<br><br>Increase: <speed>15% - 45% Move Speed</speed> based on the Summoner Spell's cooldown. (Higher cooldown Summoner Spells grant more <speed>Move Speed</speed>). "
+      },
+      "8234": {
+        "name": "Celerity",
+        "description": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>."
+      }
+    },
+    "summoners": {
+      "4": {
+        "name": "Flash",
+        "description": "Teleports you a short distance toward your cursor."
+      },
+      "12": {
+        "name": "Teleport",
+        "description": "After a brief channel, become untargetable and travel to an allied unit. Upgrades into Unleashed Teleport, which significantly increases travel speed. "
+      },
+      "11": {
+        "name": "Smite",
+        "description": "Deals true damage to a monster or minion."
+      },
+      "14": {
+        "name": "Ignite",
+        "description": "Deals true damage over time to target enemy champion and reduces healing effects on them for the duration."
+      },
+      "21": {
+        "name": "Barrier",
+        "description": "Gain a brief Shield."
+      }
+    },
+    "summoner-source": {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/summoner.json",
+      "sha256": "faf271429f8cda1fbdae1e8dc9e2354032c3dc878cfa40a2a19188290fcbaabc",
+      "bytes": 32954,
+      "requests": 1,
+      "wall-seconds": 0.09709791100249276
+    }
+  },
+  "observed-pre-hit-actions": [
+    {
+      "kind": "spell-cast-announcement-candidate",
+      "source": 1073742007,
+      "effect-hash": 263796881,
+      "start-time-candidate": 34.652278900146484,
+      "secondary-hash-candidate": 263796881,
+      "source-name": "Janna",
+      "event-id": "gameChunk:4:23998",
+      "timestamp": 34.652436050415076,
+      "opcode": 1215
+    },
+    {
+      "kind": "spell-cast-announcement-candidate",
+      "source": 1073741998,
+      "effect-hash": 43539121,
+      "start-time-candidate": 36.6895866394043,
+      "secondary-hash-candidate": 43539121,
+      "source-name": "KSante",
+      "event-id": "gameChunk:4:34433",
+      "timestamp": 36.6894360504151,
+      "opcode": 1215
+    },
+    {
+      "kind": "basic-attack-announcement-candidate",
+      "source": 1073741998,
+      "target": 1073742003,
+      "missile-id-candidate": 1073742499,
+      "encoded-slot": 126,
+      "auxiliary-cast-count": 1,
+      "event-id": "gameChunk:4:36830",
+      "timestamp": 37.2904360504151,
+      "opcode": 906
+    },
+    {
+      "kind": "spell-cast-announcement-candidate",
+      "source": 1073741999,
+      "effect-hash": 263796881,
+      "start-time-candidate": 37.72492599487305,
+      "secondary-hash-candidate": 263796881,
+      "source-name": "Diana",
+      "event-id": "gameChunk:4:41399",
+      "timestamp": 37.72443605041511,
+      "opcode": 1215
+    },
+    {
+      "kind": "basic-attack-announcement-candidate",
+      "source": 1073742003,
+      "target": 1073741998,
+      "missile-id-candidate": 1073742507,
+      "encoded-slot": 196,
+      "auxiliary-cast-count": 0,
+      "event-id": "gameChunk:4:42928",
+      "timestamp": 37.99243605041511,
+      "opcode": 906
+    }
+  ],
+  "quest-tooltip": {
+    "text": "<titleLeft>Top Quest</titleLeft><mainText>Takedown champions, minions, towers, plates, and epic monsters to complete your quest. Earn up to up to 3x points in top lane!<br><br><font color = '#00FF00'>Rewards</font><br>\u2022 Teleport as a 3rd Summoner Spell, or Enhanced Teleport to grant a shield if you already have it equiped<br>\u2022 Flat bonus experience, more experience from all sources (especially takedowns), and increased level cap</mainText><postScriptLeft>Source: @SourceName@</postScriptLeft>",
+    "source": {
+      "url": "https://raw.communitydragon.org/16.20/game/en_us/data/menu/en_us/lol.stringtable.json",
+      "bytes": 31990199,
+      "sha256": "8ecc5117aab8b6fced2f5a1d221da24301d5894aeff9b4109f6be757eed45099"
+    }
+  },
+  "target-buff-snapshot": {
+    "observed-active": [
+      {
+        "event-id": "gameChunk:4:35714",
+        "timestamp": 37.1574360504151,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "f8ba4f3e8bc797146ef5f8f834abdc667e0e",
+        "kind": "add",
+        "name-hash": 230965361,
+        "slot-token": 32,
+        "caster": 1073741998,
+        "duration-seconds": 4.0,
+        "counter-update": {
+          "event-id": "gameChunk:4:43430",
+          "timestamp": 38.22543605041511,
+          "entity": 1073741998,
+          "opcode": 430,
+          "raw-payload-hex": "831505d7f780",
+          "kind": "counter",
+          "name-hash": 230965361,
+          "slot-token": 32,
+          "counter": 1
+        }
+      },
+      {
+        "event-id": "gameChunk:3:6549",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "a8ba262b4bc697146ef87672bc442492a3294ad6f2d17b",
+        "kind": "add",
+        "name-hash": 205256130,
+        "slot-token": 74,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0,
+        "counter-update": {
+          "event-id": "gameChunk:3:6581",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 430,
+          "raw-payload-hex": "271517d4e7da4a",
+          "kind": "counter",
+          "name-hash": 205256130,
+          "slot-token": 74,
+          "counter": 0
+        }
+      },
+      {
+        "event-id": "gameChunk:3:7480",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "c8ba08604bc69714f5f87672bc75734d593b",
+        "kind": "add",
+        "name-hash": 8942209,
+        "slot-token": 117,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0
+      },
+      {
+        "event-id": "gameChunk:3:7507",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "a8ba215ccbc797146ef87672bcd42d323a1d84f959ae96",
+        "kind": "add",
+        "name-hash": 22450393,
+        "slot-token": 132,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0
+      },
+      {
+        "event-id": "gameChunk:3:6594",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "a8ba180c8bc797146ef87672bc442492a3298aaa79b1e7",
+        "kind": "add",
+        "name-hash": 244870598,
+        "slot-token": 138,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0
+      },
+      {
+        "event-id": "gameChunk:4:43891",
+        "timestamp": 38.32643605041511,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "f8ba09024bc69714f5f8f815d2b2dc4c5f2b",
+        "kind": "add",
+        "name-hash": 79295857,
+        "slot-token": 178,
+        "caster": 1073741998,
+        "duration-seconds": 10.0
+      },
+      {
+        "event-id": "gameChunk:3:6369",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "a8baa7510bc79714f87672bc442492a329c621f381fe",
+        "kind": "add",
+        "name-hash": 95298804,
+        "slot-token": 198,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0,
+        "counter-update": {
+          "event-id": "gameChunk:3:6397",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 430,
+          "raw-payload-hex": "2314bd307d0bc6",
+          "kind": "counter",
+          "name-hash": 95298804,
+          "slot-token": 198,
+          "counter": 0
+        }
+      },
+      {
+        "event-id": "gameChunk:4:35821",
+        "timestamp": 37.1574360504151,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "c8ba2f230bc79714f5f8f874ab2eac57f9bee93f78b187",
+        "kind": "add",
+        "name-hash": 43539121,
+        "slot-token": 233,
+        "caster": 1073741998,
+        "duration-seconds": 6.0
+      },
+      {
+        "event-id": "gameChunk:3:11226",
+        "timestamp": 0.0,
+        "entity": 1073741998,
+        "opcode": 435,
+        "raw-payload-hex": "a8ba5800cbc79714f87672bc2eac57f9bef99478b187",
+        "kind": "add",
+        "name-hash": 43539120,
+        "slot-token": 249,
+        "caster": 1073741998,
+        "duration-seconds": 25000.0
+      }
+    ],
+    "lifecycle-issues": [
+      {
+        "event-id": "gameChunk:3:71785",
+        "reason": "counter-without-matching-add"
+      },
+      {
+        "event-id": "gameChunk:3:71799",
+        "reason": "counter-without-matching-add"
+      },
+      {
+        "event-id": "gameChunk:3:71812",
+        "reason": "counter-without-matching-add"
+      }
+    ],
+    "complete-buff-state": false
+  },
+  "prior-quest-reward-events": [],
+  "effect-review-still-open": [
+    "Glacial Augment can reduce outgoing damage to allies; Blitzcrank has no learned immobilizing ability or observed cast, but this must remain explicit in the effect review.",
+    "Unflinching requires a causal CC review; unchanged replicated armor alone does not establish server state.",
+    "Generated ward-counter, Demolish-ready and Second Wind name hypotheses do not prove full buff behavior. Existing unmatched counters are preserved.",
+    "Client stat continuity does not locate a server sampling instant; independent health closure alone does not prove packet amount semantics."
+  ],
+  "resolved-semantic-blockers": [
+    "shield-semantics-not-independently-verified"
+  ],
+  "remaining-semantic-blockers": [
+    "buff-and-on-hit-context-unresolved",
+    "damage-packet-amount-semantics-incomplete",
+    "stat-sampling-window-unresolved"
+  ],
+  "cumulative-resolved-semantic-blockers": [
+    "attack-classification-not-independently-verified",
+    "inventory-and-rune-state-unresolved",
+    "shield-semantics-not-independently-verified"
+  ],
+  "model-admissible": false,
+  "complete-buff-state": false,
+  "inputs": {
+    "first-review": "e80a2c80d816769a99cebdb11785f1cf819552141a5b7003678624b1a63448f1",
+    "witness": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+    "match": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+    "timeline": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067",
+    "actions": "1552272713e85a0e1958eb55757a8207922c08bd9431e1d5cff423d367607d5d",
+    "buffs": "d9237e43d6a88c6e0af226979a0c38d2abb05247493c1ce03ff10058be9d053d"
+  },
+  "reviewer-adapter-sha256": "ee9cd4a25f12caae32ada7ed354227cc1980bc0a800ff11181df0157f9b0d3e6",
+  "cost": {
+    "wall-seconds": 0.7261644559985143,
+    "new-requests": 0,
+    "new-download-bytes": 0,
+    "scope": "Retained-source review pass only; excludes development, tests and unmeasured manual review."
+  },
+  "annotation": {
+    "reason": "Frozen first-hit shield eligibility reviewed against exact target-team loadouts, causal skill upgrades, observed spell prefix, quest context and retained matching-patch capabilities. Resolves shield-free context only, not nonzero shield/absorption mechanics; three gates remain.",
+    "changes": {
+      "blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "stat-sampling-window-unresolved"
+      ]
+    }
+  }
+}

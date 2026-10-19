@@ -1,0 +1,133 @@
+{
+  "format": "powerspike-indexed-model-comparisons",
+  "version": 1,
+  "client-build": "16.20.824.8524",
+  "patch": "16.20.1",
+  "layer": "conditional-damage",
+  "snapshot-kind": "reviewed-observed-scalars",
+  "plan-sha256": "b7528edcc4db89ee2a01da65bb7786a3dfa2e1165343573915440d2b999c30ac",
+  "review-sha256": "4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8",
+  "adapter-sha256": "8428c7f34c9876f64f2819d011a102195f9b8581e9f2714e372dcb37e61dd6e3",
+  "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+  "janet-sha256": "b848b4911ef7f7f49e372e060279b74f4121c5b3b4f40fa5fe325d3be49aba82",
+  "results": [
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:5:96537",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "snapshot": "5d47efe45c10089ff2d8025845b896171848e4697279b9d070d0e0fa8661b557",
+      "conditions": {
+        "armor-band": "low",
+        "damage-type": "physical",
+        "resistance-band": "low",
+        "attack-style": "ranged"
+      },
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence-role": "development",
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "production-output": {
+        "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+        "raw": 73.39999961853027,
+        "effective-resistance": 28.0,
+        "predicted": 57.343749701976776
+      },
+      "result": {
+        "predicted": 57.343749701976776,
+        "observed": 57.34375,
+        "error": -2.980232238769531e-07,
+        "absolute-error": 2.980232238769531e-07,
+        "tolerance": 2.1314625053038136e-05,
+        "status": "consistent"
+      }
+    },
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:6:400687",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "snapshot": "1baf9e5bfea2c29ed96b439314515ef71904b35b775f5cb7a8b22ce0bdf98e21",
+      "conditions": {
+        "armor-band": "low",
+        "damage-type": "physical",
+        "resistance-band": "low",
+        "attack-style": "melee"
+      },
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence-role": "development",
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "production-output": {
+        "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+        "raw": 66.5199966430664,
+        "effective-resistance": 39.02399826049805,
+        "predicted": 47.84785179205082
+      },
+      "result": {
+        "predicted": 47.84785179205082,
+        "observed": 47.84785079956055,
+        "error": 9.924902713009942e-07,
+        "absolute-error": 9.924902713009942e-07,
+        "tolerance": 1.9674304128330533e-05,
+        "status": "consistent"
+      }
+    },
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:10:2417",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "snapshot": "ff066e0d180c5ba8aeb523e2468ac7876b638bb48610c33f2512cd52a14d7fd8",
+      "conditions": {
+        "armor-band": "medium",
+        "damage-type": "physical",
+        "resistance-band": "medium",
+        "attack-style": "melee"
+      },
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence-role": "development",
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "production-output": {
+        "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+        "raw": 94.05999755859375,
+        "effective-resistance": 85.77799987792969,
+        "predicted": 50.63032093164872
+      },
+      "result": {
+        "predicted": 50.63032093164872,
+        "observed": 50.63032531738281,
+        "error": -4.3857340941144685e-06,
+        "absolute-error": 4.3857340941144685e-06,
+        "tolerance": 2.6240353580534473e-05,
+        "status": "consistent"
+      }
+    }
+  ],
+  "blocked": [
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:15:363291",
+      "event-id": "gameChunk:15:363291",
+      "reason": "Multiple damage packets and nonclosing health bracket; healing/shield/timing overlap unresolved. No model execution or admission.",
+      "remaining-semantic-blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "inventory-and-rune-state-unresolved",
+        "attack-classification-not-independently-verified",
+        "stat-sampling-window-unresolved",
+        "shield-semantics-not-independently-verified",
+        "damage-packet-amount-semantics-incomplete"
+      ]
+    }
+  ],
+  "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+  "uses-runtime-build-data": false,
+  "recorded-at": "2026-10-18T21:31:47.455187+00:00",
+  "cost": {
+    "wall-seconds": 0.4753888320046826,
+    "raw-replay-reads": 0,
+    "source-archive-reads": 0,
+    "native-decode-calls": 0,
+    "new-requests": 0
+  }
+}

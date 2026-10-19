@@ -25,6 +25,17 @@ The first deliverable is **20 reviewed single-hit comparisons**, with all
 matches, mismatches and exclusions retained. Passing 20 selected hits will not
 establish accuracy for every champion, mechanic or game.
 
+The [action/context study](../observations/replays/action-context-study-2026-10-18.json)
+now adds 11,938 native-decoded action candidates across the existing two games.
+Of 439 numerically ready attacks, 274 have one matching announcement candidate
+in a fixed two-second search window, and 255 also have unchanged relevant
+client stat observations between that announcement and damage. The selected
+Sion/K'Sante witness has one candidate 0.334 seconds before its damage and all
+11 required observed input fields unchanged. These checks strengthen context;
+they do not resolve attack completion/outcome, server sampling or effect/shield
+semantics, and no damage case is admitted. The operator bridge and dossier
+imports are described in [the tracker workflow](replay-coverage.md).
+
 ## 1. Connect the evidence to the production model
 
 Retain and verify source data for the replay's 16.20 patch, with exact source
@@ -177,6 +188,13 @@ covered mechanic/condition and per admitted case, rather than raw event count.
 Only introduce worker parallelism if measured runtime warrants it; review and
 context recovery currently dominate the likely effort.
 
+The [reusable evidence store](replay-evidence-store.md) now indexes the retained
+archives and checkpoints observed state/buff lifecycles. Additional sample
+batches use bounded checkpoint lookups without replay playback or native
+decoding. The first planned batch retains the known hit as a regression reference
+and prepares four further candidates for individual semantic review; extraction
+alone does not advance admitted-case or mechanic coverage.
+
 Favor shared mechanics and discrepancies that can change current predictions.
 Defer older patch coverage unless a particular old fixture cheaply resolves a
 current uncertainty. Every new build needs compatibility checks and fresh
@@ -191,3 +209,33 @@ evidence before carrying decoder or model claims forward.
 4. Freeze that scope and evaluate a fresh-game batch.
 5. Choose the next decoder/mechanic task from measured skip counts and likely
    impact on model predictions.
+
+The first selected Sion → K'Sante hit now has a
+[case-specific semantic review](../observations/replays/first-hit-review-2026-10-18.json)
+for ordinary/noncritical identity and recorded loadout selection. The subsequent
+[shield eligibility review](../observations/replays/first-hit-effect-review-2026-10-18.json)
+resolves shield-free context for this case, without verifying shield absorption.
+The subsequent [amount review](../observations/replays/first-hit-amount-review-2026-10-18.json)
+corroborates damage delivered to health for this isolated, nonlethal hit using
+independent health loss and native payload rechecks. Two gates remain before
+its conditional damage comparison: active effects and server-input sufficiency.
+The [final conditional review](../observations/replays/first-hit-final-review-2026-10-18.json)
+now closes those observation gates using observed zero Ferocity, causal cast
+prerequisites, declared mechanic eligibility and invariant scalar inputs. The
+selected hit is 6/6 reviewed. The [production comparison](../observations/replays/first-hit-model-comparison-2026-10-18.json)
+has now been admitted and evaluated consistently under its frozen numerical
+policy, using the actual production damage functions and reviewed observed
+scalars. This checks ordinary physical damage and positive armor for one
+development case. Next, grow the admitted set toward 20 with additional actors,
+games and armor ranges, retaining mismatches and fresh-game separation. Exact server
+sampling and complete buff-script decoding remain unclaimed. Do not extend
+this case's gates to the other 438 numerically ready candidates or count review
+as model coverage.
+
+The subsequent [indexed batch](replay-batch-comparison.md) independently reviews
+three more selected cases and records consistent production comparisons. Progress
+is now four evaluated ordinary physical attacks, three source champions and two
+armor bands in one development game. The selected high-armor case remains
+blocked by a nonisolated, nonclosing health bracket, without a prediction or
+coverage credit. The next breadth goals still require other games and additional
+actors; the original first-hit review was not extended to arbitrary events.

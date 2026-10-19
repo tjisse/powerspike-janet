@@ -140,9 +140,20 @@
                                                           (get (find |(= id ($ "id")) (report "obligations")) "label" id)) (row "obligations")) ", ")]
              [:p {:class "muted"} "Review estimate: " (if (number? (row "estimated-review-hours"))
                                                         (string (row "estimated-review-hours") " hours") "not estimated")]
-             [:details [:summary (length (row "blockers")) " requirements still open"]
-              [:ul (map |[:li (blocker-label $)] (row "blockers"))]]]) (take 5 (report "next-unlocks")))]]
+             (if (empty? (row "blockers"))
+               [:p "Observation review complete; ready for comparison."]
+               [:details [:summary (length (row "blockers")) " requirements still open"]
+                [:ul (map |[:li (blocker-label $)] (row "blockers"))]])]) (take 5 (report "next-unlocks")))]]
    [:section [:h2 "Provisional checks and fresh games"]
+    (when (> (get-in report ["diagnostics" "attack-context" "games"] 0) 0)
+      [:div
+       [:p (get-in report ["diagnostics" "attack-context" "decoded-actions"])
+        " action announcements decoded across " (get-in report ["diagnostics" "attack-context" "games"])
+        " games. " (get-in report ["diagnostics" "attack-context" "counts" "numeric-ready:unique-candidate"] 0)
+        " numerically ready attacks have one announcement candidate; "
+        (get-in report ["diagnostics" "attack-context" "counts" "numeric-ready:observed-stable"] 0)
+        " also have unchanged relevant stat observations until the recorded damage."]
+       [:p {:class "muted"} "Action associations and observed stat continuity are provisional. They do not establish attack completion, critical outcome, exact server sampling or absence of other effects."]])
     [:p (get-in report ["diagnostics" "stat-checks"]) " conditional stat checks; "
      (get-in report ["diagnostics" "damage-checks"]) " conditional damage diagnostic. These do not advance verified coverage."]
     (unless (true? (get-in report ["diagnostics" "components-current"]))

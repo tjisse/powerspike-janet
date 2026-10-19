@@ -1,0 +1,13 @@
+{
+  "format": "powerspike-conditional-tolerance-policy",
+  "version": 1,
+  "id": "positive-armor-fp32-v1",
+  "domain": "One ordinary noncritical physical attack, positive armor, zero penetration/reduction and no other modifiers; observed scalars are conditional inputs, not reconstructed build stats.",
+  "unit-roundoff": 5.960464477539063e-8,
+  "rounding-stages": 4,
+  "stages": ["observed AD addition", "resistance denominator addition", "resistance division", "damage multiplication"],
+  "absolute-bound": "gamma(4) * observed AD + half a float32 ULP at observed AD; gamma(n) = n*u/(1-n*u)",
+  "wire-bound": "With positive armor and no amplification, AD upper-bounds output magnitude; its ULP conservatively bounds wire rounding without consulting observed damage.",
+  "interpretation": "A declared compatibility band for ordinary float32 arithmetic and the float32 damage observation. This is not proof of the server operation order or a fitted statistical accuracy interval.",
+  "selection-rule": "Compute from reviewed input AD only, before evaluation. Never widen after observing a mismatch; retain failures. Health-bracket measurement closure is a different bound."
+}

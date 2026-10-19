@@ -1,0 +1,447 @@
+{
+  "format": "powerspike-first-hit-semantic-review",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "event-id": "gameChunk:4:43918",
+  "client-build": "16.20.824.8524",
+  "attack-identity-review": {
+    "status": "corroborated-for-this-case",
+    "native-attack-slot": 64,
+    "native-result-code": 5,
+    "source-spell": "SionBasicAttack",
+    "source-spell-hash": 264459371,
+    "source-crit-chance-observed": 0,
+    "reason": "One causally prior targeted announcement, ordinary Sion attack asset, zero observed crit chance, positive independently decoded damage and health loss. No prediction error was used.",
+    "limit": "This does not identify every slot/result code, prove universal hash uniqueness or establish absence of on-hit/incoming modifiers."
+  },
+  "action": {
+    "kind": "basic-attack-announcement-candidate",
+    "source": 1073742003,
+    "target": 1073741998,
+    "missile-id-candidate": 1073742507,
+    "auxiliary-cast-count": 0,
+    "opaque-field-08-first-byte": 196,
+    "attack-slot": 64,
+    "sequence-candidate": 12,
+    "event-id": "gameChunk:4:42928",
+    "timestamp": 37.99243605041511,
+    "opcode": 906
+  },
+  "damage-outcome": {
+    "amount": 54.166664123535156,
+    "target": 1073741998,
+    "source": 1073742003,
+    "effect-hash": 264459371,
+    "damage-type": "physical",
+    "type-encoded": 118,
+    "result-code": 5,
+    "opaque-context-code": 0,
+    "opaque-flag-19": true,
+    "result-code-encoded": 33,
+    "event-id": "gameChunk:4:43918",
+    "timestamp": 38.32643605041511,
+    "effect-kind": "basic-attack-candidate",
+    "candidate-names": [
+      "sionbasicattack"
+    ]
+  },
+  "health-landing-corroboration": {
+    "health-before": 775.0,
+    "health-after": 720.8333129882812,
+    "wire-damage": 54.166664123535156,
+    "difference": 2.288818359375e-05,
+    "measurement-bound": 6.29425048828125e-05,
+    "bound-policy": "Sum of half a float32 ULP for the three observed values, not fitted to damage error.",
+    "scope": "Corroborates positive health loss for this bracket; does not by itself establish shield absorption semantics or a model tolerance."
+  },
+  "loadout-review": {
+    "source": {
+      "champion": "Sion",
+      "items": [
+        {
+          "id": 1036,
+          "name": "Long Sword",
+          "declared-stats": {
+            "FlatPhysicalDamageMod": 10
+          }
+        },
+        {
+          "id": 3340,
+          "name": "Stealth Ward",
+          "declared-stats": {}
+        },
+        {
+          "id": 2031,
+          "name": "Refillable Potion",
+          "declared-stats": {}
+        }
+      ],
+      "item-events": [
+        {
+          "itemId": 1036,
+          "participantId": 6,
+          "timestamp": 2152,
+          "type": "ITEM_PURCHASED"
+        },
+        {
+          "itemId": 3340,
+          "participantId": 6,
+          "timestamp": 2486,
+          "type": "ITEM_PURCHASED"
+        },
+        {
+          "itemId": 2031,
+          "participantId": 6,
+          "timestamp": 2753,
+          "type": "ITEM_PURCHASED"
+        }
+      ],
+      "runes": [
+        {
+          "id": 8230,
+          "current-patch-name": "Stormraider's Surge"
+        },
+        {
+          "id": 8226,
+          "current-patch-name": "Manaflow Band"
+        },
+        {
+          "id": 8234,
+          "current-patch-name": "Celerity"
+        },
+        {
+          "id": 8236,
+          "current-patch-name": "Gathering Storm"
+        },
+        {
+          "id": 8321,
+          "current-patch-name": "Cash Back"
+        },
+        {
+          "id": 8410,
+          "current-patch-name": "Approach Velocity"
+        }
+      ],
+      "shards": {
+        "defense": 5001,
+        "flex": 5010,
+        "offense": 5005
+      },
+      "summoner-spell-ids": [
+        12,
+        4
+      ],
+      "scope": "Recorded early item prefix and static selections only; activation, buff state and effect behavior remain separate review gates."
+    },
+    "target": {
+      "champion": "KSante",
+      "items": [
+        {
+          "id": 1120,
+          "name": "Doran's Helm",
+          "declared-stats": {
+            "FlatSpellBlockMod": 8,
+            "FlatHPPoolMod": 150,
+            "FlatArmorMod": 8
+          }
+        },
+        {
+          "id": 2003,
+          "name": "Health Potion",
+          "declared-stats": {}
+        },
+        {
+          "id": 3340,
+          "name": "Stealth Ward",
+          "declared-stats": {}
+        }
+      ],
+      "item-events": [
+        {
+          "itemId": 1120,
+          "participantId": 1,
+          "timestamp": 4957,
+          "type": "ITEM_PURCHASED"
+        },
+        {
+          "itemId": 2003,
+          "participantId": 1,
+          "timestamp": 4957,
+          "type": "ITEM_PURCHASED"
+        },
+        {
+          "itemId": 3340,
+          "participantId": 1,
+          "timestamp": 5258,
+          "type": "ITEM_PURCHASED"
+        },
+        {
+          "levelUpType": "NORMAL",
+          "participantId": 1,
+          "skillSlot": 1,
+          "timestamp": 36422,
+          "type": "SKILL_LEVEL_UP"
+        }
+      ],
+      "runes": [
+        {
+          "id": 8437,
+          "current-patch-name": "Grasp of the Undying"
+        },
+        {
+          "id": 8446,
+          "current-patch-name": "Demolish"
+        },
+        {
+          "id": 8444,
+          "current-patch-name": "Second Wind"
+        },
+        {
+          "id": 8242,
+          "current-patch-name": "Unflinching"
+        },
+        {
+          "id": 8299,
+          "current-patch-name": "Last Stand"
+        },
+        {
+          "id": 9105,
+          "current-patch-name": "Legend: Haste"
+        }
+      ],
+      "shards": {
+        "defense": 5013,
+        "flex": 5010,
+        "offense": 5005
+      },
+      "summoner-spell-ids": [
+        4,
+        12
+      ],
+      "scope": "Recorded early item prefix and static selections only; activation, buff state and effect behavior remain separate review gates."
+    }
+  },
+  "resolved-semantic-blockers": [
+    "attack-classification-not-independently-verified",
+    "inventory-and-rune-state-unresolved"
+  ],
+  "remaining-effect-review-inputs": {
+    "champions": [
+      {
+        "champion": "KSante",
+        "team": 100,
+        "skill-upgrades-before-hit": [
+          {
+            "timestamp": 36.422,
+            "slot": 1
+          }
+        ],
+        "passive-description": "K'Sante's Abilities mark targets to take more damage on his next Attack.<br><br>When All Out, K'Sante deals more damage with all Attacks and Abilities.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/KSante.json",
+          "file": "KSante.json",
+          "bytes": 11937,
+          "sha256": "a1b0421810affbe9642fec44584dcf2632a6c50d6eb9e83c4facd31f6146b58d",
+          "wall-seconds": 0.14078384599997662
+        }
+      },
+      {
+        "champion": "Diana",
+        "team": 100,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Every third strike cleaves nearby enemies for an additional magic damage. After casting a spell, Diana gains Attack Speed for 5 seconds.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Diana.json",
+          "file": "Diana.json",
+          "bytes": 15878,
+          "sha256": "16798f9434bd88d0b61ca7cc60f270c3090720d7a5130456ba260a386a1b345a",
+          "wall-seconds": 0.5353478770011861
+        }
+      },
+      {
+        "champion": "Yasuo",
+        "team": 100,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Yasuo's Critical Strike Chance is increased. Additionally, Yasuo builds toward a shield whenever he is moving. The shield triggers when he takes damage from a champion or monster.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Yasuo.json",
+          "file": "Yasuo.json",
+          "bytes": 16788,
+          "sha256": "564dc77d2e721ac15208e03c1b2e040d0fc09ddf465798844e4705f09090f873",
+          "wall-seconds": 0.5808590410015313
+        }
+      },
+      {
+        "champion": "Tristana",
+        "team": 100,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Increases Tristana's Attack Range as she levels.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Tristana.json",
+          "file": "Tristana.json",
+          "bytes": 15368,
+          "sha256": "08a098ef940e81168859357aa751c71280aa3761faa04b83152ee299a6a2b115",
+          "wall-seconds": 0.5468487380021543
+        }
+      },
+      {
+        "champion": "Blitzcrank",
+        "team": 100,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Blitzcrank gains a shield based on their mana when dropping to low health.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Blitzcrank.json",
+          "file": "Blitzcrank.json",
+          "bytes": 14266,
+          "sha256": "993fab7d9129f312df4d64fe05456987fa25d8ee01fdd3249a1c46e5d7f0eb6f",
+          "wall-seconds": 0.4512689629991655
+        }
+      },
+      {
+        "champion": "Sion",
+        "team": 200,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "After being killed, Sion will temporarily reanimate with rapidly decaying Health. His attacks become very rapid, heal him, and deal bonus damage based on his target's maximum Health.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Sion.json",
+          "file": "Sion.json",
+          "bytes": 14603,
+          "sha256": "7fe5119441bb5d85e329af82e1b82f8ebfa6b8ed1642f772dc1b53253f0da1ba",
+          "wall-seconds": 0.45263270100258524
+        }
+      },
+      {
+        "champion": "Ivern",
+        "team": 200,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Ivern cannot attack or be attacked by non-epic monsters. Ivern can create magical groves on jungle camps which grow over time. When the grove is fully grown, Ivern may free the monsters to receive gold and experience.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Ivern.json",
+          "file": "Ivern.json",
+          "bytes": 11841,
+          "sha256": "984e6a1c8f51e7ddbf01c186c956739047f754aebdae5045a363af9a4ee4c47d",
+          "wall-seconds": 0.4619839580009284
+        }
+      },
+      {
+        "champion": "Teemo",
+        "team": 200,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "If Teemo stands still and takes no actions for a short duration, he becomes Invisible indefinitely. If he's in brush, Teemo can enter and maintain his Invisibility while moving. After leaving Invisibility, Teemo gains the Element of Surprise, increasing his Attack Speed for a few seconds.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Teemo.json",
+          "file": "Teemo.json",
+          "bytes": 13566,
+          "sha256": "0369bb8bb758922f2a28d8a5c905068e6c5b81ccf24dd107c1d335c65362a16f",
+          "wall-seconds": 0.04705164699771558
+        }
+      },
+      {
+        "champion": "Rengar",
+        "team": 200,
+        "skill-upgrades-before-hit": [
+          {
+            "timestamp": 2.553,
+            "slot": 1
+          }
+        ],
+        "passive-description": "While in Brush, Rengar leaps at his target with his basic attack.<br><br>Rengar generates Ferocity whenever he casts an ability. At Max Ferocity, his next ability is empowered.<br><br>Killing enemy champions awards trophies on Rengar's <font color='#BBFFFF'>Bonetooth Necklace</font>, granting bonus attack damage.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Rengar.json",
+          "file": "Rengar.json",
+          "bytes": 13830,
+          "sha256": "c6c5b6a6effbfe4f9b1e1619014dffa92760d3e66cf1ed7cd3606318e7312504",
+          "wall-seconds": 0.04529616100262501
+        }
+      },
+      {
+        "champion": "Janna",
+        "team": 200,
+        "skill-upgrades-before-hit": [],
+        "passive-description": "Janna's allies gain Move Speed moving towards her.<br><br>Janna deals a portion of bonus Move Speed as bonus magic damage on hit and with Zephyr.",
+        "source": {
+          "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Janna.json",
+          "file": "Janna.json",
+          "bytes": 14819,
+          "sha256": "de3ec67b80818c4adf53f47f8e12b1a5c2a6f1cc4e96f1e05b0797365d4ccdee",
+          "wall-seconds": 0.4680749359977199
+        }
+      }
+    ],
+    "scope": "Causal skill upgrades and current-patch passive descriptions narrow the remaining effect/shield review. Descriptions are not executable behavior or proof of complete buff state."
+  },
+  "remaining-semantic-blockers": [
+    "buff-and-on-hit-context-unresolved",
+    "damage-packet-amount-semantics-incomplete",
+    "shield-semantics-not-independently-verified",
+    "stat-sampling-window-unresolved"
+  ],
+  "model-admissible": false,
+  "scope": "Case-specific ordinary/noncritical identity and recorded loadout selection. This does not admit damage evidence or verify effect/shield/sampling/amount semantics.",
+  "enum-warning": "Historical normal-result value 4 is not assigned to current code 5. Classification uses this case's independent slot/asset/crit/health observations; other result codes remain unlabelled.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/sion/sion.bin.json",
+      "bytes": 94623,
+      "sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/ksante/ksante.bin.json",
+      "bytes": 119051,
+      "sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "bytes": 99870,
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/item.json",
+      "bytes": 688560,
+      "sha256": "bcd7100b7f6c336f585fccaa28324b9d676bf1b2932ae3bb79ee56b5775c47d6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/shared.cdtb.bin.json",
+      "bytes": 8657379,
+      "sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+      "file": "shared.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/perks.cdtb.bin.json",
+      "bytes": 2177261,
+      "sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "file": "perks.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/items.cdtb.bin.json",
+      "bytes": 15950061,
+      "sha256": "ef2f355af6b63f37f44af5e8556d959ccae21cf2983e7ee85f50e4c95cc99206",
+      "file": "items.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/globals.cdtb.bin.json",
+      "bytes": 433980,
+      "sha256": "b0d5d839b6496ca2de124c52c28a6f591ecd283b68cdb438f56142e4f73b87c3",
+      "file": "globals.cdtb.bin.json"
+    }
+  ],
+  "inputs": {
+    "witness": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+    "outcomes": "ba1ab8585eb81bf95778a99cbbf7b78b08bad6e0f6fc620aaf3d8bfaf2a45eeb",
+    "context-witness": "87bd9465be57ea56143f6086969a2b065d313a1164964a14acf5fa495b59aa63",
+    "match": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+    "timeline": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067"
+  },
+  "reviewer-adapter-sha256": "c2c2e52b27b47f34c22ca32dc431435f30d992f1e619397ac923ec44c6673626",
+  "annotation": {
+    "reason": "Case-specific ordinary/noncritical identity and recorded early inventory/rune selections reviewed against native codecs, causal action, current Sion asset and retained Riot receipts; other semantics remain blocked.",
+    "changes": {
+      "blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ]
+    }
+  }
+}

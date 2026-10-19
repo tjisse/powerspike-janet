@@ -1,0 +1,224 @@
+{
+  "format": "powerspike-indexed-comparison-plans",
+  "version": 1,
+  "review-sha256": "4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8",
+  "adapter-sha256": "8428c7f34c9876f64f2819d011a102195f9b8581e9f2714e372dcb37e61dd6e3",
+  "plans": [
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:5:96537",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+      "evidence-role": "development",
+      "context": {
+        "format": "powerspike-conditional-observed-inputs",
+        "version": 1,
+        "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:5:96537",
+        "case-state": "07f1ad7c859cd0c44435bd881febb240799f1fed611b746ee6181d20fba6bc1a",
+        "client-build": "16.20.824.8524",
+        "patch": "16.20.1",
+        "layer": "conditional-damage",
+        "inputs": {
+          "source": {
+            "ad": 73.39999961853027,
+            "crit-chance": 0,
+            "crit-damage": 2,
+            "armor-pen-flat": 0,
+            "armor-pen-percent": 0
+          },
+          "target": {
+            "armor": 28.0,
+            "armor-reduction-flat": 0,
+            "armor-reduction-percent": 0
+          }
+        },
+        "review-sha256": "4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8",
+        "package-file-sha256": "3af2db0f7ef00108a72ed20550b189957b6a9726b5d770f0c1107e83cb376e99",
+        "evidence-sha256": "5fc2dc044499a8ec13bbb4a1792990d6dc30a36f83c6122545ea825218d368f6"
+      },
+      "snapshot": "5d47efe45c10089ff2d8025845b896171848e4697279b9d070d0e0fa8661b557",
+      "snapshot-kind": "reviewed-observed-scalars",
+      "observed": 57.34375,
+      "tolerance": 2.1314625053038136e-05,
+      "tolerance-policy": "2a82621888720c85294e79174e06e91bf73162248366ad817ea5d9781240a416",
+      "adapter-sha256": "8428c7f34c9876f64f2819d011a102195f9b8581e9f2714e372dcb37e61dd6e3",
+      "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence": {
+        "packet-semantics": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:5:96537",
+        "pre-hit-state": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:5:96537",
+        "actions": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:5:96537",
+        "patch-data": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:5:96537",
+        "independent-oracle": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:5:96537"
+      },
+      "resolved-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "encounter": "indexed-review:gameChunk:5:96537",
+      "conditions": {
+        "armor-band": "low",
+        "damage-type": "physical",
+        "resistance-band": "low",
+        "attack-style": "ranged"
+      },
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "uses-runtime-build-data": false
+    },
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:6:400687",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+      "evidence-role": "development",
+      "context": {
+        "format": "powerspike-conditional-observed-inputs",
+        "version": 1,
+        "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:6:400687",
+        "case-state": "c14c76c663ba07fd4377b2918bba6064312c0832f0be8dc99da4bf054bb66ff1",
+        "client-build": "16.20.824.8524",
+        "patch": "16.20.1",
+        "layer": "conditional-damage",
+        "inputs": {
+          "source": {
+            "ad": 66.5199966430664,
+            "crit-chance": 0,
+            "crit-damage": 2,
+            "armor-pen-flat": 0,
+            "armor-pen-percent": 0
+          },
+          "target": {
+            "armor": 39.02399826049805,
+            "armor-reduction-flat": 0,
+            "armor-reduction-percent": 0
+          }
+        },
+        "review-sha256": "4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8",
+        "package-file-sha256": "e98588046b2308b02b2c3356db59ac76da7ee7d5d3139b042272f8bd9ec25cd2",
+        "evidence-sha256": "97170aa73e634eeb67c3721fd39e77e4dd5c017b4fd0d42e7e9da102297908a5"
+      },
+      "snapshot": "1baf9e5bfea2c29ed96b439314515ef71904b35b775f5cb7a8b22ce0bdf98e21",
+      "snapshot-kind": "reviewed-observed-scalars",
+      "observed": 47.84785079956055,
+      "tolerance": 1.9674304128330533e-05,
+      "tolerance-policy": "2a82621888720c85294e79174e06e91bf73162248366ad817ea5d9781240a416",
+      "adapter-sha256": "8428c7f34c9876f64f2819d011a102195f9b8581e9f2714e372dcb37e61dd6e3",
+      "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence": {
+        "packet-semantics": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:6:400687",
+        "pre-hit-state": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:6:400687",
+        "actions": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:6:400687",
+        "patch-data": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:6:400687",
+        "independent-oracle": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:6:400687"
+      },
+      "resolved-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "encounter": "indexed-review:gameChunk:6:400687",
+      "conditions": {
+        "armor-band": "low",
+        "damage-type": "physical",
+        "resistance-band": "low",
+        "attack-style": "melee"
+      },
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "uses-runtime-build-data": false
+    },
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:10:2417",
+      "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+      "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+      "evidence-role": "development",
+      "context": {
+        "format": "powerspike-conditional-observed-inputs",
+        "version": 1,
+        "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:10:2417",
+        "case-state": "8f4873be1eb5f919853552c41ab5bc4fe9f467d27ed351b20f9b4d03b97b6f50",
+        "client-build": "16.20.824.8524",
+        "patch": "16.20.1",
+        "layer": "conditional-damage",
+        "inputs": {
+          "source": {
+            "ad": 94.05999755859375,
+            "crit-chance": 0,
+            "crit-damage": 2,
+            "armor-pen-flat": 0,
+            "armor-pen-percent": 0
+          },
+          "target": {
+            "armor": 85.77799987792969,
+            "armor-reduction-flat": 0,
+            "armor-reduction-percent": 0
+          }
+        },
+        "review-sha256": "4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8",
+        "package-file-sha256": "8829eed0947a85c1f66fe26a4b57a111c038f2f74e6beeceb130dd0b79f460ca",
+        "evidence-sha256": "8e8f49cac21de5881fd3567e9f5defee45e7097b9ab47c27347bc63979a83972"
+      },
+      "snapshot": "ff066e0d180c5ba8aeb523e2468ac7876b638bb48610c33f2512cd52a14d7fd8",
+      "snapshot-kind": "reviewed-observed-scalars",
+      "observed": 50.63032531738281,
+      "tolerance": 2.6240353580534473e-05,
+      "tolerance-policy": "2a82621888720c85294e79174e06e91bf73162248366ad817ea5d9781240a416",
+      "adapter-sha256": "8428c7f34c9876f64f2819d011a102195f9b8581e9f2714e372dcb37e61dd6e3",
+      "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+      "obligations": [
+        "ordinary-physical",
+        "positive-armor"
+      ],
+      "evidence": {
+        "packet-semantics": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:10:2417",
+        "pre-hit-state": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:10:2417",
+        "actions": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:10:2417",
+        "patch-data": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:10:2417",
+        "independent-oracle": "Case-specific six-gate review sha256:4964749da6b516c1f0498abe2a1fdd32bdf9b310ed3d018514042dd1cf3584c8, event gameChunk:10:2417"
+      },
+      "resolved-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "encounter": "indexed-review:gameChunk:10:2417",
+      "conditions": {
+        "armor-band": "medium",
+        "damage-type": "physical",
+        "resistance-band": "medium",
+        "attack-style": "melee"
+      },
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "uses-runtime-build-data": false
+    }
+  ],
+  "blocked": [
+    {
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:15:363291",
+      "event-id": "gameChunk:15:363291",
+      "reason": "Multiple damage packets and nonclosing health bracket; healing/shield/timing overlap unresolved. No model execution or admission.",
+      "remaining-semantic-blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "inventory-and-rune-state-unresolved",
+        "attack-classification-not-independently-verified",
+        "stat-sampling-window-unresolved",
+        "shield-semantics-not-independently-verified",
+        "damage-packet-amount-semantics-incomplete"
+      ]
+    }
+  ]
+}

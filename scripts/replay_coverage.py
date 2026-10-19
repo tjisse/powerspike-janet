@@ -87,6 +87,10 @@ def registry_check(registry):
     return registry
 
 
+def context_case_state(state, game):
+    return identity([state.cases[key] for key in sorted(state.cases) if state.cases[key]['game'] == game])
+
+
 class Ledger:
     def __init__(self):
         self.registry = None
@@ -94,6 +98,8 @@ class Ledger:
         self.games, self.cases, self.freezes = {}, {}, {}
         self.results, self.admissions, self.invalidated = [], [], set()
         self.diagnostics, self.costs = [], []
+        self.context_reviews = {}
+        self.annotations = {}
         self.estimates = {}
         self.imports = {}
         self.operations = {}
@@ -185,6 +191,7 @@ class Ledger:
                             'other-effect', 'unknown-effect', 'ambiguous-effect'), 'Unknown candidate classification')
                 self.cases[data['case']] = {**self.cases[data['case']], **changes,
                                             'classification-revision': record_hash}
+                self.annotations[data['case']] = {**data, 'ledger-record': record_hash}
                 self.invalidated.update(r['ledger-record'] for r in self.results + self.admissions
                                         if r['case'] == data['case'])
             elif kind == 'admission':
@@ -210,6 +217,21 @@ class Ledger:
                     if admission['ledger-record'] == data['record']:
                         self.invalidated.update(r['ledger-record'] for r in self.results
                                                 if self.result_key(r) == self.result_key(admission))
+            elif kind == 'context-review':
+                require(data['game'] in self.games and data.get('admitted') is False,
+                        'Context reviews require a known game and cannot admit evidence')
+                require(sha(data['source']) and data['build'] == self.games[data['game']]['build'],
+                        'Context review identity/build mismatch')
+                require(all(type(value) is int and value >= 0 for value in data['counts'].values()),
+                        'Invalid context review counts')
+                require(set(data['adapters']) == {'replay_attack_review.py', 'replay_actions.py', 'replay_state.py'}
+                        and all(sha(value) for value in data['adapters'].values()), 'Context adapter receipts required')
+                require(all(type(data[key]) is int and data[key] >= 0 for key in ('decoded-actions', 'decode-failures'))
+                        and finite(data['search-window-seconds']) and 0 < data['search-window-seconds'] <= 10,
+                        'Invalid context extraction counts or window')
+                require(data.get('case-state') is None or data['case-state'] == context_case_state(self, data['game']),
+                        'Context review case revision mismatch')
+                self.context_reviews[data['game']] = data
             elif kind == 'diagnostic':
                 require(data.get('admitted') is False, 'Diagnostics cannot admit cases')
                 self.diagnostics.append(data)
@@ -403,6 +425,52 @@ def import_context(path, ledger):
                                     'buff-records': report['coverage']['buff-records']})])
 
 
+def import_attack_review(folder, ledger):
+    from replay_attack_review import archive
+    from replay_actions import candidates
+    folder = Path(folder)
+    report = load(folder / 'summary.json')
+    require(report.get('format') == 'powerspike-replay-attack-review' and report.get('version') == 1,
+            'Expected attack context dossier')
+    require(report['model-admissible-cases'] == 0 and report['resolved-semantic-blockers'] == [],
+            'Context analysis cannot discharge semantic review or admit comparisons')
+    state = Ledger.read(ledger)
+    game = report['replay-sha256']
+    require(game in state.games, 'Import the source game/cases first')
+    for name, expected in report['evidence-files'].items():
+        require(Path(name).name == name and digest(folder / name) == expected, 'Context evidence receipt mismatch')
+    counts = Counter()
+    for row in archive(folder / 'attack-context.jsonl.gz'):
+        case = state.cases.get(game + ':' + row['event-id'])
+        require(case is not None and row['timestamp'] == case['timestamp'], 'Unknown or rebound context case')
+        require(case['effect-kind'] == 'basic-attack-candidate' and case['features']['damage-type'] == 'physical',
+                'Context case outside ordinary physical candidate scope')
+        require(row['model-admissible'] is False and row['resolved-semantic-blockers'] == [],
+                'Context analysis is not admission')
+        found = row['action-candidates']
+        require(candidates(row, found, report['candidate-search-window-seconds']) == found,
+                'Context contains noncausal or differently targeted action candidates')
+        status = 'no-candidate' if not found else 'unique-candidate' if len(found) == 1 else 'ambiguous'
+        require(row['status'] == status, 'Action candidate count/status mismatch')
+        counts['ordinary-candidates'] += 1
+        counts[status] += 1
+        if case['numeric-ready']:
+            counts['numeric-ready'] += 1
+            counts['numeric-ready:' + status] += 1
+        if len(found) == 1:
+            stable = row['stat-continuity']['observed-stable']
+            require(type(stable) is bool and row['stat-continuity']['server-sampling-resolved'] is False,
+                    'Observed continuity does not prove server sampling')
+            counts['observed-stable'] += stable
+            if case['numeric-ready']: counts['numeric-ready:observed-stable'] += stable
+    require(dict(counts) == report['counts'], 'Incomplete or inconsistent context archive')
+    return append(ledger, [event('context-review', game=game, source=digest(folder / 'summary.json'),
+        build=report['client-build'], admitted=False, counts=dict(counts), adapters=report['adapters'],
+        **{'case-state': context_case_state(state, game)},
+        **{'decoded-actions': report['action-packets-decoded'], 'decode-failures': report['action-failures'],
+           'search-window-seconds': report['candidate-search-window-seconds']})])
+
+
 def import_comparison(report_path, events_path, reviews_path, ledger):
     report, exported, reviews = load(report_path), load(events_path), load(reviews_path)
     require(report.get('format') == 'powerspike-replay-comparison' and report.get('version') == 1,
@@ -495,6 +563,13 @@ def model_identity():
 
 def coverage_report(state, model):
     require(state.registry is not None and sha(model), 'Registry and model identity required')
+    context_reviews = [row for row in state.context_reviews.values()
+                       if row['build'] == state.registry['client-build']
+                       and row.get('case-state') == context_case_state(state, row['game'])
+                       and all((ROOT / 'scripts' / name).is_file() and digest(ROOT / 'scripts' / name) == value
+                               for name, value in row['adapters'].items())]
+    context_counts = Counter()
+    for row in context_reviews: context_counts.update(row['counts'])
     registry = state.registry
     cases = [c for c in state.cases.values() if state.games[c['game']]['build'] == registry['client-build']]
     case_ids = {c['id'] for c in cases}
@@ -576,10 +651,10 @@ def coverage_report(state, model):
     basic = [c for c in cases if c['effect-kind'] == 'basic-attack-candidate']
     checked_cases = {r['case'] for r in results}
     current_games = [g for g in state.games.values() if g['build'] == registry['client-build']]
-    costs = {category: sum(r['seconds'] for r in state.costs if r['category'] == category)
-             if any(r['category'] == category for r in state.costs) else None
+    costs = {category: sum(r['seconds'] for r in state.costs if r['category'] == category and 'seconds' in r)
+             if any(r['category'] == category and 'seconds' in r for r in state.costs) else None
              for category in ('review', 'compute', 'maintenance')}
-    review_lanes = {lane: sum(r['seconds'] for r in state.costs if r['category'] == 'review'
+    review_lanes = {lane: sum(r.get('seconds', 0) for r in state.costs if r['category'] == 'review'
                               and r.get('lane', 'shared') == lane) for lane in ('discovery', 'audit', 'shared')}
     allocated_review = review_lanes['audit'] + review_lanes['discovery']
     errors = [abs(r['predicted'] - r['observed']) for r in results]
@@ -617,6 +692,11 @@ def coverage_report(state, model):
                             'max-absolute-error': max(errors) if errors else None,
                             'confidence': None, 'note': 'No independent-trial confidence inferred from correlated replay hits.'},
               'diagnostics': {'stat-checks': len(latest_diagnostic['stat-checks']) if latest_diagnostic else 0,
+                              'attack-context': {'games': len(context_reviews),
+                                  'decoded-actions': sum(r['decoded-actions'] for r in context_reviews),
+                                  'decode-failures': sum(r['decode-failures'] for r in context_reviews),
+                                  'counts': dict(context_counts),
+                                  'note': 'Provisional action associations and client stat continuity; no semantic blocker or admission credit.'},
                               'stat-mismatches': sum(not r['consistent'] for r in latest_diagnostic['stat-checks']) if latest_diagnostic else 0,
                               'damage-checks': 1 if latest_diagnostic else 0,
                               'source': latest_diagnostic['source'] if latest_diagnostic else None,
@@ -692,6 +772,7 @@ def main():
     init = sub.add_parser('init'); init.add_argument('--registry', type=Path, default=DEFAULT_REGISTRY)
     audit = sub.add_parser('import-audit'); audit.add_argument('folder', type=Path); audit.add_argument('--frozen-audit', action='store_true')
     context = sub.add_parser('import-context'); context.add_argument('report', type=Path)
+    attack_context = sub.add_parser('import-attack-review'); attack_context.add_argument('folder', type=Path)
     compare = sub.add_parser('import-comparison')
     for key in ('report', 'events', 'reviews'): compare.add_argument('--' + key, type=Path, required=True)
     review = sub.add_parser('import-reviews')
@@ -713,6 +794,7 @@ def main():
         count = append(ledger, [event('registry', registry=registry_check(load(args.registry)))])
     elif command == 'import-audit': count = import_audit(args.folder, ledger, args.frozen_audit)
     elif command == 'import-context': count = import_context(args.report, ledger)
+    elif command == 'import-attack-review': count = import_attack_review(args.folder, ledger)
     elif command == 'import-comparison': count = import_comparison(args.report, args.events, args.reviews, ledger)
     elif command == 'import-reviews': count = import_reviews(args.events, args.reviews, ledger)
     else:
@@ -747,7 +829,7 @@ def main():
         elif command == 'cost': data = event('cost', category=args.category, label=args.label, seconds=args.seconds, bytes=args.bytes, requests=args.requests, lane=args.lane, recorded_at=datetime.now(timezone.utc).isoformat())
         elif command == 'estimate-work': data = event('work-estimate', blockers=sorted(set(args.blockers)), hours=args.hours, rationale=args.rationale)
         count = append(ledger, [data])
-    if command in ('import-audit', 'import-context', 'import-reviews', 'import-comparison') and count:
+    if command in ('import-audit', 'import-context', 'import-attack-review', 'import-reviews', 'import-comparison') and count:
         count += append(ledger, [event('cost', category='compute', label=command,
                                       seconds=time.monotonic() - started,
                                       recorded_at=datetime.now(timezone.utc).isoformat())])

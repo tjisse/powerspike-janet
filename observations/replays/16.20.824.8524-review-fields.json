@@ -1,0 +1,56 @@
+{
+  "format": "powerspike-review-field-regressions",
+  "version": 1,
+  "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+  "scope": "Exact-build extraction regressions; control words stay opaque. Primary resource mapping additionally matches 20 initial Riot observations.",
+  "native-registration": {
+    "combat-control-function": "0x10006caf0",
+    "hero-function": "0x1001377f0",
+    "health-function": "0x1000e0e20",
+    "combat": {
+      "0": "ActionState",
+      "1": "ActionState2",
+      "2": "StatusFlags",
+      "30": "mPhysicalDamagePercentageModifier",
+      "31": "mMagicalDamagePercentageModifier"
+    },
+    "health": {
+      "15": "mPAR",
+      "16": "mMaxPAR"
+    },
+    "mixed-field-10": "Only the observed zero byte is supported; other representations fail closed."
+  },
+  "cases": [
+    {
+      "event-id": "gameChunk:3:12575",
+      "entity": 1073742006,
+      "component": {
+        "group": 4,
+        "mask": 4294967295,
+        "data-hex": "83808828000000008842ffffff00000842000000429a99993fff0000fa42ffffffffffff0000803fffffffffff0000803fff0000803fffffffffff"
+      },
+      "expected": {
+        "action-state-code": 84017155,
+        "action-state2-code": 0,
+        "status-flags-code": 0,
+        "physical-damage-percentage-modifier": 0.0,
+        "magical-damage-percentage-modifier": 0.0
+      }
+    },
+    {
+      "event-id": "gameChunk:3:12575",
+      "entity": 1073742006,
+      "component": {
+        "group": 32,
+        "mask": 4294967295,
+        "data-hex": "0080134400801344ffffffffffffffff00ffffffffff000080400102ff000080400106ffff0080ac430000803fff01000104",
+        "uninterpreted-mask": 4294967232,
+        "uninterpreted-data-hex": "ffffffff00ffffffffff000080400102ff000080400106ffff0080ac430000803fff01000104"
+      },
+      "expected": {
+        "primary-resource": 0.0,
+        "primary-resource-max": 4.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,1273 @@
+{
+  "format": "powerspike-first-hit-final-review",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "event-id": "gameChunk:4:43918",
+  "client-build": "16.20.824.8524",
+  "layer": "conditional-damage",
+  "source-team": [
+    {
+      "champion": "Sion",
+      "team": 200,
+      "items": [
+        1036,
+        3340,
+        2031
+      ],
+      "summoners": [
+        12,
+        4
+      ],
+      "runes": [
+        8230,
+        8226,
+        8234,
+        8236,
+        8321,
+        8410
+      ],
+      "skills": []
+    },
+    {
+      "champion": "Ivern",
+      "team": 200,
+      "items": [
+        1102
+      ],
+      "summoners": [
+        4,
+        11
+      ],
+      "runes": [
+        8214,
+        8275,
+        8210,
+        8232,
+        8347,
+        8321
+      ],
+      "skills": []
+    },
+    {
+      "champion": "Teemo",
+      "team": 200,
+      "items": [
+        1082,
+        2031
+      ],
+      "summoners": [
+        4,
+        14
+      ],
+      "runes": [
+        8005,
+        9111,
+        9104,
+        8299,
+        8106,
+        8143
+      ],
+      "skills": []
+    },
+    {
+      "champion": "Rengar",
+      "team": 200,
+      "items": [
+        1055,
+        3340,
+        2003
+      ],
+      "summoners": [
+        4,
+        3
+      ],
+      "runes": [
+        8021,
+        9111,
+        9104,
+        8017,
+        8453,
+        8429
+      ],
+      "skills": [
+        {
+          "timestamp": 2.553,
+          "slot": 1
+        }
+      ]
+    },
+    {
+      "champion": "Janna",
+      "team": 200,
+      "items": [
+        2003,
+        2003
+      ],
+      "summoners": [
+        4,
+        7
+      ],
+      "runes": [
+        8214,
+        8224,
+        8234,
+        8237,
+        8463,
+        8453
+      ],
+      "skills": []
+    }
+  ],
+  "source-capabilities": [
+    {
+      "champion": "Sion",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Sion.json",
+        "file": "Sion.json",
+        "bytes": 14603,
+        "sha256": "7fe5119441bb5d85e329af82e1b82f8ebfa6b8ed1642f772dc1b53253f0da1ba",
+        "wall-seconds": 0.45263270100258524
+      },
+      "passive": "After being killed, Sion will temporarily reanimate with rapidly decaying Health. His attacks become very rapid, heal him, and deal bonus damage based on his target's maximum Health.",
+      "abilities": [
+        {
+          "id": "SionQ",
+          "description": "Sion charges a powerful swing in an area in front of himself that will deal damage to enemies when released. If he charges for enough time, enemies hit by the swing will also be knocked up and stunned."
+        },
+        {
+          "id": "SionW",
+          "description": "Sion shields himself and can reactivate after 3 seconds to deal Magic Damage to enemies nearby. When Sion kills enemies, he passively gains maximum Health."
+        },
+        {
+          "id": "SionE",
+          "description": "Sion fires a short range shockwave that damages and slows and reduces the Armor of the first enemy hit. If the shockwave hits a minion or monster, it will be knocked back, damaging, slowing, and reducing the Armor of all enemies that it passes through."
+        },
+        {
+          "id": "SionR",
+          "description": "Sion charges in a direction, ramping up speed over time. He can steer his charge slightly with the mouse cursor location. When he collides with an enemy he deals damage and knocks them up based on the distance he has charged."
+        }
+      ]
+    },
+    {
+      "champion": "Ivern",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Ivern.json",
+        "file": "Ivern.json",
+        "bytes": 11841,
+        "sha256": "984e6a1c8f51e7ddbf01c186c956739047f754aebdae5045a363af9a4ee4c47d",
+        "wall-seconds": 0.4619839580009284
+      },
+      "passive": "Ivern cannot attack or be attacked by non-epic monsters. Ivern can create magical groves on jungle camps which grow over time. When the grove is fully grown, Ivern may free the monsters to receive gold and experience.",
+      "abilities": [
+        {
+          "id": "IvernQ",
+          "description": "Ivern conjures a vine, dealing damage and rooting enemy targets hit. Ivern's allies can dash to the rooted target."
+        },
+        {
+          "id": "IvernW",
+          "description": "In brush, Ivern and his nearby allies attacks deal bonus magic damage. Ivern can activate this ability to create a patch of brush."
+        },
+        {
+          "id": "IvernE",
+          "description": "Ivern places a shield on an ally which explodes after a short duration slowing and damaging enemies. The shield refreshes if it hits no enemies."
+        },
+        {
+          "id": "IvernR",
+          "description": "Ivern summons his Sentinel friend Daisy to fight with him. Re-cast command Daisy to attack or move."
+        }
+      ]
+    },
+    {
+      "champion": "Teemo",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Teemo.json",
+        "file": "Teemo.json",
+        "bytes": 13566,
+        "sha256": "0369bb8bb758922f2a28d8a5c905068e6c5b81ccf24dd107c1d335c65362a16f",
+        "wall-seconds": 0.04705164699771558
+      },
+      "passive": "If Teemo stands still and takes no actions for a short duration, he becomes Invisible indefinitely. If he's in brush, Teemo can enter and maintain his Invisibility while moving. After leaving Invisibility, Teemo gains the Element of Surprise, increasing his Attack Speed for a few seconds.",
+      "abilities": [
+        {
+          "id": "TeemoQ",
+          "description": "Obscures an enemy's vision with a powerful venom, dealing damage to the target unit and blinding it for the duration."
+        },
+        {
+          "id": "TeemoW",
+          "description": "Teemo scampers around, passively increasing his Move Speed until he is struck by an enemy champion or turret. Teemo can sprint to gain bonus Move Speed that isn't stopped by being struck for a short time."
+        },
+        {
+          "id": "TeemoE",
+          "description": "Each of Teemo's attacks will poison the target %i:OnHit% <OnHit>On-Hit</OnHit>, dealing damage on impact and each second after for 4 seconds."
+        },
+        {
+          "id": "TeemoR",
+          "description": "Teemo throws an explosive poisonous trap using one of the mushrooms stored in his pack. If an enemy steps on the trap, it will release a poisonous cloud, slowing enemies and damaging them over time. If Teemo throws a mushroom onto another mushroom it will bounce, gaining additional range."
+        }
+      ]
+    },
+    {
+      "champion": "Rengar",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Rengar.json",
+        "file": "Rengar.json",
+        "bytes": 13830,
+        "sha256": "c6c5b6a6effbfe4f9b1e1619014dffa92760d3e66cf1ed7cd3606318e7312504",
+        "wall-seconds": 0.04529616100262501
+      },
+      "passive": "While in Brush, Rengar leaps at his target with his basic attack.<br><br>Rengar generates Ferocity whenever he casts an ability. At Max Ferocity, his next ability is empowered.<br><br>Killing enemy champions awards trophies on Rengar's <font color='#BBFFFF'>Bonetooth Necklace</font>, granting bonus attack damage.",
+      "abilities": [
+        {
+          "id": "RengarQ",
+          "description": "Rengar's next Attack brutally stabs his target for bonus damage.<br><br>Ferocity effect: deals increased damage and grants Attack Speed."
+        },
+        {
+          "id": "RengarW",
+          "description": "Rengar lets out a battle roar, damaging enemies and healing for some of the recent damage he has taken.<br><br>Ferocity effect: additionally breaks crowd control effects."
+        },
+        {
+          "id": "RengarE",
+          "description": "Rengar throws a bola, slowing the first target hit for a short duration.<br><br>Ferocity effect: roots the target."
+        },
+        {
+          "id": "RengarR",
+          "description": "Rengar's predatory instincts take over, <font color='#cd90ee'>Camouflaging</font> him and revealing the nearest enemy champion in a large radius around him. During Thrill of the Hunt, Rengar gains Move Speed and he can leap to the tracked enemy without being in brush, reducing their armor."
+        }
+      ]
+    },
+    {
+      "champion": "Janna",
+      "source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Janna.json",
+        "file": "Janna.json",
+        "bytes": 14819,
+        "sha256": "de3ec67b80818c4adf53f47f8e12b1a5c2a6f1cc4e96f1e05b0797365d4ccdee",
+        "wall-seconds": 0.4680749359977199
+      },
+      "passive": "Janna's allies gain Move Speed moving towards her.<br><br>Janna deals a portion of bonus Move Speed as bonus magic damage on hit and with Zephyr.",
+      "abilities": [
+        {
+          "id": "HowlingGale",
+          "description": "By creating a localized change in pressure and temperature, Janna is able to create a small storm that grows in size with time. She can activate the spell again to release the storm. On release this storm will fly towards the direction it was cast in, dealing damage and knocking away any enemies in its path."
+        },
+        {
+          "id": "SowTheWind",
+          "description": "Janna summons an air elemental that passively increases her Move Speed and enables her to pass through units. She may also activate this ability to deal damage and slow an enemy's Move Speed."
+        },
+        {
+          "id": "EyeOfTheStorm",
+          "description": "Janna conjures a defensive gale that shields an ally champion or turret from incoming damage and increases their Attack Damage."
+        },
+        {
+          "id": "ReapTheWhirlwind",
+          "description": "Janna surrounds herself in a magical storm, throwing enemies back. After the storm has settled, soothing winds heal nearby allies while the ability is active."
+        }
+      ]
+    }
+  ],
+  "source-loadout-capabilities": {
+    "items": {
+      "1036": {
+        "name": "Long Sword",
+        "description": "<mainText><stats><attention>10</attention> Attack Damage</stats><br><br></mainText>"
+      },
+      "3340": {
+        "name": "Stealth Ward",
+        "description": "<mainText><stats></stats><br><br><active>Active</active> (<scaleLevel>210 - 90</scaleLevel>s, max 2 charges)<br>Places an <keyword>Invisible</keyword> Stealth Ward that grants vision for <scaleLevel>90-120</scaleLevel> seconds.</mainText>"
+      },
+      "2031": {
+        "name": "Refillable Potion",
+        "description": "<mainText><stats></stats><br><br><active>Active</active> (2 charges)<br>Restores <healing>100 Health</healing> over 12 seconds. <br>Refills upon visiting the shop.</mainText>"
+      },
+      "1102": {
+        "name": "Gustwalker Hatchling",
+        "description": "<mainText><stats></stats><br><br><passive>Jungle Companions</passive><br>Summon a <font color='#38A8E8'>Gustwalker</font> that assists you against monsters.<br><br>The companion grows as you hunt monsters, empowering your <spellName>Smite</spellName>. When fully grown, it completes your Jungle Quest and grants <speed>Move Speed</speed> upon entering brush, increased when killing large monsters.</mainText>"
+      },
+      "1082": {
+        "name": "Dark Seal",
+        "description": "<mainText><stats><attention>15</attention> Ability Power<br><attention>50</attention> Health</stats><br><br><passive>Glory</passive><br><keyword>Takedowns</keyword> grant <passive>Glory</passive>, up to 10. 5 <passive>Glory</passive> is lost on death.<br>Gain <scaleAP>4 Ability Power</scaleAP> per <passive>Glory</passive>.</mainText>"
+      },
+      "1055": {
+        "name": "Doran's Blade",
+        "description": "<mainText><stats><attention>10</attention> Attack Damage<br><attention>80</attention> Health<br><attention>2.5%</attention> Omnivamp</stats><br><br></mainText>"
+      },
+      "2003": {
+        "name": "Health Potion",
+        "description": "<mainText><stats></stats><br><br><active>Consume</active><br>Restores <healing>120 Health</healing> over 15 seconds.</mainText>"
+      }
+    },
+    "runes": {
+      "8230": {
+        "name": "Stormraider's Surge",
+        "description": "Dealing 25% of a champion's maximum health within 3s grants <speed>48% Move Speed</speed> and <status>50% Slow Resistance</status> for 4s. Move Speed is 75% effective for ranged champions.<br>Cooldown: 20s - 10s"
+      },
+      "8226": {
+        "name": "Manaflow Band",
+        "description": "Hitting an enemy champion with an ability permanently increases your maximum mana by 25, up to 250 mana.<br><br>After reaching 250 bonus mana, restore 1% of your missing mana every 5 seconds.<br><br>Cooldown: 15 seconds"
+      },
+      "8234": {
+        "name": "Celerity",
+        "description": "All movement bonuses are 7% more effective on you and gain <speed>1% Move Speed</speed>."
+      },
+      "8236": {
+        "name": "Gathering Storm",
+        "description": "Every 10 min gain AP or AD, <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>adaptive</font></lol-uikit-tooltipped-keyword>.<br><br><i>10 min</i>: + 8 AP or 5 AD <br><i>20 min</i>: + 24 AP or 14 AD<br><i>30 min</i>: + 48 AP or 29 AD<br><i>40 min</i>: + 80 AP or 48 AD<br><i>50 min</i>: + 120 AP or 72 AD<br><i>60 min</i>: + 168 AP or 101 AD<br>etc..."
+      },
+      "8321": {
+        "name": "Cash Back",
+        "description": "Get 7.5% Gold back when you purchase Legendary Items."
+      },
+      "8410": {
+        "name": "Approach Velocity",
+        "description": "Gain <speed>7.5% Move Speed</speed> towards nearby enemy champions that are movement impaired. This bonus is increased to <speed>15% Move Speed</speed> for any enemy champion that you impair. <br><br>Activation Range for CC from allies: 1000"
+      },
+      "8214": {
+        "name": "Summon Aery",
+        "description": "Damaging enemy champions with basic attacks or abilities sends Aery to them, dealing 10 - 50 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Empowering or protecting allies with abilities sends Aery to them, shielding them for 20 - 100 based on level (+<scaleAP>0.05 AP</scaleAP>) (+<scaleAD>0.1 bonus AD</scaleAD>).<br><br>Aery cannot be sent out again until she returns to you."
+      },
+      "8275": {
+        "name": "Nimbus Cloak",
+        "description": "After casting a Summoner Spell, gain a <speed>Move Speed</speed> increase that lasts for 2s and allows you to pass through units.<br><br>Increase: <speed>15% - 45% Move Speed</speed> based on the Summoner Spell's cooldown. (Higher cooldown Summoner Spells grant more <speed>Move Speed</speed>). "
+      },
+      "8210": {
+        "name": "Transcendence",
+        "description": "Gain bonuses upon reaching the following levels:<br>Level 5: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 8: +5 <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level 11: On Champion takedown, reduce the remaining cooldown of basic abilities by 20%."
+      },
+      "8232": {
+        "name": "Waterwalking",
+        "description": "Gain <speed>10 Move Speed</speed> and <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>13 - 30 Adaptive Force</font></lol-uikit-tooltipped-keyword> (based on level) when in the river.<br><br><i>May you be as swift as the rushing river and agile as a startled Rift Scuttler.</i>"
+      },
+      "8347": {
+        "name": "Cosmic Insight",
+        "description": "+<attention>18</attention> Summoner Spell Haste<br>+<attention>10</attention> Item Haste"
+      },
+      "8005": {
+        "name": "Press the Attack",
+        "description": "Hitting an enemy champion with 3 consecutive basic attacks deals 40 - 160 bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword> (based on level) and amplifies your damage dealt by 8% until you leave combat with champions."
+      },
+      "9111": {
+        "name": "Triumph",
+        "description": "Takedowns restore 5% of your missing health, 2.5% of your max health, and grant an additional 20 gold. <br><br><hr><br><i>'The most dangerous game brings the greatest glory.' <br>\u2014Noxian Reckoner</i>"
+      },
+      "9104": {
+        "name": "Legend: Alacrity",
+        "description": "Gain 3% attack speed plus an additional 1.5% for every <i>Legend</i> stack (<statGood>max 10 stacks</statGood>).<br><br>Earn progress toward <i>Legend</i> stacks for every champion takedown, epic monster takedown, large monster kill, and minion kill."
+      },
+      "8299": {
+        "name": "Last Stand",
+        "description": "Deal 5% - 11% increased damage to champions while you are below 60% health. Max damage gained at 30% health."
+      },
+      "8106": {
+        "name": "Ultimate Hunter",
+        "description": "Your ultimate gains <attention>6</attention> Ability Haste, plus an additional <attention>5</attention> Ability Haste per <i>Bounty Hunter</i> stack. <i>Bounty Hunter</i> stacks are earned the first time you get a takedown on each enemy champion."
+      },
+      "8143": {
+        "name": "Sudden Impact",
+        "description": "Damaging basic attacks and abilities deal a bonus <trueDamage>20 - 80 True Damage</trueDamage> based on level to enemy champions after using a dash, leap, blink, teleport, or when leaving stealth for 4s.<br><br>Cooldown: 10s"
+      },
+      "8021": {
+        "name": "Fleet Footwork",
+        "description": "Attacking and moving builds Energy stacks. At 100 stacks, your next attack is Energized<br><br>Energized attacks heal you for 15 - 160 (+0.1 Bonus AD, +0.05 AP) and grant <speed>20% Move Speed</speed> for 1s.<br><br>For Ranged Champions, Healing is 60% effective and Move Speed is 75% effective. All healing is 15% effective against Minions."
+      },
+      "8017": {
+        "name": "Cut Down",
+        "description": "Deal 8% more damage to champions who have more than 60% health."
+      },
+      "8453": {
+        "name": "Revitalize",
+        "description": "Gain 5% Heal and Shield Power.<br><br>Heals and shields you cast or receive are 10% stronger on targets below 40% health."
+      },
+      "8429": {
+        "name": "Conditioning",
+        "description": "After 12 min gain +8 Armor and +8 Magic Resist and increase your Armor and Magic Resist by 3%."
+      },
+      "8224": {
+        "name": "Axiom Arcanist",
+        "description": "Your Ultimate has 12% increased damage, healing, and shielding. <br>(AoE damage is reduced to a 8% increase)<br><br>Scoring a takedown on an enemy champion reduces your Ultimate's current cooldown by 7%."
+      },
+      "8237": {
+        "name": "Scorch",
+        "description": "Your next damaging ability hit sets champions on fire dealing 20 - 40 bonus magic damage based on level after 1s.<br><br>Cooldown: 10s"
+      },
+      "8463": {
+        "name": "Font of Life",
+        "description": "Impairing the movement of an enemy champion restores Health to you and the lowest health nearby allied champion.<br><br>70% effect for Ranged Users.<br><br>Cooldown: 20s"
+      }
+    }
+  },
+  "effect-review": {
+    "Sion": "No prior death, no learned ability, ordinary attack asset/slot and zero crit already reviewed. Long Sword supplies AD; the selected source runes affect movement, mana, gold or post-10-minute stats, not this early attack multiplier.",
+    "ally-buffs": "Janna E and Ivern W/E are unlearned; passive descriptions confer no ally AD/on-hit buff. Teemo and Rengar passives modify their own attacks, not Sion's.",
+    "Glacial-Augment": "Blitzcrank has no learned immobilizing ability and no action in the complete observed prefix; no triggering immobilization is mechanically available to him in this context.",
+    "Unflinching": "Source team has no learned CC spell. Rengar has only Q, observed Ferocity zero of four throughout the prefix and no generating attack/cast; empowered E is excluded by resource/prerequisite evidence, not rank zero alone. The selected Exhaust has no cast in the prefix. No eligible trigger for the target's temporary resistance bonus.",
+    "target-other-effects": "K'Sante W/E/R are unlearned. Grasp, Last Stand and Demolish affect target outgoing attacks/healing or towers; Second Wind heals. They do not modify the source's physical attack multiplier. Capacity, positive landing and shield-free metric were independently reviewed.",
+    "opaque-records": "Exact names for three counter/buff hashes and complete lifecycle behavior remain unknown. Their metadata is retained. The gate is discharged by reviewing every relevant declared capability in this frozen ordinary-match context, not by relabelling hashes or assuming complete buff decoding."
+  },
+  "sampling-review": {
+    "status": "sampling-instant-irrelevant-for-invariant-conditional-inputs",
+    "observations": {
+      "fields": [
+        {
+          "role": "source",
+          "field": "base-attack-damage",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 68.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "flat-attack-damage",
+          "before-action": {
+            "event-id": "gameChunk:3:65644",
+            "wire-key": [
+              3,
+              65644
+            ],
+            "timestamp": 2.219093331336975,
+            "value": 10.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-attack-damage",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-bonus-attack-damage",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "percent-base-attack-damage-as-bonus",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "crit-chance",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "flat-armor-penetration",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "armor-remaining-fraction",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 1.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "physical-lethality",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 0.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "source",
+          "field": "bonus-armor-remaining-fraction",
+          "before-action": {
+            "event-id": "gameChunk:3:12575",
+            "wire-key": [
+              3,
+              12575
+            ],
+            "timestamp": 0.0,
+            "value": 1.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        },
+        {
+          "role": "target",
+          "field": "armor",
+          "before-action": {
+            "event-id": "gameChunk:3:71962",
+            "wire-key": [
+              3,
+              71962
+            ],
+            "timestamp": 5.025256216049195,
+            "value": 44.0
+          },
+          "updates-before-damage": [],
+          "value-changes": [],
+          "observed-stable": true
+        }
+      ],
+      "complete-observed-inputs": true,
+      "observed-stable": true,
+      "server-sampling-resolved": false,
+      "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+    },
+    "server-sampling-instant-known": false,
+    "reason": "All eleven observed scalar inputs are present before the attack and unchanged through damage. Causal loadouts/ranks, no deaths/rewards, zero Ferocity, absence of prerequisite actions and declared mechanic review exclude relevant transient changes. Any sampling point in the reviewed attack interval yields the same conditional inputs.",
+    "scope": "Only conditional ordinary physical damage from observed scalars; not full build/stat generation, arbitrary snapshot timing or sequence verification."
+  },
+  "native-state-packets-rechecked": 188,
+  "resource-oracle-checks": [
+    {
+      "champion": "KSante",
+      "field": "primary-resource",
+      "native-observation": 320.0,
+      "api": 320
+    },
+    {
+      "champion": "KSante",
+      "field": "primary-resource-max",
+      "native-observation": 320.0,
+      "api": 320
+    },
+    {
+      "champion": "Diana",
+      "field": "primary-resource",
+      "native-observation": 375.0,
+      "api": 375
+    },
+    {
+      "champion": "Diana",
+      "field": "primary-resource-max",
+      "native-observation": 375.0,
+      "api": 375
+    },
+    {
+      "champion": "Yasuo",
+      "field": "primary-resource",
+      "native-observation": 125.0,
+      "api": 125
+    },
+    {
+      "champion": "Yasuo",
+      "field": "primary-resource-max",
+      "native-observation": 125.0,
+      "api": 125
+    },
+    {
+      "champion": "Tristana",
+      "field": "primary-resource",
+      "native-observation": 300.0,
+      "api": 300
+    },
+    {
+      "champion": "Tristana",
+      "field": "primary-resource-max",
+      "native-observation": 300.0,
+      "api": 300
+    },
+    {
+      "champion": "Blitzcrank",
+      "field": "primary-resource",
+      "native-observation": 267.0,
+      "api": 267
+    },
+    {
+      "champion": "Blitzcrank",
+      "field": "primary-resource-max",
+      "native-observation": 267.0,
+      "api": 267
+    },
+    {
+      "champion": "Sion",
+      "field": "primary-resource",
+      "native-observation": 400.0,
+      "api": 400
+    },
+    {
+      "champion": "Sion",
+      "field": "primary-resource-max",
+      "native-observation": 400.0,
+      "api": 400
+    },
+    {
+      "champion": "Ivern",
+      "field": "primary-resource",
+      "native-observation": 450.0,
+      "api": 450
+    },
+    {
+      "champion": "Ivern",
+      "field": "primary-resource-max",
+      "native-observation": 450.0,
+      "api": 450
+    },
+    {
+      "champion": "Teemo",
+      "field": "primary-resource",
+      "native-observation": 334.0,
+      "api": 334
+    },
+    {
+      "champion": "Teemo",
+      "field": "primary-resource-max",
+      "native-observation": 334.0,
+      "api": 334
+    },
+    {
+      "champion": "Rengar",
+      "field": "primary-resource",
+      "native-observation": 0.0,
+      "api": 0
+    },
+    {
+      "champion": "Rengar",
+      "field": "primary-resource-max",
+      "native-observation": 4.0,
+      "api": 4
+    },
+    {
+      "champion": "Janna",
+      "field": "primary-resource",
+      "native-observation": 360.0,
+      "api": 360
+    },
+    {
+      "champion": "Janna",
+      "field": "primary-resource-max",
+      "native-observation": 360.0,
+      "api": 360
+    }
+  ],
+  "supporting-histories": [
+    {
+      "entity": 1073741998,
+      "field": "action-state-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 84017155
+        },
+        {
+          "event-id": "gameChunk:3:69760",
+          "wire-key": [
+            3,
+            69760
+          ],
+          "timestamp": 4.423256216049195,
+          "value": 83886083
+        },
+        {
+          "event-id": "gameChunk:3:70746",
+          "wire-key": [
+            3,
+            70746
+          ],
+          "timestamp": 4.624256216049195,
+          "value": 83886087
+        },
+        {
+          "event-id": "gameChunk:3:78178",
+          "wire-key": [
+            3,
+            78178
+          ],
+          "timestamp": 5.125256216049195,
+          "value": 16777231
+        }
+      ]
+    },
+    {
+      "entity": 1073741998,
+      "field": "action-state2-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0
+        },
+        {
+          "event-id": "gameChunk:3:78178",
+          "wire-key": [
+            3,
+            78178
+          ],
+          "timestamp": 5.125256216049195,
+          "value": 4
+        }
+      ]
+    },
+    {
+      "entity": 1073741998,
+      "field": "status-flags-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "entity": 1073741998,
+      "field": "physical-damage-percentage-modifier",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "entity": 1073742003,
+      "field": "action-state-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 84017155
+        },
+        {
+          "event-id": "gameChunk:3:69760",
+          "wire-key": [
+            3,
+            69760
+          ],
+          "timestamp": 4.423256216049195,
+          "value": 83886083
+        },
+        {
+          "event-id": "gameChunk:3:70746",
+          "wire-key": [
+            3,
+            70746
+          ],
+          "timestamp": 4.624256216049195,
+          "value": 83886087
+        },
+        {
+          "event-id": "gameChunk:3:78178",
+          "wire-key": [
+            3,
+            78178
+          ],
+          "timestamp": 5.125256216049195,
+          "value": 16777231
+        }
+      ]
+    },
+    {
+      "entity": 1073742003,
+      "field": "action-state2-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0
+        },
+        {
+          "event-id": "gameChunk:3:78178",
+          "wire-key": [
+            3,
+            78178
+          ],
+          "timestamp": 5.125256216049195,
+          "value": 4
+        }
+      ]
+    },
+    {
+      "entity": 1073742003,
+      "field": "status-flags-code",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "entity": 1073742003,
+      "field": "physical-damage-percentage-modifier",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "entity": 1073742006,
+      "field": "primary-resource",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "entity": 1073742006,
+      "field": "primary-resource-max",
+      "observations": [
+        {
+          "event-id": "gameChunk:3:12575",
+          "wire-key": [
+            3,
+            12575
+          ],
+          "timestamp": 0.0,
+          "value": 4.0
+        }
+      ]
+    }
+  ],
+  "buff-metadata-retained": {
+    "source": {
+      "observed-active": [
+        {
+          "event-id": "gameChunk:3:9273",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba21218bc7ec14f87672bc442492a3292d21f381fe",
+          "kind": "add",
+          "name-hash": 95298804,
+          "slot-token": 45,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:9301",
+            "timestamp": 0.0,
+            "entity": 1073742003,
+            "opcode": 430,
+            "raw-payload-hex": "2117bd307d0b2d",
+            "kind": "counter",
+            "name-hash": 95298804,
+            "slot-token": 45,
+            "counter": 0
+          }
+        },
+        {
+          "event-id": "gameChunk:3:9498",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba690a8bc7ec146ef87672bc442492a3292eaa79b1e7",
+          "kind": "add",
+          "name-hash": 244870598,
+          "slot-token": 46,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:66874",
+          "timestamp": 2.7530933313369754,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8bc3f510bc7ec14f87672bcd42d323a1d30a5884c8c",
+          "kind": "add",
+          "name-hash": 68854229,
+          "slot-token": 48,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:9453",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba5d58cbc7ec146ef87672bc442492a32935d6f2d17b",
+          "kind": "add",
+          "name-hash": 205256130,
+          "slot-token": 53,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:9485",
+            "timestamp": 0.0,
+            "entity": 1073742003,
+            "opcode": 430,
+            "raw-payload-hex": "231717d4e7da35",
+            "kind": "counter",
+            "name-hash": 205256130,
+            "slot-token": 53,
+            "counter": 0
+          }
+        },
+        {
+          "event-id": "gameChunk:3:11462",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba7e508bc7ec14f87672bce13162d4024d1dacd6b9",
+          "kind": "add",
+          "name-hash": 116434581,
+          "slot-token": 77,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:11514",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba58508bc7ec14f87672bce13162d402581cc27576",
+          "kind": "add",
+          "name-hash": 73655932,
+          "slot-token": 88,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:11488",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "a8baa821cbc7ec14f87672bce13162d402be17ac1a69",
+          "kind": "add",
+          "name-hash": 233678514,
+          "slot-token": 190,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:9557",
+          "timestamp": 0.0,
+          "entity": 1073742003,
+          "opcode": 435,
+          "raw-payload-hex": "b8ba8d510bc7ec14f5f87672bcce8be66bb0",
+          "kind": "add",
+          "name-hash": 246098369,
+          "slot-token": 206,
+          "caster": 1073742003,
+          "duration-seconds": 25000.0
+        }
+      ],
+      "lifecycle-issues": [],
+      "complete-buff-state": false
+    },
+    "target": {
+      "observed-active": [
+        {
+          "event-id": "gameChunk:4:35714",
+          "timestamp": 37.1574360504151,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "f8ba4f3e8bc797146ef5f8f834abdc667e0e",
+          "kind": "add",
+          "name-hash": 230965361,
+          "slot-token": 32,
+          "caster": 1073741998,
+          "duration-seconds": 4.0,
+          "counter-update": {
+            "event-id": "gameChunk:4:43430",
+            "timestamp": 38.22543605041511,
+            "entity": 1073741998,
+            "opcode": 430,
+            "raw-payload-hex": "831505d7f780",
+            "kind": "counter",
+            "name-hash": 230965361,
+            "slot-token": 32,
+            "counter": 1
+          }
+        },
+        {
+          "event-id": "gameChunk:3:6549",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba262b4bc697146ef87672bc442492a3294ad6f2d17b",
+          "kind": "add",
+          "name-hash": 205256130,
+          "slot-token": 74,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:6581",
+            "timestamp": 0.0,
+            "entity": 1073741998,
+            "opcode": 430,
+            "raw-payload-hex": "271517d4e7da4a",
+            "kind": "counter",
+            "name-hash": 205256130,
+            "slot-token": 74,
+            "counter": 0
+          }
+        },
+        {
+          "event-id": "gameChunk:3:7480",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "c8ba08604bc69714f5f87672bc75734d593b",
+          "kind": "add",
+          "name-hash": 8942209,
+          "slot-token": 117,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:7507",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba215ccbc797146ef87672bcd42d323a1d84f959ae96",
+          "kind": "add",
+          "name-hash": 22450393,
+          "slot-token": 132,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:3:6594",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba180c8bc797146ef87672bc442492a3298aaa79b1e7",
+          "kind": "add",
+          "name-hash": 244870598,
+          "slot-token": 138,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0
+        },
+        {
+          "event-id": "gameChunk:4:43891",
+          "timestamp": 38.32643605041511,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "f8ba09024bc69714f5f8f815d2b2dc4c5f2b",
+          "kind": "add",
+          "name-hash": 79295857,
+          "slot-token": 178,
+          "caster": 1073741998,
+          "duration-seconds": 10.0
+        },
+        {
+          "event-id": "gameChunk:3:6369",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "a8baa7510bc79714f87672bc442492a329c621f381fe",
+          "kind": "add",
+          "name-hash": 95298804,
+          "slot-token": 198,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0,
+          "counter-update": {
+            "event-id": "gameChunk:3:6397",
+            "timestamp": 0.0,
+            "entity": 1073741998,
+            "opcode": 430,
+            "raw-payload-hex": "2314bd307d0bc6",
+            "kind": "counter",
+            "name-hash": 95298804,
+            "slot-token": 198,
+            "counter": 0
+          }
+        },
+        {
+          "event-id": "gameChunk:4:35821",
+          "timestamp": 37.1574360504151,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "c8ba2f230bc79714f5f8f874ab2eac57f9bee93f78b187",
+          "kind": "add",
+          "name-hash": 43539121,
+          "slot-token": 233,
+          "caster": 1073741998,
+          "duration-seconds": 6.0
+        },
+        {
+          "event-id": "gameChunk:3:11226",
+          "timestamp": 0.0,
+          "entity": 1073741998,
+          "opcode": 435,
+          "raw-payload-hex": "a8ba5800cbc79714f87672bc2eac57f9bef99478b187",
+          "kind": "add",
+          "name-hash": 43539120,
+          "slot-token": 249,
+          "caster": 1073741998,
+          "duration-seconds": 25000.0
+        }
+      ],
+      "lifecycle-issues": [
+        {
+          "event-id": "gameChunk:3:71785",
+          "reason": "counter-without-matching-add"
+        },
+        {
+          "event-id": "gameChunk:3:71799",
+          "reason": "counter-without-matching-add"
+        },
+        {
+          "event-id": "gameChunk:3:71812",
+          "reason": "counter-without-matching-add"
+        }
+      ],
+      "complete-buff-state": false
+    }
+  },
+  "resolved-semantic-blockers": [
+    "buff-and-on-hit-context-unresolved",
+    "stat-sampling-window-unresolved"
+  ],
+  "remaining-semantic-blockers": [],
+  "cumulative-resolved-semantic-blockers": [
+    "attack-classification-not-independently-verified",
+    "buff-and-on-hit-context-unresolved",
+    "damage-packet-amount-semantics-incomplete",
+    "inventory-and-rune-state-unresolved",
+    "shield-semantics-not-independently-verified",
+    "stat-sampling-window-unresolved"
+  ],
+  "ready-for-conditional-comparison": true,
+  "admitted-model-comparisons": 0,
+  "model-admissible": false,
+  "admission-status": "Observation review complete; a conditional-input comparison adapter must bind this receipt before model admission/evaluation. Full simulation is outside this review.",
+  "scope": "Six reviewed gates for one conditional-input case only. Full buff interpreter, exact server timing and whole-model accuracy remain unclaimed. Review alone is not model evaluation or admission.",
+  "inputs": {
+    "amount-review": "6893fefa8e0d198cb1df6c7081213998dab38a67fb41ba4b75840c5f4bcd5a36",
+    "match": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+    "timeline": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067",
+    "image": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+    "profile": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9"
+  },
+  "adapters": {
+    "replay_final_review.py": "a943535ea7c7ddcc65cc8b42e5ccd9c55cc50a2fecdae7dbb71ccc4a4b1508bf",
+    "replay_review_fields.py": "358c273aad1cd5c6359c5c15645c5f2c49711416a36b585a5ac707947c99142b",
+    "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0",
+    "replay_attack_review.py": "37ca95d01c0c1fe15f493369db0504142e616c295a6a5085b3146478947383c0",
+    "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe"
+  },
+  "cost": {
+    "wall-seconds": 1.6410212200062233,
+    "new-requests": 0,
+    "new-download-bytes": 0
+  },
+  "annotation": {
+    "reason": "Case-specific declared-mechanic and prerequisite review, independently corroborated zero Ferocity, and invariant causal scalar inputs discharge the last two gates for conditional ordinary physical damage. Unknown buff metadata and exact server sampling instant remain explicitly unclaimed; no prediction error used.",
+    "changes": {
+      "blockers": []
+    }
+  }
+}

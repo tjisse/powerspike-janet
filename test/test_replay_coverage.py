@@ -1,5 +1,6 @@
 """Coverage credits evidence, preserves failures, and never manufactures trust."""
 import copy
+import gzip
 import json
 from pathlib import Path
 import sys
@@ -9,7 +10,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from replay_coverage import (Ledger, append, event, identity, load, digest, coverage_report,
-                             export_review, import_reviews, import_comparison, import_context)
+                             export_review, import_reviews, import_comparison, import_context, import_attack_review,
+                             context_case_state)
 
 MODEL, SNAPSHOT, GAME = 'a' * 64, 'b' * 64, 'c' * 64
 
@@ -63,6 +65,57 @@ class CoverageTests(unittest.TestCase):
         self.assertEqual(report['coverage']['combat-checked'], 0)
         self.assertEqual(report['pipeline']['admitted'], 0)
 
+    def test_action_context_progress_is_deduplicated_without_semantic_or_admission_credit(self):
+        row = event('context-review', game=GAME, source='d' * 64,
+                    build=self.registry['client-build'], admitted=False,
+                    counts={'numeric-ready:unique-candidate': 1, 'numeric-ready:observed-stable': 1},
+                    adapters={name: digest(ROOT / 'scripts' / name) for name in
+                              ('replay_attack_review.py', 'replay_actions.py', 'replay_state.py')},
+                    **{'decoded-actions': 10, 'decode-failures': 0, 'search-window-seconds': 2,
+                       'case-state': context_case_state(Ledger.read(self.path), GAME)})
+        self.assertEqual(append(self.path, [row]), 1)
+        self.assertEqual(append(self.path, [row]), 0)
+        report = self.report()
+        self.assertEqual(report['diagnostics']['attack-context']['decoded-actions'], 10)
+        self.assertEqual(report['pipeline']['admitted'], 0)
+        self.assertEqual(report['coverage']['combat-checked'], 0)
+        self.assertEqual(Ledger.read(self.path).cases[self.case['id']]['blockers'], ['identity', 'shields'])
+        with self.assertRaises(ValueError):
+            append(self.path, [event('context-review', **{**{k: v for k, v in row.items() if k not in ('kind', 'operation')}, 'admitted': True})])
+        stale = {**row, 'source': 'e' * 64, 'adapters': {name: 'f' * 64 for name in row['adapters']}}
+        append(self.path, [event('context-review', **{k: v for k, v in stale.items() if k not in ('kind', 'operation')})])
+        self.assertEqual(self.report()['diagnostics']['attack-context']['decoded-actions'], 0)
+
+    def test_context_import_checks_cases_receipts_counts_and_retry(self):
+        folder = Path(self.temp.name) / 'context'; folder.mkdir()
+        row = {'event-id': 'gameChunk:4:10', 'timestamp': 10., 'source': 1, 'target': 2,
+               'action-candidates': [{'event-id': 'gameChunk:4:9', 'timestamp': 9.8,
+                    'source': 1, 'target': 2, 'kind': 'basic-attack-announcement-candidate'}],
+               'status': 'unique-candidate', 'model-admissible': False, 'resolved-semantic-blockers': [],
+               'stat-continuity': {'observed-stable': True, 'server-sampling-resolved': False}}
+        with gzip.open(folder / 'attack-context.jsonl.gz', 'wt') as handle:
+            handle.write(json.dumps(row) + '\n')
+        report = {'format': 'powerspike-replay-attack-review', 'version': 1,
+                  'replay-sha256': GAME, 'client-build': self.registry['client-build'],
+                  'model-admissible-cases': 0, 'resolved-semantic-blockers': [],
+                  'candidate-search-window-seconds': 2, 'action-packets-decoded': 10, 'action-failures': 0,
+                  'counts': {k: 1 for k in ('ordinary-candidates', 'unique-candidate', 'numeric-ready',
+                             'numeric-ready:unique-candidate', 'observed-stable', 'numeric-ready:observed-stable')},
+                  'adapters': {name: digest(ROOT / 'scripts' / name) for name in
+                               ('replay_attack_review.py', 'replay_actions.py', 'replay_state.py')},
+                  'evidence-files': {'attack-context.jsonl.gz': digest(folder / 'attack-context.jsonl.gz')}}
+        path = folder / 'summary.json'; path.write_text(json.dumps(report))
+        self.assertEqual(import_attack_review(folder, self.path), 1)
+        self.assertEqual(import_attack_review(folder, self.path), 0)
+        self.assertEqual(self.report()['pipeline']['admitted'], 0)
+        append(self.path, [event('annotation', case=self.case['id'], source='f' * 64,
+                    reason='New evidence corrects numerical readiness', changes={'numeric-ready': False})])
+        self.assertEqual(self.report()['diagnostics']['attack-context']['decoded-actions'], 0)
+        report['counts']['ordinary-candidates'] = 2; path.write_text(json.dumps(report))
+        with self.assertRaisesRegex(ValueError, 'Incomplete'): import_attack_review(folder, self.path)
+        with (folder / 'attack-context.jsonl.gz').open('ab') as handle: handle.write(b'bad bytes')
+        with self.assertRaisesRegex(ValueError, 'receipt'): import_attack_review(folder, self.path)
+
     def test_mismatch_adds_coverage_but_not_agreement_and_survives_new_model(self):
         append(self.path, [self.result()])
         report = self.report()
@@ -110,6 +163,18 @@ class CoverageTests(unittest.TestCase):
         self.assertEqual(report['agreement']['mismatches'], 0)
         self.assertEqual(report['history']['all-revision-mismatches'], 1)
         self.assertEqual(report['history']['invalidated'], 1)
+
+    def test_resource_only_costs_preserve_unknown_duration(self):
+        append(self.path, [event('cost', category='maintenance', label='Public asset bytes', bytes=100, requests=2),
+                           event('cost', category='review', label='Review receipt storage', bytes=20),
+                           event('cost', category='compute', label='Measured execution', seconds=3)])
+        resources = self.report()['resources']
+        self.assertIsNone(resources['recorded-seconds']['maintenance'])
+        self.assertIsNone(resources['recorded-seconds']['review'])
+        self.assertEqual(resources['recorded-seconds']['compute'], 3)
+        self.assertEqual(resources['recorded-bytes'], 120)
+        self.assertEqual(resources['recorded-requests'], 2)
+        self.assertIsNone(resources['audit-review-fraction'])
 
     def test_catalogue_change_requires_revision_and_stales_old_results(self):
         append(self.path, [self.result()])

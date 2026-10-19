@@ -1,0 +1,50 @@
+{
+  "format": "powerspike-native-action-regressions",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "scope": "Frozen extraction regressions; field/packet labels remain candidates, not independent combat validation.",
+  "cases": [
+    {
+      "event-id": "gameChunk:4:34433",
+      "opcode": 1215,
+      "source": 1073741998,
+      "payload-hex": "d28dfa6a65ce8f1588c2c82c78caa81379f034ba34346b7fab0b2901394d5a71972629969c3e04374a12cdeaa0e004855c0e0e606426f8b8ef305479ecececec4640e7e31bd0d6f3a4393e7f4c489d09cf205281e57ff312977d22e7f317c8556066b03ad8f43eef364d1ed4916b3e3e9198f813a6eee81863bee978cba0",
+      "expected": {
+        "kind": "spell-cast-announcement-candidate",
+        "source": 1073741998,
+        "effect-hash": 43539121,
+        "start-time-candidate": 36.6895866394043,
+        "secondary-hash-candidate": 43539121,
+        "source-name": "KSante"
+      }
+    },
+    {
+      "event-id": "gameChunk:4:42928",
+      "opcode": 906,
+      "source": 1073742003,
+      "payload-hex": "0aa0498dc41979e97617ceba74a6e68d8278c63f4cff0afea585858383a005",
+      "expected": {
+        "kind": "basic-attack-announcement-candidate",
+        "source": 1073742003,
+        "target": 1073741998,
+        "missile-id-candidate": 1073742507,
+        "encoded-slot": 196,
+        "auxiliary-cast-count": 0
+      }
+    },
+    {
+      "event-id": "gameChunk:4:124040",
+      "opcode": 1215,
+      "source": 1073742004,
+      "payload-hex": "d20ddb6b6dcbe615e8c3c06ce0caa29f60ef94e58dc334ba34346b64a37f7678406f295a0808fcf0fdb015484b92d56bea7bf704767c0e0e60aa8195cdefb4c044ecececec2591076119947ddb7f396dfb2248e58787204fffaee0de531494b422ab0c46e97469e6305adfdb55cbc91df8625bb2e85ddbd2e92855d2",
+      "expected": {
+        "kind": "spell-cast-announcement-candidate",
+        "source": 1073742004,
+        "effect-hash": 176166382,
+        "start-time-candidate": 55.19733428955078,
+        "secondary-hash-candidate": 118278480,
+        "source-name": "Ivern"
+      }
+    }
+  ]
+}

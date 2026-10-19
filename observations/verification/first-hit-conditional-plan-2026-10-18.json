@@ -1,0 +1,72 @@
+{
+  "format": "powerspike-conditional-comparison-plan",
+  "version": 1,
+  "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:4:43918",
+  "model": "5c9187c057b588144c627dbfe1017a389903142926161e22fd7c24e4d3fa56c6",
+  "registry": "9ea551f90b899658b25e1a9bb52e1f1ee7f3e0838baf1576ea81b85561f0ba2c",
+  "evidence-role": "development",
+  "snapshot": "8df4190e48a6b9ad1ec55053d65c9f5a20fb136ad88611319c5f951ce4b2a2e8",
+  "snapshot-kind": "reviewed-observed-scalars",
+  "context": {
+    "format": "powerspike-conditional-observed-inputs",
+    "version": 1,
+    "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:4:43918",
+    "case-state": "6e722dbf086171c0328b7a0e5952704a8d7450fe4c96798552fa5fc4879ec1e2",
+    "client-build": "16.20.824.8524",
+    "patch": "16.20.1",
+    "layer": "conditional-damage",
+    "inputs": {
+      "source": {
+        "ad": 78.0,
+        "crit-chance": 0,
+        "crit-damage": 2,
+        "armor-pen-flat": 0,
+        "armor-pen-percent": 0
+      },
+      "target": {
+        "armor": 44.0,
+        "armor-reduction-flat": 0,
+        "armor-reduction-percent": 0
+      }
+    },
+    "review-receipts": {
+      "first-hit-final-review-2026-10-18.json": "5a8d20afa5cbeb9d31db92f3ce9694eed3163cc5bd7b9cd7a3899e36b702da94",
+      "first-hit-amount-review-2026-10-18.json": "6893fefa8e0d198cb1df6c7081213998dab38a67fb41ba4b75840c5f4bcd5a36",
+      "first-hit-effect-review-2026-10-18.json": "a808825519bba12e7f42183a80732eeae5cbf8d36abe37d5c04e1a259e83d18c",
+      "first-hit-review-2026-10-18.json": "e80a2c80d816769a99cebdb11785f1cf819552141a5b7003678624b1a63448f1"
+    }
+  },
+  "observed": 54.166664123535156,
+  "tolerance": 2.2411350869334603e-05,
+  "tolerance-policy": "2a82621888720c85294e79174e06e91bf73162248366ad817ea5d9781240a416",
+  "adapter-sha256": "0af9df0fc5c6197bb351b6219cc9e1b9d8737edea4dd24ffdc1f26e36647edc9",
+  "runner-sha256": "37804401b4b2c07ac2bbed855469ae023c5c69e1246364334f10a4532c2d6d1a",
+  "obligations": [
+    "ordinary-physical",
+    "positive-armor"
+  ],
+  "evidence": {
+    "packet-semantics": "Amount and native outcome reviews: 6893fefa8e0d198cb1df6c7081213998dab38a67fb41ba4b75840c5f4bcd5a36",
+    "pre-hit-state": "Six-gate conditional review: 5a8d20afa5cbeb9d31db92f3ce9694eed3163cc5bd7b9cd7a3899e36b702da94",
+    "actions": "Causal ordinary noncritical attack review: e80a2c80d816769a99cebdb11785f1cf819552141a5b7003678624b1a63448f1",
+    "patch-data": "Matching 16.20 sources pinned in semantic reviews; no runtime build data consumed.",
+    "independent-oracle": "Native packet plus independent health bracket and resource/API checks; amount review 6893fefa8e0d198cb1df6c7081213998dab38a67fb41ba4b75840c5f4bcd5a36"
+  },
+  "resolved-blockers": [
+    "attack-classification-not-independently-verified",
+    "buff-and-on-hit-context-unresolved",
+    "damage-packet-amount-semantics-incomplete",
+    "inventory-and-rune-state-unresolved",
+    "shield-semantics-not-independently-verified",
+    "stat-sampling-window-unresolved"
+  ],
+  "encounter": "opening-sion-ksante-exchange",
+  "conditions": {
+    "armor-band": "low",
+    "damage-type": "physical",
+    "resistance-band": "low",
+    "attack-style": "melee"
+  },
+  "scope": "One conditional ordinary physical attack from reviewed observed scalars. Does not verify loadout/stat generation, critical outcomes, penetration, shields, sequences, or whole-model accuracy.",
+  "uses-runtime-build-data": false
+}

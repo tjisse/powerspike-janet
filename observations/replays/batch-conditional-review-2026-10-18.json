@@ -1,0 +1,1754 @@
+{
+  "format": "powerspike-indexed-batch-conditional-review",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "client-build": "16.20.824.8524",
+  "patch": "16.20.1",
+  "store-identity": "c0e10e6bc5ba2c4475905589ba086e697690dff8461a0e36b86a3ea1764beada",
+  "selection-study-sha256": "d7b5ca004b6799ca98c7990bbae41955dc88e89942c80f5fa58244ac2ca336b4",
+  "cases": [
+    {
+      "event-id": "gameChunk:5:96537",
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:5:96537",
+      "source": "Tristana",
+      "target": "Janna",
+      "package-file-sha256": "3af2db0f7ef00108a72ed20550b189957b6a9726b5d770f0c1107e83cb376e99",
+      "evidence-sha256": "5fc2dc044499a8ec13bbb4a1792990d6dc30a36f83c6122545ea825218d368f6",
+      "ordinary-attack-asset": "TristanaBasicAttack",
+      "native-attack-slot": 64,
+      "native-result-code": 5,
+      "health-measurement": {
+        "before": {
+          "event-id": "gameChunk:5:391",
+          "known": true,
+          "timestamp": 60.0969352722168,
+          "value": 580.0,
+          "wire-key": [
+            5,
+            391
+          ]
+        },
+        "after": {
+          "event-id": "gameChunk:5:97583",
+          "known": true,
+          "timestamp": 63.30293527221683,
+          "value": 522.65625,
+          "wire-key": [
+            5,
+            97583
+          ]
+        },
+        "observed-health-loss": 57.34375,
+        "wire-damage": 57.34375,
+        "residual": 0.0,
+        "measurement-bound": 6.29425048828125e-05,
+        "isolated": true,
+        "nonlethal": true,
+        "closes": true,
+        "other-damage-event-ids": [],
+        "policy": "Sum of half float32 ULPs of health-before, health-after and packet; independent of model error."
+      },
+      "sampling-observations": {
+        "fields": [
+          {
+            "role": "source",
+            "field": "base-attack-damage",
+            "before-action": {
+              "value": 60.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-attack-damage",
+            "before-action": {
+              "value": 13.399999618530273,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-attack-damage",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-bonus-attack-damage",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-base-attack-damage-as-bonus",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "crit-chance",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-armor-penetration",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "armor-remaining-fraction",
+            "before-action": {
+              "value": 1.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "physical-lethality",
+            "before-action": {
+              "value": 0.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "bonus-armor-remaining-fraction",
+            "before-action": {
+              "value": 1.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "target",
+            "field": "armor",
+            "before-action": {
+              "value": 28.0,
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          }
+        ],
+        "complete-observed-inputs": true,
+        "observed-stable": true,
+        "server-sampling-resolved": false,
+        "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+      },
+      "buff-metadata-complete": false,
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "mechanic-review": {
+        "source-inventory": [
+          [
+            1086,
+            2003,
+            2003,
+            3340
+          ],
+          []
+        ],
+        "target-inventory": [
+          [
+            2003,
+            2003
+          ],
+          []
+        ],
+        "lethal-tempo-prefix": [
+          {
+            "caster": 1073742001,
+            "duration-seconds": 6.0,
+            "entity": 1073742001,
+            "event-id": "gameChunk:5:89934",
+            "kind": "add",
+            "name-hash": 76676385,
+            "opcode": 435,
+            "raw-payload-hex": "e8ba4f1e8bc773146ef5f8f874ab5923c06c",
+            "slot-token": 28,
+            "timestamp": 62.935935272216824
+          },
+          {
+            "counter": 1,
+            "entity": 1073742001,
+            "event-id": "gameChunk:5:89961",
+            "kind": "counter",
+            "name-hash": 76676385,
+            "opcode": 430,
+            "raw-payload-hex": "891432af610c",
+            "slot-token": 28,
+            "timestamp": 62.935935272216824
+          }
+        ],
+        "lethal-tempo-max-stacks": 6,
+        "coup-de-grace": "Target remains above 40% health throughout the isolated bracket.",
+        "shield-eligibility": "Janna E and Ivern E/W unlearned; Sion W is self-only. Target has potions, no Barrier, and no shield-granting item/Guardian. Aery has no eligible ally shield cast.",
+        "modifiers": "No learned Tristana abilities; passive changes range. Lethal Tempo has one of six stacks, below its damage activation. Other source runes heal, grant gold or attack speed. Enemy team has no Glacial Augment.",
+        "quest": "No source-team Teleport or ally shield capability can shield Janna in this prefix."
+      },
+      "ready-for-conditional-comparison": true,
+      "remaining-semantic-blockers": [],
+      "resolved-semantic-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "reason": "Frozen case-specific asset, loadout, effect eligibility, isolated health metric and invariant conditional-input review; no model prediction used."
+    },
+    {
+      "event-id": "gameChunk:6:400687",
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:6:400687",
+      "source": "KSante",
+      "target": "Sion",
+      "package-file-sha256": "e98588046b2308b02b2c3356db59ac76da7ee7d5d3139b042272f8bd9ec25cd2",
+      "evidence-sha256": "97170aa73e634eeb67c3721fd39e77e4dd5c017b4fd0d42e7e9da102297908a5",
+      "ordinary-attack-asset": "KSanteBasicAttack",
+      "native-attack-slot": 64,
+      "native-result-code": 5,
+      "health-measurement": {
+        "before": {
+          "event-id": "gameChunk:6:394902",
+          "known": true,
+          "timestamp": 115.54408312988511,
+          "value": 425.8125915527344,
+          "wire-key": [
+            6,
+            394902
+          ]
+        },
+        "after": {
+          "event-id": "gameChunk:6:401111",
+          "known": true,
+          "timestamp": 115.84508312988514,
+          "value": 377.9647521972656,
+          "wire-key": [
+            6,
+            401111
+          ]
+        },
+        "observed-health-loss": 47.84783935546875,
+        "wire-damage": 47.84785079956055,
+        "residual": -1.1444091796875e-05,
+        "measurement-bound": 3.24249267578125e-05,
+        "isolated": true,
+        "nonlethal": true,
+        "closes": true,
+        "other-damage-event-ids": [],
+        "policy": "Sum of half float32 ULPs of health-before, health-after and packet; independent of model error."
+      },
+      "sampling-observations": {
+        "fields": [
+          {
+            "role": "source",
+            "field": "base-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:6:27884",
+              "timestamp": 91.46008312988295,
+              "value": 66.5199966430664,
+              "wire-key": [
+                6,
+                27884
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-bonus-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-base-attack-damage-as-bonus",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "crit-chance",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-armor-penetration",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 1.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "physical-lethality",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 0.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "bonus-armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:5:391",
+              "timestamp": 60.0969352722168,
+              "value": 1.0,
+              "wire-key": [
+                5,
+                391
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "target",
+            "field": "armor",
+            "before-action": {
+              "event-id": "gameChunk:6:231534",
+              "timestamp": 103.71808312988409,
+              "value": 39.02399826049805,
+              "wire-key": [
+                6,
+                231534
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          }
+        ],
+        "complete-observed-inputs": true,
+        "observed-stable": true,
+        "server-sampling-resolved": false,
+        "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+      },
+      "buff-metadata-complete": false,
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "mechanic-review": {
+        "source-inventory": [
+          [
+            1120,
+            2003,
+            3340
+          ],
+          []
+        ],
+        "target-inventory": [
+          [
+            1036,
+            3340,
+            2031
+          ],
+          []
+        ],
+        "last-sion-shield-cast": 96.60408312988343,
+        "sion-shield-duration": 6.0,
+        "janna-shield-recipient": {
+          "caster": 1073742007,
+          "duration-seconds": 4.0,
+          "entity": 1073742006,
+          "event-id": "gameChunk:6:391428",
+          "kind": "add",
+          "name-hash": 37161805,
+          "opcode": 435,
+          "raw-payload-hex": "b8ba24220bc72414f5f8f834ab5154dcb71d01acff3760",
+          "slot-token": 1,
+          "timestamp": 115.4110831298851
+        },
+        "passive-mark": "No K'Sante damage to Sion in the previous five seconds; the current asset declares a four-second mark. Ordinary attack asset/slot rather than empowered passive asset.",
+        "last-stand": "Source remains above 60% health at announcement and before damage.",
+        "shield-eligibility": "Sion W expired; Janna E and its Aery shield target Rengar, not Sion; Ivern E/W unlearned. Source/target item prefixes and target summoners add no shield. No target Teleport cast.",
+        "modifiers": "All Out unlearned. Grasp supplies a separate magic component, not an ordinary physical multiplier; this isolated bracket contains only the selected physical packet. Target runes do not reduce incoming physical damage. Glacial owner Blitzcrank is on the source team."
+      },
+      "ready-for-conditional-comparison": true,
+      "remaining-semantic-blockers": [],
+      "resolved-semantic-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "reason": "Frozen case-specific asset, loadout, effect eligibility, isolated health metric and invariant conditional-input review; no model prediction used."
+    },
+    {
+      "event-id": "gameChunk:10:2417",
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:10:2417",
+      "source": "Sion",
+      "target": "KSante",
+      "package-file-sha256": "8829eed0947a85c1f66fe26a4b57a111c038f2f74e6beeceb130dd0b79f460ca",
+      "evidence-sha256": "8e8f49cac21de5881fd3567e9f5defee45e7097b9ab47c27347bc63979a83972",
+      "ordinary-attack-asset": "SionBasicAttack2",
+      "native-attack-slot": 65,
+      "native-result-code": 5,
+      "health-measurement": {
+        "before": {
+          "event-id": "gameChunk:9:519990",
+          "known": true,
+          "timestamp": 210.0597912597563,
+          "value": 919.11669921875,
+          "wire-key": [
+            9,
+            519990
+          ]
+        },
+        "after": {
+          "event-id": "gameChunk:10:5969",
+          "known": true,
+          "timestamp": 210.35969848632806,
+          "value": 868.4863891601562,
+          "wire-key": [
+            10,
+            5969
+          ]
+        },
+        "observed-health-loss": 50.63031005859375,
+        "wire-damage": 50.63032531738281,
+        "residual": -1.52587890625e-05,
+        "measurement-bound": 6.29425048828125e-05,
+        "isolated": true,
+        "nonlethal": true,
+        "closes": true,
+        "other-damage-event-ids": [],
+        "policy": "Sum of half float32 ULPs of health-before, health-after and packet; independent of model error."
+      },
+      "sampling-observations": {
+        "fields": [
+          {
+            "role": "source",
+            "field": "base-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:9:409022",
+              "timestamp": 202.5397912597587,
+              "value": 77.05999755859375,
+              "wire-key": [
+                9,
+                409022
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:9:270622",
+              "timestamp": 193.12179125976164,
+              "value": 17.0,
+              "wire-key": [
+                9,
+                270622
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-bonus-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-base-attack-damage-as-bonus",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "crit-chance",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-armor-penetration",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 1.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "physical-lethality",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 0.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "bonus-armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:9:1063",
+              "timestamp": 180.1967912597656,
+              "value": 1.0,
+              "wire-key": [
+                9,
+                1063
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "target",
+            "field": "armor",
+            "before-action": {
+              "value": 85.77799987792969,
+              "event-id": "gameChunk:9:486456",
+              "timestamp": 208.35179125975685,
+              "wire-key": [
+                9,
+                486456
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          }
+        ],
+        "complete-observed-inputs": true,
+        "observed-stable": true,
+        "server-sampling-resolved": false,
+        "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+      },
+      "buff-metadata-complete": false,
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "mechanic-review": {
+        "source-inventory": [
+          [
+            1036,
+            3340,
+            2031,
+            1083
+          ],
+          []
+        ],
+        "target-inventory": [
+          [
+            1120,
+            2003,
+            3340,
+            1029,
+            1029
+          ],
+          []
+        ],
+        "target-defensive-windows": {
+          "KSanteW": {
+            "last-cast": 205.7467912597577,
+            "duration": 1.0,
+            "extra-arrival-margin-seconds": 1
+          },
+          "KSanteE": {
+            "last-cast": 205.21179125975783,
+            "duration": 2.0,
+            "extra-arrival-margin-seconds": 1
+          }
+        },
+        "last-blitz-champion-damage": [
+          {
+            "amount": 98.03026580810547,
+            "damage-type": "physical",
+            "effect-hash": 121856091,
+            "event-id": "gameChunk:9:163599",
+            "model-admissible": false,
+            "opcode": 150,
+            "order": 6603,
+            "raw-payload-hex": "a533ac43a50935a3a5d3c02f21bf54c8e5",
+            "source": 1073742002,
+            "source-kind-encoded": 33,
+            "source-last-observed": {
+              "armor": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 43.932498931884766
+              },
+              "health": {
+                "age-seconds": 0.4679999999998472,
+                "event-id": "gameChunk:9:155006",
+                "order": 6578,
+                "same-timestamp": false,
+                "timestamp": 186.50879125976368,
+                "value": 748.6685791015625
+              },
+              "health-max": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 825.7750244140625
+              },
+              "health-max-penalty": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 35.02375030517578
+              },
+              "shield-all-candidate": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "target": 1073742006,
+            "target-last-observed": {
+              "armor": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 37.02399826049805
+              },
+              "health": {
+                "age-seconds": 0.4679999999998472,
+                "event-id": "gameChunk:9:155006",
+                "order": 6578,
+                "same-timestamp": false,
+                "timestamp": 186.50879125976368,
+                "value": 753.3516845703125
+              },
+              "health-max": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 764.8800048828125
+              },
+              "health-max-penalty": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 33.47600173950195
+              },
+              "shield-all-candidate": {
+                "age-seconds": 0.9689999999996814,
+                "event-id": "gameChunk:9:145215",
+                "order": 6549,
+                "same-timestamp": false,
+                "timestamp": 186.00779125976385,
+                "value": 0.0
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 6.779999999997926,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "timestamp": 186.97679125976353,
+            "type-encoded": 118
+          },
+          {
+            "amount": 49.015132904052734,
+            "damage-type": "physical",
+            "effect-hash": 88011554,
+            "event-id": "gameChunk:9:189034",
+            "model-admissible": false,
+            "opcode": 150,
+            "order": 6677,
+            "raw-payload-hex": "c4333342a5ea35a3a5d3c02f211210ee6c",
+            "source": 1073742002,
+            "source-kind-encoded": 33,
+            "source-last-observed": {
+              "armor": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 43.932498931884766
+              },
+              "health": {
+                "age-seconds": 0.1999999999999602,
+                "event-id": "gameChunk:9:185465",
+                "order": 6670,
+                "same-timestamp": false,
+                "timestamp": 188.01179125976319,
+                "value": 752.5414428710938
+              },
+              "health-max": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 825.7750244140625
+              },
+              "health-max-penalty": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 35.02375030517578
+              },
+              "shield-all-candidate": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "target": 1073742006,
+            "target-last-observed": {
+              "armor": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 37.02399826049805
+              },
+              "health": {
+                "age-seconds": 0.1999999999999602,
+                "event-id": "gameChunk:9:185465",
+                "order": 6670,
+                "same-timestamp": false,
+                "timestamp": 188.01179125976319,
+                "value": 506.82196044921875
+              },
+              "health-max": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 764.8800048828125
+              },
+              "health-max-penalty": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 33.47600173950195
+              },
+              "shield-all-candidate": {
+                "age-seconds": 2.203999999999297,
+                "event-id": "gameChunk:9:145215",
+                "order": 6549,
+                "same-timestamp": false,
+                "timestamp": 186.00779125976385,
+                "value": 0.0
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 8.014999999997542,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "timestamp": 188.21179125976315,
+            "type-encoded": 118
+          }
+        ],
+        "glacial": "The only recent immobilizing Blitzcrank hit is Power Fist; one-second knockup plus three-second zone expired long before this attack. Subsequent basic attack is not an immobilizing asset.",
+        "sampling": "The only recent champion damage is Sion W, which supplies no CC. Rengar Exhaust ended long before the attack, including the two-second Unflinching extension. No new CC prerequisite; all eleven scalar inputs remain invariant through the attack.",
+        "recent-target-champion-damage": [
+          {
+            "amount": 31.2235107421875,
+            "damage-type": "magic",
+            "effect-hash": 7997015,
+            "event-id": "gameChunk:9:455295",
+            "model-admissible": false,
+            "opcode": 150,
+            "order": 7509,
+            "raw-payload-hex": "2536b043039ae986b7d3f22f210cb303fe85b4e634",
+            "source": 1073742003,
+            "source-kind-encoded": 33,
+            "source-last-observed": {
+              "armor": {
+                "age-seconds": 3.540999999998917,
+                "event-id": "gameChunk:9:409022",
+                "order": 7397,
+                "same-timestamp": false,
+                "timestamp": 202.5397912597587,
+                "value": 45.51300048828125
+              },
+              "health": {
+                "age-seconds": 3.540999999998917,
+                "event-id": "gameChunk:9:409022",
+                "order": 7397,
+                "same-timestamp": false,
+                "timestamp": 202.5397912597587,
+                "value": 983.0549926757812
+              },
+              "health-max": {
+                "age-seconds": 3.540999999998917,
+                "event-id": "gameChunk:9:409022",
+                "order": 7397,
+                "same-timestamp": false,
+                "timestamp": 202.5397912597587,
+                "value": 983.0549926757812
+              },
+              "health-max-penalty": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 3.540999999998917,
+                "event-id": "gameChunk:9:409022",
+                "order": 7397,
+                "same-timestamp": false,
+                "timestamp": 202.5397912597587,
+                "value": 36.64324951171875
+              },
+              "shield-all-candidate": {
+                "age-seconds": 0.2339999999999236,
+                "event-id": "gameChunk:9:452079",
+                "order": 7497,
+                "same-timestamp": false,
+                "timestamp": 205.84679125975768,
+                "value": 127.86829376220703
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "target": 1073741998,
+            "target-last-observed": {
+              "armor": {
+                "age-seconds": 1.9379999999994197,
+                "event-id": "gameChunk:9:431491",
+                "order": 7449,
+                "same-timestamp": false,
+                "timestamp": 204.14279125975818,
+                "value": 71.83349609375
+              },
+              "health": {
+                "age-seconds": 0.033999999999991815,
+                "event-id": "gameChunk:9:454500",
+                "order": 7506,
+                "same-timestamp": false,
+                "timestamp": 206.0467912597576,
+                "value": 942.1510620117188
+              },
+              "health-max": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 1061.800048828125
+              },
+              "health-max-penalty": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "magic-resist": {
+                "age-seconds": 1.9379999999994197,
+                "event-id": "gameChunk:9:431491",
+                "order": 7449,
+                "same-timestamp": false,
+                "timestamp": 204.14279125975818,
+                "value": 52.756500244140625
+              },
+              "shield-all-candidate": {
+                "age-seconds": 0.8349999999997806,
+                "event-id": "gameChunk:9:446373",
+                "order": 7482,
+                "same-timestamp": false,
+                "timestamp": 205.24579125975782,
+                "value": 92.2750015258789
+              },
+              "shield-magic-candidate": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              },
+              "shield-physical-candidate": {
+                "age-seconds": 25.883999999992,
+                "event-id": "gameChunk:9:1063",
+                "order": 6212,
+                "same-timestamp": false,
+                "timestamp": 180.1967912597656,
+                "value": 0.0
+              }
+            },
+            "timestamp": 206.0807912597576,
+            "type-encoded": 86
+          }
+        ],
+        "last-rengar-exhaust": 130.27496215820312,
+        "shield-eligibility": "K'Sante E expired before the attack; Diana/Yasuo/Blitzcrank shields and Tristana Barrier are self-only. No target-team Aery/Guardian or shield item. No recent target Teleport.",
+        "modifiers": "Normal Sion attack asset excludes death-passive attack. Source runes have no early physical multiplier. Cull heals source; other items only supply the observed stats. Ivern W is a separate magic component, not this physical packet. Conditional observed AD includes any ally AD; build-stat generation is not being validated."
+      },
+      "ready-for-conditional-comparison": true,
+      "remaining-semantic-blockers": [],
+      "resolved-semantic-blockers": [
+        "attack-classification-not-independently-verified",
+        "buff-and-on-hit-context-unresolved",
+        "damage-packet-amount-semantics-incomplete",
+        "inventory-and-rune-state-unresolved",
+        "shield-semantics-not-independently-verified",
+        "stat-sampling-window-unresolved"
+      ],
+      "reason": "Frozen case-specific asset, loadout, effect eligibility, isolated health metric and invariant conditional-input review; no model prediction used."
+    },
+    {
+      "event-id": "gameChunk:15:363291",
+      "case": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c:gameChunk:15:363291",
+      "source": "Sion",
+      "target": "KSante",
+      "package-file-sha256": "b20a84b3ee63de919a8b9c9a05af9cca65adc0f5428a394592ca4ecdfbce1ddd",
+      "evidence-sha256": "080fc70435ecd909ad4e75e28643ff6b4c23af9beddebd919f8ef1cc8bbecdd7",
+      "ordinary-attack-asset": "SionBasicAttack3",
+      "native-attack-slot": 66,
+      "native-result-code": 5,
+      "health-measurement": {
+        "before": {
+          "event-id": "gameChunk:15:356547",
+          "known": true,
+          "timestamp": 380.02508911133134,
+          "value": 484.1812438964844,
+          "wire-key": [
+            15,
+            356547
+          ]
+        },
+        "after": {
+          "event-id": "gameChunk:15:363480",
+          "known": true,
+          "timestamp": 380.52608911133143,
+          "value": 245.41705322265625,
+          "wire-key": [
+            15,
+            363480
+          ]
+        },
+        "observed-health-loss": 238.76419067382812,
+        "wire-damage": 46.092185974121094,
+        "residual": 192.67200469970703,
+        "measurement-bound": 2.47955322265625e-05,
+        "isolated": false,
+        "nonlethal": true,
+        "closes": false,
+        "other-damage-event-ids": [
+          "gameChunk:15:362661"
+        ],
+        "policy": "Sum of half float32 ULPs of health-before, health-after and packet; independent of model error."
+      },
+      "sampling-observations": {
+        "fields": [
+          {
+            "role": "source",
+            "field": "base-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 83.80000305175781,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 22.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-bonus-attack-damage",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "percent-base-attack-damage-as-bonus",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "crit-chance",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "flat-armor-penetration",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 1.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "physical-lethality",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 0.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "source",
+            "field": "bonus-armor-remaining-fraction",
+            "before-action": {
+              "event-id": "gameChunk:15:220",
+              "timestamp": 360.1850891113281,
+              "value": 1.0,
+              "wire-key": [
+                15,
+                220
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          },
+          {
+            "role": "target",
+            "field": "armor",
+            "before-action": {
+              "value": 129.54000854492188,
+              "event-id": "gameChunk:15:358363",
+              "timestamp": 380.12508911133136,
+              "wire-key": [
+                15,
+                358363
+              ]
+            },
+            "updates-before-damage": [],
+            "value-changes": [],
+            "observed-stable": true
+          }
+        ],
+        "complete-observed-inputs": true,
+        "observed-stable": true,
+        "server-sampling-resolved": false,
+        "scope": "Continuity of decoded client observations between announcement and damage; not proof of unchanged server inputs or a server sampling instant."
+      },
+      "buff-metadata-complete": false,
+      "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+      "ready-for-conditional-comparison": false,
+      "remaining-semantic-blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "inventory-and-rune-state-unresolved",
+        "attack-classification-not-independently-verified",
+        "stat-sampling-window-unresolved",
+        "shield-semantics-not-independently-verified",
+        "damage-packet-amount-semantics-incomplete"
+      ],
+      "resolved-semantic-blockers": [],
+      "reason": "Multiple damage packets and nonclosing health bracket; healing/shield/timing overlap unresolved. No model execution or admission."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/sion/sion.bin.json",
+      "bytes": 94623,
+      "sha256": "8b3d389adb97a1fb995c28dd9248df38cd595f8b541e563aed4d596902cc286c"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/ksante/ksante.bin.json",
+      "bytes": 119051,
+      "sha256": "cda876bd3ca28bb934eb949990520a818f51b9eabfb4bbe6670c512cf4293d26"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/plugins/rcp-be-lol-game-data/global/default/v1/perks.json",
+      "bytes": 99870,
+      "sha256": "dd0948288ac0293caf71675cabbd138a7ad512b7a7cbb15c084fa9662233c13a"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/item.json",
+      "bytes": 688560,
+      "sha256": "bcd7100b7f6c336f585fccaa28324b9d676bf1b2932ae3bb79ee56b5775c47d6"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/shared.cdtb.bin.json",
+      "bytes": 8657379,
+      "sha256": "63c24b75299de36205e914c33c90ab3fa8f33c874267f992e1eff213e1d0161a",
+      "file": "shared.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/perks.cdtb.bin.json",
+      "bytes": 2177261,
+      "sha256": "1427c70c4d1172198a1a9787362224c871a90cc4f66f3f769ef5830cbcd401b1",
+      "file": "perks.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/items.cdtb.bin.json",
+      "bytes": 15950061,
+      "sha256": "ef2f355af6b63f37f44af5e8556d959ccae21cf2983e7ee85f50e4c95cc99206",
+      "file": "items.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/globals.cdtb.bin.json",
+      "bytes": 433980,
+      "sha256": "b0d5d839b6496ca2de124c52c28a6f591ecd283b68cdb438f56142e4f73b87c3",
+      "file": "globals.cdtb.bin.json"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json",
+      "file": "tristana.bin.json",
+      "sha256": "68b9df27d732d28a93af63e6816913c44e0d36826c78a258316a2f0718344171",
+      "bytes": 41661
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json",
+      "file": "blitzcrank.bin.json",
+      "sha256": "290a6b00f9a4615935bc1e8cd58ab6f31c417b76fb6351ce8bd121e429e7d187",
+      "bytes": 47864
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/summoner.json",
+      "sha256": "faf271429f8cda1fbdae1e8dc9e2354032c3dc878cfa40a2a19188290fcbaabc",
+      "bytes": 32954,
+      "requests": 1,
+      "wall-seconds": 0.09709791100249276
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/KSante.json",
+      "file": "KSante.json",
+      "bytes": 11937,
+      "sha256": "a1b0421810affbe9642fec44584dcf2632a6c50d6eb9e83c4facd31f6146b58d",
+      "wall-seconds": 0.14078384599997662
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Diana.json",
+      "file": "Diana.json",
+      "bytes": 15878,
+      "sha256": "16798f9434bd88d0b61ca7cc60f270c3090720d7a5130456ba260a386a1b345a",
+      "wall-seconds": 0.5353478770011861
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Yasuo.json",
+      "file": "Yasuo.json",
+      "bytes": 16788,
+      "sha256": "564dc77d2e721ac15208e03c1b2e040d0fc09ddf465798844e4705f09090f873",
+      "wall-seconds": 0.5808590410015313
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Tristana.json",
+      "file": "Tristana.json",
+      "bytes": 15368,
+      "sha256": "08a098ef940e81168859357aa751c71280aa3761faa04b83152ee299a6a2b115",
+      "wall-seconds": 0.5468487380021543
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Blitzcrank.json",
+      "file": "Blitzcrank.json",
+      "bytes": 14266,
+      "sha256": "993fab7d9129f312df4d64fe05456987fa25d8ee01fdd3249a1c46e5d7f0eb6f",
+      "wall-seconds": 0.4512689629991655
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Sion.json",
+      "file": "Sion.json",
+      "bytes": 14603,
+      "sha256": "7fe5119441bb5d85e329af82e1b82f8ebfa6b8ed1642f772dc1b53253f0da1ba",
+      "wall-seconds": 0.45263270100258524
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Ivern.json",
+      "file": "Ivern.json",
+      "bytes": 11841,
+      "sha256": "984e6a1c8f51e7ddbf01c186c956739047f754aebdae5045a363af9a4ee4c47d",
+      "wall-seconds": 0.4619839580009284
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Teemo.json",
+      "file": "Teemo.json",
+      "bytes": 13566,
+      "sha256": "0369bb8bb758922f2a28d8a5c905068e6c5b81ccf24dd107c1d335c65362a16f",
+      "wall-seconds": 0.04705164699771558
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Rengar.json",
+      "file": "Rengar.json",
+      "bytes": 13830,
+      "sha256": "c6c5b6a6effbfe4f9b1e1619014dffa92760d3e66cf1ed7cd3606318e7312504",
+      "wall-seconds": 0.04529616100262501
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Janna.json",
+      "file": "Janna.json",
+      "bytes": 14819,
+      "sha256": "de3ec67b80818c4adf53f47f8e12b1a5c2a6f1cc4e96f1e05b0797365d4ccdee",
+      "wall-seconds": 0.4680749359977199
+    }
+  ],
+  "native-state-packets-rechecked": [
+    {
+      "event-id": "gameChunk:5:391",
+      "state-buffer-sha256": "8031eb98cfabb162cd7d130d119806971f93cf8d27a79e513b49efe39f8fc913"
+    },
+    {
+      "event-id": "gameChunk:5:97583",
+      "state-buffer-sha256": "8af76b6102a84bd4b2ecdba6a4c2d77bb4697a61bdc31fe244505694b8101862"
+    },
+    {
+      "event-id": "gameChunk:6:155404",
+      "state-buffer-sha256": "93c5dd995ba9202fef635e4225eab8043263ee37220b9a2307a2062ba47691fb"
+    },
+    {
+      "event-id": "gameChunk:6:231534",
+      "state-buffer-sha256": "857951a6e6d2d0b38185b4c9b36bcec3d7214f123f04f1c675a5c307b690d1a6"
+    },
+    {
+      "event-id": "gameChunk:6:27884",
+      "state-buffer-sha256": "8f218ebb11a2d0c33cd19d77fea979e69e203ff25af51aa011b1b7dc8dc05c95"
+    },
+    {
+      "event-id": "gameChunk:6:358557",
+      "state-buffer-sha256": "414dcd0187569897c302915fd6178bc9f25a1d8caca08ba325101eb3ed17e211"
+    },
+    {
+      "event-id": "gameChunk:6:394902",
+      "state-buffer-sha256": "b27252ac0358bc3c81c2711802d3f1a3e19c0d0c4ea4249f9c2612e1e81f4ce6"
+    },
+    {
+      "event-id": "gameChunk:6:401111",
+      "state-buffer-sha256": "18a06b5664b177527a121bae0c2d729fbbe5af57080500780523630372c681cc"
+    },
+    {
+      "event-id": "gameChunk:10:5969",
+      "state-buffer-sha256": "22bbf5e55a482cd82695e121500e710e8c36cf1b4af4ae29bad7462adec4d4cd"
+    },
+    {
+      "event-id": "gameChunk:9:1063",
+      "state-buffer-sha256": "fd680251ca2f5b98616aecbd1dca12bfeea2aab6f8aed07c3d6d241f9b5dfadb"
+    },
+    {
+      "event-id": "gameChunk:9:270622",
+      "state-buffer-sha256": "dcdf33c6a9161cf33df93df3e82dbafd9ab363748090f65cfecc323ff2513c18"
+    },
+    {
+      "event-id": "gameChunk:9:409022",
+      "state-buffer-sha256": "9b6f986e2b1915877592a6463ebc54350d13755ae11f8d211b53fe78f9f5dcab"
+    },
+    {
+      "event-id": "gameChunk:9:460034",
+      "state-buffer-sha256": "8dd2be5faa179312ff62a34c75a81e89cb28be1505d14ef122c499785be9469f"
+    },
+    {
+      "event-id": "gameChunk:9:486456",
+      "state-buffer-sha256": "f791fb6d6740dc448a3ced5f501a55032d616af72ff104a90f06948c233d1c1c"
+    },
+    {
+      "event-id": "gameChunk:9:489703",
+      "state-buffer-sha256": "5d7430c3e78d2e4d60a55f3df53229de857c1b06198ad2221209c78c3e11ee64"
+    },
+    {
+      "event-id": "gameChunk:9:519990",
+      "state-buffer-sha256": "1d90a4d7a8c658fb6557a363243e57437c5bcb5e8d7d4b691efb03716997c06e"
+    }
+  ],
+  "adapters": {
+    "replay_batch_review.py": "474da6295f524609c35abd1f9043a8344f16b9485c18e28ec12d3da080decbd8",
+    "replay_evidence.py": "5b20ae2dc33673e6dfc08767a39c7527cc67852904168bbf829141c48e244e01",
+    "replay_conditional_compare.py": "0af9df0fc5c6197bb351b6219cc9e1b9d8737edea4dd24ffdc1f26e36647edc9",
+    "replay_gaps.py": "9c9e68dad42287d347e2e6d5b1ad046ee3d2a19604a97c63d78ff7456ef9b73c",
+    "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0"
+  },
+  "scope": "Conditional ordinary physical damage from reviewed observed scalars. Does not validate build-stat generation, complete attack/on-hit totals, shields, critical outcomes, penetration, exact server timing or sequences.",
+  "model-comparisons": 0,
+  "cost": {
+    "wall-seconds": 2.1313603579983464,
+    "raw-replay-reads": 0,
+    "source-archive-reads": 0,
+    "native-decode-calls": 16,
+    "scope": "Review adapter execution only; manual investigation and static-source acquisition excluded."
+  }
+}

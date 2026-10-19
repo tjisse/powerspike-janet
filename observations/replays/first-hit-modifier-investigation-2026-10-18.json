@@ -1,0 +1,81 @@
+{
+  "format": "powerspike-first-hit-modifier-investigation",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "event-id": "gameChunk:4:43918",
+  "model-admissible": false,
+  "resolved-semantic-blockers": [],
+  "scope": "Investigation notes only; no modifier gate discharged and no missing buff assumed absent.",
+  "observed-context": [
+    "Matching Riot records identify CLASSIC / MATCHED_GAME, not an alternate game mode.",
+    "Sion, Ivern, Teemo and Janna have no causal skill upgrades; Rengar has only Q. Janna E and Ivern W/E therefore have no recorded rank.",
+    "All five observed action announcements before the hit belong to Janna ward placement, KSante Q, KSante attack, Diana ward placement and Sion attack. No observed Rengar attack/cast appears in this prefix.",
+    "The native-image ASCII scan found no exact text for the three remaining generated/unknown buff hashes."
+  ],
+  "known-mechanics-to-review": [
+    {
+      "mechanic": "Glacial Augment",
+      "owner": "Blitzcrank",
+      "relevant-effect": "15% reduced damage against allies after immobilization",
+      "causal-evidence": "No learned ability or observed Blitzcrank cast before the hit.",
+      "status": "Narrowed eligibility; retain explicit causal immobilization review."
+    },
+    {
+      "mechanic": "Unflinching",
+      "owner": "KSante",
+      "relevant-effect": "Armor/MR during CC and two seconds after",
+      "causal-evidence": "Replicated armor unchanged; no Sion/Ivern/Teemo/Janna learned spell.",
+      "status": "Server-relevant CC state still open. Establish whether empowered Rengar cast rules require additional rank/resource evidence; do not exclude solely from rank zero."
+    },
+    {
+      "mechanic": "Sion passive",
+      "relevant-effect": "Post-death attack transformation",
+      "status": "Ordinary attack identity already corroborated; retain causal alive/death context when closing the modifier review."
+    }
+  ],
+  "remaining-buff-unknowns": [
+    {
+      "hash": 205256130,
+      "status": "Ward/trinket-use counter is API-correlated; exact internal name and full behavior unresolved."
+    },
+    {
+      "hash": 22450393,
+      "candidate": "SR_2026_S1_DemolishReady",
+      "status": "Generated hash match only; behavior is not independently decoded."
+    },
+    {
+      "hash": 79295857,
+      "candidate": "ASSETS/Perks/Styles/Resolve/SecondWind/SecondWindHealBuff.lua",
+      "status": "Generated hash match only; ten-second duration and selected rune corroborate a healing hypothesis."
+    }
+  ],
+  "lifecycle-issues": [
+    {
+      "event-id": "gameChunk:3:71785",
+      "reason": "counter-without-matching-add"
+    },
+    {
+      "event-id": "gameChunk:3:71799",
+      "reason": "counter-without-matching-add"
+    },
+    {
+      "event-id": "gameChunk:3:71812",
+      "reason": "counter-without-matching-add"
+    }
+  ],
+  "native-name-scan": {
+    "scope": "Exact native image ASCII token scan; matches are hash candidates only. No behavior inferred.",
+    "tokens": 32441,
+    "matches": {
+      "22450393": [],
+      "205256130": [],
+      "79295857": []
+    },
+    "wall-seconds": 0.3056573619978735
+  },
+  "inputs": {
+    "first-review": "e80a2c80d816769a99cebdb11785f1cf819552141a5b7003678624b1a63448f1",
+    "effect-review": "a808825519bba12e7f42183a80732eeae5cbf8d36abe37d5c04e1a259e83d18c",
+    "image": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3"
+  }
+}

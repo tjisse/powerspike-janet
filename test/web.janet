@@ -222,10 +222,14 @@
         (assert (= 200 (api :status)))
         (assert (= (get-in report ["ledger" "head"]) (get-in (util/read-json (api :body)) ["ledger" "head"])))
         (each marker ["Verification progress" "Provisional checks"
-                      "not all League behavior" "Independent identification of the attack"]
+                      "not all League behavior" "Independent identification of the attack"
+                      "action announcements decoded" "critical outcome"]
           (assert (string/find marker (response :body))))
         (def stale (merge report {"model" "different-model"}))
         (assert (string/find "Historical model snapshot" (ui/render (verification/dashboard stale))))
+        (def reviewed (merge report {"next-unlocks" [(merge ((report "next-unlocks") 0) {"blockers" []})]}))
+        (assert (string/find "Observation review complete; ready for comparison."
+                             (ui/render (verification/dashboard reviewed))))
         (assert (string/find "selected patch differs" (ui/render (verification/panel (model/compare model/default-state)))))))
 (test "rendered errors escape markup rather than executing it"
       (fn [] (def text (ui/render (ui/error-result "<script>alert('bad')</script>")))

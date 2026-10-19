@@ -10,6 +10,9 @@ The initial catalogue defines **27 combat conditions in eight families**, plus
 three stat-generation conditions. Its checked fraction describes this plan,
 not all League behavior. Partial model support stays in the denominator. The
 seven stat checks and one damage diagnostic from the pilot remain provisional.
+The first [production conditional comparison](../observations/replays/first-hit-model-comparison-2026-10-18.json)
+is separate: one admitted/evaluated development case, consistent under a frozen
+tolerance, credits ordinary physical damage and positive armor as checked.
 
 ## Initialize and import the retained pilot
 
@@ -42,6 +45,47 @@ The ledger hash chain detects edits and ordering problems; it is not a digital
 signature or proof that a review is factually correct. Review provenance is
 still necessary. All records in a transaction are validated before append.
 Writes are locked; reporting is an atomic file replacement.
+
+### Import provisional action/context work
+
+`scripts/replay_actions.py` recovers exact-build action-announcement candidates
+with the optional offline decoder environment and matching private image.
+`scripts/replay_attack_review.py` binds those archives to the retained gap audit
+and checks observed stat continuity. For the existing discovery game:
+
+```sh
+PYTHONPATH=observations/local/replay-pilot/rofllens-0.1.0/src \
+build/replay-venv/bin/python scripts/replay_actions.py \
+  --replay observations/local/riot-thebausffs-access/fresh.rofl \
+  --image observations/local/riot-thebausffs-access/damage-research/LeagueofLegends-16.20-x64.macho \
+  --champion-start 0x400000ae \
+  --output observations/local/riot-thebausffs-access/actions-new
+
+python3 scripts/replay_attack_review.py \
+  --actions observations/local/riot-thebausffs-access/actions-new \
+  --audit observations/local/riot-thebausffs-access/gaps-discovery-v3 \
+  --combat observations/local/riot-thebausffs-access/combat-discovery-v2 \
+  --output observations/local/riot-thebausffs-access/attack-review-new
+
+python3 scripts/replay_coverage.py import-attack-review \
+  observations/local/riot-thebausffs-access/attack-review-new
+make verification-report
+```
+
+Choose fresh output directories. The two-second association window is a search
+policy, not a verified maximum attack travel time. All candidates in that window
+are retained; ambiguity is never resolved by choosing the nearest or comparing
+damage errors. No announcement is treated as proof of attack completion or of
+an ordinary/noncritical outcome. Changes and reversions of relevant observed
+stats make the interval unstable; old unchanged observations do not prove server
+sampling. Rejected native packets remain explicit extraction gaps.
+
+Imports validate source receipts, known cases, causal matching and cohort counts.
+Only the latest dossier per game/current context adapter contributes to the
+provisional dashboard counts. Case corrections also withdraw provisional context
+counts until a matching dossier is imported again. Reruns do not duplicate evidence. This command
+never changes case blockers, admits a comparison or advances checked coverage.
+See the [retained action/context study](../observations/replays/action-context-study-2026-10-18.json).
 
 ## Read the progress page
 
@@ -206,3 +250,143 @@ patch differs. No raw replay, API key or private case ledger is shipped to the
 browser. This first version is operator-driven: automatic replay acquisition,
 background comparison scheduling and measurement adapters for the other layers
 are still future work.
+
+## Review native outcomes without admitting damage
+
+For each retained game's matching combat/gap/action archives:
+
+```sh
+python3 scripts/replay_outcomes.py \
+  --combat PATH_TO_COMBAT --audit PATH_TO_GAP_AUDIT \
+  --actions PATH_TO_ACTIONS --image PATH_TO_GUARDED_NATIVE_IMAGE \
+  --output PATH_TO_FRESH_OUTCOME_ARCHIVE
+```
+
+This decodes the actual attack slot and native result code, correcting earlier
+opaque field labels. Codes stay unlabelled until independently corroborated;
+neither native extraction nor cohort correlation admits a model comparison.
+
+`scripts/replay_first_hit_review.py` is deliberately restricted to the frozen
+first Sion/K'Sante case. It consumes retained hash-bound Riot match/timeline,
+16.20 context sources, ten 16.20.1 champion records with receipts, and the
+discovery outcome archive. See the published
+[review receipt](../observations/replays/first-hit-review-2026-10-18.json)
+for source URLs and hashes. It refuses an existing output path:
+
+```sh
+python3 scripts/replay_first_hit_review.py \
+  --base observations/local/riot-thebausffs-access \
+  --outcomes PATH_TO_DISCOVERY_OUTCOME_ARCHIVE --output PATH_TO_FRESH_REVIEW
+```
+
+Its `annotation` object contains the remaining four blockers. Only after
+reviewing that receipt, retain this object as a separate annotation file, name
+the evidence path/hash in its reason, and use `annotate --case CASE_ID --file
+ANNOTATION_FILE`. This annotates two reviewed gates for one case; it does not
+admit a damage comparison. The annotation invalidates the game's older
+provisional context fingerprint. Explicitly re-import the unchanged
+`attack-review-discovery-v2` dossier to bind those context counts to the reviewed
+case state, then run `make verification-report`. Neither step clears the four
+remaining gates or changes model coverage.
+
+The next, separate review stage is `scripts/replay_effect_review.py`. It consumes
+the published first-hit review plus the retained matching-game sources, ten
+champion records, quest stringtable, Riot 16.20.1 summoner descriptions and their
+receipt, and a current-adapter `buffs-discovery-v4` extraction:
+
+```sh
+python3 scripts/replay_effect_review.py \
+  --base observations/local/riot-thebausffs-access --output PATH_TO_FRESH_EFFECT_REVIEW
+```
+
+The [published effect receipt](../observations/replays/first-hit-effect-review-2026-10-18.json)
+documents the exact shield-free eligibility scope. Its annotation removes only
+that case's shield gate, leaving three blockers. Apply it with the same
+receipt-bound annotation and explicit context re-import process above. This
+does not verify shield field calibration, shield absorption or complete buff
+state. A new defensive ability, ally shield rune/item, summoner, quest state or
+spell prefix fails closed and requires renewed review.
+
+The next independent stage reviews the selected hit's amount metric:
+
+```sh
+build/replay-venv/bin/python scripts/replay_amount_review.py \
+  --base observations/local/riot-thebausffs-access \
+  --image PATH_TO_GUARDED_NATIVE_IMAGE --output PATH_TO_FRESH_AMOUNT_REVIEW
+```
+
+This requires the optional native decoder environment. It verifies the current
+shield review and retained source receipts, re-runs the native state/damage
+readers, rebuilds the health bracket and checks float32 measurement closure.
+The [published amount receipt](../observations/replays/first-hit-amount-review-2026-10-18.json)
+resolves amount meaning for this isolated, shield-free, nonlethal hit only.
+Its annotation leaves two blockers: active effects and server sampling. Apply
+it with the same evidence-bound annotation, explicit context re-import and
+report regeneration process. Neither the amount review nor the float32 bound
+admits a comparison or defines the model's error tolerance.
+
+The last observation review stage is limited to this conditional-input case:
+
+```sh
+build/replay-venv/bin/python scripts/replay_final_review.py \
+  --base observations/local/riot-thebausffs-access \
+  --image PATH_TO_GUARDED_NATIVE_IMAGE --output PATH_TO_FRESH_FINAL_REVIEW
+```
+
+The [final receipt](../observations/replays/first-hit-final-review-2026-10-18.json)
+binds the amount review, native payloads, both teams' causal capabilities and
+new resource observations. Twenty initial resource values independently match
+Riot's timeline; no later snapshot is used as pre-hit input. Zero Rengar
+Ferocity plus missing prerequisite actions excludes empowered CC. The
+declared-mechanic review and eleven invariant scalar inputs make the exact
+sampling instant irrelevant for this conditional calculation.
+
+Its annotation leaves no observation blockers for this case; apply it with the
+same receipt-bound annotation and explicit context re-import process. The page
+then shows observation review complete. It still has zero admitted comparisons:
+the conditional-input comparator must bind this receipt and the production
+model before execution/admission. Unknown counter names, lifecycle issues and
+the unknown exact server sampling instant stay in the receipt. They are not
+relabelled as decoded or treated as universal protocol coverage.
+
+## Execute a reviewed conditional comparison
+
+This first adapter is restricted to the frozen Sion → K'Sante ordinary physical
+case. It consumes the four public semantic review receipts and an unblocked
+imported case, rather than substituting a 16.19 runtime build for the observed
+16.20 game. Its `snapshot` is explicitly a content-addressed observed-input
+context, not a champion/build package. The full-simulation adapter remains
+separate.
+
+Prepare a fresh recipe and admit it before executing the production runner:
+
+```sh
+python3 scripts/replay_conditional_compare.py prepare --output PATH_TO_FRESH_PLAN
+python3 scripts/replay_conditional_compare.py admit --plan PATH_TO_PLAN
+python3 scripts/replay_conditional_compare.py run --plan PATH_TO_PLAN --output PATH_TO_FRESH_REPORT
+make verification-report
+```
+
+`run` writes the result and records it in the append-only ledger. To verify and
+re-import a retained report, the importer re-executes the production calculation:
+
+```sh
+python3 scripts/replay_conditional_compare.py import --plan PATH_TO_PLAN --report PATH_TO_REPORT
+```
+
+An unchanged import adds zero comparison records. Mismatches remain results and
+cannot be hidden by increasing tolerance after execution. Changing an admitted
+recipe requires explicit invalidation/review. `--ledger` and `--reviews` are
+global options placed before the subcommand. The runner requires `build/janet`
+and the normal workspace modules; optional replay/native decoding libraries are
+not needed at comparison time.
+
+The [retained plan](../observations/verification/first-hit-conditional-plan-2026-10-18.json)
+contains the frozen model, registry, case revision, review chain, observed input
+context and numerical policy. Its tolerance is calculated from AD and a declared
+float32 arithmetic bound before prediction; it is not selected from the replay
+error. Admission alone does not add checked coverage. The
+[production report](../observations/replays/first-hit-model-comparison-2026-10-18.json)
+adds one evaluated case and two checked conditional targets. It verifies no build
+stat generation, crit/penetration behavior, shield handling or fight sequence,
+and it does not turn this development game into fresh audit evidence.

@@ -1,0 +1,103 @@
+{
+  "format": "powerspike-replay-outcome-study",
+  "version": 1,
+  "recorded-local-date": "2026-10-18",
+  "scope": "Two previously inspected development games; native field extraction and one narrow semantic review. Zero admitted damage comparisons.",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "counts": {
+    "damage-outcomes": 6306,
+    "action-announcements": 11938,
+    "attack-slots": 5268
+  },
+  "result-code-cohorts": {
+    "other-effect": {
+      "5": 2423,
+      "3": 90,
+      "4": 253,
+      "1": 3,
+      "0": 4
+    },
+    "basic-attack-candidate": {
+      "5": 636,
+      "6": 2
+    },
+    "unknown-effect": {
+      "5": 2699,
+      "3": 106,
+      "1": 45
+    },
+    "critical-attack-candidate": {
+      "3": 41,
+      "6": 4
+    }
+  },
+  "replays": [
+    {
+      "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+      "summary-sha256": "ba1ab8585eb81bf95778a99cbbf7b78b08bad6e0f6fc620aaf3d8bfaf2a45eeb",
+      "counts": {
+        "damage-outcomes": 1803,
+        "action-announcements": 4026,
+        "attack-slots": 2106
+      },
+      "archives": {
+        "action-slots.jsonl.gz": "7df225f829ec4958382b7efce6e30718146f0d1d495d1723712e03932ff162d4",
+        "damage-outcomes.jsonl.gz": "81146413e51065f65a456098cf39339ee00e4e8b69ce29ca1e48467fbcd0247d"
+      },
+      "cost": {
+        "wall-seconds": 5.0039934720007295
+      }
+    },
+    {
+      "replay-sha256": "f2c85067092d172fcaa6c6565535cba36c3dbf94a79c2699fbc949b4a53ad411",
+      "summary-sha256": "3cb557ab610573e6ec3258c1624806ec3e1bc2cb921239d866286ae669f2263c",
+      "counts": {
+        "damage-outcomes": 4503,
+        "action-announcements": 7912,
+        "attack-slots": 3162
+      },
+      "archives": {
+        "action-slots.jsonl.gz": "4dbcf336f1c80d5948af51e47ebd8e7b82df6c58ea754e0af36663487cf785bb",
+        "damage-outcomes.jsonl.gz": "bac8da85acf2da69966236479bb8163632d9179d53c2b6c44992defb76134343"
+      },
+      "cost": {
+        "wall-seconds": 8.775182686000335
+      }
+    }
+  ],
+  "field-label-corrections": {
+    "legacy-encoded-slot": "The legacy key is the first byte of a different four-byte sequence-like field. Actual attack slot comes from native object offset 0x1d. Old frozen observations are preserved; enriched archives use attack-slot and opaque-field-08-first-byte.",
+    "legacy-source-kind-encoded": "This field is a native result-code representation. Enriched archives use result-code-encoded and result-code. No universal enum labels inferred."
+  },
+  "selected-review": {
+    "path": "observations/replays/first-hit-review-2026-10-18.json",
+    "sha256": "e80a2c80d816769a99cebdb11785f1cf819552141a5b7003678624b1a63448f1",
+    "resolved-blockers": [
+      "attack-classification-not-independently-verified",
+      "inventory-and-rune-state-unresolved"
+    ],
+    "remaining-blockers": [
+      "buff-and-on-hit-context-unresolved",
+      "damage-packet-amount-semantics-incomplete",
+      "shield-semantics-not-independently-verified",
+      "stat-sampling-window-unresolved"
+    ],
+    "model-admissible": false
+  },
+  "resource-cost": {
+    "measured-final-extraction-wall-seconds": 13.779176158001064,
+    "public-champion-source-http-requests": 10,
+    "public-champion-source-bytes": 142896,
+    "authenticated-api-requests": 0,
+    "new-replay-downloads": 0,
+    "new-client-download-bytes": 0,
+    "manual-review-seconds": null,
+    "scope": "Final outcome extraction passes and ten public patch source downloads. Excludes exploration, development, tests and unmeasured manual review."
+  },
+  "adapters": {
+    "replay_outcomes.py": "b8506120db4cbdba3e9dc70a9872f012ee41a349d8f24ebeb7e94766d050cba9",
+    "replay_actions.py": "c19dfd1efdda225402509d61acda9b25fd7e3eaa0a02eb760e01bfae82c6c899",
+    "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc"
+  }
+}

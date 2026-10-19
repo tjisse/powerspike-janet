@@ -1,0 +1,226 @@
+{
+  "format": "powerspike-replay-evidence-store-study",
+  "version": 1,
+  "date": "2026-10-18",
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "evidence-role": "development",
+  "store-identity": "c0e10e6bc5ba2c4475905589ba086e697690dff8461a0e36b86a3ea1764beada",
+  "manifest-sha256": "af7dda65b2357d43519a4d91c154ac5feb8e37c14bbb52834571ffe9e8347776",
+  "database-sha256": "c8a088d6e1bd46d54621cce8bc446ba7692c8b5b6887a6696a73eea4ba49073c",
+  "database-bytes": 51728384,
+  "adapters": {
+    "replay_evidence.py": "5b20ae2dc33673e6dfc08767a39c7527cc67852904168bbf829141c48e244e01",
+    "replay_attack_review.py": "37ca95d01c0c1fe15f493369db0504142e616c295a6a5085b3146478947383c0",
+    "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0",
+    "replay_review_fields.py": "358c273aad1cd5c6359c5c15645c5f2c49711416a36b585a5ac707947c99142b",
+    "replay_gaps.py": "9c9e68dad42287d347e2e6d5b1ad046ee3d2a19604a97c63d78ff7456ef9b73c",
+    "replay_recovery.py": "7cfd2361fc46fe7b868d4b6d8d66afd953eaba0cbcd525e89a3d98c45f8681e5"
+  },
+  "source-files": {
+    "combat/summary.json": "8a6de69362a9aca9e7fb2e4212382f0da47eb0f73b446017e0a94f5f06288e5d",
+    "audit/summary.json": "03048eb712d440f0ff8e4bacaabf1f97d58ca368708617e0245c959ba33fa311",
+    "actions/summary.json": "1552272713e85a0e1958eb55757a8207922c08bd9431e1d5cff423d367607d5d",
+    "buffs/summary.json": "d9237e43d6a88c6e0af226979a0c38d2abb05247493c1ce03ff10058be9d053d",
+    "outcomes/summary.json": "ba1ab8585eb81bf95778a99cbbf7b78b08bad6e0f6fc620aaf3d8bfaf2a45eeb",
+    "attack-review/summary.json": "06694bc6eb79aff2321342116602629836f98b4c05b206ecf4e00fa5cfe809f4",
+    "audit/cases.jsonl.gz": "da9352678d2e6a6e3ee5d0d1bff69c3830d58e10739945e8a9a3f6ad4dd512f1",
+    "actions/actions.jsonl.gz": "bd9104a93557fdc305d12ecdc38c031c0be60c6e7bdd94c19275c156e2e082bd",
+    "actions/rejected.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "buffs/buffs.jsonl.gz": "b246d036e133f4787eef30a9762971d0ad763b63de33ceba1b0c8adddb7292d2",
+    "outcomes/action-slots.jsonl.gz": "7df225f829ec4958382b7efce6e30718146f0d1d495d1723712e03932ff162d4",
+    "outcomes/damage-outcomes.jsonl.gz": "81146413e51065f65a456098cf39339ee00e4e8b69ce29ca1e48467fbcd0247d",
+    "attack-review/attack-context.jsonl.gz": "b02a9584ae6e0e4551375dfbdff0599152613e6f04902f121a154501579a3def",
+    "attack-review/witness.json": "87bd9465be57ea56143f6086969a2b065d313a1164964a14acf5fa495b59aa63",
+    "combat/state.jsonl.gz": "4d4f2c8b9bbbb93c17b88a7eb254f93ea2f6598132fb7f9a1232a950b61671f1",
+    "combat/damage.jsonl.gz": "b2c7a3ef93978f68becc696ee49e1c45d31d1aea74087aa5669389d77f85118a",
+    "api/match": "37b8fc5d7e56ffd505ed04a82014e725aa9986dad552240d9845747469b9c629",
+    "api/timeline": "0ebe8a57f1ddf86543720bd8b7df3105a67f0d196995ce99987f504cf4741067"
+  },
+  "index-counts": {
+    "state": 8568,
+    "damage": 27754,
+    "case": 1803,
+    "action": 4026,
+    "buff": 20045,
+    "outcome": 1803,
+    "action-slot": 4026,
+    "attack-context": 349,
+    "checkpoints": 112
+  },
+  "checkpoint-every-mutation-events": 256,
+  "max-intervening-mutation-events-per-lookup": 255,
+  "numeric-ready-unique-stable-candidate-hits": 141,
+  "batch": {
+    "regression-references": 1,
+    "new-candidates-prepared": 4,
+    "records": [
+      {
+        "event-id": "gameChunk:4:43918",
+        "source": "Sion",
+        "target": "KSante",
+        "timestamp": 38.32643605041511,
+        "observed-attack-damage": 78.0,
+        "observed-target-armor": 44.0,
+        "selection-reason": "Previously evaluated first hit; regression reference, not a new sample.",
+        "package-file-sha256": "11766e2d6231564c427bab6a7dc66da10eb07b72bea5197957cb2aebe1ee333a",
+        "evidence-sha256": "5c8f37265c2f66605f715a61f71667ea1714818c3d4dadb1a25a1513d3635eb1",
+        "retrieval": {
+          "checkpoint-after": "gameChunk:3:110787",
+          "mutation-events-applied": 163,
+          "action-checkpoint": {
+            "checkpoint-after": "gameChunk:3:110787",
+            "mutation-events-applied": 157
+          },
+          "raw-replay-reads": 0,
+          "source-archive-reads": 0,
+          "native-decode-calls": 0
+        },
+        "extraction-resolves-semantic-gates": false,
+        "new-model-comparison": false
+      },
+      {
+        "event-id": "gameChunk:5:96537",
+        "source": "Tristana",
+        "target": "Janna",
+        "timestamp": 63.26993527221683,
+        "observed-attack-damage": 73.39999961853027,
+        "observed-target-armor": 28.0,
+        "selection-reason": "Ranged attacker and a different low-armor target.",
+        "package-file-sha256": "3af2db0f7ef00108a72ed20550b189957b6a9726b5d770f0c1107e83cb376e99",
+        "evidence-sha256": "5fc2dc044499a8ec13bbb4a1792990d6dc30a36f83c6122545ea825218d368f6",
+        "retrieval": {
+          "checkpoint-after": "gameChunk:4:72845",
+          "mutation-events-applied": 210,
+          "action-checkpoint": {
+            "checkpoint-after": "gameChunk:4:72845",
+            "mutation-events-applied": 182
+          },
+          "raw-replay-reads": 0,
+          "source-archive-reads": 0,
+          "native-decode-calls": 0
+        },
+        "extraction-resolves-semantic-gates": false,
+        "new-model-comparison": false
+      },
+      {
+        "event-id": "gameChunk:6:400687",
+        "source": "KSante",
+        "target": "Sion",
+        "timestamp": 115.81108312988513,
+        "observed-attack-damage": 66.5199966430664,
+        "observed-target-armor": 39.02399826049805,
+        "selection-reason": "Different melee attacker and reversed source/target roles.",
+        "package-file-sha256": "e98588046b2308b02b2c3356db59ac76da7ee7d5d3139b042272f8bd9ec25cd2",
+        "evidence-sha256": "97170aa73e634eeb67c3721fd39e77e4dd5c017b4fd0d42e7e9da102297908a5",
+        "retrieval": {
+          "checkpoint-after": "gameChunk:6:283059",
+          "mutation-events-applied": 253,
+          "action-checkpoint": {
+            "checkpoint-after": "gameChunk:6:283059",
+            "mutation-events-applied": 241
+          },
+          "raw-replay-reads": 0,
+          "source-archive-reads": 0,
+          "native-decode-calls": 0
+        },
+        "extraction-resolves-semantic-gates": false,
+        "new-model-comparison": false
+      },
+      {
+        "event-id": "gameChunk:10:2417",
+        "source": "Sion",
+        "target": "KSante",
+        "timestamp": 210.29369848632808,
+        "observed-attack-damage": 94.05999755859375,
+        "observed-target-armor": 85.77799987792969,
+        "selection-reason": "Later Sion attack with higher target armor.",
+        "package-file-sha256": "8829eed0947a85c1f66fe26a4b57a111c038f2f74e6beeceb130dd0b79f460ca",
+        "evidence-sha256": "8e8f49cac21de5881fd3567e9f5defee45e7097b9ab47c27347bc63979a83972",
+        "retrieval": {
+          "checkpoint-after": "gameChunk:9:430056",
+          "mutation-events-applied": 163,
+          "action-checkpoint": {
+            "checkpoint-after": "gameChunk:9:430056",
+            "mutation-events-applied": 155
+          },
+          "raw-replay-reads": 0,
+          "source-archive-reads": 0,
+          "native-decode-calls": 0
+        },
+        "extraction-resolves-semantic-gates": false,
+        "new-model-comparison": false
+      },
+      {
+        "event-id": "gameChunk:15:363291",
+        "source": "Sion",
+        "target": "KSante",
+        "timestamp": 380.52608911133143,
+        "observed-attack-damage": 105.80000305175781,
+        "observed-target-armor": 129.54000854492188,
+        "selection-reason": "Sion attack against target armor above 100.",
+        "package-file-sha256": "b20a84b3ee63de919a8b9c9a05af9cca65adc0f5428a394592ca4ecdfbce1ddd",
+        "evidence-sha256": "080fc70435ecd909ad4e75e28643ff6b4c23af9beddebd919f8ef1cc8bbecdd7",
+        "retrieval": {
+          "checkpoint-after": "gameChunk:15:343914",
+          "mutation-events-applied": 43,
+          "action-checkpoint": {
+            "checkpoint-after": "gameChunk:15:343914",
+            "mutation-events-applied": 32
+          },
+          "raw-replay-reads": 0,
+          "source-archive-reads": 0,
+          "native-decode-calls": 0
+        },
+        "extraction-resolves-semantic-gates": false,
+        "new-model-comparison": false
+      }
+    ],
+    "summary-sha256": "8377b7e32ce17f1dbeca78fef7495523a34c00f594cdf4a86ae9d3b11736eece"
+  },
+  "cost": {
+    "index-build": {
+      "wall-seconds": 11.492508946997987,
+      "raw-replay-reads": 0,
+      "native-decode-calls": 0,
+      "archive-passes": 8
+    },
+    "batch-extraction": {
+      "wall-seconds": 0.3070528710013605,
+      "raw-replay-reads": 0,
+      "source-archive-reads": 0,
+      "native-decode-calls": 0
+    },
+    "store-open-integrity-check": {
+      "wall-seconds": 0.24247041000489844,
+      "database-bytes-checked": 51728384,
+      "source-archives-checked": false
+    },
+    "observed-open-plus-extract-wall-seconds": 0.5495232810062589,
+    "limits": "One measured local run; excludes initial decoding, manual semantic review, model execution and CLI startup. Store opening fingerprints the compressed database once, without state reconstruction."
+  },
+  "validation": {
+    "candidate-checkpoints-compared-with-one-uninterrupted-source-pass": 141,
+    "all-roster-observed-core-scalars-and-provenance-match": true,
+    "all-roster-buff-lifecycles-and-issues-match": true,
+    "python-tests-run": 144,
+    "python-tests-skipped": 6,
+    "python-test-result": "passed",
+    "focused-tests": "11 synthetic tests plus one optional retained-game test; retained-game test ran.",
+    "git-diff-check": "passed"
+  },
+  "new-model-comparisons": 0,
+  "new-admitted-cases": 0,
+  "semantic-gates-resolved-by-extraction": 0,
+  "limits": [
+    "Observed client state only; missing fields remain unknown.",
+    "Buff presence, counters and durations do not establish effect behavior or completeness.",
+    "Local event windows do not prove absence of earlier actions; query indexed history.",
+    "API event times are a separate, coarse clock, not exact replay ordering.",
+    "No semantic blockers are resolved and no model comparison is admitted by extraction.",
+    "Candidate selection uses observed inputs and actor diversity, not model prediction errors. The regression reference has a previously known model result.",
+    "Both retained games remain development evidence; this adds no fresh audit evidence."
+  ]
+}

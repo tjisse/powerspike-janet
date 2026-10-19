@@ -1,0 +1,158 @@
+{
+  "format": "powerspike-first-hit-amount-review",
+  "version": 1,
+  "replay-sha256": "670abf1ef2a4fd005cf4ee1a36560078fc99e90aeee5ef263532e59105f2888c",
+  "event-id": "gameChunk:4:43918",
+  "client-build": "16.20.824.8524",
+  "amount-review": {
+    "status": "corroborated-health-damage-amount-for-this-case",
+    "health-before": {
+      "event-id": "gameChunk:3:71962",
+      "timestamp": 5.025256216049195,
+      "health": 775.0,
+      "health-max": 775.0
+    },
+    "health-after": {
+      "event-id": "gameChunk:4:44032",
+      "timestamp": 38.392436050415114,
+      "health": 720.8333129882812,
+      "health-max": 775.0
+    },
+    "damage-between-health-samples": [
+      {
+        "event-id": "gameChunk:4:43918",
+        "timestamp": 38.32643605041511,
+        "source": 1073742003,
+        "target": 1073741998,
+        "amount": 54.166664123535156,
+        "damage-type": "physical",
+        "effect-hash": 264459371
+      }
+    ],
+    "closure": {
+      "health-before": 775.0,
+      "health-after": 720.8333129882812,
+      "wire-damage": 54.166664123535156,
+      "difference": 2.288818359375e-05,
+      "measurement-bound": 6.29425048828125e-05,
+      "bound-policy": "Sum of half a float32 ULP for the three observed values, not fitted to damage error.",
+      "scope": "Corroborates positive health loss for this bracket; does not by itself establish shield absorption semantics or a model tolerance."
+    },
+    "amount-means": "Damage delivered to target health for this isolated shield-free, nonlethal hit, within float32 measurement precision.",
+    "scope": "Independent observation metric only. Does not prove pre-mitigation amount, universal result-code meanings, shield absorption, overkill handling or a model-error tolerance."
+  },
+  "native-state-packets-rechecked": 189,
+  "target-health-prefix": [
+    {
+      "event-id": "gameChunk:3:12575",
+      "timestamp": 0.0,
+      "health": 625.0,
+      "health-max": 625.0
+    },
+    {
+      "event-id": "gameChunk:3:71962",
+      "timestamp": 5.025256216049195,
+      "health": 775.0,
+      "health-max": 775.0
+    },
+    {
+      "event-id": "gameChunk:4:44032",
+      "timestamp": 38.392436050415114,
+      "health": 720.8333129882812,
+      "health-max": 775.0
+    }
+  ],
+  "target-capacity-prefix": [
+    {
+      "event-id": "gameChunk:3:12575",
+      "timestamp": 0.0,
+      "health-max": 625.0
+    },
+    {
+      "event-id": "gameChunk:3:71962",
+      "timestamp": 5.025256216049195,
+      "health-max": 775.0
+    }
+  ],
+  "native-damage-prefix": [
+    {
+      "event-id": "gameChunk:4:35741",
+      "timestamp": 37.1574360504151,
+      "source": 1073741998,
+      "target": 1073742003,
+      "amount": 56.17646408081055,
+      "damage-type": "physical",
+      "effect-hash": 43539121
+    },
+    {
+      "event-id": "gameChunk:4:37713",
+      "timestamp": 37.558436050415104,
+      "source": 1073741998,
+      "target": 1073742003,
+      "amount": 47.05882263183594,
+      "damage-type": "physical",
+      "effect-hash": 43539120
+    },
+    {
+      "event-id": "gameChunk:4:37736",
+      "timestamp": 37.558436050415104,
+      "source": 1073741998,
+      "target": 1073742003,
+      "amount": 13.713234901428223,
+      "damage-type": "physical",
+      "effect-hash": 43539120
+    },
+    {
+      "event-id": "gameChunk:4:43918",
+      "timestamp": 38.32643605041511,
+      "source": 1073742003,
+      "target": 1073741998,
+      "amount": 54.166664123535156,
+      "damage-type": "physical",
+      "effect-hash": 264459371
+    }
+  ],
+  "resolved-semantic-blockers": [
+    "damage-packet-amount-semantics-incomplete"
+  ],
+  "remaining-semantic-blockers": [
+    "buff-and-on-hit-context-unresolved",
+    "stat-sampling-window-unresolved"
+  ],
+  "cumulative-resolved-semantic-blockers": [
+    "attack-classification-not-independently-verified",
+    "damage-packet-amount-semantics-incomplete",
+    "inventory-and-rune-state-unresolved",
+    "shield-semantics-not-independently-verified"
+  ],
+  "model-admissible": false,
+  "inputs": {
+    "effect-review": "a808825519bba12e7f42183a80732eeae5cbf8d36abe37d5c04e1a259e83d18c",
+    "witness": "54cac64fedc53ad6bf05b79aa93c60ff7e01fa1f792e8f0cc52f9f6ab46fe6f6",
+    "gap-audit": "03048eb712d440f0ff8e4bacaabf1f97d58ca368708617e0245c959ba33fa311",
+    "combat": "8a6de69362a9aca9e7fb2e4212382f0da47eb0f73b446017e0a94f5f06288e5d",
+    "image": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+    "profile": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9"
+  },
+  "adapters": {
+    "replay_amount_review.py": "db9116d88cb91fb6a3ca73cf1b92012767284e519ae9e77e6c752b28df77d4d8",
+    "replay_native.py": "085a166ccef759250e550d8401f330bfcf3cbacfdcc231730d91d1fd93c9f4dc",
+    "replay_state.py": "7b96608be4fd53073d7fb2edf9a0e5affe96f92fb0ce9d218e23e675241297c0",
+    "replay_first_hit_review.py": "c2c2e52b27b47f34c22ca32dc431435f30d992f1e619397ac923ec44c6673626"
+  },
+  "cost": {
+    "wall-seconds": 1.2181482550004148,
+    "new-requests": 0,
+    "new-download-bytes": 0,
+    "scope": "Final retained-payload review pass only; excludes exploratory research, development, tests and manual review."
+  },
+  "annotation": {
+    "reason": "Exact-build native replay payloads rechecked: sole physical packet agrees with independently re-read health loss within a float32 measurement bound, in the already-reviewed shield-free, nonlethal case. No model prediction or model tolerance used. Active effects and server sampling remain blocked.",
+    "changes": {
+      "blockers": [
+        "buff-and-on-hit-context-unresolved",
+        "stat-sampling-window-unresolved"
+      ]
+    }
+  }
+}

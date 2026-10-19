@@ -29,15 +29,16 @@
 (util/write (string root "/patches/16.19.1/current") snapshot)
 (def package (catalog/initialize root nil))
 (def order [:q :w :e :q :q :r :q :w :q :w :r :w :w :e :e :r :e :e])
-(defn spec [form level]
-  {:champion "Nidalee" :level level :form form :skill-order order :loadout {:items ["3153"]}
+(defn spec [form level &opt champion]
+  {:champion (or champion "Nidalee") :level level :form form :skill-order order :loadout {:items ["3153"]}
    :strategy {:attacks true :abilities true :movement :hold}})
-(defn definition [form level]
+(defn definition [form level &opt champion]
   {:schema 1 :patch "16.19.1" :snapshot snapshot :duration 0.7 :distance 0 :seed 1
-   :player (spec form level) :target {:kind :practice :hp 1000 :armor 0 :mr 0}})
-(each [form ranged range rate] [["human" true 525 0.06] ["cougar" false 125 0.09]]
-  (each level [1 6 18]
-    (def definition (definition form level))
+   :player (spec form level champion) :target {:kind :practice :hp 1000 :armor 0 :mr 0}})
+(each [champion form ranged range rate] [["Nidalee" "human" true 525 0.06] ["Nidalee" "cougar" false 125 0.09]
+                                         ["Jayce" "hammer" false 125 0.09] ["Jayce" "cannon" true 500 0.06]]
+  (each level (if (= champion "Jayce") [1 5 6 10 11 15 16 18] [1 6 18])
+    (def definition (definition form level champion))
     (def compiled (scenario/compile definition))
     (def actor (get-in compiled [:actors 0]))
     (assert (= form (actor :form)))
@@ -57,6 +58,35 @@
     (assert (some |(= "attack" ($ :source)) ((scenario/simulate (merge definition {:distance range})) :events)))
     (assert (empty? ((scenario/simulate (merge definition {:distance (+ range 0.01)})) :events)))
     (assert (= ((scenario/simulate definition) :metrics) ((scenario/fitness definition) :metrics)))))
+
+# Hammer's passive is bonus armor/MR, independent of R allocation. Check all
+# level breakpoints against a separate arithmetic reference and Cannon's stats.
+(each level [1 5 6 10 11 15 16 18]
+  (def hammer (get-in (scenario/compile (definition "hammer" level "Jayce")) [:actors 0]))
+  (def cannon (get-in (scenario/compile (definition "cannon" level "Jayce")) [:actors 0]))
+  (def expected (+ 5 (* 7 (math/floor (/ (dec level) 5))) (* 0.075 (- (get-in hammer [:stats :ad]) (get-in hammer [:base :ad])))))
+  (each key [:armor :mr]
+    (close expected (- (get-in hammer [:stats key]) (get-in cannon [:stats key])))
+    (close (get-in hammer [:base key]) (get-in cannon [:base key]))))
+
+# Temporary AD changes must update the passive before armor/MR modifiers,
+# without stacking the passive on repeated refreshes or retaining it at expiry.
+(def hammer (get-in (scenario/compile (definition "hammer" 1 "Jayce")) [:actors 0]))
+(def resting (merge hammer {:strategy {:attacks false :abilities false :movement :hold}}))
+(def target (get-in (scenario/compile (definition "cannon" 1 "Jayce")) [:actors 1]))
+(defn event [at effect] {:at at :kind :effect :actor 1 :target 0 :source "fixture" :origin (string at) :effect effect})
+(def simulated (engine/simulate {:duration 1.4 :actors [resting target]
+                                 :initial-events [(event 0 {:kind :stat-buff :stat :ad :amount 100 :duration 1})
+                                                  (event 0 {:kind :stat-buff :stat :armor :mode :multiply :amount 0.5 :duration 1})
+                                                  (event 0 {:kind :stat-buff :stat :mr :mode :multiply :amount 0.5 :duration 1})
+                                                  (event 0.2 {:kind :damage :damage-type :physical :amount 100})
+                                                  (event 0.4 {:kind :damage :damage-type :magic :amount 100})
+                                                  (event 1.1 {:kind :damage :damage-type :physical :amount 100})]}))
+(def hits (filter |(= :damage ($ :kind)) (simulated :trace)))
+(close (/ 10000 (+ 100 (* 0.5 (+ (get-in hammer [:stats :armor]) 7.5)))) ((hits 0) :damage))
+(close (/ 10000 (+ 100 (* 0.5 (+ (get-in hammer [:stats :mr]) 7.5)))) ((hits 1) :damage))
+(close (/ 10000 (+ 100 (get-in hammer [:stats :armor]))) ((hits 2) :damage))
+(each key [:armor :mr :ad] (close (get-in hammer [:stats key]) (get-in simulated [:actors 0 :stats key])))
 (def duel (merge (definition "human" 6) {:distance 200 :target (merge (spec "cougar" 18) {:kind :champion})}))
 (def compiled (scenario/compile duel))
 (assert (true? (get-in compiled [:actors 0 :ranged])))
@@ -92,6 +122,29 @@
 (assert (empty? ((forms/apply-form human-kit "cougar") :abilities)))
 (assert (= (human-kit :abilities) ((forms/apply-form human-kit nil) :abilities)))
 (assert (= "" ((model/parse-state {"champion" "Ahri" "form" "cougar"}) :form)))
+(assert (= "" ((model/parse-state {"champion" "Jayce" "form" "human"}) :form)))
+(assert (= "" ((model/parse-state {"champion" "Nidalee" "form" "hammer"}) :form)))
+(assert (not (first (protect (model/parse-state {"champion" "Jayce" "form" "dragon"})))))
+(def jayce-duel (merge (definition "cannon" 6 "Jayce") {:target (merge (spec "hammer" 18 "Jayce") {:kind :champion})}))
+(def jayce-decoded (wire/decode (wire/encode ((scenario/compile jayce-duel) :definition))))
+(def jayce-restored (model/state-from-definition jayce-decoded))
+(assert (= "cannon" (jayce-restored :form)))
+(assert (= "hammer" (jayce-restored :opponentform)))
+(assert (= ((scenario/simulate jayce-duel) :metrics) ((scenario/simulate (model/definition jayce-restored ["3153"])) :metrics)))
+(each definition [jayce-duel (merge jayce-duel {:player (jayce-duel :target) :target (merge (jayce-duel :player) {:kind :champion})})]
+  (def result (search/run package definition {:pool ["3153"] :slots 1 :budget 4000 :seconds 5 :final-samples 1}
+                          (fn [progress] nil) (fn [] false)))
+  (assert (result :complete))
+  (each row (result :rows)
+    (assert (= (get-in definition [:player :form]) (get-in row [:definition :player :form])))
+    (assert (= (get-in definition [:target :form]) (get-in row [:definition :target :form])))
+    (assert (= (row :metrics) ((scenario/fitness (row :definition)) :metrics)))))
+(assert (nil? (get-in (scenario/compile (definition nil 1 "Jayce")) [:actors 0 :ranged])))
+(def no-r (merge jayce-duel {:player (merge (spec "hammer" 18 "Jayce") {:ranks {:r 0}})}))
+(close (get-in (scenario/compile (definition "hammer" 18 "Jayce")) [:actors 0 :stats :armor])
+       (get-in (scenario/compile no-r) [:actors 0 :stats :armor]))
+(assert (not (first (protect (scenario/compile (definition "human" 1 "Jayce"))))))
+(assert (not (first (protect (scenario/compile (definition "hammer" 1 "Nidalee"))))))
 (assert (= snapshot (hash/sha256 (slurp (string directory "/package.jdn")))))
 (util/remove-tree root)
-(print "Sourced Nidalee forms: both roles, range boundaries, item arithmetic/tooltips, cached repair, exact scenario/UI round trips, optimizer preservation and invalid form rejection passed.")
+(print "Sourced Nidalee/Jayce forms: both roles, ranges, item scaling/tooltips, Hammer resistances and temporary modifiers, cached repair, scenario/UI round trips and optimizer preservation passed.")

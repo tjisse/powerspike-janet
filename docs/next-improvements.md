@@ -24,8 +24,9 @@ diagnostics remain in the developer tools.
 2. **Level and form transitions.** Kayle's [fixed-level attack type and range](kayle-levels.md)
    now drive both participants and supported item scaling on 16.19.1, with her
    remaining passive effects explicit. Nidalee now has [fixed Human/Cougar forms](nidalee-forms.md)
-   for ordinary attacks and supported item scaling. Next add supported forms for
-   Elise, Gnar and Jayce. The selected form/level must drive damage, range,
+   for ordinary attacks and supported item scaling. Jayce now has [fixed Hammer/Cannon forms](jayce-forms.md),
+   including Hammer's level/bonus-AD resistance scaling. Next add supported forms
+   for Elise and Gnar. The selected form/level must drive damage, range,
    tooltips and both optimizer perspectives consistently. Remove an omission only when its
    replacement is implemented and checked.
 3. **Broader combat regression evidence.** Expand reviewed comparisons across

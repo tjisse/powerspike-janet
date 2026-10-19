@@ -110,3 +110,9 @@ either participant. The choice drives ordinary attack range and supported item
 scaling, survives exported/shared scenarios, and remains fixed during item
 optimization. Her abilities, Hunt/Prowl and form switching stay excluded in
 this mode. Older scenarios with no form retain their unknown-form behavior.
+
+[Jayce's fixed Hammer/Cannon forms](jayce-forms.md) now use the same selector.
+Hammer's armor/MR scales with level and bonus AD, including temporary AD changes
+during combat. His casts, transformation attack bonuses, Hextech Capacitor and
+switching forms remain excluded. Item searches and exported/shared scenarios
+retain both participants' form choices.

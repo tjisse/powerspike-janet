@@ -31,7 +31,8 @@ Elise, Gnar, Jayce, Kayle and Nidalee have both identities. The
 [Kayle follow-up](kayle-levels.md) now resolves her ordinary attack type and range
 at a fixed selected level on 16.19.1. [Nidalee's selected fixed form](nidalee-forms.md)
 now supplies her ordinary attack type and range; unselected forms remain unknown.
-The other three champions' current attack
+Jayce's [fixed Hammer/Cannon form](jayce-forms.md) now supplies his type, range
+and Hammer resistance passive. The other two champions' current attack
 type depends on forms the model does not yet reconstruct. The compiler keeps
 their type unknown and excludes Mist's Edge's conditional on-hit damage;
 the item's supported ordinary stats still apply. Simulation details explain the

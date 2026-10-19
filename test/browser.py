@@ -4,13 +4,15 @@ import argparse, json, os, subprocess, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
 
-def verify_nidalee_forms(browser, base):
+def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_name, melee_name):
     page = browser.new_page(viewport={'width':1200,'height':1000})
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    url = (base+'/?mode=duel&champion=Nidalee&opponent=Nidalee&selected=custom'
-           '&form=human&opponentform=cougar&level=1&opponentlevel=1'
+    url = (base+f'/?mode=duel&champion={champion}&opponent={champion}&selected=custom&snapshotlocked=true'
+           f'&form={ranged_form}&opponentform={melee_form}&level=1&opponentlevel=1'
            '&movement=hold&opponentmovement=hold&distance=200&duration=1')
+    if champion == 'Jayce':
+        url += '&slot1=1036&enemyslot1=1036'
     page.goto(url, wait_until='domcontentloaded')
     expect(page.locator('#matchup-chart svg')).to_be_visible()
     def result():
@@ -26,16 +28,21 @@ def verify_nidalee_forms(browser, base):
         assert page.locator('#results').get_attribute('data-run-id') == previous
         page.locator('.matchup-run').click()
         page.wait_for_function('(previous)=>document.querySelector("#results").dataset.runId !== previous', arg=previous)
-    assert result()['names'] == ['Nidalee (Human)', 'Nidalee (Cougar)']
+    assert result()['names'] == [f'{champion} ({ranged_name})', f'{champion} ({melee_name})']
+    def stats_for(who):
+        return dict(json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))['stats'])
+    if champion == 'Jayce':
+        for label in ('Armor', 'Magic resist'):
+            assert abs(float(stats_for('opponent')[label]) - float(stats_for('player')[label]) - 5.75) < .01
     assert 'Downloading ability data' not in page.locator('#results').inner_text()
     assert all(row['actor'] == 'player' for row in result()['trace'] if row['kind'] == 'damage')
     assert any(row['kind'] == 'damage' for row in result()['trace'])
-    change('player', 'cougar')
+    change('player', melee_form)
     assert not any(row['kind'] == 'damage' for row in result()['trace'])
-    change('opponent', 'human')
+    change('opponent', ranged_form)
     assert any(row['kind'] == 'damage' and row['actor'] == 'opponent' for row in result()['trace'])
-    assert document()['player']['form'] == 'cougar'
-    assert document()['target']['form'] == 'human'
+    assert document()['player']['form'] == melee_form
+    assert document()['target']['form'] == ranged_form
     page.get_by_text('Saved scenarios',exact=True).click()
     page.get_by_role('button', name='Create share link', exact=True).click()
     shared = browser.new_page()
@@ -43,34 +50,44 @@ def verify_nidalee_forms(browser, base):
     expect(shared.locator('#matchup-chart svg')).to_be_visible()
     assert json.loads(shared.locator('#results').get_attribute('data-matchup-result')) == result()
     shared.close()
-    page.locator('#results').screenshot(path='build/nidalee-forms-desktop.png')
+    page.locator('#results').screenshot(path=f'build/{champion.lower()}-forms-desktop.png')
     for width in (736,390,320):
         page.set_viewport_size({'width':width,'height':1000})
         page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
         expect(page.locator('#player-card [name=form]')).to_be_visible()
         expect(page.locator('#opponent-card [name=opponentform]')).to_be_visible()
-    page.locator('#results').screenshot(path='build/nidalee-forms-mobile.png')
-    page.goto(base+'/?mode=practice&champion=Nidalee&form=human&level=1&selected=custom'
+    page.locator('#results').screenshot(path=f'build/{champion.lower()}-forms-mobile.png')
+    page.goto(base+f'/?mode=practice&champion={champion}&form={ranged_form}&level=1&selected=custom&snapshotlocked=true'
               '&abilities=false&movement=hold&distance=200&duration=1', wait_until='domcontentloaded')
     expect(page.locator('#timeline')).to_be_visible()
     assert json.loads(page.locator('#timeline').get_attribute('data-events'))
-    page.locator('#scenario [name=form]').select_option('cougar')
-    page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === "cougar"')
+    page.locator('#scenario [name=form]').select_option(melee_form)
+    page.wait_for_function('(form)=>JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === form', arg=melee_form)
     assert not json.loads(page.locator('#timeline').get_attribute('data-events'))
-    expect(page.locator('.chart-coverage')).to_contain_text('Fixed form · ordinary attacks only')
+    expect(page.locator('.chart-coverage')).to_contain_text('Fixed form · ordinary attacks')
     page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
-    page.locator('#loadout-tray').screenshot(path='build/nidalee-form-practice-mobile.png')
+    page.locator('#loadout-tray').screenshot(path=f'build/{champion.lower()}-form-practice-mobile.png')
+    if champion == 'Jayce':
+        for next_champion in ('Nidalee', 'Jayce'):
+            page.get_by_role('button', name='Change champion', exact=True).click()
+            page.locator(f'#champion-picker [data-champion-id={next_champion}]').click()
+            page.wait_for_function('(id)=>JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.champion === id', arg=next_champion)
+            assert 'form' not in document()['player']
+            expect(page.locator('#scenario [name=form]')).to_have_value('')
+            if next_champion == 'Nidalee':
+                page.locator('#scenario [name=form]').select_option('human')
+                page.wait_for_function('JSON.parse(document.querySelector("#scenario-data").dataset.json).scenario.player.form === "human"')
     assert not errors, errors
     page.close()
     native_context = browser.new_context(java_script_enabled=False)
     native = native_context.new_page()
     native.goto(url,wait_until='domcontentloaded')
-    native.locator('#player-card [name=form]').select_option('cougar')
+    native.locator('#player-card [name=form]').select_option(melee_form)
     native.locator('.matchup-run').click()
-    native.wait_for_url('**form=cougar**')
-    assert json.loads(native.locator('#scenario-data').get_attribute('data-json'))['scenario']['player']['form'] == 'cougar'
+    native.wait_for_url(f'**form={melee_form}**', wait_until='domcontentloaded')
+    assert json.loads(native.locator('#scenario-data').get_attribute('data-json'))['scenario']['player']['form'] == melee_form
     native_context.close()
-    print('Browser: Nidalee fixed forms, explicit reruns, shared reproduction, practice controls, native submission and mobile layouts passed.')
+    print(f'Browser: {champion} fixed forms, explicit reruns, shared reproduction, practice controls, native submission and mobile layouts passed.')
 
 def verify_kayle_levels(browser, base):
     page = browser.new_page(viewport={'width':1200,'height':1000})
@@ -214,7 +231,8 @@ def verify(base):
         browser = p.chromium.launch(headless=True)
         verify_item_comparison(browser, base)
         verify_kayle_levels(browser, base)
-        verify_nidalee_forms(browser, base)
+        verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
+        verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')
         verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]

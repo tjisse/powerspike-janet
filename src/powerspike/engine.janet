@@ -2,6 +2,7 @@
 (import ./damage :as damage)
 (import ./data-util :as util)
 (import ./runes :as runes)
+(import ./stats :as stats)
 (import pshash :as hash)
 
 (def version "combat-2")
@@ -15,6 +16,9 @@
                                    (slurp "data/form-fixtures/16.19.1/Nidalee-characters.json")
                                    (slurp "data/form-fixtures/16.19.1/NidaleeCougar-characters.json")
                                    (slurp "data/form-fixtures/16.19.1/strings.json")
+                                   (slurp "data/form-fixtures/16.19.1/jayce-manifest.json")
+                                   (slurp "data/form-fixtures/16.19.1/Jayce-characters.json")
+                                   (slurp "data/form-fixtures/16.19.1/Jayce-strings.json")
                                    (slurp "data/combat-fixtures/16.19.1/Ahri-characters.json")
                                    (slurp "data/combat-fixtures/16.19.1/Annie-characters.json")
                                    (slurp "data/combat-fixtures/16.19.1/Viktor-characters.json")
@@ -142,7 +146,17 @@
                   (* delta (actor :attack-speed-ratio))))
       (put totals :attack-speed-uncapped raw)
       (put totals :attack-speed (max 0 (min raw (actor :attack-speed-cap)))))
-    (each modifier active (unless (= :attack-speed-bonus (modifier :stat)) (apply-modifier modifier)))
+    (def resistance (actor :form-resistance))
+    (defn resistance-stat? [modifier] (some |(= $ (modifier :stat)) [:armor :mr]))
+    (each modifier active
+      (unless (or (= :attack-speed-bonus (modifier :stat)) (and resistance (resistance-stat? modifier)))
+        (apply-modifier modifier)))
+    (when resistance
+      (def base-ad (get-in actor [:base :ad]))
+      (def change (- (stats/form-resistance resistance (totals :ad) base-ad)
+                     (stats/form-resistance resistance (get-in actor [:original-stats :ad]) base-ad)))
+      (each key [:armor :mr] (put totals key (+ (get totals key 0) change)))
+      (each modifier active (when (resistance-stat? modifier) (apply-modifier modifier))))
     (put actor :stats totals)
     (put actor :health (min (actor :health) (totals :hp))))
   (defn participants []

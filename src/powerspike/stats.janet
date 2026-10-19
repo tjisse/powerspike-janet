@@ -30,6 +30,10 @@
       (put result key (- 1 (* (- 1 (get result key 0)) (- 1 value))))))
   result)
 
+(defn form-resistance [profile total-ad base-ad]
+  (if profile
+    (+ (profile :base) (* (profile :bonus-ad-ratio) (- total-ad base-ad))) 0))
+
 (defn total-stats [champion level items &opt external-modifiers]
   (def result (base-stats champion level))
   (def base-ad (result :ad))
@@ -65,6 +69,8 @@
         (error (string "unhandled item stat: " key)))))
   (put result :base-ad base-ad)
   (put result :bonus-ad (- (result :ad) base-ad))
+  (def resistance (form-resistance (champion :form-resistance) (result :ad) base-ad))
+  (each key [:armor :mr] (put result key (+ (result key) resistance)))
   (put result :ap (* (result :ap) ap-multiplier))
   (put result :crit-chance (max 0 (min 1 crit)))
   (put result :crit-damage crit-damage)

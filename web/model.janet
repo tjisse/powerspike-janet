@@ -104,7 +104,9 @@
     # Champion changes can carry the previous selector's signal. Clear it when
     # the new champion has no forms; scenario imports remain strictly checked.
     (if (or (= mode "legacy") (empty? (forms/choices id patch))) ""
-      (do (assert (or (= value "") (some |(= value ($ 0)) (forms/choices id patch))) "Choose a supported form.") value)))
+      (cond (or (= value "") (forms/fixed? id patch value)) value
+        (forms/known-choice? patch value) ""
+        (error "Choose a supported form."))))
   (merge slots (ability-fields input) {:patch patch :snapshot (package :snapshot) :champion champion :level (numeric (get input "level" 18) "Level" 1 18 true)
                                        :form (form-field champion "form") :opponentform (form-field opponent "opponentform")
                                        :armor (numeric (get input "armor" 80) "Target armor" 0 1000)

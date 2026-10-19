@@ -597,7 +597,9 @@
           (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
           (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
           (forms/fixed? (state :champion) (state :patch) (state :form))
-          "Fixed form · ordinary attacks only. See Simulation details for omissions."
+          (if (= "Jayce" (state :champion))
+            "Fixed form · ordinary attacks and form stats. See Simulation details for omissions."
+            "Fixed form · ordinary attacks only. See Simulation details for omissions.")
           broad
           (string "No supported spell damage for " ((result :champion) :name) " in this patch. See Simulation details for included effects.")
           (string "Spell damage unavailable for " ((result :champion) :name)

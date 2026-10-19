@@ -59,7 +59,7 @@
   (def automatic (skills/ranks-from-order (spec :skill-order) level))
   (def ranks (merge automatic (get spec :ranks {})))
   (skills/validate-ranks ranks level)
-  (def champion (forms/apply-form (attacks/at-level source-champion level ranks) (spec :form)))
+  (def champion (forms/apply-form (attacks/at-level source-champion level ranks) (spec :form) level))
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
   (assert (and (indexed? page) (<= (length page) 6)
@@ -83,6 +83,7 @@
   (def inspection (builds/inspect-build items {:champion (champion :id)}))
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
    :form (champion :form) :form-name (champion :form-name)
+   :form-resistance (champion :form-resistance)
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :windup-fraction (get-in champion [:attack-windup :fraction] 0.3)

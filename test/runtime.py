@@ -236,10 +236,13 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                     assert not any(event['source'] == 'item/3153/mist'
                                    for event in identity_result['events'])
                 identity_file.unlink()
-            for form, ranged, attack_range in [('human', True, 525), ('cougar', False, 125)]:
+            for champion, form, level, ranged, attack_range in [('Nidalee', 'human', 1, True, 525), ('Nidalee', 'cougar', 1, False, 125),
+                                                               ('Jayce', 'hammer', 1, False, 125), ('Jayce', 'cannon', 1, True, 500),
+                                                               ('Jayce', 'hammer', 6, False, 125), ('Jayce', 'hammer', 11, False, 125),
+                                                               ('Jayce', 'hammer', 16, False, 125)]:
                 _, form_raw = get(base, '/?' + urllib.parse.urlencode({
-                    'mode': 'practice', 'champion': 'Nidalee', 'form': form, 'selected': 'custom',
-                    'level': 1, 'abilities': 'false', 'movement': 'hold', 'distance': attack_range,
+                    'mode': 'practice', 'champion': champion, 'form': form, 'selected': 'custom',
+                    'level': level, 'abilities': 'false', 'movement': 'hold', 'distance': attack_range,
                     'duration': 1, 'snapshot': initial_scenario['snapshot']}))
                 form_page = Page()
                 form_page.feed(form_raw.decode())
@@ -252,6 +255,11 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                 assert form_result['actors'][0]['form'] == form
                 assert form_result['actors'][0]['ranged'] is ranged
                 assert form_result['actors'][0]['attack-range'] == attack_range
+                if champion == 'Jayce':
+                    # The source adds 7 Hammer armor/MR at levels 6, 11 and 16.
+                    for stat in ('armor', 'mr'):
+                        actor = form_result['actors'][0]
+                        assert abs(actor['stats'][stat] - actor['base'][stat] - (5 + 7 * ((level - 1) // 5) if form == 'hammer' else 0)) < 1e-6
                 assert any(event['source'] == 'attack' for event in form_result['events'])
                 form_file.unlink()
             signals = {'champion': 'Annie', 'selected': 'custom', 'slot1': '3089', 'duration': 6.5, 'mr': 97}

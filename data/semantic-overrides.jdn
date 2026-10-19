@@ -16,9 +16,10 @@
           :preserve-kinds [:shield]
           :effects [{:kind :damage :damage-type :magic :variable "TotalMissileDamage"}
                     {:kind :damage :damage-type :magic :variable "AttackTotalDMG" :trigger :attack
-                     :duration 4}]
-          :resolved-notes ["Conditional/maximum effect needs semantics: damage/magic/AttackTotalDMG"]
-          :note "Siphon Power replaces the next basic attack with its total magic damage during the tooltip's four-second window. Augmented shield, movement and critical-strike interactions remain excluded."}
+                     :attack-mode :replace :attack-delivery :release :duration 4}]
+          :resolved-notes ["Conditional/maximum effect needs semantics: damage/magic/AttackTotalDMG"
+                           "Siphon Power replaces the next basic attack with its total magic damage during the tooltip's four-second window. Augmented shield, movement and critical-strike interactions remain excluded."]
+          :note "Siphon Power replaces the next basic attack with its total magic damage during the tooltip's four-second window. Empowered attack travel is assumed zero. Augmented shield, movement and critical-strike interactions remain excluded."}
          {:champion "Viktor" :slot :r :patch-min "16.17.1" :patch-max "16.19.1"
           :effects [{:kind :damage :damage-type :magic :variable "InitialBurstDamage"}
                     {:kind :damage :damage-type :magic :variable "SubsequentBurstDamage"

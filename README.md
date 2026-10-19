@@ -143,3 +143,7 @@ Baseline attack ranges now survive catalog import for all 173 champions, includi
 Melee/ranged item scaling uses retained champion identities rather than attack range. Lillia receives melee scaling; unresolved form-dependent rates are excluded with an explanation in Simulation details. See [attack identities and item scaling](docs/attack-styles.md).
 
 The current simulation also uses Ahri's reviewed 20% ordinary windup and Annie's reviewed 1,500 basic-attack projectile speed. See [mage attack timing](docs/attack-timing.md) for the pinned source review and remaining scheduling assumptions.
+
+Viktor's ordinary attacks now use their reviewed 2,300 projectile speed. His
+empowered Q retains an explicit zero-travel assumption separately; see
+[Viktor attack delivery](docs/viktor-attacks.md) for the source boundary and checks.

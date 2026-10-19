@@ -147,6 +147,50 @@
 (def reset-cast (first (filter |(= :cast ($ :kind)) (reset :trace))))
 (close (+ (reset-cast :at) 0.4) (get-in (filter |(= "spell" ($ :source)) (reset :events)) [0 :at]))
 (close 1.3 (get-in (filter |(= "spell" ($ :source)) (waiting :events)) [0 :at]))
+# A replacement can explicitly retain delivery at release while ordinary
+# attacks travel. Bonus effects and on-hits follow the selected attack once.
+(def replacement-effect (merge bonus-effect {:id "replacement" :attack-mode :replace :amount 130
+                                             :duration 5 :attack-delivery :release}))
+(defn ranged-attacks [effects &opt duration events tactics]
+  (battle (or events []) {:attack-missile-speed 100 :abilities [(empowered effects)]
+                          :triggers [{:id "on-hit" :on [:attack] :kind :damage :damage-type :true :amount 20}]
+                          :strategy (merge {:attacks true :abilities true :movement :hold} (or tactics {}))}
+          {:position 100} (or duration 3)))
+(def delivery (ranged-attacks [replacement-effect (merge bonus-effect {:duration 5})]))
+(each hit (filter |(not= "attack" ($ :source)) (delivery :events))
+  (when (< (hit :at) 1) (close 0.4 (hit :at))))
+(close 180 (sum (map |($ :damage) (filter |(< ($ :at) 1) (delivery :events)))))
+(close 2.4 ((first (filter |(= "attack" ($ :source)) (delivery :events))) :at))
+(close 0 ((ranged-attacks [replacement-effect] 0.4) :damage))
+(close 150 ((ranged-attacks [replacement-effect] 0.401) :damage))
+# A normal replacement still uses the ordinary projectile. Expiry, misses and
+# interrupted windups cannot consume or apply a delivery override early.
+(def normal-replacement (tabseq [[k v] :pairs replacement-effect :when (not= k :attack-delivery)] k v))
+(close 1.4 (get-in (ranged-attacks [normal-replacement]) [:events 0 :at]))
+(def unselected (ranged-attacks [normal-replacement (merge replacement-effect {:id "unselected"})]))
+(close 1.4 (get-in unselected [:events 0 :at]))
+(def delivery-unit (unit "a" {:attack-missile-speed 100 :abilities [(empowered [replacement-effect])]
+                              :strategy {:attacks true :abilities true :movement :hold}}))
+(def delivery-duel (engine/simulate {:duration 0.401 :actors [delivery-unit (merge delivery-unit {:id "b" :position 100})]}))
+(each actor (delivery-duel :actors) (close 130 (actor :damage-dealt)))
+(each hit (delivery-duel :events) (close 0.4 (hit :at)))
+(def expiry (ranged-attacks [(merge replacement-effect {:duration 0.1})]))
+(close 1.4 (get-in expiry [:events 0 :at]))
+(assert (= "attack" (get-in expiry [:events 0 :source])))
+(def delivery-miss (ranged-attacks [replacement-effect] 1 [] {:hit-chance 0}))
+(assert (empty? (delivery-miss :events)))
+(close 1 (get-in delivery-miss [:actors 0 :modifiers 0 :remaining]))
+(def delivery-stun (ranged-attacks [replacement-effect] 1
+                                   [(effect 0.2 1 0 {:kind :control :control :stun :duration 1})]))
+(assert (some |(= :interrupted ($ :kind)) (delivery-stun :trace)))
+(assert (empty? (delivery-stun :events)))
+(close 1 (get-in delivery-stun [:actors 0 :modifiers 0 :remaining]))
+(each invalid [(merge replacement-effect {:attack-delivery :unknown})
+               (merge replacement-effect {:attack-mode :bonus})]
+  (def rejected (ranged-attacks [invalid]))
+  (assert (some |(string/find "delivery overrides require" $) (rejected :unsupported)))
+  (close 1.4 (get-in rejected [:events 0 :at])))
+
 (def sampled (engine/trials seeded 16))
 (def lean (engine/trials (merge seeded {:trace false}) 16))
 (assert (empty? (lean :trace)))

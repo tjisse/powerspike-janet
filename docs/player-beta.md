@@ -51,6 +51,11 @@ optimization. This resolves the first two source-level timing gaps without
 applying their rules to champions with different modifiers. See
 [reviewed mage attack timing](attack-timing.md) for sources and evidence limits.
 
+The next [Viktor timing improvement](viktor-attacks.md) supplies ordinary
+projectile travel at 2,300 units/second while keeping empowered Q's zero-travel
+policy separate and explicit. It includes real-kit Lich Bane timing checks;
+matching-patch replay measurements remain outstanding.
+
 The next priority is reviewed combat evidence for isolated attacks and Spellblade
 timing, especially ranged impact versus launch and attack-speed changes during
 an existing attack. Those observations can resolve the remaining timing policies

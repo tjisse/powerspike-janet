@@ -109,12 +109,19 @@
           result))))
 
 (defn profile [champion patch]
-  (when (and (= patch "16.19.1") (some |(= champion $) ["Ahri" "Annie"]))
+  (when (and (= patch "16.19.1") (some |(= champion $) ["Ahri" "Annie" "Viktor"]))
     (or (retained champion)
         (do
           (def data (source-records champion))
           (def review (get-in reviewed-timing [:champions champion]))
           (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
+          (when (= champion "Viktor")
+            (def empowered (review :empowered))
+            (def spell (get-in data [:objects (first (attack-paths champion [(empowered :spell)])) "mSpell"]))
+            (assert (and spell (not (has-key? spell "mMissileSpec"))
+                         (= (empowered :legacy-speed) (spell "missileSpeed"))
+                         (= :release (empowered :delivery)))
+                    "Reviewed empowered attack record changed; delivery needs review."))
           (def result (merge (if (= champion "Annie") (reviewed-projectile champion (data :objects) review)
                                (fixed-projectile (data :objects) paths))
                              {:source (data :source)}))
@@ -127,6 +134,7 @@
 (attack-style "Ahri" "16.19.1" nil)
 (profile "Ahri" "16.19.1")
 (profile "Annie" "16.19.1")
+(profile "Viktor" "16.19.1")
 (windup-profile "Ahri" "16.19.1")
 
 (defn apply-profile [champion patch kit]

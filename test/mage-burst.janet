@@ -147,5 +147,32 @@
 (def first-attack (first (filter |(= "attack" ($ :source)) (ahri-result :events))))
 (close (+ (ahri-q :cast-time) (/ 0.2 boosted-speed) (/ 350 1750)) (first-attack :at))
 (assert (= (ahri-result :metrics) ((scenario/fitness ahri-lich) :metrics)))
+# Viktor Q's replacement keeps its declared zero-travel policy; the next
+# ordinary attack travels at 2300. Lich Bane follows the replacement impact.
+(def viktor-lich (definition "Viktor" ["3100"] {"mode" "practice" "level" 1 "distance" 500 "duration" 3
+                                                "samples" 1 "priority" "q" "movement" "hold"}))
+(def viktor-compiled (scenario/compile viktor-lich))
+(def viktor-actor (get-in viktor-compiled [:actors 0]))
+(def viktor-q (find |(= :q ($ :slot)) (viktor-actor :abilities)))
+(def empowered-effect (find |(= :attack ($ :trigger)) (viktor-q :effects)))
+(assert (= :release (empowered-effect :attack-delivery)))
+(close 2300 (viktor-actor :attack-missile-speed))
+(def viktor-speed (+ (get-in viktor-actor [:stats :attack-speed]) (* 0.5 (viktor-actor :attack-speed-ratio))))
+(def viktor-result (scenario/simulate viktor-lich))
+(def viktor-release (+ (viktor-q :cast-time) (/ 0.3 viktor-speed)))
+# Public damage events do not expose internal triggers; identify the empowered
+# hit by its source and release time, independently of the initial Q missile.
+(def empowered-hits (filter |(and (= "ViktorQ" ($ :source)) (< (math/abs (- ($ :at) viktor-release)) 0.0001)) (viktor-result :events)))
+(assert (= 1 (length empowered-hits)))
+(close viktor-release ((first (filter |(= "item/3100/hit" ($ :source)) (viktor-result :events))) :at))
+(def ordinary-hit (first (filter |(= "attack" ($ :source)) (viktor-result :events))))
+(def viktor-starts (filter |(and (= :attack ($ :kind)) (= "player" ($ :actor))) (viktor-result :trace)))
+# Decisions poll every 50ms after release; the next launch cannot be early.
+(def ordinary-start ((viktor-starts 1) :at))
+(assert (<= (+ (viktor-q :cast-time) (/ 1 viktor-speed)) ordinary-start
+            (+ (viktor-q :cast-time) (/ 1 viktor-speed) 0.050001)))
+(close (+ ordinary-start (/ 0.3 (get-in viktor-actor [:stats :attack-speed])) (/ 500 2300)) (ordinary-hit :at))
+(assert (some |(string/find "Empowered attack travel is assumed zero" $) (viktor-result :coverage)))
+(assert (= (viktor-result :metrics) ((scenario/fitness viktor-lich) :metrics)))
 (util/remove-tree root)
 (print "Retained mage kits: cached semantics, Viktor empowered attack/storm ticks, Ahri recasts, AP burst ranking, editable health and unbiased attack-only scores passed.")

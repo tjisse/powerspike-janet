@@ -10,4 +10,10 @@
              "Annie" {:source-sha256 "5507e5080ea3bca09be29f2f466bf57937670d3a3e6ba667f9591a1ae160e54d"
                        :movement-speed 1500 :legacy-speed 1200
                        :ordinary-variants ["AnnieBasicAttack" "AnnieBasicAttack2"]
-                       :critical-variants ["AnnieCritAttack"]}}}
+                       :critical-variants ["AnnieCritAttack"]}
+             "Viktor" {:source-sha256 "e72a4a72ae3d0686bdf8f8c2b2ba9a169850971878a3fdd8b71d7d42f694e8ba"
+                        :ordinary-variants ["ViktorBasicAttack" "ViktorBasicAttack2"]
+                        :critical-variants ["ViktorCritAttack"]
+                        :empowered {:spell "ViktorQAbility/ViktorQBuff" :legacy-speed 25000
+                                    :delivery :release
+                                    :scope "Preserves the zero-travel assumption for empowered Q. Missing missile movement is not proof of server hit timing."}}}}

@@ -5,15 +5,16 @@ remaining work needed for a small player beta. Players continue to see a clear
 simulation and its actual omissions. Verification records and engineering
 diagnostics remain in the developer tools.
 
-1. **Attack timing and projectile behavior.** Start with isolated ordinary
-   attacks and the remaining 30% windup assumption. Resolve Annie's conflicting
-   projectile fields, Viktor's ordinary versus empowered attacks, and ranged
-   Spellblade consumption at launch versus impact. Use matching-patch sources
+1. **Attack timing and projectile behavior.** Measure isolated ordinary and
+   empowered attacks, review the remaining 30% windup assumption, and resolve
+   ranged Spellblade consumption at launch versus impact. Use matching-patch sources
    and reviewed replay context; retain discrepancies instead of fitting timing
    to the desired result. Finish with reproducible release/impact cases before
    expanding the projectile profiles. The first [source-level corrections](attack-timing.md)
    now supply Ahri's reviewed windup and resolve Annie's projectile fields;
-   matching replay measurements and the remaining timing policies are still next.
+   the [Viktor follow-up](viktor-attacks.md) adds ordinary projectile travel while
+   preserving empowered Q's explicit zero-travel assumption. Matching replay
+   measurements and ranged Spellblade ordering are still next.
 2. **Level and form transitions.** Start with Kayle's level-dependent attack
    type and range, then add explicit supported forms for Elise, Gnar, Jayce and
    Nidalee. The selected form/level must drive damage, range, tooltips and both

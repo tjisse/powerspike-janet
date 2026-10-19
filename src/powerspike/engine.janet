@@ -12,6 +12,7 @@
                                    (slurp "src/powerspike/attacks.janet")
                                    (slurp "data/combat-fixtures/16.19.1/Ahri-characters.json")
                                    (slurp "data/combat-fixtures/16.19.1/Annie-characters.json")
+                                   (slurp "data/combat-fixtures/16.19.1/Viktor-characters.json")
                                    (slurp "data/attack-fixtures/16.19.1/reviewed-timing.jdn")
                                    (slurp "data/combat-fixtures/16.19.1/manifest.json")
                                    (slurp "data/16.19.1/catalog/sources/champions-ddragon.json")
@@ -319,6 +320,10 @@
       (case (get effect :trigger :cast)
         :attack
         (do
+          (when (has-key? effect :attack-delivery)
+            (assert (and (= :release (effect :attack-delivery)) (= :damage (effect :kind))
+                         (= :replace (get effect :attack-mode :replace)))
+                    "Attack delivery overrides require a supported replacement damage effect."))
           (def duration (effect :duration))
           (def count (if (has-key? effect :attack-count) (effect :attack-count) 1))
           (assert (or duration (not= count :all)) "Timed attack empowerment requires a duration.")
@@ -358,7 +363,7 @@
       (cond
         (and (= :attack (event :action)) (controlled? actor [:stun :charm :fear :airborne :suppression] at))
         (record :interrupted {:source "attack" :actor (actor :id)})
-        (and (or (= :attack (event :action)) (some |(= :enemy ($ :target)) (get ability :effects [])))
+        (and (or (= :attack (event :action)) (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (get ability :effects [])))
              (>= (random-at seed trial (actor :id) (event :source) (event :counter)) hit-chance))
         (record :miss {:source (event :source) :actor (actor :id)})
         (= :attack (event :action))
@@ -373,19 +378,23 @@
           (def modifiers (filter |(and (> ($ :expires) at) (> ($ :remaining) 0)) (actor :modifiers)))
           (def replacement (find |(and (= :damage (get-in $ [:effect :kind]))
                                        (= :replace (get-in $ [:effect :attack-mode] :replace))) modifiers))
+          # The selected replacement owns delivery for the whole attack,
+          # including bonus effects and on-hits. Expired/unselected modifiers
+          # cannot change an ordinary projectile's travel.
+          (def attack-travel (if (= :release (get-in replacement [:effect :attack-delivery])) 0 travel))
           (unless replacement
-            (schedule (+ at travel) 10 :effect {:actor (actor :index) :target (target :index)
-                                                :effect {:kind :damage :damage-type :physical :amount raw :condition :always}
-                                                :rank 1 :source "attack" :trigger :attack :origin (event :origin) :critical critical}))
+            (schedule (+ at attack-travel) 10 :effect {:actor (actor :index) :target (target :index)
+                                                       :effect {:kind :damage :damage-type :physical :amount raw :condition :always}
+                                                       :rank 1 :source "attack" :trigger :attack :origin (event :origin) :critical critical}))
           (each modifier modifiers
             (put modifier :remaining (dec (modifier :remaining)))
             (def effect (modifier :effect))
             (when (or (= modifier replacement) (not= :damage (effect :kind)) (= :bonus (get effect :attack-mode)))
-              (schedule (+ at travel) 10 :effect {:actor (actor :index)
-                                                  :target (if (= :self (effect :target)) (actor :index) (target :index)) :effect effect
-                                                  :rank (modifier :rank) :source (modifier :source)
-                                                  :trigger :attack :origin (event :origin)
-                                                  :critical (and critical (= modifier replacement))}))))
+              (schedule (+ at attack-travel) 10 :effect {:actor (actor :index)
+                                                         :target (if (= :self (effect :target)) (actor :index) (target :index)) :effect effect
+                                                         :rank (modifier :rank) :source (modifier :source)
+                                                         :trigger :attack :origin (event :origin)
+                                                         :critical (and critical (= modifier replacement))}))))
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
         (each effect (ability :effects)

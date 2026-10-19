@@ -181,6 +181,15 @@ def verify(binary_path, seed_path=None):
             assert abs(ahri_events[0]['at'] - (.2 / .668 + 350 / 1750)) < 1e-6
             assert ahri.timeline['data-label'] == 'Basic attacks over time'
             assert b'location.assign(next)' not in raw
+            _, viktor_raw = get(base, '/?' + urllib.parse.urlencode({
+                'mode': 'practice', 'champion': 'Viktor', 'selected': 'custom',
+                'level': 1, 'abilities': 'false', 'movement': 'hold', 'distance': 500,
+                'snapshot': initial_scenario['snapshot']}))
+            viktor = Page()
+            viktor.feed(viktor_raw.decode())
+            viktor_events = json.loads(viktor.timeline['data-events'])
+            assert viktor_events and all(event['source'] == 'attack' for event in viktor_events)
+            assert abs(viktor_events[0]['at'] - (.3 / .658 + 500 / 2300)) < 1e-6
             # The packed model must retain attack identities when loading both
             # current seeds and older snapshots with no attack-style field.
             for champion, ranged in [('Lillia', False), ('Ahri', True), ('Elise', None), ('Kayle', None)]:

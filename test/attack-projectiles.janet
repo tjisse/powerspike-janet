@@ -27,7 +27,7 @@
 (assert (nil? (attacks/attack-range "Unknown" "16.19.1" nil)))
 (each invalid [-1 0 math/inf "550"]
   (assert (not (first (protect (attacks/attack-range "Ahri" "16.19.1" invalid))))))
-(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.20.1"] ["Annie" "16.18.1"] ["Annie" "16.20.1"] ["Viktor" "16.19.1"]]
+(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.20.1"] ["Annie" "16.18.1"] ["Annie" "16.20.1"] ["Viktor" "16.18.1"] ["Viktor" "16.20.1"]]
   (assert (nil? (attacks/profile champion patch))))
 (def repaired (normalize/semantic-kit "Ahri" "16.19.1"
                                       {:abilities [] :limitations ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]}))
@@ -74,9 +74,19 @@
 (close 1500 (get-in other [:actors 0 :attack-missile-speed]))
 (close 0.3 (get-in other [:actors 0 :windup-fraction]))
 (assert (not (some |(string/find "projectile travel is assumed zero" $) (get-in other [:actors 0 :coverage]))))
-(def unsupported (scenario/compile (definition "Viktor")))
+(def viktor-profile (attacks/profile "Viktor" "16.19.1"))
+(close 2300 (viktor-profile :missile-speed))
+(assert (= 3 (length (viktor-profile :spell-paths))))
+(assert (= (get-in viktor-profile [:source :sha256]) (hash/sha256 (slurp (get-in viktor-profile [:source :path])))))
+(def viktor (scenario/compile (definition "Viktor")))
+(close 2300 (get-in viktor [:actors 0 :attack-missile-speed]))
+(close 0.3 (get-in viktor [:actors 0 :windup-fraction]))
+(assert (not (some |(string/find "projectile travel is assumed zero" $) (get-in viktor [:actors 0 :coverage]))))
+(def viktor-hit (scenario/simulate (definition "Viktor")))
+(close (+ (/ 0.3 (get-in viktor [:actors 0 :stats :attack-speed])) (/ 300 2300)) (get-in viktor-hit [:events 0 :at]))
+(def unsupported (scenario/compile (definition "Garen")))
 (close 0 (get-in unsupported [:actors 0 :attack-missile-speed]))
-(assert (some |(string/find "projectile travel is assumed zero" $) (get-in unsupported [:actors 0 :coverage])))
+(assert (nil? (attacks/profile "Garen" "16.19.1")))
 (def duel (scenario/compile (definition "Ahri" {:kind :champion :champion "Ahri" :level 1
                                                 :loadout {:items []} :skill-order [:q]
                                                 :strategy {:attacks true :abilities false :movement :hold}})))
@@ -116,4 +126,4 @@
 (close 0.5 ((first (filter |(and (= :damage ($ :kind)) (= "opponent" ($ :actor))) (mixed :trace))) :at))
 (assert (= source-hash (hash/sha256 (slurp (string (package :directory) "/package.jdn")))))
 (util/remove-tree root)
-(print "Reviewed Ahri windup, Annie/Ahri projectile movement, conflict guards, patch isolation, cached repair, both participants and impact boundaries passed.")
+(print "Reviewed Ahri windup, Annie/Ahri/Viktor projectile movement, conflict guards, patch isolation, cached repair, both participants and impact boundaries passed.")

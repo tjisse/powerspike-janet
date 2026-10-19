@@ -37,8 +37,9 @@ a simulation; source hashes and review details remain developer information.
 
 Annie's movement speed (1,500) conflicts with its legacy speed (1,200); the
 [reviewed timing correction](attack-timing.md) now resolves that specific case
-using Riot's patch notes and exact source guards. Viktor's ordinary attack still
-needs to coexist with his empowered Q attack's distinct behavior. Ranged actors
+using Riot's patch notes and exact source guards. The [Viktor follow-up](viktor-attacks.md)
+adds his 2,300 ordinary projectile speed and preserves empowered Q's explicit
+zero-travel assumption separately. Ranged actors
 without a supported profile report the zero-travel
 assumption in Simulation details.
 

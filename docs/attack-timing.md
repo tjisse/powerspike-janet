@@ -48,8 +48,9 @@ reviewed projectile profile.
 
 Annie's windup still uses the declared 30% assumption. Champions such as Garen,
 Kalista and Senna have separate timing modifiers or overrides; this change does
-not apply Ahri's fraction to them. Viktor's ordinary versus empowered projectile
-behavior also remains a separate handler. Developer notes preserve these
+not apply Ahri's fraction to them. A subsequent [Viktor handler](viktor-attacks.md)
+adds his ordinary projectile while keeping empowered Q's delivery assumption
+separate. Developer notes preserve these
 boundaries, while player Simulation details describe the actual assumptions.
 
 ## Regression checks

@@ -54,7 +54,7 @@
 (def stat-labels
   [[:hp "Health"] [:mp "Mana"] [:ad "Attack damage"] [:ap "Ability power"] [:armor "Armor"] [:mr "Magic resist"]
    [:ability-haste "Ability haste"] [:attack-speed "Attack speed"] [:attack-speed-bonus "Bonus attack speed"]
-   [:crit-chance "Critical strike chance"] [:move-speed "Move speed"] [:hp-regen "Health regeneration / 5 s"]
+   [:crit-chance "Critical strike chance"] [:attack-range "Attack range"] [:move-speed "Move speed"] [:hp-regen "Health regeneration / 5 s"]
    [:mp-regen "Mana regeneration / 5 s"] [:magic-pen-flat "Flat magic penetration"] [:magic-pen-percent "Magic penetration"]
    [:armor-pen-flat "Lethality"] [:armor-pen-percent "Armor penetration"]])
 (defn stat-rows [stats]

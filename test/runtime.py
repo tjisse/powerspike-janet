@@ -211,11 +211,14 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
             assert abs(viktor_events[0]['at'] - (.3 / .658 + 500 / 2300)) < 1e-6
             # The packed model must retain attack identities when loading both
             # current seeds and older snapshots with no attack-style field.
-            for champion, ranged in [('Lillia', False), ('Ahri', True), ('Elise', None), ('Kayle', None)]:
+            for champion, level, ranged, attack_range in [
+                    ('Lillia', 1, False, 325), ('Ahri', 1, True, 550), ('Elise', 1, None, 550),
+                    ('Kayle', 1, False, 175), ('Kayle', 5, False, 175), ('Kayle', 6, True, 525),
+                    ('Kayle', 15, True, 525), ('Kayle', 16, True, 625), ('Kayle', 18, True, 625)]:
                 _, identity_raw = get(base, '/?' + urllib.parse.urlencode({
                     'mode': 'practice', 'champion': champion, 'selected': 'custom',
-                    'slot1': '3153', 'level': 1, 'abilities': 'false', 'movement': 'hold',
-                    'distance': 0, 'duration': 1, 'snapshot': initial_scenario['snapshot']}))
+                    'slot1': '3153', 'level': level, 'abilities': 'false', 'movement': 'hold',
+                    'distance': attack_range, 'duration': 1, 'snapshot': initial_scenario['snapshot']}))
                 identity_page = Page()
                 identity_page.feed(identity_raw.decode())
                 identity_file = cwd / 'attack-identity.json'
@@ -224,6 +227,9 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                     [str(binary), '--simulate', str(identity_file)], cwd=cwd,
                     env=configuration(), text=True, timeout=10))
                 assert identity_result['actors'][0].get('ranged') is ranged
+                assert identity_result['actors'][0]['attack-range'] == attack_range
+                assert identity_result['actors'][0]['stats']['attack-range'] == attack_range
+                assert any(event['source'] == 'attack' for event in identity_result['events'])
                 if ranged is None:
                     assert any("Mist's Edge on-hit damage is excluded" in note
                                for note in identity_result['coverage'])

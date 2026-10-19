@@ -46,8 +46,8 @@
    :hit-chance (v/fraction (get input :hit-chance 1) "Hit chance")
    :preferred-range (v/nonnegative (get input :preferred-range 500) "Preferred range")})
 (defn participant [package spec id position]
-  (def champion ((package :champion-map) (spec :champion)))
-  (assert champion "Champion unavailable on this patch.")
+  (def source-champion ((package :champion-map) (spec :champion)))
+  (assert source-champion "Champion unavailable on this patch.")
   (def level (v/integer-between (get spec :level 18) 1 18 "level"))
   (def loadout (get spec :loadout {}))
   (def ids (get loadout :items []))
@@ -58,6 +58,7 @@
   (def automatic (skills/ranks-from-order (spec :skill-order) level))
   (def ranks (merge automatic (get spec :ranks {})))
   (skills/validate-ranks ranks level)
+  (def champion (attacks/at-level source-champion level ranks))
   (def abilities (seed-abilities package champion))
   (def page (get loadout :runes []))
   (assert (and (indexed? page) (<= (length page) 6)
@@ -72,8 +73,9 @@
                         (effects/summoner-ability raw slot (package :patch))) summoner-ids [:d :f]))
   (def shard-modifiers (rune-data/shard-modifiers package champion items (get loadout :shards []) (get loadout :adaptive-stat :auto) level))
   (def rune-effects (rune-data/compile chosen-runes (package :patch) level))
-  (def computed (stats/apply-rank-penetration champion (stats/total-stats champion level items
-                                                                          [;shard-modifiers ;(rune-effects :stats)]) ranks))
+  (def computed (merge (stats/apply-rank-penetration champion (stats/total-stats champion level items
+                                                                                 [;shard-modifiers ;(rune-effects :stats)]) ranks)
+                       {:attack-range (champion :attack-range)}))
   (def attack-style (get champion :attack-style "unknown"))
   (def ranged (attacks/ranged? attack-style))
   (def all-ranks (merge ranks (tabseq [spell :in summoners] (spell :slot) 1)))

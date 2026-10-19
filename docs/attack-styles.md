@@ -27,26 +27,29 @@ range remains independent and does not change when selecting the proc rate.
 Increasing melee range therefore cannot silently turn an actor into a ranged
 champion.
 
-Elise, Gnar, Jayce, Kayle and Nidalee have both identities. Their current attack
-type depends on form or level, which this model does not yet reconstruct. The
-compiler keeps it unknown and excludes Mist's Edge's conditional on-hit damage;
+Elise, Gnar, Jayce, Kayle and Nidalee have both identities. The
+[Kayle follow-up](kayle-levels.md) now resolves her ordinary attack type and range
+at a fixed selected level on 16.19.1. The other four champions' current attack
+type depends on forms the model does not yet reconstruct. The compiler keeps
+their type unknown and excludes Mist's Edge's conditional on-hit damage;
 the item's supported ordinary stats still apply. Simulation details explain the
 omission. The tooltip retains a readable percentage description without a
 fabricated 6%/9% value or an internal template token. Other champions with missing
 attack-type data follow the same explicit exclusion.
 
-This change corrects classification; it does not implement transformations,
-Kayle's level transitions or new admitted combat observations. Source hashes and
-model diagnostics remain developer information. Model identity includes the
+These changes correct classification and Kayle's fixed-level range.
+Transformations and her remaining passive effects still require handlers.
+No new combat observations are admitted. Source hashes and model diagnostics
+remain developer information. Model identity includes the
 handler and catalog provenance, invalidating prior fitness cache entries and
 preserving the saved-scenario compatibility notice.
 
 `test/attack-styles.janet` checks the full classification counts, individual
 exceptions, patch isolation, missing and invalid identities, immutable cached
 snapshot repair, independently calculated on-hit damage, both participants,
-tooltip values, direct/optimizer equality and abstention for all five changing
-champions. The standalone runtime checks Lillia, Ahri, Elise and Kayle through
-the packaged HTTP and simulation interfaces.
+tooltip values, direct/optimizer equality, Kayle's levels and abstention for the
+four unmodeled transforming champions. The standalone runtime checks Lillia,
+Ahri, Elise and Kayle through the packaged HTTP and simulation interfaces.
 
 Core/source/Python checks, frontend and combat regressions, relocated runtime
 and packaged Chromium checks passed. The new executable also passed the runtime

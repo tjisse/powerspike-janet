@@ -101,6 +101,7 @@ The demo uses a stationary target with 80 armor and 80 magic resistance, a five-
 - Spell damage type is explicit. AP scaling does not imply magic damage.
 - Skill ranks obey level gates and the allocation order is checked at each level.
 - Spells and attacks share an action timeline; damage lands after casts/windup and travel.
+- [Kayle's ordinary attack type and range](docs/kayle-levels.md) follow the selected level on 16.19.1 for both participants; her remaining passive effects stay excluded.
 - Builds obey inventory slots, gold, map availability, duplicate rules and item groups. Boots are optional.
 - A bounded exhaustive search provides an exact reference result for small candidate pools. It reports when the evaluation limit prevents completion.
 

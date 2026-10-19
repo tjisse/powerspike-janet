@@ -98,3 +98,9 @@ defense, shield-ordering assumption and exceptional interaction limits.
 The duel's Combat events now show parry activation and blocked effects with
 readable spell/item names. Players can inspect zero damage and Spellblade
 consumption, including on mobile; overlapping events remain selectable.
+
+[Kayle's level-dependent attack type and range](kayle-levels.md) now apply to
+both participants in practice/duel simulations and optimization. Supported item
+effects use her melee/ranged rate at the selected level, and champion Details
+shows attack range. Her attack-speed stacks, movement bonus, fire waves and
+other unsupported attacks remain explicit omissions.

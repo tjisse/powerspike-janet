@@ -21,10 +21,11 @@ diagnostics remain in the developer tools.
    ordering, exceptional interactions, exact release timing and complete
    expiry/refresh context remain next. A two-replay shield screen found no
    positive overlap with observed Riposte windows; it leaves ordering unresolved.
-2. **Level and form transitions.** Start with Kayle's level-dependent attack
-   type and range, then add explicit supported forms for Elise, Gnar, Jayce and
-   Nidalee. The selected form/level must drive damage, range, tooltips and both
-   optimizer perspectives consistently. Remove an omission only when its
+2. **Level and form transitions.** Kayle's [fixed-level attack type and range](kayle-levels.md)
+   now drive both participants and supported item scaling on 16.19.1, with her
+   remaining passive effects explicit. Next add supported forms for Elise,
+   Gnar, Jayce and Nidalee. The selected form/level must drive damage, range,
+   tooltips and both optimizer perspectives consistently. Remove an omission only when its
    replacement is implemented and checked.
 3. **Broader combat regression evidence.** Expand reviewed comparisons across
    independent games and common build decisions: armor/penetration, critical

@@ -37,6 +37,51 @@
       "unknown")))
 (defn ranged? [style]
   (case style "ranged" true "melee" false nil))
+
+# A reviewed fixed-level projection, separate from immutable snapshot metadata.
+# Retain and validate it during import for the relocated executable as well.
+(def kayle
+  (let [root "data/attack-fixtures/16.19.1/"
+        receipt (util/read-json (slurp (string root "kayle-manifest.json")))]
+    (eachp [path expected] (receipt "fixture_sha256")
+      (assert (= expected (hash/sha256 (slurp (string root path)))) "Kayle attack-transition source integrity check failed."))
+    (def source (util/read-json (slurp (string root "Kayle-characters.json"))))
+    (def record (source "Characters/Kayle/CharacterRecords/Root"))
+    (def spell (get-in source ["Characters/Kayle/Spells/KaylePassiveAbility/KaylePassive" "mSpell"]))
+    (def values (tabseq [value :in (spell "DataValues")]
+                  (value "name")
+                  (do (assert (all |(= $ (first (value "values"))) (value "values")) "Kayle transition value varies by rank.")
+                    (first (value "values")))))
+    (def tooltip (get-in (util/read-json (slurp (string root "Kayle-strings.json"))) ["entries" "spell_kaylepassive_tooltip"]))
+    (assert (and (= "16.19.1" (receipt "patch")) (= "Kayle" (record "mCharacterName"))
+                 (= "form-dependent" (style-from-identities (record "purchaseIdentities")))
+                 (= 175 (get-in record ["attackRangeModifiable" "baseValue"]))
+                 (= 6 (values "LevelForPassiveRank1")) (= 16 (values "LevelForPassiveRank3"))
+                 (= 525 (values "UpgradedAttackRange")) (= 625 (values "FinalAttackRange"))
+                 (string/find "spends skill points" tooltip)
+                 (string/find "@LevelForPassiveRank1@ - Arisen" tooltip)
+                 (string/find "@UpgradedAttackRange@" tooltip)
+                 (string/find "@LevelForPassiveRank3@ - Transcendent" tooltip)
+                 (string/find "@FinalAttackRange@" tooltip))
+            "Kayle source differs from the reviewed transition profile.")
+    {:ranged-level (values "LevelForPassiveRank1") :final-level (values "LevelForPassiveRank3")
+     :melee-range (get-in record ["attackRangeModifiable" "baseValue"])
+     :ranged-range (values "UpgradedAttackRange") :final-range (values "FinalAttackRange")}))
+(defn at-level [champion level ranks]
+  (if (and (= "Kayle" (champion :id)) (= "16.19.1" (champion :patch)))
+    (do
+      (assert (or (< level (kayle :ranged-level)) (= level (sum (values ranks))))
+              "Assign all of Kayle's skill points to simulate her ascension at this level.")
+      (merge champion
+             {:attack-style (if (< level (kayle :ranged-level)) "melee" "ranged")
+              :attack-range (cond (>= level (kayle :final-level)) (kayle :final-range)
+                              (>= level (kayle :ranged-level)) (kayle :ranged-range)
+                              (kayle :melee-range))
+              :limitations [;(map |(if (= $ "Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.")
+                                     "Ordinary basic attacks and Divine Ascent attack type/range included; other champion abilities and passive effects excluded." $)
+                                  (get champion :limitations []))
+                            "Kayle's Divine Ascent attack-speed stacks, movement bonus and fire waves are not included."]}))
+    champion))
 (var ranges nil)
 (defn attack-range [champion patch configured]
   (if (not= configured nil)

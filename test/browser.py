@@ -4,6 +4,51 @@ import argparse, json, os, subprocess, tempfile, time, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
 
+def verify_kayle_levels(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.goto(base+'/?mode=duel&champion=Kayle&opponent=Kayle&selected=custom'
+              '&level=5&opponentlevel=16&slot1=3153&enemyslot1=3153'
+              '&abilities=false&opponentabilities=false&movement=hold&opponentmovement=hold'
+              '&distance=200&duration=1', wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    payload = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    damage = [row for row in payload['trace'] if row['kind'] == 'damage']
+    assert damage and all(row['actor'] == 'opponent' for row in damage)
+    assert any(row['source'] == 'attack' for row in damage)
+    def range_for(who):
+        data = json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))
+        return float(next(value for caption,value in data['stats'] if caption == 'Attack range'))
+    assert range_for('player') == 175
+    assert range_for('opponent') == 625
+    before = page.locator('#results').get_attribute('data-run-id')
+    page.locator('#player-card [name=level]').select_option('6')
+    page.wait_for_function('JSON.parse(document.querySelector("#configuration-data").dataset.json).scenario.player.level === 6')
+    page.locator('.matchup-run').click()
+    page.wait_for_function('(previous)=>document.querySelector("#results").dataset.runId !== previous', arg=before)
+    payload = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    for who in ('player', 'opponent'):
+        assert any(row['kind'] == 'damage' and row['actor'] == who and row['source'] == 'attack'
+                   for row in payload['trace'])
+    assert range_for('player') == 525
+    before = page.locator('#results').get_attribute('data-run-id')
+    page.locator('#opponent-card [name=opponentlevel]').select_option('5')
+    page.wait_for_function('JSON.parse(document.querySelector("#configuration-data").dataset.json).scenario.target.level === 5')
+    page.locator('.matchup-run').click()
+    page.wait_for_function('(previous)=>document.querySelector("#results").dataset.runId !== previous', arg=before)
+    payload = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    damage = [row for row in payload['trace'] if row['kind'] == 'damage']
+    assert damage and all(row['actor'] == 'player' for row in damage)
+    assert range_for('opponent') == 175
+    assert page.locator('#verification-progress, #source-evidence').count() == 0
+    for width in (736,390,320):
+        page.set_viewport_size({'width':width,'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+    assert not errors, errors
+    page.close()
+    print('Browser: Kayle level changes, both participants, range details, attack events and mobile layouts passed.')
+
 def verify_item_comparison(browser, base):
     page = browser.new_page(viewport={'width':1440,'height':1080})
     errors = []
@@ -100,6 +145,7 @@ def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         verify_item_comparison(browser, base)
+        verify_kayle_levels(browser, base)
         verify_runes(browser, base)
         page = browser.new_page(viewport={'width':1440,'height':1080})
         errors=[]

@@ -48,7 +48,8 @@
           (assert (= expected (hash/sha256 bytes)) "Ordinary attack source integrity check failed.")
           (def result (merge (fixed-projectile (util/read-json bytes)
                                                ["Characters/Ahri/Spells/AhriBasicAttack"
-                                                "Characters/Ahri/Spells/AhriBasicAttack2"])
+                                                "Characters/Ahri/Spells/AhriBasicAttack2"
+                                                "Characters/Ahri/Spells/AhriCritAttack"])
                              {:source {:patch patch :path (string fixtures name) :sha256 expected}}))
           (put retained champion result)
           result))))

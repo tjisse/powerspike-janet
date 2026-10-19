@@ -15,7 +15,7 @@ filled from 16.19.1. Temporary range changes and exceptional weapon/form rules
 still need their respective champion handlers.
 
 Ahri's ordinary attacks now also use the retained fixed projectile movement:
-both `AhriBasicAttack` and `AhriBasicAttack2` specify 1,750 units/second in
+`AhriBasicAttack`, `AhriBasicAttack2` and `AhriCritAttack` all specify 1,750 units/second in
 `mMissileSpec.movementComponent.mSpeed` and the legacy `missileSpeed` field.
 The source is the complete, hash-checked
 `data/combat-fixtures/16.19.1/Ahri-characters.json`, recorded in its manifest.

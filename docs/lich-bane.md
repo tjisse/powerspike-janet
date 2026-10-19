@@ -145,3 +145,13 @@ ownership but does not timestamp the purchase or identify a Spellblade attack.
 It requires matching 16.14 rules and decoding. The current-build Ekko replay now
 provides the stronger acquisition route. The 16.20 adapter cannot be applied to
 the older fallback.
+
+## Ranged timing follow-up
+
+The [Ahri/Viktor timing study](replay-attack-timing.md) retains a ranged Lich Bane
+owner with an independent purchase timeline. Forty-four of 52 explicit Lich Bane
+removals share timestamps with selected ordinary-name damage; all eight other
+removals remain in the dossier. The short exception has observed Fiora W context,
+identifying a possible parried-hit consumption gap. These observations support
+retaining the successful-impact policy for supported hits, but do not establish
+exact server release timing or admit new combat-model comparisons.

@@ -147,3 +147,8 @@ The current simulation also uses Ahri's reviewed 20% ordinary windup and Annie's
 Viktor's ordinary attacks now use their reviewed 2,300 projectile speed. His
 empowered Q retains an explicit zero-travel assumption separately; see
 [Viktor attack delivery](docs/viktor-attacks.md) for the source boundary and checks.
+
+The [ranged replay timing study](docs/replay-attack-timing.md) now records
+Ahri/Lich Bane and Viktor Q packet context, including ambiguous announcements
+and a possible Fiora W interaction. These are developer diagnostics, not new
+admitted combat-model comparisons.

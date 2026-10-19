@@ -13,8 +13,11 @@ diagnostics remain in the developer tools.
    expanding the projectile profiles. The first [source-level corrections](attack-timing.md)
    now supply Ahri's reviewed windup and resolve Annie's projectile fields;
    the [Viktor follow-up](viktor-attacks.md) adds ordinary projectile travel while
-   preserving empowered Q's explicit zero-travel assumption. Matching replay
-   measurements and ranged Spellblade ordering are still next.
+   preserving empowered Q's explicit zero-travel assumption. The
+   [replay timing study](replay-attack-timing.md) now corroborates impact-time
+   consumption for ordinary ranged hits and records a possible parry interaction.
+   Exact release timing, parried-hit consumption and complete expiry/refresh
+   context remain next.
 2. **Level and form transitions.** Start with Kayle's level-dependent attack
    type and range, then add explicit supported forms for Elise, Gnar, Jayce and
    Nidalee. The selected form/level must drive damage, range, tooltips and both

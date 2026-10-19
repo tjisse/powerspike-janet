@@ -1,0 +1,1134 @@
+{
+  "format": "powerspike-attack-source-excerpt",
+  "version": 1,
+  "patch": "16.20.1",
+  "sources": {
+    "Viktor": {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json?powerspike=1",
+      "complete-source-sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
+      "attack-subset-unchanged-from-retained-16.19.1": true,
+      "records": {
+        "Characters/Viktor/Spells/ViktorBasicAttack": {
+          "ObjectName": "ViktorBasicAttack",
+          "objectPath": "Characters/Viktor/Spells/ViktorBasicAttack",
+          "mScriptName": "ViktorBasicAttack",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "mAlternateName": "HexMageBasicAttack",
+            "spellCastTime": 0.050000011920928955,
+            "bHaveHitEffect": true,
+            "mTurnSpeedScalar": 5.0,
+            "castRange": [
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0
+            ],
+            "castRangeValues": {
+              "values": [
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0
+              ],
+              "{0a3e0478}": 650.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mTargetHeightAugment": 100.0,
+                "mOffsetInitialTargetHeight": 100.0,
+                "mStartBoneName": "L_Hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 2300.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 10.0,
+            "missileSpeed": 2300.0,
+            "mMissileEffectKey": "ViktorBasicAttack_mis_BV2",
+            "mHitEffectKey": "ViktorBasicAttack_tar_BV2",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "SpellEventToAudioEventSuffix": {
+              "12": "Play_sfx_Viktor_ViktorBasicAttack_OnCast",
+              "13": "Play_sfx_Viktor_ViktorBasicAttack_OnHit"
+            },
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "useCasterBoundingBox": false,
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Viktor/Spells/ViktorBasicAttack2": {
+          "ObjectName": "ViktorBasicAttack2",
+          "objectPath": "Characters/Viktor/Spells/ViktorBasicAttack2",
+          "mScriptName": "ViktorBasicAttack2",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "mAlternateName": "HexMageBasicAttack",
+            "mAnimationName": "Attack2",
+            "spellCastTime": 0.050000011920928955,
+            "bHaveHitEffect": true,
+            "mTurnSpeedScalar": 5.0,
+            "castRange": [
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0,
+              650.0
+            ],
+            "castRangeValues": {
+              "values": [
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0,
+                650.0
+              ],
+              "{0a3e0478}": 650.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mTargetHeightAugment": 100.0,
+                "mOffsetInitialTargetHeight": 100.0,
+                "mStartBoneName": "L_Hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 2300.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 10.0,
+            "missileSpeed": 2300.0,
+            "mMissileEffectKey": "ViktorBasicAttack_mis_BV2",
+            "mHitEffectKey": "ViktorBasicAttack_tar_BV2",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "SpellEventToAudioEventSuffix": {
+              "12": "Play_sfx_Viktor_ViktorBasicAttack2_OnCast",
+              "13": "Play_sfx_Viktor_ViktorBasicAttack2_OnHit"
+            },
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "useCasterBoundingBox": false,
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Viktor/Spells/ViktorCritAttack": {
+          "ObjectName": "ViktorCritAttack",
+          "objectPath": "Characters/Viktor/Spells/ViktorCritAttack",
+          "mScriptName": "ViktorCritAttack",
+          "mSpell": {
+            "mAffectsTypeFlags": 24527,
+            "mAlternateName": "HexMageCritAttack",
+            "mAnimationName": "Crit",
+            "spellCastTime": 0.050000011920928955,
+            "bHaveHitEffect": true,
+            "mTurnSpeedScalar": 5.0,
+            "castRange": [
+              402.0,
+              402.0,
+              402.0,
+              402.0,
+              402.0,
+              402.0,
+              402.0
+            ],
+            "castRangeValues": {
+              "values": [
+                402.0,
+                402.0,
+                402.0,
+                402.0,
+                402.0,
+                402.0,
+                402.0
+              ],
+              "{0a3e0478}": 402.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mTargetHeightAugment": 100.0,
+                "mOffsetInitialTargetHeight": 100.0,
+                "mStartBoneName": "L_Hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 2300.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 10.0,
+            "missileSpeed": 2300.0,
+            "mMissileEffectKey": "ViktorBasicAttack_mis_BV2",
+            "mHitEffectKey": "ViktorBasicAttack_crit_tar_BV2",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "selectionPriority": 1,
+            "SpellEventToAudioEventSuffix": {
+              "12": "Play_sfx_Viktor_ViktorCritAttack_OnCast",
+              "16": "Play_sfx_Viktor_ViktorCritAttack_OnMissileLaunch",
+              "13": "Play_sfx_Viktor_ViktorCritAttack_OnHit"
+            },
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "useCasterBoundingBox": false,
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Viktor/Spells/ViktorQAbility/ViktorQBuff": {
+          "ObjectName": "ViktorQBuff",
+          "objectPath": "Characters/Viktor/Spells/ViktorQAbility/ViktorQBuff",
+          "mScriptName": "ViktorQBuff",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "mAlternateName": "ViktorPowerTransfer",
+            "mAnimationName": "Spell1_Attack",
+            "mImgIconName": [
+              ""
+            ],
+            "spellCastTime": 0.050000011920928955,
+            "cooldownTime": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Cooldown": {
+              "values": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "{0a3e0478}": 0.0,
+              "__type": "{0a0eddc9}"
+            },
+            "canCastWhileDisabled": true,
+            "bHaveHitEffect": true,
+            "mTurnSpeedScalar": 3.0,
+            "castRange": [
+              650.0,
+              650.0,
+              800.0,
+              800.0,
+              800.0,
+              800.0,
+              800.0
+            ],
+            "castRangeValues": {
+              "values": [
+                650.0,
+                650.0,
+                800.0,
+                800.0,
+                800.0,
+                800.0,
+                800.0
+              ],
+              "__type": "{0a0eddc9}"
+            },
+            "castConeDistance": 100.0,
+            "castFrame": 7.0,
+            "missileSpeed": 25000.0,
+            "mHitEffectKey": "Viktor_Q_Empowered_BA",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_Buffbone_Glb_Center_Loc",
+            "SpellEventToAudioEventSuffix": {
+              "19": "Play_sfx_Viktor_ViktorQReturn_OnBuffDeactivate"
+            },
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "useCasterBoundingBox": false,
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Viktor/CharacterRecords/Root": {
+          "basicAttack": {
+            "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+            "__type": "AttackSlotData"
+          },
+          "critAttacks": [
+            {
+              "mAttackDelayCastOffsetPercent": -0.11999999731779099,
+              "mAttackName": "ViktorCritAttack",
+              "__type": "AttackSlotData"
+            }
+          ]
+        }
+      }
+    },
+    "Ahri": {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/ahri/ahri.bin.json?powerspike=1",
+      "complete-source-sha256": "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2",
+      "attack-subset-unchanged-from-retained-16.19.1": true,
+      "records": {
+        "Characters/Ahri/Spells/AhriBasicAttack": {
+          "ObjectName": "AhriBasicAttack",
+          "objectPath": "Characters/Ahri/Spells/AhriBasicAttack",
+          "mScriptName": "AhriBasicAttack",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "spellCastTime": 0.382099986076355,
+            "cooldownTime": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Cooldown": {
+              "values": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "{0a3e0478}": 0.0,
+              "__type": "{0a0eddc9}"
+            },
+            "mApplyAttackDamage": true,
+            "bHaveHitEffect": true,
+            "castRange": [
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0
+            ],
+            "castRangeValues": {
+              "values": [
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0
+              ],
+              "{0a3e0478}": 550.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castRadius": [
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mStartBoneName": "R_hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 1750.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 9.0,
+            "missileSpeed": 1750.0,
+            "mMissileEffectKey": "Ahri_BA_mis",
+            "mHitEffectKey": "Ahri_BA_tar",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Ahri/Spells/AhriBasicAttack2": {
+          "ObjectName": "AhriBasicAttack2",
+          "objectPath": "Characters/Ahri/Spells/AhriBasicAttack2",
+          "mScriptName": "AhriBasicAttack2",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "mAnimationName": "Attack2",
+            "spellCastTime": 0.382099986076355,
+            "cooldownTime": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Cooldown": {
+              "values": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "{0a3e0478}": 0.0,
+              "__type": "{0a0eddc9}"
+            },
+            "mApplyAttackDamage": true,
+            "bHaveHitEffect": true,
+            "castRange": [
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0
+            ],
+            "castRangeValues": {
+              "values": [
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0
+              ],
+              "{0a3e0478}": 550.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castRadius": [
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mStartBoneName": "R_hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 1750.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 9.0,
+            "missileSpeed": 1750.0,
+            "mMissileEffectKey": "Ahri_BA_mis",
+            "mHitEffectKey": "Ahri_BA_tar",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Ahri/Spells/AhriCritAttack": {
+          "ObjectName": "AhriCritAttack",
+          "objectPath": "Characters/Ahri/Spells/AhriCritAttack",
+          "mScriptName": "AhriCritAttack",
+          "mSpell": {
+            "mAffectsTypeFlags": 5327,
+            "mAnimationName": "Crit",
+            "spellCastTime": 0.382099986076355,
+            "cooldownTime": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Cooldown": {
+              "values": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "{0a3e0478}": 0.0,
+              "__type": "{0a0eddc9}"
+            },
+            "mApplyAttackDamage": true,
+            "bHaveHitEffect": true,
+            "castRange": [
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0,
+              550.0
+            ],
+            "castRangeValues": {
+              "values": [
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0,
+                550.0
+              ],
+              "{0a3e0478}": 550.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castRadius": [
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "castConeDistance": 100.0,
+            "mMissileSpec": {
+              "movementComponent": {
+                "mStartBoneName": "R_hand",
+                "mTargetBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+                "mSpeed": 1750.0,
+                "__type": "FixedSpeedMovement"
+              },
+              "verticalFacing": {
+                "__type": "VeritcalFacingMatchVelocity"
+              },
+              "behaviors": [
+                {
+                  "__type": "CastOnMovementComplete"
+                },
+                {
+                  "__type": "DestroyOnMovementComplete"
+                }
+              ],
+              "__type": "MissileSpecification"
+            },
+            "mCastType": 1,
+            "castFrame": 10.0,
+            "missileSpeed": 1750.0,
+            "mMissileEffectKey": "Ahri_BA_mis",
+            "mHitEffectKey": "Ahri_BA_tar",
+            "bHaveHitBone": true,
+            "mHitBoneName": "C_BUFFBONE_GLB_CHEST_LOC",
+            "mClientData": {
+              "mTargeterDefinitions": [
+                {
+                  "__type": "TargeterDefinitionRange"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "__type": "SpellObject"
+        },
+        "Characters/Ahri/CharacterRecords/Root": {
+          "basicAttack": {
+            "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+            "mAttackProbability": 0.5,
+            "__type": "AttackSlotData"
+          },
+          "critAttacks": [
+            {
+              "mAttackDelayCastOffsetPercent": -0.10000000149011612,
+              "mAttackName": "AhriCritAttack",
+              "__type": "AttackSlotData"
+            }
+          ]
+        }
+      }
+    },
+    "Fiora": {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/fiora/fiora.bin.json?powerspike=1",
+      "complete-source-sha256": "adb33c3fb1d8bfa684eeb091410f4bf71756f09620f93987ce21e5948499138e",
+      "records": {
+        "Characters/Fiora/Spells/FioraWAbility/FioraW": {
+          "ObjectName": "FioraW",
+          "objectPath": "Characters/Fiora/Spells/FioraWAbility/FioraW",
+          "mScriptName": "FioraW",
+          "mSpell": {
+            "flags": 4,
+            "mAffectsTypeFlags": 12298,
+            "mRequiredUnitTags": {
+              "mObjectTagList": [
+                "{ea595ca6}"
+              ],
+              "__type": "ObjectTags"
+            },
+            "mAlternateName": "FioraW",
+            "mSpellTags": [
+              "Trait_ImmobilizingCCSpell",
+              "Trait_DamageAbility",
+              "Trait_Parry",
+              "Trait_Immune",
+              "Trait_Low_Damage"
+            ],
+            "DataValues": [
+              {
+                "name": "BaseDamage",
+                "values": [
+                  70.0,
+                  110.0,
+                  150.0,
+                  190.0,
+                  230.0,
+                  270.0,
+                  310.0
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "ParryDuration",
+                "values": [
+                  0.75,
+                  0.75,
+                  0.75,
+                  0.75,
+                  0.75,
+                  0.75,
+                  0.75
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "CCDuration",
+                "values": [
+                  2.0,
+                  2.0,
+                  2.0,
+                  2.0,
+                  2.0,
+                  2.0,
+                  2.0
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "MSSlowPercent",
+                "values": [
+                  -0.5,
+                  -0.5,
+                  -0.5,
+                  -0.5,
+                  -0.5,
+                  -0.5,
+                  -0.5
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "SmallBlockPercent",
+                "values": [
+                  0.029999999329447746,
+                  0.029999999329447746,
+                  0.029999999329447746,
+                  0.029999999329447746,
+                  0.029999999329447746,
+                  0.029999999329447746,
+                  0.029999999329447746
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "BigBlockPercent",
+                "values": [
+                  0.15000000596046448,
+                  0.15000000596046448,
+                  0.15000000596046448,
+                  0.15000000596046448,
+                  0.15000000596046448,
+                  0.15000000596046448,
+                  0.15000000596046448
+                ],
+                "__type": "SpellDataValue"
+              },
+              {
+                "name": "AttackSlowPercent",
+                "values": [
+                  -0.25,
+                  -0.25,
+                  -0.25,
+                  -0.25,
+                  -0.25,
+                  -0.25,
+                  -0.25
+                ],
+                "__type": "SpellDataValue"
+              }
+            ],
+            "{f9c2333e}": {
+              "cherry": {
+                "value": [
+                  30.0,
+                  28.0,
+                  26.0,
+                  24.0,
+                  22.0,
+                  20.0,
+                  18.0
+                ],
+                "__type": "SpellEffectAmount"
+              }
+            },
+            "mSpellCalculations": {
+              "StabDamage": {
+                "tooltipOnly": true,
+                "mFormulaParts": [
+                  {
+                    "mDataValue": "BaseDamage",
+                    "__type": "NamedDataValueCalculationPart"
+                  },
+                  {
+                    "mCoefficient": 1.0,
+                    "__type": "StatByCoefficientCalculationPart"
+                  }
+                ],
+                "__type": "GameCalculation"
+              }
+            },
+            "mCoefficient": 1.0,
+            "mAnimationName": "Spell2",
+            "mImgIconName": [
+              "ASSETS/Characters/Fiora/HUD/Icons2D/Fiora_W.dds"
+            ],
+            "mCastTime": 0.009999999776482582,
+            "spellCastTime": 0.25,
+            "spellTotalTime": 1.0,
+            "cooldownTime": [
+              26.0,
+              24.0,
+              22.0,
+              20.0,
+              18.0,
+              16.0,
+              14.0
+            ],
+            "Cooldown": {
+              "values": [
+                26.0,
+                24.0,
+                22.0,
+                20.0,
+                18.0,
+                16.0,
+                14.0
+              ],
+              "{0a3e0478}": 26.0,
+              "__type": "{0a0eddc9}"
+            },
+            "mCantCancelWhileWindingUp": true,
+            "mCantCancelWhileChanneling": true,
+            "mSpellRevealsChampion": false,
+            "useAnimatorFramerate": true,
+            "mDoNotNeedToFaceTarget": true,
+            "mDoesNotConsumeCooldown": true,
+            "castRange": [
+              3000.0,
+              3000.0,
+              3000.0,
+              3000.0,
+              3000.0,
+              3000.0,
+              3000.0
+            ],
+            "castRangeValues": {
+              "values": [
+                3000.0,
+                3000.0,
+                3000.0,
+                3000.0,
+                3000.0,
+                3000.0,
+                3000.0
+              ],
+              "{0a3e0478}": 3000.0,
+              "__type": "{0a0eddc9}"
+            },
+            "castRangeDisplayOverride": [
+              750.0,
+              750.0,
+              750.0,
+              750.0,
+              750.0,
+              750.0,
+              750.0
+            ],
+            "castRadius": [
+              300.0,
+              300.0,
+              300.0,
+              300.0,
+              300.0,
+              300.0,
+              300.0
+            ],
+            "castRadiusSecondary": [
+              360.0,
+              360.0,
+              360.0,
+              360.0,
+              360.0,
+              360.0,
+              360.0
+            ],
+            "castFrame": 7.5,
+            "mLineWidth": 95.0,
+            "mFloatVarsDecimals": [
+              0,
+              0,
+              0,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ],
+            "mana": [
+              50.0,
+              50.0,
+              50.0,
+              50.0,
+              50.0,
+              50.0
+            ],
+            "manaValues": {
+              "values": [
+                50.0,
+                50.0,
+                50.0,
+                50.0,
+                50.0,
+                50.0
+              ],
+              "{0a3e0478}": 50.0,
+              "__type": "{630af303}"
+            },
+            "mTargetingTypeData": {
+              "__type": "Location"
+            },
+            "mCastingBreaksStealth": true,
+            "mClientData": {
+              "mTooltipData": {
+                "mObjectName": "FioraW",
+                "mFormat": "{d7c27163}",
+                "mLocKeys": {
+                  "keyName": "Spell_FioraW_Name",
+                  "keySummary": "Spell_FioraW_Summary",
+                  "keyTooltip": "Spell_FioraW_Tooltip"
+                },
+                "mLists": {
+                  "LevelUp": {
+                    "levelCount": 5,
+                    "Elements": [
+                      {
+                        "type": "BaseDamage",
+                        "typeIndex": 1,
+                        "nameOverride": "Spell_ListType_Damage",
+                        "__type": "TooltipInstanceListElement"
+                      },
+                      {
+                        "type": "Cooldown",
+                        "__type": "TooltipInstanceListElement"
+                      }
+                    ],
+                    "__type": "TooltipInstanceList"
+                  }
+                },
+                "__type": "TooltipInstanceSpell"
+              },
+              "mTargeterDefinitions": [
+                {
+                  "hideWithLineIndicator": true,
+                  "__type": "TargeterDefinitionRange"
+                },
+                {
+                  "endLocator": {
+                    "basePosition": 3,
+                    "__type": "DrawablePositionLocator"
+                  },
+                  "lineWidth": {
+                    "mPerLevelValues": [
+                      95.0,
+                      95.0,
+                      95.0,
+                      95.0,
+                      95.0,
+                      95.0
+                    ],
+                    "mValueType": 2,
+                    "__type": "FloatPerSpellLevel"
+                  },
+                  "__type": "TargeterDefinitionLine"
+                }
+              ],
+              "__type": "SpellDataResourceClient"
+            },
+            "__type": "SpellDataResource"
+          },
+          "mBuff": {
+            "mDescription": "game_buff_tooltip_FioraW",
+            "__type": "BuffData"
+          },
+          "BotData": {
+            "DamageTag": 1,
+            "{6d548702}": {
+              "mFormulaParts": [
+                {
+                  "mSpellCalculationKey": "StabDamage",
+                  "__type": "{f3cbe7b2}"
+                }
+              ],
+              "__type": "GameCalculation"
+            },
+            "{ec17e271}": [
+              {
+                "EffectTag": 1,
+                "EffectCalculation": {
+                  "mMultiplier": {
+                    "mNumber": -1.0,
+                    "__type": "NumberCalculationPart"
+                  },
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "MSSlowPercent",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              },
+              {
+                "EffectTag": 2048,
+                "EffectCalculation": {
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "CCDuration",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              },
+              {
+                "EffectTag": 4096,
+                "EffectCalculation": {
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "CCDuration",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              },
+              {
+                "EffectTag": 8192,
+                "EffectCalculation": {
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "ParryDuration",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              },
+              {
+                "EffectTag": 16384,
+                "EffectCalculation": {
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "CCDuration",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              },
+              {
+                "EffectTag": 131072,
+                "EffectCalculation": {
+                  "mFormulaParts": [
+                    {
+                      "mDataValue": "ParryDuration",
+                      "__type": "NamedDataValueCalculationPart"
+                    }
+                  ],
+                  "__type": "GameCalculation"
+                },
+                "__type": "{b09016f6}"
+              }
+            ],
+            "{38382c53}": [
+              {
+                "{e38f54f7}": 8,
+                "{0717e686}": false,
+                "__type": "{150d1b92}"
+              },
+              {
+                "{e38f54f7}": 4096,
+                "{0717e686}": false,
+                "__type": "{150d1b92}"
+              }
+            ],
+            "__type": "BotsSpellData"
+          },
+          "__type": "SpellObject"
+        }
+      },
+      "riot-ability-source": {
+        "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Fiora.json",
+        "complete-source-sha256": "7a089668881a767f3bf3dbc6e312a94d0f55d7b9ce9d3ea27d8a7e921b2a867e",
+        "description": "Fiora parries all incoming damage and disables for a short time, then stabs in a direction. This stab slows the first enemy champion hit, or stuns them if Fiora blocked an immobilizing effect with this ability."
+      }
+    }
+  }
+}

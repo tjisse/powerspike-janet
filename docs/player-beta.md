@@ -83,3 +83,8 @@ after v0.18.0, starting with attack timing and projectile behavior.
 `make test test-web` covers core calculations, retained sources, replay tooling, model/rendering regressions and the comparison cases. `python test/browser.py` runs against the packaged binary, or accepts `--url` for a running app. Its comparison flow checks pinning, item changes, recomputation against an independent result, replacement/removal, responsive layouts, coverage navigation, failed-evaluation recovery and retaining pinned items after applying optimization.
 
 Screenshots from browser verification are written under ignored `build/`. Run `make test-runtime` to check the executable independently of the source tree before preparing a release.
+
+The [ranged replay timing investigation](replay-attack-timing.md) adds developer
+evidence for Ahri/Lich Bane and Viktor Q, with all exceptions retained. It
+identifies a potential Fiora W/Spellblade interaction for further review; no
+additional combat cases are admitted or simulation timing parameters changed.

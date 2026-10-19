@@ -1,0 +1,1313 @@
+{
+  "format": "powerspike-replay-attack-timing-study",
+  "version": 1,
+  "checked-at": "2026-10-19",
+  "evidence-role": "development",
+  "client-build": "16.20.824.8524",
+  "protocol-digest": "142cabd45e45d83f",
+  "selection": "Viktor chosen from cached rosters before decoding. Ranged search queried Viktor, then Anivia in a preordered list of four existing participants and stopped at the first matching-build ranged Lich Bane owner. Two discovery requests and one new match request screened six distinct available matches; no timing or damage error selected either game. Not random or held-out validation.",
+  "attack-source-excerpt": {
+    "path": "observations/replays/16.20.1-reviewed-attack-records.json",
+    "sha256": "0bb78d01bdaf9e7ceb8251478356f5dbee7818da596e0d9a280d9a1156cd473b"
+  },
+  "item-source-excerpt": {
+    "path": "observations/replays/16.20.1-lich-bane-item.json",
+    "sha256": "3485f19f829a62f14c82f3ea56976f29f543f6f644df47ac5be18a3b8b607387"
+  },
+  "studies": {
+    "Viktor": {
+      "replay-local-path": "observations/local/viktor-timing-current/replay.rofl",
+      "replay-sha256": "8e92c0b2cc71fb1f433a86d8e5f2604f4e9fb47c557bf6c872c03dab04428743",
+      "bytes": 13769111,
+      "wire-bytes": 13606552,
+      "wire-sha256": "c34f5fb53ca38c548e78c7e3bd71548eac1e99600d4930b931d65c608ac080e0",
+      "match-sha256": "fb56d65ddc33490743654dd05a16299af197faa81604fbc2eebc398176579bec",
+      "timeline-sha256": "1df20e9391b35b494de74cf63a5402d54b148a442b56d8f042753ff5c588052e",
+      "duration-seconds": 1679.89,
+      "champion-entity": 1073742006,
+      "selection": "Cached discovery candidate 4, selected for Viktor before timing decoding; no Lich Bane purchases.",
+      "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+      "profile-sha256": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9",
+      "decoder-counts": {
+        "combat-v1": {
+          "gameplay-blocks": 1185037,
+          "state-packets": 15327,
+          "state-records": 141202,
+          "champion-state-records": 56917,
+          "state-accepted": 15327,
+          "damage-packets": 64387,
+          "unknown-damage-type": 0,
+          "damage-accepted": 64387,
+          "champion-target-damage": 9844,
+          "champion-target-with-all-partial-fields": 9844
+        },
+        "actions-v1": {
+          "1215": 4049,
+          "906": 3185
+        },
+        "buffs-v1": {
+          "435": 8788,
+          "430": 9954,
+          "262": 8629
+        }
+      },
+      "decode-failures": {
+        "combat-v1": {},
+        "actions-v1": {},
+        "buffs-v1": {}
+      },
+      "aggregate-damage-checks": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.998046875
+      },
+      "timing": {
+        "format": "powerspike-replay-timing-context",
+        "version": 1,
+        "client-build": "16.20.824.8524",
+        "protocol-digest": "142cabd45e45d83f",
+        "replay-sha256": "8e92c0b2cc71fb1f433a86d8e5f2604f4e9fb47c557bf6c872c03dab04428743",
+        "entity": 1073742006,
+        "effect-hashes": [
+          116038006,
+          132304146,
+          259927259
+        ],
+        "buff-hash": 93194862,
+        "candidate-window-seconds": 2,
+        "counts-by-effect-hash": {
+          "259927259": {
+            "selected-damage-packets": 81,
+            "unique-candidate": 64,
+            "with-same-timestamp-removal": 0,
+            "ambiguous": 17
+          },
+          "116038006": {
+            "selected-damage-packets": 83,
+            "unique-candidate": 65,
+            "with-same-timestamp-removal": 83,
+            "ambiguous": 18
+          },
+          "132304146": {
+            "selected-damage-packets": 79,
+            "unique-candidate": 60,
+            "with-same-timestamp-removal": 0,
+            "ambiguous": 18,
+            "no-candidate": 1
+          }
+        },
+        "unique-announcement-intervals": {
+          "259927259": {
+            "count": 64,
+            "minimum": 0.3000000000000682,
+            "maximum": 1.602999999999156
+          },
+          "116038006": {
+            "count": 65,
+            "minimum": 0.23299999999971988,
+            "maximum": 0.2690000000000339
+          },
+          "132304146": {
+            "count": 60,
+            "minimum": 0.33399999999983265,
+            "maximum": 1.7709999999994182
+          }
+        },
+        "selected-buff-update-counts": {
+          "add": 105,
+          "remove": 105
+        },
+        "removal-context": {
+          "removals": 105,
+          "with-matching-observed-add": 105,
+          "with-same-timestamp-damage": 83,
+          "without-same-timestamp-damage": 22
+        },
+        "global-buff-lifecycle-diagnostics": {
+          "add": 8788,
+          "counter": 9954,
+          "counter-matched": 9954,
+          "remove": 8629,
+          "remove-matched": 8620,
+          "remove-without-matching-add": 9,
+          "replacement-without-removal": 13
+        },
+        "inputs": {
+          "actions": "201205e27f10fa8768d377d04898825b2ee87b30d89252245d9291e01aaa58db",
+          "buffs": "df9e9129f12b7d30ca6ea4726ee8894fc9f92f005fee9967fc55c9727b64f099",
+          "combat": "c93343c12342e6417e5e68e6aef43ca533d1b78debadec57ef0989f8624f4e37"
+        },
+        "damage-archive-sha256": "777b4a2801b963d85e87ade08b7c8f8065cc7534291082754bf72ac3e1988499",
+        "adapters": {
+          "replay_timing.py": "c923807f97c4e58b2ca35b16f5860ecaf17978406bed19bcfb21a08a84186354",
+          "replay_actions.py": "c19dfd1efdda225402509d61acda9b25fd7e3eaa0a02eb760e01bfae82c6c899",
+          "replay_attack_review.py": "37ca95d01c0c1fe15f493369db0504142e616c295a6a5085b3146478947383c0",
+          "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe"
+        },
+        "archives": {
+          "timing.jsonl.gz": "70e61ab1d16558c5c29d5517d030c59ec71f747bfed24ed274dd94594625e5dd",
+          "removals.jsonl.gz": "9de3d245b77f5f490820ebbf33281aaad695efe7ad860a099c5146077f2488e5"
+        },
+        "model-admissible-cases": 0,
+        "server-timing-resolved": false,
+        "scope": "Packet-time context only. Hash labels, release/launch meaning, cancellation, replication lag, distance, server sampling and complete buff state remain unverified. No damage amounts or predictions select matches; every causal candidate and nearby buff update is retained."
+      },
+      "first-removal-with-selected-damage-witness": {
+        "removal": {
+          "event-id": "gameChunk:4:81782",
+          "timestamp": 52.95964579772967,
+          "kind": "remove",
+          "entity": 1073742006,
+          "name-hash": 93194862,
+          "slot-token": 48
+        },
+        "matching-observed-add": {
+          "event-id": "gameChunk:4:72770",
+          "timestamp": 50.68664579772965,
+          "kind": "add",
+          "entity": 1073742006,
+          "name-hash": 93194862,
+          "slot-token": 48
+        },
+        "observed-lifetime-seconds": 2.2730000000000175,
+        "same-timestamp-damage-candidates": [
+          {
+            "event-id": "gameChunk:4:81759",
+            "timestamp": 52.95964579772967,
+            "source": 1073742006,
+            "target": 1073742002,
+            "effect-hash": 116038006
+          }
+        ],
+        "preceding-announcements": [
+          {
+            "event-id": "gameChunk:4:80473",
+            "timestamp": 52.69064579772967,
+            "kind": "basic-attack-announcement-candidate",
+            "source": 1073742006,
+            "target": 1073742002
+          }
+        ],
+        "consumption-or-expiry-resolved": false
+      },
+      "removals-without-same-timestamp-selected-damage": [
+        {
+          "removal": {
+            "event-id": "gameChunk:7:357298",
+            "timestamp": 134.60318450927596,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 132
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:7:278904",
+            "timestamp": 130.59218450927725,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 132
+          },
+          "observed-lifetime-seconds": 4.010999999998717,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:14:417629",
+            "timestamp": 357.2689472656296,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 79
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:14:359052",
+            "timestamp": 353.12694726562887,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 79
+          },
+          "observed-lifetime-seconds": 4.142000000000735,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:14:396754",
+              "timestamp": 356.1669472656294,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742006,
+              "target": 1073742001
+            },
+            {
+              "event-id": "gameChunk:14:400614",
+              "timestamp": 356.40094726562944,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281703
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:20:49771",
+            "timestamp": 512.4830664062505,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 138
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:20:36607",
+            "timestamp": 511.98206640625034,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 138
+          },
+          "observed-lifetime-seconds": 0.5010000000001469,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:20:33130",
+              "timestamp": 511.7150664062503,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281697
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:23:201136",
+            "timestamp": 608.1862597656262,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:23:130351",
+            "timestamp": 604.0782597656256,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "observed-lifetime-seconds": 4.108000000000629,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:29:549943",
+            "timestamp": 807.8802280273485,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:29:492141",
+            "timestamp": 803.8272280273478,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "observed-lifetime-seconds": 4.053000000000679,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:31:448703",
+            "timestamp": 860.8275161132848,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:31:366159",
+            "timestamp": 856.7515161132841,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "observed-lifetime-seconds": 4.076000000000704,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:36:32442",
+            "timestamp": 992.1765815429691,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 124
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:35:482582",
+            "timestamp": 988.0545112304735,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 124
+          },
+          "observed-lifetime-seconds": 4.122070312495566,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:36:5921",
+              "timestamp": 990.7395815429688,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281717
+            },
+            {
+              "event-id": "gameChunk:36:29382",
+              "timestamp": 992.0755815429691,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281703
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:36:86970",
+            "timestamp": 994.6475815429695,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:36:78130",
+            "timestamp": 994.2135815429695,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "observed-lifetime-seconds": 0.43400000000008276,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:36:72093",
+              "timestamp": 993.9465815429694,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281697
+            },
+            {
+              "event-id": "gameChunk:36:82432",
+              "timestamp": 994.4135815429695,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742006,
+              "target": 1073741998
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:36:225020",
+            "timestamp": 1006.3795815429714,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:36:185446",
+            "timestamp": 1002.2045815429707,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "observed-lifetime-seconds": 4.17500000000075,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:36:453741",
+            "timestamp": 1017.6175815429734,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:36:359106",
+            "timestamp": 1013.4085815429727,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "observed-lifetime-seconds": 4.209000000000742,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:36:425518",
+              "timestamp": 1016.3475815429732,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281717
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:42:492006",
+            "timestamp": 1195.8081298828013,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:42:388901",
+            "timestamp": 1191.624129882803,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "observed-lifetime-seconds": 4.1839999999983775,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:42:461105",
+              "timestamp": 1194.037129882802,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281717
+            },
+            {
+              "event-id": "gameChunk:42:490876",
+              "timestamp": 1195.7741298828012,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 263796881
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:44:367964",
+            "timestamp": 1255.0245292968639,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 48
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:44:314591",
+            "timestamp": 1250.7805292968658,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 48
+          },
+          "observed-lifetime-seconds": 4.2439999999980955,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:46:85465",
+            "timestamp": 1294.5777499999986,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 48
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:46:2808",
+            "timestamp": 1290.56875,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 48
+          },
+          "observed-lifetime-seconds": 4.00899999999865,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:46:44013",
+              "timestamp": 1292.6377499999994,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 9413205
+            },
+            {
+              "event-id": "gameChunk:46:44345",
+              "timestamp": 1292.6377499999994,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 177407648
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:47:195545",
+            "timestamp": 1328.0572304687466,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 178
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:47:122611",
+            "timestamp": 1323.9712304687487,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 178
+          },
+          "observed-lifetime-seconds": 4.085999999997966,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:47:179422",
+              "timestamp": 1326.7882304687473,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742006,
+              "target": 1073742000
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:47:267090",
+            "timestamp": 1333.404230468744,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 190
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:47:208388",
+            "timestamp": 1329.2602304687462,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 190
+          },
+          "observed-lifetime-seconds": 4.143999999997732,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:50:247204",
+            "timestamp": 1428.8014326171785,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:50:197749",
+            "timestamp": 1425.62743261718,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "observed-lifetime-seconds": 3.173999999998614,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:50:241286",
+              "timestamp": 1428.5674326171786,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742006,
+              "target": 1073742000
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:50:369220",
+            "timestamp": 1434.2334326171758,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 4
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:50:276044",
+            "timestamp": 1430.1404326171778,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 4
+          },
+          "observed-lifetime-seconds": 4.092999999998028,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:50:324590",
+              "timestamp": 1432.6454326171765,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281703
+            },
+            {
+              "event-id": "gameChunk:50:347822",
+              "timestamp": 1433.4824326171763,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281698
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:51:200385",
+            "timestamp": 1447.9090009765591,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 229
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:51:121518",
+            "timestamp": 1443.6660009765608,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 229
+          },
+          "observed-lifetime-seconds": 4.2429999999983465,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:52:461435",
+            "timestamp": 1495.7822822265505,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 45
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:52:432750",
+            "timestamp": 1494.713282226551,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 45
+          },
+          "observed-lifetime-seconds": 1.0689999999995052,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:52:429538",
+              "timestamp": 1494.446282226551,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 218281697
+            },
+            {
+              "event-id": "gameChunk:52:458102",
+              "timestamp": 1495.5482822265506,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742006,
+              "target": 1073742000
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:56:123824",
+            "timestamp": 1597.0492744140602,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:56:61317",
+            "timestamp": 1593.0372744140616,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 12
+          },
+          "observed-lifetime-seconds": 4.011999999998579,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:56:97016",
+              "timestamp": 1595.178274414061,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 9413205
+            },
+            {
+              "event-id": "gameChunk:56:97345",
+              "timestamp": 1595.178274414061,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742006,
+              "effect-hash": 177407648
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:58:198635",
+            "timestamp": 1659.4555898437463,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:58:110497",
+            "timestamp": 1655.2195898437483,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 122
+          },
+          "observed-lifetime-seconds": 4.235999999998057,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:58:348968",
+            "timestamp": 1666.4405898437435,
+            "kind": "remove",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:58:265772",
+            "timestamp": 1662.2605898437453,
+            "kind": "add",
+            "entity": 1073742006,
+            "name-hash": 93194862,
+            "slot-token": 88
+          },
+          "observed-lifetime-seconds": 4.179999999998245,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        }
+      ],
+      "costs": {
+        "combat-v1": {
+          "wall-seconds": 41.992868325003656,
+          "output-bytes": 12691372
+        },
+        "actions-v1": {
+          "wall-seconds": 13.191563355998369
+        },
+        "buffs-v1": {
+          "wall-seconds": 13.554448945011245
+        }
+      },
+      "identity-checks": {
+        "champion-team-kda-roster": "all ten agree",
+        "final-inventories-matching": 10,
+        "final-inventories-checked": 10,
+        "build-duration": "agree",
+        "timeline-participants": "agree"
+      }
+    },
+    "Ahri": {
+      "replay-local-path": "observations/local/ranged-spellblade-current/replay.rofl",
+      "replay-sha256": "6a6172ecd5466d9cf9505c1cc0d1b7bcd4f1510b23569ee023789070102373d7",
+      "bytes": 11548428,
+      "wire-bytes": 11386060,
+      "wire-sha256": "cd163eeeb397277d7e0d1473f28de8a447a1f855581c95d64d6bf4e51d91cdd4",
+      "match-sha256": "cf453c90adbf52b347fe873fc8dd75332762264057fce9f8b5ba78f9c13604a9",
+      "timeline-sha256": "9fe951452835b5f9e0547e18cfdfaa3bc8cb9d285a0d8f3fb827b7ea9fc779b6",
+      "duration-seconds": 1393.794,
+      "champion-entity": 1073742000,
+      "selection": "First matching-build ranged Lich Bane final-inventory owner in preordered player discovery; before timing decoding.",
+      "image-sha256": "6e22b0f07beb51a0f5df84435123a34d97b68345319cacff65740f79e0da35a3",
+      "profile-sha256": "138a32f223a67c76900f7efb513229240521ed8512a446fe4a3325d5441eabb9",
+      "decoder-counts": {
+        "combat-v1": {
+          "gameplay-blocks": 987525,
+          "state-packets": 13025,
+          "state-records": 113771,
+          "champion-state-records": 44498,
+          "state-accepted": 13025,
+          "damage-packets": 47403,
+          "unknown-damage-type": 0,
+          "damage-accepted": 47403,
+          "champion-target-damage": 4862,
+          "champion-target-with-all-partial-fields": 4862
+        },
+        "actions-v1": {
+          "1215": 2535,
+          "906": 2967
+        },
+        "buffs-v1": {
+          "435": 5356,
+          "430": 10003,
+          "262": 5206
+        }
+      },
+      "decode-failures": {
+        "combat-v1": {},
+        "actions-v1": {},
+        "buffs-v1": {}
+      },
+      "aggregate-damage-checks": {
+        "checks": 50,
+        "within-one": 50,
+        "max-absolute-error": 0.998046875
+      },
+      "timing": {
+        "format": "powerspike-replay-timing-context",
+        "version": 1,
+        "client-build": "16.20.824.8524",
+        "protocol-digest": "142cabd45e45d83f",
+        "replay-sha256": "6a6172ecd5466d9cf9505c1cc0d1b7bcd4f1510b23569ee023789070102373d7",
+        "entity": 1073742000,
+        "effect-hashes": [
+          24332699
+        ],
+        "buff-hash": 262046053,
+        "candidate-window-seconds": 2,
+        "counts-by-effect-hash": {
+          "24332699": {
+            "selected-damage-packets": 342,
+            "unique-candidate": 224,
+            "with-same-timestamp-removal": 45,
+            "ambiguous": 118
+          }
+        },
+        "unique-announcement-intervals": {
+          "24332699": {
+            "count": 224,
+            "minimum": 0.2339999999999236,
+            "maximum": 1.704000000000292
+          }
+        },
+        "selected-buff-update-counts": {
+          "add": 52,
+          "remove": 52
+        },
+        "removal-context": {
+          "removals": 52,
+          "with-matching-observed-add": 52,
+          "with-same-timestamp-damage": 44,
+          "without-same-timestamp-damage": 8
+        },
+        "global-buff-lifecycle-diagnostics": {
+          "add": 5356,
+          "counter": 10003,
+          "counter-matched": 10003,
+          "remove": 5206,
+          "remove-matched": 5201,
+          "remove-without-matching-add": 5,
+          "replacement-without-removal": 6
+        },
+        "inputs": {
+          "actions": "7e4dbe08c66e069e463b4468ac587497187a42e62e44dda482c876508e0437e6",
+          "buffs": "a2ed34c9b275a719315a1b3fc22263a7f05df77af0dac3fb02c5939d7ab93f7a",
+          "combat": "d3ae39f1b9b38cb50981b54cd4e6ffa08d5b5af13f3ce819ddc3354bd9a08ec4"
+        },
+        "damage-archive-sha256": "56730a12f03475da71dfc5ae7d0accfc0918c7cd1ce47a82506412605c327481",
+        "adapters": {
+          "replay_timing.py": "c923807f97c4e58b2ca35b16f5860ecaf17978406bed19bcfb21a08a84186354",
+          "replay_actions.py": "c19dfd1efdda225402509d61acda9b25fd7e3eaa0a02eb760e01bfae82c6c899",
+          "replay_attack_review.py": "37ca95d01c0c1fe15f493369db0504142e616c295a6a5085b3146478947383c0",
+          "replay_buffs.py": "0918859ec2b5bb0a32394d213e5432390aefa1b4e926209b6dbadcfce9cedabe"
+        },
+        "archives": {
+          "timing.jsonl.gz": "3e488e15c3bb4ad14996fc5813123bad247f03f2a6c942be14e9b8b9e7e96a32",
+          "removals.jsonl.gz": "033f1837551fef52ea512508424f5e246c6520c0654aded5b1f4974cd11d2a1f"
+        },
+        "model-admissible-cases": 0,
+        "server-timing-resolved": false,
+        "scope": "Packet-time context only. Hash labels, release/launch meaning, cancellation, replication lag, distance, server sampling and complete buff state remain unverified. No damage amounts or predictions select matches; every causal candidate and nearby buff update is retained."
+      },
+      "first-removal-with-selected-damage-witness": {
+        "removal": {
+          "event-id": "gameChunk:32:191119",
+          "timestamp": 883.8553085937523,
+          "kind": "remove",
+          "entity": 1073742000,
+          "name-hash": 262046053,
+          "slot-token": 1
+        },
+        "matching-observed-add": {
+          "event-id": "gameChunk:31:583536",
+          "timestamp": 866.997350585942,
+          "kind": "add",
+          "entity": 1073742000,
+          "name-hash": 262046053,
+          "slot-token": 1
+        },
+        "observed-lifetime-seconds": 16.85795800781034,
+        "same-timestamp-damage-candidates": [
+          {
+            "event-id": "gameChunk:32:191145",
+            "timestamp": 883.8553085937523,
+            "source": 1073742000,
+            "target": 1073742003,
+            "effect-hash": 24332699
+          }
+        ],
+        "preceding-announcements": [
+          {
+            "event-id": "gameChunk:32:177930",
+            "timestamp": 883.2533085937522,
+            "kind": "basic-attack-announcement-candidate",
+            "source": 1073742000,
+            "target": 1073742003
+          },
+          {
+            "event-id": "gameChunk:32:180122",
+            "timestamp": 883.4533085937522,
+            "kind": "spell-cast-announcement-candidate",
+            "source": 1073742000,
+            "effect-hash": 6813959
+          },
+          {
+            "event-id": "gameChunk:32:188014",
+            "timestamp": 883.7883085937523,
+            "kind": "spell-cast-announcement-candidate",
+            "source": 1073742000,
+            "effect-hash": 6813953
+          }
+        ],
+        "consumption-or-expiry-resolved": false
+      },
+      "removals-without-same-timestamp-selected-damage": [
+        {
+          "removal": {
+            "event-id": "gameChunk:36:93546",
+            "timestamp": 996.3233662109385,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 46
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:35:513305",
+            "timestamp": 985.7911171875043,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 46
+          },
+          "observed-lifetime-seconds": 10.532249023434247,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:37:461735",
+            "timestamp": 1040.5129716796805,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 77
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:37:230093",
+            "timestamp": 1028.620971679686,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 77
+          },
+          "observed-lifetime-seconds": 11.891999999994596,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:37:409706",
+              "timestamp": 1038.6429716796815,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742000,
+              "effect-hash": 6813959
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:40:73558",
+            "timestamp": 1115.57655957031,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 46
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:39:396409",
+            "timestamp": 1099.9001689453034,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 46
+          },
+          "observed-lifetime-seconds": 15.676390625006661,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:41:505929",
+            "timestamp": 1162.3340751953021,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 178
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:41:157471",
+            "timestamp": 1145.1870751953102,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 178
+          },
+          "observed-lifetime-seconds": 17.146999999991976,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:42:226105",
+            "timestamp": 1188.8070947265542,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:42:98032",
+            "timestamp": 1178.6370947265586,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "observed-lifetime-seconds": 10.169999999995525,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:43:114153",
+            "timestamp": 1205.6510478515602,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:42:294542",
+            "timestamp": 1195.3890947265515,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "observed-lifetime-seconds": 10.261953125008631,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:44:96367",
+            "timestamp": 1235.8187763671851,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:43:448240",
+            "timestamp": 1225.6440478515508,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 28
+          },
+          "observed-lifetime-seconds": 10.174728515634342,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [],
+          "consumption-or-expiry-resolved": false
+        },
+        {
+          "removal": {
+            "event-id": "gameChunk:49:59167",
+            "timestamp": 1380.4889970703125,
+            "kind": "remove",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 77
+          },
+          "matching-observed-add": {
+            "event-id": "gameChunk:48:703811",
+            "timestamp": 1379.771453124986,
+            "kind": "add",
+            "entity": 1073742000,
+            "name-hash": 262046053,
+            "slot-token": 77
+          },
+          "observed-lifetime-seconds": 0.7175439453264971,
+          "same-timestamp-damage-candidates": [],
+          "preceding-announcements": [
+            {
+              "event-id": "gameChunk:48:672238",
+              "timestamp": 1378.5684531249865,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742000,
+              "effect-hash": 6813954
+            },
+            {
+              "event-id": "gameChunk:48:701802",
+              "timestamp": 1379.637453124986,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742000,
+              "target": 1073742003
+            },
+            {
+              "event-id": "gameChunk:48:703868",
+              "timestamp": 1379.771453124986,
+              "kind": "spell-cast-announcement-candidate",
+              "source": 1073742000,
+              "effect-hash": 6813954
+            },
+            {
+              "event-id": "gameChunk:48:707449",
+              "timestamp": 1380.0714531249857,
+              "kind": "basic-attack-announcement-candidate",
+              "source": 1073742000,
+              "target": 1073742003
+            }
+          ],
+          "consumption-or-expiry-resolved": false
+        }
+      ],
+      "lich-bane-item-events": [
+        {
+          "type": "ITEM_PURCHASED",
+          "timestamp": 865994,
+          "itemId": 3100,
+          "participantId": 3
+        }
+      ],
+      "selected-buff-first-update-seconds": 866.997350585942,
+      "short-removal-context": {
+        "removal-event-id": "gameChunk:49:59167",
+        "target-roster-slot": 5,
+        "target-champion": "Fiora",
+        "target-entity": 1073742003,
+        "matching-source-name-candidate": "FioraW",
+        "matching-elf-hash": "0x06d06887",
+        "target-cast-candidates": [
+          {
+            "kind": "spell-cast-announcement-candidate",
+            "source": 1073742003,
+            "effect-hash": 114321543,
+            "event-id": "gameChunk:48:707863",
+            "timestamp": 1380.1384531249857
+          }
+        ],
+        "target-buff-observations": [
+          {
+            "event-id": "gameChunk:48:708059",
+            "timestamp": 1380.1384531249857,
+            "entity": 1073742003,
+            "kind": "add",
+            "name-hash": 114321543,
+            "slot-token": 2,
+            "duration-seconds": 0.75
+          },
+          {
+            "event-id": "gameChunk:49:70126",
+            "timestamp": 1380.8899970703123,
+            "entity": 1073742003,
+            "kind": "remove",
+            "name-hash": 114321543,
+            "slot-token": 2
+          }
+        ],
+        "interpretation": "The short removal falls within the observed FioraW add/remove interval after an Ahri announcement targeting Fiora. Riot describes Riposte as parrying incoming damage. This is consistent with a parried attack consuming Spellblade without ordinary damage, but exact attack attribution and server behavior are not admitted.",
+        "model-gap": "Successful-damage-only consumption does not cover parried/blocked attacks. Fiora W defense and its interaction need an explicit supported handler and reviewed case."
+      },
+      "costs": {
+        "combat-v1": {
+          "wall-seconds": 32.018593975997646,
+          "output-bytes": 9572092
+        },
+        "actions-v1": {
+          "wall-seconds": 8.88987096499477
+        },
+        "buffs-v1": {
+          "wall-seconds": 9.570375534996856
+        }
+      },
+      "identity-checks": {
+        "champion-team-kda-roster": "all ten agree",
+        "final-inventories-matching": 10,
+        "final-inventories-checked": 10,
+        "build-duration": "agree",
+        "timeline-participants": "agree"
+      }
+    }
+  },
+  "conclusions": {
+    "simulation-changes": 0,
+    "admitted-model-comparisons": 0,
+    "server-release-timing-resolved": false,
+    "spellblade-policy": "Retain successful-impact consumption. Same-timestamp client observations corroborate it but do not establish exact server consumption or distinguish all launch/impact cases.",
+    "viktor-policy": "Retain separately declared zero-travel empowered delivery and 30% windup assumptions. Announcement-to-damage intervals are not release-to-damage measurements."
+  },
+  "limits": [
+    "Client packet delivery timestamps and announcement candidates do not establish exact server start/release/impact times.",
+    "All causal announcements in the fixed two-second window are retained; none is chosen by proximity or damage error.",
+    "Eight Ahri removals have no same-timestamp selected ordinary-name damage. Seven have observed lifetimes over ten seconds; the short removal has observed FioraW context. These are retained diagnostics, not automated expiry or parry attribution.",
+    "Same-timestamp damage can contain multiple candidates. Case and removal counts are distinct; no one-to-one attribution is inferred.",
+    "Full inventories, target motion, complete buffs, server sampling and damage semantics remain outside this timing report.",
+    "Matching attack-source subsets do not establish full compatibility between build 16.20 and model snapshot 16.19.1."
+  ]
+}

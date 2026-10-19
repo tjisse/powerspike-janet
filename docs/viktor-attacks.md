@@ -71,3 +71,9 @@ Core/source checks, all 166 Python tests (eight optional skips), frontend and
 combat regressions, the standalone runtime and packaged Chromium desktop/mobile
 flows passed. The relocated executable also passed against the published
 v0.18.0 RPM's older seed in an empty directory.
+
+A subsequent [16.20 replay study](replay-attack-timing.md) recovers 83
+empowered-name damage packets with same-timestamp observed QReturn removals.
+Its 65 unique announcement candidates have 0.233–0.269 second packet intervals;
+18 cases remain ambiguous. These are not release-to-hit measurements and do not
+replace the declared windup or zero-travel assumptions.

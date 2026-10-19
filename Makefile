@@ -10,7 +10,9 @@ build/janet: scripts/bootstrap-janet.sh
 verification-report:
 	$(PYTHON) scripts/replay_coverage.py report --output observations/verification/progress.json
 
-test: $(JANET) format-check
+# Replay comparisons exercise the production engine and its native modules.
+# Prepare them before Python discovery, including on a clean release runner.
+test: $(JANET) build/web-ready format-check
 	JANET=$(JANET) bash test/format.sh
 	$(JANET) test/run.janet
 	$(PYTHON) scripts/verify_sources.py --janet $(JANET)

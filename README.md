@@ -79,7 +79,7 @@ janet main.janet optimize-abilities Annie 18
 janet main.janet optimize-total Annie 18
 ```
 
-Without Janet installed, `make test` builds Janet **1.42.1** locally under `build/` and prepares the pinned Spork formatter. It needs Git, a C compiler, Make, Python 3 and ripgrep; no global installation is required. The core library itself has no Janet package dependencies. The simulation and stat comparison are Janet; Python standard-library helpers handle HTTPS/JSON transport and retained-source verification.
+Without Janet installed, `make test` builds Janet **1.42.1** locally under `build/` and prepares the pinned Spork formatter. It needs Git, a C compiler, Make, Python 3 and ripgrep; no global installation is required. The core library itself has no Janet package dependencies. The full `make test` suite also prepares the pinned web/native dependencies because replay comparisons invoke the production engine; it requires the libcurl and OpenSSL development headers listed above. The simulation and stat comparison are Janet; Python standard-library helpers handle HTTPS/JSON transport and retained-source verification.
 
 ```sh
 make test

@@ -560,6 +560,68 @@
    (comparison-survival row)
    [:td (number-text (row :cost))]])
 
+(defn- source-info [result source]
+  (def parts (string/split "/" source))
+  (def item (when (= "item" (first parts)) (get-in result [:package :item-map (get parts 1)])))
+  (def rune (when (= "rune" (first parts))
+              (find |(= (string (get $ "id")) (get parts 1)) (scenarios/runes (result :package)))))
+  (def abilities (mapcat |(get $ :ability-settings []) [(result :selected) (result :reference)]))
+  (def ability (find |(= source ($ :id)) abilities))
+  (def triggers (mapcat |(get-in $ [:combat :actors 0 :triggers] []) [(result :selected) (result :reference)]))
+  (def trigger (find |(= source ($ :id)) triggers))
+  (cond (= source "attack") {:name "Basic attacks" :kind "Attack"}
+    item {:name (item :name) :kind "Item effect"}
+    rune {:name (get rune "name" source) :kind "Rune effect"}
+    ability {:name (if (= (get ability :name source) source)
+                     (string (string/ascii-upper (string (ability :slot))) " ability")
+                     (string (string/ascii-upper (string (ability :slot))) " · " (ability :name)))
+             :kind (if (some |(= $ (ability :slot)) [:d :f]) "Summoner spell" "Ability")}
+    {:name (get trigger :name source) :kind "Other source"}))
+
+(defn- source-damage-text [value &opt signed]
+  (string (if signed (cond (> value 0) "+" (< value 0) "−" "") "")
+          (if (< 0 (math/abs value) 0.01) "<0.01" (number-text (if signed (math/abs value) value) true))))
+
+(defn comparison-sources [result]
+  (def current (get-in result [:selected :combat :damage-breakdown]))
+  (def pinned (get-in result [:reference :combat :damage-breakdown]))
+  (def sources (when (and (dictionary? current) (dictionary? pinned))
+                 (map (fn [source]
+                        {:source source :pinned (get pinned source 0) :current (get current source 0)
+                         :delta (- (get current source 0) (get pinned source 0))})
+                      (keys (merge pinned current)))))
+  (def rows (sorted (or sources []) (fn [a b]
+                                      (if (= (math/abs (a :delta)) (math/abs (b :delta)))
+                                        (< (a :source) (b :source)) (> (math/abs (a :delta)) (math/abs (b :delta)))))))
+  [:details {:id "comparison-sources" :class "comparison-source-details" :data-preserve-attr "open"}
+   [:summary "Damage by source"]
+   (cond (or (not (dictionary? current)) (not (dictionary? pinned)))
+     [:p {:class "comparison-context"} "Damage sources are unavailable for this result."]
+     (empty? rows) [:p {:class "comparison-context"} "No damage dealt by either build."]
+     [[:p {:class "comparison-context"}
+       (if (> (get-in result [:selected :combat :samples] 1) 1)
+         (string "Mean damage per source across all " (get-in result [:selected :combat :samples]) " seeded trials. ")
+         "Damage per source over the configured fight window. ")
+       "Largest changes appear first. Stat bonuses and damage modifiers appear in the sources they affect."]
+      [:div {:class "comparison-table-scroll" :tabindex 0 :role "region" :aria-label "Damage source comparison"}
+       [:table {:class "comparison-table comparison-source-table"}
+        [:caption {:class "visually-hidden"} "Damage sources for pinned and current items under the same fight settings"]
+        [:thead [:tr [:th {:scope "col"} "Source"] [:th {:scope "col"} "Pinned"] [:th {:scope "col"} "Current"] [:th {:scope "col"} "Change"]]]
+        [:tbody
+         (map (fn [entry]
+                (def info (source-info result (entry :source)))
+                [:tr {:data-source (entry :source)}
+                 [:th {:scope "row"} (info :name) [:small (info :kind)]]
+                 [:td (source-damage-text (entry :pinned))] [:td (source-damage-text (entry :current))]
+                 [:td {:class "comparison-difference"} (source-damage-text (entry :delta) true)]]) rows)]
+        [:tfoot [:tr [:th {:scope "row"} "Total damage"]
+                 [:td (source-damage-text (get-in result [:reference :combat :damage]))]
+                 [:td (source-damage-text (get-in result [:selected :combat :damage]))]
+                 [:td {:class "comparison-difference"}
+                  (source-damage-text (- (get-in result [:selected :combat :damage]) (get-in result [:reference :combat :damage])) true)]]]]]
+      [:p {:class "comparison-context"} "Values are rounded; displayed rows may not sum exactly."]
+      [:p {:class "muted comparison-scroll-hint"} "Scroll the table to compare all sources."]])])
+
 (defn item-comparison [result]
   (def row (result :selected))
   (def reference (result :reference))
@@ -580,7 +642,7 @@
      [[:p {:class "muted comparison-context"} "Both builds use the current champion, level, opponent, runes, skills and fight settings, with the same trial seeds. Only items change."]
       (when-let [outcome (comparison-outcome row reference)] [:p {:class "comparison-outcome"} outcome])
       [:div {:class "comparison-table-scroll" :tabindex 0 :role "region" :aria-label "Item comparison results"}
-       [:table {:class "item-comparison-table"}
+       [:table {:class "item-comparison-table comparison-table"}
         [:caption {:class "visually-hidden"} "Current items compared with pinned items under the same fight settings"]
         [:thead [:tr [:th {:scope "col"} "Build"] [:th {:scope "col"} "Damage"] [:th {:scope "col"} "DPS"]
                  [:th {:scope "col"} (if (> (get-in row [:combat :samples] 1) 1) "Mean HP left" "HP left")]
@@ -603,6 +665,7 @@
        (if (> (get-in row [:combat :samples] 1) 1)
          (string "Damage and health left are averages across " (get-in row [:combat :samples]) " seeded trials. Survival counts trials where your champion is alive at the end of the configured window.")
          "Health left and survival describe your champion at the end of the configured window.")]
+      (comparison-sources result)
       (when (not (empty? (details/simulation-notes (reference :limitations))))
         [:details {:class "comparison-notes"} [:summary "Pinned build exclusions & inventory notes"]
          [:ul (map |[:li $] (details/simulation-notes (reference :limitations)))]])]

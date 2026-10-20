@@ -299,6 +299,7 @@ def verify_runes(browser, base):
 def verify_comparison_persistence(browser, page, base):
     table = page.locator('.item-comparison-table')
     expected_table = table.text_content()
+    expected_sources = page.locator('.comparison-source-table').text_content()
     scenario = page.locator('#scenario-data').get_attribute('data-json')
     document = page.locator('#workspace-data').get_attribute('data-json')
     envelope = json.loads(document)
@@ -316,6 +317,7 @@ def verify_comparison_persistence(browser, page, base):
     shared.on('pageerror', lambda error: errors.append(str(error)))
     shared.goto(page.locator('#scenario-link').input_value(), wait_until='domcontentloaded')
     expect(shared.locator('.item-comparison-table')).to_have_text(expected_table)
+    expect(shared.locator('.comparison-source-table')).to_have_text(expected_sources)
     assert json.loads(shared.locator('#results').get_attribute('data-matchup-result')) == expected_result
     assert shared.locator('#scenario-data').get_attribute('data-json') == scenario
     assert shared.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
@@ -329,6 +331,7 @@ def verify_comparison_persistence(browser, page, base):
     page.get_by_label('Locally saved scenarios', exact=True).select_option(index=1)
     page.get_by_role('button', name='Load saved', exact=True).click()
     expect(table).to_have_text(expected_table)
+    expect(page.locator('.comparison-source-table')).to_have_text(expected_sources)
     page.get_by_role('button', name='Clear comparison', exact=True).click()
     expect(table).to_have_count(0)
     page.get_by_text('Import a scenario', exact=True).click()
@@ -354,6 +357,7 @@ def verify_comparison_persistence(browser, page, base):
     practice.get_by_role('button', name='Load scenario', exact=True).click()
     practice.wait_for_function('document.querySelector("#powerspike").dataset.layout === "matchup"')
     expect(practice.locator('.item-comparison-table')).to_have_text(expected_table)
+    expect(practice.locator('.comparison-source-table')).to_have_text(expected_sources)
     assert json.loads(practice.locator('#results').get_attribute('data-matchup-result')) == expected_result
     practice.close()
     for format_name in ('powerspike-scenario', 'powerspike-comparison'):
@@ -365,6 +369,61 @@ def verify_comparison_persistence(browser, page, base):
         assert 'workspace limit of 64 trials' in response.text()
     assert not errors, errors
     print('Browser: both builds survive local save/load, share links, JSON export/import and layout-changing imports; plain scenarios clear the pin.')
+
+def verify_damage_sources(browser, base):
+    page = browser.new_page(viewport={'width':1200, 'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    query = {'mode':'practice', 'champion':'Annie', 'selected':'custom', 'snapshotlocked':'true',
+             'level':1, 'duration':3, 'distance':0, 'movement':'hold', 'priority':'q',
+             'samples':4, 'seed':6, 'hitchance':.5, 'slot1':'1052'}
+    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+    page.get_by_role('button', name='Pin current items', exact=True).click()
+    page.locator('.item-comparison-table').wait_for()
+    page.locator('#loadout-tray .item-slot').first.click()
+    page.locator('#item-picker [data-detail-item="1036"]').click()
+    expect(page.locator('.item-comparison-table tbody tr').nth(1).locator('td').last).to_have_text('350')
+    details = page.locator('#comparison-sources')
+    details.locator('summary').focus()
+    page.keyboard.press('Enter')
+    expect(details.locator('.comparison-source-table')).to_be_visible()
+    expect(details).to_contain_text('Mean damage per source across all 4 seeded trials')
+    table = details.locator('.comparison-source-table')
+    expect(table.locator('tbody tr')).to_have_count(2)
+    expect(table.locator('[data-source="attack"] th')).to_contain_text('Basic attacks')
+    expect(table.locator('[data-source="AnnieQ"] th')).to_contain_text('Q ability')
+    def numeric(text):
+        return float(text.replace('−','-').replace(',',''))
+    attack = table.locator('[data-source="attack"] td').all_text_contents()
+    ability = table.locator('[data-source="AnnieQ"] td').all_text_contents()
+    assert numeric(attack[2]) > 0 and numeric(ability[2]) < 0
+    deltas = [abs(numeric(row)) for row in table.locator('tbody td:last-child').all_text_contents()]
+    assert deltas == sorted(deltas, reverse=True)
+    for index in range(3):
+        values = table.locator(f'tbody td:nth-of-type({index+1})').all_text_contents()
+        total = numeric(table.locator('tfoot td').nth(index).inner_text())
+        assert abs(sum(map(numeric, values)) - total) <= .015
+    page.locator('#item-comparison').screenshot(path='build/damage-sources-desktop.png')
+    for width in (736,390,320):
+        page.set_viewport_size({'width':width, 'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+        expect(table).to_be_visible()
+    scroller = page.get_by_role('region', name='Damage source comparison', exact=True)
+    scroller.focus()
+    scroller.evaluate('node=>node.scrollLeft = 0')
+    page.keyboard.press('ArrowRight')
+    page.wait_for_function('document.querySelector("#comparison-sources .comparison-table-scroll").scrollLeft > 0')
+    scroller.evaluate('node=>node.scrollLeft = node.scrollWidth')
+    page.locator('#item-comparison').screenshot(path='build/damage-sources-mobile.png')
+    page.set_viewport_size({'width':1200, 'height':1000})
+    page.get_by_text('Opponent & fight', exact=True).click()
+    page.locator('#duration').fill('4')
+    page.locator('#duration').press('Tab')
+    page.wait_for_function('document.querySelector("#timeline").dataset.duration === "4"')
+    assert details.evaluate('node=>node.open')
+    assert not errors, errors
+    page.close()
+    print('Browser: averaged damage-source tradeoffs, totals, sorting, keyboard access, preserved expansion and mobile scrolling passed.')
 
 def verify_survival_comparison(browser, base):
     page = browser.new_page(viewport={'width':1200, 'height':1000})
@@ -585,6 +644,7 @@ def verify(base):
         verify_movement_readiness(browser, base)
         verify_item_comparison(browser, base)
         verify_survival_comparison(browser, base)
+        verify_damage_sources(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
         verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')

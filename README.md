@@ -38,6 +38,12 @@ Select **Pin current items** beneath the fight results, then edit an inventory s
 
 Pinned scenarios require the same champion and exact patch snapshot. Incompatible or invalid references show an explanation while the current simulation remains available; clear or replace the pin before saving or sharing. Simulation details beside the headline result explain the fight conditions; the pinned build also retains its own exclusions. A scenario that fails evaluation must be corrected before its previous result can be saved, exported or shared.
 
+Open **Damage by source** in the comparison to inspect damage from each attack,
+ability, item or rune effect. The largest changes appear first, including effects
+present in only one build. For multiple trials, every source shows its mean
+damage across all trials. Stat bonuses and damage modifiers remain attributed
+to the sources they affect. See [source comparison checks](docs/damage-source-comparisons.md).
+
 See the [player beta rollout notes](docs/player-beta.md) for remaining release work.
 
 ## Build, format and deploy

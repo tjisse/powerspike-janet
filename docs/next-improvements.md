@@ -89,8 +89,10 @@ diagnostics remain in the developer tools.
    including equal-gold offense/survival tradeoffs, mobile summaries and the
    comparison panel in duel results. Saved comparisons now preserve both
    inventories and their shared fight settings through local saves, exports,
-   share links and imports. Next, explain damage changes by source so players
-   can see which abilities, attacks or items drive a comparison.
+   share links and imports. [Damage-source comparisons](damage-source-comparisons.md)
+   now show which abilities, attacks, item effects or rune effects drive the
+   difference, using averages across every trial. Next, show variation across
+   trials to help players judge close comparisons.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before

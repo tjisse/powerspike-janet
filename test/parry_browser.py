@@ -60,9 +60,28 @@ def verify(binary_path, fixture_path):
                     expect(page.locator('.matchup-event-detail')).to_contain_text('Spellblade consumed')
                     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), width
                 page.locator('#results').screenshot(path='build/parry-events-mobile.png')
+                # Retained Lich Bane damage appears only in the equipped build.
+                page.set_viewport_size({'width':1200, 'height':1000})
+                query.update({'opponentabilities':'false', 'duration':2})
+                page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+                document = json.loads(page.locator('#scenario-data').get_attribute('data-json'))
+                document.update({'format':'powerspike-comparison', 'pinned-items':[]})
+                page.goto(base+'/?'+urllib.parse.urlencode({'scenario':json.dumps(document)}), wait_until='domcontentloaded')
+                page.get_by_text('Damage by source', exact=True).click()
+                proc = page.locator('.comparison-source-table [data-source="item/3100/hit"]')
+                expect(proc.locator('th')).to_contain_text('Lich Bane')
+                expect(proc.locator('td').first).to_have_text('0.00')
+                trace = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+                damage = sum(row['damage'] for row in trace if row['kind'] == 'damage' and row['actor'] == 'player' and row['source'] == 'item/3100/hit')
+                assert damage > 0
+                assert abs(float(proc.locator('td').nth(1).inner_text()) - damage) < .005
+                assert abs(float(proc.locator('td').nth(2).inner_text()) - damage) < .005
+                page.locator('#item-comparison').screenshot(path='build/damage-sources-proc.png')
+                page.set_viewport_size({'width':320, 'height':1000})
+                page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
                 assert not errors, errors
                 browser.close()
-    print('Browser: sourced Riposte events, blocked-hit details, Spellblade consumption, crowded selection and mobile layouts passed.')
+    print('Browser: sourced Riposte events, Spellblade consumption, crowded selection, Lich Bane source comparison and mobile layouts passed.')
 
 
 if __name__ == '__main__':

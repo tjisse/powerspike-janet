@@ -551,4 +551,53 @@
         (rejects |(saves/encode invalid))
         (assert (string/find "Clear or replace the invalid pinned items" (ui/render (ui/page invalid []))))))
 
+(test "damage-source comparisons use all trials and reconcile with both build totals"
+      (fn []
+        (def input {"selected" "custom" "champion" "Annie" "mode" "practice" "level" 1 "duration" 3
+                    "distance" 0 "movement" "hold" "priority" "q" "samples" 4 "seed" 6 "hitchance" 0.5})
+        (def original (model/compare (model/parse-state (merge input {"slot1" "1052"}))))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def result (model/compare (model/parse-state (merge input {"slot1" "1036" "referencejson" pinned}))))
+        (def text (ui/render (ui/comparison-sources result)))
+        (each key [:selected :reference]
+          (def combat (get-in result [key :combat]))
+          (assert (< (math/abs (- (sum (values (combat :damage-breakdown))) (combat :damage))) 0.000001))
+          (eachp [source damage] (combat :damage-breakdown)
+            (assert (string/find (string/format "%.2f" damage) text))))
+        (assert (not= (get-in result [:selected :combat :damage])
+                      (sum (map |($ :damage) (get-in result [:selected :combat :events])))))
+        (each expected ["Basic attacks" "Q ability" "Mean damage per source across all 4 seeded trials" "Total damage"]
+          (assert (string/find expected text) expected))))
+
+(test "source rows include either build, use retained names, sort changes and escape unknown sources"
+      (fn []
+        (def result (model/compare (model/parse-state {"selected" "custom"})))
+        (def row (result :selected))
+        (defn projected [breakdown]
+          (merge row {:combat (merge (row :combat) {:damage-breakdown breakdown :damage (sum (values breakdown))})}))
+        (def named (merge result {:package (merge (result :package)
+                                                  {:item-map {"3100" {:name "Archived Lich Bane"}}
+                                                   :runes [{"slots" [{"runes" [{"id" 8237 "name" "Archived Scorch"}]}]}]})
+                                  :selected (projected {"attack" 50 "item/3100/hit" 25 "rune/8237" 10 "unknown<script>" 0.004})
+                                  :reference (projected {"attack" 75 "AnnieQ" 20})}))
+        (def text (ui/render (ui/comparison-sources named)))
+        (each expected ["Archived Lich Bane" "Archived Scorch" "Item effect" "Rune effect" "Other source"
+                        "−25.00" "+25.00" "−20.00" "+10.00" "+<0.01" "0.00"]
+          (assert (string/find (ui/render expected) text) expected))
+        (assert (< (string/find "data-source=\"attack\"" text) (string/find "data-source=\"item" text)
+                   (string/find "data-source=\"AnnieQ\"" text) (string/find "data-source=\"rune" text)))
+        (assert (string/find (ui/render "unknown<script>") text))
+        (assert (not (string/find "<script>" text)))))
+
+(test "damage-source comparisons distinguish no damage from missing attribution"
+      (fn []
+        (def row {:combat {:damage 0 :damage-breakdown {}}})
+        (def result {:selected row :reference row})
+        (def empty-text (ui/render (ui/comparison-sources result)))
+        (assert (string/find "No damage dealt by either build" empty-text))
+        (assert (not (string/find "<table" empty-text)))
+        (def missing (ui/render (ui/comparison-sources (merge result {:reference {:combat {:damage 0}}}))))
+        (assert (string/find "Damage sources are unavailable" missing))
+        (assert (not (string/find "No damage dealt" missing)))))
+
 (print passed " frontend tests passed")

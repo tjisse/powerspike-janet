@@ -34,9 +34,9 @@ The [catalog notes](data/16.19.1/catalog/README.md) explain retained sources, no
 
 ### Comparing your item choices
 
-Select **Pin current items** below the damage summary, then edit an inventory slot or apply an optimized build. The comparison shows pinned and current damage, DPS, gold and their differences. Both builds rerun with the current champion, level, opponent, runes, skill configuration, fight settings and trial seeds; only the item inventory changes. An empty inventory can be pinned. Pinned items stay in the current page session; saved scenarios, exports and share links retain the selected build rather than the comparison.
+Select **Pin current items** beneath the fight results, then edit an inventory slot or apply an optimized build. The comparison shows pinned and current damage, DPS, health remaining, survival, gold and their differences. Both builds rerun with the current champion, level, opponent, runes, skill configuration, fight settings and trial seeds; only the item inventory changes. An empty inventory can be pinned. Local saves, exports and share links restore both item inventories and their shared fight settings.
 
-Pinned scenarios require the same champion and exact patch snapshot. Incompatible or invalid references show an explanation while the current simulation remains available. Simulation details beside the headline result explain the fight conditions; the pinned build also retains its own exclusions. A scenario that fails evaluation must be corrected before its previous result can be saved, exported or shared.
+Pinned scenarios require the same champion and exact patch snapshot. Incompatible or invalid references show an explanation while the current simulation remains available; clear or replace the pin before saving or sharing. Simulation details beside the headline result explain the fight conditions; the pinned build also retains its own exclusions. A scenario that fails evaluation must be corrected before its previous result can be saved, exported or shared.
 
 See the [player beta rollout notes](docs/player-beta.md) for remaining release work.
 

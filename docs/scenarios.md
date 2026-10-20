@@ -44,6 +44,20 @@ Completed combat evaluations are reused across search jobs in a bounded process 
 
 Save locally stores up to fifty named scenarios in the current browser (2 MB allowance). Export JSON creates a versioned document; import accepts at most 64 KB. Share links embed the same document, with a 16 KB URL allowance. Links carry game settings, not server-side saved records. Keep exact data snapshots cached for offline reproduction. Imports require their exact snapshot; an absent revision is an error, never a substitution. A different combat model displays a warning and recomputes against the retained data; use the original RPM to reproduce that older model.
 
+When items are pinned, saves, links and exports include both inventories under
+one shared fight configuration. Reopening reruns both builds with the retained
+snapshot and seeds, including all configured trials. Empty pinned inventories
+remain comparisons. Loading a plain scenario clears the pin. Invalid pins must
+be cleared or replaced before saving or sharing. Documents exceeding the
+workspace's 64-trial limit fail explicitly instead of silently reducing trials.
+
+Ordinary exports retain the `powerspike-scenario` version `1` format. Comparisons
+use `powerspike-comparison` version `1`, containing a canonical `scenario` and a
+`pinned-items` array of up to six item IDs. The browser imports both formats;
+comparison documents require this release or newer. The simulation CLI consumes
+ordinary scenario documents; clear the comparison before exporting one for the
+CLI. Neither document format embeds calculated outcomes as evidence.
+
 The source evidence view displays exact provider versions, source URLs and hashes, snapshot identity and parser/model identities. Source availability, implemented effects and in-game measurements remain separate. The five retained Annie captures check their original stat conditions; they do not verify every combat handler.
 
 Both participants can select three stat shards and an automatic or explicit AD/AP adaptive preference in Rune pages. Shards affect build stats, tooltips, combat and item optimization, and survive scenario saves and sharing. Supported common runes include Electrocute, Scorch, Coup de Grace, Cut Down, Last Stand and Transcendence's level-gated haste. See [rune and shard behavior](runes.md) for source handling and exclusions.
@@ -67,3 +81,23 @@ Copy `observations/templates/calibration.json`, attach an exported scenario unde
 Families are `isolated-damage`, `mitigation`, `timing`, `on-hit`, `healing-shields`, `control`, `objectives` and `combinations`. Use isolated damage first, then mitigation and timing; apply the same procedure to shared triggers, protection/control and objective restrictions before testing combinations. A missing observation is `unmeasured`. A missing required effect/metric is `unresolved`. Reviewed numerical comparisons are `consistent` or `mismatch`, and retain source/model identity and unsupported-effect notes. These statuses validate only the recorded conditions.
 
 The five existing Annie stat captures remain unchanged and are still checked by the core regression suite. No additional in-game measurements have been invented during implementation.
+
+## Comparison persistence checks
+
+The save regression retains the four-trial Annie comparison from
+[the survival comparison checks](item-survival-comparisons.md): pinned Tome
+survives three trials and current Ruby Crystal survives four. Both builds'
+metrics and the comparison table reproduce after decoding. Browser checks also
+compare the current fight trace after sharing and a practice-to-duel import.
+They exercise local save/load, JSON download/upload, empty pinned inventories,
+plain-scenario compatibility, invalid documents and exact snapshot requirements.
+
+`make test-web` passed with 38 frontend cases and the existing web, combat and
+optimizer checks. The full browser gate passed, including the paired interface
+and retained combat fixtures. After the trial-limit guard was added, all 38
+frontend cases and the focused browser persistence flow passed again; HTTP
+checks reject 65 trials in either document format, and a unit check accepts 64.
+The final rebuilt executable passed the relocated runtime gate and formatting
+checks.
+Combat formulas, source packages and engine identity are unchanged. These are
+software reproduction checks, without additional in-game validation claims.

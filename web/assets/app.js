@@ -72,7 +72,7 @@
   document.addEventListener('datastar-fetch',event=>{
     const {type,el}=event.detail;
     if(type==='finished' && el?.id==='import-scenario')setTimeout(()=>{
-      const documentText=document.getElementById('scenario-data')?.dataset.json;
+      const documentText=document.getElementById('workspace-data')?.dataset.json;
       if(!documentText)return;
       try{
         const scenario=JSON.parse(documentText).scenario;
@@ -117,7 +117,7 @@
         !document.getElementById('scenario')?.checkValidity()) {
       throw new Error('Fix the scenario and wait for an updated result before saving or sharing.');
     }
-    const text = document.getElementById('scenario-data')?.dataset.json;
+    const text = document.getElementById('workspace-data')?.dataset.json;
     if (!text || text.length > 65536) throw new Error('No completed scenario is available to save.');
     return text;
   }

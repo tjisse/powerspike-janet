@@ -296,6 +296,76 @@ def verify_runes(browser, base):
     assert not errors, errors
     page.close()
 
+def verify_comparison_persistence(browser, page, base):
+    table = page.locator('.item-comparison-table')
+    expected_table = table.text_content()
+    scenario = page.locator('#scenario-data').get_attribute('data-json')
+    document = page.locator('#workspace-data').get_attribute('data-json')
+    envelope = json.loads(document)
+    assert envelope['format'] == 'powerspike-comparison'
+    assert envelope['pinned-items'] == ['1052']
+    assert envelope['scenario'] == json.loads(scenario)['scenario']
+    expected_result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    page.get_by_text('Saved scenarios', exact=True).click()
+    page.get_by_label('Scenario name', exact=True).fill('Survival comparison')
+    page.get_by_role('button', name='Save locally', exact=True).click()
+    expect(page.locator('#saved-scenarios option')).to_have_count(2)
+    page.get_by_role('button', name='Create share link', exact=True).click()
+    shared = browser.new_page(viewport={'width':390, 'height':1000})
+    errors = []
+    shared.on('pageerror', lambda error: errors.append(str(error)))
+    shared.goto(page.locator('#scenario-link').input_value(), wait_until='domcontentloaded')
+    expect(shared.locator('.item-comparison-table')).to_have_text(expected_table)
+    assert json.loads(shared.locator('#results').get_attribute('data-matchup-result')) == expected_result
+    assert shared.locator('#scenario-data').get_attribute('data-json') == scenario
+    assert shared.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
+    shared.close()
+    with page.expect_download() as download:
+        page.get_by_role('button', name='Export JSON', exact=True).click()
+    exported = Path(download.value.path()).read_text()
+    assert exported == document
+    page.get_by_role('button', name='Clear comparison', exact=True).click()
+    expect(table).to_have_count(0)
+    page.get_by_label('Locally saved scenarios', exact=True).select_option(index=1)
+    page.get_by_role('button', name='Load saved', exact=True).click()
+    expect(table).to_have_text(expected_table)
+    page.get_by_role('button', name='Clear comparison', exact=True).click()
+    expect(table).to_have_count(0)
+    page.get_by_text('Import a scenario', exact=True).click()
+    page.locator('#scenario-file').set_input_files({'name':'comparison.json', 'mimeType':'application/json', 'buffer':exported.encode()})
+    expect(page.locator('#scenario-json')).to_have_value(exported)
+    page.get_by_role('button', name='Load scenario', exact=True).click()
+    expect(table).to_have_text(expected_table)
+    # Loading an ordinary scenario explicitly clears an existing comparison.
+    expect(page.locator('#scenario-json')).to_have_value('')
+    if not page.locator('#scenario-json').is_visible():
+        page.get_by_text('Import a scenario', exact=True).click()
+    page.locator('#scenario-json').fill(scenario)
+    page.get_by_role('button', name='Load scenario', exact=True).click()
+    expect(table).to_have_count(0)
+    expect(page.get_by_role('button', name='Pin current items', exact=True)).to_be_visible()
+    # A layout-changing import must carry the comparison through its redirect.
+    practice = browser.new_page()
+    practice.on('pageerror', lambda error: errors.append(str(error)))
+    practice.goto(base+'/?mode=practice&selected=custom&champion=Annie', wait_until='domcontentloaded')
+    practice.get_by_text('Saved scenarios', exact=True).click()
+    practice.get_by_text('Import a scenario', exact=True).click()
+    practice.locator('#scenario-json').fill(exported)
+    practice.get_by_role('button', name='Load scenario', exact=True).click()
+    practice.wait_for_function('document.querySelector("#powerspike").dataset.layout === "matchup"')
+    expect(practice.locator('.item-comparison-table')).to_have_text(expected_table)
+    assert json.loads(practice.locator('#results').get_attribute('data-matchup-result')) == expected_result
+    practice.close()
+    for format_name in ('powerspike-scenario', 'powerspike-comparison'):
+        excessive = {**envelope, 'format':format_name, 'scenario':{**envelope['scenario'], 'samples':65}}
+        if format_name == 'powerspike-scenario':
+            del excessive['pinned-items']
+        response = page.request.get(base+'/?'+urllib.parse.urlencode({'scenario':json.dumps(excessive)}))
+        assert response.status == 400
+        assert 'workspace limit of 64 trials' in response.text()
+    assert not errors, errors
+    print('Browser: both builds survive local save/load, share links, JSON export/import and layout-changing imports; plain scenarios clear the pin.')
+
 def verify_survival_comparison(browser, base):
     page = browser.new_page(viewport={'width':1200, 'height':1000})
     errors = []
@@ -373,6 +443,7 @@ def verify_survival_comparison(browser, base):
     expect(summary).to_have_text('Current items survive 1 more of 4 trials.')
     assert float(pinned.locator('.comparison-health').inner_text().replace(',','')) > 0
     assert pinned.locator('.comparison-survival small').count() == 0
+    verify_comparison_persistence(browser, page, base)
     assert not errors, errors
     page.close()
     print('Browser: equal-gold offense/survival tradeoff, aggregate trials, defeat timing, health, responsive summary and accessible table scrolling passed.')
@@ -677,7 +748,7 @@ def verify(base):
         assert not page.locator('#optimizer-dialog').evaluate('(node)=>node.open')
         # Persist the completed canonical scenario, then reproduce it through
         # local storage, a URL and a versioned file in independent browser pages.
-        document = page.locator('#scenario-data').get_attribute('data-json')
+        document = page.locator('#workspace-data').get_attribute('data-json')
         damage = page.locator('#timeline').get_attribute('data-total')
         page.get_by_text('Saved scenarios',exact=True).click()
         page.get_by_label('Scenario name', exact=True).fill('Browser regression')

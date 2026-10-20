@@ -13,6 +13,7 @@
 (import ../src/powerspike/engine :as engine)
 (import ../web/tooltip :as tooltip)
 (import ../web/server :as server)
+(import ../web/saves :as saves)
 (import ../src/powerspike/scenario-wire :as wire)
 (import pshash :as hash)
 
@@ -491,5 +492,63 @@
         (assert (string/find (ui/render "<1") tiny))
         (assert (string/find (ui/render "+<1") tiny))
         (assert (not (string/find "comparison-outcome" tiny)))))
+
+(test "saved comparisons reproduce both builds using the shared current fight"
+      (fn []
+        (def input {"mode" "duel" "champion" "Annie" "opponent" "Annie" "selected" "custom"
+                    "level" 1 "opponentlevel" 1 "duration" 1 "distance" 0 "healthfraction" 0.1
+                    "attacks" false "opponentattacks" false "priority" "q" "opponentpriority" "q"
+                    "movement" "hold" "opponentmovement" "hold"})
+        (def original (model/compare (model/parse-state (merge input {"slot1" "1052"}))))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def compared (model/compare (model/parse-state (merge input {"slot1" "1028" "samples" 4 "seed" 6
+                                                                      "opponenthitchance" 0.5 "referencejson" pinned}))))
+        (def document (saves/encode compared))
+        (def envelope (util/read-json document))
+        (assert (= "powerspike-comparison" (envelope "format")))
+        (assert (= ["1052"] (tuple ;(envelope "pinned-items"))))
+        (def restored (model/compare (saves/decode document)))
+        (each key [:selected :reference]
+          (assert (= (get-in compared [key :combat :metrics]) (get-in restored [key :combat :metrics]))))
+        (assert (= (ui/render (ui/item-comparison compared)) (ui/render (ui/item-comparison restored))))
+        (assert (= (get-in restored [:selected :combat :scenario :seed]) 6))
+        (assert (= (get-in restored [:reference :combat :samples]) 4))
+        (def older (merge envelope {"scenario" (merge (envelope "scenario") {"model" (string/repeat "0" 64)})}))
+        (assert (= (string/repeat "0" 64) ((saves/decode (util/encode-json older)) :savedmodel)))
+        (def shared (server/app {:method "GET" :route "/" :query {"scenario" (string document)}}))
+        (assert (= 200 (shared :status)))
+        (assert (string/find "3 &#x2F; 4 trials" (shared :body)))
+        (assert (= 200 ((server/app {:method "GET" :route "/developer" :query {"scenario" (string document)}}) :status)))))
+
+(test "empty pinned inventories survive saves and plain scenarios restore without a pin"
+      (fn []
+        (def original (model/compare (model/parse-state {"selected" "custom"})))
+        (def plain (saves/encode original))
+        (assert (= "powerspike-scenario" (get (util/read-json plain) "format")))
+        (assert (= "" ((saves/decode plain) :referencejson)))
+        (def compared (model/compare (model/parse-state {"selected" "custom" "slot1" "1052" "referencejson" (string plain)})))
+        (def restored (model/compare (saves/decode (saves/encode compared))))
+        (assert (empty? (get-in restored [:reference :ids])))
+        (assert (restored :reference))
+        (assert (= (get-in compared [:reference :combat :metrics]) (get-in restored [:reference :combat :metrics])))))
+
+(test "comparison imports reject invalid inventories, versions, fields and exact snapshots"
+      (fn []
+        (def original (model/compare (model/parse-state {"selected" "custom"})))
+        (def envelope {:format saves/format-name :version 1 :scenario (get-in original [:selected :combat :scenario]) :pinned-items []})
+        (each bad [(merge envelope {:version 2}) (merge envelope {:execute "anything"})
+                   {:format saves/format-name :version 1 :scenario (envelope :scenario)}
+                   (merge envelope {:pinned-items :null}) (merge envelope {:pinned-items "1052"})
+                   (merge envelope {:pinned-items [1052]}) (merge envelope {:pinned-items ["missing"]})
+                   (merge envelope {:pinned-items ["1052" "1052" "1052" "1052" "1052" "1052" "1052"]})
+                   (merge envelope {:scenario (merge (envelope :scenario) {:samples 65})})
+                   (merge envelope {:scenario (merge (envelope :scenario) {:snapshot (string/repeat "0" 64)})})]
+          (rejects |(saves/decode (util/encode-json bad))))
+        (rejects |(saves/decode (string/repeat "x" 65537)))
+        (rejects |(saves/decode (wire/encode (merge (envelope :scenario) {:samples 65}))))
+        (assert (= 64 ((saves/decode (util/encode-json (merge envelope {:scenario (merge (envelope :scenario) {:samples 64})}))) :samples)))
+        (def invalid (model/compare (model/parse-state {"selected" "custom" "referencejson" "{}"})))
+        (rejects |(saves/encode invalid))
+        (assert (string/find "Clear or replace the invalid pinned items" (ui/render (ui/page invalid []))))))
 
 (print passed " frontend tests passed")

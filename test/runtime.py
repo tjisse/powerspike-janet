@@ -211,6 +211,8 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
             # Baseline range permits attacks while holding at 350 units. The
             # bundled projectile profile delays impact without source-tree IO.
             assert abs(ahri_events[0]['at'] - (.2 / .668 + 350 / 1750)) < 1e-6
+            for index, event in enumerate(ahri_events):
+                assert abs(event['at'] - ((index + .2) / .668 + 350 / 1750)) < 1e-6
             assert ahri.timeline['data-label'] == 'Basic attacks over time'
             assert b'location.assign(next)' not in raw
             _, viktor_raw = get(base, '/?' + urllib.parse.urlencode({
@@ -222,6 +224,8 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
             viktor_events = json.loads(viktor.timeline['data-events'])
             assert viktor_events and all(event['source'] == 'attack' for event in viktor_events)
             assert abs(viktor_events[0]['at'] - (.3 / .658 + 500 / 2300)) < 1e-6
+            for index, event in enumerate(viktor_events):
+                assert abs(event['at'] - ((index + .3) / .658 + 500 / 2300)) < 1e-6
             # The packed model must retain attack identities when loading both
             # current seeds and older snapshots with no attack-style field.
             for champion, level, ranged, attack_range in [

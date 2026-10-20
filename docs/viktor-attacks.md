@@ -48,9 +48,11 @@ seconds after attack start. An empowered replacement under the explicit
 zero-travel policy hits at 0.3 seconds instead. Impacts exactly at the endpoint
 are excluded. Travel does not postpone the next attack's ready time.
 
-Attack speed and period still sample at attack start, decisions poll every
-50ms while waiting, and Spellblade consumption still occurs at successful
-impact. This change does not establish launch-versus-impact consumption rules.
+Attack speed and period still sample at attack start. A later
+[cadence correction](attack-cadence.md) now checks ordinary readiness exactly;
+other condition checks retain periodic polling. Spellblade consumption still
+occurs at successful impact. This change does not establish launch-versus-impact
+consumption rules.
 
 ## Checks
 

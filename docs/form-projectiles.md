@@ -64,8 +64,9 @@ identity, preventing old optimizer cache values from crossing this correction.
 Windup remains the explicit 30% assumption; this change does not derive windup
 from cast-offset fields. Launch geometry, collision size and target movement
 during flight retain the existing approximations. Attack speed samples at
-attack start, and the existing 50 ms decision polling remains. Travel changes
-impact time without postponing attack starts. Supported Spellblade damage and
+attack start. [Ordinary readiness now schedules an exact check](attack-cadence.md),
+while condition/movement checks retain periodic polling. Travel changes impact
+time without postponing attack starts. Supported Spellblade damage and
 consumption occur at impact under the existing shared handler.
 
 These are ordinary attack profiles. Nidalee's Takedown, other empowered attacks,

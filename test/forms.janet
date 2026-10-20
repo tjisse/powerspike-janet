@@ -100,8 +100,8 @@
         (def hits (filter |(and (= :damage ($ :kind)) (= "attack" ($ :source))) (outcome :trace)))
         (assert (= 2 (length hits)))
         (close impact ((hits 0) :at))
-        # Decisions retain the existing 50ms polling policy. Travel must not
-        # alter attack starts, even when a ready time falls between polls.
+        # Condition polls may run between exact attack deadlines. Travel must
+        # not alter attack starts or quantize them to those polls.
         (def instant (engine/simulate {:duration duration :actors (map |(merge $ {:attack-missile-speed 0}) actors)}))
         (def starts (map |($ :at) (filter |(= :attack ($ :kind)) (outcome :trace))))
         (assert (= (tuple ;starts) (tuple ;(map |($ :at) (filter |(= :attack ($ :kind)) (instant :trace))))))

@@ -43,6 +43,19 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
         attack_speed = {'Nidalee': .638, 'Elise': .625, 'Jayce': .658}[champion]
         hit = next(row for row in result()['trace'] if row['kind'] == 'damage' and row['source'] == 'attack')
         assert abs(hit['at'] - (.3 / attack_speed + 200 / speed)) < 1e-6
+    if champion == 'Nidalee':
+        page.goto(base+'/?mode=duel&champion=Nidalee&opponent=Nidalee&form=human&opponentform=human'
+                  '&level=1&opponentlevel=1&selected=custom&snapshotlocked=true&abilities=false&opponentabilities=false'
+                  '&movement=hold&opponentmovement=hold&distance=300&duration=5.3', wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
+        for who in ('player', 'opponent'):
+            hits = [row for row in result()['trace'] if row['kind'] == 'damage' and row['source'] == 'attack' and row['actor'] == who]
+            assert len(hits) == 4
+            for index, hit in enumerate(hits):
+                assert abs(hit['at'] - ((index + .3) / .638 + 300 / 2500)) < 1e-6
+        # Restore this case's original forms before the existing UI checks.
+        page.goto(url, wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
     if champion == 'Gnar':
         for who, expected in [('player', {'Health':540, 'Attack damage':60, 'Armor':32, 'Magic resist':30, 'Attack range':400}),
                               ('opponent', {'Health':640, 'Attack damage':66, 'Armor':35.5, 'Magic resist':33.5, 'Attack range':175})]:

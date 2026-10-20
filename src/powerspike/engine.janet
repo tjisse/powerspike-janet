@@ -580,6 +580,12 @@
           (schedule (+ at windup) 5 :release {:actor (actor :index) :target (target :index) :action :attack :source "attack"
                                               :counter counter :origin (string (actor :id) "/attack/" counter)})
           (set next (max (+ at 0.01) (actor :busy-until)))))
+      # Keep condition/movement polling, but wake at the known attack deadline
+      # instead of rounding every attack period up to the following poll. The
+      # ordinary decision path still enforces cast locks, control and priority.
+      (when (and (get strategy :attacks true) (> (get (actor :stats) :attack-speed 0) 0)
+                 (> (actor :attack-ready) at))
+        (set next (min next (max (actor :attack-ready) (actor :busy-until)))))
       (schedule next 30 :decide {:actor (actor :index)})))
   (record :start {})
   (each actor actors (schedule 0 30 :decide {:actor (actor :index)}))

@@ -15,9 +15,12 @@ diagnostics remain in the developer tools.
    the [Viktor follow-up](viktor-attacks.md) adds ordinary projectile travel while
    preserving empowered Q's explicit zero-travel assumption. The
    [Human-form projectile follow-up](form-projectiles.md) adds ordinary and
-   critical travel for selected Nidalee and Elise forms, while retaining their
-   windup assumptions. Jayce's Cannon and Gnar's Mini projectiles still need
-   separate selection/variant review. The
+   critical travel for selected Nidalee and Elise forms; the same review now
+   supplies Jayce's ordinary Cannon projectile while excluding Hammer,
+   transformation and Hyper Charge records. Windup assumptions remain. Gnar's
+   Mini projectiles still need variant review. After that, audit attack-ready
+   scheduling around the existing 50 ms decision polling, which can delay a
+   ready attack until a later poll. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

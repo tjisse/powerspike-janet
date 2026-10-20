@@ -38,9 +38,9 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
         assert float(stats_for('player')['Move speed']) == 330
         assert float(stats_for('opponent')['Move speed']) == 355
         expect(page.locator('[name=rrank]').locator('..')).to_contain_text('Additional R points (free first rank included)')
-    if champion in ('Nidalee', 'Elise'):
-        speed = {'Nidalee': 2500, 'Elise': 1600}[champion]
-        attack_speed = {'Nidalee': .638, 'Elise': .625}[champion]
+    if champion in ('Nidalee', 'Elise', 'Jayce'):
+        speed = {'Nidalee': 2500, 'Elise': 1600, 'Jayce': 2000}[champion]
+        attack_speed = {'Nidalee': .638, 'Elise': .625, 'Jayce': .658}[champion]
         hit = next(row for row in result()['trace'] if row['kind'] == 'damage' and row['source'] == 'attack')
         assert abs(hit['at'] - (.3 / attack_speed + 200 / speed)) < 1e-6
     if champion == 'Gnar':
@@ -55,7 +55,7 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
     assert not any(row['kind'] == 'damage' for row in result()['trace'])
     change('opponent', ranged_form)
     assert any(row['kind'] == 'damage' and row['actor'] == 'opponent' for row in result()['trace'])
-    if champion in ('Nidalee', 'Elise'):
+    if champion in ('Nidalee', 'Elise', 'Jayce'):
         hit = next(row for row in result()['trace'] if row['kind'] == 'damage' and row['source'] == 'attack')
         assert abs(hit['at'] - (.3 / attack_speed + 200 / speed)) < 1e-6
     assert document()['player']['form'] == melee_form

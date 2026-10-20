@@ -31,9 +31,11 @@ Existing standard skill-rank validation remains; six-rank basic abilities and
 exceptional leveling need a separate handler before supporting those casts.
 Hammer resistances follow champion level, independently of the R rank entered.
 
-Cannon projectile travel remains the existing zero-travel assumption, and
-ordinary windup remains the existing 30% assumption. These are not new timing
-measurements. Scenarios with no form keep the previous unknown attack type and
+Cannon ordinary and critical attacks now use
+[reviewed projectile travel at 2,000 units/s](form-projectiles.md). Hammer,
+transformation and Hyper Charge records remain separate. Ordinary windup
+retains the existing 30% assumption; this adds no new in-game timing measurement.
+Scenarios with no form keep the previous unknown attack type and
 conditional item-effect exclusions; existing snapshot bytes remain unchanged.
 
 [The retained manifest](../data/form-fixtures/16.19.1/jayce-manifest.json)

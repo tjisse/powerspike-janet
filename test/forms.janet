@@ -64,18 +64,19 @@
     (assert (empty? ((scenario/simulate (merge definition {:distance (+ range 0.01)})) :events)))
     (assert (= ((scenario/simulate definition) :metrics) ((scenario/fitness definition) :metrics)))))
 
-# These reviewed projectiles belong only to the explicit Human form. All
+# These projectiles belong only to the explicit reviewed form. All
 # ordinary/critical variants agree; both source receipts and the cached package
 # stay pinned while form selection supplies current timing semantics.
-(each [champion melee speed variants] [["Nidalee" "cougar" 2500 3] ["Elise" "spider" 1600 4]]
-  (def profile (attacks/form-profile champion "16.19.1" "human"))
+(each [champion ranged-form melee speed variants] [["Nidalee" "human" "cougar" 2500 3] ["Elise" "human" "spider" 1600 4]
+                                                   ["Jayce" "cannon" "hammer" 2000 3]]
+  (def profile (attacks/form-profile champion "16.19.1" ranged-form))
   (close speed (profile :missile-speed))
   (assert (= variants (length (profile :spell-paths))))
   (assert (= (get-in profile [:source :sha256]) (hash/sha256 (slurp (get-in profile [:source :path])))))
-  (each [patch form] [["16.18.1" "human"] ["16.20.1" "human"] ["16.19.1" melee] ["16.19.1" nil]]
+  (each [patch form] [["16.18.1" ranged-form] ["16.20.1" ranged-form] ["16.19.1" melee] ["16.19.1" nil]]
     (assert (nil? (attacks/form-profile champion patch form))))
-  (def definition (merge (definition "human" 1 champion) {:distance 300 :duration 2
-                                                          :player (merge (spec "human" 1 champion) {:loadout {:items []}})}))
+  (def definition (merge (definition ranged-form 1 champion) {:distance 300 :duration 2
+                                                              :player (merge (spec ranged-form 1 champion) {:loadout {:items []}})}))
   (def compiled (scenario/compile definition))
   (def actor (get-in compiled [:actors 0]))
   (def target (get-in compiled [:actors 1]))
@@ -106,11 +107,11 @@
         (assert (= (tuple ;starts) (tuple ;(map |($ :at) (filter |(= :attack ($ :kind)) (instant :trace))))))
         (close (+ (starts 1) impact) ((hits 1) :at))
         (close (if (= crit 1) (* 100 (get-in actor [:stats :crit-damage])) 100) ((hits 0) :damage)))))
-  # Form changes must clear an already projected Human projectile. A melee
+  # Form changes must clear an already projected ranged projectile. A melee
   # form's missing missile record is not converted into a projectile profile.
-  (def human (forms/apply-form ((package :champion-map) champion) "human" 1 {:q 1}))
-  (assert (human :attack-projectile))
-  (assert (nil? ((forms/apply-form human melee 1 {:q 1}) :attack-projectile)))
+  (def projected (forms/apply-form ((package :champion-map) champion) ranged-form 1 {:q 1}))
+  (assert (projected :attack-projectile))
+  (assert (nil? ((forms/apply-form projected melee 1 {:q 1}) :attack-projectile)))
   (close 0 (get-in (scenario/compile (merge definition {:player (spec melee 1 champion)})) [:actors 0 :attack-missile-speed]))
   (assert (nil? (get-in (scenario/compile (merge definition {:player (spec nil 1 champion)})) [:actors 0 :ranged])))
   # Primed Sheen stays available while the ordinary projectile is in flight.
@@ -127,6 +128,24 @@
   (def proc (find |(and (= :damage ($ :kind)) (not= "attack" ($ :source))) (landed :trace)))
   (close impact (proc :at))
   (close (get-in armed [:base :ad]) (proc :damage)))
+
+# Cannon's ordinary variants must not acquire the post-transformation attack,
+# even though its speed also equals 2000. Hyper Charge and Hammer/root slots
+# likewise remain distinct from the selected Cannon profile.
+(def jayce-source (util/read-json (slurp "data/form-fixtures/16.19.1/Jayce-characters.json")))
+(def cannon-review (get-in attacks/reviewed-forms [:forms "Jayce" "cannon"]))
+(each [name animation] [["JayceRangedAttack" "ranged_attack1"] ["JayceRangedAttack2" "ranged_attack2"] ["JayceRangedCritAttack" "ranged_crit"]]
+  (def spell (get-in jayce-source [(string "Characters/Jayce/Spells/" name) "mSpell"]))
+  (assert (= true (spell "mApplyAttackDamage")))
+  (assert (= animation (spell "mAnimationName"))))
+(each name (cannon-review :excluded-variants)
+  (def invalid (merge cannon-review {:ordinary-variants [;(cannon-review :ordinary-variants) name]}))
+  (assert (not (first (protect (attacks/reviewed-form-projectile "Jayce" jayce-source invalid))))))
+(close 1800 (get-in jayce-source ["Characters/Jayce/Spells/JayceHyperChargeAbility/JayceHyperChargeRangedAttack" "mSpell" "mMissileSpec" "movementComponent" "mSpeed"]))
+(close 2500 (get-in jayce-source ["Characters/Jayce/Spells/JayceCritAttack" "mSpell" "missileSpeed"]))
+(assert (empty? (get-in (scenario/compile (definition "cannon" 1 "Jayce")) [:actors 0 :abilities])))
+(assert (some |(string/find "transformation attack bonuses" $)
+              ((scenario/compile (definition "cannon" 1 "Jayce")) :coverage)))
 
 # Hammer's passive is bonus armor/MR, independent of R allocation. Check all
 # level breakpoints against a separate arithmetic reference and Cannon's stats.

@@ -156,6 +156,17 @@
           (put retained-windups champion result)
           result))))
 
+(defn reviewed-form-projectile [champion objects review]
+  (assert (= champion (get-in objects [(string "Characters/" champion "/CharacterRecords/Root") "mCharacterName"]))
+          "Form projectile character mismatch.")
+  (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
+  (assert (not (some |(some (fn [path] (= path $)) paths)
+                     (attack-paths champion (get review :excluded-variants []))))
+          "Special attack cannot enter the ordinary form projectile profile.")
+  (def movement (fixed-projectile objects paths))
+  (assert (= (review :missile-speed) (movement :missile-speed)) "Reviewed form projectile speed changed.")
+  movement)
+
 (defn form-profile [champion patch form]
   (def review (when (= patch (reviewed-forms :patch)) (get-in reviewed-forms [:forms champion form])))
   (when review
@@ -165,11 +176,7 @@
           (def bytes (slurp (review :source-path)))
           (assert (= (review :source-sha256) (hash/sha256 bytes)) "Form projectile source differs from its reviewed profile.")
           (def objects (util/read-json bytes))
-          (assert (= champion (get-in objects [(string "Characters/" champion "/CharacterRecords/Root") "mCharacterName"]))
-                  "Form projectile character mismatch.")
-          (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
-          (def movement (fixed-projectile objects paths))
-          (assert (= (review :missile-speed) (movement :missile-speed)) "Reviewed form projectile speed changed.")
+          (def movement (reviewed-form-projectile champion objects review))
           (def result (merge movement {:source {:patch patch :path (review :source-path) :sha256 (review :source-sha256)} :form form}))
           (put retained-forms key result)
           result))))
@@ -204,6 +211,7 @@
 (windup-profile "Ahri" "16.19.1")
 (form-profile "Nidalee" "16.19.1" "human")
 (form-profile "Elise" "16.19.1" "human")
+(form-profile "Jayce" "16.19.1" "cannon")
 
 (defn apply-projectile [kit movement &opt windup]
   (if movement

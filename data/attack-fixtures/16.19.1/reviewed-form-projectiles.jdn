@@ -1,5 +1,5 @@
 {:patch "16.19.1"
- :scope "Ordinary and critical Human-form attacks only. Source-derived fixed movement, not measured launch geometry or windup. Alternate forms and empowered attacks require separate review."
+ :scope "Ordinary and critical attacks in explicitly selected reviewed forms only. Source-derived fixed movement, not measured launch geometry or windup. Alternate forms and empowered attacks require separate review."
  :forms {"Nidalee" {"human" {:source-path "data/form-fixtures/16.19.1/Nidalee-characters.json"
                               :source-sha256 "ebb70f0ada28ae79a32b9c1fec4be6f5f4df5059a851411eae5eec87278585b7"
                               :missile-speed 2500
@@ -9,4 +9,14 @@
                             :source-sha256 "3bc5c29e36ff90f2eab159bb2ed37d7700d69120c14eb8a1f029729a3695eb29"
                             :missile-speed 1600
                             :ordinary-variants ["EliseBasicAttack" "EliseBasicAttack2" "EliseBasicAttack3"]
-                            :critical-variants ["EliseCritAttack"]}}}}
+                            :critical-variants ["EliseCritAttack"]}}
+         "Jayce" {"cannon" {:source-path "data/form-fixtures/16.19.1/Jayce-characters.json"
+                             :source-sha256 "8debded310692c6edc508f33cb243f03d0c84cb56108c45af77a82ad49bf6212"
+                             :missile-speed 2000
+                             :ordinary-variants ["JayceRangedAttack" "JayceRangedAttack2"]
+                             :critical-variants ["JayceRangedCritAttack"]
+                             :selection-note "Cannon ranged_attack1/ranged_attack2/ranged_crit variants apply ordinary attack damage. Hammer/root attack slots, transformation hits and Hyper Charge are separate records and excluded. Legacy alternate names and spell cast ranges do not select form range or timing."
+                             :excluded-variants ["JayceBasicAttack" "JayceBasicAttack2" "JayceCritAttack"
+                                                 "JaycePassiveAbility/JaycePassiveMeleeAttack"
+                                                 "JaycePassiveAbility/JaycePassiveRangedAttack"
+                                                 "JayceHyperChargeAbility/JayceHyperChargeRangedAttack"]}}}}

@@ -14,6 +14,10 @@ diagnostics remain in the developer tools.
    now supply Ahri's reviewed windup and resolve Annie's projectile fields;
    the [Viktor follow-up](viktor-attacks.md) adds ordinary projectile travel while
    preserving empowered Q's explicit zero-travel assumption. The
+   [Human-form projectile follow-up](form-projectiles.md) adds ordinary and
+   critical travel for selected Nidalee and Elise forms, while retaining their
+   windup assumptions. Jayce's Cannon and Gnar's Mini projectiles still need
+   separate selection/variant review. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

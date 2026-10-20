@@ -275,6 +275,13 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                 assert form_result['actors'][0]['form'] == form
                 assert form_result['actors'][0]['ranged'] is ranged
                 assert form_result['actors'][0]['attack-range'] == attack_range
+                if champion in ('Nidalee', 'Elise'):
+                    actor = form_result['actors'][0]
+                    speed = {'Nidalee': 2500, 'Elise': 1600}[champion] if form == 'human' else 0
+                    assert actor['attack-missile-speed'] == speed
+                    first = next(event for event in form_result['events'] if event['source'] == 'attack')
+                    expected = .3 / actor['stats']['attack-speed'] + (attack_range / speed if speed else 0)
+                    assert abs(first['at'] - expected) < 1e-6
                 if champion == 'Jayce':
                     # The source adds 7 Hammer armor/MR at levels 6, 11 and 16.
                     for stat in ('armor', 'mr'):

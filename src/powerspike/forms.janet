@@ -1,4 +1,5 @@
 (import ./data-util :as util)
+(import ./attacks :as attacks)
 (import pshash :as hash)
 
 # Resolve retained sources during import so packaged runtimes need no checkout.
@@ -203,29 +204,30 @@
       (defn passive-amount [base ratio]
         {:op :sum :children [{:op :constant :value base}
                              {:op :multiply :children [{:op :constant :value ratio} {:op :stat :stat :ap :formula 0}]}]})
-      (merge champion {:form form :form-name (selected :name) :attack-style (selected :attack-style)
-                       :attack-range (+ (selected :attack-range) (if (selected :range-growth) (* (selected :range-growth) (/ (dec level) 17)) 0)) :abilities []
-                       :base (table/to-struct base) :growth (table/to-struct growth)
-                       :attack-speed-growth (get selected :attack-speed-growth (champion :attack-speed-growth))
-                       :form-triggers (if spider-rank
-                                        [{:id "EliseSpiderQueen" :name "Spider Queen" :icon (champion :icon) :icon-group "champion"
-                                          :on [:attack] :target-kinds [:champion :practice] :kind :damage :damage-type :magic
-                                          :amount (passive-amount ((selected :damage) spider-rank) (selected :damage-ratio))}
-                                         {:id "EliseSpiderQueenHeal" :name "Spider Queen healing" :icon (champion :icon) :icon-group "champion"
-                                          :on [:attack] :target-kinds [:champion :practice] :kind :heal :target :self
-                                          :amount (passive-amount ((selected :healing) spider-rank) (selected :heal-ratio))}] [])
-                       :form-resistance (when (selected :resist-levels)
-                                          {:base (+ (selected :resist-base) (* (selected :resist-step) (dec (count |(<= $ level) (selected :resist-levels)))))
-                                           :bonus-ad-ratio (selected :bonus-ad-ratio)})
-                       :limitations [;(filter |(not= $ "Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.")
-                                              (get champion :limitations []))
-                                     (cond (= "Gnar" (champion :id))
-                                       (string "Fixed " (selected :name) " form: ordinary attacks and level-scaled form stats included. Rage, automatic transformations, transformation healing, Hyper, ability casts and form switching are excluded. The selected form persists for the full simulation, including beyond Mega Gnar's usual 15-second duration.")
-                                       (= "Elise" (champion :id))
-                                       (string "Fixed " (selected :name) " form: ordinary attacks and form movement speed included"
-                                               (if spider-rank "; Spider Queen damage and healing included against champions/practice targets, with the free first R rank plus allocated R points" "")
-                                               ". Active abilities, Spiderlings, Rappel amplification, conditional movement bonuses and form switching are excluded; Spider Queen effects against objectives are excluded.")
-                                       (= "Jayce" (champion :id))
-                                       (string "Fixed " (selected :name) " form: ordinary attacks" (if (= form "hammer") " and Hammer resistances" "")
-                                               " included; Jayce abilities, Hextech Capacitor, transformation attack bonuses and form switching are excluded.")
-                                       (string "Fixed " (selected :name) " form: ordinary attacks only; Nidalee abilities, Hunt/Prowl and form switching are excluded."))]}))))
+      (def projected (attacks/apply-projectile champion (attacks/form-profile (champion :id) (champion :patch) form) (champion :attack-windup)))
+      (merge projected {:form form :form-name (selected :name) :attack-style (selected :attack-style)
+                        :attack-range (+ (selected :attack-range) (if (selected :range-growth) (* (selected :range-growth) (/ (dec level) 17)) 0)) :abilities []
+                        :base (table/to-struct base) :growth (table/to-struct growth)
+                        :attack-speed-growth (get selected :attack-speed-growth (champion :attack-speed-growth))
+                        :form-triggers (if spider-rank
+                                         [{:id "EliseSpiderQueen" :name "Spider Queen" :icon (champion :icon) :icon-group "champion"
+                                           :on [:attack] :target-kinds [:champion :practice] :kind :damage :damage-type :magic
+                                           :amount (passive-amount ((selected :damage) spider-rank) (selected :damage-ratio))}
+                                          {:id "EliseSpiderQueenHeal" :name "Spider Queen healing" :icon (champion :icon) :icon-group "champion"
+                                           :on [:attack] :target-kinds [:champion :practice] :kind :heal :target :self
+                                           :amount (passive-amount ((selected :healing) spider-rank) (selected :heal-ratio))}] [])
+                        :form-resistance (when (selected :resist-levels)
+                                           {:base (+ (selected :resist-base) (* (selected :resist-step) (dec (count |(<= $ level) (selected :resist-levels)))))
+                                            :bonus-ad-ratio (selected :bonus-ad-ratio)})
+                        :limitations [;(filter |(not= $ "Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.")
+                                               (get projected :limitations []))
+                                      (cond (= "Gnar" (champion :id))
+                                        (string "Fixed " (selected :name) " form: ordinary attacks and level-scaled form stats included. Rage, automatic transformations, transformation healing, Hyper, ability casts and form switching are excluded. The selected form persists for the full simulation, including beyond Mega Gnar's usual 15-second duration.")
+                                        (= "Elise" (champion :id))
+                                        (string "Fixed " (selected :name) " form: ordinary attacks and form movement speed included"
+                                                (if spider-rank "; Spider Queen damage and healing included against champions/practice targets, with the free first R rank plus allocated R points" "")
+                                                ". Active abilities, Spiderlings, Rappel amplification, conditional movement bonuses and form switching are excluded; Spider Queen effects against objectives are excluded.")
+                                        (= "Jayce" (champion :id))
+                                        (string "Fixed " (selected :name) " form: ordinary attacks" (if (= form "hammer") " and Hammer resistances" "")
+                                                " included; Jayce abilities, Hextech Capacitor, transformation attack bonuses and form switching are excluded.")
+                                        (string "Fixed " (selected :name) " form: ordinary attacks only; Nidalee abilities, Hunt/Prowl and form switching are excluded."))]}))))

@@ -1,4 +1,5 @@
 (import ../src/powerspike/forms :as forms)
+(import ../src/powerspike/attacks :as attacks)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/scenario :as scenario)
 (import ../src/powerspike/scenario-wire :as wire)
@@ -59,9 +60,73 @@
       (def outcome (engine/simulate (merge compiled {:actors (if (= side 0) [attacker target] [target attacker])})))
       (def proc (find |(= "item/3153/mist" ($ :source)) (outcome :trace)))
       (close (* 900 rate) (proc :damage)))
-    (assert (some |(= "attack" ($ :source)) ((scenario/simulate (merge definition {:distance range})) :events)))
+    (assert (some |(= "attack" ($ :source)) ((scenario/simulate (merge definition {:distance range :duration 1})) :events)))
     (assert (empty? ((scenario/simulate (merge definition {:distance (+ range 0.01)})) :events)))
     (assert (= ((scenario/simulate definition) :metrics) ((scenario/fitness definition) :metrics)))))
+
+# These reviewed projectiles belong only to the explicit Human form. All
+# ordinary/critical variants agree; both source receipts and the cached package
+# stay pinned while form selection supplies current timing semantics.
+(each [champion melee speed variants] [["Nidalee" "cougar" 2500 3] ["Elise" "spider" 1600 4]]
+  (def profile (attacks/form-profile champion "16.19.1" "human"))
+  (close speed (profile :missile-speed))
+  (assert (= variants (length (profile :spell-paths))))
+  (assert (= (get-in profile [:source :sha256]) (hash/sha256 (slurp (get-in profile [:source :path])))))
+  (each [patch form] [["16.18.1" "human"] ["16.20.1" "human"] ["16.19.1" melee] ["16.19.1" nil]]
+    (assert (nil? (attacks/form-profile champion patch form))))
+  (def definition (merge (definition "human" 1 champion) {:distance 300 :duration 2
+                                                          :player (merge (spec "human" 1 champion) {:loadout {:items []}})}))
+  (def compiled (scenario/compile definition))
+  (def actor (get-in compiled [:actors 0]))
+  (def target (get-in compiled [:actors 1]))
+  (close speed (actor :attack-missile-speed))
+  (assert (not (some |(or (string/find "projectile travel is assumed zero" $) (string/find "projectile travel zero" $)) (actor :coverage))))
+  (assert (= ((scenario/simulate definition) :metrics) ((scenario/fitness definition) :metrics)))
+  (def reversed (merge definition {:player (merge (definition :player) {:strategy {:attacks false :abilities false :movement :hold}})
+                                   :target (merge (definition :player) {:kind :champion})}))
+  (close speed (get-in (scenario/compile reversed) [:actors 1 :attack-missile-speed]))
+  (assert (= ((scenario/simulate reversed) :metrics) ((scenario/fitness reversed) :metrics)))
+  (each as [0.5 1 2]
+    (each crit [0 1]
+      (each side [0 1]
+        (def attacker (merge actor {:stats (merge (actor :stats) {:attack-speed as :ad 100 :crit-chance crit})}))
+        (def actors (if (= side 0) [attacker target] [target attacker]))
+        (def impact (+ (/ 0.3 as) (/ 300 speed)))
+        (defn run [duration] (engine/simulate {:duration duration :actors actors}))
+        (assert (empty? (filter |(= :damage ($ :kind)) ((run impact) :trace))))
+        (def duration (+ impact (/ 1 as) 0.101))
+        (def outcome (run duration))
+        (def hits (filter |(and (= :damage ($ :kind)) (= "attack" ($ :source))) (outcome :trace)))
+        (assert (= 2 (length hits)))
+        (close impact ((hits 0) :at))
+        # Decisions retain the existing 50ms polling policy. Travel must not
+        # alter attack starts, even when a ready time falls between polls.
+        (def instant (engine/simulate {:duration duration :actors (map |(merge $ {:attack-missile-speed 0}) actors)}))
+        (def starts (map |($ :at) (filter |(= :attack ($ :kind)) (outcome :trace))))
+        (assert (= (tuple ;starts) (tuple ;(map |($ :at) (filter |(= :attack ($ :kind)) (instant :trace))))))
+        (close (+ (starts 1) impact) ((hits 1) :at))
+        (close (if (= crit 1) (* 100 (get-in actor [:stats :crit-damage])) 100) ((hits 0) :damage)))))
+  # Form changes must clear an already projected Human projectile. A melee
+  # form's missing missile record is not converted into a projectile profile.
+  (def human (forms/apply-form ((package :champion-map) champion) "human" 1 {:q 1}))
+  (assert (human :attack-projectile))
+  (assert (nil? ((forms/apply-form human melee 1 {:q 1}) :attack-projectile)))
+  (close 0 (get-in (scenario/compile (merge definition {:player (spec melee 1 champion)})) [:actors 0 :attack-missile-speed]))
+  (assert (nil? (get-in (scenario/compile (merge definition {:player (spec nil 1 champion)})) [:actors 0 :ranged])))
+  # Primed Sheen stays available while the ordinary projectile is in flight.
+  (def armed (get-in (scenario/compile (merge definition {:player (merge (definition :player) {:loadout {:items ["3057"]}})})) [:actors 0]))
+  (def priming {:at 0 :kind :effect :actor 0 :target 0 :source "fixture" :origin "prime"
+                :effect {:kind :buff :buff "spellblade" :duration 1}})
+  (def release (/ 0.3 (get-in armed [:stats :attack-speed])))
+  (def impact (+ release (/ 300 speed)))
+  (def in-flight (engine/simulate {:duration (+ release 0.0001) :actors [armed target] :initial-events [priming]}))
+  (close 0 (in-flight :damage))
+  (close 1 (get-in in-flight [:actors 0 :buff-counts "spellblade"]))
+  (def landed (engine/simulate {:duration (+ impact 0.0001) :actors [armed target] :initial-events [priming]}))
+  (close 0 (get-in landed [:actors 0 :buff-counts "spellblade"]))
+  (def proc (find |(and (= :damage ($ :kind)) (not= "attack" ($ :source))) (landed :trace)))
+  (close impact (proc :at))
+  (close (get-in armed [:base :ad]) (proc :damage)))
 
 # Hammer's passive is bonus armor/MR, independent of R allocation. Check all
 # level breakpoints against a separate arithmetic reference and Cannon's stats.

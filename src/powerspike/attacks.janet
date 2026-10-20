@@ -9,6 +9,9 @@
 (assert (= "16.19.1" (reviewed-timing :patch)) "Unsupported reviewed timing patch.")
 (def retained @{})
 (def retained-windups @{})
+(def reviewed-forms (util/read-data "data/attack-fixtures/16.19.1/reviewed-form-projectiles.jdn"))
+(assert (= "16.19.1" (reviewed-forms :patch)) "Unsupported reviewed form projectile patch.")
+(def retained-forms @{})
 (def styles @{})
 (defn style-from-identities [identities]
   (if (indexed? identities)
@@ -153,6 +156,24 @@
           (put retained-windups champion result)
           result))))
 
+(defn form-profile [champion patch form]
+  (def review (when (= patch (reviewed-forms :patch)) (get-in reviewed-forms [:forms champion form])))
+  (when review
+    (def key [champion form])
+    (or (retained-forms key)
+        (do
+          (def bytes (slurp (review :source-path)))
+          (assert (= (review :source-sha256) (hash/sha256 bytes)) "Form projectile source differs from its reviewed profile.")
+          (def objects (util/read-json bytes))
+          (assert (= champion (get-in objects [(string "Characters/" champion "/CharacterRecords/Root") "mCharacterName"]))
+                  "Form projectile character mismatch.")
+          (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
+          (def movement (fixed-projectile objects paths))
+          (assert (= (review :missile-speed) (movement :missile-speed)) "Reviewed form projectile speed changed.")
+          (def result (merge movement {:source {:patch patch :path (review :source-path) :sha256 (review :source-sha256)} :form form}))
+          (put retained-forms key result)
+          result))))
+
 (defn profile [champion patch]
   (when (and (= patch "16.19.1") (some |(= champion $) ["Ahri" "Annie" "Viktor"]))
     (or (retained champion)
@@ -181,6 +202,20 @@
 (profile "Annie" "16.19.1")
 (profile "Viktor" "16.19.1")
 (windup-profile "Ahri" "16.19.1")
+(form-profile "Nidalee" "16.19.1" "human")
+(form-profile "Elise" "16.19.1" "human")
+
+(defn apply-projectile [kit movement &opt windup]
+  (if movement
+    (merge kit {:attack-projectile movement
+                :limitations [;(filter |(not (some (fn [note] (= $ note))
+                                                   ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."
+                                                    "Attack-speed cap 2.5 and windup 30% remain estimates."
+                                                    "Attack-speed cap 2.5 remains an estimate."]))
+                                       (get kit :limitations []))
+                              (if windup "Attack-speed cap 2.5 remains an estimate."
+                                "Attack-speed cap 2.5 and windup 30% remain estimates.")]})
+    (tabseq [[key value] :pairs kit :when (not= key :attack-projectile)] key value)))
 
 (defn apply-profile [champion patch kit]
   (def movement (profile champion patch))
@@ -189,13 +224,4 @@
                         {:attack-style (attack-style champion patch (kit :attack-style))}
                         (if windup {:attack-windup windup} {})
                         (if-let [range (attack-range champion patch (kit :attack-range))] {:attack-range range} {})))
-  (if movement
-    (merge corrected {:attack-projectile movement
-                      :limitations [;(filter |(not (some (fn [note] (= $ note))
-                                                         ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."
-                                                          "Attack-speed cap 2.5 and windup 30% remain estimates."
-                                                          "Attack-speed cap 2.5 remains an estimate."]))
-                                             (get kit :limitations []))
-                                    (if windup "Attack-speed cap 2.5 remains an estimate."
-                                      "Attack-speed cap 2.5 and windup 30% remain estimates.")]})
-    (tabseq [[key value] :pairs corrected :when (not= key :attack-projectile)] key value)))
+  (apply-projectile corrected movement windup))

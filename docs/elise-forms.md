@@ -42,8 +42,8 @@ order remains unchanged, with Spider Queen following item and rune triggers.
 Shield and damage-immune interactions inherit the shared engine's behavior;
 this work does not independently establish their in-game ordering.
 
-Ordinary windup remains the existing 30% assumption. Human projectile travel
-remains the existing zero-travel assumption. Scenarios with no selected form
+Ordinary windup remains the existing 30% assumption. Human attacks now use
+[reviewed projectile travel at 1,600 units/s](form-projectiles.md). Scenarios with no selected form
 retain their unknown attack type and conditional item-effect exclusions.
 Immutable catalog bytes remain unchanged.
 

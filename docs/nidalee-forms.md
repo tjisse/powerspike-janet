@@ -24,9 +24,9 @@ This handler supports ordinary attacks and supported item effects. Nidalee's
 abilities, Hunt/Prowl and switching forms are excluded in this fixed-form mode,
 as Simulation details explains. A selected Cougar actor cannot inherit Human
 spells from a fetched kit. Summoner spells retain their existing support.
-Ordinary Human projectile travel remains the existing zero-travel assumption;
-windup remains the existing 30% assumption. These timing policies are not
-reclassified as measured behavior.
+Ordinary Human attacks now use [reviewed projectile travel at 2,500 units/s](form-projectiles.md);
+windup remains the existing 30% assumption. This is source-derived timing,
+rather than a new in-game measurement.
 The app does not start an automatic ability download for a selected fixed form.
 A duel opponent without a fixed form still gets the existing data-loading flow.
 

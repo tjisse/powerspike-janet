@@ -118,6 +118,9 @@
 (defn alive? [actor] (not (actor :dead-at)))
 (defn controlled? [actor controls at]
   (some |(> (get (actor :controls) $ 0) at) controls))
+(defn health-permitted? [actor target activation]
+  (and (<= (/ (actor :health) ((actor :stats) :hp)) (get activation :self-health-below 1))
+       (<= (/ (target :health) ((target :stats) :hp)) (get activation :target-health-below 1))))
 (defn target-allowed? [effect target]
   (and (or (not (effect :target-kinds))
            (some |(some (fn [kind] (= $ kind)) (get target :tags [(target :kind)])) (effect :target-kinds)))
@@ -146,6 +149,16 @@
            (each [ability rank after fixed recast-fixed] ordered
              (when (or fixed recast-fixed) (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
            pools) decision-abilities))
+  (def health-conditions
+    (map (fn [actor ordered]
+           (if (get-in actor [:strategy :abilities] true)
+             (seq [[ability] :in ordered
+                   :let [activation (get-in actor [:strategy :activation (ability :slot)] {})]
+                   :when (or (< (get activation :self-health-below 1) 1)
+                             (< (get activation :target-health-below 1) 1))]
+               activation)
+             [])) actors decision-abilities))
+  (def watching-health? (some |(not (empty? $)) health-conditions))
   (def queue @[])
   (def decision-at @[nil nil])
   (def trace @[])
@@ -173,6 +186,21 @@
   (defn resume [actor]
     (when (and (alive? actor) (alive? (actors (actor :target))))
       (request-decision (actor :index) (max at (actor :busy-until)))))
+  (defn health-status []
+    # Sample immediately before each mutation, so regeneration or intervening
+    # healing cannot leave a cached predicate stale.
+    (when watching-health?
+      (map (fn [actor conditions]
+             (map |(health-permitted? actor (actors (actor :target)) $) conditions)) actors health-conditions)))
+  (defn health-changed [previous]
+    (when previous
+      (eachp [index conditions] health-conditions
+        (def actor (actors index))
+        (eachp [position activation] conditions
+          (when (and (not (get-in previous [index position]))
+                     (health-permitted? actor (actors (actor :target)) activation)
+                     (>= at (get activation :after 0)))
+            (resume actor))))))
   (defn recover [actor pool]
     (when (and (get-in actor [:strategy :abilities] true) ((recovery-pools (actor :index)) pool)) (resume actor)))
   (defn reset-attack [actor]
@@ -214,8 +242,10 @@
                      (stats/form-resistance resistance (get-in actor [:original-stats :ad]) base-ad)))
       (each key [:armor :mr] (put totals key (+ (get totals key 0) change)))
       (each modifier active (when (resistance-stat? modifier) (apply-modifier modifier))))
+    (def health-before (when (not= (previous :hp) (totals :hp)) (health-status)))
     (put actor :stats totals)
     (put actor :health (min (actor :health) (totals :hp)))
+    (health-changed health-before)
     (each [pool maximum health?] [[:health :hp true] [:resource :mp false]]
       (when (or (not= (get previous maximum 0) (get totals maximum 0))
                 (not= (regeneration previous health?) (regeneration totals health?)))
@@ -322,7 +352,9 @@
                              (def absorbed (min remaining (shield :amount)))
                              (-= remaining absorbed) (put shield :amount (- (shield :amount) absorbed))))
                          (def applied (min (target :health) remaining))
+                         (def health-before (when (> applied 0) (health-status)))
                          (put target :health (max 0 (- (target :health) remaining)))
+                         (health-changed health-before)
                          (put target :absorbed (+ (target :absorbed) (- before remaining)))
                          (put target :damage-taken (+ (target :damage-taken) applied))
                          (put owner :damage-dealt (+ (owner :damage-dealt) applied))
@@ -355,7 +387,9 @@
                        :heal
                        (do (def amount (min (- ((target :stats) :hp) (target :health))
                                             (max 0 (* (value (effect :amount) owner target rank) (get (target :stats) :healing-multiplier 1)))))
+                         (def health-before (when (> amount 0) (health-status)))
                          (put target :health (+ (target :health) amount))
+                         (health-changed health-before)
                          (put owner :healed (+ (owner :healed) amount)) (record :heal {:source source :amount amount :actor (owner :id)})
                          (when (> amount 0) (recover target :health)))
                        :shield
@@ -423,8 +457,7 @@
   (defn permitted? [actor target ability]
     (def activation (get-in actor [:strategy :activation (ability :slot)] {}))
     (and (>= at (get activation :after 0))
-         (<= (/ (actor :health) ((actor :stats) :hp)) (get activation :self-health-below 1))
-         (<= (/ (target :health) ((target :stats) :hp)) (get activation :target-health-below 1))))
+         (health-permitted? actor target activation)))
   (defn release-effect [event actor target ability effect travel]
     (if (or (= :unresolved (get effect :status)) (= :unresolved (get effect :condition)))
       (note (string (ability :id) ": " (get-in effect [:evidence :tooltip] "Unresolved effect")))
@@ -591,8 +624,10 @@
           (put (actor :counters) (selected :id) (inc counter))
           (put actor :actions (inc (actor :actions)))
           (def resource-key (if (= :health (selected :cost-resource)) :health :resource))
+          (def health-before (when (and (= resource-key :health) (> cost 0)) (health-status)))
           (put actor resource-key (- (actor resource-key) cost))
           (put actor :busy-until (+ at (cast-lock selected actor target rank)))
+          (health-changed health-before)
           (def charged ((actor :charges) (selected :id)))
           (def recast ((actor :recasts) (selected :id)))
           (cond

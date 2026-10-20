@@ -51,8 +51,9 @@ cooldown, recast, charge and fixed activation deadlines. The
 [control resumption correction](control-resumption.md) also wakes at expiry
 and applied cleanse. [Attack resets](attack-resets.md) now wake when they shorten
 a future readiness deadline. [Resource recovery](resource-readiness.md) now
-forecasts fixed-cost affordability. Health activation thresholds, state-dependent
-costs and range crossings retain their polling policy.
+forecasts fixed-cost affordability. [Health activation](health-activation.md)
+wakes when discrete health changes satisfy a configured low-health rule.
+State-dependent costs and range crossings retain their polling policy.
 A known attack wake can also observe an eligible ability, which retains
 priority over the attack.
 Ordinary attacks are not allowed through a same-timestamp stun or death.

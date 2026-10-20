@@ -49,8 +49,10 @@ in-game fights or new champion mechanics evidence.
 
 ## Scope and checks
 
-Condition thresholds, movement/range crossings and state-dependent costs
-still use periodic checks between known deadlines. The subsequent
+The subsequent [health activation correction](health-activation.md) adds wakes
+when a discrete health change satisfies a configured low-health rule.
+Movement/range crossings and state-dependent costs still use periodic checks
+between known deadlines. The subsequent
 [resource readiness correction](resource-readiness.md) adds forecasts for fixed
 costs under continuous recovery. The subsequent
 [control resumption correction](control-resumption.md) adds exact control-expiry

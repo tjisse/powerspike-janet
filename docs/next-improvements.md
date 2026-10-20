@@ -31,8 +31,11 @@ diagnostics remain in the developer tools.
    while preserving current action locks and in-flight projectiles.
    The [resource readiness correction](resource-readiness.md) forecasts when
    continuous regeneration makes a fixed-cost ability affordable, including
-   changes to regeneration and health-cost healing. Health activation
-   thresholds, state-dependent costs and movement/range crossings
+   changes to regeneration and health-cost healing. The
+   [health activation correction](health-activation.md) wakes ready abilities
+   when damage, health costs or maximum-health changes satisfy their configured
+   low-health rules, and rechecks healing/control/death before casting.
+   State-dependent costs and movement/range crossings
    retain their existing polling policy. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.

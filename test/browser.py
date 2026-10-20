@@ -1,6 +1,6 @@
 from playwright.sync_api import expect, sync_playwright
 import playwright
-import argparse, json, os, subprocess, tempfile, time, urllib.request
+import argparse, json, os, subprocess, tempfile, time, urllib.parse, urllib.request
 from pathlib import Path
 from runtime import port, running, clean_env
 
@@ -347,11 +347,51 @@ def verify_resource_readiness(browser, base):
     page.close()
     print('Browser: source-derived mana recovery, exact affordable casts/impacts, both participants and mobile layout passed.')
 
+def verify_health_activation(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    for who in ('player', 'opponent'):
+        prefix = 'opponent' if who == 'opponent' else ''
+        query = {'mode': 'duel', 'champion': 'Annie', 'opponent': 'Annie', 'selected': 'custom',
+                 'snapshotlocked': 'true', 'level': 1, 'opponentlevel': 1, 'distance': 200, 'duration': 1,
+                 'attacks': 'false', 'opponentattacks': 'false', 'abilities': 'false', 'opponentabilities': 'false',
+                 'priority': 'q', 'opponentpriority': 'q', 'movement': 'hold', 'opponentmovement': 'hold'}
+        query[prefix+'attacks'] = 'true'
+        query[('enemy' if who == 'opponent' else '')+'qtargetbelow'] = .95
+        page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
+        stats = dict(json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))['stats'])
+        # Retained Annie windup, ordinary projectile and Q delivery policies.
+        ready = .3 / float(stats['Attack speed']) + 200 / 1500
+        impact = ready + .25 + 200 / 1400
+        query[prefix+'abilities'] = 'true'
+        query['duration'] = impact + .005
+        page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
+        document = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
+        side = 'target' if who == 'opponent' else 'player'
+        assert document[side]['strategy']['activation']['q']['target-health-below'] == .95
+        trace = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+        shot = [row for row in trace if row['kind'] == 'damage' and row['source'] == 'attack' and row['actor'] == who]
+        casts = [row for row in trace if row['kind'] == 'cast' and row['source'] == 'AnnieQ' and row['actor'] == who]
+        hits = [row for row in trace if row['kind'] == 'damage' and row['source'] == 'AnnieQ' and row['actor'] == who]
+        assert len(shot) == len(casts) == len(hits) == 1
+        assert abs(shot[0]['at'] - ready) < 1e-6
+        assert casts[0]['at'] == shot[0]['at']
+        assert abs(hits[0]['at'] - impact) < 1e-6
+        page.set_viewport_size({'width':320,'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+    assert not errors, errors
+    page.close()
+    print('Browser: target-health activation at projectile impact, source timing, both participants and mobile layout passed.')
+
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         verify_ability_readiness(browser, base)
         verify_resource_readiness(browser, base)
+        verify_health_activation(browser, base)
         verify_item_comparison(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')

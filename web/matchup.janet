@@ -88,8 +88,8 @@
                (select-field (string base "rank") (if (and (= "Elise" (champion :id)) (= slot :r)) "Additional R points (free first rank included)" "Rank") (get state (keyword (string base "rank")) -1)
                              [[-1 "Automatic"] ;(map |[$ (string $)] (range 0 (if (= slot :r) 4 6)))]))
              (input (string base "after") "Cast after (s)" (get state (keyword (string base "after")) 0) 0 120 0.1)
-             (input (string base "selfbelow") "Self health below (0–1)" (get state (keyword (string base "selfbelow")) 1) 0 1 0.05)
-             (input (string base "targetbelow") "Target health below (0–1)" (get state (keyword (string base "targetbelow")) 1) 0 1 0.05)]) scenarios/slots)]]])
+             (input (string base "selfbelow") "Self health at most (0–1)" (get state (keyword (string base "selfbelow")) 1) 0 1 0.05)
+             (input (string base "targetbelow") "Target health at most (0–1)" (get state (keyword (string base "targetbelow")) 1) 0 1 0.05)]) scenarios/slots)]]])
 (defn sequence-fields [result opponent]
   (def state (result :state))
   (def prefix (if opponent "opponent" ""))

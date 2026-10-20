@@ -58,6 +58,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/control-resumption.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-resets.janet
 	JANET_PATH=build/web-modules $(JANET) test/resource-readiness.janet
+	JANET_PATH=build/web-modules $(JANET) test/health-activation.janet
 	JANET_PATH=build/web-modules $(JANET) test/empowered-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
 	JANET_PATH=build/web-modules $(JANET) test/runes.janet
@@ -95,7 +96,8 @@ test-runtime: build
 	JANET_PATH=build/web-modules PS_CONTROL_FIXTURE=$(CURDIR)/build/control-runtime-fixture $(JANET) test/control-resumption.janet
 	JANET_PATH=build/web-modules PS_RESET_FIXTURE=$(CURDIR)/build/reset-runtime-fixture $(JANET) test/attack-resets.janet
 	JANET_PATH=build/web-modules PS_RESOURCE_FIXTURE=$(CURDIR)/build/resource-runtime-fixture $(JANET) test/resource-readiness.janet
-	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture --resource-fixture build/resource-runtime-fixture
+	JANET_PATH=build/web-modules PS_HEALTH_FIXTURE=$(CURDIR)/build/health-runtime-fixture $(JANET) test/health-activation.janet
+	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture --resource-fixture build/resource-runtime-fixture --health-fixture build/health-runtime-fixture
 
 test-package:
 	$(PYTHON) test/package.py $(RPM)

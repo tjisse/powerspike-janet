@@ -70,7 +70,9 @@ layout. The build workflow includes these checks.
 
 The subsequent [health activation correction](health-activation.md) adds wakes
 when a discrete health change satisfies a configured low-health rule.
-Range crossings and other changing conditions still poll between known deadlines.
+The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
+ability range crossings and stopping distances. Other changing conditions still
+poll between known deadlines.
 The [resource readiness correction](resource-readiness.md)
 forecasts fixed-cost affordability under continuous recovery. The [attack reset correction](attack-resets.md)
 wakes an enabled attack when a reset shortens a future readiness deadline.

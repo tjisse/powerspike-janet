@@ -82,10 +82,11 @@ without checkout access. Browser checks verify that each side's target-health
 setting reaches the exported scenario, its Q starts at the triggering hit,
 its impact falls inside the window, and the 320 px layout remains usable.
 
-Movement/range crossings and state-dependent cost forecasts remain separate
-work. This adds no general prediction for health limits crossed solely by
-continuous health loss, nor new champion reaction rules or player decision
-latency. The declared strategy still reacts as soon as the model permits.
+The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
+ability range crossings and stopping distances. State-dependent cost and range
+forecasts remain separate work. This adds no general prediction for health limits
+crossed solely by continuous health loss, nor new champion reaction rules or
+player decision latency. The declared strategy still reacts as soon as the model permits.
 Source packages and scenario schema stay unchanged. The engine fingerprint
 changes, separating optimizer cache entries and preserving the saved-scenario
 model-change notice.

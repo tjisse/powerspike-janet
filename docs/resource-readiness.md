@@ -89,8 +89,10 @@ first cast and impact from 10% mana, including a 320 px layout.
 
 The subsequent [health activation correction](health-activation.md) adds wakes
 when discrete health changes satisfy a configured low-health rule.
-Movement/range crossings, state-dependent costs, resource-specific discrete
-recovery mechanics and missing champion handlers still require separate work.
+The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
+ability range crossings and stopping distances. State-dependent costs and ranges,
+resource-specific discrete recovery mechanics and missing champion handlers
+still require separate work.
 Source packages and scenario schema stay unchanged.
 The engine fingerprint changes, separating optimizer cache entries and retaining
 the saved-scenario model-change notice.

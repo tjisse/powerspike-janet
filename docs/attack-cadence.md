@@ -45,7 +45,7 @@ no damage coefficient or champion stat was adjusted to fit the example.
 
 ## Remaining timing policies
 
-Condition and movement checks still poll periodically between known deadlines.
+Changing conditions still poll periodically between known deadlines.
 The subsequent [ability readiness correction](ability-readiness.md) adds exact
 cooldown, recast, charge and fixed activation deadlines. The
 [control resumption correction](control-resumption.md) also wakes at expiry
@@ -53,7 +53,9 @@ and applied cleanse. [Attack resets](attack-resets.md) now wake when they shorte
 a future readiness deadline. [Resource recovery](resource-readiness.md) now
 forecasts fixed-cost affordability. [Health activation](health-activation.md)
 wakes when discrete health changes satisfy a configured low-health rule.
-State-dependent costs and range crossings retain their polling policy.
+[Movement readiness](movement-readiness.md) now forecasts ordinary/fixed ability
+range crossings and stopping distances. State-dependent costs and ranges retain
+their polling policy.
 A known attack wake can also observe an eligible ability, which retains
 priority over the attack.
 Ordinary attacks are not allowed through a same-timestamp stun or death.

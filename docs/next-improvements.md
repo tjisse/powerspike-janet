@@ -35,8 +35,13 @@ diagnostics remain in the developer tools.
    [health activation correction](health-activation.md) wakes ready abilities
    when damage, health costs or maximum-health changes satisfy their configured
    low-health rules, and rechecks healing/control/death before casting.
-   State-dependent costs and movement/range crossings
-   retain their existing polling policy. The
+   The [movement readiness correction](movement-readiness.md) now forecasts
+   relative movement into ordinary and fixed ability range, stops at the chosen
+   distance, and updates trajectories at speed/control/lock changes.
+   State-dependent costs and ranges retain their existing polling policy.
+   Next, audit their expression inputs for timing changes caused by regeneration
+   or applied stat changes, retaining polling where a boundary cannot be safely
+   forecast. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

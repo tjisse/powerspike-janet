@@ -101,7 +101,7 @@
                                    :missing-health (- ((target :stats) :hp) (target :health))})})
 (defn value [expression actor target rank]
   (if (number? expression) expression (expr/evaluate expression (context actor target rank))))
-(defn fixed-cost? [expression &opt depth]
+(defn fixed-value? [expression &opt depth]
   (def nesting (or depth 0))
   (cond
     (> nesting 32) false
@@ -110,7 +110,7 @@
     (some |(= $ (expression :op)) [:constant :rank :level-values :level-interpolation]) true
     (some |(= $ (expression :op)) [:sum :multiply :with-rank])
     (and (indexed? (expression :children))
-         (not (some |(not (fixed-cost? $ (inc nesting))) (expression :children))))
+         (not (some |(not (fixed-value? $ (inc nesting))) (expression :children))))
     false))
 (defn regeneration [stats health?]
   (if health? (* (/ (get stats :hp-regen 0) 5) (get stats :healing-multiplier 1))
@@ -140,9 +140,22 @@
              (def rank (get (actor :ranks) slot 0))
              (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
                (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])
-                                    (fixed-cost? (ability :cost))
-                                    (and (ability :recast) (fixed-cost? (get-in ability [:recast :cost] 0)))])))
+                                    (fixed-value? (ability :cost))
+                                    (and (ability :recast) (fixed-value? (get-in ability [:recast :cost] 0)))])))
            ordered) actors))
+  (def moving? (some |(some (fn [mode] (= mode (get-in $ [:strategy :movement]))) [:approach :hold-range]) actors))
+  (def range-boundaries
+    (when moving?
+      (map (fn [actor ordered]
+             (def ranges @[])
+             (when (get-in actor [:strategy :attacks] true) (array/push ranges (get actor :attack-range 125)))
+             (when (get-in actor [:strategy :abilities] true)
+               (each [ability rank] ordered
+                 (when (and (fixed-value? (ability :range))
+                            (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (ability :effects)))
+                   (def result (protect (max 0 (value (ability :range) actor (actors (actor :target)) rank))))
+                   (when (and (first result) (util/finite? (result 1))) (array/push ranges (result 1))))))
+             ranges) actors decision-abilities)))
   (def recovery-pools
     (map (fn [ordered]
            (def pools @{})
@@ -186,6 +199,47 @@
   (defn resume [actor]
     (when (and (alive? actor) (alive? (actors (actor :target))))
       (request-decision (actor :index) (max at (actor :busy-until)))))
+  (defn velocity [actor]
+    (if (or (> (actor :busy-until) at) (controlled? actor [:stun :root :charm :fear :airborne :suppression] at))
+      0 (actor :velocity)))
+  (defn steer []
+    (when moving?
+      (def distance (math/abs (- ((actors 0) :position) ((actors 1) :position))))
+      (each actor actors
+        (def strategy (get actor :strategy {}))
+        (def mode (get strategy :movement :hold))
+        (def desired (if (= mode :hold-range) (get strategy :preferred-range (get actor :attack-range 125)) (get actor :attack-range 125)))
+        (def target-position ((actors (actor :target)) :position))
+        (def direction (cond (< (actor :position) target-position) 1
+                         (> (actor :position) target-position) -1
+                         (= 0 (actor :index)) 1
+                         -1))
+        (def intent (* direction (actor :velocity)))
+        (put actor :velocity
+             (if (and (alive? actor) (alive? (actors (actor :target))))
+               (cond (and (some |(= $ mode) [:approach :hold-range]) (> distance desired)
+                          (or (= mode :approach) (> distance (+ desired 1)) (> intent 0)))
+                 (* direction (get (actor :stats) :move-speed 0))
+                 (and (= mode :hold-range) (< distance desired) (or (< distance (- desired 1)) (< intent 0)))
+                 (* -1 direction (get (actor :stats) :move-speed 0))
+                 0)
+               0)))
+      (def closing (* (if (<= ((actors 0) :position) ((actors 1) :position)) 1 -1)
+                      (- (velocity (actors 0)) (velocity (actors 1)))))
+      (each actor actors
+        (when (and (alive? actor) (alive? (actors (actor :target))))
+          (defn crossing [boundary]
+            (when (and (not= closing 0) (> (/ (- distance boundary) closing) 0))
+              # Forecasts never relax the strict range gate. Round forward so
+              # floating-point integration reaches the boundary before retrying.
+              (def deadline (/ (math/ceil (* 1e9 (+ at (max 1e-9 (/ (- distance boundary) closing))))) 1e9))
+              (when (util/finite? deadline) (request-decision (actor :index) deadline))))
+          (when (> closing 0)
+            (each boundary (range-boundaries (actor :index)) (when (> distance boundary) (crossing boundary))))
+          (when (not= 0 (actor :velocity))
+            (def desired (get-in actor [:strategy :preferred-range] (get actor :attack-range 125)))
+            (crossing (if (= :hold-range (get-in actor [:strategy :movement])) desired (get actor :attack-range 125)))
+            (when (> (actor :busy-until) at) (request-decision (actor :index) (actor :busy-until))))))))
   (defn health-status []
     # Sample immediately before each mutation, so regeneration or intervening
     # healing cannot leave a cached predicate stale.
@@ -258,6 +312,7 @@
   (defn advance [time]
     (def dt (- time at))
     (def positions (map |($ :position) actors))
+    (def velocities (map velocity actors))
     (each actor actors
       (when (alive? actor)
         (put actor :health (min ((actor :stats) :hp) (+ (actor :health) (* dt (regeneration (actor :stats) true)))))
@@ -271,12 +326,14 @@
                           (and (not= 0 (actor :velocity)) (controlled? actor [:slow] at)) (- 1 (get-in actor [:stat-effects :slow :amount] 1))
                           0))
         (put actor :control-time (+ (actor :control-time) (* dt impairment)))
-        (unless (or (> (actor :busy-until) at) (controlled? actor [:stun :root :charm :fear :airborne :suppression] at))
-          (def step (* dt (actor :velocity)))
-          (def position (actor :position))
-          (def enemy-position (positions (actor :target)))
-          (put actor :position (if (< position enemy-position) (min (+ position step) enemy-position)
-                                 (max (+ position step) enemy-position))))))
+        (unless (= 0 (velocities (actor :index)))
+          (def step (* dt (velocities (actor :index))))
+          (put actor :position (+ (actor :position) step)))))
+    # Two approaching points cannot pass through each other between events.
+    (def gap (- (positions 1) (positions 0)))
+    (when (< (* gap (- ((actors 1) :position) ((actors 0) :position))) 0)
+      (def contact (+ (positions 0) (* (velocities 0) (/ gap (- (velocities 0) (velocities 1))))))
+      (each actor actors (put actor :position contact)))
     (set at time))
   (defn trigger [owner target event-key origin depth &opt slot]
     (when (< depth 3)
@@ -550,15 +607,6 @@
       (def strategy (get actor :strategy {}))
       (def distance (math/abs (- (actor :position) (target :position))))
       (def range (get actor :attack-range 125))
-      (def movement (get strategy :movement :hold))
-      (def desired (if (= :hold-range movement) (get strategy :preferred-range range) range))
-      (def direction (if (< (actor :position) (target :position)) 1 -1))
-      (put actor :velocity
-           (cond (and (some |(= $ movement) [:approach :hold-range]) (> distance (+ desired (if (= :hold-range movement) 1 0))))
-             (* direction (get (actor :stats) :move-speed 0))
-             (and (= :hold-range movement) (< distance (- desired 1)))
-             (* -1 direction (get (actor :stats) :move-speed 0))
-             0))
       (var selected nil)
       (var rank 0)
       (var cost 0)
@@ -735,7 +783,8 @@
                   (refresh-stats actor)
                   (when (and (event :control) (= (get (actor :controls) (event :control) 0) at)) (resume actor))
                   (record :expire {:actor (actor :id)}))
-        (note (string "Unsupported event: " (event :kind))))))
+        (note (string "Unsupported event: " (event :kind))))
+      (steer)))
   (advance duration)
   (when tracing (set before (participants)))
   (record :end {})

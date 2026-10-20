@@ -51,8 +51,9 @@ in-game fights or new champion mechanics evidence.
 
 The subsequent [health activation correction](health-activation.md) adds wakes
 when a discrete health change satisfies a configured low-health rule.
-Movement/range crossings and state-dependent costs still use periodic checks
-between known deadlines. The subsequent
+The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
+ability range crossings and stopping distances. State-dependent costs and ranges
+still use periodic checks between known deadlines. The subsequent
 [resource readiness correction](resource-readiness.md) adds forecasts for fixed
 costs under continuous recovery. The subsequent
 [control resumption correction](control-resumption.md) adds exact control-expiry

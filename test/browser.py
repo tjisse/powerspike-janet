@@ -386,12 +386,51 @@ def verify_health_activation(browser, base):
     page.close()
     print('Browser: target-health activation at projectile impact, source timing, both participants and mobile layout passed.')
 
+def verify_movement_readiness(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    for who in ('player', 'opponent'):
+        prefix = 'opponent' if who == 'opponent' else ''
+        query = {'mode': 'duel', 'champion': 'Annie', 'opponent': 'Annie', 'selected': 'custom',
+                 'snapshotlocked': 'true', 'level': 1, 'opponentlevel': 1, 'distance': 700, 'duration': 2,
+                 'attacks': 'false', 'opponentattacks': 'false', 'abilities': 'false', 'opponentabilities': 'false',
+                 'priority': 'q', 'opponentpriority': 'q', 'movement': 'hold', 'opponentmovement': 'hold'}
+        query[prefix+'movement'] = 'approach'
+        page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
+        stats = dict(json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))['stats'])
+        attack_range = float(stats['Attack range'])
+        ready = (700 - attack_range) / float(stats['Move speed'])
+        # Retained Annie Q cast and missile timing, unchanged by movement work.
+        impact = ready + .25 + attack_range / 1400
+        query[prefix+'abilities'] = 'true'
+        query['duration'] = impact + .005
+        page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+        expect(page.locator('#matchup-chart svg')).to_be_visible()
+        document = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
+        assert document['target' if who == 'opponent' else 'player']['strategy']['movement'] == 'approach'
+        trace = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+        casts = [row for row in trace if row['kind'] == 'cast' and row['source'] == 'AnnieQ' and row['actor'] == who]
+        hits = [row for row in trace if row['kind'] == 'damage' and row['source'] == 'AnnieQ' and row['actor'] == who]
+        assert len(casts) == len(hits) == 1
+        assert abs(casts[0]['at'] - ready) < 1e-6
+        assert abs(hits[0]['at'] - impact) < 1e-6
+        positions = [row['position'] for row in hits[0]['participants']]
+        assert abs(abs(positions[1] - positions[0]) - attack_range) < 1e-6
+        page.set_viewport_size({'width':320,'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+    assert not errors, errors
+    page.close()
+    print('Browser: movement/range deadlines, stopped distance, source travel, both participants and mobile layout passed.')
+
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         verify_ability_readiness(browser, base)
         verify_resource_readiness(browser, base)
         verify_health_activation(browser, base)
+        verify_movement_readiness(browser, base)
         verify_item_comparison(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')

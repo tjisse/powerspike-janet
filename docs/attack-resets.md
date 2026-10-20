@@ -65,7 +65,9 @@ handlers still require reviewed mechanics evidence. The subsequent
 [resource readiness correction](resource-readiness.md) forecasts fixed-cost
 affordability under continuous recovery. The [health activation correction](health-activation.md)
 adds wakes when discrete health changes satisfy configured low-health rules.
-State-dependent costs and range crossings continue to poll between known deadlines.
+The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
+ability range crossings and stopping distances. State-dependent costs and ranges
+continue to poll between known deadlines.
 The source and scenario schemas stay unchanged. The engine fingerprint changes,
 separating optimizer cache entries and preserving the saved-scenario model-change
 notice.

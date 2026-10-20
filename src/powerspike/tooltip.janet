@@ -166,4 +166,4 @@
   (each variable variables
     (each problem (expr/problems (variable :expression))
       (unless (some |(= problem $) unresolved) (array/push unresolved problem))))
-  {:tooltip text :variables variables :effects effects :unresolved unresolved})
+  {:tooltip text :variables variables :effects effects :unresolved unresolved :expression-parser expr/parser-version})

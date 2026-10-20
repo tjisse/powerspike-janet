@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -129,6 +129,19 @@ def verify(binary_path, seed_path=None, parry_fixture=None):
                 assert any('return stab' in note for note in outcome['coverage'])
                 assert sum(event['kind'] == 'parried' and event['source'] == 'item/3100/hit'
                            for event in outcome['trace']) == 1
+        if level_scaling_fixture:
+            # The synthetic carrier retains a real source formula and the old
+            # linear AST. Its numerical repair must also be in the executable.
+            with tempfile.TemporaryDirectory(prefix='level-scaling-', dir=cwd) as check:
+                check = Path(check)
+                fixture = Path(level_scaling_fixture).resolve()
+                shutil.copytree(fixture / 'seed', check / 'seed')
+                shutil.copyfile(fixture / 'scenario.json', check / 'scenario.json')
+                env = clean_env(PS_SEED_DIR=str(check / 'seed'), PS_DATA_DIR=str(check / 'data'))
+                outcome = json.loads(subprocess.check_output(
+                    [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
+                    env=env, text=True, timeout=10))
+                assert abs(outcome['metrics']['damage'] - 25.35) < 1e-6
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             _, verification_raw = get(base, '/api/verification')
@@ -359,5 +372,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('binary')
     parser.add_argument('--parry-fixture')
+    parser.add_argument('--level-scaling-fixture')
     args = parser.parse_args()
-    verify(args.binary, parry_fixture=args.parry_fixture)
+    verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture)

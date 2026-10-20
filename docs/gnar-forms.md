@@ -62,6 +62,8 @@ The named `GnarPassive` calculations supply Mega's base-stat additions:
 100 + 43 × g health, 6 + 2.5 × g AD, 3.5 + 3 × g armor and 3.5 + 3.5 × g MR.
 `mScaleByStatProgressionMultiplier` distinguishes these from linear range
 scaling; the named health endpoints use the same stat progression.
+The [general formula parser](level-scaling.md) now honors this flag for tooltip
+expressions too; the fixed-form profile already used the correct curve.
 
 The alternate GnarBig root instead retains AD growth 5.5 and rounded base
 armor/MR 36/33. Applying the named passive to Mini gives effective AD growth

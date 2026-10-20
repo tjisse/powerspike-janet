@@ -1,4 +1,4 @@
-# Next improvements after v0.18.0
+# Next improvements after v0.19.0
 
 The order below prioritizes trustworthy build and fight comparisons, then the
 remaining work needed for a small player beta. Players continue to see a clear
@@ -34,10 +34,10 @@ diagnostics remain in the developer tools.
    passive/ability effects still need reviewed handlers. Extend them only when
    the selected state drives damage, range, tooltips and both optimizer
    perspectives consistently; remove an omission only after its replacement
-   is implemented and checked. Before expanding passive support, audit the
-   generic expression parser's handling of stat-progression interpolation
-   flags. Gnar's fixed-form profile handles its reviewed nonlinear base-stat
-   additions explicitly; that does not establish general formula support.
+   is implemented and checked. The [general interpolation audit](level-scaling.md)
+   now corrects named and hashed stat-progression flags, including retained
+   cached formulas. Gnar's fixed-form stats were already correct. The remaining
+   passive triggers and automatic transitions still require their own evidence.
 3. **Broader combat regression evidence.** Expand reviewed comparisons across
    independent games and common build decisions: armor/penetration, critical
    hits, current-health on-hits, shields and changing health. Keep exact patch

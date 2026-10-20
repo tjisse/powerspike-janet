@@ -51,6 +51,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
+	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/empowered-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
@@ -85,7 +86,8 @@ format-check: build/formatter-ready
 
 test-runtime: build
 	JANET_PATH=build/web-modules PS_PARRY_FIXTURE=$(CURDIR)/build/parry-runtime-fixture $(JANET) test/parry.janet
-	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture
+	JANET_PATH=build/web-modules PS_LEVEL_SCALING_FIXTURE=$(CURDIR)/build/level-scaling-runtime-fixture $(JANET) test/level-scaling.janet
+	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture
 
 test-package:
 	$(PYTHON) test/package.py $(RPM)

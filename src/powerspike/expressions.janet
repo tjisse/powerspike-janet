@@ -1,4 +1,8 @@
 (import ./data-util :as util)
+(import ./stats :as stats)
+(import ./validation :as v)
+
+(def parser-version "6")
 
 # ASTs contain numbers and data references only; no Janet source is evaluated.
 (def stat-ids {0 :ap 1 :armor 2 :ad 4 :attack-speed 6 :mr 7 :move-speed 8 :crit-chance
@@ -37,7 +41,24 @@
     {:op :stat :stat (stat-ids id) :formula formula}
     (unresolved (string "Unknown stat/formula mapping " id "/" formula " on " patch))))
 
-(defn compile-part [part spell &opt depth trail]
+# Missing flags mean linear interpolation. A present flag must be boolean;
+# conflicting aliases cannot safely select a curve.
+(defn interpolation [part &opt legacy]
+  (def named "mScaleByStatProgressionMultiplier")
+  (def hashed "{7fe8e3b3}")
+  (def flags (seq [key :in [named hashed] :when (has-key? part key)] (part key)))
+  (def start (get part "mStartValue" 0))
+  (def end (get part "mEndValue" 0))
+  (cond
+    legacy (if (get part hashed) (unresolved "Nonlinear character-level interpolation")
+             {:op :level-interpolation :start start :end end})
+    (not (and (util/finite? start) (util/finite? end))) (unresolved "Invalid character-level interpolation endpoints")
+    (or (some |(not (boolean? $)) flags)
+        (and (= 2 (length flags)) (not= (flags 0) (flags 1))))
+    (unresolved "Invalid or conflicting character-level interpolation flags")
+    {:op :level-interpolation :start start :end end :stat-progression (get flags 0 false)}))
+
+(defn compile-part [part spell &opt depth trail legacy]
   (def level (or depth 0))
   (def visited (or trail []))
   (cond
@@ -46,7 +67,7 @@
     (not (dictionary? part)) (unresolved "Missing calculation part")
     (do
       (def type (get part "__type" ""))
-      (defn child [node] (compile-part node spell (inc level) visited))
+      (defn child [node] (compile-part node spell (inc level) visited legacy))
       (defn named [name] (ranked (lookup (named-values spell) name) 0 name))
       (case type
         "NumberCalculationPart" (child (get part "mNumber" 0))
@@ -71,7 +92,7 @@
           (if (some |(= $ name) visited) (unresolved "Recursive calculation reference")
             {:op :with-rank :rank (get part "mOverrideSpellLevel")
              :children [{:op :multiply :children [(compile-part (lookup (get spell "mSpellCalculations" {}) name)
-                                                                spell (inc level) [;visited name])
+                                                                spell (inc level) [;visited name] legacy)
                                                   (child (get part "mMultiplier" 1))]}]}))
         "GameCalculationConditional"
         (let [requirement (get part "mConditionalCalculationRequirements")
@@ -79,8 +100,8 @@
           (if (and (= "HasBuffCastRequirement" (get requirement "__type"))
                    (not (some |(some (fn [name] (= $ name)) visited) [yes no])))
             {:op :conditional :buff (get requirement "mBuffName") :invert (get requirement "mInvertResult" false)
-             :children [(compile-part (lookup (get spell "mSpellCalculations" {}) yes) spell (inc level) [;visited yes])
-                        (compile-part (lookup (get spell "mSpellCalculations" {}) no) spell (inc level) [;visited no])]}
+             :children [(compile-part (lookup (get spell "mSpellCalculations" {}) yes) spell (inc level) [;visited yes] legacy)
+                        (compile-part (lookup (get spell "mSpellCalculations" {}) no) spell (inc level) [;visited no] legacy)]}
             (unresolved "Conditional calculation requires an explicit supported branch predicate")))
         "ByCharLevelBreakpointsCalculationPart"
         (let [points (get part "mBreakpoints" [])]
@@ -97,8 +118,7 @@
                  (set scale (get point "mBonusPerLevelAtAndAfter" (get point "{57fdc438}" 0)))))
              (+ result (* (max 0 (- level previous)) scale)))})
         "ByCharLevelInterpolationCalculationPart"
-        (if (get part "{7fe8e3b3}") (unresolved "Nonlinear character-level interpolation")
-          {:op :level-interpolation :start (get part "mStartValue" 0) :end (get part "mEndValue" 0)})
+        (interpolation part legacy)
         "ByCharLevelFormulaCalculationPart" {:op :level-values :values (get part "mValues" [])}
         "BuffCounterByCoefficientCalculationPart"
         {:op :multiply :children [{:op :buff-count :name (get part "mBuffName")} (child (get part "mCoefficient" 0))]}
@@ -110,7 +130,7 @@
           (unresolved "Unmodeled ability-resource kind"))
         (unresolved (string "Unsupported calculation: " type))))))
 
-(defn variable [name spell &opt dd]
+(defn variable [name spell &opt dd legacy-mode]
   (def parts (string/split "*" (string/trim name)))
   (def key (string/trim (parts 0)))
   (def calculations (get spell "mSpellCalculations" {}))
@@ -118,7 +138,7 @@
   (def values (lookup (named-values spell) key))
   (def legacy (peg/match ~(* (+ "e" "Effect") '(some (range "09")) (? "Amount") -1) key))
   (def expression
-    (cond calculation (compile-part calculation spell 0 [key])
+    (cond calculation (compile-part calculation spell 0 [key] legacy-mode)
       values (ranked values 0 key)
       legacy (let [index (scan-number (legacy 0))]
                (if (string/has-prefix? "e" key)
@@ -158,7 +178,10 @@
       :conditional (do (assert (dictionary? (context :buffs)) "Conditional buff state unavailable")
                      (def active (> (get (context :buffs) (expression :buff) 0) 0))
                      (next ((expression :children) (if (not= active (expression :invert)) 0 1))))
-      :level-interpolation (+ (expression :start) (* (/ (dec (context :level)) 17) (- (expression :end) (expression :start))))
+      :level-interpolation
+      (do (v/integer-between (context :level) 1 18 "interpolation level")
+        (def factor (if (expression :stat-progression) (stats/growth-factor (context :level)) (dec (context :level))))
+        (+ (expression :start) (* (/ factor 17) (- (expression :end) (expression :start)))))
       :level-values (do (assert (< (context :level) (length (expression :values))) "Missing level value")
                       ((expression :values) (context :level)))
       :buff-count (do (assert (dictionary? (context :buffs)) "Buff state unavailable") (get (context :buffs) (expression :name) 0))
@@ -171,3 +194,41 @@
 (defn problems [expression]
   (if (= :unresolved (expression :op)) [(expression :reason)]
     (mapcat problems (get expression :children []))))
+
+
+(defn interpolation-flags? [value]
+  (cond
+    (dictionary? value)
+    (or (and (= "ByCharLevelInterpolationCalculationPart" (get value "__type"))
+             (or (has-key? value "mScaleByStatProgressionMultiplier") (has-key? value "{7fe8e3b3}")))
+        (some interpolation-flags? (values value)))
+    (indexed? value) (some interpolation-flags? value)
+    false))
+
+(defn refresh [record spell]
+  # Old packages retain their source calculations but not the discarded flag.
+  # Match complete legacy expressions to their current compilation in memory.
+  # Ambiguous matches stay unresolved; source and immutable bytes are untouched.
+  (if (or (= parser-version (get record :expression-parser))
+          (not (interpolation-flags? (get spell "mSpellCalculations" {})))) record
+    (do
+      (def replacements @{})
+      (def names [;(keys (get spell "mSpellCalculations" {}))
+                  ;(map |($ :name) (get record :variables (get record :effect-variables [])))])
+      (each name names
+        (when (and (string? name) (lookup (get spell "mSpellCalculations" {}) (first (string/split "*" name))))
+          (def before (util/canonical (variable name spell nil true)))
+          (def after (variable name spell))
+          (def previous (get replacements before))
+          (put replacements before
+               (if (and previous (not= (util/canonical previous) (util/canonical after)))
+                 (unresolved "Ambiguous retained character-level calculation; refresh patch data.") after))))
+      (defn visit [value]
+        (cond
+          (and (dictionary? value) (value :op) (get replacements (util/canonical value)))
+          (get replacements (util/canonical value))
+          (dictionary? value) (tabseq [[key child] :pairs value] key
+                                (if (some |(= key $) [:record :source]) child (visit child)))
+          (indexed? value) (map visit value)
+          value))
+      (merge (visit record) {:expression-parser parser-version}))))

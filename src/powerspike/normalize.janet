@@ -4,7 +4,7 @@
 (import ./data-util :as util)
 (import ./attacks :as attacks)
 
-(def parser-version "5")
+(def parser-version expr/parser-version)
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
 (defn patch-order [patch]
   (def parts (string/split "." (string/replace "lolpatch_" "" patch)))
@@ -173,9 +173,10 @@
   # Reinterpret retained source records with the current combat model. This also
   # updates cached packages without changing their immutable snapshot bytes.
   (def abilities (map (fn [ability]
-                        (merge ability {:effects (map |(tooltip/attack-semantics (get ability :tooltip "")
+                        (def current (expr/refresh ability (get ability :record {})))
+                        (merge current {:effects (map |(tooltip/attack-semantics (get ability :tooltip "")
                                                                                  (get ability :record {}) $)
-                                                      (get ability :effects []))}))
+                                                      (get current :effects []))}))
                       (get kit :abilities [])))
   (def penetration (merge @{} (get kit :rank-penetration {})))
   (each rule (applicable-rules id patch)
@@ -240,11 +241,28 @@
 
 (defn localized [fonts key fallback]
   (or (when (string? key) (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key))))) fallback))
+(defn item-spell [raw patch]
+  {"mDataValues" (get raw "mDataValues" []) "mSpellCalculations" (get raw "mItemCalculations" {}) "__powerspike_patch" patch})
+(defn rune-spell [raw patch]
+  (def script (get-in raw ["mScript" "mSpellScriptData"] {}))
+  {"__powerspike_patch" (or patch "unknown")
+   "mDataValues" (seq [[name value] :pairs (get script "mEffectAmount" {})] {"mName" name "mValue" value})
+   "mSpellCalculations" (get script "mCalculations" {})})
+(defn semantic-item [record]
+  (expr/refresh record (item-spell (get record :record {}) (record :patch))))
+(defn semantic-runes [styles patch]
+  (map (fn [style]
+         (merge style {"slots" (map (fn [slot]
+                                      (merge slot {"runes" (map (fn [rune]
+                                                                  (merge rune {:parsed (expr/refresh (get rune :parsed {})
+                                                                                                     (rune-spell (get rune :record {}) patch))}))
+                                                                (slot "runes"))})) (style "slots"))})) styles))
+
 (defn item-effects [record objects fonts]
   (def raw (get objects (string "Items/" (record :id)) {}))
   (def key (get-in raw ["mItemDataClient" "mTooltipData" "mLocKeys" "keyTooltip"]))
   (def text (localized fonts key (record :tooltip)))
-  (def spell {"mDataValues" (get raw "mDataValues" []) "mSpellCalculations" (get raw "mItemCalculations" {}) "__powerspike_patch" (record :patch)})
+  (def spell (item-spell raw (record :patch)))
   (def parsed (tooltip/parse text spell))
   (def limits (tabseq [key :in (get raw "mItemGroups" [])
                        :let [limit (get-in objects [key "mMaxGroupOwnable"])] :when (number? limit)] key limit))
@@ -253,7 +271,7 @@
   (when (= "3089" (record :id))
     (def amp (expr/lookup (expr/named-values spell) "APAmp"))
     (when amp (put stats :ap-multiplier (+ 1 (amp 1)))))
-  (merge record {:effects (parsed :effects) :effect-variables (parsed :variables) :record raw
+  (merge record {:effects (parsed :effects) :effect-variables (parsed :variables) :expression-parser expr/parser-version :record raw
                  :tooltip text :group-limits limits :groups (keys limits)
                  :stackable (not (some |(= 1 $) (values limits))) :stats stats
                  :limitations [;(record :limitations) ;(parsed :unresolved)]}))
@@ -263,9 +281,6 @@
          (merge style {"slots" (map (fn [slot]
                                       (merge slot {"runes" (map (fn [rune]
                                                                   (def raw (find |(and (dictionary? $) (= (rune "id") (get $ "mPerkId"))) (values objects)))
-                                                                  (def script (get-in raw ["mScript" "mSpellScriptData"] {}))
-                                                                  (def spell {"__powerspike_patch" (or patch "unknown") "mDataValues" (seq [[name value] :pairs (get script "mEffectAmount" {})]
-                                                                                                                                        {"mName" name "mValue" value})
-                                                                              "mSpellCalculations" (get script "mCalculations" {})})
+                                                                  (def spell (rune-spell raw patch))
                                                                   (def text (localized fonts (get raw "mLongDescLocalizationKey") (get rune "longDesc" "")))
                                                                   (merge rune {:parsed (tooltip/parse text spell) :record raw :available true :checked false})) (slot "runes"))})) (style "slots"))})) styles))

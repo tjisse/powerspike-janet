@@ -32,8 +32,11 @@
                   1 (child (parts 0))
                   (string "(" (string/join (map child parts) " × ") ")")))
     :with-rank (formula ((expression :children) 0) (merge context (if (number? (expression :rank)) {:rank (expression :rank)} {})) (inc nesting))
-    :level-interpolation (string (number (expression :start)) " + (level " (context :level) " − 1) / 17 × ("
-                                 (number (expression :end)) " − " (number (expression :start)) ")")
+    :level-interpolation (if (expression :stat-progression)
+                           (string value " (level " (context :level) "; scales with level like champion stats, "
+                                   (number (expression :start)) " at level 1 to " (number (expression :end)) " at level 18)")
+                           (string (number (expression :start)) " + (level " (context :level) " − 1) / 17 × ("
+                                   (number (expression :end)) " − " (number (expression :start)) ")"))
     :level-values (string value " (level " (context :level) ")")
     :buff-count (string value " stacks of " (expression :name))
     :conditional (do

@@ -1,6 +1,7 @@
 (import ./data-util :as util)
 (import ./https :as https)
 (import ./normalize :as normalize)
+(import ./expressions :as expr)
 (import ./tooltip :as tooltip)
 (import ./objectives :as objectives)
 (import ./runes :as rune-data)
@@ -39,6 +40,9 @@
         (def data (util/read-data (string dir "/package.jdn")))
         (assert (and (= 1 (data :schema)) (= version (data :patch))) "Incompatible data package.")
         (def champions (map |(normalize/semantic-kit ($ :id) version $) (data :champions)))
+        (def items (map normalize/semantic-item (data :items)))
+        (def runes (normalize/semantic-runes (get data :runes []) version))
+        (def summoners (map |(merge $ {:parsed (expr/refresh (get $ :parsed {}) (get $ :record {}))}) (get data :summoners [])))
         (def shard-source (string dir "/sources/rune-effects.json"))
         (def shard-data (when (and (not (has-key? data :shards)) (os/stat shard-source))
                           (def bytes (slurp shard-source))
@@ -47,7 +51,8 @@
                           (rune-data/shard-records (util/read-json bytes) version)))
         (def package (merge data {:snapshot id :directory dir :manifest manifest :champions champions
                                   :champion-map (tabseq [champion :in champions] (champion :id) champion)
-                                  :item-map (tabseq [item :in (data :items)] (item :id) item)}))
+                                  :items items :runes runes :summoners summoners
+                                  :item-map (tabseq [item :in items] (item :id) item)}))
         (when shard-data (put package :shards shard-data))
         (when (and (not (has-key? package :shards)) (rune-data/source-data version))
           (put package :rune-sources ((rune-data/source-data version) :sources)))

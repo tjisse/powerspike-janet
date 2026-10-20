@@ -45,8 +45,9 @@ diagnostics remain in the developer tools.
    supported affine costs paid from current health, including their existing
    reserve, and checks the retained Mundo/Zac formulas. Health-dependent ranges,
    costs paid from another pool, nonlinear/nonmonotone formulas and nonpositive
-   regeneration retain polling. Next, analyze changing health-dependent range
-   boundaries without treating them as constant. The
+   regeneration retain polling. The [retained range audit](item-survival-comparisons.md)
+   found 44 fixed spell ranges and no health-dependent ranges in the retained
+   kits; further range forecasting waits for a supported source case. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only
@@ -83,6 +84,11 @@ diagnostics remain in the developer tools.
    and the existing Rift HUD. The duel timeline now exposes parry activation,
    blocked effects and Spellblade consumption, with all crowded events available
    through the selector.
+   [Item survival comparisons](item-survival-comparisons.md) now expose health
+   remaining, defeat time and survived-trial counts beside damage and gold,
+   including equal-gold offense/survival tradeoffs, mobile summaries and the
+   comparison panel in duel results. Next, preserve pinned comparisons when
+   users save or share a build comparison.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before

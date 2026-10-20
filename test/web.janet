@@ -450,4 +450,46 @@
         (assert (not (string/find "%" text)))
         (assert (not (string/find "NaN" text)))))
 
+(test "equal-gold item comparisons expose damage versus surviving the window"
+      (fn []
+        (def input {"mode" "duel" "champion" "Annie" "opponent" "Annie" "selected" "custom"
+                    "level" 1 "opponentlevel" 1 "duration" 1 "distance" 0 "healthfraction" 0.1
+                    "attacks" false "opponentattacks" false "priority" "q" "opponentpriority" "q"
+                    "movement" "hold" "opponentmovement" "hold"})
+        (def original (model/compare (model/parse-state (merge input {"slot1" "1052"}))))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def result (model/compare (model/parse-state (merge input {"slot1" "1028" "referencejson" pinned}))))
+        (def current (result :selected))
+        (def reference (result :reference))
+        (assert (= (current :cost) (reference :cost)))
+        (assert (< (get-in current [:combat :damage]) (get-in reference [:combat :damage])))
+        (assert (= 0 (get-in reference [:combat :metrics :health])))
+        (assert (> (get-in current [:combat :metrics :health]) 0))
+        (assert (= 1 (get-in reference [:combat :metrics :death-rate])))
+        (assert (= 0 (get-in current [:combat :metrics :death-rate])))
+        (def text (ui/render (ui/results result)))
+        (each expected ["HP left" "Survival" "Survived" "Defeated" "at 0.25 s" "Now survives"
+                        "Current items survive the window; pinned items are defeated." "end of the configured window"]
+          (assert (string/find expected text) expected))))
+
+(test "comparison survival uses aggregate trials rather than the displayed first trial"
+      (fn []
+        (def result (model/compare (model/parse-state {"selected" "custom"})))
+        (def row (result :selected))
+        (defn projected [health rate]
+          (merge row {:combat (merge (row :combat) {:samples 4 :metrics {:health health :death-rate rate}
+                                                    :actors [(merge (get-in row [:combat :actors 0]) {:health 0 :dead-at 0.25})]})}))
+        (def current (projected 74 0.25))
+        (def reference (projected 20 0.75))
+        (def text (ui/render (ui/item-comparison (merge result {:selected current :reference reference}))))
+        (each expected ["Mean HP left" "3 / 4 trials" "1 / 4 trials" "+2 trials" "+54"
+                        "Current items survive 2 more of 4 trials." "averages across 4 seeded trials"]
+          (assert (string/find (ui/render expected) text) expected))
+        (assert (string/find ">74</td>" text))
+        (assert (not (string/find "at 0.25 s" text)))
+        (def tiny (ui/render (ui/item-comparison (merge result {:selected (projected 0.4 0.25) :reference (projected 0.1 0.25)}))))
+        (assert (string/find (ui/render "<1") tiny))
+        (assert (string/find (ui/render "+<1") tiny))
+        (assert (not (string/find "comparison-outcome" tiny)))))
+
 (print passed " frontend tests passed")

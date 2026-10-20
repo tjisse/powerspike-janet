@@ -513,6 +513,42 @@
 (defn- signed-text [value]
   (string (cond (> value 0) "+" (< value 0) "−" "") (number-text (math/abs value))))
 
+(defn- comparison-health [value &opt signed]
+  (if (not (number? value)) "—"
+    (if (< 0 (math/abs value) 1)
+      (string (if signed (if (> value 0) "+" "−") "") "<1")
+      (if signed (signed-text value) (number-text value)))))
+
+(defn- survivors [row]
+  (def rate (get-in row [:combat :metrics :death-rate]))
+  (when (number? rate) (math/floor (+ 0.5 (* (- 1 rate) (get-in row [:combat :samples] 1))))))
+
+(defn- comparison-survival [row]
+  (def count (survivors row))
+  (def samples (get-in row [:combat :samples] 1))
+  [:td {:class (string "comparison-survival" (cond (nil? count) "" (= 0 count) " defeated" (= samples count) " survived" ""))}
+   (cond (nil? count) "—" (> samples 1) (string count " / " samples " trials") (= 1 count) "Survived" "Defeated")
+   (when (and (= samples 1) (= count 0) (number? (get-in row [:combat :metrics :mean-death-time])))
+     [:small (string "at " (number-text (get-in row [:combat :metrics :mean-death-time]) true) " s")])])
+
+(defn- survival-difference [row reference]
+  (def current (survivors row))
+  (def previous (survivors reference))
+  (cond (or (nil? current) (nil? previous)) "—"
+    (= (get-in row [:combat :samples] 1) 1)
+    (cond (= current previous) "Same" (> current previous) "Now survives" "Now defeated")
+    (string (signed-text (- current previous)) (if (= 1 (math/abs (- current previous))) " trial" " trials"))))
+
+(defn- comparison-outcome [row reference]
+  (def current (survivors row))
+  (def previous (survivors reference))
+  (when (and (number? current) (number? previous) (not= current previous))
+    (if (> (get-in row [:combat :samples] 1) 1)
+      (string "Current items survive " (math/abs (- current previous)) (if (> current previous) " more" " fewer")
+              " of " (get-in row [:combat :samples]) " trials.")
+      (if (> current previous) "Current items survive the window; pinned items are defeated."
+        "Pinned items survive the window; current items are defeated."))))
+
 (defn- comparison-row [row caption]
   [:tr
    [:th {:scope "row"} [:span caption]
@@ -520,6 +556,8 @@
      (if (empty? (row :items)) "Empty inventory" (map |(icon "item" ($ :icon) ($ :name)) (row :items)))]]
    [:td (number-text (get-in row [:combat :damage]))]
    [:td (number-text (get-in row [:combat :dps]))]
+   [:td {:class "comparison-health"} (comparison-health (get-in row [:combat :metrics :health]))]
+   (comparison-survival row)
    [:td (number-text (row :cost))]])
 
 (defn item-comparison [result]
@@ -540,10 +578,13 @@
    (cond (result :reference-error) [:p {:class "warning" :role "status"} (result :reference-error)]
      reference
      [[:p {:class "muted comparison-context"} "Both builds use the current champion, level, opponent, runes, skills and fight settings, with the same trial seeds. Only items change."]
-      [:div {:class "comparison-table-scroll"}
+      (when-let [outcome (comparison-outcome row reference)] [:p {:class "comparison-outcome"} outcome])
+      [:div {:class "comparison-table-scroll" :tabindex 0 :role "region" :aria-label "Item comparison results"}
        [:table {:class "item-comparison-table"}
         [:caption {:class "visually-hidden"} "Current items compared with pinned items under the same fight settings"]
-        [:thead [:tr [:th {:scope "col"} "Build"] [:th {:scope "col"} "Damage"] [:th {:scope "col"} "DPS"] [:th {:scope "col"} "Gold"]]]
+        [:thead [:tr [:th {:scope "col"} "Build"] [:th {:scope "col"} "Damage"] [:th {:scope "col"} "DPS"]
+                 [:th {:scope "col"} (if (> (get-in row [:combat :samples] 1) 1) "Mean HP left" "HP left")]
+                 [:th {:scope "col"} "Survival"] [:th {:scope "col"} "Gold"]]]
         [:tbody
          (comparison-row reference "Pinned items")
          (comparison-row row "Current items")
@@ -552,8 +593,16 @@
            (when (> (get-in reference [:combat :damage]) 0)
              [:small (string/format "%+.1f%%" (* 100 (dec (/ (get-in row [:combat :damage]) (get-in reference [:combat :damage])))))])]
           [:td (signed-text (- (get-in row [:combat :dps]) (get-in reference [:combat :dps])))]
+          [:td {:class "comparison-health"}
+           (comparison-health (when (and (number? (get-in row [:combat :metrics :health])) (number? (get-in reference [:combat :metrics :health])))
+                                (- (get-in row [:combat :metrics :health]) (get-in reference [:combat :metrics :health]))) true)]
+          [:td {:class "comparison-survival"} (survival-difference row reference)]
           [:td (signed-text (- (row :cost) (reference :cost)))]]]]]
-      [:p {:class "muted comparison-context"} "Both results describe the configured fight. A higher damage total can cost more gold or trade away survivability."]
+      [:p {:class "muted comparison-scroll-hint"} "Scroll the table to compare all outcomes."]
+      [:p {:class "muted comparison-context"}
+       (if (> (get-in row [:combat :samples] 1) 1)
+         (string "Damage and health left are averages across " (get-in row [:combat :samples]) " seeded trials. Survival counts trials where your champion is alive at the end of the configured window.")
+         "Health left and survival describe your champion at the end of the configured window.")]
       (when (not (empty? (details/simulation-notes (reference :limitations))))
         [:details {:class "comparison-notes"} [:summary "Pinned build exclusions & inventory notes"]
          [:ul (map |[:li $] (details/simulation-notes (reference :limitations)))]])]
@@ -649,7 +698,10 @@
             (sorted (pairs (combat :damage-breakdown)) |(> ($0 1) ($1 1))))]])])
 
 (defn loadout [result] (if (= "duel" (get-in result [:state :mode])) (matchup/loadout result) (legacy-loadout result)))
-(defn results [result] (if (= "duel" (get-in result [:state :mode])) (matchup/results result) (legacy-results result)))
+(defn results [result]
+  (if (= "duel" (get-in result [:state :mode]))
+    [;(matchup/results result) (item-comparison result)]
+    (legacy-results result)))
 (defn fight-controls [result] (if (= "duel" (get-in result [:state :mode])) (matchup/fight-controls result) (legacy-fight-controls result)))
 
 (defn error-result [message]

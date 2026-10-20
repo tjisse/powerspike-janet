@@ -296,6 +296,87 @@ def verify_runes(browser, base):
     assert not errors, errors
     page.close()
 
+def verify_survival_comparison(browser, base):
+    page = browser.new_page(viewport={'width':1200, 'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    query = {'mode':'duel', 'champion':'Annie', 'opponent':'Annie', 'selected':'custom',
+             'snapshotlocked':'true', 'level':1, 'opponentlevel':1, 'slot1':'1052',
+             'duration':1, 'distance':0, 'healthfraction':.1,
+             'attacks':'false', 'opponentattacks':'false', 'priority':'q', 'opponentpriority':'q',
+             'movement':'hold', 'opponentmovement':'hold'}
+    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    page.get_by_role('button', name='Pin current items', exact=True).click()
+    table = page.locator('.item-comparison-table')
+    expect(table.locator('tbody tr')).to_have_count(3)
+    page.locator('#player-card .item-slot').first.click()
+    page.locator('#item-picker [data-item-id="1028"]').click()
+    previous = page.locator('#results').get_attribute('data-run-id')
+    page.locator('.matchup-run').click()
+    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
+    pinned, current, delta = [table.locator('tbody tr').nth(index) for index in range(3)]
+    expect(pinned.locator('.comparison-health')).to_have_text('0')
+    expect(pinned.locator('.comparison-survival')).to_contain_text('Defeated')
+    expect(pinned.locator('.comparison-survival')).to_contain_text('at 0.25 s')
+    expect(current.locator('.comparison-survival')).to_have_text('Survived')
+    assert float(current.locator('.comparison-health').inner_text().replace(',','')) > 0
+    assert float(delta.locator('td').first.inner_text().splitlines()[0].replace('−','-')) < 0
+    expect(delta.locator('.comparison-survival')).to_have_text('Now survives')
+    expect(delta.locator('td').last).to_have_text('0')
+    summary = page.locator('.comparison-outcome')
+    expect(summary).to_have_text('Current items survive the window; pinned items are defeated.')
+    page.locator('#item-comparison').screenshot(path='build/survival-comparison-desktop.png')
+    for width in (736,390,320):
+        page.set_viewport_size({'width':width, 'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+        summary.scroll_into_view_if_needed()
+        expect(summary).to_be_visible()
+    scroller = page.get_by_role('region', name='Item comparison results', exact=True)
+    scroller.focus()
+    assert scroller.evaluate('node=>document.activeElement === node')
+    # Exercise native keyboard scrolling, then inspect the rightmost outcomes.
+    scroller.evaluate('node=>node.scrollLeft = 0')
+    page.keyboard.press('ArrowRight')
+    page.wait_for_function('document.querySelector(".comparison-table-scroll").scrollLeft > 0')
+    scroller.evaluate('node=>node.scrollLeft = node.scrollWidth')
+    assert scroller.evaluate('node=>node.scrollLeft > 0')
+    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
+    page.locator('#item-comparison').screenshot(path='build/survival-comparison-mobile.png')
+    page.set_viewport_size({'width':1200, 'height':1000})
+    # Reversing the purchase also reverses the explicit survival tradeoff.
+    page.get_by_role('button', name='Replace pinned items', exact=True).click()
+    expect(delta.locator('.comparison-survival')).to_have_text('Same')
+    page.locator('#player-card .item-slot').first.click()
+    page.locator('#item-picker [data-item-id="1052"]').click()
+    previous = page.locator('#results').get_attribute('data-run-id')
+    page.locator('.matchup-run').click()
+    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
+    expect(summary).to_have_text('Pinned items survive the window; current items are defeated.')
+    expect(delta.locator('.comparison-survival')).to_have_text('Now defeated')
+    # Seed 6 has one enemy Q hit in four trials, on trial zero. The AP build
+    # therefore dies in the displayed trace but survives three aggregate trials.
+    query.update({'samples':4, 'seed':6, 'opponenthitchance':.5})
+    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    page.get_by_role('button', name='Pin current items', exact=True).click()
+    expect(table.locator('tbody tr')).to_have_count(3)
+    page.locator('#player-card .item-slot').first.click()
+    page.locator('#item-picker [data-item-id="1028"]').click()
+    previous = page.locator('#results').get_attribute('data-run-id')
+    page.locator('.matchup-run').click()
+    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
+    expect(table.locator('thead')).to_contain_text('Mean HP left')
+    expect(pinned.locator('.comparison-survival')).to_have_text('3 / 4 trials')
+    expect(current.locator('.comparison-survival')).to_have_text('4 / 4 trials')
+    expect(delta.locator('.comparison-survival')).to_have_text('+1 trial')
+    expect(summary).to_have_text('Current items survive 1 more of 4 trials.')
+    assert float(pinned.locator('.comparison-health').inner_text().replace(',','')) > 0
+    assert pinned.locator('.comparison-survival small').count() == 0
+    assert not errors, errors
+    page.close()
+    print('Browser: equal-gold offense/survival tradeoff, aggregate trials, defeat timing, health, responsive summary and accessible table scrolling passed.')
+
 def verify_ability_readiness(browser, base):
     page = browser.new_page(viewport={'width':1200,'height':1000})
     page.goto(base+'/?mode=duel&champion=Annie&opponent=Annie&selected=custom&snapshotlocked=true'
@@ -432,6 +513,7 @@ def verify(base):
         verify_health_activation(browser, base)
         verify_movement_readiness(browser, base)
         verify_item_comparison(browser, base)
+        verify_survival_comparison(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
         verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')

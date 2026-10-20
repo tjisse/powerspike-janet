@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None, resource_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -142,11 +142,11 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                     [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
                     env=env, text=True, timeout=10))
                 assert abs(outcome['metrics']['damage'] - 25.35) < 1e-6
-        for label, fixture_path in (('control', control_fixture), ('reset', reset_fixture)):
+        for label, fixture_path in (('control', control_fixture), ('reset', reset_fixture), ('resource', resource_fixture)):
             if not fixture_path:
                 continue
-            # Synthetic ability carriers test the scheduler in a copied runtime;
-            # their timings are not measurements of the named champions.
+            # Retained fixtures test the scheduler in a copied runtime.
+            # Synthetic carriers explicitly label any invented mechanics.
             with tempfile.TemporaryDirectory(prefix=label+'-', dir=cwd) as check:
                 check = Path(check)
                 fixture = Path(fixture_path).resolve()
@@ -167,7 +167,7 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                         assert len(casts) == 2
                         assert abs(casts[1]['at'] - (.013 + .437)) < 1e-6
                         assert outcome['actors'][int(reverse)]['damage-dealt'] == 20
-                    else:
+                    elif label == 'reset':
                         starts = [event for event in outcome['trace'] if event['kind'] == 'attack']
                         hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'attack']
                         assert len(starts) == len(hits) == 2
@@ -177,6 +177,17 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                             assert abs(event['at'] - expected) < 1e-6
                         actor = outcome['actors'][int(reverse)]
                         assert abs(actor['damage-dealt'] - 2 * actor['stats']['ad']) < 1e-6
+                    else:
+                        actor = outcome['actors'][int(reverse)]
+                        ability = next(row for row in actor['abilities'] if row['id'] == 'AnnieQ')
+                        cost = ability['cost']['values'][actor['ranks']['q'] + ability['cost']['offset']]
+                        ready = (cost - .1 * actor['stats']['mp']) / (actor['stats']['mp-regen'] / 5)
+                        casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'AnnieQ']
+                        hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'AnnieQ']
+                        assert len(casts) == len(hits) == 1
+                        assert abs(casts[0]['at'] - ready) < 1e-6
+                        assert abs(hits[0]['at'] - ready - ability['cast-time']) < 1e-6
+                        assert actor['damage-dealt'] > 0 and actor['resource'] >= 0
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             _, verification_raw = get(base, '/api/verification')
@@ -438,6 +449,7 @@ if __name__ == '__main__':
     parser.add_argument('--level-scaling-fixture')
     parser.add_argument('--control-fixture')
     parser.add_argument('--reset-fixture')
+    parser.add_argument('--resource-fixture')
     args = parser.parse_args()
     verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture,
-           control_fixture=args.control_fixture, reset_fixture=args.reset_fixture)
+           control_fixture=args.control_fixture, reset_fixture=args.reset_fixture, resource_fixture=args.resource_fixture)

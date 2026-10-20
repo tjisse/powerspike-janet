@@ -315,10 +315,43 @@ def verify_ability_readiness(browser, base):
     page.close()
     print('Browser: exact hasted ability cooldowns for both duel participants passed.')
 
+def verify_resource_readiness(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    url = (base+'/?mode=duel&champion=Annie&opponent=Annie&selected=custom&snapshotlocked=true'
+           '&level=1&opponentlevel=1&attacks=false&opponentattacks=false&abilities=true&opponentabilities=true'
+           '&priority=q&opponentpriority=q&movement=hold&opponentmovement=hold&distance=0')
+    page.goto(url+'&duration=1', wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    initial = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+    deadlines = {}
+    for who in ('player', 'opponent'):
+        stats = dict(json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))['stats'])
+        cost = next(row['cost'] for row in initial if row['kind'] == 'cast' and row['actor'] == who and row['source'] == 'AnnieQ')
+        deadlines[who] = (cost - .1 * float(stats['Mana'])) / (float(stats['Mana regeneration / 5 s']) / 5)
+    page.goto(url+f'&resourcefraction=0.1&opponentresourcefraction=0.1&duration={max(deadlines.values())+.26}',
+              wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    trace = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+    for who, deadline in deadlines.items():
+        casts = [row for row in trace if row['kind'] == 'cast' and row['actor'] == who and row['source'] == 'AnnieQ']
+        hits = [row for row in trace if row['kind'] == 'damage' and row['actor'] == who and row['source'] == 'AnnieQ']
+        assert len(casts) == len(hits) == 1
+        assert abs(casts[0]['at'] - deadline) < 1e-6
+        assert abs(hits[0]['at'] - deadline - .25) < 1e-6
+        assert hits[0]['damage'] > 0
+    page.set_viewport_size({'width':320,'height':1000})
+    page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+    assert not errors, errors
+    page.close()
+    print('Browser: source-derived mana recovery, exact affordable casts/impacts, both participants and mobile layout passed.')
+
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         verify_ability_readiness(browser, base)
+        verify_resource_readiness(browser, base)
         verify_item_comparison(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')

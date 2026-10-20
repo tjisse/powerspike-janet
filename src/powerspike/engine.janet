@@ -101,6 +101,20 @@
                                    :missing-health (- ((target :stats) :hp) (target :health))})})
 (defn value [expression actor target rank]
   (if (number? expression) expression (expr/evaluate expression (context actor target rank))))
+(defn fixed-cost? [expression &opt depth]
+  (def nesting (or depth 0))
+  (cond
+    (> nesting 32) false
+    (number? expression) (util/finite? expression)
+    (not (dictionary? expression)) false
+    (some |(= $ (expression :op)) [:constant :rank :level-values :level-interpolation]) true
+    (some |(= $ (expression :op)) [:sum :multiply :with-rank])
+    (and (indexed? (expression :children))
+         (not (some |(not (fixed-cost? $ (inc nesting))) (expression :children))))
+    false))
+(defn regeneration [stats health?]
+  (if health? (* (/ (get stats :hp-regen 0) 5) (get stats :healing-multiplier 1))
+    (/ (get stats :mp-regen 0) 5)))
 (defn alive? [actor] (not (actor :dead-at)))
 (defn controlled? [actor controls at]
   (some |(> (get (actor :controls) $ 0) at) controls))
@@ -122,8 +136,16 @@
              (def ability (find |(= slot ($ :slot)) (get actor :abilities [])))
              (def rank (get (actor :ranks) slot 0))
              (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
-               (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])])))
+               (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])
+                                    (fixed-cost? (ability :cost))
+                                    (and (ability :recast) (fixed-cost? (get-in ability [:recast :cost] 0)))])))
            ordered) actors))
+  (def recovery-pools
+    (map (fn [ordered]
+           (def pools @{})
+           (each [ability rank after fixed recast-fixed] ordered
+             (when (or fixed recast-fixed) (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
+           pools) decision-abilities))
   (def queue @[])
   (def decision-at @[nil nil])
   (def trace @[])
@@ -151,11 +173,14 @@
   (defn resume [actor]
     (when (and (alive? actor) (alive? (actors (actor :target))))
       (request-decision (actor :index) (max at (actor :busy-until)))))
+  (defn recover [actor pool]
+    (when (and (get-in actor [:strategy :abilities] true) ((recovery-pools (actor :index)) pool)) (resume actor)))
   (defn reset-attack [actor]
     (def earlier (> (actor :attack-ready) at))
     (put actor :attack-ready at)
     (when (and earlier (get-in actor [:strategy :attacks] true)) (resume actor)))
   (defn refresh-stats [actor]
+    (def previous (actor :stats))
     (def totals (merge @{} (actor :original-stats)))
     (def active (filter |(and (> ($ :expires) at)
                               (or (not ($ :requires-buff)) (> (get (actor :buff-counts) ($ :requires-buff) 0) 0)))
@@ -190,7 +215,11 @@
       (each key [:armor :mr] (put totals key (+ (get totals key 0) change)))
       (each modifier active (when (resistance-stat? modifier) (apply-modifier modifier))))
     (put actor :stats totals)
-    (put actor :health (min (actor :health) (totals :hp))))
+    (put actor :health (min (actor :health) (totals :hp)))
+    (each [pool maximum health?] [[:health :hp true] [:resource :mp false]]
+      (when (or (not= (get previous maximum 0) (get totals maximum 0))
+                (not= (regeneration previous health?) (regeneration totals health?)))
+        (recover actor pool))))
   (defn participants []
     (map |{:id ($ :id) :health ($ :health) :resource ($ :resource) :position ($ :position)} actors))
   (defn record [kind fields]
@@ -201,8 +230,8 @@
     (def positions (map |($ :position) actors))
     (each actor actors
       (when (alive? actor)
-        (put actor :health (min ((actor :stats) :hp) (+ (actor :health) (* dt (/ (get (actor :stats) :hp-regen 0) 5) (get (actor :stats) :healing-multiplier 1)))))
-        (put actor :resource (min (get (actor :stats) :mp 0) (+ (actor :resource) (* dt (/ (get (actor :stats) :mp-regen 0) 5)))))
+        (put actor :health (min ((actor :stats) :hp) (+ (actor :health) (* dt (regeneration (actor :stats) true)))))
+        (put actor :resource (min (get (actor :stats) :mp 0) (+ (actor :resource) (* dt (regeneration (actor :stats) false)))))
         (def active (or (get-in actor [:strategy :attacks] false) (get-in actor [:strategy :abilities] false) (not= 0 (actor :velocity))))
         (def blocked (and active
                           (or (controlled? actor [:stun :charm :fear :airborne :suppression] at)
@@ -327,7 +356,8 @@
                        (do (def amount (min (- ((target :stats) :hp) (target :health))
                                             (max 0 (* (value (effect :amount) owner target rank) (get (target :stats) :healing-multiplier 1)))))
                          (put target :health (+ (target :health) amount))
-                         (put owner :healed (+ (owner :healed) amount)) (record :heal {:source source :amount amount :actor (owner :id)}))
+                         (put owner :healed (+ (owner :healed) amount)) (record :heal {:source source :amount amount :actor (owner :id)})
+                         (when (> amount 0) (recover target :health)))
                        :shield
                        (do (def amount (max 0 (value (effect :amount) owner target rank)))
                          (def expires (+ at (value (effect :duration) owner target rank)))
@@ -500,11 +530,12 @@
       (var rank 0)
       (var cost 0)
       (var cooldown 0)
+      (var recovery-deadline nil)
       (var next (+ at 0.05))
       (when (and (<= (actor :busy-until) at)
                  (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
-        (each [ability learned] (decision-abilities (actor :index))
+        (each [ability learned after fixed recast-fixed] (decision-abilities (actor :index))
           (unless selected
             (def recast (get (actor :recasts) (ability :id)))
             (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
@@ -535,9 +566,21 @@
                                               (not (some |($ :affects-structures) (ability :effects)))))
                             (when blocked (note (string (ability :id) ": Target is immune to this ability.")))
                             (def pool (if (= :health (get ability :cost-resource)) (actor :health) (actor :resource)))
-                            (when (and (not blocked) (or self-only (<= distance ability-range)) (>= pool (+ resource-cost (if (= :health (ability :cost-resource)) 1 0)))
+                            (def health? (= :health (ability :cost-resource)))
+                            (def required (+ resource-cost (if health? 1 0)))
+                            (when (and (not blocked) (or self-only (<= distance ability-range))
                                        (or (not charged) (> (charged :available) 0)))
-                              (set selected ability) (set rank learned) (set cost resource-cost) (set cooldown cd))))
+                              (if (>= pool required)
+                                (do (set selected ability) (set rank learned) (set cost resource-cost) (set cooldown cd))
+                                (when (if recasting recast-fixed fixed)
+                                  (def rate (regeneration (actor :stats) health?))
+                                  (when (and (util/finite? rate) (> rate 0) (<= required (get (actor :stats) (if health? :hp :mp) 0)))
+                                    # Round forecasts upward to nanoseconds so
+                                    # roundoff cannot move a nominal boundary
+                                    # just ahead of a same-time control/damage event.
+                                    (def deadline (/ (math/ceil (* 1e9 (+ at (max 1e-9 (/ (- required pool) rate))))) 1e9))
+                                    (when (util/finite? deadline)
+                                      (set recovery-deadline (min (or recovery-deadline deadline) deadline)))))))))
               (unless (first result) (note (string (ability :id) ": " (result 1))))))))
       (cond
         selected
@@ -618,6 +661,7 @@
             (wake (get (actor :ready) (ability :id) 0)))
           (wake (get-in actor [:charges (ability :id) :next-recharge]))
           (wake after)))
+      (when recovery-deadline (wake recovery-deadline))
       (request-decision (actor :index) next)))
   (record :start {})
   (each actor actors (request-decision (actor :index) 0))

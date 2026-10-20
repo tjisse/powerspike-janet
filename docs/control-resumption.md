@@ -68,8 +68,9 @@ access, in both participant orders. The browser checks the silence timestamp,
 expiry-to-cast arithmetic, both resulting hits, reversed roles and a 320 px
 layout. The build workflow includes these checks.
 
-Health/resource thresholds, range crossings and other changing conditions still
-poll between known deadlines. The subsequent [attack reset correction](attack-resets.md)
+Health activation thresholds, range crossings and other changing conditions
+still poll between known deadlines. The subsequent [resource readiness correction](resource-readiness.md)
+forecasts fixed-cost affordability under continuous recovery. The [attack reset correction](attack-resets.md)
 wakes an enabled attack when a reset shortens a future readiness deadline.
 Automatic form transitions and missing champion control handlers need separate
 work. Existing source and scenario schemas remain unchanged; the engine

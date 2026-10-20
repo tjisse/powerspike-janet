@@ -29,7 +29,10 @@ diagnostics remain in the developer tools.
    effects between polls. The [attack reset correction](attack-resets.md) also
    wakes enabled attacks when an applied reset shortens their future deadline,
    while preserving current action locks and in-flight projectiles.
-   Dynamic thresholds and movement/range crossings
+   The [resource readiness correction](resource-readiness.md) forecasts when
+   continuous regeneration makes a fixed-cost ability affordable, including
+   changes to regeneration and health-cost healing. Health activation
+   thresholds, state-dependent costs and movement/range crossings
    retain their existing polling policy. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.

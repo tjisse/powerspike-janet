@@ -49,8 +49,10 @@ in-game fights or new champion mechanics evidence.
 
 ## Scope and checks
 
-Condition thresholds, movement/range crossings and resource recovery thresholds
+Condition thresholds, movement/range crossings and state-dependent costs
 still use periodic checks between known deadlines. The subsequent
+[resource readiness correction](resource-readiness.md) adds forecasts for fixed
+costs under continuous recovery. The subsequent
 [control resumption correction](control-resumption.md) adds exact control-expiry
 and applied-cleanse wakes. The
 existing minimum cooldown/charge reuse of 50 ms and default post-action

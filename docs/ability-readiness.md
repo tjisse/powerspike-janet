@@ -49,8 +49,10 @@ in-game fights or new champion mechanics evidence.
 
 ## Scope and checks
 
-Condition thresholds, movement/range crossings, resource recovery thresholds
-and control expiry still use periodic checks between known deadlines. The
+Condition thresholds, movement/range crossings and resource recovery thresholds
+still use periodic checks between known deadlines. The subsequent
+[control resumption correction](control-resumption.md) adds exact control-expiry
+and applied-cleanse wakes. The
 existing minimum cooldown/charge reuse of 50 ms and default post-action
 check of 10 ms remain; a future readiness deadline can wake earlier, subject
 to the action lock. Haste and cooldown origin retain their existing

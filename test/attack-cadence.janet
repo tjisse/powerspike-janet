@@ -60,7 +60,7 @@
                                   :initial-events [{:at 0.5 :kind :effect :actor 1 :target 0 :source "fixture" :origin "stun"
                                                     :effect {:kind :control :control :stun :duration 0.2}}]}))
 (assert (= 2 (length (attacks controlled))))
-(assert (<= 0.7 (((attacks controlled) 1) :at) 0.750001))
+(close 0.7 (((attacks controlled) 1) :at))
 (each dying [0 1]
   (def killed (engine/simulate {:duration 0.9 :actors [(unit "attacker" 2) (merge dummy {:position 0})]
                                 :initial-events [{:at 0.5 :kind :effect :actor (- 1 dying) :target dying :source "fixture" :origin "fatal"

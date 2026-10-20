@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -142,6 +142,28 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                     [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
                     env=env, text=True, timeout=10))
                 assert abs(outcome['metrics']['damage'] - 25.35) < 1e-6
+        if control_fixture:
+            # Synthetic ability carriers test the scheduler in a copied runtime;
+            # their timings are not measurements of the named champions.
+            with tempfile.TemporaryDirectory(prefix='control-', dir=cwd) as check:
+                check = Path(check)
+                fixture = Path(control_fixture).resolve()
+                shutil.copytree(fixture / 'seed', check / 'seed')
+                document = json.loads((fixture / 'scenario.json').read_text())
+                env = clean_env(PS_SEED_DIR=str(check / 'seed'), PS_DATA_DIR=str(check / 'data'))
+                for reverse in (False, True):
+                    if reverse:
+                        a, b = document['scenario']['player'], document['scenario']['target']
+                        document['scenario']['player'] = {key: value for key, value in b.items() if key != 'kind'}
+                        document['scenario']['target'] = {**a, 'kind': 'champion'}
+                    path = check / 'scenario.json'
+                    path.write_text(json.dumps(document))
+                    outcome = json.loads(subprocess.check_output([str(binary), '--simulate', str(path)],
+                        cwd=check, env=env, text=True, timeout=10))
+                    casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-q']
+                    assert len(casts) == 2
+                    assert abs(casts[1]['at'] - (.013 + .437)) < 1e-6
+                    assert outcome['actors'][int(reverse)]['damage-dealt'] == 20
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             _, verification_raw = get(base, '/api/verification')
@@ -401,5 +423,7 @@ if __name__ == '__main__':
     parser.add_argument('binary')
     parser.add_argument('--parry-fixture')
     parser.add_argument('--level-scaling-fixture')
+    parser.add_argument('--control-fixture')
     args = parser.parse_args()
-    verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture)
+    verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture,
+           control_fixture=args.control_fixture)

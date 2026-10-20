@@ -47,9 +47,11 @@ no damage coefficient or champion stat was adjusted to fit the example.
 
 Condition and movement checks still poll periodically between known deadlines.
 The subsequent [ability readiness correction](ability-readiness.md) adds exact
-cooldown, recast, charge and fixed activation deadlines. Dynamic thresholds,
-control expiry and attack resets retain their existing policies. A known attack
-wake can also observe an eligible ability, which retains priority over the attack.
+cooldown, recast, charge and fixed activation deadlines. The
+[control resumption correction](control-resumption.md) also wakes at expiry
+and applied cleanse. Dynamic thresholds and attack resets retain their existing
+policies. A known attack wake can also observe an eligible ability, which retains
+priority over the attack.
 Ordinary attacks are not allowed through a same-timestamp stun or death.
 
 Attack period and windup still sample speed at attack start. A speed buff or

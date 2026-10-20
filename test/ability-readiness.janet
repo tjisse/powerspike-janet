@@ -106,7 +106,7 @@
                    [{:at 0.333 :kind :effect :actor 1 :target 0 :source "silence" :origin "silence"
                      :effect {:kind :control :control :silence :duration 0.2}}]))
 (assert (= 2 (length (casts silenced))))
-(assert (<= 0.533 (((casts silenced) 1) :at) 0.583001))
+(close 0.533 (((casts silenced) 1) :at))
 (each dying [0 1]
   (def killed (run (unit "caster" {:abilities [(merge spell {:cooldown 0.333})]}) 1
                    [{:at 0.333 :kind :effect :actor (- 1 dying) :target dying :source "fatal" :origin "fatal"

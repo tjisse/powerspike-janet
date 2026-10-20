@@ -24,7 +24,9 @@ diagnostics remain in the developer tools.
    readiness and removes cumulative polling drift. The
    [ability readiness correction](ability-readiness.md) extends this to cooldowns,
    recast/charge timing and fixed activation times, and prevents main cooldowns
-   from bypassing recast delays. Dynamic thresholds, movement and control expiry
+   from bypassing recast delays. The [control resumption correction](control-resumption.md)
+   now wakes ready actions at control expiry or applied cleanse, including short
+   effects between polls. Dynamic thresholds and movement/range crossings
    retain their existing polling policy. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.

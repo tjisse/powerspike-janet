@@ -26,7 +26,10 @@ diagnostics remain in the developer tools.
    recast/charge timing and fixed activation times, and prevents main cooldowns
    from bypassing recast delays. The [control resumption correction](control-resumption.md)
    now wakes ready actions at control expiry or applied cleanse, including short
-   effects between polls. Dynamic thresholds and movement/range crossings
+   effects between polls. The [attack reset correction](attack-resets.md) also
+   wakes enabled attacks when an applied reset shortens their future deadline,
+   while preserving current action locks and in-flight projectiles.
+   Dynamic thresholds and movement/range crossings
    retain their existing polling policy. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.

@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -142,12 +142,14 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                     [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
                     env=env, text=True, timeout=10))
                 assert abs(outcome['metrics']['damage'] - 25.35) < 1e-6
-        if control_fixture:
+        for label, fixture_path in (('control', control_fixture), ('reset', reset_fixture)):
+            if not fixture_path:
+                continue
             # Synthetic ability carriers test the scheduler in a copied runtime;
             # their timings are not measurements of the named champions.
-            with tempfile.TemporaryDirectory(prefix='control-', dir=cwd) as check:
+            with tempfile.TemporaryDirectory(prefix=label+'-', dir=cwd) as check:
                 check = Path(check)
-                fixture = Path(control_fixture).resolve()
+                fixture = Path(fixture_path).resolve()
                 shutil.copytree(fixture / 'seed', check / 'seed')
                 document = json.loads((fixture / 'scenario.json').read_text())
                 env = clean_env(PS_SEED_DIR=str(check / 'seed'), PS_DATA_DIR=str(check / 'data'))
@@ -160,10 +162,21 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                     path.write_text(json.dumps(document))
                     outcome = json.loads(subprocess.check_output([str(binary), '--simulate', str(path)],
                         cwd=check, env=env, text=True, timeout=10))
-                    casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-q']
-                    assert len(casts) == 2
-                    assert abs(casts[1]['at'] - (.013 + .437)) < 1e-6
-                    assert outcome['actors'][int(reverse)]['damage-dealt'] == 20
+                    if label == 'control':
+                        casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-q']
+                        assert len(casts) == 2
+                        assert abs(casts[1]['at'] - (.013 + .437)) < 1e-6
+                        assert outcome['actors'][int(reverse)]['damage-dealt'] == 20
+                    else:
+                        starts = [event for event in outcome['trace'] if event['kind'] == 'attack']
+                        hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'attack']
+                        assert len(starts) == len(hits) == 2
+                        for event, expected in zip(starts, (.01, .337)):
+                            assert abs(event['at'] - expected) < 1e-6
+                        for event, expected in zip(hits, (.51, .837)):
+                            assert abs(event['at'] - expected) < 1e-6
+                        actor = outcome['actors'][int(reverse)]
+                        assert abs(actor['damage-dealt'] - 2 * actor['stats']['ad']) < 1e-6
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
             _, verification_raw = get(base, '/api/verification')
@@ -415,7 +428,7 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                 raise AssertionError('Malformed override must not silently fall back to old evidence')
             assert b'Verification report unavailable' in get(base, '/verification')[1]
         assert set(cwd.iterdir()) == {binary, seed, cwd / 'data'}, 'Runtime wrote outside its data directory'
-    print('Relocated executable: runtime config, catalog/art/assets, Q/W, SSE, verification snapshot/reload and failure checks passed.')
+    print('Relocated executable: runtime config, catalog/art/assets, Q/W, control/reset timings, SSE, verification snapshot/reload and failure checks passed.')
 
 
 if __name__ == '__main__':
@@ -424,6 +437,7 @@ if __name__ == '__main__':
     parser.add_argument('--parry-fixture')
     parser.add_argument('--level-scaling-fixture')
     parser.add_argument('--control-fixture')
+    parser.add_argument('--reset-fixture')
     args = parser.parse_args()
     verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture,
-           control_fixture=args.control_fixture)
+           control_fixture=args.control_fixture, reset_fixture=args.reset_fixture)

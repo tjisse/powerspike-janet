@@ -56,6 +56,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/attack-cadence.janet
 	JANET_PATH=build/web-modules $(JANET) test/ability-readiness.janet
 	JANET_PATH=build/web-modules $(JANET) test/control-resumption.janet
+	JANET_PATH=build/web-modules $(JANET) test/attack-resets.janet
 	JANET_PATH=build/web-modules $(JANET) test/empowered-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
 	JANET_PATH=build/web-modules $(JANET) test/runes.janet
@@ -91,7 +92,8 @@ test-runtime: build
 	JANET_PATH=build/web-modules PS_PARRY_FIXTURE=$(CURDIR)/build/parry-runtime-fixture $(JANET) test/parry.janet
 	JANET_PATH=build/web-modules PS_LEVEL_SCALING_FIXTURE=$(CURDIR)/build/level-scaling-runtime-fixture $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules PS_CONTROL_FIXTURE=$(CURDIR)/build/control-runtime-fixture $(JANET) test/control-resumption.janet
-	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture
+	JANET_PATH=build/web-modules PS_RESET_FIXTURE=$(CURDIR)/build/reset-runtime-fixture $(JANET) test/attack-resets.janet
+	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture
 
 test-package:
 	$(PYTHON) test/package.py $(RPM)

@@ -69,10 +69,12 @@ expiry-to-cast arithmetic, both resulting hits, reversed roles and a 320 px
 layout. The build workflow includes these checks.
 
 Health/resource thresholds, range crossings and other changing conditions still
-poll between known deadlines. Automatic form transitions, missing champion
-control handlers and attack resets need separate work. Existing source and
-scenario schemas remain unchanged; the engine fingerprint changes, separating
-optimizer cache entries and retaining saved scenarios' model-change notice.
+poll between known deadlines. The subsequent [attack reset correction](attack-resets.md)
+wakes an enabled attack when a reset shortens a future readiness deadline.
+Automatic form transitions and missing champion control handlers need separate
+work. Existing source and scenario schemas remain unchanged; the engine
+fingerprint changes, separating optimizer cache entries and retaining saved
+scenarios' model-change notice.
 
 Formatting, 83 core regressions, retained source/catalog checks, all 170 Python
 tests (162 passed, eight optional skips), web/combat/optimizer checks and the

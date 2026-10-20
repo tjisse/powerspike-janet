@@ -49,8 +49,9 @@ Condition and movement checks still poll periodically between known deadlines.
 The subsequent [ability readiness correction](ability-readiness.md) adds exact
 cooldown, recast, charge and fixed activation deadlines. The
 [control resumption correction](control-resumption.md) also wakes at expiry
-and applied cleanse. Dynamic thresholds and attack resets retain their existing
-policies. A known attack wake can also observe an eligible ability, which retains
+and applied cleanse. [Attack resets](attack-resets.md) now wake when they shorten
+a future readiness deadline. Dynamic thresholds retain their polling policy.
+A known attack wake can also observe an eligible ability, which retains
 priority over the attack.
 Ordinary attacks are not allowed through a same-timestamp stun or death.
 

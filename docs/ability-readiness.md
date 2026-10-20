@@ -57,7 +57,9 @@ existing minimum cooldown/charge reuse of 50 ms and default post-action
 check of 10 ms remain; a future readiness deadline can wake earlier, subject
 to the action lock. Haste and cooldown origin retain their existing
 cast-time sampling rules. This does not establish missing champion timing,
-retroactive cooldown adjustment, automatic form changes or attack resets.
+retroactive cooldown adjustment or automatic form changes. The subsequent
+[attack reset correction](attack-resets.md) adds wakes when an applied reset
+shortens a future ordinary attack deadline.
 
 The engine fingerprint includes the changed source. Existing saved scenarios
 therefore show their model-change notice, and optimizer caches cannot reuse

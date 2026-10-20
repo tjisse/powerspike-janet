@@ -151,6 +151,10 @@
   (defn resume [actor]
     (when (and (alive? actor) (alive? (actors (actor :target))))
       (request-decision (actor :index) (max at (actor :busy-until)))))
+  (defn reset-attack [actor]
+    (def earlier (> (actor :attack-ready) at))
+    (put actor :attack-ready at)
+    (when (and earlier (get-in actor [:strategy :attacks] true)) (resume actor)))
   (defn refresh-stats [actor]
     (def totals (merge @{} (actor :original-stats)))
     (def active (filter |(and (> ($ :expires) at)
@@ -379,7 +383,7 @@
                          (put (target :stat-effects) :slow nil) (refresh-stats target)
                          (when removed (resume target))
                          (record :cleanse {:source source :target (target :id)}))
-                       :reset (put owner :attack-ready at)
+                       :reset (reset-attack owner)
                        (note (string source ": Unsupported effect kind " (effect :kind))))))
       (unless (first outcome) (note (string source ": " (outcome 1))))))
   (defn cast-lock [ability actor target rank]
@@ -416,7 +420,7 @@
                                                    (= (get-in $ [:effect :id]) (effect :id)))) (actor :modifiers)))
           (array/push (actor :modifiers) @{:effect effect :source (ability :id) :rank (event :rank)
                                            :remaining remaining :expires expires})
-          (when (effect :reset) (put actor :attack-ready at)))
+          (when (effect :reset) (reset-attack actor)))
         :cast
         (do
           (def impact (+ at (* travel (get effect :travel-multiplier 1))

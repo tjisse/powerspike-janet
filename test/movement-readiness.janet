@@ -103,9 +103,12 @@
   (assert (empty? (actions (run nil [(effect 0.337 dying {:kind :damage :damage-type :true :amount 10000})])))))
 (assert (empty? (actions (run nil nil 0.337))))
 (close 0.337 (first-at (run nil nil 0.33701)))
-# Dynamic ranges keep polling rather than freezing a stat-dependent forecast.
-(close 0.15 (first-at (run {:abilities [(merge spell {:range {:op :stat :stat :ad :formula 0}})]
-                            :attack-range 0 :stats (merge (dummy :stats) {:ad 120}) :strategy spell-strategy}) :cast))
+# Stat-dependent ranges forecast between events; continuously changing health
+# ranges keep polling instead of freezing their starting value.
+(close 0.137 (first-at (run {:abilities [(merge spell {:range {:op :stat :stat :ad :formula 0}})]
+                             :attack-range 0 :stats (merge (dummy :stats) {:ad 120}) :strategy spell-strategy}) :cast))
+(close 0.15 (first-at (run {:health 120 :abilities [(merge spell {:range {:op :stat :stat :health :formula 0}})]
+                            :attack-range 0 :strategy spell-strategy}) :cast))
 
 # Retained champion data: an unmodified Annie Q approaches from 700 to 625.
 # This is a software regression, not measured game movement or reaction time.

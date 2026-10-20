@@ -38,10 +38,12 @@ diagnostics remain in the developer tools.
    The [movement readiness correction](movement-readiness.md) now forecasts
    relative movement into ordinary and fixed ability range, stops at the chosen
    distance, and updates trajectories at speed/control/lock changes.
-   State-dependent costs and ranges retain their existing polling policy.
-   Next, audit their expression inputs for timing changes caused by regeneration
-   or applied stat changes, retaining polling where a boundary cannot be safely
-   forecast. The
+   The [changing readiness correction](changing-readiness.md) extends forecasts
+   to costs and ranges using stats or buffs, recalculates when their values
+   change, and evaluates recast costs consistently. Continuous health-dependent
+   costs and ranges retain polling. Next, analyze those moving boundaries using
+   the retained current-health cost formulas, preserving fallback where a
+   deadline cannot be forecast safely. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

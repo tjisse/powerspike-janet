@@ -23,9 +23,10 @@ participants use opposite steering directions when separating.
 Range forecasts cover the enabled ordinary attack and learned, modeled enemy
 abilities whose range expression depends only on constants, rank or level.
 They share the bounded fixed-expression classifier with resource forecasts.
-Self-only abilities need no range crossing. State-dependent ability ranges
-retain normal evaluation during decisions rather than freezing a changing
-range into an invalid forecast.
+Self-only abilities need no range crossing. The subsequent
+[changing readiness correction](changing-readiness.md) extends forecasts to
+stats and buff-based ranges and updates them when their values change.
+Continuously changing health-dependent ranges retain periodic evaluation.
 
 Forecasts round forward to a nanosecond grid. Actual distance comparisons stay
 strictly inclusive, without extra range tolerance. Deadlines request the same
@@ -83,7 +84,7 @@ distance and 320 px layout.
 
 This remains a point-based, one-dimensional strategy model. Champion radii,
 pathfinding, terrain, dashes, real player latency and new movement mechanics
-are outside this change. State-dependent ranges and costs still use periodic
+are outside this change. Continuously changing ranges and costs still use periodic
 checks between known deadlines. Ordinary attack period/windup sampling,
 cast-lock policy and distance-at-release projectile travel stay as declared.
 Source packages and scenario schema stay unchanged. The engine fingerprint

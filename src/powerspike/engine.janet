@@ -112,6 +112,21 @@
     (and (indexed? (expression :children))
          (not (some |(not (fixed-value? $ (inc nesting))) (expression :children))))
     false))
+(defn event-value? [expression &opt depth]
+  # These inputs can change only at applied stat/buff events. Never freeze
+  # health-derived expressions while continuous regeneration is running.
+  (def nesting (or depth 0))
+  (cond
+    (> nesting 32) false
+    (number? expression) (util/finite? expression)
+    (not (dictionary? expression)) false
+    (some |(= $ (expression :op)) [:constant :rank :level-values :level-interpolation :buff-count]) true
+    (some |(= $ (expression :op)) [:stat :target-stat])
+    (not (some |(= $ (expression :stat)) [:health :health-percent :missing-health :missing-health-percent]))
+    (some |(= $ (expression :op)) [:sum :multiply :with-rank :conditional])
+    (and (indexed? (expression :children))
+         (not (some |(not (event-value? $ (inc nesting))) (expression :children))))
+    false))
 (defn regeneration [stats health?]
   (if health? (* (/ (get stats :hp-regen 0) 5) (get stats :healing-multiplier 1))
     (/ (get stats :mp-regen 0) 5)))
@@ -140,9 +155,27 @@
              (def rank (get (actor :ranks) slot 0))
              (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
                (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])
-                                    (fixed-value? (ability :cost))
-                                    (and (ability :recast) (fixed-value? (get-in ability [:recast :cost] 0)))])))
+                                    (event-value? (ability :cost))
+                                    (and (ability :recast) (event-value? (get-in ability [:recast :cost] 0)))])))
            ordered) actors))
+  (defn input-value [expression actor rank]
+    (def result (protect (max 0 (value expression actor (actors (actor :target)) rank))))
+    (when (and (first result) (util/finite? (result 1))) (result 1)))
+  (def changing-inputs
+    (map (fn [actor ordered]
+           (def inputs @[])
+           (when (get-in actor [:strategy :abilities] true)
+             (each [ability rank] ordered
+               (each [field expression] [[:cost (ability :cost)] [:recast-cost (get-in ability [:recast :cost] 0)]
+                                         [:range (ability :range)]]
+                 (when (and (not (fixed-value? expression)) (event-value? expression)
+                            (or (not= field :range)
+                                (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (ability :effects))))
+                   (array/push inputs @{:rank rank :field field :expression expression
+                                        :value (input-value expression actor rank)})))))
+           inputs) actors decision-abilities))
+  (def watching-inputs? (some |(not (empty? $)) changing-inputs))
+  (var inputs-dirty false)
   (def moving? (some |(some (fn [mode] (= mode (get-in $ [:strategy :movement]))) [:approach :hold-range]) actors))
   (def range-boundaries
     (when moving?
@@ -155,12 +188,13 @@
                             (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (ability :effects)))
                    (def result (protect (max 0 (value (ability :range) actor (actors (actor :target)) rank))))
                    (when (and (first result) (util/finite? (result 1))) (array/push ranges (result 1))))))
+             (each input (changing-inputs (actor :index)) (when (= :range (input :field)) (array/push ranges input)))
              ranges) actors decision-abilities)))
   (def recovery-pools
     (map (fn [ordered]
            (def pools @{})
-           (each [ability rank after fixed recast-fixed] ordered
-             (when (or fixed recast-fixed) (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
+           (each [ability rank after forecastable recast-forecastable] ordered
+             (when (or forecastable recast-forecastable) (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
            pools) decision-abilities))
   (def health-conditions
     (map (fn [actor ordered]
@@ -199,6 +233,16 @@
   (defn resume [actor]
     (when (and (alive? actor) (alive? (actors (actor :target))))
       (request-decision (actor :index) (max at (actor :busy-until)))))
+  (defn refresh-inputs []
+    (when inputs-dirty
+      (set inputs-dirty false)
+      (eachp [index inputs] changing-inputs
+        (def actor (actors index))
+        (each input inputs
+          (def current (input-value (input :expression) actor (input :rank)))
+          (when (not= current (input :value))
+            (put input :value current)
+            (resume actor))))))
   (defn velocity [actor]
     (if (or (> (actor :busy-until) at) (controlled? actor [:stun :root :charm :fear :airborne :suppression] at))
       0 (actor :velocity)))
@@ -235,7 +279,9 @@
               (def deadline (/ (math/ceil (* 1e9 (+ at (max 1e-9 (/ (- distance boundary) closing))))) 1e9))
               (when (util/finite? deadline) (request-decision (actor :index) deadline))))
           (when (> closing 0)
-            (each boundary (range-boundaries (actor :index)) (when (> distance boundary) (crossing boundary))))
+            (each entry (range-boundaries (actor :index))
+              (def boundary (if (number? entry) entry (entry :value)))
+              (when (and (util/finite? boundary) (> distance boundary)) (crossing boundary))))
           (when (not= 0 (actor :velocity))
             (def desired (get-in actor [:strategy :preferred-range] (get actor :attack-range 125)))
             (crossing (if (= :hold-range (get-in actor [:strategy :movement])) desired (get actor :attack-range 125)))
@@ -262,6 +308,7 @@
     (put actor :attack-ready at)
     (when (and earlier (get-in actor [:strategy :attacks] true)) (resume actor)))
   (defn refresh-stats [actor]
+    (when watching-inputs? (set inputs-dirty true))
     (def previous (actor :stats))
     (def totals (merge @{} (actor :original-stats)))
     (def active (filter |(and (> ($ :expires) at)
@@ -616,7 +663,7 @@
       (when (and (<= (actor :busy-until) at)
                  (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
-        (each [ability learned after fixed recast-fixed] (decision-abilities (actor :index))
+        (each [ability learned after forecastable recast-forecastable] (decision-abilities (actor :index))
           (unless selected
             (def recast (get (actor :recasts) (ability :id)))
             (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
@@ -627,7 +674,7 @@
                             (assert (not= :unresolved (ability :cost-resource)) "Resource cost semantics require a handler.")
                             (assert (and (util/finite? cast-time) (<= 0 cast-time 10)) "Cast timing directive requires a handler.")
                             (cast-lock ability actor target learned)
-                            (def resource-cost (if recasting (get-in ability [:recast :cost] 0) (max 0 (value (ability :cost) actor target learned))))
+                            (def resource-cost (max 0 (value (if recasting (get-in ability [:recast :cost] 0) (ability :cost)) actor target learned)))
                             (def ability-range (max 0 (value (ability :range) actor target learned)))
                             (def cd (damage/cooldown (max 0 (value (ability :cooldown) actor target learned))
                                                      (if (ability :unhasted) 0 (get (actor :stats) :ability-haste 0))))
@@ -653,7 +700,7 @@
                                        (or (not charged) (> (charged :available) 0)))
                               (if (>= pool required)
                                 (do (set selected ability) (set rank learned) (set cost resource-cost) (set cooldown cd))
-                                (when (if recasting recast-fixed fixed)
+                                (when (if recasting recast-forecastable forecastable)
                                   (def rate (regeneration (actor :stats) health?))
                                   (when (and (util/finite? rate) (> rate 0) (<= required (get (actor :stats) (if health? :hp :mp) 0)))
                                     # Round forecasts upward to nanoseconds so
@@ -784,6 +831,7 @@
                   (when (and (event :control) (= (get (actor :controls) (event :control) 0) at)) (resume actor))
                   (record :expire {:actor (actor :id)}))
         (note (string "Unsupported event: " (event :kind))))
+      (refresh-inputs)
       (steer)))
   (advance duration)
   (when tracing (set before (participants)))

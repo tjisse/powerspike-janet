@@ -87,9 +87,9 @@
 (close 0.173 ((starts zero :cast) 1))
 # Resource readiness crosses between polls. A 13 ms control must wake even
 # when no decision observed its application; no-op removal must not wake.
-# A stat-dependent cost retains condition polling instead of a fixed forecast.
-(def recovering {:resource 9.99 :stats (merge (dummy :stats) {:mp-regen 5})
-                 :abilities [(merge spell {:cost {:op :stat :stat :ad :formula 0} :cooldown 99})]})
+# A current-health cost retains polling instead of freezing a changing value.
+(def recovering {:resource 9.99 :health 10 :stats (merge (dummy :stats) {:mp-regen 5})
+                 :abilities [(merge spell {:cost {:op :stat :stat :health :formula 0} :cooldown 99})]})
 (close 0.014 ((starts (run [(control 0.001 0 :silence 0.013)] recovering) :cast) 0))
 (each event [(effect 0.014 0 {:kind :cleanse :controls [:stun]}) (control 0.014 0 :stun 0)]
   (close 0.05 ((starts (run [event] recovering) :cast) 0)))

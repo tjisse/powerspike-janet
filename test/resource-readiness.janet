@@ -40,14 +40,14 @@
       (assert (= (result :metrics) ((engine/simulate (merge definition {:trace false})) :metrics))))))
 
 # Rank/level constants and arithmetic remain fixed; stat-dependent formulas
-# retain polling. Costs are still evaluated by the ordinary eligibility path.
+# now forecast between stat events. Current-health formulas retain polling.
 (each cost [10 {:op :constant :value 10} {:op :rank :offset -1 :values [10 20]}
             {:op :level-values :values [0 10]} {:op :level-interpolation :start 10 :end 20}
             {:op :multiply :children [{:op :constant :value 2} {:op :constant :value 5}]}
             {:op :sum :children [{:op :constant :value 3} {:op :constant :value 7}]}
             {:op :with-rank :rank 2 :children [{:op :rank :offset -1 :values [20 10]}]}]
   (close 0.337 (first-at (run {:abilities [(merge spell {:cost cost})]} 0.4))))
-(close 0.35 (first-at (run {:abilities [(merge spell {:cost {:op :stat :stat :ad :formula 0}})]} 0.4)))
+(close 0.337 (first-at (run {:abilities [(merge spell {:cost {:op :stat :stat :ad :formula 0}})]} 0.4)))
 (def health-percentage {:op :multiply :children [{:op :constant :value 0.5} {:op :stat :stat :health :formula 0}]})
 (def changing-cost (run {:health 1.663 :abilities [(merge spell {:cost health-percentage :cost-resource :health})]} 0.4))
 (assert (= 1 (length (casts changing-cost))))

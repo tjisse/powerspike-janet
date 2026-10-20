@@ -110,7 +110,7 @@
 (none (run [(hit 0.137 0 500)] {:ranks {:q 0}}))
 (none (run [(hit 0.137 0 500)] {:position 1000}))
 (def unchanged (run [(hit 0.037 0 1)] {:health 100 :resource 9.98 :stats (merge (dummy :stats) {:mp-regen 5})
-                                       :abilities [(merge spell {:cost {:op :stat :stat :ad :formula 0}})]}))
+                                       :abilities [(merge spell {:cost {:op :multiply :children [{:op :constant :value 0.1} {:op :stat :stat :health :formula 0}]}})]}))
 (close 0.05 (first-at unchanged))
 (none (run [(hit 0.137 0 500)] nil 0.137))
 (def just-after (run [(hit 0.137 0 500)] nil 0.13701))

@@ -657,6 +657,7 @@ if __name__ == '__main__':
     parser.add_argument('--binary', default='dist/bin/powerspike')
     parser.add_argument('--parry-fixture', help='Also check sourced Riposte outcomes using an exported cached fixture')
     parser.add_argument('--control-fixture', help='Also check synthetic control resumption using an exported fixture')
+    parser.add_argument('--changing-fixture', help='Also check synthetic changing costs/ranges using an exported fixture')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -676,3 +677,6 @@ if __name__ == '__main__':
     if args.control_fixture:
         from control_browser import verify as verify_control
         verify_control(args.binary, args.control_fixture)
+    if args.changing_fixture:
+        from changing_browser import verify as verify_changing
+        verify_changing(args.binary, args.changing_fixture)

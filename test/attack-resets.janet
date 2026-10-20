@@ -68,10 +68,10 @@
 (assert (empty? (starts disabled)))
 (close 0.337 (get-in disabled [:actors 0 :attack-ready]))
 # A reset of an already-ready attack must not add an unrelated condition check.
-# A stat-dependent cost retains condition polling instead of a fixed forecast.
-(def idle (run [(reset 0.337 0)] {:attack-range 0 :resource 9.664
+# A current-health cost retains condition polling instead of a fixed forecast.
+(def idle (run [(reset 0.337 0)] {:attack-range 0 :resource 9.664 :health 10
                                   :stats (merge (dummy :stats) {:mp-regen 5})
-                                  :abilities [(merge spell {:cost {:op :stat :stat :ad :formula 0}})]
+                                  :abilities [(merge spell {:cost {:op :stat :stat :health :formula 0}})]
                                   :strategy {:attacks true :abilities true :movement :hold}}))
 (close 0.35 ((first (actions idle :cast)) :at))
 (assert (= 1 (length (starts (run [(reset 0.337 0)] nil 0.337)))))

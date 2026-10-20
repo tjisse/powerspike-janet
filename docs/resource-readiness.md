@@ -16,9 +16,11 @@ multiplier. No regeneration value, cost or damage coefficient is changed.
 
 Fixed costs include numeric constants, rank/level values, level interpolation
 and sums/products/rank overrides containing only those forms. This classification
-is prepared once per fight. Costs depending on stats, current health, target
-state, buffs or unresolved formulas retain periodic checks. In particular, the
-change does not freeze a percentage-health cost at its starting value.
+is prepared once per fight. The subsequent
+[changing readiness correction](changing-readiness.md) extends forecasts to
+costs using stats, target stats and buffs, with recalculation at applied changes.
+Continuously changing health-dependent costs and unresolved formulas retain
+periodic checks. A percentage-current-health cost is never frozen at its starting value.
 
 Forecasts are made through the existing protected selection path, after the
 ability's cooldown/recast delay, activation, range/immunity and charge checks.
@@ -27,7 +29,7 @@ may postpone a wake until its action lock ends. Priority, control, survival and
 the strict affordability comparison are all checked again before casting.
 
 Rate and maximum-pool changes request a new decision for actors with a relevant
-fixed-cost ability. This includes regeneration buffs expiring between polls and
+forecastable-cost ability. This includes regeneration buffs expiring between polls and
 changes to the healing multiplier. A positive applied heal similarly wakes a
 health-cost actor. Damage or another resource expense can invalidate an earlier
 forecast; the actual pool is checked again, so a prediction cannot grant free
@@ -74,7 +76,7 @@ cadence. It is not added to the observations ledger.
 
 Tests cover both pools and participant roles; four regeneration rates;
 independent affordability arithmetic; rank/level/arithmetic costs; periodic
-fallback for stat-dependent costs; repeated spending and floating-point
+exact stat-dependent forecasts and fallback for current-health costs; repeated spending and floating-point
 boundaries; priority and action locks; cooldown/activation/recast/charge gates;
 rate boosts and expiry; zero-to-positive recovery; fractional healing multipliers;
 maximum-pool changes; applied healing; same-time damage/death/silence; unreachable
@@ -90,7 +92,7 @@ first cast and impact from 10% mana, including a 320 px layout.
 The subsequent [health activation correction](health-activation.md) adds wakes
 when discrete health changes satisfy a configured low-health rule.
 The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
-ability range crossings and stopping distances. State-dependent costs and ranges,
+ability range crossings and stopping distances. Continuously changing costs and ranges,
 resource-specific discrete recovery mechanics and missing champion handlers
 still require separate work.
 Source packages and scenario schema stay unchanged.

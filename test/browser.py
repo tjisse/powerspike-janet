@@ -296,9 +296,29 @@ def verify_runes(browser, base):
     assert not errors, errors
     page.close()
 
+def verify_ability_readiness(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    page.goto(base+'/?mode=duel&champion=Annie&opponent=Annie&selected=custom&snapshotlocked=true'
+              '&level=1&opponentlevel=1&slot1=3158&enemyslot1=3158&attacks=false&opponentattacks=false'
+              '&abilities=true&opponentabilities=true&movement=hold&opponentmovement=hold&distance=300&duration=12',
+              wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    for who in ('player', 'opponent'):
+        stats = dict(json.loads(page.locator(f'#{who}-card button[data-details]').first.get_attribute('data-details'))['stats'])
+        haste = float(stats['Ability haste'])
+        assert haste > 0
+        casts = [row for row in result['trace'] if row['kind'] == 'cast' and row['actor'] == who and row['source'] == 'AnnieQ']
+        assert len(casts) == 4
+        for index, event in enumerate(casts):
+            assert abs(event['at'] - index * 4 / (1 + haste / 100)) < 1e-6
+    page.close()
+    print('Browser: exact hasted ability cooldowns for both duel participants passed.')
+
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        verify_ability_readiness(browser, base)
         verify_item_comparison(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')

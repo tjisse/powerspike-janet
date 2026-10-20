@@ -173,6 +173,23 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
             expected_damage = (2 * 494 + 464) / 1.264 + 3 * 95.05 / 1.8
             assert abs(float(page.timeline['data-total']) - expected_damage) < 1e-6
             initial_scenario = json.loads(page.scenario['data-json'])['scenario']
+            _, ready_raw = get(base, '/?' + urllib.parse.urlencode({
+                'mode': 'practice', 'champion': 'Annie', 'selected': 'custom', 'slot1': '3158',
+                'level': 1, 'attacks': 'false', 'abilities': 'true', 'movement': 'hold',
+                'distance': 300, 'duration': 12, 'snapshot': initial_scenario['snapshot'], 'snapshotlocked': 'true'}))
+            ready_page = Page()
+            ready_page.feed(ready_raw.decode())
+            ready_file = cwd / 'ability-readiness.json'
+            ready_file.write_text(ready_page.scenario['data-json'])
+            ready_result = json.loads(subprocess.check_output([str(binary), '--simulate', str(ready_file)],
+                cwd=cwd, env=configuration(), text=True, timeout=10))
+            haste = ready_result['actors'][0]['stats']['ability-haste']
+            assert haste > 0
+            ready_casts = [event for event in ready_result['trace'] if event['kind'] == 'cast' and event['source'] == 'AnnieQ']
+            assert len(ready_casts) == 4
+            for index, event in enumerate(ready_casts):
+                assert abs(event['at'] - index * 4 / (1 + haste / 100)) < 1e-6
+            ready_file.unlink()
             assert initial_scenario['target']['hp'] == 2500
             assert '173 champions' in ''.join(page.text) and '870 items' in ''.join(page.text)
             # Bundled rune/shard sources and champion adaptive preferences must

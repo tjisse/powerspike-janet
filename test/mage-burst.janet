@@ -103,8 +103,13 @@
   (def heuristic (search/run package candidate {:preset :burst :budget 10000 :slots 6 :seconds 2 :final-samples 1}
                              (fn [p] nil) (fn [] false)))
   (assert (= :heuristic (heuristic :search)))
-  (assert (>= (get-in heuristic [:rows 0 :metrics :damage]) (get-in best [:metrics :damage]))
-          "The time-limited search must discover the stronger AP combination.")
+  # Both builds can exhaust the 2,500 HP target. Different hit sums differ by
+  # floating-point roundoff (observed 4.55e-13), not a search-quality loss.
+  (assert (>= (get-in heuristic [:rows 0 :metrics :damage]) (- (get-in best [:metrics :damage]) 0.000001))
+          (string champion ": time-limited search must discover the stronger AP combination; "
+                  (heuristic :evaluated) " evaluations, " (util/encode-json (get-in heuristic [:rows 0 :ids])) " dealt "
+                  (string/format "%.17g" (get-in heuristic [:rows 0 :metrics :damage])) " versus "
+                  (util/encode-json (best :ids)) " at " (string/format "%.17g" (get-in best [:metrics :damage]))))
   # A very high-health target and attack-only strategies remain valid inputs;
   # no champion label forces an AP score or suppresses real AD damage.
   (def attack-input {"abilities" false})

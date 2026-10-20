@@ -54,6 +54,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-cadence.janet
+	JANET_PATH=build/web-modules $(JANET) test/ability-readiness.janet
 	JANET_PATH=build/web-modules $(JANET) test/empowered-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/effects.janet
 	JANET_PATH=build/web-modules $(JANET) test/runes.janet

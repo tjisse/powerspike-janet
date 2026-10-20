@@ -113,6 +113,17 @@
   (assert (and (util/finite? duration) (< 0 duration 180)) "Combat duration must be below 180 seconds.")
   (assert (= 2 (length (scenario :actors))) "This model supports exactly two participants.")
   (def actors (map state (scenario :actors) [0 1]))
+  # Definitions, learned ranks and strategy order stay fixed during a fight.
+  # Keep this private so decision scans share it without changing actor output.
+  (def decision-abilities
+    (map (fn [actor]
+           (def ordered @[])
+           (each slot (get-in actor [:strategy :priority] [:q :w :e :r])
+             (def ability (find |(= slot ($ :slot)) (get actor :abilities [])))
+             (def rank (get (actor :ranks) slot 0))
+             (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
+               (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])])))
+           ordered) actors))
   (def queue @[])
   (def trace @[])
   (def hits @[])
@@ -479,22 +490,17 @@
       (when (and (<= (actor :busy-until) at)
                  (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
-        (each slot (get strategy :priority [:q :w :e :r])
+        (each [ability learned] (decision-abilities (actor :index))
           (unless selected
-            (def ability (find |(= slot ($ :slot)) (get actor :abilities [])))
-            (def learned (get (actor :ranks) slot 0))
-            (def recast (when ability (get (actor :recasts) (ability :id))))
-            (when (and ability (> learned 0)
-                       (or (and recast (> (recast :expires) at) (> (recast :remaining) 0) (<= (recast :next) at))
-                           (<= (get (actor :ready) (ability :id) 0) at))
-                       (permitted? actor target ability)
-                       (some |(= :estimated ($ :status)) (ability :effects)))
+            (def recast (get (actor :recasts) (ability :id)))
+            (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
+            (when (and (if recasting (<= (recast :next) at) (<= (get (actor :ready) (ability :id) 0) at))
+                       (permitted? actor target ability))
               (def result (protect
                             (def cast-time (get ability :cast-time 0.25))
                             (assert (not= :unresolved (ability :cost-resource)) "Resource cost semantics require a handler.")
                             (assert (and (util/finite? cast-time) (<= 0 cast-time 10)) "Cast timing directive requires a handler.")
                             (cast-lock ability actor target learned)
-                            (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
                             (def resource-cost (if recasting (get-in ability [:recast :cost] 0) (max 0 (value (ability :cost) actor target learned))))
                             (def ability-range (max 0 (value (ability :range) actor target learned)))
                             (def cd (damage/cooldown (max 0 (value (ability :cooldown) actor target learned))
@@ -542,6 +548,7 @@
               (assert (> recharge 0) "Charge recharge time unavailable.")
               (unless (charged :recovering)
                 (put charged :recovering true)
+                (put charged :next-recharge (+ at recharge))
                 (schedule (+ at recharge) 0 :charge {:actor (actor :index) :id (selected :id) :cooldown recharge}))
               (put (actor :ready) (selected :id) (+ at (max 0.05 (value (get selected :charge-delay cooldown) actor target rank)))))
             (and recast (> (recast :expires) at) (> (recast :remaining) 0))
@@ -580,12 +587,23 @@
           (schedule (+ at windup) 5 :release {:actor (actor :index) :target (target :index) :action :attack :source "attack"
                                               :counter counter :origin (string (actor :id) "/attack/" counter)})
           (set next (max (+ at 0.01) (actor :busy-until)))))
-      # Keep condition/movement polling, but wake at the known attack deadline
-      # instead of rounding every attack period up to the following poll. The
-      # ordinary decision path still enforces cast locks, control and priority.
+      # Known readiness boundaries reuse ordinary decisions; resource, range,
+      # control and priority checks still apply. Past deadlines keep polling
+      # rather than retrying a blocked action indefinitely at the same time.
+      (defn wake [deadline]
+        (when (and (util/finite? deadline) (> deadline at))
+          (set next (min next (max deadline (actor :busy-until))))))
       (when (and (get strategy :attacks true) (> (get (actor :stats) :attack-speed 0) 0)
                  (> (actor :attack-ready) at))
-        (set next (min next (max (actor :attack-ready) (actor :busy-until)))))
+        (wake (actor :attack-ready)))
+      (when (get strategy :abilities true)
+        (each [ability learned after] (decision-abilities (actor :index))
+          (def recast (get (actor :recasts) (ability :id)))
+          (if (and recast (> (recast :expires) at) (> (recast :remaining) 0))
+            (do (wake (recast :next)) (wake (recast :expires)))
+            (wake (get (actor :ready) (ability :id) 0)))
+          (wake (get-in actor [:charges (ability :id) :next-recharge]))
+          (wake after)))
       (schedule next 30 :decide {:actor (actor :index)})))
   (record :start {})
   (each actor actors (schedule 0 30 :decide {:actor (actor :index)}))
@@ -613,8 +631,9 @@
       :charge (let [actor (actors (event :actor)) charged ((actor :charges) (event :id))]
                 (put charged :available (min (charged :maximum) (inc (charged :available))))
                 (if (< (charged :available) (charged :maximum))
-                  (schedule (+ at (event :cooldown)) 0 :charge event)
-                  (put charged :recovering false))
+                  (do (put charged :next-recharge (+ at (event :cooldown)))
+                    (schedule (+ at (event :cooldown)) 0 :charge event))
+                  (do (put charged :recovering false) (put charged :next-recharge nil)))
                 (record :charge {:actor (actor :id) :source (event :id) :charges (charged :available)}))
       :expire (do (refresh-stats (actors (event :actor))) (record :expire {:actor ((actors (event :actor)) :id)}))
       (note (string "Unsupported event: " (event :kind)))))

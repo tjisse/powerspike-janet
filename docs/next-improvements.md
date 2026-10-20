@@ -21,8 +21,11 @@ diagnostics remain in the developer tools.
    Mini projectiles still need variant review: the named third attack is absent
    under both its path and entry hash in the retained source. The
    [attack-cadence correction](attack-cadence.md) now checks exact ordinary
-   readiness and removes cumulative polling drift. Other activation/expiry
-   conditions retain their existing polling policy. The
+   readiness and removes cumulative polling drift. The
+   [ability readiness correction](ability-readiness.md) extends this to cooldowns,
+   recast/charge timing and fixed activation times, and prevents main cooldowns
+   from bypassing recast delays. Dynamic thresholds, movement and control expiry
+   retain their existing polling policy. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

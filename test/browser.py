@@ -658,6 +658,7 @@ if __name__ == '__main__':
     parser.add_argument('--parry-fixture', help='Also check sourced Riposte outcomes using an exported cached fixture')
     parser.add_argument('--control-fixture', help='Also check synthetic control resumption using an exported fixture')
     parser.add_argument('--changing-fixture', help='Also check synthetic changing costs/ranges using an exported fixture')
+    parser.add_argument('--health-cost-fixture', help='Also check a retained health-cost formula on a synthetic carrier')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -680,3 +681,6 @@ if __name__ == '__main__':
     if args.changing_fixture:
         from changing_browser import verify as verify_changing
         verify_changing(args.binary, args.changing_fixture)
+    if args.health_cost_fixture:
+        from health_cost_browser import verify as verify_health_cost
+        verify_health_cost(args.binary, args.health_cost_fixture)

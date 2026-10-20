@@ -127,6 +127,52 @@
     (and (indexed? (expression :children))
          (not (some |(not (event-value? $ (inc nesting))) (expression :children))))
     false))
+(defn health-affine? [expression &opt depth]
+  (def nesting (or depth 0))
+  (cond
+    (> nesting 32) false
+    (event-value? expression) true
+    (not (dictionary? expression)) false
+    (= :stat (expression :op))
+    (and (= 0 (expression :formula))
+         (some |(= $ (expression :stat)) [:health :health-percent :missing-health :missing-health-percent]))
+    (some |(= $ (expression :op)) [:sum :multiply :with-rank :conditional])
+    (and (indexed? (expression :children))
+         (not (some |(not (health-affine? $ (inc nesting))) (expression :children)))
+         (or (not= :multiply (expression :op))
+             (<= (length (filter |(not (event-value? $)) (expression :children))) 1)))
+    false))
+(defn health-form [expression actor target rank &opt depth]
+  # Algebraic coefficients in current health; never infer a slope by sampling.
+  (def nesting (or depth 0))
+  (assert (<= nesting 32) "Health cost nesting limit.")
+  (defn next [child] (health-form child actor target rank (inc nesting)))
+  (def result
+    (cond
+      (event-value? expression) [0 (value expression actor target rank)]
+      (= :stat (expression :op))
+      (case (expression :stat)
+        :health [1 0]
+        :health-percent [(/ 1 ((actor :stats) :hp)) 0]
+        :missing-health [-1 ((actor :stats) :hp)]
+        :missing-health-percent [(/ -1 ((actor :stats) :hp)) 1]
+        (error "Unsupported health cost stat."))
+      (= :with-rank (expression :op))
+      (health-form ((expression :children) 0) actor target
+                   (if (number? (expression :rank)) (expression :rank) rank) (inc nesting))
+      (= :conditional (expression :op))
+      (next ((expression :children) (if (not= (> (get (actor :buff-counts) (expression :buff) 0) 0) (expression :invert)) 0 1)))
+      (= :sum (expression :op))
+      (reduce (fn [a b] [(+ (a 0) (b 0)) (+ (a 1) (b 1))]) [0 0] (map next (expression :children)))
+      (= :multiply (expression :op))
+      (reduce (fn [a b]
+                (assert (or (= 0 (a 0)) (= 0 (b 0))) "Nonlinear health cost.")
+                [(+ (* (a 0) (b 1)) (* (b 0) (a 1))) (* (a 1) (b 1))]) [0 1] (map next (expression :children)))
+      (error "Unsupported health cost expression.")))
+  (assert (not (some |(not (util/finite? $)) result)) "Non-finite health cost coefficients.")
+  result)
+(defn affine-cost? [ability expression]
+  (and (= :health (ability :cost-resource)) (not (event-value? expression)) (health-affine? expression)))
 (defn regeneration [stats health?]
   (if health? (* (/ (get stats :hp-regen 0) 5) (get stats :healing-multiplier 1))
     (/ (get stats :mp-regen 0) 5)))
@@ -156,11 +202,14 @@
              (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
                (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])
                                     (event-value? (ability :cost))
-                                    (and (ability :recast) (event-value? (get-in ability [:recast :cost] 0)))])))
+                                    (and (ability :recast) (event-value? (get-in ability [:recast :cost] 0)))
+                                    (affine-cost? ability (ability :cost))
+                                    (and (ability :recast) (affine-cost? ability (get-in ability [:recast :cost] 0)))])))
            ordered) actors))
-  (defn input-value [expression actor rank]
-    (def result (protect (max 0 (value expression actor (actors (actor :target)) rank))))
-    (when (and (first result) (util/finite? (result 1))) (result 1)))
+  (defn input-value [expression actor rank &opt affine]
+    (def result (protect (if affine (health-form expression actor (actors (actor :target)) rank)
+                           (max 0 (value expression actor (actors (actor :target)) rank)))))
+    (when (and (first result) (or affine (util/finite? (result 1)))) (result 1)))
   (def changing-inputs
     (map (fn [actor ordered]
            (def inputs @[])
@@ -172,7 +221,10 @@
                             (or (not= field :range)
                                 (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (ability :effects))))
                    (array/push inputs @{:rank rank :field field :expression expression
-                                        :value (input-value expression actor rank)})))))
+                                        :value (input-value expression actor rank)}))
+                 (when (and (not= field :range) (affine-cost? ability expression))
+                   (array/push inputs @{:rank rank :field field :expression expression :affine true
+                                        :value (input-value expression actor rank true)})))))
            inputs) actors decision-abilities))
   (def watching-inputs? (some |(not (empty? $)) changing-inputs))
   (var inputs-dirty false)
@@ -193,8 +245,9 @@
   (def recovery-pools
     (map (fn [ordered]
            (def pools @{})
-           (each [ability rank after forecastable recast-forecastable] ordered
-             (when (or forecastable recast-forecastable) (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
+           (each [ability rank after forecastable recast-forecastable affine recast-affine] ordered
+             (when (or forecastable recast-forecastable affine recast-affine)
+               (put pools (if (= :health (ability :cost-resource)) :health :resource) true)))
            pools) decision-abilities))
   (def health-conditions
     (map (fn [actor ordered]
@@ -239,7 +292,7 @@
       (eachp [index inputs] changing-inputs
         (def actor (actors index))
         (each input inputs
-          (def current (input-value (input :expression) actor (input :rank)))
+          (def current (input-value (input :expression) actor (input :rank) (input :affine)))
           (when (not= current (input :value))
             (put input :value current)
             (resume actor))))))
@@ -663,7 +716,7 @@
       (when (and (<= (actor :busy-until) at)
                  (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
-        (each [ability learned after forecastable recast-forecastable] (decision-abilities (actor :index))
+        (each [ability learned after forecastable recast-forecastable affine recast-affine] (decision-abilities (actor :index))
           (unless selected
             (def recast (get (actor :recasts) (ability :id)))
             (def recasting (and recast (> (recast :expires) at) (> (recast :remaining) 0)))
@@ -700,13 +753,21 @@
                                        (or (not charged) (> (charged :available) 0)))
                               (if (>= pool required)
                                 (do (set selected ability) (set rank learned) (set cost resource-cost) (set cooldown cd))
-                                (when (if recasting recast-forecastable forecastable)
+                                (when (or (if recasting recast-forecastable forecastable) (if recasting recast-affine affine))
                                   (def rate (regeneration (actor :stats) health?))
-                                  (when (and (util/finite? rate) (> rate 0) (<= required (get (actor :stats) (if health? :hp :mp) 0)))
+                                  (var threshold required)
+                                  (when (if recasting recast-affine affine)
+                                    (def forecast (protect (health-form (if recasting (get-in ability [:recast :cost] 0) (ability :cost)) actor target learned)))
+                                    (def form (when (first forecast) (forecast 1)))
+                                    # For a < 1, h - max(0, a*h+b) >= 1 is
+                                    # monotone, with threshold max(1, (b+1)/(1-a)).
+                                    (set threshold (when (and form (< (form 0) 1)) (max 1 (/ (+ 1 (form 1)) (- 1 (form 0)))))))
+                                  (when (and (util/finite? rate) (> rate 0) (util/finite? threshold) (> threshold pool)
+                                             (<= threshold (get (actor :stats) (if health? :hp :mp) 0)))
                                     # Round forecasts upward to nanoseconds so
                                     # roundoff cannot move a nominal boundary
                                     # just ahead of a same-time control/damage event.
-                                    (def deadline (/ (math/ceil (* 1e9 (+ at (max 1e-9 (/ (- required pool) rate))))) 1e9))
+                                    (def deadline (/ (math/ceil (* 1e9 (+ at (max 1e-9 (/ (- threshold pool) rate))))) 1e9))
                                     (when (util/finite? deadline)
                                       (set recovery-deadline (min (or recovery-deadline deadline) deadline)))))))))
               (unless (first result) (note (string (ability :id) ": " (result 1))))))))

@@ -72,8 +72,9 @@ The subsequent [health activation correction](health-activation.md) adds wakes
 when a discrete health change satisfies a configured low-health rule.
 The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
 ability range crossings and stopping distances. [Changing readiness](changing-readiness.md)
-adds stat/buff-based costs and ranges. Continuous health-dependent formulas and
-other changing conditions still poll between known deadlines.
+adds stat/buff-based costs and ranges. [Health-cost readiness](health-cost-readiness.md)
+solves supported affine health costs; other changing conditions still poll
+between known deadlines.
 The [resource readiness correction](resource-readiness.md)
 forecasts fixed-cost affordability under continuous recovery. The [attack reset correction](attack-resets.md)
 wakes an enabled attack when a reset shortens a future readiness deadline.

@@ -95,10 +95,11 @@ without checkout access. Browser checks exercise the exported snapshot,
 buff-to-cast and cast-to-hit arithmetic, both participants and 320 px layout.
 The build workflow includes the fixture in its runtime and browser gates.
 
-Continuously changing health-dependent costs and ranges still use periodic
-checks between known deadlines. Forecasting their moving boundaries requires a
-separate analysis; these expressions must not be treated as fixed merely because
-their initial value can be evaluated. Source and scenario schemas stay unchanged.
+The subsequent [health-cost correction](health-cost-readiness.md) solves
+supported affine costs paid from the caster's health. Other continuously
+changing costs and ranges still use periodic checks between known deadlines;
+their moving boundaries must not be treated as fixed merely because an initial
+value can be evaluated. Source and scenario schemas stay unchanged.
 The engine fingerprint changes, separating optimizer cache entries and preserving
 the saved-scenario model-change notice.
 

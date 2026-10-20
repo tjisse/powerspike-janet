@@ -67,8 +67,9 @@ affordability under continuous recovery. The [health activation correction](heal
 adds wakes when discrete health changes satisfy configured low-health rules.
 The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
 ability range crossings and stopping distances. [Changing readiness](changing-readiness.md)
-adds stat/buff-based costs and ranges; continuously changing health-dependent
-formulas continue to poll between known deadlines.
+adds stat/buff-based costs and ranges. [Health-cost readiness](health-cost-readiness.md)
+solves supported affine health costs; other continuously changing formulas
+continue to poll between known deadlines.
 The source and scenario schemas stay unchanged. The engine fingerprint changes,
 separating optimizer cache entries and preserving the saved-scenario model-change
 notice.

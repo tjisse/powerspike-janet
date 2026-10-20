@@ -55,8 +55,8 @@ forecasts fixed-cost affordability. [Health activation](health-activation.md)
 wakes when discrete health changes satisfy a configured low-health rule.
 [Movement readiness](movement-readiness.md) now forecasts ordinary/fixed ability
 range crossings and stopping distances. [Changing readiness](changing-readiness.md)
-adds stat/buff-based costs and ranges; continuously changing health-dependent
-formulas retain their polling policy.
+adds stat/buff-based costs and ranges. [Health-cost readiness](health-cost-readiness.md)
+solves supported affine health costs; other continuously changing formulas retain polling.
 A known attack wake can also observe an eligible ability, which retains
 priority over the attack.
 Ordinary attacks are not allowed through a same-timestamp stun or death.

@@ -84,8 +84,9 @@ distance and 320 px layout.
 
 This remains a point-based, one-dimensional strategy model. Champion radii,
 pathfinding, terrain, dashes, real player latency and new movement mechanics
-are outside this change. Continuously changing ranges and costs still use periodic
-checks between known deadlines. Ordinary attack period/windup sampling,
+are outside this change. [Health-cost readiness](health-cost-readiness.md) solves
+supported affine health costs; other continuously changing ranges and costs
+still use periodic checks between known deadlines. Ordinary attack period/windup sampling,
 cast-lock policy and distance-at-release projectile travel stay as declared.
 Source packages and scenario schema stay unchanged. The engine fingerprint
 changes, separating optimizer caches and preserving saved scenarios' model-change

@@ -19,8 +19,10 @@ and sums/products/rank overrides containing only those forms. This classificatio
 is prepared once per fight. The subsequent
 [changing readiness correction](changing-readiness.md) extends forecasts to
 costs using stats, target stats and buffs, with recalculation at applied changes.
-Continuously changing health-dependent costs and unresolved formulas retain
-periodic checks. A percentage-current-health cost is never frozen at its starting value.
+The subsequent [health-cost correction](health-cost-readiness.md) solves
+supported affine costs paid from the caster's health. Other changing costs and
+unresolved formulas retain periodic checks. A percentage-current-health cost is
+never frozen at its starting value.
 
 Forecasts are made through the existing protected selection path, after the
 ability's cooldown/recast delay, activation, range/immunity and charge checks.
@@ -92,7 +94,7 @@ first cast and impact from 10% mana, including a 320 px layout.
 The subsequent [health activation correction](health-activation.md) adds wakes
 when discrete health changes satisfy a configured low-health rule.
 The [movement correction](movement-readiness.md) now forecasts ordinary/fixed
-ability range crossings and stopping distances. Continuously changing costs and ranges,
+ability range crossings and stopping distances. The remaining continuously changing costs and ranges,
 resource-specific discrete recovery mechanics and missing champion handlers
 still require separate work.
 Source packages and scenario schema stay unchanged.

@@ -40,7 +40,7 @@
       (assert (= (result :metrics) ((engine/simulate (merge definition {:trace false})) :metrics))))))
 
 # Rank/level constants and arithmetic remain fixed; stat-dependent formulas
-# now forecast between stat events. Current-health formulas retain polling.
+# now forecast between stat events. Affine health costs follow their moving cost.
 (each cost [10 {:op :constant :value 10} {:op :rank :offset -1 :values [10 20]}
             {:op :level-values :values [0 10]} {:op :level-interpolation :start 10 :end 20}
             {:op :multiply :children [{:op :constant :value 2} {:op :constant :value 5}]}
@@ -51,8 +51,8 @@
 (def health-percentage {:op :multiply :children [{:op :constant :value 0.5} {:op :stat :stat :health :formula 0}]})
 (def changing-cost (run {:health 1.663 :abilities [(merge spell {:cost health-percentage :cost-resource :health})]} 0.4))
 (assert (= 1 (length (casts changing-cost))))
-(close 0.35 (first-at changing-cost))
-(close (* 0.5 (+ 1.663 0.35)) ((first (casts changing-cost)) :cost))
+(close 0.337 (first-at changing-cost))
+(close (* 0.5 (+ 1.663 0.337)) ((first (casts changing-cost)) :cost))
 (each multiplier [0.37 1.7]
   (close 0.337 (first-at (run {:health (- 11 (* multiplier 0.337))
                                :stats (merge (dummy :stats) {:healing-multiplier multiplier})

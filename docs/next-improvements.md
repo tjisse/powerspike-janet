@@ -40,10 +40,13 @@ diagnostics remain in the developer tools.
    distance, and updates trajectories at speed/control/lock changes.
    The [changing readiness correction](changing-readiness.md) extends forecasts
    to costs and ranges using stats or buffs, recalculates when their values
-   change, and evaluates recast costs consistently. Continuous health-dependent
-   costs and ranges retain polling. Next, analyze those moving boundaries using
-   the retained current-health cost formulas, preserving fallback where a
-   deadline cannot be forecast safely. The
+   change, and evaluates recast costs consistently. The
+   [health-cost readiness correction](health-cost-readiness.md) now solves
+   supported affine costs paid from current health, including their existing
+   reserve, and checks the retained Mundo/Zac formulas. Health-dependent ranges,
+   costs paid from another pool, nonlinear/nonmonotone formulas and nonpositive
+   regeneration retain polling. Next, analyze changing health-dependent range
+   boundaries without treating them as constant. The
    [replay timing study](replay-attack-timing.md) now corroborates impact-time
    consumption for ordinary ranged hits and records a possible parry interaction.
    The [Riposte defense handler](fiora-parry.md) now models the champion-only

@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None, resource_fixture=None, health_fixture=None, movement_fixture=None, changing_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None, resource_fixture=None, health_fixture=None, movement_fixture=None, changing_fixture=None, health_cost_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -142,7 +142,7 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                     [str(binary), '--simulate', str(check / 'scenario.json')], cwd=check,
                     env=env, text=True, timeout=10))
                 assert abs(outcome['metrics']['damage'] - 25.35) < 1e-6
-        for label, fixture_path in (('control', control_fixture), ('reset', reset_fixture), ('resource', resource_fixture), ('health', health_fixture), ('movement', movement_fixture), ('changing', changing_fixture)):
+        for label, fixture_path in (('control', control_fixture), ('reset', reset_fixture), ('resource', resource_fixture), ('health', health_fixture), ('movement', movement_fixture), ('changing', changing_fixture), ('health-cost', health_cost_fixture)):
             if not fixture_path:
                 continue
             # Retained fixtures test the scheduler in a copied runtime.
@@ -211,13 +211,26 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                         assert abs(hits[0]['at'] - ready - ability['cast-time'] - actor['attack-range'] / ability['missile-speed']) < 1e-6
                         assert abs(actor['position'] - (625 if reverse else 75)) < 1e-6
                         assert actor['damage-dealt'] > 0
-                    else:
+                    elif label == 'changing':
                         casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-q']
                         hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'fixture-q']
                         assert len(casts) == len(hits) == 1
                         assert abs(casts[0]['at'] - .487) < 1e-6
                         assert abs(hits[0]['at'] - (.487 + .04)) < 1e-6
                         assert outcome['actors'][int(reverse)]['damage-dealt'] == 10
+                        assert outcome['unsupported'] == outcome['coverage']
+                    else:
+                        coefficient = .079999998211860657
+                        actor = outcome['actors'][int(reverse)]
+                        casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-health']
+                        hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'fixture-health']
+                        assert len(casts) == len(hits) == 1
+                        ready = (1 / (1 - coefficient) - 1) / (actor['stats']['hp-regen'] / 5)
+                        assert abs(casts[0]['at'] - ready) < 1e-6
+                        assert abs(hits[0]['at'] - ready - .25) < 1e-6
+                        assert abs(casts[0]['cost'] - coefficient * casts[0]['before'][int(reverse)]['health']) < 1e-6
+                        assert casts[0]['participants'][int(reverse)]['health'] >= 1
+                        assert actor['damage-dealt'] == 1
                         assert outcome['unsupported'] == outcome['coverage']
         chosen = port()
         with running(binary, cwd, [], configuration(PS_PORT=str(chosen), PS_HOST='127.0.0.1'), chosen) as base:
@@ -484,7 +497,9 @@ if __name__ == '__main__':
     parser.add_argument('--health-fixture')
     parser.add_argument('--movement-fixture')
     parser.add_argument('--changing-fixture')
+    parser.add_argument('--health-cost-fixture')
     args = parser.parse_args()
     verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture,
            control_fixture=args.control_fixture, reset_fixture=args.reset_fixture, resource_fixture=args.resource_fixture,
-           health_fixture=args.health_fixture, movement_fixture=args.movement_fixture, changing_fixture=args.changing_fixture)
+           health_fixture=args.health_fixture, movement_fixture=args.movement_fixture, changing_fixture=args.changing_fixture,
+           health_cost_fixture=args.health_cost_fixture)

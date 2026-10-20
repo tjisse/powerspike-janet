@@ -44,6 +44,12 @@ present in only one build. For multiple trials, every source shows its mean
 damage across all trials. Stat bonuses and damage modifiers remain attributed
 to the sources they affect. See [source comparison checks](docs/damage-source-comparisons.md).
 
+**Damage across trials** shows the mean change, the lowest and highest observed
+change, and how many matching trials favored each build on damage. The range
+describes the simulated trials that ran. **Adjust trials** opens the trial
+control; a single trial does not establish variation. See
+[trial comparison checks](docs/trial-variation.md).
+
 See the [player beta rollout notes](docs/player-beta.md) for remaining release work.
 
 ## Build, format and deploy

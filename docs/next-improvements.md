@@ -91,12 +91,14 @@ diagnostics remain in the developer tools.
    inventories and their shared fight settings through local saves, exports,
    share links and imports. [Damage-source comparisons](damage-source-comparisons.md)
    now show which abilities, attacks, item effects or rune effects drive the
-   difference, using averages across every trial. Next, show variation across
-   trials to help players judge close comparisons.
+   difference, using averages across every trial. [Trial variation](trial-variation.md)
+   now shows observed damage changes within matching trials, including when
+   the advantage changes sides, with a direct trial-count control.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before
-   treating deployment behavior as covered.
+   treating deployment behavior as covered. Next, check concurrent simulations
+   and cancellation for the small player beta.
 6. **Player beta readiness.** Prepare a short comparison walkthrough and a
    repeatable issue-report flow that includes a scenario export. Use concrete
    player reports to prioritize mismatches and confusing interactions, then

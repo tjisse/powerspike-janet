@@ -12,6 +12,11 @@
     node?.scrollIntoView({block:'nearest'});
   }
   document.addEventListener('click',event=>{
+    if(event.target.closest('[data-edit-trials]')){
+      const input=document.querySelector('#fight-settings [name=samples]');
+      if(input){reveal(input);input.focus();}
+      return;
+    }
     const button=event.target.closest('[data-ui-toggle]');
     if(!button)return;
     const target=document.getElementById(button.dataset.uiToggle);

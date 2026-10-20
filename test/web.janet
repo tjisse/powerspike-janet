@@ -14,6 +14,7 @@
 (import ../web/tooltip :as tooltip)
 (import ../web/server :as server)
 (import ../web/saves :as saves)
+(import ../web/trial-comparison :as trial-comparison)
 (import ../src/powerspike/scenario-wire :as wire)
 (import pshash :as hash)
 
@@ -599,5 +600,53 @@
         (def missing (ui/render (ui/comparison-sources (merge result {:reference {:combat {:damage 0}}}))))
         (assert (string/find "Damage sources are unavailable" missing))
         (assert (not (string/find "No damage dealt" missing)))))
+
+(test "paired damage summaries preserve matching trials, direction, ties and observed ranges"
+      (fn []
+        (def current {:samples 4 :trial-damage [20 10 30 40]})
+        (def pinned {:samples 4 :trial-damage [10 20 30 0]})
+        (assert (= {:samples 4 :mean 10 :lowest -10 :highest 40 :current-higher 2 :pinned-higher 1 :tied 1}
+                   (trial-comparison/damage current pinned)))
+        (assert (= {:samples 4 :mean -10 :lowest -40 :highest 10 :current-higher 1 :pinned-higher 2 :tied 1}
+                   (trial-comparison/damage pinned current)))
+        (def correlated (trial-comparison/damage {:samples 4 :trial-damage [100 200 300 400]}
+                                                 {:samples 4 :trial-damage [99 199 299 399]}))
+        (assert (= 1 (correlated :mean) (correlated :lowest) (correlated :highest)))
+        (assert (= 4 (correlated :current-higher)))
+        (each bad [nil {:samples 4} {:samples 3 :trial-damage [20 10 30 40]} {:samples 4 :trial-damage [20]}
+                   {:samples 4 :trial-damage [20 -1 30 40]} {:samples 4 :trial-damage [20 math/inf 30 40]}]
+          (assert (nil? (trial-comparison/damage bad pinned))))))
+
+(test "real comparisons show trial variation without changing means or storing samples in saves"
+      (fn []
+        (def input {"selected" "custom" "champion" "Annie" "mode" "practice" "level" 1 "duration" 3
+                    "distance" 0 "movement" "hold" "priority" "q" "samples" 4 "seed" 6 "hitchance" 0.5})
+        (def original (model/compare (model/parse-state (merge input {"slot1" "1052"}))))
+        (assert (not (get-in original [:selected :combat :trial-damage])))
+        (def pinned (string (wire/encode (get-in original [:selected :combat :scenario]))))
+        (def result (model/compare (model/parse-state (merge input {"slot1" "1036" "referencejson" pinned}))))
+        (def summary (trial-comparison/damage (get-in result [:selected :combat]) (get-in result [:reference :combat])))
+        (assert (< (summary :lowest) 0 (summary :highest)))
+        (assert (< (math/abs (- (summary :mean) (- (get-in result [:selected :combat :damage]) (get-in original [:selected :combat :damage])))) 0.000001))
+        (def text (ui/render (ui/comparison-variation result)))
+        (assert (string/find "Damage advantage changes between trials" text))
+        (assert (string/find "matching simulated trials" text))
+        (assert (not (string/find "95" text)))
+        (def document (saves/encode result))
+        (assert (not (string/find "trial-damage" document)))
+        (def restored (model/compare (saves/decode document)))
+        (assert (= text (ui/render (ui/comparison-variation restored))))
+        (def equal-text (ui/render (ui/comparison-variation (merge result {:reference (result :selected)}))))
+        (assert (string/find "Same damage in all sampled trials" equal-text))
+        (assert (string/find "Current higher: 0 · Pinned higher: 0 · Tied: 4" equal-text))))
+
+(test "one trial and absent trial data do not imply zero variation"
+      (fn []
+        (def one (ui/render (ui/comparison-variation {:selected {:combat {:samples 1}} :reference {:combat {:samples 1}}})))
+        (assert (string/find "One simulated trial" one))
+        (assert (not (string/find "Observed change" one)))
+        (def missing (ui/render (ui/comparison-variation {:selected {:combat {:samples 4}} :reference {:combat {:samples 4}}})))
+        (assert (string/find "Trial variation is unavailable" missing))
+        (assert (not (string/find "Same damage" missing)))))
 
 (print passed " frontend tests passed")

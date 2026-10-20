@@ -5,6 +5,7 @@
 (import ./model :as model)
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
+(import ./trial-comparison :as trial-comparison)
 (import ./verification :as verification)
 (import ./details :as details)
 (import ../src/powerspike/normalize :as normalize)
@@ -578,7 +579,7 @@
              :kind (if (some |(= $ (ability :slot)) [:d :f]) "Summoner spell" "Ability")}
     {:name (get trigger :name source) :kind "Other source"}))
 
-(defn- source-damage-text [value &opt signed]
+(defn- precise-damage-text [value &opt signed]
   (string (if signed (cond (> value 0) "+" (< value 0) "−" "") "")
           (if (< 0 (math/abs value) 0.01) "<0.01" (number-text (if signed (math/abs value) value) true))))
 
@@ -612,15 +613,35 @@
                 (def info (source-info result (entry :source)))
                 [:tr {:data-source (entry :source)}
                  [:th {:scope "row"} (info :name) [:small (info :kind)]]
-                 [:td (source-damage-text (entry :pinned))] [:td (source-damage-text (entry :current))]
-                 [:td {:class "comparison-difference"} (source-damage-text (entry :delta) true)]]) rows)]
+                 [:td (precise-damage-text (entry :pinned))] [:td (precise-damage-text (entry :current))]
+                 [:td {:class "comparison-difference"} (precise-damage-text (entry :delta) true)]]) rows)]
         [:tfoot [:tr [:th {:scope "row"} "Total damage"]
-                 [:td (source-damage-text (get-in result [:reference :combat :damage]))]
-                 [:td (source-damage-text (get-in result [:selected :combat :damage]))]
+                 [:td (precise-damage-text (get-in result [:reference :combat :damage]))]
+                 [:td (precise-damage-text (get-in result [:selected :combat :damage]))]
                  [:td {:class "comparison-difference"}
-                  (source-damage-text (- (get-in result [:selected :combat :damage]) (get-in result [:reference :combat :damage])) true)]]]]]
+                  (precise-damage-text (- (get-in result [:selected :combat :damage]) (get-in result [:reference :combat :damage])) true)]]]]]
       [:p {:class "comparison-context"} "Values are rounded; displayed rows may not sum exactly."]
       [:p {:class "muted comparison-scroll-hint"} "Scroll the table to compare all sources."]])])
+
+(defn comparison-variation [result]
+  (def samples (get-in result [:selected :combat :samples] 1))
+  (def variation (trial-comparison/damage (get-in result [:selected :combat]) (get-in result [:reference :combat])))
+  [:section {:id "comparison-variation" :class "comparison-variation" :aria-label "Damage across trials"}
+   [:div {:class "section-header"} [:h3 "Damage across trials"]
+    [:button {:type "button" :class "quiet-action" :data-edit-trials true} "Adjust trials"]]
+   (cond (= samples 1) [:p {:class "comparison-context"} "One simulated trial. Increase Trials to inspect damage variation."]
+     (nil? variation) [:p {:class "comparison-context"} "Trial variation is unavailable for this result."]
+     [[:p {:class "comparison-variation-status"}
+       (cond (and (> (variation :current-higher) 0) (> (variation :pinned-higher) 0)) "Damage advantage changes between trials."
+         (> (variation :current-higher) 0) (string "Current items deal more damage in " (variation :current-higher) " of " samples " trials.")
+         (> (variation :pinned-higher) 0) (string "Pinned items deal more damage in " (variation :pinned-higher) " of " samples " trials.")
+         "Same damage in all sampled trials.")]
+      [:dl {:class "comparison-variation-stats"}
+       [:div [:dt "Mean change"] [:dd {:class "comparison-mean"} (precise-damage-text (variation :mean) true) " damage"]]
+       [:div [:dt "Observed change"] [:dd {:class "comparison-range"} (precise-damage-text (variation :lowest) true) " to "
+                                      (precise-damage-text (variation :highest) true) " damage"]]]
+      [:p {:class "comparison-trial-counts"} "Current higher: " (variation :current-higher) " · Pinned higher: " (variation :pinned-higher) " · Tied: " (variation :tied)]
+      [:p {:class "comparison-context"} samples " matching simulated trials. The range covers only these trials; more trials may reveal other outcomes."]])])
 
 (defn item-comparison [result]
   (def row (result :selected))
@@ -665,6 +686,7 @@
        (if (> (get-in row [:combat :samples] 1) 1)
          (string "Damage and health left are averages across " (get-in row [:combat :samples]) " seeded trials. Survival counts trials where your champion is alive at the end of the configured window.")
          "Health left and survival describe your champion at the end of the configured window.")]
+      (comparison-variation result)
       (comparison-sources result)
       (when (not (empty? (details/simulation-notes (reference :limitations))))
         [:details {:class "comparison-notes"} [:summary "Pinned build exclusions & inventory notes"]

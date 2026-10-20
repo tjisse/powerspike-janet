@@ -917,11 +917,13 @@
              :healing (player :healed) :absorbed (player :absorbed) :control (opponent :control-time)
              :kill-time (opponent :dead-at) :death-time (player :dead-at)}})
 
-(defn trials [scenario samples &opt cancelled]
+(defn trials [scenario samples &opt cancelled retain-damage]
   (assert (and (number? samples) (= samples (math/floor samples)) (<= 1 samples 256)) "Trial count must be from 1 to 256.")
   (def totals @{})
   (def squared @{})
   (def sources @{})
+  # Comparisons may retain one scalar per trial; fitness runs keep aggregates only.
+  (def damages (when retain-damage @[]))
   (var representative nil)
   (var kills 0)
   (var deaths 0)
@@ -936,6 +938,7 @@
     (eachp [source damage] (result :damage-breakdown) (put sources source (+ (get sources source 0) damage)))
     (each message (result :unsupported) (unless (some |(= $ message) omissions) (array/push omissions message)))
     (def metrics (result :metrics))
+    (when damages (array/push damages (metrics :damage)))
     (when (metrics :kill-time) (++ kills) (+= kill-sum (metrics :kill-time)))
     (when (metrics :death-time) (++ deaths) (+= death-sum (metrics :death-time)))
     (when (and (metrics :kill-time) (or (not (metrics :death-time)) (< (metrics :kill-time) (metrics :death-time)))) (++ wins))
@@ -947,13 +950,14 @@
   (def uncertainty (tabseq [[key mean] :pairs means]
                      key (if (> samples 1)
                            (* 1.96 (math/sqrt (/ (max 0 (- (squared key) (* samples mean mean))) (* samples (dec samples))))) nil)))
-  (merge representative {:unsupported omissions :samples samples :uncertainty uncertainty
-                         :damage-breakdown (table/to-struct (tabseq [[source total] :pairs sources] source (/ total samples)))
-                         :damage (means :damage) :dps (/ (means :damage) (scenario :duration)) :resource-left (means :resource)
-                         :attack-dps (/ (means :attack-damage) (scenario :duration))
-                         :ability-dps (/ (- (means :damage) (means :attack-damage)) (scenario :duration))
-                         :metrics (table/to-struct (merge means {:win-rate (/ wins samples) :kill-rate (/ kills samples) :death-rate (/ deaths samples)
-                                                                 :mean-kill-time (when (> kills 0) (/ kill-sum kills))
-                                                                 :mean-death-time (when (> deaths 0) (/ death-sum deaths))}))
-                         :sampling-note (if (= samples 1) "One seeded trial; sampling uncertainty unavailable."
-                                          "Mean outcomes with approximate 95% sampling intervals; trace shows trial zero. Times average successful events only.")}))
+  (merge representative (if damages {:trial-damage (tuple ;damages)} {})
+         {:unsupported omissions :samples samples :uncertainty uncertainty
+          :damage-breakdown (table/to-struct (tabseq [[source total] :pairs sources] source (/ total samples)))
+          :damage (means :damage) :dps (/ (means :damage) (scenario :duration)) :resource-left (means :resource)
+          :attack-dps (/ (means :attack-damage) (scenario :duration))
+          :ability-dps (/ (- (means :damage) (means :attack-damage)) (scenario :duration))
+          :metrics (table/to-struct (merge means {:win-rate (/ wins samples) :kill-rate (/ kills samples) :death-rate (/ deaths samples)
+                                                  :mean-kill-time (when (> kills 0) (/ kill-sum kills))
+                                                  :mean-death-time (when (> deaths 0) (/ death-sum deaths))}))
+          :sampling-note (if (= samples 1) "One seeded trial; sampling uncertainty unavailable."
+                           "Mean outcomes with approximate 95% sampling intervals; trace shows trial zero. Times average successful events only.")}))

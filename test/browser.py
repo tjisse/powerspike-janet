@@ -300,6 +300,7 @@ def verify_comparison_persistence(browser, page, base):
     table = page.locator('.item-comparison-table')
     expected_table = table.text_content()
     expected_sources = page.locator('.comparison-source-table').text_content()
+    expected_variation = page.locator('#comparison-variation').text_content()
     scenario = page.locator('#scenario-data').get_attribute('data-json')
     document = page.locator('#workspace-data').get_attribute('data-json')
     envelope = json.loads(document)
@@ -318,6 +319,7 @@ def verify_comparison_persistence(browser, page, base):
     shared.goto(page.locator('#scenario-link').input_value(), wait_until='domcontentloaded')
     expect(shared.locator('.item-comparison-table')).to_have_text(expected_table)
     expect(shared.locator('.comparison-source-table')).to_have_text(expected_sources)
+    expect(shared.locator('#comparison-variation')).to_have_text(expected_variation)
     assert json.loads(shared.locator('#results').get_attribute('data-matchup-result')) == expected_result
     assert shared.locator('#scenario-data').get_attribute('data-json') == scenario
     assert shared.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
@@ -332,6 +334,7 @@ def verify_comparison_persistence(browser, page, base):
     page.get_by_role('button', name='Load saved', exact=True).click()
     expect(table).to_have_text(expected_table)
     expect(page.locator('.comparison-source-table')).to_have_text(expected_sources)
+    expect(page.locator('#comparison-variation')).to_have_text(expected_variation)
     page.get_by_role('button', name='Clear comparison', exact=True).click()
     expect(table).to_have_count(0)
     page.get_by_text('Import a scenario', exact=True).click()
@@ -358,6 +361,7 @@ def verify_comparison_persistence(browser, page, base):
     practice.wait_for_function('document.querySelector("#powerspike").dataset.layout === "matchup"')
     expect(practice.locator('.item-comparison-table')).to_have_text(expected_table)
     expect(practice.locator('.comparison-source-table')).to_have_text(expected_sources)
+    expect(practice.locator('#comparison-variation')).to_have_text(expected_variation)
     assert json.loads(practice.locator('#results').get_attribute('data-matchup-result')) == expected_result
     practice.close()
     for format_name in ('powerspike-scenario', 'powerspike-comparison'):
@@ -383,6 +387,11 @@ def verify_damage_sources(browser, base):
     page.locator('#loadout-tray .item-slot').first.click()
     page.locator('#item-picker [data-detail-item="1036"]').click()
     expect(page.locator('.item-comparison-table tbody tr').nth(1).locator('td').last).to_have_text('350')
+    variation = page.locator('#comparison-variation')
+    expect(variation.locator('.comparison-variation-status')).to_have_text('Damage advantage changes between trials.')
+    expect(variation.locator('.comparison-mean')).to_have_text('+4.72 damage')
+    expect(variation.locator('.comparison-range')).to_have_text('−8.89 to +11.11 damage')
+    expect(variation.locator('.comparison-trial-counts')).to_have_text('Current higher: 3 · Pinned higher: 1 · Tied: 0')
     details = page.locator('#comparison-sources')
     details.locator('summary').focus()
     page.keyboard.press('Enter')
@@ -416,14 +425,23 @@ def verify_damage_sources(browser, base):
     scroller.evaluate('node=>node.scrollLeft = node.scrollWidth')
     page.locator('#item-comparison').screenshot(path='build/damage-sources-mobile.png')
     page.set_viewport_size({'width':1200, 'height':1000})
-    page.get_by_text('Opponent & fight', exact=True).click()
+    variation.get_by_role('button', name='Adjust trials', exact=True).click()
+    trials = page.locator('#fight-settings [name=samples]')
+    expect(trials).to_be_focused()
+    trials.fill('1')
+    trials.press('Tab')
+    expect(variation).to_contain_text('One simulated trial')
+    expect(variation.locator('.comparison-range')).to_have_count(0)
+    trials.fill('4')
+    trials.press('Tab')
+    expect(variation.locator('.comparison-mean')).to_have_text('+4.72 damage')
     page.locator('#duration').fill('4')
     page.locator('#duration').press('Tab')
     page.wait_for_function('document.querySelector("#timeline").dataset.duration === "4"')
     assert details.evaluate('node=>node.open')
     assert not errors, errors
     page.close()
-    print('Browser: averaged damage-source tradeoffs, totals, sorting, keyboard access, preserved expansion and mobile scrolling passed.')
+    print('Browser: paired damage variation/ranges/counts, single-trial guidance, Adjust trials, source totals, keyboard access and mobile layouts passed.')
 
 def verify_survival_comparison(browser, base):
     page = browser.new_page(viewport={'width':1200, 'height':1000})
@@ -502,6 +520,21 @@ def verify_survival_comparison(browser, base):
     expect(summary).to_have_text('Current items survive 1 more of 4 trials.')
     assert float(pinned.locator('.comparison-health').inner_text().replace(',','')) > 0
     assert pinned.locator('.comparison-survival small').count() == 0
+    page.get_by_role('button', name='Adjust trials', exact=True).click()
+    trial_input = page.locator('#fight-settings [name=samples]')
+    expect(trial_input).to_be_focused()
+    previous_samples = 4
+    for samples in (8,4):
+        previous_run = page.locator('#results').get_attribute('data-run-id')
+        trial_input.fill(str(samples))
+        trial_input.press('Tab')
+        page.wait_for_function('document.querySelector("#powerspike").dataset.stale === "true"')
+        assert page.locator('#results').get_attribute('data-run-id') == previous_run
+        expect(page.locator('#comparison-variation')).to_contain_text(f'{previous_samples} matching simulated trials')
+        page.locator('.matchup-run').click()
+        page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous_run)
+        expect(page.locator('#comparison-variation')).to_contain_text(f'{samples} matching simulated trials')
+        previous_samples = samples
     verify_comparison_persistence(browser, page, base)
     assert not errors, errors
     page.close()

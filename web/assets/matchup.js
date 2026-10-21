@@ -5,6 +5,7 @@
   const $ = selector => document.querySelector(selector);
   const format = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value || 0);
   const tabs = new Map(), expanded = new Map(), undo = new Map(), lockState = new Map();
+  const unavailableIcons = new Set();
   let baseline = null, pending = null, identity = '', result = null, rows = [], events = [];
   let time = 0, metric = 'health', selected = null, narrow = null, scheduled = false;
   const node = (tag, className, text) => {
@@ -211,6 +212,7 @@
   }
   function drawEvents(width, left, right) {
     const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 48 : 36;
+    const focused = document.activeElement?.dataset.traceEvent;
     lanes.replaceChildren(...result.actors.map((actor, side) => {
       const lane = node('div', 'matchup-event-lane'), label = node('span', 'matchup-lane-name', result.names[side]), track = node('div', 'matchup-event-track');
       track.style.marginLeft = `${left}px`; track.style.width = `${right - left}px`;
@@ -220,11 +222,21 @@
         const position = record.at / result.duration * (right - left);
         if (position - previous < minDistance && selected !== index) return;
         previous = position;
-        const label = record.kind === 'parried' ? '×' : record.kind === 'parry-start' ? 'W' : record.source === 'attack' ? 'AA' : record.kind === 'death' ? 'KO' : record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.kind === 'control' ? 'CC' : record.source?.match(/[QWER]$/)?.[0] || 'Hit';
-        const button = node('button', `matchup-event ${['parried', 'parry-start'].includes(record.kind) ? record.kind : ''}`, label); button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}`); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
+        const source = result.sources?.[record.source];
+        const label = record.kind === 'parried' ? '×' : record.kind === 'death' ? 'KO' : record.source === 'attack' ? 'AA' : record.kind === 'control' ? 'CC' : source?.slot?.toUpperCase() || (record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.source?.match(/[QWER]$/)?.[0] || 'Hit');
+        const button = node('button', `matchup-event ${['parried', 'parry-start'].includes(record.kind) ? record.kind : ''}`);
+        const artwork = record.kind === 'death' ? null : record.source === 'attack' ? actor.icon : source?.icon;
+        if (artwork && !unavailableIcons.has(artwork)) {
+          const img = node('img'); img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.draggable = false;
+          img.addEventListener('error', () => { unavailableIcons.add(artwork); img.remove(); button.classList.remove('has-icon'); }, {once: true});
+          img.src = artwork; button.classList.add('has-icon'); button.append(img);
+        }
+        button.append(node('span', 'matchup-event-label', label));
+        button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}`); button.title = button.getAttribute('aria-label'); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
       });
       lane.append(label, track); return lane;
     }));
+    if (focused !== undefined) [...lanes.querySelectorAll('[data-trace-event]')].find(button => button.dataset.traceEvent === focused)?.focus({preventScroll: true});
     const detail = $('.matchup-event-detail'); detail.hidden = selected === null;
     $('.matchup-event-select').value = selected === null ? '' : String(selected);
     if (selected !== null) {

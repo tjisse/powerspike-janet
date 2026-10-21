@@ -7,9 +7,12 @@
 (import ../src/powerspike/forms :as forms)
 
 (defn text-number [n] (string/format "%.0f" (or n 0)))
+(defn icon-source [package group id]
+  (when (and (string? id) (not= "" id) (string? group))
+    (string "/assets/" (package :patch) "/" (package :snapshot) "/" group "/" id
+            (if (string/has-suffix? ".png" id) "" ".png"))))
 (defn icon [package group id name]
-  [:img {:src (string "/assets/" (package :patch) "/" (package :snapshot) "/" group "/" id
-                      (if (string/has-suffix? ".png" id) "" ".png")) :alt name :width 64 :height 64 :loading "lazy"}])
+  [:img {:src (icon-source package group id) :alt name :width 64 :height 64 :loading "lazy"}])
 (defn input [name caption value minimum maximum &opt step]
   [:label caption [:input {:form "scenario" :name name :data-bind name :type "number" :value value
                            :min minimum :max maximum :step (or step 1) :required true}]])
@@ -209,9 +212,14 @@
     source
     (let [parts (string/split "/" source)
           item (when (and (= "item" (first parts)) (>= (length parts) 2)) (get-in package [:item-map (parts 1)]))
+          rune (when (= "rune" (first parts)) (find |(= (string (get $ "id")) (get parts 1)) (scenarios/runes package)))
           ability (find |(= source ($ :id)) abilities)
           trigger (find |(= source ($ :id)) triggers)]
-      {:name (cond (= source "attack") "Basic attack" item (item :name) ability (ability :name) (get trigger :name) (trigger :name) source)
+      {:name (cond (= source "attack") "Basic attack" item (item :name) ability (ability :name) rune (get rune "name") (get trigger :name) (trigger :name) source)
+       :icon (cond item (icon-source package "item" (item :icon))
+               ability (icon-source package (ability :icon-group) (ability :icon))
+               rune (icon-source package "rune" (get parts 1)))
+       :slot (get ability :slot)
        :consumption (when (= "spellblade" (get trigger :consume-buff)) "Spellblade consumed")})))
 (defn results [result]
   (def combat (get-in result [:selected :combat]))
@@ -233,7 +241,9 @@
   (def hp (when winner (get-in endpoint [:participants winner :health] (get-in actors [winner :health] 0))))
   [:section {:id "results" :class "results matchup-results" :data-matchup-result (json/encode {:trace trace :duration (state :duration) :end end :names names
                                                                                                :sources (event-sources (result :package) actors trace)
-                                                                                               :actors (map |{:id ($ :id) :hp (get-in $ [:stats :hp] 1)} actors)})
+                                                                                               :actors (map |{:id ($ :id) :hp (get-in $ [:stats :hp] 1)
+                                                                                                              :icon (icon-source (result :package) "champion"
+                                                                                                                                 (get-in result [:package :champion-map ($ :champion) :icon]))} actors)})
              :data-run-id (string (os/clock :monotonic)) :aria-busy "false"}
    [:div {:class "matchup-result-header"}
     [:div [:h2 (cond simultaneous (string "Both die at " (string/format "%.2f" end) " s")

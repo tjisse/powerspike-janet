@@ -4,6 +4,7 @@
 (import ../web/catalog :as catalog)
 (import ../src/powerspike/jobs :as jobs)
 (import pshash :as hash)
+(import ../src/powerspike/data-util :as util)
 
 (catalog/initialize (string "build/matchup-tests/" (hash/sha256 (os/cryptorand 8))) "build/seed")
 (def input {"mode" "duel" "selected" "custom" "champion" "Annie" "opponent" "Garen"
@@ -67,12 +68,23 @@
 
 # Event labels come from the completed snapshot and actual trigger metadata.
 (def sources (matchup/event-sources (result :package)
-                                    [{:abilities [{:id "FioraW" :name "Riposte"}]
+                                    [{:abilities [{:id "FioraW" :name "Riposte" :slot :w :icon-group "spell" :icon "FioraW.png"}
+                                                  {:id "AhriOrbofDeception" :name "Orb of Deception" :slot :q :icon-group "spell" :icon "AhriOrbofDeception.png"}]
                                       :triggers [{:id "item/3100/hit" :consume-buff "spellblade"}]}]
-                                    [{:source "attack"} {:source "FioraW"} {:source "item/3100/hit"}]))
+                                    [{:source "attack"} {:source "FioraW"} {:source "AhriOrbofDeception"} {:source "item/3100/hit"} {:source "unknown"}]))
 (assert (= "Basic attack" (get-in sources ["attack" :name])))
 (assert (= "Riposte" (get-in sources ["FioraW" :name])))
 (assert (= "Lich Bane" (get-in sources ["item/3100/hit" :name])))
 (assert (= "Spellblade consumed" (get-in sources ["item/3100/hit" :consumption])))
 (assert (nil? (get-in sources ["attack" :consumption])))
+(def prefix (string "/assets/" (get-in result [:package :patch]) "/" (get-in result [:package :snapshot]) "/"))
+(assert (= (string prefix "spell/FioraW.png") (get-in sources ["FioraW" :icon])))
+(assert (= :w (get-in sources ["FioraW" :slot])))
+(assert (= (string prefix "spell/AhriOrbofDeception.png") (get-in sources ["AhriOrbofDeception" :icon])))
+(assert (= :q (get-in sources ["AhriOrbofDeception" :slot])))
+(assert (= (string prefix "item/3100.png") (get-in sources ["item/3100/hit" :icon])))
+(assert (nil? (get-in sources ["unknown" :icon])))
+(def payload (util/read-json (get-in (matchup/results result) [1 :data-matchup-result])))
+(assert (= (string prefix "champion/Annie.png") (get-in payload ["actors" 0 "icon"])))
+(assert (= (string prefix "champion/Garen.png") (get-in payload ["actors" 1 "icon"])))
 (print "ok completed-snapshot event names and empowerment consumption labels")

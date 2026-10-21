@@ -94,11 +94,18 @@ diagnostics remain in the developer tools.
    difference, using averages across every trial. [Trial variation](trial-variation.md)
    now shows observed damage changes within matching trials, including when
    the advantage changes sides, with a direct trial-count control.
+   [Timeline artwork](timeline-and-concurrency.md) now restores snapshot-scoped
+   ability, item and rune icons and attacker portraits, with keyboard selection,
+   readable missing-artwork fallbacks and the full crowded-event selector.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before
-   treating deployment behavior as covered. Next, check concurrent simulations
-   and cancellation for the small player beta.
+   treating deployment behavior as covered. The [local concurrency audit](timeline-and-concurrency.md)
+   now checks simultaneous simulations and SSE reruns, cancellation isolation,
+   queue capacity and responsive health checks. It fixes cancelled queue slots,
+   retries attaching to cancelling jobs, and long-result rendering on the HTTP
+   event loop. Next, exercise slow/unavailable providers and storage limits,
+   then run the checks through the actual deployment's reverse proxy.
 6. **Player beta readiness.** Prepare a short comparison walkthrough and a
    repeatable issue-report flow that includes a scenario export. Use concrete
    player reports to prioritize mismatches and confusing interactions, then

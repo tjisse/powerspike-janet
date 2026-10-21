@@ -143,5 +143,7 @@
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 @media(max-width:590px){.item-comparison{padding:14px 12px}.comparison-table{font-size:12px}.comparison-table th,.comparison-table td{padding:10px 6px}.comparison-items{max-width:100px}.comparison-items img{width:25px;height:25px}.comparison-actions{gap:12px}.comparison-scroll-hint{display:block}}
 
-.matchup-event.parried{border-style:dashed;color:var(--muted);font-size:18px}.matchup-event[aria-pressed=true]{z-index:2}.matchup-parry-hint{margin:8px 0 2px}
+.matchup-event.has-icon{padding:0;overflow:hidden}.matchup-event img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.matchup-event.has-icon .matchup-event-label{position:absolute;right:0;bottom:0;padding:1px 3px;background:#080f18e8;color:var(--ink);font-size:10px;line-height:1.2}
+.matchup-event.parried{border-style:dashed;color:var(--muted);font-size:18px}.matchup-event.parried img{opacity:.5}.matchup-event.parried.has-icon .matchup-event-label{font-size:18px;padding:0 3px}.matchup-event[aria-pressed=true]{z-index:2}.matchup-parry-hint{margin:8px 0 2px}
 .matchup-identity,.champion-identity{flex-wrap:wrap}.form-control{flex:1 0 100%;min-width:0}.form-control select{width:100%}

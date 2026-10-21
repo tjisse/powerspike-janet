@@ -540,6 +540,84 @@ def verify_survival_comparison(browser, base):
     page.close()
     print('Browser: equal-gold offense/survival tradeoff, aggregate trials, defeat timing, health, responsive summary and accessible table scrolling passed.')
 
+def verify_timeline_icons(browser, base):
+    page = browser.new_page(viewport={'width':1200,'height':1000})
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    url = (base+'/?mode=duel&champion=Annie&opponent=Garen&selected=custom&snapshotlocked=true'
+           '&level=6&opponentlevel=6&movement=hold&opponentmovement=hold&distance=0&duration=5')
+    page.goto(url, wait_until='domcontentloaded')
+    expect(page.locator('#matchup-chart svg')).to_be_visible()
+    result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+    scenario = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
+    prefix = f"/assets/{scenario['patch']}/{scenario['snapshot']}/"
+    for actor, champion in zip(result['actors'], ('Annie', 'Garen')):
+        assert actor['icon'] == prefix+f'champion/{champion}.png'
+    events = [row for row in result['trace'] if row['at'] <= result['end'] and row['kind'] in
+              ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried')]
+    select = page.locator('.matchup-event-select')
+    assert select.locator('option').count() == len(events)+1
+    for source, slot in (('AnnieQ','Q'), ('AnnieW','W'), ('attack','AA')):
+        index = next(index for index, row in enumerate(events) if row['source'] == source and row['actor'] == 'player')
+        select.select_option(str(index))
+        marker = page.locator(f'[data-trace-event="{index}"]')
+        expect(marker).to_be_visible()
+        expect(marker).to_have_attribute('aria-pressed', 'true')
+        expect(marker.locator('.matchup-event-label')).to_have_text(slot)
+        expected_icon = result['actors'][0]['icon'] if source == 'attack' else result['sources'][source]['icon']
+        assert expected_icon.startswith(prefix)
+        expect(marker.locator('img')).to_have_attribute('src', expected_icon)
+        page.wait_for_function('(index)=>{const img=document.querySelector(`[data-trace-event="${index}"] img`);return img?.complete && img.naturalWidth>0}', arg=index)
+        assert 'seconds, Annie' in marker.get_attribute('aria-label')
+        marker.focus()
+        marker.press('Enter')
+        expect(marker).to_be_focused()
+        expect(page.locator('.matchup-event-detail')).to_be_visible()
+    # Configuration edits leave the completed result and its artwork intact.
+    previous = page.locator('#results').get_attribute('data-matchup-result')
+    page.locator('[name=opponentlevel]').select_option('7')
+    expect(page.locator('.matchup-stale')).to_be_visible()
+    assert page.locator('#results').get_attribute('data-matchup-result') == previous
+    page.locator('#results').screenshot(path='build/timeline-icons-desktop.png')
+    for width in (736,390,320):
+        page.set_viewport_size({'width':width,'height':1000})
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
+        if not page.locator('#matchup-events').evaluate('(node)=>node.open'):
+            page.locator('#matchup-events summary').click()
+        for source in ('AnnieQ','AnnieW'):
+            index = next(index for index, row in enumerate(events) if row['source'] == source)
+            select.select_option(str(index))
+            expect(page.locator(f'[data-trace-event="{index}"] img')).to_be_visible()
+    page.locator('#results').screenshot(path='build/timeline-icons-mobile.png')
+    assert not errors, errors
+    page.close()
+    # Missing artwork must leave a usable, named marker rather than a broken image.
+    fallback = browser.new_page(viewport={'width':390,'height':1000}, has_touch=True, is_mobile=True)
+    failed = []
+    def fail_icon(route):
+        failed.append(route.request.url)
+        route.abort()
+    fallback.route('**/spell/Annie*.png', fail_icon)
+    fallback.goto(url, wait_until='domcontentloaded')
+    expect(fallback.locator('#matchup-chart svg')).to_be_visible()
+    if not fallback.locator('#matchup-events').evaluate('(node)=>node.open'):
+        fallback.locator('#matchup-events summary').click()
+    index = next(index for index, row in enumerate(events) if row['source'] == 'AnnieQ')
+    fallback.locator('.matchup-event-select').select_option(str(index))
+    marker = fallback.locator(f'[data-trace-event="{index}"]')
+    expect(marker.locator('img')).to_have_count(0)
+    expect(marker).to_have_text('Q')
+    assert marker.bounding_box()['width'] >= 44
+    attempts = len(failed)
+    fallback.locator('[data-matchup-metric=damage]').click()
+    expect(marker).to_have_text('Q')
+    expect(marker.locator('img')).to_have_count(0)
+    assert len(failed) == attempts
+    marker.click()
+    expect(fallback.locator('.matchup-event-detail')).to_contain_text(result['sources']['AnnieQ']['name'])
+    fallback.close()
+    print('Browser: snapshot-scoped timeline artwork, keyboard selection, crowded events, responsive layout and missing-icon fallback passed.')
+
 def verify_ability_readiness(browser, base):
     page = browser.new_page(viewport={'width':1200,'height':1000})
     page.goto(base+'/?mode=duel&champion=Annie&opponent=Annie&selected=custom&snapshotlocked=true'
@@ -671,6 +749,7 @@ def verify_movement_readiness(browser, base):
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        verify_timeline_icons(browser, base)
         verify_ability_readiness(browser, base)
         verify_resource_readiness(browser, base)
         verify_health_activation(browser, base)

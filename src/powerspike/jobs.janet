@@ -5,7 +5,7 @@
 (def records @{})
 (def queue @[])
 (def active @{})
-(defn lane [job] (if (= :patch (job :kind)) :network :compute))
+(defn lane [job] (case (job :kind) :patch :network :render :render :compute))
 (defn get-job [id] (get records id))
 (defn terminal? [job] (some |(= $ (job :status)) [:done :failed :cancelled]))
 (defn cancel [id]
@@ -14,7 +14,14 @@
   (unless (or (terminal? job) (job :cancel-requested))
     (put job :cancel-requested true)
     (when (job :cancel-channel) (ev/give (job :cancel-channel) true))
-    (put job :status (if (= :queued (job :status)) :cancelled :cancelling)))
+    (if (= :queued (job :status))
+      (do
+        (def index (find |(= id ((queue $) :id)) (range 0 (length queue))))
+        (when index (array/remove queue index 1))
+        (put job :task nil) (put job :input nil)
+        (put job :progress {:message "Cancelled before starting" :completed 0 :total 1})
+        (put job :status :cancelled))
+      (put job :status :cancelling)))
   job)
 (defn pump []
   (while (not (empty? queue))
@@ -59,7 +66,7 @@
                      (put selected :task nil) (put selected :input nil)
                      (put active (lane selected) nil) (pump) (break)))))))))
 (defn submit [kind key task input]
-  (def shared (find |(and (= kind ($ :kind)) (= key ($ :key)) (not (terminal? $))) (values records)))
+  (def shared (when key (find |(and (= kind ($ :kind)) (= key ($ :key)) (not (terminal? $)) (not ($ :cancel-requested))) (values records))))
   (or shared
       (do
         (assert (< (length queue) 8) "The work queue is full. Try again shortly.")

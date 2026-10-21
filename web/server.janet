@@ -103,8 +103,38 @@
   (merge (response 200 (slurp path) "image/png")
          {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}}))
 
+(defn render-task [input progress cancelled]
+  (when (cancelled) (error "Cancelled."))
+  (def result (input :result))
+  (def package (packages/load (get-in result [:package :patch]) (get-in result [:package :snapshot])))
+  (def prepared (merge result {:package package}))
+  (def state (input :state))
+  (with-dyns [:patch-package package]
+    (if (= :page (input :view)) (ui/page prepared evidence (input :message))
+      (ui/render (ui/results prepared)
+                 (when (or state (not= "duel" (get-in prepared [:state :mode]))) (ui/loadout prepared))
+                 (ui/fight-controls prepared)
+                 (when (input :applied) (optimizer/panel prepared nil (input :applied)))
+                 (when (not= "duel" (get-in prepared [:state :mode]))
+                   [(ui/tactics prepared) (optimizer/rune-editor package (prepared :state))])
+                 (ui/patch-panel prepared (prepared :patch-job))
+                 (workspace/tools prepared) (ui/coverage prepared)))))
+
+(defn render-async [view result &opt state applied message]
+  # Rendering long traces is CPU work too. Keep it off the HTTP event loop,
+  # with one bounded worker independent of combat and provider downloads.
+  # The immutable package is already cached; do not copy it into each payload.
+  (def package (result :package))
+  (def input {:view view :result (merge result {:package {:patch (package :patch) :snapshot (package :snapshot)}})
+              :state state :applied applied :message message})
+  (def job (jobs/submit :render nil render-task input))
+  (while (not (jobs/terminal? job)) (ev/sleep 0.01))
+  (assert (= :done (job :status)) (or (job :error) "Rendering cancelled."))
+  (job :result))
+
 (defn show-result [req result &opt state job-id]
   (def prepared (prepare-result result job-id))
+  (def content (render-async :result prepared state (when (= "/search/apply" (req :route)) (get-in req [:query "id"]))))
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
@@ -116,15 +146,7 @@
                                                           (each key [:searchbudget :searchslots :searchseconds :searchpreset :searchpool :searchexclude :nextpurchase :searchrunes :searchsummoners :searchskills]
                                                             (when (has-key? input (string key)) (put values key (get input (string key))))))
                                                         (ds/patch-signals gen values))
-                                                      (with-dyns [:patch-package (prepared :package)]
-                                                        (ds/patch-elements gen
-                                                                           (ui/render (ui/results prepared)
-                                                                                      (when (or state (not= "duel" (get-in prepared [:state :mode]))) (ui/loadout prepared)) (ui/fight-controls prepared)
-                                                                                      (when (= "/search/apply" (req :route)) (optimizer/panel prepared nil (get-in req [:query "id"])))
-                                                                                      (when (not= "duel" (get-in prepared [:state :mode]))
-                                                                                        [(ui/tactics prepared) (optimizer/rune-editor (prepared :package) (prepared :state))])
-                                                                                      (ui/patch-panel prepared (prepared :patch-job))
-                                                                                      (workspace/tools prepared) (ui/coverage prepared))))))}))
+                                                      (ds/patch-elements gen content)))}))
 (defn evaluate [req]
   (def input (ds/get-signals req))
   (def result (protect (model/compare-async (model/parse-state input))))
@@ -253,8 +275,8 @@
                                (model/parse-state fields)))))
       (if (first result) (do
                            (def prepared (prepare-result (result 1)))
-                           (with-dyns [:patch-package (prepared :package)] (response 200 (ui/page prepared evidence))))
-        (response 400 (ui/page (model/compare (model/parse-state {})) evidence (string (result 1))))))
+                           (response 200 (render-async :page prepared)))
+        (response 400 (render-async :page (model/compare-async (model/parse-state {})) nil nil (string (result 1))))))
     (= "/evaluate" (req :route)) (evaluate req)
     (= "/configure" (req :route)) (configure req (model/parse-state (ds/get-signals req)))
     (response 404 "Not found." "text/plain")))

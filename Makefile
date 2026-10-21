@@ -50,6 +50,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/matchup.janet
 	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
+	JANET_PATH=build/web-modules $(JANET) test/job-queue.janet
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
@@ -104,6 +105,7 @@ test-runtime: build
 	JANET_PATH=build/web-modules PS_CHANGING_FIXTURE=$(CURDIR)/build/changing-runtime-fixture $(JANET) test/changing-readiness.janet
 	JANET_PATH=build/web-modules PS_HEALTH_COST_FIXTURE=$(CURDIR)/build/health-cost-runtime-fixture $(JANET) test/health-cost-readiness.janet
 	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture --resource-fixture build/resource-runtime-fixture --health-fixture build/health-runtime-fixture --movement-fixture build/movement-runtime-fixture --changing-fixture build/changing-runtime-fixture --health-cost-fixture build/health-cost-runtime-fixture
+	$(PYTHON) test/concurrency.py dist/bin/powerspike
 
 test-package:
 	$(PYTHON) test/package.py $(RPM)

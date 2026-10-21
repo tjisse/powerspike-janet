@@ -64,32 +64,30 @@
   (def patch (or (jobs/patch job) (get (result :state) :patch ((result :package) :patch))))
   (def progress (get job :progress {:message "" :completed 0 :total 1}))
   (def active (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
+  (def status (or message (when job (string patch " · " (or (get job :error) (progress :message) (job :status))))
+                  "Cached patches work offline"))
   [:section {:id "patch-panel" :class "patch-panel" :data-poll (if (or active (not catalog/versions-ready)) "true" "false")}
    [:label "Patch"
     [:select {:name "patchchoice" :data-bind:patchchoice true :data-on:change "@post('/patches')"}
      (map |[:option {:value $ :selected (= $ patch)} $] catalog/patch-list)]]
-   [:span {:class "muted"} "Cached patches work offline"]
-   [:button {:type "button" :data-on:click "@post('/patches?refresh=true')"} "Refresh patch data"]
-   (when job
-     [:div {:class "patch-progress" :role "status"}
-      [:div {:class "patch-progress-controls"}
-       [:strong (or (jobs/patch job) "Patch data")]
-       [:span (string " · " (job :status))]
-       (when active
-         [[:progress {:max (max 1 (progress :total)) :value (progress :completed)}]
-          [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"]])
-       (when (= :done (job :status))
-         [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
-              :data-init (string "const next = new URL('/', location.href); const form = document.getElementById('scenario'); "
-                                 "if (form) for (const [key, value] of new FormData(form)) next.searchParams.set(key, value); "
-                                 "if (form) for (const field of form.elements) if (field.type === 'checkbox') next.searchParams.set(field.name, field.checked ? 'true' : 'false'); "
-                                 "for (const [prefix, selector] of [['slot', '#loadout-tray .tray-items .item-slot'], ['enemyslot', '#fight-settings .loadout .item-slot']]) "
-                                 "document.querySelectorAll(selector).forEach((slot, index) => next.searchParams.set(prefix + (index + 1), slot.dataset.itemId || '')); "
-                                 "next.searchParams.set('selected', $selected); next.searchParams.set('patch', '" ((job :result) :patch)
-                                 "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
-          "Open patch"])]
-      [:span {:class "patch-progress-message" :title (progress :message)} (progress :message)]
-      [:span {:id "patch-job-signals" :data-init (string "$job = '" (job :id) "'")}]])])
+   [:div {:class "patch-progress-controls"}
+    [:button {:type "button" :disabled active :data-on:click "@post('/patches?refresh=true')"} "Refresh patch data"]
+    (when active
+      [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel"])
+    (when (= :done (get job :status))
+      [:a {:class "apply" :href (string "/?patch=" ((job :result) :patch) "&snapshot=" ((job :result) :snapshot))
+           :data-init (string "const next = new URL('/', location.href); const form = document.getElementById('scenario'); "
+                              "if (form) for (const [key, value] of new FormData(form)) next.searchParams.set(key, value); "
+                              "if (form) for (const field of form.elements) if (field.type === 'checkbox') next.searchParams.set(field.name, field.checked ? 'true' : 'false'); "
+                              "for (const [prefix, selector] of [['slot', '#loadout-tray .tray-items .item-slot'], ['enemyslot', '#fight-settings .loadout .item-slot']]) "
+                              "document.querySelectorAll(selector).forEach((slot, index) => next.searchParams.set(prefix + (index + 1), slot.dataset.itemId || '')); "
+                              "next.searchParams.set('selected', $selected); next.searchParams.set('patch', '" ((job :result) :patch)
+                              "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
+       "Open patch"])]
+   [:div {:class "patch-progress" :role "status"}
+    [:span {:class "patch-progress-message" :title status} status]
+    [:progress {:max (max 1 (progress :total)) :value (progress :completed) :class (unless active "patch-progress-idle") :aria-hidden (not active)}]]
+   (when job [:span {:id "patch-job-signals" :hidden true :data-init (string "$job = '" (job :id) "'")}])])
 
 (defn patch-header [result]
   [:details {:id "patch-settings" :class "header-patch" :data-on:jobtick "@get('/patches/status')"}
@@ -803,12 +801,10 @@
    [:div {:class "fight-strip"}
     [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} (if (= "practice" (state :mode)) "Practice target" (state :mode)) " ▾"]
     [:button {:type "button" :class "quiet-action" :data-ui-toggle "fight-settings"} duration " seconds"]
-    [:button {:type "button" :class "quiet-action" :data-search-open true :data-text "'Goal: ' + $searchpreset"} "Goal: burst"]
-    [:button {:type "button" :class "validation-badge coverage-link" :data-ui-toggle "coverage"} "Simulated fight · details ▾"]]
+    [:button {:type "button" :class "quiet-action" :data-search-open true :data-text "'Goal: ' + $searchpreset"} "Goal: burst"]]
    [:div {:class "numbers outcome-summary"}
     (metric (if (> (get combat :samples 1) 1) "Mean damage dealt" "Damage dealt") (combat :damage)) (metric "Damage per second" (combat :dps) true)
     [:span {:class "muted"} (get combat :samples 1) " trial(s) · graphs show trial 0"]]
-   (item-comparison result)
    [:div {:id "combat-graphs" :class "combat-graphs"}
     [:span {:id "combat-trace" :hidden true :data-trace (json/encode (get combat :trace []))
             :data-scenario (get combat :scenario-id (string ((result :package) :snapshot) "/" (json/encode state)))}]
@@ -868,7 +864,7 @@
 (defn loadout [result] (if (= "duel" (get-in result [:state :mode])) (matchup/loadout result) (legacy-loadout result)))
 (defn results [result]
   (if (= "duel" (get-in result [:state :mode]))
-    [;(matchup/results result) (item-comparison result)]
+    (matchup/results result)
     (legacy-results result)))
 (defn fight-controls [result] (if (= "duel" (get-in result [:state :mode])) (matchup/fight-controls result) (legacy-fight-controls result)))
 

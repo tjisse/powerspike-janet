@@ -269,7 +269,6 @@
     [:div {:class "matchup-metric" :aria-label "Chart metric"}
      [:button {:type "button" :data-matchup-metric "health" :aria-pressed "true"} "Health remaining"]
      [:button {:type "button" :data-matchup-metric "damage" :aria-pressed "false"} "Damage dealt"]]]
-   [:button {:type "button" :class "validation-badge coverage-link" :data-ui-toggle "coverage"} "Simulated fight · details ▾"]
    [:div {:class "matchup-legend"}
     (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])
     (when (some |(= :parried ($ :kind)) trace)
@@ -283,5 +282,4 @@
     [:output {:class "matchup-time" :aria-label "Fight time"} "0.00 s"]
     [:label "Event" [:select {:class "matchup-event-select" :aria-label "Select combat event"} [:option {:value ""} "Select event"]]]]
    [:div {:class "matchup-health" :aria-live "polite"}]
-   [:p {:class "muted matchup-advantage"}]
-   [:div {:class "matchup-event-detail" :aria-live "polite"} "Select an event to inspect the simulated hit."]])
+   [:div {:id "combat-event-tooltip" :class "matchup-event-detail" :role "tooltip" :popover "manual" :hidden true}]])

@@ -129,7 +129,7 @@ def verify_browser(base, output, expected_model=None):
         response = page.goto(base+query, wait_until='domcontentloaded', timeout=30000)
         assert response.status == 200
         expect(page.locator('#matchup-chart svg')).to_be_visible()
-        expect(page.locator('.coverage-link')).to_have_text('Simulated fight · details ▾')
+        assert page.locator('.coverage-link, #item-comparison').count() == 0
         assert page.locator('#verification-progress, #source-evidence, #evidence').count() == 0
         def configurations():
             return json.loads(page.locator('#champion-configurations').get_attribute('data-json'))

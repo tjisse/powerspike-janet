@@ -16,7 +16,7 @@ def verify(browser, base):
     expect(page.locator('#matchup-chart svg')).to_be_visible()
     query.update(referencejson=page.locator('#scenario-data').get_attribute('data-json'), slot1='1028')
     page.goto(base+'/?'+urlencode(query)+'&private-marker=not-for-the-report', wait_until='domcontentloaded')
-    expect(page.locator('.item-comparison-table')).to_be_visible()
+    assert page.locator('#item-comparison').count() == 0
     page.wait_for_function('!document.querySelector("#powerspike").classList.contains("is-pending")')
     workspace = json.loads(page.locator('#workspace-data').get_attribute('data-json'))
     observed = json.loads(page.locator('#problem-report-data').get_attribute('data-json'))['observed']

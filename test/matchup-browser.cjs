@@ -12,7 +12,7 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   await page.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
   await page.locator('#matchup-chart svg').waitFor();
   assert.equal(await page.locator('.matchup-card').count(), 2);
-  assert.equal(await page.locator('.coverage-link').innerText(), 'Simulated fight · details ▾');
+  assert.equal(await page.locator('.coverage-link, #item-comparison').count(), 0);
   assert.equal(await page.locator('#verification-progress, #source-evidence, #evidence').count(), 0);
   assert.equal(await page.locator('[name=mode]').inputValue(), 'duel');
   assert.equal(await page.locator('#fight-settings [name=armor]').count(), 0);

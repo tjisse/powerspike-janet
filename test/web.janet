@@ -241,9 +241,10 @@
 (test "player views describe a simulation and keep verification in developer tools"
       (fn [] (def result (model/compare model/default-state))
         (def text (ui/page result (model/evidence)))
-        (each marker ["Annie.png" "name=\"level\"" "id=\"results\"" "<noscript>" "Simulated fight" "Simulation details"]
+        (each marker ["Annie.png" "name=\"level\"" "id=\"results\"" "<noscript>" "Simulated combat" "Simulation details"]
           (assert (string/find marker text)))
-        (each marker ["Unvalidated" "unverified" "Checked in-game" "No in-game check" "Interpreted effects" "Replay verification progress" "Snapshot SHA-256"]
+        (each marker ["Unvalidated" "unverified" "Checked in-game" "No in-game check" "Interpreted effects" "Replay verification progress" "Snapshot SHA-256"
+                      "Compare items" "coverage-link"]
           (assert (not (string/find marker text)) (string "Developer detail in player page: " marker)))
         (def developer (ui/developer-page result (model/evidence)))
         (each marker ["Developer tools" "Replay verification progress" "Snapshot SHA-256" "stat captures" "Unvalidated estimate"]
@@ -297,7 +298,7 @@
 (test "excluded on-hit effects and other-mode inventory restrictions remain visible"
       (fn [] (def result (model/compare (model/parse-state {"champion" "Jhin" "slot1" "6672" "slot2" "222051"})))
         (def text (ui/render (ui/results result) (ui/coverage result)))
-        (each marker ["Basic" "Simulated fight" "Kraken Slayer" "Passive and active effects excluded"
+        (each marker ["Basic" "Simulation details" "Kraken Slayer" "Passive and active effects excluded"
                       "not available on map"]
           (assert (string/find (if (= marker "Basic") "basic attacks" marker) text)))))
 
@@ -470,7 +471,7 @@
         (assert (> (get-in current [:combat :metrics :health]) 0))
         (assert (= 1 (get-in reference [:combat :metrics :death-rate])))
         (assert (= 0 (get-in current [:combat :metrics :death-rate])))
-        (def text (ui/render (ui/results result)))
+        (def text (ui/render (ui/item-comparison result)))
         (each expected ["HP left" "Survival" "Survived" "Defeated" "at 0.25 s" "Now survives"
                         "Current items survive the window; pinned items are defeated." "end of the configured window"]
           (assert (string/find expected text) expected))))
@@ -519,7 +520,7 @@
         (assert (= (string/repeat "0" 64) ((saves/decode (util/encode-json older)) :savedmodel)))
         (def shared (server/app {:method "GET" :route "/" :query {"scenario" (string document)}}))
         (assert (= 200 (shared :status)))
-        (assert (string/find "3 &#x2F; 4 trials" (shared :body)))
+        (assert (not (string/find "id=\"item-comparison\"" (shared :body))))
         (assert (= 200 ((server/app {:method "GET" :route "/developer" :query {"scenario" (string document)}}) :status)))))
 
 (test "empty pinned inventories survive saves and plain scenarios restore without a pin"

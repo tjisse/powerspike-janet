@@ -143,7 +143,7 @@ def verify_fixed_forms(browser, base, champion, ranged_form, melee_form, ranged_
         assert float(practice_stats()['Health']) == 2714
         assert abs(float(practice_stats()['Attack damage']) - 162.9) < .01
         assert not json.loads(page.locator('#timeline').get_attribute('data-events'))
-        page.locator('.coverage-link').click()
+        page.locator('#coverage > summary').click()
         expect(page.locator('#coverage')).to_contain_text('Rage, automatic transformations')
         expect(page.locator('#coverage')).to_contain_text('15-second duration')
         page.locator('#loadout-tray').screenshot(path='build/gnar-form-level18.png')
@@ -204,48 +204,16 @@ def verify_kayle_levels(browser, base):
     page.close()
     print('Browser: Kayle level changes, both participants, range details, attack events and mobile layouts passed.')
 
-def verify_item_comparison(browser, base):
+def verify_practice_controls(browser, base):
     page = browser.new_page(viewport={'width':1440,'height':1080})
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.goto(base+'/?mode=practice&champion=Annie&selected=custom', wait_until='domcontentloaded')
-    expect(page.locator('.coverage-link')).to_have_text('Simulated fight · details ▾')
-    assert page.locator('#verification-progress, #source-evidence, #evidence').count() == 0
-    page.get_by_role('button', name='Pin current items', exact=True).click()
-    table = page.locator('.item-comparison-table')
-    expect(table.locator('tbody tr')).to_have_count(3)
-    expect(table.locator('.comparison-difference td').first).to_have_text('0+0.0%')
-    page.locator('#loadout-tray .item-slot').first.click()
-    # Loading the grid under a stationary pointer must not open a preview that
-    # obscures the next item selection when opening the catalog.
-    expect(page.locator('#item-picker')).to_have_attribute('data-catalog-ready', 'true')
-    expect(page.locator('#detail-popover')).not_to_be_visible()
-    page.locator('#item-picker [data-detail-item="1052"]').click()
-    expect(table.locator('tbody tr').nth(1).locator('td').last).to_have_text('400')
-    assert table.locator('.comparison-difference td').first.inner_text().startswith('+')
-    page.get_by_text('Opponent & fight', exact=True).click()
-    page.locator('#duration').fill('7')
-    page.locator('#duration').press('Tab')
-    page.wait_for_function("document.querySelector('#timeline').dataset.duration === '7'")
-    independent = browser.new_page()
-    independent.goto(base+'/?mode=practice&champion=Annie&selected=custom&duration=7', wait_until='domcontentloaded')
-    assert table.locator('tbody tr').first.locator('td').first.inner_text() == independent.locator('.metric-value').first.inner_text()
-    independent.close()
-    page.get_by_role('button', name='Replace pinned items', exact=True).click()
-    expect(table.locator('.comparison-difference td').first).to_have_text('0+0.0%')
-    page.locator('#fight-settings summary').click()
-    page.screenshot(path='build/item-comparison-desktop.png', full_page=True)
-    for width in [736,360,320]:
-        page.set_viewport_size({'width':width,'height':1080})
-        assert not page.evaluate('document.documentElement.scrollWidth>innerWidth'), width
-    page.screenshot(path='build/item-comparison-mobile.png', full_page=True)
-    page.set_viewport_size({'width':1440,'height':1080})
-    page.get_by_role('button', name='Clear comparison', exact=True).click()
-    expect(table).to_have_count(0)
+    assert page.locator('#item-comparison, .coverage-link').count() == 0
     page.get_by_role('button', name='Goal: burst', exact=True).click()
     assert page.locator('#optimizer-dialog').evaluate('(node)=>node.open')
     page.get_by_role('button', name='Close optimization', exact=True).click()
-    page.locator('.coverage-link').click()
+    page.locator('#coverage > summary').click()
     assert page.locator('#coverage').evaluate('(node)=>node.open')
     assert not page.locator('#patch-settings').evaluate('(node)=>node.open')
     page.locator('#level').select_option('1')
@@ -305,249 +273,6 @@ def verify_runes(browser, base):
     assert not errors, errors
     page.close()
 
-def verify_comparison_persistence(browser, page, base):
-    table = page.locator('.item-comparison-table')
-    expected_table = table.text_content()
-    expected_sources = page.locator('.comparison-source-table').text_content()
-    expected_variation = page.locator('#comparison-variation').text_content()
-    scenario = page.locator('#scenario-data').get_attribute('data-json')
-    document = page.locator('#workspace-data').get_attribute('data-json')
-    envelope = json.loads(document)
-    assert envelope['format'] == 'powerspike-comparison'
-    assert envelope['pinned-items'] == ['1052']
-    assert envelope['scenario'] == json.loads(scenario)['scenario']
-    expected_result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
-    page.get_by_text('Saved scenarios', exact=True).click()
-    page.get_by_label('Scenario name', exact=True).fill('Survival comparison')
-    page.get_by_role('button', name='Save locally', exact=True).click()
-    expect(page.locator('#saved-scenarios option')).to_have_count(2)
-    page.get_by_role('button', name='Create share link', exact=True).click()
-    shared = browser.new_page(viewport={'width':390, 'height':1000})
-    errors = []
-    shared.on('pageerror', lambda error: errors.append(str(error)))
-    shared.goto(page.locator('#scenario-link').input_value(), wait_until='domcontentloaded')
-    expect(shared.locator('.item-comparison-table')).to_have_text(expected_table)
-    expect(shared.locator('.comparison-source-table')).to_have_text(expected_sources)
-    expect(shared.locator('#comparison-variation')).to_have_text(expected_variation)
-    assert json.loads(shared.locator('#results').get_attribute('data-matchup-result')) == expected_result
-    assert shared.locator('#scenario-data').get_attribute('data-json') == scenario
-    assert shared.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-    shared.close()
-    with page.expect_download() as download:
-        page.get_by_role('button', name='Export JSON', exact=True).click()
-    exported = Path(download.value.path()).read_text()
-    assert exported == document
-    page.get_by_role('button', name='Clear comparison', exact=True).click()
-    expect(table).to_have_count(0)
-    page.get_by_label('Locally saved scenarios', exact=True).select_option(index=1)
-    page.get_by_role('button', name='Load saved', exact=True).click()
-    expect(table).to_have_text(expected_table)
-    expect(page.locator('.comparison-source-table')).to_have_text(expected_sources)
-    expect(page.locator('#comparison-variation')).to_have_text(expected_variation)
-    page.get_by_role('button', name='Clear comparison', exact=True).click()
-    expect(table).to_have_count(0)
-    page.get_by_text('Import a scenario', exact=True).click()
-    page.locator('#scenario-file').set_input_files({'name':'comparison.json', 'mimeType':'application/json', 'buffer':exported.encode()})
-    expect(page.locator('#scenario-json')).to_have_value(exported)
-    page.get_by_role('button', name='Load scenario', exact=True).click()
-    expect(table).to_have_text(expected_table)
-    # Loading an ordinary scenario explicitly clears an existing comparison.
-    expect(page.locator('#scenario-json')).to_have_value('')
-    if not page.locator('#scenario-json').is_visible():
-        page.get_by_text('Import a scenario', exact=True).click()
-    page.locator('#scenario-json').fill(scenario)
-    page.get_by_role('button', name='Load scenario', exact=True).click()
-    expect(table).to_have_count(0)
-    expect(page.get_by_role('button', name='Pin current items', exact=True)).to_be_visible()
-    # A layout-changing import must carry the comparison through its redirect.
-    practice = browser.new_page()
-    practice.on('pageerror', lambda error: errors.append(str(error)))
-    practice.goto(base+'/?mode=practice&selected=custom&champion=Annie', wait_until='domcontentloaded')
-    practice.get_by_text('Saved scenarios', exact=True).click()
-    practice.get_by_text('Import a scenario', exact=True).click()
-    practice.locator('#scenario-json').fill(exported)
-    practice.get_by_role('button', name='Load scenario', exact=True).click()
-    practice.wait_for_function('document.querySelector("#powerspike").dataset.layout === "matchup"')
-    expect(practice.locator('.item-comparison-table')).to_have_text(expected_table)
-    expect(practice.locator('.comparison-source-table')).to_have_text(expected_sources)
-    expect(practice.locator('#comparison-variation')).to_have_text(expected_variation)
-    assert json.loads(practice.locator('#results').get_attribute('data-matchup-result')) == expected_result
-    practice.close()
-    for format_name in ('powerspike-scenario', 'powerspike-comparison'):
-        excessive = {**envelope, 'format':format_name, 'scenario':{**envelope['scenario'], 'samples':65}}
-        if format_name == 'powerspike-scenario':
-            del excessive['pinned-items']
-        response = page.request.get(base+'/?'+urllib.parse.urlencode({'scenario':json.dumps(excessive)}))
-        assert response.status == 400
-        assert 'workspace limit of 64 trials' in response.text()
-    assert not errors, errors
-    print('Browser: both builds survive local save/load, share links, JSON export/import and layout-changing imports; plain scenarios clear the pin.')
-
-def verify_damage_sources(browser, base):
-    page = browser.new_page(viewport={'width':1200, 'height':1000})
-    errors = []
-    page.on('pageerror', lambda error: errors.append(str(error)))
-    query = {'mode':'practice', 'champion':'Annie', 'selected':'custom', 'snapshotlocked':'true',
-             'level':1, 'duration':3, 'distance':0, 'movement':'hold', 'priority':'q',
-             'samples':4, 'seed':6, 'hitchance':.5, 'slot1':'1052'}
-    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
-    page.get_by_role('button', name='Pin current items', exact=True).click()
-    page.locator('.item-comparison-table').wait_for()
-    page.locator('#loadout-tray .item-slot').first.click()
-    page.locator('#item-picker [data-detail-item="1036"]').click()
-    expect(page.locator('.item-comparison-table tbody tr').nth(1).locator('td').last).to_have_text('350')
-    variation = page.locator('#comparison-variation')
-    expect(variation.locator('.comparison-variation-status')).to_have_text('Damage advantage changes between trials.')
-    expect(variation.locator('.comparison-mean')).to_have_text('+4.72 damage')
-    expect(variation.locator('.comparison-range')).to_have_text('−8.89 to +11.11 damage')
-    expect(variation.locator('.comparison-trial-counts')).to_have_text('Current higher: 3 · Pinned higher: 1 · Tied: 0')
-    details = page.locator('#comparison-sources')
-    details.locator('summary').focus()
-    page.keyboard.press('Enter')
-    expect(details.locator('.comparison-source-table')).to_be_visible()
-    expect(details).to_contain_text('Mean damage per source across all 4 seeded trials')
-    table = details.locator('.comparison-source-table')
-    expect(table.locator('tbody tr')).to_have_count(2)
-    expect(table.locator('[data-source="attack"] th')).to_contain_text('Basic attacks')
-    expect(table.locator('[data-source="AnnieQ"] th')).to_contain_text('Q ability')
-    def numeric(text):
-        return float(text.replace('−','-').replace(',',''))
-    attack = table.locator('[data-source="attack"] td').all_text_contents()
-    ability = table.locator('[data-source="AnnieQ"] td').all_text_contents()
-    assert numeric(attack[2]) > 0 and numeric(ability[2]) < 0
-    deltas = [abs(numeric(row)) for row in table.locator('tbody td:last-child').all_text_contents()]
-    assert deltas == sorted(deltas, reverse=True)
-    for index in range(3):
-        values = table.locator(f'tbody td:nth-of-type({index+1})').all_text_contents()
-        total = numeric(table.locator('tfoot td').nth(index).inner_text())
-        assert abs(sum(map(numeric, values)) - total) <= .015
-    page.locator('#item-comparison').screenshot(path='build/damage-sources-desktop.png')
-    for width in (736,390,320):
-        page.set_viewport_size({'width':width, 'height':1000})
-        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
-        expect(table).to_be_visible()
-    scroller = page.get_by_role('region', name='Damage source comparison', exact=True)
-    scroller.focus()
-    scroller.evaluate('node=>node.scrollLeft = 0')
-    page.keyboard.press('ArrowRight')
-    page.wait_for_function('document.querySelector("#comparison-sources .comparison-table-scroll").scrollLeft > 0')
-    scroller.evaluate('node=>node.scrollLeft = node.scrollWidth')
-    page.locator('#item-comparison').screenshot(path='build/damage-sources-mobile.png')
-    page.set_viewport_size({'width':1200, 'height':1000})
-    variation.get_by_role('button', name='Adjust trials', exact=True).click()
-    trials = page.locator('#fight-settings [name=samples]')
-    expect(trials).to_be_focused()
-    trials.fill('1')
-    trials.press('Tab')
-    expect(variation).to_contain_text('One simulated trial')
-    expect(variation.locator('.comparison-range')).to_have_count(0)
-    trials.fill('4')
-    trials.press('Tab')
-    expect(variation.locator('.comparison-mean')).to_have_text('+4.72 damage')
-    page.locator('#duration').fill('4')
-    page.locator('#duration').press('Tab')
-    page.wait_for_function('document.querySelector("#timeline").dataset.duration === "4"')
-    assert details.evaluate('node=>node.open')
-    assert not errors, errors
-    page.close()
-    print('Browser: paired damage variation/ranges/counts, single-trial guidance, Adjust trials, source totals, keyboard access and mobile layouts passed.')
-
-def verify_survival_comparison(browser, base):
-    page = browser.new_page(viewport={'width':1200, 'height':1000})
-    errors = []
-    page.on('pageerror', lambda error: errors.append(str(error)))
-    query = {'mode':'duel', 'champion':'Annie', 'opponent':'Annie', 'selected':'custom',
-             'snapshotlocked':'true', 'level':1, 'opponentlevel':1, 'slot1':'1052',
-             'duration':1, 'distance':0, 'healthfraction':.1,
-             'attacks':'false', 'opponentattacks':'false', 'priority':'q', 'opponentpriority':'q',
-             'movement':'hold', 'opponentmovement':'hold'}
-    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
-    expect(page.locator('#matchup-chart svg')).to_be_visible()
-    page.get_by_role('button', name='Pin current items', exact=True).click()
-    table = page.locator('.item-comparison-table')
-    expect(table.locator('tbody tr')).to_have_count(3)
-    page.locator('#player-card .item-slot').first.click()
-    page.locator('#item-picker [data-item-id="1028"]').click()
-    previous = page.locator('#results').get_attribute('data-run-id')
-    page.locator('.matchup-run').click()
-    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
-    pinned, current, delta = [table.locator('tbody tr').nth(index) for index in range(3)]
-    expect(pinned.locator('.comparison-health')).to_have_text('0')
-    expect(pinned.locator('.comparison-survival')).to_contain_text('Defeated')
-    expect(pinned.locator('.comparison-survival')).to_contain_text('at 0.25 s')
-    expect(current.locator('.comparison-survival')).to_have_text('Survived')
-    assert float(current.locator('.comparison-health').inner_text().replace(',','')) > 0
-    assert float(delta.locator('td').first.inner_text().splitlines()[0].replace('−','-')) < 0
-    expect(delta.locator('.comparison-survival')).to_have_text('Now survives')
-    expect(delta.locator('td').last).to_have_text('0')
-    summary = page.locator('.comparison-outcome')
-    expect(summary).to_have_text('Current items survive the window; pinned items are defeated.')
-    page.locator('#item-comparison').screenshot(path='build/survival-comparison-desktop.png')
-    for width in (736,390,320):
-        page.set_viewport_size({'width':width, 'height':1000})
-        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
-        summary.scroll_into_view_if_needed()
-        expect(summary).to_be_visible()
-    scroller = page.get_by_role('region', name='Item comparison results', exact=True)
-    scroller.focus()
-    assert scroller.evaluate('node=>document.activeElement === node')
-    # Exercise native keyboard scrolling, then inspect the rightmost outcomes.
-    scroller.evaluate('node=>node.scrollLeft = 0')
-    page.keyboard.press('ArrowRight')
-    page.wait_for_function('document.querySelector(".comparison-table-scroll").scrollLeft > 0')
-    scroller.evaluate('node=>node.scrollLeft = node.scrollWidth')
-    assert scroller.evaluate('node=>node.scrollLeft > 0')
-    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-    page.locator('#item-comparison').screenshot(path='build/survival-comparison-mobile.png')
-    page.set_viewport_size({'width':1200, 'height':1000})
-    # Reversing the purchase also reverses the explicit survival tradeoff.
-    page.get_by_role('button', name='Replace pinned items', exact=True).click()
-    expect(delta.locator('.comparison-survival')).to_have_text('Same')
-    page.locator('#player-card .item-slot').first.click()
-    page.locator('#item-picker [data-item-id="1052"]').click()
-    previous = page.locator('#results').get_attribute('data-run-id')
-    page.locator('.matchup-run').click()
-    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
-    expect(summary).to_have_text('Pinned items survive the window; current items are defeated.')
-    expect(delta.locator('.comparison-survival')).to_have_text('Now defeated')
-    # Seed 6 has one enemy Q hit in four trials, on trial zero. The AP build
-    # therefore dies in the displayed trace but survives three aggregate trials.
-    query.update({'samples':4, 'seed':6, 'opponenthitchance':.5})
-    page.goto(base+'/?'+urllib.parse.urlencode(query), wait_until='domcontentloaded')
-    expect(page.locator('#matchup-chart svg')).to_be_visible()
-    page.get_by_role('button', name='Pin current items', exact=True).click()
-    expect(table.locator('tbody tr')).to_have_count(3)
-    page.locator('#player-card .item-slot').first.click()
-    page.locator('#item-picker [data-item-id="1028"]').click()
-    previous = page.locator('#results').get_attribute('data-run-id')
-    page.locator('.matchup-run').click()
-    page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous)
-    expect(table.locator('thead')).to_contain_text('Mean HP left')
-    expect(pinned.locator('.comparison-survival')).to_have_text('3 / 4 trials')
-    expect(current.locator('.comparison-survival')).to_have_text('4 / 4 trials')
-    expect(delta.locator('.comparison-survival')).to_have_text('+1 trial')
-    expect(summary).to_have_text('Current items survive 1 more of 4 trials.')
-    assert float(pinned.locator('.comparison-health').inner_text().replace(',','')) > 0
-    assert pinned.locator('.comparison-survival small').count() == 0
-    page.get_by_role('button', name='Adjust trials', exact=True).click()
-    trial_input = page.locator('#fight-settings [name=samples]')
-    expect(trial_input).to_be_focused()
-    previous_samples = 4
-    for samples in (8,4):
-        previous_run = page.locator('#results').get_attribute('data-run-id')
-        trial_input.fill(str(samples))
-        trial_input.press('Tab')
-        page.wait_for_function('document.querySelector("#powerspike").dataset.stale === "true"')
-        assert page.locator('#results').get_attribute('data-run-id') == previous_run
-        expect(page.locator('#comparison-variation')).to_contain_text(f'{previous_samples} matching simulated trials')
-        page.locator('.matchup-run').click()
-        page.wait_for_function('(old)=>document.querySelector("#results").dataset.runId !== old', arg=previous_run)
-        expect(page.locator('#comparison-variation')).to_contain_text(f'{samples} matching simulated trials')
-        previous_samples = samples
-    verify_comparison_persistence(browser, page, base)
-    assert not errors, errors
-    page.close()
-    print('Browser: equal-gold offense/survival tradeoff, aggregate trials, defeat timing, health, responsive summary and accessible table scrolling passed.')
 
 def verify_timeline_icons(browser, base):
     page = browser.new_page(viewport={'width':1200,'height':1000})
@@ -780,9 +505,7 @@ def verify(base):
         verify_resource_readiness(browser, base)
         verify_health_activation(browser, base)
         verify_movement_readiness(browser, base)
-        verify_item_comparison(browser, base)
-        verify_survival_comparison(browser, base)
-        verify_damage_sources(browser, base)
+        verify_practice_controls(browser, base)
         verify_kayle_levels(browser, base)
         verify_fixed_forms(browser, base, 'Nidalee', 'human', 'cougar', 'Human', 'Cougar')
         verify_fixed_forms(browser, base, 'Jayce', 'cannon', 'hammer', 'Cannon', 'Hammer')
@@ -865,8 +588,6 @@ def verify(base):
         expect(page.locator('#event-detail')).to_contain_text('pinned')
         page.keyboard.press('Escape')
         assert page.locator('#timeline').get_attribute('data-total')==original_damage
-        page.get_by_role('button', name='Pin current items', exact=True).click()
-        page.locator('.item-comparison-table').wait_for()
         assert not page.locator('#fight-settings').evaluate('(node)=>node.open')
         page.get_by_text('Opponent & fight',exact=True).click()
         page.locator('#duration').fill('7')
@@ -918,7 +639,6 @@ def verify(base):
         page.get_by_role('button', name='Apply & inspect').first.click()
         page.wait_for_function("!document.getElementById('optimizer-dialog').open")
         page.wait_for_function("document.querySelector('#loadout-tray .item-slot img')?.src.endsWith('/1052.png')")
-        expect(page.locator('.item-comparison-table tbody tr').first.locator('td').last).to_have_text('0')
         page.locator('#loadout-tray .item-slot').first.hover()
         assert 'Amplifying Tome' in page.locator('#detail-popover').inner_text()
         assert 'Ability power' in page.locator('#detail-popover').inner_text()
@@ -992,7 +712,7 @@ def verify(base):
             assert not page.evaluate('document.documentElement.scrollWidth>innerWidth'), width
             assert page.locator('#optimizer-dialog').evaluate('(node)=>node.scrollWidth<=node.clientWidth'), width
         assert not errors, errors
-        print('Browser: item comparisons, failed-evaluation recovery, linked graphs, loadout details, responsive layout, optimize/apply/cancel, save/share and exact reproduction passed.')
+        print('Browser: failed-evaluation recovery, linked graphs, loadout details, responsive layout, optimize/apply/cancel, save/share and exact reproduction passed.')
         browser.close()
     # Exercise the paired interface in the same release/CI browser gate using
     # Playwright's bundled runtime; the app itself has no Node dependency.

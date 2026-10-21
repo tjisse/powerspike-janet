@@ -29,6 +29,9 @@ apply buttons. `test/workspace_browser.py` checks anchored layout, keyboard time
 inspection and accessible recommendations down to 320 px.
 `test/messages_browser.py` checks shared prompts, simultaneous action visibility,
 layout stability, direct reruns and error recovery.
+The attention area is hidden when empty. Patch refresh progress fits a fixed
+header dropdown; event details appear in hover, keyboard-focus and tap tooltips.
+Decorative section dividers and redundant result labels are removed.
 
 1. **Patch accuracy and readiness.** Broaden the retained refreshed-patch checks
    beyond the default Annie/Garen matchup. Compare interpreted formulas and
@@ -117,19 +120,18 @@ layout stability, direct reruns and error recovery.
    completed-item swaps, equal-gold alternatives and survival tradeoffs. Make
    the reason for a difference easy to inspect and keep controls, explanations
    and comparisons readable on mobile. Preserve reproducible scenario exports
-   and the existing Rift HUD. The duel timeline now exposes parry activation,
+   and the existing Rift HUD. The standalone Compare items panel is removed;
+   its [replacement workflow is deferred](deferred-item-comparison.md) until a
+   player walkthrough establishes how to choose, inspect and apply alternatives.
+   Existing comparison calculations and saved imports remain implementation
+   building blocks. The duel timeline now exposes parry activation,
    blocked effects and Spellblade consumption, with all crowded events available
    through the selector.
-   [Item survival comparisons](item-survival-comparisons.md) now expose health
-   remaining, defeat time and survived-trial counts beside damage and gold,
-   including equal-gold offense/survival tradeoffs, mobile summaries and the
-   comparison panel in duel results. Saved comparisons now preserve both
-   inventories and their shared fight settings through local saves, exports,
-   share links and imports. [Damage-source comparisons](damage-source-comparisons.md)
-   now show which abilities, attacks, item effects or rune effects drive the
-   difference, using averages across every trial. [Trial variation](trial-variation.md)
-   now shows observed damage changes within matching trials, including when
-   the advantage changes sides, with a direct trial-count control.
+   The retained [survival calculations](item-survival-comparisons.md),
+   [damage-source calculations](damage-source-comparisons.md) and
+   [trial variation](trial-variation.md) provide building blocks for the future
+   workflow. Saved comparison imports still preserve both inventories and the
+   shared fight settings. The separate comparison panel is no longer rendered.
    [Timeline artwork](timeline-and-concurrency.md) now restores snapshot-scoped
    ability, item and rune icons and attacker portraits, with keyboard selection,
    readable missing-artwork fallbacks and the full crowded-event selector.

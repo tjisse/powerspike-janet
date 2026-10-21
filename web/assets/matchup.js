@@ -12,6 +12,7 @@
   let championActionPending = false;
   let baseline = null, pending = null, identity = '', result = null, rows = [], events = [];
   let time = 0, metric = 'health', selected = null, scheduled = false;
+  let eventTooltipAnchor = null, eventTooltipTimer, restoringEventFocus = false;
   const node = (tag, className, text) => {
     const el = document.createElement(tag);
     if (className) el.className = className;
@@ -234,7 +235,7 @@
     const select = $('.matchup-event-select');
     select.replaceChildren(new Option('Select event', ''));
     events.forEach((record, i) => select.add(new Option(`${record.at.toFixed(2)} s · ${eventName(record)}`, String(i))));
-    select.addEventListener('change', () => { selected = select.value === '' ? null : Number(select.value); if (selected !== null) time = events[selected].at; draw(); });
+    select.addEventListener('change', () => { if (select.value === '') { selected = null; draw(); } else selectEvent(Number(select.value)); });
     $('#matchup-chart').onkeydown = event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
       event.preventDefault();
@@ -255,7 +256,68 @@
     }
     return `${who >= 0 ? result.names[who] + ' · ' : ''}${source} · ${record.kind === 'control' ? 'control received' : record.kind}`;
   }
-  function selectEvent(index) { selected = index; time = events[index].at; draw(); }
+  function hideEventTooltip() {
+    clearTimeout(eventTooltipTimer);
+    const detail = $('#combat-event-tooltip');
+    if (detail?.matches(':popover-open')) detail.hidePopover();
+    if (detail) detail.hidden = true;
+    eventTooltipAnchor?.removeAttribute('aria-describedby');
+    eventTooltipAnchor = null;
+  }
+  function eventValues(event) {
+    const values = [];
+    if (event.kind === 'damage') { values.push(`${format(event.damage)} ${event.type || ''} damage`); if (event.absorbed) values.push(`${format(event.absorbed)} absorbed`); }
+    if (['heal', 'shield'].includes(event.kind)) values.push(`${format(event.amount)} ${event.kind === 'heal' ? 'HP healed' : 'shield'}`);
+    if (event.kind === 'control') values.push(`${event.control} · ${Number(event.duration).toFixed(2)} s`);
+    if (event.kind === 'death') values.push('Knockout');
+    if (event.kind === 'parry-start') values.push(`Defense active for ${Number(Math.max(0, event.expires - event.at).toFixed(2))} s`);
+    if (event.kind === 'parried') {
+      values.push(event['effect-kind'] === 'damage' ? '0 damage' : event['effect-kind'] === 'control' ? 'Control blocked' : 'Effect blocked');
+      const consumption = result.sources?.[event.source]?.consumption;
+      if (consumption) values.push(consumption);
+    }
+    return values.join(' · ');
+  }
+  function showEventTooltip(index, anchor) {
+    const detail = $('#combat-event-tooltip'), event = events[index];
+    if (!detail || !event || !anchor) return;
+    hideEventTooltip();
+    eventTooltipAnchor = anchor;
+    detail.replaceChildren(node('strong', '', `${event.at.toFixed(2)} s · ${eventName(event)}`), node('span', '', eventValues(event)));
+    anchor.setAttribute('aria-describedby', detail.id);
+    detail.hidden = false;
+    if (typeof detail.showPopover === 'function') detail.showPopover();
+    positionEventTooltip();
+  }
+  function positionEventTooltip() {
+    const detail = $('#combat-event-tooltip');
+    if (!eventTooltipAnchor || !detail || detail.hidden) return;
+    const rect = eventTooltipAnchor.getBoundingClientRect(), width = detail.offsetWidth, height = detail.offsetHeight;
+    if (rect.bottom < 0 || rect.top > innerHeight) { hideEventTooltip(); return; }
+    detail.style.left = `${Math.max(12, Math.min(innerWidth - width - 12, rect.left + rect.width / 2 - width / 2))}px`;
+    detail.style.top = `${Math.max(12, Math.min(innerHeight - height - 12, rect.top > height + 20 ? rect.top - height - 8 : rect.bottom + 8))}px`;
+  }
+  function selectEvent(index) {
+    selected = index; time = events[index].at; draw();
+    showEventTooltip(index, $(`[data-trace-event="${index}"]`));
+  }
+  app.addEventListener('pointerover', event => {
+    const anchor = event.target.closest('[data-trace-event]');
+    if (anchor && !anchor.contains(event.relatedTarget) && event.pointerType !== 'touch') showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+    if (event.target.closest('#combat-event-tooltip')) clearTimeout(eventTooltipTimer);
+  });
+  app.addEventListener('pointerout', event => {
+    const anchor = event.target.closest('[data-trace-event],#combat-event-tooltip');
+    if (anchor && !anchor.contains(event.relatedTarget) && document.activeElement !== eventTooltipAnchor) eventTooltipTimer = setTimeout(hideEventTooltip, 120);
+  });
+  app.addEventListener('focusin', event => {
+    const anchor = event.target.closest('[data-trace-event]');
+    if (anchor && !restoringEventFocus) showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+  });
+  app.addEventListener('focusout', event => { if (event.target === eventTooltipAnchor) eventTooltipTimer = setTimeout(hideEventTooltip, 120); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') hideEventTooltip(); });
+  document.addEventListener('click', event => { if (!event.target.closest('[data-trace-event],#combat-event-tooltip,.matchup-event-select')) hideEventTooltip(); });
+  document.addEventListener('scroll', event => { if (!event.target.closest?.('#combat-event-tooltip')) positionEventTooltip(); }, true);
   function recordAt(t) {
     let lo = 0, hi = rows.length;
     while (lo < hi) { const mid = (lo + hi) >>> 1; if (rows[mid].at <= t) lo = mid + 1; else hi = mid; }
@@ -264,7 +326,7 @@
   function draw() {
     const box = $('#matchup-chart');
     if (!box || !result || !rows.length) return;
-    const width = Math.max(220, box.clientWidth), height = 235, left = 57, right = width - 23, top = 27, bottom = 200;
+    const width = Math.max(220, box.clientWidth), height = 235, left = 76, right = width - 23, top = 27, bottom = 200;
     const health = metric === 'health', points = rows.map(record => ({at: record.at, values: result.actors.map((actor, i) => health ? (record.participants[i]?.health || 0) / Math.max(1, actor.hp) * 100 : record.dealt[i])}));
     const max = health ? Math.max(100, ...points.flatMap(p => p.values)) : Math.max(1, ...points.flatMap(p => p.values));
     const ceiling = health ? Math.ceil(max / 25) * 25 : Math.ceil(max / Math.max(1, 10 ** Math.floor(Math.log10(max)))) * Math.max(1, 10 ** Math.floor(Math.log10(max)));
@@ -291,12 +353,10 @@
     svg.append(svgNode('line', {x1: x(time), x2: x(time), y1: top, y2: bottom, class: 'matchup-guide'}));
     result.actors.forEach((actor, i) => svg.append(svgNode('circle', {cx: x(time), cy: y(health ? percent[i] : current.dealt[i]), r: 4, class: `matchup-marker ${i ? 'opponent' : 'player'}`})));
     const overlay = svgNode('rect', {x: left, y: top, width: right - left, height: bottom - top, fill: 'transparent'});
-    function inspect(event) { const rect = svg.getBoundingClientRect(); time = Math.max(0, Math.min(result.end, ((event.clientX - rect.left) * width / rect.width - left) / (right - left) * result.duration)); selected = null; draw(); }
+    function inspect(event) { const rect = svg.getBoundingClientRect(); time = Math.max(0, Math.min(result.end, ((event.clientX - rect.left) * width / rect.width - left) / (right - left) * result.duration)); selected = null; hideEventTooltip(); draw(); }
     overlay.addEventListener('pointermove', event => { if (event.pointerType !== 'touch') inspect(event); }); overlay.addEventListener('click', inspect); svg.append(overlay); box.replaceChildren(svg);
     const healthBox = $('.matchup-health');
     healthBox.replaceChildren(...result.actors.map((actor, i) => { const cell = node('div'); cell.append(node('strong', '', result.names[i]), node('span', '', health ? `${format(current.participants[i]?.health)} / ${format(actor.hp)} HP (${format(percent[i])}%)` : `${format(current.dealt[i])} damage · ${format(percent[i])}% health`)); return cell; }));
-    const difference = percent[0] - percent[1];
-    $('.matchup-advantage').textContent = Math.abs(difference) < .5 ? 'Equal remaining health (%)' : `${result.names[difference >= 0 ? 0 : 1]} · ${format(Math.abs(difference))} percentage points more health`;
     $('.matchup-time').textContent = `${time.toFixed(2)} s`;
     box.setAttribute('aria-valuenow', time.toFixed(2));
     box.setAttribute('aria-valuetext', `${time.toFixed(2)} seconds`);
@@ -305,10 +365,13 @@
     drawEvents(width, left, right);
   }
   function drawEvents(width, left, right) {
+    const tooltipIndex = eventTooltipAnchor?.dataset.traceEvent;
+    hideEventTooltip();
     const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 48 : 36;
     const focused = document.activeElement?.dataset.traceEvent;
     lanes.replaceChildren(...result.actors.map((actor, side) => {
       const lane = node('div', 'matchup-event-lane'), label = node('span', 'matchup-lane-name', result.names[side]), track = node('div', 'matchup-event-track');
+      label.title = result.names[side];
       track.style.marginLeft = `${left}px`; track.style.width = `${right - left}px`;
       let previous = -Infinity;
       events.forEach((record, index) => {
@@ -326,28 +389,15 @@
           img.src = artwork; button.classList.add('has-icon'); button.append(img);
         }
         button.append(node('span', 'matchup-event-label', label));
-        button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}`); button.title = button.getAttribute('aria-label'); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
+        button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}, ${eventValues(record)}`); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
       });
       lane.append(label, track); return lane;
     }));
+    restoringEventFocus = true;
     if (focused !== undefined) [...lanes.querySelectorAll('[data-trace-event]')].find(button => button.dataset.traceEvent === focused)?.focus({preventScroll: true});
-    const detail = $('.matchup-event-detail');
-    if (selected === null) detail.textContent = 'Select an event to inspect the simulated hit.';
+    restoringEventFocus = false;
+    if (tooltipIndex !== undefined) showEventTooltip(Number(tooltipIndex), lanes.querySelector(`[data-trace-event="${tooltipIndex}"]`));
     $('.matchup-event-select').value = selected === null ? '' : String(selected);
-    if (selected !== null) {
-      const event = events[selected], values = [];
-      if (event.kind === 'damage') { values.push(`${format(event.damage)} ${event.type || ''} damage`); if (event.absorbed) values.push(`${format(event.absorbed)} absorbed`); }
-      if (['heal', 'shield'].includes(event.kind)) values.push(`${format(event.amount)} ${event.kind === 'heal' ? 'HP healed' : 'shield'}`);
-      if (event.kind === 'control') values.push(`${event.control} · ${Number(event.duration).toFixed(2)} s`);
-      if (event.kind === 'death') values.push('Knockout');
-      if (event.kind === 'parry-start') values.push(`Defense active for ${Number(Math.max(0, event.expires - event.at).toFixed(2))} s`);
-      if (event.kind === 'parried') {
-        values.push(event['effect-kind'] === 'damage' ? '0 damage' : event['effect-kind'] === 'control' ? 'Control blocked' : 'Effect blocked');
-        const consumption = result.sources?.[event.source]?.consumption;
-        if (consumption) values.push(consumption);
-      }
-      detail.replaceChildren(node('strong', '', `${event.at.toFixed(2)} s · ${eventName(event)}`), node('span', '', values.join(' · ')));
-    }
   }
   function update() {
     scheduled = false;

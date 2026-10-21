@@ -253,6 +253,10 @@ def verify_item_comparison(browser, base):
     page.get_by_text('Saved scenarios', exact=True).click()
     for name in ['Save locally', 'Export JSON', 'Create share link']:
         expect(page.get_by_role('button', name=name, exact=True)).to_be_disabled()
+    page.get_by_role('button', name='Report a problem', exact=True).click()
+    expect(page.locator('#problem-report-form')).to_be_hidden()
+    expect(page.locator('#problem-report-status')).to_contain_text('Fix the scenario and rerun')
+    page.keyboard.press('Escape')
     page.locator('[name=qrank]').select_option('-1')
     page.locator('#timeline').wait_for()
     expect(page.get_by_role('button', name='Save locally', exact=True)).to_be_enabled()
@@ -756,6 +760,8 @@ def verify_movement_readiness(browser, base):
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        from report_browser import verify as verify_reports
+        verify_reports(browser, base)
         from catalog_browser import verify as verify_catalogs
         verify_catalogs(browser, base)
         from champion_browser import verify as verify_champion_configs

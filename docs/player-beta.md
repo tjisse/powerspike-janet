@@ -10,7 +10,7 @@ Verification, source provenance and model diagnostics belong in the developer vi
 
 In practice and objective simulations, players can pin an inventory and compare it with edited or optimized items. Paired matchups retain their current-versus-proposed item comparisons in the optimizer. Both inventories are evaluated by the same Janet engine with the current fight settings and trial seeds. The comparison reports damage, DPS and gold differences without claiming that a damage increase makes a build universally better. Only items are pinned; runes, skills and fight controls apply to both builds. References from another champion or snapshot cannot silently influence the result.
 
-Simulation details are reachable beside the headline metrics. Current results and pinned results retain their separate omissions and inventory notes. Verification-only annotations stay in the developer view. Failed scenario evaluations disable save, export and share actions until a successful evaluation replaces them. The saved artifact remains a single reproducible scenario; comparisons live in the open page session.
+Simulation details are reachable beside the headline metrics. Current results and pinned results retain their separate omissions and inventory notes. Verification-only annotations stay in the developer view. Failed scenario evaluations disable save, export and share actions until a successful evaluation replaces them. Saved comparison documents preserve both builds through local saves, exports and imports. The [comparison walkthrough and problem-report flow](problem-reports.md) lets players download completed scenarios, pinned items, descriptions and recorded outcomes for developer reproduction.
 
 ## Combat improvement in v0.16.0
 

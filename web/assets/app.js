@@ -193,6 +193,57 @@
     if (!text || text.length > 65536) throw new Error('No completed scenario is available to save.');
     return text;
   }
+  // A report freezes the completed workspace shown when its dialog opens.
+  // Downloading is local; no report text, browser storage or page URL is sent.
+  const reportDialog = document.getElementById('problem-report');
+  const reportForm = document.getElementById('problem-report-form');
+  const reportStatus = text => { document.getElementById('problem-report-status').textContent = text; };
+  let reportContext = null, reportOpener = null;
+  function completedReport() {
+    if (document.getElementById('results')?.dataset.evaluationError === 'true') throw new Error('Fix the scenario and rerun before reporting its result.');
+    if (app.classList.contains('is-pending')) throw new Error('Wait for the simulation to finish, then reopen the report.');
+    if (app.dataset.stale === 'true') throw new Error('Run the matchup before reporting the changed configuration.');
+    const text = document.getElementById('problem-report-data')?.dataset.json;
+    if (!text) throw new Error('A report needs a completed practice fight or champion matchup with valid pinned items.');
+    return {...JSON.parse(text), workspace:JSON.parse(canonicalDocument())};
+  }
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-report-action]');
+    if (!button) return;
+    if (button.dataset.reportAction === 'close') { reportDialog.close(); return; }
+    reportOpener = button; reportContext = null; reportStatus('');
+    document.getElementById('problem-report-context').textContent = '';
+    try {
+      reportContext = completedReport();
+      const scenario = reportContext.workspace.scenario;
+      const target = scenario.target.champion || scenario.target.objective || 'Practice target';
+      document.getElementById('problem-report-context').textContent = `${scenario.player.champion} vs ${target} · Patch ${scenario.patch} · ${scenario.samples} trial${scenario.samples === 1 ? '' : 's'}`;
+    } catch (error) { reportStatus(error.message); }
+    reportForm.hidden = !reportContext;
+    reportDialog.showModal();
+  });
+  reportDialog.addEventListener('close', () => {
+    if (reportOpener?.isConnected) reportOpener.focus({preventScroll:true});
+  });
+  reportForm.addEventListener('submit', event => {
+    event.preventDefault();
+    try {
+      if (!reportContext || JSON.stringify(completedReport()) !== JSON.stringify(reportContext)) {
+        throw new Error('The simulation changed. Close and reopen the report to include the new result.');
+      }
+      const notes = Object.fromEntries(['actual', 'expected', 'steps'].map(name => [name, reportForm.elements.namedItem(name).value.trim()]));
+      if (!notes.actual || !notes.expected) throw new Error('Describe what happened and what you expected.');
+      if (Object.values(notes).some(value => value.length > 2000)) throw new Error('Keep each description within 2,000 characters.');
+      const report = {format:'powerspike-problem-report', version:1, 'created-at':new Date().toISOString(), ...notes, ...reportContext};
+      const text = JSON.stringify(report, null, 2);
+      if (new TextEncoder().encode(text).length > 65536) throw new Error('This report exceeds 64 KB. Shorten the descriptions and retry.');
+      const href = URL.createObjectURL(new Blob([text], {type:'application/json'}));
+      const anchor = document.createElement('a');
+      anchor.href = href; anchor.download = 'powerspike-problem-report.json'; anchor.click();
+      setTimeout(() => URL.revokeObjectURL(href), 1000);
+      reportStatus('Report downloaded. Review the file, then send it to the developer.');
+    } catch (error) { reportStatus(error.message); }
+  });
   function importText(text) {
     if (new TextEncoder().encode(text).length > 65536) throw new Error('Scenario JSON must fit within 64 KB.');
     const input = document.getElementById('scenario-json');

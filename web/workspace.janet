@@ -2,7 +2,31 @@
 (import ../src/powerspike/engine :as engine)
 (import ../src/powerspike/calibration :as calibration)
 (import ./saves :as saves)
+(import ./config :as config)
 (def model-identity engine/identity)
+(defn report-context [result]
+  (defn observed [row]
+    (when row
+      {:scenario-id (get-in row [:combat :scenario-id])
+       :samples (get-in row [:combat :samples]) :metrics (get-in row [:combat :metrics])
+       :damage-breakdown (get-in row [:combat :damage-breakdown])}))
+  {:release config/version
+   :observed {:selected (observed (result :selected)) :reference (observed (result :reference))}})
+
+(defn report-dialog []
+  [:dialog {:id "problem-report" :class "problem-report" :aria-labelledby "problem-report-title"}
+   [:header [:h2 {:id "problem-report-title"} "Report a problem"]
+    [:button {:type "button" :class "catalog-close" :data-report-action "close" :aria-label "Close problem report"} "×"]]
+   [:p {:id "problem-report-context" :class "muted"}]
+   [:p "Describe a result or interaction that seems wrong. The download includes this simulation and any pinned items for the developer to reproduce."]
+   [:form {:id "problem-report-form"}
+    [:label "What happened?" [:textarea {:name "actual" :rows 3 :maxlength 2000 :required true}]]
+    [:label "What did you expect?" [:textarea {:name "expected" :rows 3 :maxlength 2000 :required true}]]
+    [:label "Steps to reproduce (optional)" [:textarea {:name "steps" :rows 3 :maxlength 2000}]]
+    [:p {:class "muted"} "Download the file, review it, then send it to the developer. Nothing is sent automatically. Include only information you want to share."]
+    [:button {:type "submit" :class "apply"} "Download report"]]
+   [:p {:id "problem-report-status" :role "status"}]])
+
 (defn tools [result]
   (def definition (get-in result [:selected :combat :scenario]))
   [:details {:id "scenario-tools" :class "control-group scenario-tools" :data-preserve-attr "open"}
@@ -11,6 +35,7 @@
      [:div
       [:span {:id "scenario-data" :hidden true :data-json (util/encode-json {:format "powerspike-scenario" :version 1 :scenario definition})}]
       [:span {:id "workspace-data" :hidden true :data-json (when (not (result :reference-error)) (saves/encode result))}]
+      [:span {:id "problem-report-data" :hidden true :data-json (when (not (result :reference-error)) (util/encode-json (report-context result)))}]
       (when (result :reference-error)
         [:p {:class "warning"} "Clear or replace the invalid pinned items before saving or sharing."])
       (when (and (get-in result [:state :savedmodel]) (not= engine/identity (get-in result [:state :savedmodel])))

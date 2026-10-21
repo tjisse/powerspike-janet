@@ -868,6 +868,8 @@
              (optimizer/dialog result)
              (when (= "duel" (state :mode)) (matchup/champion-slots-dialog))
              (catalog-pickers)
+             (workspace/report-dialog)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Simulated combat · configured fight conditions"]
+              [:button {:type "button" :class "quiet-action js-only" :data-report-action "open"} "Report a problem"]
               [:small "PowerSpike is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc."]]]]]))

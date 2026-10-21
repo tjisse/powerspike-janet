@@ -128,10 +128,11 @@ diagnostics remain in the developer tools.
    exact-snapshot selection, server tooltip values and native forms. Verify the
    improvement through the public proxy after deployment.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
-   usage and the player issue-report flow
-   remain beta checks.
-6. **Player beta readiness.** Prepare a short comparison walkthrough and a
-   repeatable issue-report flow that includes a scenario export. Use concrete
+   usage remain beta checks.
+6. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)
+   now provide local report downloads with the completed scenario, pinned items,
+   player notes and recorded outcomes. The existing importer reproduces both
+   builds without treating those recorded outcomes as inputs. Collect concrete
    player reports to prioritize mismatches and confusing interactions, then
    reproduce them against the retained data before changing mechanics.
 

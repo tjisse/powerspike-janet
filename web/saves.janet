@@ -6,6 +6,7 @@
 # Comparison documents belong to the workspace, outside combat scenario identity.
 # Both builds always use one shared scenario; only the pinned inventory differs.
 (def format-name "powerspike-comparison")
+(def report-format "powerspike-problem-report")
 (defn- restore [definition]
   (assert (<= (get definition :samples 1) 64) "Saved scenario exceeds the workspace limit of 64 trials.")
   (model/state-from-definition definition))
@@ -19,9 +20,27 @@
       {:format wire/format-name :version 1 :scenario definition})))
 
 (defn decode [data]
-  (def bytes (if (buffer? data) (string data) data))
+  (var bytes (if (buffer? data) (string data) data))
   (assert (and (string? bytes) (<= (length bytes) 65536)) "Scenario JSON must fit within 64 KB.")
-  (def envelope (util/read-json bytes))
+  (var envelope (util/read-json bytes))
+  # Reports carry one ordinary workspace document. Notes and recorded outcomes
+  # are diagnostic claims; only that document supplies simulation inputs.
+  (when (= report-format (get envelope "format"))
+    (assert (= 1 (get envelope "version")) "Unsupported problem report version.")
+    (each name (keys envelope)
+      (assert (some |(= name $) ["format" "version" "created-at" "actual" "expected" "steps" "release" "workspace" "observed"])
+              "Unknown problem report field."))
+    (each name ["created-at" "release" "actual" "expected" "steps"]
+      (def value (get envelope name))
+      (assert (and (string? value) (<= (length value) (if (some |(= name $) ["created-at" "release"]) 80 8000)))
+              "Invalid problem report text."))
+    (assert (and (not= "" (string/trim (envelope "actual"))) (not= "" (string/trim (envelope "expected")))
+                 (dictionary? (envelope "observed"))) "Problem report needs actual and expected behavior and recorded outcomes.")
+    (def workspace (get envelope "workspace"))
+    (assert (and (dictionary? workspace) (some |(= (get workspace "format") $) [wire/format-name format-name]))
+            "Problem report needs a scenario or comparison document.")
+    (set envelope workspace)
+    (set bytes (util/encode-json workspace)))
   (if (= wire/format-name (get envelope "format"))
     (restore (wire/decode bytes))
     (do

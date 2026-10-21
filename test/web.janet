@@ -14,6 +14,7 @@
 (import ../web/tooltip :as tooltip)
 (import ../web/server :as server)
 (import ../web/saves :as saves)
+(import ../web/workspace :as workspace)
 (import ../web/trial-comparison :as trial-comparison)
 (import ../src/powerspike/scenario-wire :as wire)
 (import pshash :as hash)
@@ -551,6 +552,34 @@
         (def invalid (model/compare (model/parse-state {"selected" "custom" "referencejson" "{}"})))
         (rejects |(saves/encode invalid))
         (assert (string/find "Clear or replace the invalid pinned items" (ui/render (ui/page invalid []))))))
+
+(test "problem reports reproduce both builds and treat recorded outcomes as claims"
+      (fn []
+        (def original (model/compare (model/parse-state {"mode" "practice" "selected" "custom" "slot1" "1052"})))
+        (def compared (model/compare (model/parse-state {"mode" "duel" "selected" "custom" "slot1" "1028" "samples" 4 "seed" 6
+                                                         "referencejson" (string (wire/encode (get-in original [:selected :combat :scenario])))})))
+        (def report (merge (workspace/report-context compared)
+                           {:format saves/report-format :version 1 :created-at "2026-10-21T12:00:00.000Z"
+                            :actual "Less damage" :expected "More damage" :steps "Change the item"
+                            :workspace (util/read-json (saves/encode compared))}))
+        (each key [:selected :reference]
+          (assert (= (get-in compared [key :combat :metrics]) (get-in report [:observed key :metrics]))))
+        (def restored (model/compare (saves/decode (util/encode-json report))))
+        (each key [:selected :reference]
+          (assert (= (get-in compared [key :combat :metrics]) (get-in restored [key :combat :metrics])))
+          (assert (= (get-in compared [key :combat :scenario-id]) (get-in restored [key :combat :scenario-id]))))
+        # Edited diagnostics cannot override the simulation.
+        (def changed (merge report {:observed {:selected {:metrics {:damage 999999999}}}}))
+        (assert (= (get-in compared [:selected :combat :metrics])
+                   (get-in (model/compare (saves/decode (util/encode-json changed))) [:selected :combat :metrics])))
+        (def plain (merge report {:workspace (util/read-json (saves/encode original))}))
+        (assert (= "" ((saves/decode (util/encode-json plain)) :referencejson)))
+        (each bad [(merge report {:version 2}) (merge report {:execute "anything"})
+                   (merge report {:actual " "}) (merge report {:expected 17}) (merge report {:steps (string/repeat "x" 8001)})
+                   (merge report {:observed []}) (merge report {:workspace report})
+                   (merge report {:workspace {:format "powerspike-scenario" :version 1
+                                              :scenario (merge (get-in original [:selected :combat :scenario]) {:snapshot (string/repeat "0" 64)})}})]
+          (rejects |(saves/decode (util/encode-json bad))))))
 
 (test "damage-source comparisons use all trials and reconcile with both build totals"
       (fn []

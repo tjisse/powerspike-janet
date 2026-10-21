@@ -235,7 +235,7 @@
     const select = $('.matchup-event-select');
     select.replaceChildren(new Option('Select event', ''));
     events.forEach((record, i) => select.add(new Option(`${record.at.toFixed(2)} s · ${eventName(record)}`, String(i))));
-    select.addEventListener('change', () => { if (select.value === '') { selected = null; draw(); } else selectEvent(Number(select.value)); });
+    select.addEventListener('change', () => { if (select.value === '') { selected = null; draw(); } else selectEvent(Number(select.value), select); });
     $('#matchup-chart').onkeydown = event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
       event.preventDefault();
@@ -297,9 +297,9 @@
     detail.style.left = `${Math.max(12, Math.min(innerWidth - width - 12, rect.left + rect.width / 2 - width / 2))}px`;
     detail.style.top = `${Math.max(12, Math.min(innerHeight - height - 12, rect.top > height + 20 ? rect.top - height - 8 : rect.bottom + 8))}px`;
   }
-  function selectEvent(index) {
+  function selectEvent(index, anchor) {
     selected = index; time = events[index].at; draw();
-    showEventTooltip(index, $(`[data-trace-event="${index}"]`));
+    showEventTooltip(index, anchor || $(`[data-trace-event="${index}"]`));
   }
   app.addEventListener('pointerover', event => {
     const anchor = event.target.closest('[data-trace-event]');
@@ -365,7 +365,8 @@
     drawEvents(width, left, right);
   }
   function drawEvents(width, left, right) {
-    const tooltipIndex = eventTooltipAnchor?.dataset.traceEvent;
+    const selectorTooltip = eventTooltipAnchor?.matches('.matchup-event-select');
+    const tooltipIndex = selectorTooltip ? selected : eventTooltipAnchor?.dataset.traceEvent;
     hideEventTooltip();
     const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 48 : 36;
     const focused = document.activeElement?.dataset.traceEvent;
@@ -396,7 +397,7 @@
     restoringEventFocus = true;
     if (focused !== undefined) [...lanes.querySelectorAll('[data-trace-event]')].find(button => button.dataset.traceEvent === focused)?.focus({preventScroll: true});
     restoringEventFocus = false;
-    if (tooltipIndex !== undefined) showEventTooltip(Number(tooltipIndex), lanes.querySelector(`[data-trace-event="${tooltipIndex}"]`));
+    if (tooltipIndex !== undefined && tooltipIndex !== null) showEventTooltip(Number(tooltipIndex), selectorTooltip ? $('.matchup-event-select') : lanes.querySelector(`[data-trace-event="${tooltipIndex}"]`));
     $('.matchup-event-select').value = selected === null ? '' : String(selected);
   }
   function update() {

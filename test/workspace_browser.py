@@ -79,6 +79,21 @@ def verify(browser, base):
     expect(page.locator('.matchup-event-detail')).to_be_visible()
     anchored(health, '.matchup-health')
     anchored(result, '#results')
+    # The selector can remain visible after its timeline icon scrolls away.
+    # Keep details beside the control used to choose the event, also on redraw.
+    page.keyboard.press('Escape')
+    selector = page.locator('.matchup-event-select')
+    page.set_viewport_size({'width':1200, 'height':400})
+    selector.evaluate("node => window.scrollTo({top:scrollY+node.getBoundingClientRect().top, behavior:'instant'})")
+    assert marker.bounding_box()['y'] + marker.bounding_box()['height'] < 0
+    selector.select_option('1')
+    tooltip = page.locator('.matchup-event-detail')
+    expect(tooltip).to_be_visible()
+    expect(selector).to_have_attribute('aria-describedby', 'combat-event-tooltip')
+    page.set_viewport_size({'width':1190, 'height':1000})
+    expect(tooltip).to_be_visible()
+    page.keyboard.press('Escape')
+    expect(tooltip).not_to_be_visible()
     assert page.locator('.matchup-visual #matchup-events').count() == 1
     swap, player, opponent = (geometry(s) for s in ('[data-swap-champions]','#player-card','#opponent-card'))
     assert player[0]+player[2] <= swap[0] < swap[0]+swap[2] <= opponent[0]

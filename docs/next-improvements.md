@@ -12,6 +12,18 @@ Future patch work should check actual learned ability execution against retained
 matching sources, including manual refreshes, before treating downloads as ready
 for build comparisons. AP, AD and health are now reviewed on those two patches;
 other mappings and complete champion kits still need their own review.
+An explicit [local reparse action](patch-reparse.md) now rebuilds a mismatched
+snapshot from its retained raw sources, with a parser-version warning and no
+provider downloads. Saved snapshot links remain pinned; the action opens the new parsed result in
+the active workspace.
+
+The matchup workspace now keeps customization tabs at a consistent height,
+places patch loading and manual reparsing in the header dropdown, and combines
+the chart and event lanes on one time axis. Champion collapse controls and the
+extra time slider are removed. Item artwork is 32 px; the optimizer has bounded,
+independently scrolling settings/results, compact recommendations and persistent
+apply buttons. `test/workspace_browser.py` checks anchored layout, keyboard time
+inspection and accessible recommendations down to 320 px.
 
 1. **Attack timing and projectile behavior.** Measure isolated ordinary and
    empowered attacks, review the remaining 30% windup assumption, and resolve

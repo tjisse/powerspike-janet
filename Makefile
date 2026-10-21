@@ -60,6 +60,7 @@ test-web: build/web-ready format-check
 	$(PYTHON) test/https.py --janet $(JANET)
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-patch.janet
+	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-cadence.janet
@@ -104,6 +105,7 @@ format-check: build/formatter-ready
 	JANET=$(JANET) bash scripts/format.sh --check
 
 test-runtime: build
+	JANET_PATH=build/web-modules PS_REPARSE_FIXTURE=$(CURDIR)/build/reparse-runtime-fixture $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules PS_LATEST_PATCH_FIXTURE=$(CURDIR)/build/latest-patch-runtime-fixture $(JANET) test/latest-patch.janet
 	JANET_PATH=build/web-modules PS_PARRY_FIXTURE=$(CURDIR)/build/parry-runtime-fixture $(JANET) test/parry.janet
 	JANET_PATH=build/web-modules PS_LEVEL_SCALING_FIXTURE=$(CURDIR)/build/level-scaling-runtime-fixture $(JANET) test/level-scaling.janet

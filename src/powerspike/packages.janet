@@ -106,22 +106,44 @@
     (protect (storage/write-async data-dir path (response 1) (storage-limit))))
   (if (os/stat path) (util/read-json (slurp path)) (available)))
 
+(defn parser-mismatch? [package]
+  (not= normalize/parser-version (get package :parser)))
+
+(defn raw-sources? [package]
+  (def paths (map |(get $ "path") (get-in package [:manifest "sources"] [])))
+  (and (some |(= "sources/champions.json" $) paths)
+       (some |(= "sources/items.json" $) paths) true))
+
+# Fetching and explicit local reparsing share the same normalization pipeline.
 # Executed only on a background worker. Publish the current pointer last.
-(defn fetch [version staging progress cancelled &opt requester clock]
+(defn- build-patch [version staging progress cancelled requester clock retained]
   (assert (util/version? version) "Invalid patch identifier.")
   (def now (or clock (fn [] (os/clock :monotonic))))
   (def deadline (+ (now) (refresh-timeout)))
   (defn check []
     (when (cancelled) (error "Cancelled."))
     (when (>= (now) deadline)
-      (error "Patch refresh timed out. Cached patches remain available. Try again.")))
+      (error (string "Patch " (if retained "reparse" "refresh") " timed out. Cached patches remain available. Try again."))))
   (def request (or requester (fn [url cancelled] (https/get url cancelled nil deadline))))
   (def sources @[])
   (def missing @[])
   (def quota (storage-limit))
   (defn obtain [url relative &opt optional]
     (check)
-    (def result (protect (request url cancelled)))
+    (def source (get-in retained [:sources relative]))
+    # A retained source that is missing or corrupt is an integrity failure,
+    # including for optional inputs. Never replace it with a silent gap.
+    (def local (when source
+                 (def path (string (retained :directory) "/" relative))
+                 (assert (os/stat path) (string "Saved source missing: " relative ". Refresh patch data to download it again."))
+                 (assert (<= (os/stat path :size) (* 64 1024 1024)) "Saved source exceeds the provider file-size limit.")
+                 (def bytes (slurp path))
+                 (assert (= (source "sha256") (hash/sha256 bytes))
+                         (string "Saved source integrity check failed: " relative ". Refresh patch data to download it again."))
+                 bytes))
+    (def result (if retained
+                  (if source [true local] [false "Source was not retained."])
+                  (protect (request url cancelled))))
     # Optional provider errors can reduce coverage; expiry/cancellation must
     # instead stop the entire refresh and preserve the previous current pointer.
     (check)
@@ -129,21 +151,21 @@
       (do
         (def bytes (result 1))
         (storage/write data-dir (string staging "/" relative) bytes quota)
-        (array/push sources {"url" url "path" relative "sha256" (hash/sha256 bytes)})
+        (array/push sources {"url" (if source (source "url") url) "path" relative "sha256" (hash/sha256 bytes)})
         (util/read-json bytes))
       (if optional (do (array/push missing (string "Unavailable source: " relative)) nil)
         (error (string (result 1))))))
   (util/mkdirs staging)
   (def dd (string "https://ddragon.leagueoflegends.com/cdn/" version "/data/en_US/"))
   (def cd (string "https://raw.communitydragon.org/" (util/cdragon-version version) "/"))
-  (progress {:message "Downloading champion and item catalog" :completed 0 :total 1})
+  (progress {:message (if retained "Reading saved champion and item catalog" "Downloading champion and item catalog") :completed 0 :total 1})
   (def champion-data (obtain (string dd "champion.json") "sources/champions.json"))
   (def item-data (obtain (string dd "item.json") "sources/items.json"))
   (assert (and (util/provider-version? version (champion-data "version"))
                (= (champion-data "version") (item-data "version"))) "Provider patch mismatch.")
   (def runes (obtain (string dd "runesReforged.json") "sources/runes.json" true))
   (def summoners (obtain (string dd "summoner.json") "sources/summoners.json" true))
-  (progress {:message "Downloading localized ability descriptions" :completed 0 :total 1})
+  (progress {:message (if retained "Reading saved ability descriptions" "Downloading localized ability descriptions") :completed 0 :total 1})
   (def strings (or (obtain (string cd "game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1") "sources/strings.json" true)
                    (obtain (string cd "game/data/menu/fontconfig_en_us.txt.json?powerspike=1") "sources/strings-legacy.json" true)))
   (def fonts (if strings (get strings "entries" strings) {}))
@@ -152,7 +174,7 @@
   (def shared-records (or (obtain (string cd "game/shared.cdtb.bin.json?powerspike=1") "sources/shared-effects.json" true) {}))
   (def objective-records
     (map (fn [preset]
-           (progress {:message (string "Downloading " (preset :name)) :completed 0 :total 1})
+           (progress {:message (string (if retained "Parsing " "Downloading ") (preset :name)) :completed 0 :total 1})
            (def name (preset :file))
            (def records (obtain (string cd "game/data/characters/" name "/" name ".bin.json?powerspike=1")
                                 (string "sources/objectives/" name ".json") true))
@@ -161,7 +183,7 @@
   (def ids (sorted (keys (champion-data "data"))))
   (eachp [index id] ids
     (check)
-    (progress {:message (string "Downloading " id) :completed index :total (length ids)})
+    (progress {:message (string (if retained "Parsing " "Downloading ") id) :completed index :total (length ids)})
     (def name (string/ascii-lower id))
     (def objects (obtain (string cd "game/data/characters/" name "/" name ".bin.json?powerspike=1")
                          (string "sources/characters/" id ".json") true))
@@ -184,10 +206,30 @@
   (check)
   (def id (hash/sha256 bytes))
   (storage/write data-dir (string staging "/package.jdn") bytes quota)
-  (storage/write data-dir (string staging "/manifest.json") (util/encode-json
-                                                              {"schema" 1 "patch" version "snapshot" id "parser" normalize/parser-version "package_sha256" id
-                                                               "sources" sources "downloaded_at" (os/time) "initial" false}) quota)
+  (storage/write data-dir (string staging "/manifest.json")
+                 (util/encode-json (merge {"schema" 1 "patch" version "snapshot" id "parser" normalize/parser-version "package_sha256" id
+                                           "sources" sources "downloaded_at" (if retained (get-in retained [:manifest "downloaded_at"]) (os/time)) "initial" false}
+                                          (if retained {"reparsed_at" (os/time) "reparsed_from" (retained :snapshot)} {}))) quota)
   (check)
   (def destination (directory version id))
   (storage/publish data-dir staging destination (string data-dir "/patches/" version "/current") id quota check)
   {:patch version :snapshot id})
+
+(defn fetch [version staging progress cancelled &opt requester clock]
+  (build-patch version staging progress cancelled requester clock nil))
+
+(defn reparse [version snapshot staging progress cancelled &opt clock]
+  (def package (load version snapshot))
+  (assert (raw-sources? package) "Saved raw data is unavailable. Refresh patch data to download it.")
+  (assert (= (util/canonical (get package :sources [])) (util/canonical (get-in package [:manifest "sources"] [])))
+          "Saved source manifest does not match the snapshot. Refresh patch data to download it again.")
+  (def sources @{})
+  (each source (get-in package [:manifest "sources"] [])
+    (def path (get source "path"))
+    (assert (and (string? path) (string/has-prefix? "sources/" path)
+                 (all |(and (util/safe-id? $) (not= "." $)) (string/split "/" path)))
+            "Invalid saved source path.")
+    (assert (not (sources path)) "Duplicate saved source path.")
+    (put sources path source))
+  (build-patch version staging progress cancelled nil clock
+               {:directory (package :directory) :snapshot snapshot :manifest (package :manifest) :sources sources}))

@@ -216,6 +216,10 @@ def verify_item_comparison(browser, base):
     expect(table.locator('tbody tr')).to_have_count(3)
     expect(table.locator('.comparison-difference td').first).to_have_text('0+0.0%')
     page.locator('#loadout-tray .item-slot').first.click()
+    # Loading the grid under a stationary pointer must not open a preview that
+    # obscures the next item selection when opening the catalog.
+    expect(page.locator('#item-picker')).to_have_attribute('data-catalog-ready', 'true')
+    expect(page.locator('#detail-popover')).not_to_be_visible()
     page.locator('#item-picker [data-detail-item="1052"]').click()
     expect(table.locator('tbody tr').nth(1).locator('td').last).to_have_text('400')
     assert table.locator('.comparison-difference td').first.inner_text().startswith('+')
@@ -243,7 +247,7 @@ def verify_item_comparison(browser, base):
     page.get_by_role('button', name='Close optimization', exact=True).click()
     page.locator('.coverage-link').click()
     assert page.locator('#coverage').evaluate('(node)=>node.open')
-    assert page.locator('#patch-settings').evaluate('(node)=>node.open')
+    assert not page.locator('#patch-settings').evaluate('(node)=>node.open')
     page.locator('#level').select_option('1')
     page.wait_for_function("document.querySelector('#ranks [data-ability-slot=q]').dataset.rank === '1'")
     page.get_by_text('Runes & spells', exact=True).click()
@@ -586,8 +590,6 @@ def verify_timeline_icons(browser, base):
     for width in (736,390,320):
         page.set_viewport_size({'width':width,'height':1000})
         page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
-        if not page.locator('#matchup-events').evaluate('(node)=>node.open'):
-            page.locator('#matchup-events summary').click()
         for source in ('AnnieQ','AnnieW'):
             index = next(index for index, row in enumerate(events) if row['source'] == source)
             select.select_option(str(index))
@@ -604,8 +606,6 @@ def verify_timeline_icons(browser, base):
     fallback.route('**/spell/Annie*.png', fail_icon)
     fallback.goto(url, wait_until='domcontentloaded')
     expect(fallback.locator('#matchup-chart svg')).to_be_visible()
-    if not fallback.locator('#matchup-events').evaluate('(node)=>node.open'):
-        fallback.locator('#matchup-events summary').click()
     index = next(index for index, row in enumerate(events) if row['source'] == 'AnnieQ')
     fallback.locator('.matchup-event-select').select_option(str(index))
     marker = fallback.locator(f'[data-trace-event="{index}"]')
@@ -760,6 +760,10 @@ def verify_movement_readiness(browser, base):
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        from workspace_browser import verify as verify_workspace
+        native_scrollbars = p.chromium.launch(headless=True, ignore_default_args=['--hide-scrollbars'])
+        verify_workspace(native_scrollbars, base)
+        native_scrollbars.close()
         from report_browser import verify as verify_reports
         verify_reports(browser, base)
         from attack_limit_browser import verify as verify_attack_limits
@@ -968,7 +972,7 @@ def verify(base):
         page.get_by_role('button',name='Load scenario',exact=True).click()
         page.wait_for_function("document.getElementById('scenario-json').value === ''")
         assert page.locator('#timeline').get_attribute('data-total')==damage
-        page.get_by_text('Patch & simulation',exact=True).click()
+        page.locator('#patch-settings > summary').click()
         assert page.locator('#verification-progress, #source-evidence, #evidence').count() == 0
         developer=browser.new_page()
         developer.goto(base+'/developer',wait_until='domcontentloaded')
@@ -1004,6 +1008,7 @@ if __name__ == '__main__':
     parser.add_argument('--changing-fixture', help='Also check synthetic changing costs/ranges using an exported fixture')
     parser.add_argument('--health-cost-fixture', help='Also check a retained health-cost formula on a synthetic carrier')
     parser.add_argument('--latest-patch-fixture', help='Also check refreshed 16.20/16.21 default matchups')
+    parser.add_argument('--reparse-fixture', help='Also check parser warnings and explicit offline raw-data reparsing')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -1032,3 +1037,6 @@ if __name__ == '__main__':
     if args.latest_patch_fixture:
         from latest_patch_browser import verify as verify_latest_patch
         verify_latest_patch(args.binary, args.latest_patch_fixture)
+    if args.reparse_fixture:
+        from reparse_browser import verify as verify_reparse
+        verify_reparse(args.binary, args.reparse_fixture)

@@ -89,7 +89,6 @@ def verify(browser, base):
                   'rift':True, 'description':'Fixture metadata', 'tags':[]}
         route.fulfill(json={'patch':'16.19.1', 'snapshot':snapshot, 'kind':'items', 'records':[record]})
     race.route('**/catalog?*', racing)
-    race.locator('[data-collapse=player]').click()
     race.locator('#player-card .item-slot').first.click()
     expect(race.locator('#item-picker .catalog-status')).to_have_text('Loading items…')
     deadline = time.monotonic()+3

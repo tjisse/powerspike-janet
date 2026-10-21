@@ -60,6 +60,7 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   await page.waitForFunction(() => ['done','failed','cancelled'].includes(document.querySelector('#search-panel')?.dataset.status), undefined, {timeout: 90000});
   assert.equal(await page.locator('#search-panel').getAttribute('data-status'), 'done', await page.locator('#search-panel').innerText());
   assert.equal(await page.locator('#search-panel').getAttribute('data-search-who'), 'opponent');
+  await page.locator('.search-build-details > summary').first().click();
   assert(await page.locator('.search-comparison').first().isVisible());
   await page.locator('[data-apply-build=opponent]').first().click();
   await page.waitForFunction(() => !document.querySelector('#optimizer-dialog').open);
@@ -79,17 +80,16 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
     await page.setViewportSize({width,height:1000}); await page.waitForTimeout(150);
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Overflow at ${width}`);
     if (width <= 650) {
-      assert.equal(await page.locator('[data-collapse=player]').getAttribute('aria-expanded'), 'false');
-      await page.locator('[data-collapse=player]').click();
+      assert(await page.locator('#player-loadout').isVisible());
       await page.locator('[data-tab=runes][data-who=player]').click();
       assert(await page.locator('[name=runepage1]').isVisible());
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Expanded overflow at ${width}`);
-      await page.locator('[data-collapse=player]').click();
     }
   }
   assert.deepEqual(errors, []);
   const noJS = await browser.newContext({javaScriptEnabled: false}), native = await noJS.newPage();
   await native.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
+  assert(await native.evaluate(() => document.documentElement.scrollWidth <= innerWidth+1));
   await native.locator('[name=level]').selectOption('6');
   await native.locator('#player-card noscript summary').click();
   await native.locator('noscript select[name=nativeslot1]').selectOption('1052');

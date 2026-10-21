@@ -54,8 +54,6 @@ def verify(binary_path, fixture_path):
                 for width in (736, 390, 320):
                     page.set_viewport_size({'width': width, 'height': 1000})
                     page.wait_for_timeout(100)
-                    if not page.locator('#matchup-events').evaluate('(node)=>node.open'):
-                        page.locator('#matchup-events summary').click()
                     page.locator('.matchup-event-select').select_option(lich)
                     expect(page.locator('.matchup-event-detail')).to_contain_text('Spellblade consumed')
                     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), width

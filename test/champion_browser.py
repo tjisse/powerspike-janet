@@ -63,12 +63,12 @@ def verify(browser, base):
     expect(page.locator('#matchup-chart svg')).to_be_visible()
     before = documents()
     trace = page.locator('#results').get_attribute('data-matchup-result')
-    page.get_by_role('button', name='⇄ Swap champions', exact=True).click()
+    page.get_by_role('button', name='Swap champions', exact=True).click()
     wait_champion('player', 'Nidalee', 9)
     assert documents() == {'player':before['opponent'], 'opponent':before['player']}
     assert page.locator('#results').get_attribute('data-matchup-result') == trace
     expect(page.locator('#champion-action-status')).to_contain_text('Run matchup')
-    page.get_by_role('button', name='⇄ Swap champions', exact=True).click()
+    page.get_by_role('button', name='Swap champions', exact=True).click()
     wait_champion('player', 'Annie', 6)
     assert documents() == before
     # Both sides expose the same four slots. Replacement and removal persist.
@@ -136,7 +136,7 @@ def verify(browser, base):
     expect(page.locator('#matchup-chart svg')).to_be_visible()
     preset = documents()
     assert preset['player']['slots'] == ['3089','3135','3020','','','']
-    page.get_by_role('button', name='⇄ Swap champions', exact=True).click()
+    page.get_by_role('button', name='Swap champions', exact=True).click()
     wait_champion('player', 'Nidalee', 9)
     assert documents() == {'player':preset['opponent'], 'opponent':preset['player']}
     assert not errors, errors

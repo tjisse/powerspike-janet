@@ -31,7 +31,7 @@ def verify(binary_path, fixture_path):
                     assert {('player', 'AnnieQ'), ('player', 'AnnieW'), ('opponent', 'GarenQ'), ('opponent', 'GarenW')} <= casts
                     assert result['sources']['AnnieQ']['icon'].endswith('/spell/AnnieQ.png')
                     assert result['sources']['GarenQ']['icon'].endswith('/spell/GarenQ.png')
-                    assert 'Unknown stat/formula mapping' not in page.locator('#patch-settings').inner_text()
+                    assert 'Unknown stat/formula mapping' not in page.locator('#coverage').inner_text()
                     return result
 
                 original = check('16.21.1')
@@ -39,7 +39,7 @@ def verify(binary_path, fixture_path):
                 page.locator('.matchup-run').click()
                 page.wait_for_function('old=>document.querySelector("#results").dataset.runId!==old', arg=previous)
                 assert check('16.21.1') == original
-                page.get_by_text('Patch & simulation', exact=True).click()
+                page.locator('#patch-settings > summary').click()
                 page.locator('#patch-panel select').select_option('16.20.1')
                 page.wait_for_url('**/?**patch=16.20.1**')
                 check('16.20.1')

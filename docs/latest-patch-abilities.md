@@ -39,21 +39,22 @@ or independently measured game outcomes. Annie's passive stun, E retaliation
 and Tibbers behavior, and Garen's spin, execute, silence, W damage reduction
 and passive behavior still have omissions. The supported portions continue to
 use existing timing, movement and targeting assumptions. The existing simulation
-details continue to describe model omissions. This correction adds no player
-messages or diagnostic UI.
+details continue to describe model omissions. Parser revision differences now
+have a [warning and explicit local reparse action](patch-reparse.md).
 
 ## Refreshing existing caches
 
 Parser 7 applies these mappings when patch data is normalized during a fetch.
-After upgrading, manually select the affected patch and use the existing
-**Refresh patch data** button. The refresh downloads the exact patch's sources,
-creates a newly normalized snapshot and publishes its current pointer last.
-There is no new cache migration or formula-repair process on load.
+After upgrading, use **Reparse saved data** in the parser-mismatch warning to
+normalize retained raw sources locally. The existing **Refresh patch data**
+button remains available to download the exact patch's sources again. Both
+actions create a normalized snapshot and publish its current pointer last.
+There is no automatic cache migration or new formula-repair process on load.
 
 Old snapshot bytes and hashes stay intact, and saved scenarios remain pinned
 to their selected revision. Reopen a refreshed patch to compare new scenarios
-with its updated ability data. Refresh/version diagnostics remain developer
-concerns; the player interface is unchanged.
+with its updated ability data. The warning is limited to parser compatibility;
+verification records and broader model diagnostics remain in developer tools.
 
 ## Regression checks
 

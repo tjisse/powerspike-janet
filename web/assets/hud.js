@@ -25,6 +25,17 @@
     button.setAttribute('aria-expanded',String(target.open));
   });
 
+  document.addEventListener('click', event => {
+    const patch = document.getElementById('patch-settings');
+    if (patch?.open && !patch.contains(event.target)) patch.open = false;
+  });
+  document.addEventListener('keydown', event => {
+    const patch = document.getElementById('patch-settings');
+    if (event.key === 'Escape' && patch?.open) {
+      patch.open = false; patch.querySelector('summary').focus({preventScroll:true});
+    }
+  });
+
   // Provider markup is text, never executable HTML. Each payload comes from the
   // selected patch package and carries its own availability/coverage statement.
   const popover=document.getElementById('detail-popover');
@@ -77,11 +88,24 @@
   }
   function positionDetails() {
     if(!detailAnchor?.isConnected){closeDetails();return;}
+    popover.style.removeProperty('max-height');
     const anchor=detailAnchor.getBoundingClientRect(),width=popover.offsetWidth,height=popover.offsetHeight;
-    let left=anchor.right+12;
-    if(left+width>innerWidth-12)left=anchor.left-width-12;
-    popover.style.left=`${Math.max(12,Math.min(innerWidth-width-12,left))}px`;
-    popover.style.top=`${Math.max(12,Math.min(innerHeight-height-12,anchor.top))}px`;
+    let left=anchor.right+12,top=Math.max(12,Math.min(innerHeight-height-12,anchor.top));
+    if(left+width>innerWidth-12){
+      if(anchor.left-width-12>=12)left=anchor.left-width-12;
+      else {
+        // A narrow viewport needs a vertical placement. Keep the source control
+        // clickable even when its preview is wider than either side of it.
+        left=Math.max(12,Math.min(innerWidth-width-12,anchor.left));
+        const above=Math.max(0,anchor.top-20),below=Math.max(0,innerHeight-anchor.bottom-20);
+        const useBelow=below>=height || below>=above;
+        const space=useBelow?below:above;
+        popover.style.maxHeight=`${space}px`;
+        top=useBelow?anchor.bottom+8:anchor.top-8-Math.min(height,space);
+      }
+    }
+    popover.style.left=`${left}px`;
+    popover.style.top=`${top}px`;
   }
   function showDetails(trigger,pin=false,payload=null) {
     if(detailPinned && detailAnchor!==trigger && !pin)return;
@@ -121,7 +145,6 @@
         const anchor=detailAnchor,card=anchor?.closest('.matchup-card');closeDetails();
         if(data.action.endsWith('-picker'))anchor?.click();
         else if(card){
-          if(card.querySelector('[data-collapse]')?.getAttribute('aria-expanded')==='false')card.querySelector('[data-collapse]').click();
           const tab=card.querySelector(`[data-tab="${data.action==='rune-editor'?'runes':'abilities'}"]`);
           tab?.click();tab?.scrollIntoView({block:'nearest'});
         }else reveal(document.getElementById(data.action));
@@ -147,7 +170,10 @@
       });
     }
   }
-  document.addEventListener('pointerover',event=>{const trigger=event.target.closest('[data-details]');if(trigger && !trigger.contains(event.relatedTarget) && event.pointerType!=='touch')showDetails(trigger);});
+  // Catalog cards can appear beneath a stationary pointer when a dialog loads
+  // or its grid filters. Preview them only after an intentional pointer move.
+  document.addEventListener('pointerover',event=>{const trigger=event.target.closest('[data-details]');if(trigger && !trigger.closest('.catalog-dialog') && !trigger.contains(event.relatedTarget) && event.pointerType!=='touch')showDetails(trigger);});
+  document.addEventListener('pointermove',event=>{const trigger=event.target.closest('.catalog-dialog [data-details]');if(trigger && detailAnchor!==trigger && event.pointerType!=='touch')showDetails(trigger);});
   document.addEventListener('pointerout',event=>{const trigger=event.target.closest('[data-details]');if(trigger && !trigger.contains(event.relatedTarget) && !detailPinned)detailTimer=setTimeout(closeDetails,180);});
   document.addEventListener('focusin',event=>{const trigger=event.target.closest('[data-details]');if(trigger && !restoringFocus)showDetails(trigger);});
   document.addEventListener('focusout',event=>{if(detailAnchor?.contains(event.target) && !popover.contains(event.relatedTarget) && !detailPinned)detailTimer=setTimeout(closeDetails,180);});
@@ -163,7 +189,7 @@
   popover.addEventListener('focusout',event=>{if(!popover.contains(event.relatedTarget) && !detailPinned)detailTimer=setTimeout(closeDetails,180);});
   popover.addEventListener('pointerleave',()=>{if(!detailPinned)detailTimer=setTimeout(closeDetails,180);});
   window.addEventListener('resize',()=>{closeCalculations();if(detailAnchor)positionDetails();});
-  window.addEventListener('scroll',()=>{closeCalculations();if(detailAnchor)positionDetails();},{capture:true,passive:true});
+  window.addEventListener('scroll',event=>{closeCalculations();if(detailAnchor && !(event.target instanceof Node && popover.contains(event.target)))positionDetails();},{capture:true,passive:true});
 
   const ns='http://www.w3.org/2000/svg',format=value=>new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(value);
   function element(name,attrs,text) {

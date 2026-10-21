@@ -6,7 +6,7 @@
 (def records @{})
 (def queue @[])
 (def active @{})
-(defn lane [job] (case (job :kind) :patch :network :render :render :compute))
+(defn lane [job] (case (job :kind) :patch :network :reparse :network :render :render :compute))
 (defn get-job [id] (get records id))
 (defn terminal? [job] (some |(= $ (job :status)) [:done :failed :cancelled]))
 (defn cancel [id]
@@ -88,3 +88,19 @@
 (defn fetch-patch [patch]
   (assert (util/version? patch) "Invalid patch identifier.")
   (submit :patch patch fetch-task {:patch patch :id (string/slice (hash/sha256 (os/cryptorand 16)) 0 16)}))
+
+(defn reparse-task [input progress cancelled]
+  (def staging (string packages/data-dir "/jobs/" (input :id) ".reparse"))
+  (def result (protect (packages/reparse (input :patch) (input :snapshot) staging progress cancelled)))
+  (unless (first result) (storage/remove staging) (error (string (result 1))))
+  (result 1))
+(defn reparse-patch [patch snapshot]
+  (packages/directory patch snapshot)
+  # Share only work for the same immutable source snapshot. The network lane
+  # serializes publication with downloads without occupying the compute lane.
+  (def job (submit :reparse (string patch "/" snapshot) reparse-task
+                   {:patch patch :snapshot snapshot :id (string/slice (hash/sha256 (os/cryptorand 16)) 0 16)}))
+  (put job :patch patch)
+  (put job :source-snapshot snapshot)
+  job)
+(defn patch [job] (get job :patch (get job :key)))

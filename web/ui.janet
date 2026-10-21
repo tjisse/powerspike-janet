@@ -9,6 +9,8 @@
 (import ./verification :as verification)
 (import ./details :as details)
 (import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/packages :as packages)
+(import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/objectives :as objectives)
 (import ../src/powerspike/forms :as forms)
@@ -29,8 +31,33 @@
         (when (and (> i 0) (= 0 (% (- (length text) i) 3))) (buffer/push-string out ","))
         (buffer/push-string out (string/slice text i (inc i)))) (string out))))
 
+(defn parser-warning [result &opt job message]
+  (def package (result :package))
+  (def mismatch (packages/parser-mismatch? package))
+  (def local-job (when (and (= :reparse (get job :kind)) (= (package :patch) (jobs/patch job))
+                            (= (package :snapshot) (get job :source-snapshot))) job))
+  (def active (and local-job (some |(= $ (job :status)) [:queued :running :cancelling])))
+  [:section {:id "parser-warning" :class "parser-warning" :role "status" :hidden (not mismatch)}
+   (when mismatch
+     [[:div [:strong "Patch data needs reparsing"]
+       [:p (string "Saved parser " (get package :parser "unknown") "; current parser " normalize/parser-version ".")]
+       [:p (if (packages/raw-sources? package) "Reparse the saved raw data without downloading it again."
+             "Saved raw data is unavailable. Refresh patch data to download it.")]]
+      [:div {:class "parser-warning-actions"}
+       (when (packages/raw-sources? package)
+         [:button {:type "button" :class "apply js-only" :disabled active
+                   :data-on:click "@post('/patches/reparse', {retry: 'never'})"}
+          (if active "Reparsing saved data…" "Reparse saved data")])
+       (when active
+         [:button {:type "button" :class "quiet-action" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel reparse"])]
+      (when local-job
+        [:p {:class "parser-reparse-status"}
+         (case (job :status) :failed (job :error) :cancelled "Reparse cancelled. Your original snapshot is still available."
+           :done "Reparse complete. Opening updated patch…" (get-in job [:progress :message] "Queued"))])
+      (when message [:p {:class "measurement-error"} message])])])
+
 (defn patch-panel [result job &opt message]
-  (def patch (or (get job :key) (get (result :state) :patch ((result :package) :patch))))
+  (def patch (or (jobs/patch job) (get (result :state) :patch ((result :package) :patch))))
   (def progress (get job :progress {:message "" :completed 0 :total 1}))
   (def active (and job (some |(= $ (job :status)) [:queued :running :cancelling])))
   [:section {:id "patch-panel" :class "patch-panel" :data-poll (if (or active (not catalog/versions-ready)) "true" "false")}
@@ -43,7 +70,7 @@
    (when job
      [:div {:class "patch-progress" :role "status"}
       [:div {:class "patch-progress-controls"}
-       [:strong (get job :key "Patch download")]
+       [:strong (or (jobs/patch job) "Patch data")]
        [:span (string " · " (job :status))]
        (when active
          [[:progress {:max (max 1 (progress :total)) :value (progress :completed)}]
@@ -61,6 +88,15 @@
       [:span {:class "patch-progress-message" :title (progress :message)} (progress :message)]
       (when (= :failed (job :status)) [:p {:class "patch-progress-error"} (job :error)])
       [:span {:id "patch-job-signals" :data-init (string "$job = '" (job :id) "'")}]])])
+
+(defn patch-header [result]
+  [:details {:id "patch-settings" :class "header-patch" :data-on:jobtick "@get('/patches/status')"}
+   [:summary {:aria-label (string "Active patch " ((result :package) :patch) (if (packages/parser-mismatch? (result :package)) ", data needs reparsing" ""))}
+    [:span {:class "patch-indicator" :aria-label "Patch status"} "!"]
+    [:span {:data-text "'Patch ' + $patch"} "Patch " ((result :package) :patch)] [:span "⌄"]]
+   [:div {:class "header-patch-panel"}
+    (parser-warning result (get result :patch-job))
+    (patch-panel result (get result :patch-job))]])
 
 (defn- icon [group id description &opt class]
   [:img {:src (string "/assets/" ((catalog/current) :patch) "/" ((catalog/current) :snapshot) "/" group "/" id (if (string/has-suffix? ".png" id) "" ".png")) :alt description
@@ -722,9 +758,9 @@
           (and spell-job (some |(= $ (spell-job :status)) [:queued :running :cancelling]))
           (string "Downloading ability data for " spell-champion " and the rest of this patch. Current estimate shown until the download completes.")
           (and spell-job (= :failed (spell-job :status)))
-          (string "Ability data download failed for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
+          (string "Ability data download failed for " spell-champion ". Current simulation shown. Open the patch menu in the header to retry.")
           (and spell-job (= :cancelled (spell-job :status)))
-          (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open Patch & simulation to retry.")
+          (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open the patch menu in the header to retry.")
           (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
           (forms/fixed? (state :champion) (state :patch) (state :form))
           (case (state :champion)
@@ -829,7 +865,7 @@
   (render (html/doctype :html5)
           [:html {:lang "en"}
            [:head [:meta {:charset "utf-8"}] [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-            [:title "PowerSpike · Developer tools"] [:link {:rel "stylesheet" :href "/assets/app.css"}]]
+            [:title "PowerSpike · Developer tools"] [:link {:rel "stylesheet" :href "/assets/app.css"}] [:link {:rel "stylesheet" :href "/assets/workspace.css"}]]
            [:body
             [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
              [:a {:class "verification-back" :href "/"} "Back to simulations"]]
@@ -843,7 +879,7 @@
   (render (html/doctype :html5)
           [:html {:lang "en"}
            [:head [:meta {:charset "utf-8"}] [:meta {:name "viewport" :content "width=device-width,initial-scale=1"}]
-            [:title (if (= "duel" (state :mode)) "PowerSpike · Matchup" "PowerSpike · Build comparisons")] [:link {:rel "stylesheet" :href "/assets/app.css"}]
+            [:title (if (= "duel" (state :mode)) "PowerSpike · Matchup" "PowerSpike · Build comparisons")] [:link {:rel "stylesheet" :href "/assets/app.css"}] [:link {:rel "stylesheet" :href "/assets/workspace.css"}]
             [:link {:rel "icon" :href "/assets/champion/Annie.png"}]
             [:script {:type "module" :src "/assets/datastar.js"}] [:script {:defer true :src "/assets/app.js"}] [:script {:defer true :src "/assets/hud.js"}] [:script {:defer true :src "/assets/matchup.js"}]]
            [:body
@@ -854,16 +890,15 @@
                    :data-on:championconfigure "@post('/champions/configure', {requestCancellation: 'auto', retry: 'never'})"
                    :data-on:configurationchange "if(document.getElementById('scenario').reportValidity()) @get('/configure', {requestCancellation: 'auto', retry: 'never'})"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
-              [:div {:class "top-meta"} [:button {:type "button" :class "quiet-action" :data-ui-toggle "patch-settings" :data-text "'Patch ' + $patch + ' ▾'"} "Patch " ((result :package) :patch) " ▾"]]]
-             [:main {:class "content"} (loadout result) (if (= "duel" (state :mode)) (matchup/fightbar result) (native-inventory result))
+              [:div {:class "top-meta"} (patch-header result)]]
+             [:main {:class "content"}
+              (loadout result) (if (= "duel" (state :mode)) (matchup/fightbar result) (native-inventory result))
               (if message (error-result message) (results result))
               (when (= "duel" (state :mode)) [:p {:id "champion-action-status" :role "status"}])
               [:div {:class "secondary-controls"} (fight-controls result) (when (not= "duel" (state :mode)) (ability-group result))
                (when (not= "duel" (state :mode)) [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"])
                (workspace/tools result)
-               [:details {:id "patch-settings" :class "control-group" :data-on:jobtick "@get('/patches/status')"}
-                [:summary [:span "Patch & simulation"] [:span {:class "muted"} "Game data · fight details"]]
-                (patch-panel result (get result :patch-job)) (coverage result)]]]
+               (coverage result)]]
              [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
              (optimizer/dialog result)
              (when (= "duel" (state :mode)) (matchup/champion-slots-dialog))

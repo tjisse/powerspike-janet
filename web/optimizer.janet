@@ -72,29 +72,31 @@
   [:section {:id "search-panel" :class "scope-panel search-panel" :data-poll (if ongoing "true" "false")
              :data-job (get job :id "") :data-status (get job :status :idle) :data-applied applied :aria-live "polite"
              :data-search-who (get job :search-who "player")}
+   (unless job [:div {:class "search-empty"} [:h2 "Find your next build"] [:p "Choose a budget and run a search to compare simulated outcomes."]])
    (when job
      [:div
-      (when (job :scenario-summary) [:p {:class "muted"} (job :scenario-summary)])
-      (when (has-key? job :gold-budget)
-        [:p {:class "muted"} (if (job :next-purchase) "Available gold: " "Gold limit: ") (job :gold-budget)])
-      [:h2 "Recommendations · " (if (get outcome :complete) "Optimal within selected pool" "Best found")]
-      [:p (string (job :status) " · " (get progress :message "Queued") " · " (get outcome :evaluated (get progress :completed 0))
-                  " builds evaluated · " (number (get outcome :seconds (get progress :seconds 0))) " s")]
-      (when (> (get outcome :cache-hits (get progress :cache-hits 0)) 0)
-        [:p {:class "muted"} (get outcome :cache-hits (get progress :cache-hits 0)) " results reused · "
-         (get outcome :simulated (get progress :simulated 0)) " new simulations"])
-      [:p (or (get outcome :explanation) (get progress :explanation) "Waiting for the simulation worker.")]
-      (when ongoing [:progress {:class "search-time" :aria-label "Search compute time" :max (get job :limit 5)
-                                :value (min (get job :limit 5) (get progress :seconds 0))}])
-      (when (get outcome :baseline)
-        [:p {:class "muted"} "Current inventory: " (number (get-in outcome [:baseline :metrics :damage])) " damage · "
-         (number (get-in outcome [:baseline :metrics :health])) " health left · " (get-in outcome [:baseline :samples]) " trials"])
-      (when ongoing [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel search"])
+      [:div {:class "search-summary"}
+       [:h2 "Recommendations · " (if (get outcome :complete) "Optimal within selected pool" "Best found")]
+       [:p (string (job :status) " · " (get progress :message "Queued") " · " (get outcome :evaluated (get progress :completed 0))
+                   " builds evaluated · " (number (get outcome :seconds (get progress :seconds 0))) " s")]
+       [:p {:class "muted"} (if (job :next-purchase) "Available gold: " "Gold limit: ") (get job :gold-budget "—")
+        (when (not (empty? rows)) (string " · Top " (length rows) " builds · ranked by " (get outcome :preset (get progress :preset :burst))))]
+       [:p {:class "muted search-cache"}
+        (when (> (get outcome :cache-hits (get progress :cache-hits 0)) 0)
+          (string (get outcome :cache-hits (get progress :cache-hits 0)) " results reused · " (get outcome :simulated (get progress :simulated 0)) " new simulations"))]
+       [:div {:class "search-progress-row"}
+        [:progress {:class "search-time" :hidden (not ongoing) :aria-label "Search compute time" :max (get job :limit 5)
+                    :value (min (get job :limit 5) (get progress :seconds 0))}]
+        (when ongoing [:button {:type "button" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel search"])]]
       (when (= :failed (job :status)) [:p {:class "warning"} (job :error)])
       (when (and outcome (empty? rows)) [:p "No recommendation fits these constraints. Increase the budget, relax locks or change the item pool."])
-      (when (not (empty? rows)) [:p {:class "muted"} "Top " (length rows) " builds · ranked by "
-                                 (get outcome :preset (get progress :preset :burst))])
-      (when outcome [:details [:summary "Search settings & simulation details"] [:ul (map |[:li $] (details/simulation-notes (outcome :notes)))]])
+      [:details {:class "search-method"} [:summary "Search settings & simulation details"]
+       (when (job :scenario-summary) [:p {:class "muted"} (job :scenario-summary)])
+       [:p (or (get outcome :explanation) (get progress :explanation) "Waiting for the simulation worker.")]
+       (when (get outcome :baseline)
+         [:p {:class "muted"} "Current inventory: " (number (get-in outcome [:baseline :metrics :damage])) " damage · "
+          (number (get-in outcome [:baseline :metrics :health])) " health left · " (get-in outcome [:baseline :samples]) " trials"])
+       (when outcome [:ul (map |[:li $] (details/simulation-notes (outcome :notes)))])]
       [:div {:class "search-alternatives" :role "list" :aria-label "Builds ranked best to worst"}
        (seq [[index row] :pairs rows]
          (def context (details/scenario-context (get row :definition {})))
@@ -114,18 +116,22 @@
                                                               " · " (number (row :purchase-cost)) " gold now")])]
           [:dl {:class "search-metrics"}
            (map (fn [[field caption]] [:div [:dt caption] [:dd (number (get (row :metrics) field))]])
-                [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"] [:control "Control (s)"] [:healing "Healing"] [:absorbed "Absorbed"]])]
-          (when (get outcome :baseline)
-            [:table {:class "search-comparison"}
-             [:thead [:tr [:th ""] [:th "Current"] [:th "Proposed"]]]
-             [:tbody
-              [:tr [:th "Gold"] [:td (number (get-in outcome [:baseline :cost]))] [:td (number (row :cost))]]
-              (map (fn [[field caption]] [:tr [:th caption] [:td (number (get-in outcome [:baseline :metrics field]))] [:td (number (get-in row [:metrics field]))]])
-                   [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"]])]])
-          (unless ongoing [:button {:class "apply" :type "button" :data-apply-build (get job :search-who "player")
-                                    :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
-                           (if (= "duel" (get-in result [:state :mode])) "Apply items" "Apply & inspect")])
+                [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"]])]
+          [:button {:class "apply" :type "button" :disabled ongoing :data-apply-build (get job :search-who "player")
+                    :data-on:click (string "@post('/search/apply?id=" (job :id) "&key=" (row :key) "')")}
+           (if (= "duel" (get-in result [:state :mode])) "Apply items" "Apply & inspect")]
           [:details {:class "search-build-details"} [:summary "Build & simulation details"]
+           (when (get outcome :baseline)
+             [:table {:class "search-comparison"}
+              [:thead [:tr [:th ""] [:th "Current"] [:th "Proposed"]]]
+              [:tbody
+               [:tr [:th "Gold"] [:td (number (get-in outcome [:baseline :cost]))] [:td (number (row :cost))]]
+               (map (fn [[field caption]] [:tr [:th caption] [:td (number (get-in outcome [:baseline :metrics field]))] [:td (number (get-in row [:metrics field]))]])
+                    [[:damage "Damage"] [:health "Health left"] [:win-rate "Win probability"]])]])
+
+           [:dl {:class "search-metrics"}
+            (map (fn [[field caption]] [:div [:dt caption] [:dd (number (get (row :metrics) field))]])
+                 [[:control "Control (s)"] [:healing "Healing"] [:absorbed "Absorbed"]])]
            [:p {:class "muted"} (row :samples) " trials · damage interval ±" (number (get-in row [:uncertainty :damage]))]
            [:p "Runes: " (string/join (map (fn [id] (def rune (find |(= id (get $ "id")) (scenario/runes package))) (get rune "name" (string id)))
                                            (get-in row [:definition :player :loadout :runes] [])) ", ")]
@@ -152,12 +158,11 @@
     [:div [:h2 {:id "optimizer-title" :tabindex "-1"} (if (= "duel" (get-in result [:state :mode])) "Optimize items" "Optimize build")]
      [:p {:id "optimizer-description" :class "muted"} (if (= "duel" (get-in result [:state :mode])) "Opponent build fixed" "Compare builds for your current opponent and fight strategy.")]]
     [:button {:type "button" :class "catalog-close" :data-search-close true :aria-label "Close optimization"} "Close"]]
-   (controls result)
+   [:div {:class "optimizer-body"} (controls result) (panel result nil)]
    [:div {:class "optimizer-actions"}
+    [:p {:id "search-request-status" :role "status" :hidden true} "Starting search…"]
     [:button {:id "search-start" :type "button" :class "optimize-primary" :data-search-start true
-              :data-on:click "@post('/search', {retry: 'never'})"} "Run search"]]
-   [:p {:id "search-request-status" :role "status" :hidden true} "Starting search…"]
-   (panel result nil)])
+              :data-on:click "@post('/search', {retry: 'never'})"} "Run search"]]])
 (defn rune-editor [package state]
   [:details {:id "rune-editor" :class "scope-panel" :data-preserve-attr "open" :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
    [:summary "Rune pages"]

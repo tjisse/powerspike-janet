@@ -1,3 +1,4 @@
+(import ./latest-provider :as fixtures)
 (import ../src/powerspike/expressions :as expr)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/data-util :as util)
@@ -35,23 +36,7 @@
   # Only an explicit refresh recompiles the retained patch with parser 7.
   # The requester supplies exact retained responses instead of making network
   # calls; the production fetch and immutable publication path runs normally.
-  (def details (tabseq [id :in ["Annie" "Garen"]] id
-                 (util/read-json (slurp (string root id "-abilities.json")))))
-  (defn provider [url cancelled]
-    (assert (not (cancelled)))
-    (util/encode-json
-      (cond
-        (string/has-suffix? "/champion.json" url)
-        {"version" patch "data" (tabseq [[id detail] :pairs details] id (get-in detail ["data" id]))}
-        (or (string/has-suffix? "/item.json" url) (string/has-suffix? "/summoner.json" url))
-        {"version" patch "data" {}}
-        (string/find "/lol.stringtable.json" url) {"entries" fonts}
-        (string/find "/champion/Annie.json" url) (details "Annie")
-        (string/find "/champion/Garen.json" url) (details "Garen")
-        (string/find "/annie/annie.bin.json" url) (util/read-json (slurp (string root "Annie-characters.json")))
-        (string/find "/garen/garen.bin.json" url) (util/read-json (slurp (string root "Garen-characters.json")))
-        {})))
-  (def refreshed (packages/fetch patch (string scratch "/jobs/refresh-" patch) (fn [progress] nil) (fn [] false) provider))
+  (def refreshed (packages/fetch patch (string scratch "/jobs/refresh-" patch) (fn [progress] nil) (fn [] false) (fixtures/provider patch)))
   (assert (not= snapshot (refreshed :snapshot)))
   (def package (packages/load patch))
   (assert (= "7" (package :parser)))

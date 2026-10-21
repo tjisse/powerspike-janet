@@ -118,10 +118,10 @@
     const panel=searchPanel();if(!panel)return;
     if(awaitingSearch && (panel.dataset.job!==previousJob || panel.dataset.error==='true')){
       awaitingSearch=false;requestStatus.hidden=true;panel.hidden=false;
-      requestAnimationFrame(()=>{if(optimizer.open)panel.scrollIntoView({block:'start'});});
     }
     const ongoing=panel.dataset.poll==='true';
     document.getElementById('search-start').disabled=awaitingSearch || ongoing;
+    panel.querySelectorAll('[data-apply-build]').forEach(button=>{button.disabled=awaitingSearch || ongoing;});
     optimizer.querySelectorAll('#optimizer input,#optimizer select').forEach(node=>{node.disabled=awaitingSearch || ongoing;});
     if(panel.dataset.applied && panel.dataset.applied!==lastApplied){
       lastApplied=panel.dataset.applied;awaitingSearch=false;requestStatus.hidden=true;
@@ -137,8 +137,8 @@
     openOptimizer(start);
     if(awaitingSearch || ongoing){event.preventDefault();event.stopImmediatePropagation();return;}
     previousJob=searchPanel()?.dataset.job || '';awaitingSearch=true;
-    requestStatus.textContent='Starting search…';requestStatus.hidden=false;searchPanel().hidden=true;
-    optimizer.scrollTop=0;requestStatus.scrollIntoView({block:'nearest'});updateSearch();
+    requestStatus.textContent='Starting search…';requestStatus.hidden=false;
+    updateSearch();
   },true);
   optimizer.addEventListener('close',()=>{if(searchOpener?.isConnected)searchOpener.focus({preventScroll:true});});
   document.addEventListener('datastar-fetch',event=>{

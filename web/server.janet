@@ -19,7 +19,8 @@
 (import spork/http :as http)
 
 (def assets
-  {"/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
+  {"/assets/workspace.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/workspace.css")}
+   "/assets/app.css" {:type "text/css; charset=utf-8" :body (slurp "web/assets/app.css")}
    "/assets/hud.js" {:type "text/javascript" :body (slurp "web/assets/hud.js")}
    "/assets/app.js" {:type "text/javascript" :body (slurp "web/assets/app.js")}
    "/assets/matchup.js" {:type "text/javascript" :body (slurp "web/assets/matchup.js")}
@@ -51,9 +52,9 @@
   # A browser's explicit refresh remains tracked when combat controls change.
   # Imported scenarios start without an inherited job and keep their snapshot.
   (def requested (jobs/get-job (or job-id "")))
-  (def manual (when (= :patch (get requested :kind)) requested))
+  (def manual (when (some |(= $ (get requested :kind)) [:patch :reparse]) requested))
   (def upgrade (if manual
-                 (when (and (= (manual :key) (get-in result [:package :patch])) (needs-spell-data? result)) manual)
+                 (when (and (= (jobs/patch manual) (get-in result [:package :patch])) (needs-spell-data? result)) manual)
                  (spell-data-job result)))
   (merge result {:spell-data-job upgrade :patch-job (or manual upgrade)}))
 
@@ -110,6 +111,7 @@
                  (when (not= "duel" (get-in prepared [:state :mode]))
                    [(ui/tactics prepared) (optimizer/rune-editor package (prepared :state))])
                  (ui/patch-panel prepared (prepared :patch-job))
+                 (ui/parser-warning prepared (prepared :patch-job))
                  (workspace/tools prepared) (ui/coverage prepared)))))
 
 (defn render-job [task input &opt key]
@@ -166,6 +168,7 @@
                                                         (ds/patch-signals gen values))
                                                       (with-dyns [:patch-package (prepared :package)]
                                                         (ds/patch-elements gen (ui/render (ui/loadout prepared) (ui/patch-panel prepared (prepared :patch-job))
+                                                                                          (ui/parser-warning prepared (prepared :patch-job))
                                                                                           (when notice [:p {:id "champion-action-status" :role "status"} notice])
                                                                                           (when applied (optimizer/panel prepared nil applied)))))))}))
 
@@ -221,6 +224,17 @@
           (configure req (model/parse-state updated) (string (job :id) "/" (row :key))))
         (do (def state (merge (model/state-from-definition (row :definition)) {:referencejson (get input "referencejson" "")}))
           (show-result req (model/compare-async state) state))))
+    (and (= "POST" (req :method)) (= "/patches/reparse" (req :route)))
+    (do
+      (def context (model/context (model/parse-state (ds/get-signals req))))
+      (def package (context :package))
+      (def attempt (protect
+                     (assert (packages/parser-mismatch? package) "This snapshot already uses the current parser.")
+                     (assert (packages/raw-sources? package) "Saved raw data is unavailable. Refresh patch data to download it.")
+                     (jobs/reparse-patch (package :patch) (package :snapshot))))
+      (def job (when (first attempt) (attempt 1)))
+      (def message (unless (first attempt) (string (attempt 1))))
+      (fragment req (ui/render (ui/patch-panel context job message) (ui/parser-warning context job message))))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
       (def signals (ds/get-signals req))
@@ -236,7 +250,8 @@
     (do (def job (jobs/cancel (get-in req [:query "id"])))
       (fragment req (ui/render (if (= :optimization (job :kind))
                                  (optimizer/panel (model/context (model/parse-state (ds/get-signals req))) job)
-                                 (ui/patch-panel (model/context (model/parse-state {})) job)))))
+                                 (let [context (model/context (model/parse-state (ds/get-signals req)))]
+                                   [(ui/patch-panel context job) (ui/parser-warning context job)])))))
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
     (= "/catalog" (req :route))
@@ -267,12 +282,12 @@
       (def state (model/parse-state signals))
       (def context (model/context state))
       (def stopped (and job (some |(= $ (job :status)) [:failed :cancelled])
-                        (= (job :key) (state :patch)) (needs-spell-data? context)))
+                        (= (jobs/patch job) (state :patch)) (needs-spell-data? context)))
       (if stopped
         (do (def result (merge (model/compare-async state) {:spell-data-job job :patch-job job}))
           (fragment req (with-dyns [:patch-package (result :package)]
-                          (ui/render (ui/patch-panel result job) (ui/results result)))))
-        (fragment req (ui/render (ui/patch-panel context job)))))
+                          (ui/render (ui/patch-panel result job) (ui/parser-warning result job) (ui/results result)))))
+        (fragment req (ui/render (ui/patch-panel context job) (ui/parser-warning context job)))))
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
     (do (def query (get req :query {}))

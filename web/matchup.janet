@@ -131,11 +131,7 @@
      [:button {:type "button" :class "matchup-champion" :aria-label (if opponent "Select opponent" "Select champion")
                :data-on:click (string "$editingwho = '" who "'; document.getElementById('champion-picker').showModal()")}
       (icon package "champion" (champion :icon) (champion :name)) [:h1 (champion :name)] [:span {:class "matchup-caret"} "⌄"]]
-     (select-field (if opponent "opponentlevel" "level") "Level" (state (if opponent :opponentlevel :level)) (map |[$ (string $)] (range 1 19)))
-     (when (not (empty? (forms/choices (champion :id) (package :patch))))
-       [:div {:class "form-control"}
-        (select-field (if opponent "opponentform" "form") "Form (fixed)" (get state (if opponent :opponentform :form) "")
-                      [["" "Choose form"] ;(forms/choices (champion :id) (package :patch))])])]
+     (select-field (if opponent "opponentlevel" "level") "Level" (state (if opponent :opponentlevel :level)) (map |[$ (string $)] (range 1 19)))]
     [:label {:class "native-only"} (if opponent "Opponent" "Champion")
      [:select {:form "scenario" :name (if opponent "opponent" "champion") :data-bind (if opponent "opponent" "champion")}
       (map |[:option {:value ($ :id) :selected (= ($ :id) (champion :id))} ($ :name)] (catalog/champion-list))]]
@@ -143,12 +139,13 @@
      [:div {:class "matchup-stats"}
       (map (fn [[key caption]] [:span caption " " [:strong (text-number (get stats key 0))]]) [[:hp "HP"] [:armor "Armor"] [:mr "MR"]])
       [:button (merge {:type "button" :class "quiet-action" :aria-label (string (champion :name) " stats")}
-                      (details/attrs {:name (champion :name) :stats (details/stat-rows stats) :body [] :coverage "Modeled stats; see coverage."} true)) "Details"]]
-     [:button {:type "button" :class "matchup-collapse js-only" :data-collapse who :aria-controls (string who "-loadout") :aria-expanded "true"} "Collapse −"]]
-    [:div {:class "matchup-mini" :aria-label "Inventory summary"}
-     (map (fn [id] (if (= id "") [:span {:class "mini-empty"}] (icon package "item" id (get-in package [:item-map id :name] id)))) chosen)
-     [:span {:class "muted"} (text-number cost) " gold"]]
-    [:button {:type "button" :class "quiet-action champion-slots-open js-only" :data-champion-slots who} "Champion save slots"]]
+                      (details/attrs {:name (champion :name) :stats (details/stat-rows stats) :body [] :coverage "Modeled stats; see coverage."} true)) "Details"]]]
+    [:div {:class "matchup-card-tools"}
+     (when (not (empty? (forms/choices (champion :id) (package :patch))))
+       [:div {:class "form-control"}
+        (select-field (if opponent "opponentform" "form") "Form (fixed)" (get state (if opponent :opponentform :form) "")
+                      [["" "Choose form"] ;(forms/choices (champion :id) (package :patch))])])
+     [:button {:type "button" :class "quiet-action champion-slots-open js-only" :data-champion-slots who} "Champion save slots"]]]
    [:div {:id (string who "-loadout") :class "matchup-loadout"}
     [:div {:class "matchup-tabs" :role "tablist" :aria-label (string (champion :name) " customization")}
      (map (fn [[tab caption]] [:button {:type "button" :role "tab" :id (string who "-tab-" tab) :aria-controls (string who "-panel-" tab)
@@ -173,8 +170,7 @@
                                                                    (string "native" (if opponent "enemyslot" "slot") (inc index))))]]]]
     [:section {:id (string who "-panel-runes") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-runes")} (rune-fields result opponent)]
     [:section {:id (string who "-panel-abilities") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-abilities")} (ability-fields result opponent)]
-    [:section {:id (string who "-panel-sequence") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-sequence")} (sequence-fields result opponent)]
-    (champion-settings result opponent)]])
+    [:section {:id (string who "-panel-sequence") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-sequence")} (sequence-fields result opponent) (champion-settings result opponent)]]])
 (defn loadout [result]
   (def state (result :state))
   [:section {:id "loadout-tray" :class "matchup-tray"}
@@ -198,12 +194,14 @@
                          :data-bind (string (if opponent "enemyslot" "slot") (inc index))}])) [false true])
     [:noscript [:button {:type "submit"} "Run matchup"]]]
    [:p {:id "config-status" :class "measurement-error" :role "alert"}]
-   [:div {:class "matchup-cards"} (champion-card result false) (champion-card result true)]])
+   [:div {:class "matchup-cards"} (champion-card result false)
+    [:button {:type "button" :class "matchup-swap js-only" :data-swap-champions true :aria-label "Swap champions" :title "Swap champions" :data-attr:disabled "$busy"}
+     [:svg {:viewBox "0 0 24 24" :width 22 :height 22 :aria-hidden "true" :fill "none" :stroke "currentColor" :stroke-width 1.5}
+      [:path {:d "M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"}]]]
+    (champion-card result true)]])
 (defn fightbar [result]
   [:div {:id "matchup-fightbar" :class "matchup-fightbar"}
    (input "duration" "Duration (s)" (get-in result [:state :duration]) 0.5 120 "any")
-   [:button {:type "button" :class "quiet-action matchup-swap js-only" :data-swap-champions true
-             :data-attr:disabled "$busy"} "⇄ Swap champions"]
    [:button {:type "button" :class "quiet-action matchup-jump" :data-matchup-jump true} "Results ↓"]
    [:button {:type "submit" :form "scenario" :class "matchup-run" :data-attr:disabled "$busy"} "Run matchup"]])
 (defn champion-slots-dialog []
@@ -285,14 +283,17 @@
               id (state (if player-ready :opponent :champion))]
           (string "Downloading ability data for " (get-in result [:package :champion-map id :name] id) ".")))])
    [:div {:class "matchup-legend"}
-    (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])]
-   [:div {:id "matchup-chart" :class "matchup-chart" :role "img" :aria-label "Both champions over time"}]
-   [:div {:class "matchup-health" :aria-live "polite"}]
-   [:label {:class "matchup-scrubber"} "Time" [:input {:type "range" :min 0 :max end :step 0.01 :value 0 :aria-label "Inspect fight time"}] [:output "0.00 s"]]
-   [:p {:class "muted matchup-advantage"}]
-   [:details {:id "matchup-events" :class "matchup-events" :data-preserve-attr "open" :open true} [:summary "Combat events"]
+    (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])
     (when (some |(= :parried ($ :kind)) trace)
-      [:p {:class "muted matchup-parry-hint"} "× Parried hit · Select an event for details."])
-    [:div {:class "matchup-event-lanes"}]
-    [:label "Event" [:select {:class "matchup-event-select" :aria-label "Select combat event"} [:option {:value ""} "Select event"]]]
-    [:div {:class "matchup-event-detail" :hidden true :aria-live "polite"}]]])
+      [:span {:class "muted matchup-parry-hint" :title "Select an event for details"} "× Parried hit"])]
+   [:div {:class "matchup-visual"}
+    [:div {:id "matchup-chart" :class "matchup-chart" :role "slider" :tabindex 0 :aria-label "Inspect fight time" :aria-valuemin 0 :aria-valuemax end :aria-valuenow 0}]
+    [:section {:id "matchup-events" :class "matchup-events" :aria-label "Combat events"}
+     [:div {:class "matchup-event-lanes"}]]
+    [:div {:class "matchup-timeline-guide" :aria-hidden "true"}]]
+   [:div {:class "matchup-inspection"}
+    [:output {:class "matchup-time" :aria-label "Fight time"} "0.00 s"]
+    [:label "Event" [:select {:class "matchup-event-select" :aria-label "Select combat event"} [:option {:value ""} "Select event"]]]]
+   [:div {:class "matchup-health" :aria-live "polite"}]
+   [:p {:class "muted matchup-advantage"}]
+   [:div {:class "matchup-event-detail" :aria-live "polite"} "Select an event to inspect the simulated hit."]])

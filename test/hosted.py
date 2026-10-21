@@ -151,7 +151,7 @@ def verify_browser(base, output, expected_model=None):
         page.get_by_role('button', name='Close champion save slots', exact=True).click()
         draft = configurations()
         for expected in ({'player': draft['opponent'], 'opponent': draft['player']}, draft):
-            page.get_by_role('button', name='⇄ Swap champions', exact=True).click()
+            page.get_by_role('button', name='Swap champions', exact=True).click()
             page.wait_for_function('expected => {const actual=JSON.parse(document.querySelector("#champion-configurations").dataset.json); return actual.player.champion.champion===expected.player.champion.champion && actual.opponent.champion.champion===expected.opponent.champion.champion}', arg=expected)
             page.wait_for_function('!document.querySelector("#powerspike").classList.contains("is-pending")')
             assert configurations() == expected
@@ -183,9 +183,7 @@ def verify_browser(base, output, expected_model=None):
         mobile.on('pageerror', lambda error: errors.append(str(error)))
         mobile.goto(base+query, wait_until='domcontentloaded', timeout=30000)
         expect(mobile.locator('#matchup-chart svg')).to_be_visible()
-        mobile.wait_for_function('document.querySelector("[data-collapse=player]").getAttribute("aria-expanded") === "false"')
-        if not mobile.locator('#matchup-events').evaluate('node => node.open'):
-            mobile.locator('#matchup-events summary').click()
+        expect(mobile.locator('#player-loadout')).to_be_visible()
         options = mobile.locator('.matchup-event-select option').evaluate_all('options => options.map(option => ({value:option.value,text:option.textContent}))')
         option = next(option for option in options if 'Disintegrate' in option['text'])
         mobile.locator('.matchup-event-select').select_option(option['value'])

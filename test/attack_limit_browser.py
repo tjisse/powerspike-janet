@@ -26,7 +26,7 @@ def verify(browser, base):
         assert len(hits) == 3
         for index, event in enumerate(hits):
             assert abs(event['at'] - (0.3/3 + index/3)) < 1e-6
-    assert 'cap 2.5' not in page.locator('#patch-settings').inner_text()
+    assert 'cap 2.5' not in page.locator('#coverage').inner_text()
     # An explicit rerun must preserve the exported fight and seeded outcomes.
     document = page.locator('#workspace-data').get_attribute('data-json')
     assert page.locator('#scenario').evaluate('(form)=>form.checkValidity()')

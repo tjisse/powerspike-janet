@@ -4,14 +4,14 @@
   if (app?.dataset.layout !== 'matchup') return;
   const $ = selector => document.querySelector(selector);
   const format = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value || 0);
-  const tabs = new Map(), expanded = new Map(), undo = new Map(), lockState = new Map();
+  const tabs = new Map(), undo = new Map(), lockState = new Map();
   const unavailableIcons = new Set();
   const championSlotsKey = 'powerspike.champions.v1';
   const commandFields = new Set(['championaction', 'championwho', 'championjson']);
   let configurationPending = false;
   let championActionPending = false;
   let baseline = null, pending = null, identity = '', result = null, rows = [], events = [];
-  let time = 0, metric = 'health', selected = null, narrow = null, scheduled = false;
+  let time = 0, metric = 'health', selected = null, scheduled = false;
   const node = (tag, className, text) => {
     const el = document.createElement(tag);
     if (className) el.className = className;
@@ -117,20 +117,8 @@
     // Fragment parsers can turn noscript fallback selects into live form
     // controls. Keep those duplicates out of the JavaScript configuration.
     document.querySelectorAll('.matchup-tray noscript').forEach(fallback => fallback.remove());
-    const nextNarrow = innerWidth <= 650;
-    if (nextNarrow !== narrow) {
-      narrow = nextNarrow;
-      for (const who of ['player', 'opponent']) expanded.set(who, !narrow);
-      const detail = $('#matchup-events');
-      if (detail) detail.open = !narrow;
-    }
     document.querySelectorAll('.matchup-card').forEach(card => {
-      const who = card.dataset.who, open = expanded.get(who) !== false, tab = tabs.get(who) || 'items';
-      card.classList.toggle('is-collapsed', !open);
-      const toggle = card.querySelector('[data-collapse]');
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.textContent = open ? 'Collapse −' : 'Edit build +';
-      card.querySelector('.matchup-loadout').hidden = !open;
+      const who = card.dataset.who, tab = tabs.get(who) || 'items';
       card.querySelectorAll('[data-tab]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.tab === tab)));
       card.querySelectorAll('[role="tabpanel"]').forEach(panel => { panel.hidden = panel.id !== `${who}-panel-${tab}`; });
       card.querySelector('[data-undo-row]').hidden = !undo.has(who);
@@ -156,7 +144,7 @@
       checkbox.dispatchEvent(new Event('input', {bubbles: true}));
     });
     const panel = $('#search-panel');
-    if (panel.dataset.job && panel.dataset.searchWho !== who) panel.hidden = true;
+    panel.classList.toggle('other-champion', Boolean(panel.dataset.job && panel.dataset.searchWho !== who));
     $('#optimizer-dialog').dataset.who = who;
   }
   document.addEventListener('input', event => {
@@ -209,7 +197,6 @@
       catch (error) { $('#champion-action-status').textContent = error.message; }
     }
     if (button.dataset.tab) { tabs.set(button.dataset.who, button.dataset.tab); cards(); }
-    if (button.dataset.collapse) { const who = button.dataset.collapse; expanded.set(who, !expanded.get(who)); cards(); }
     if (button.hasAttribute('data-matchup-jump')) $('#results').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
     if (button.dataset.searchOpen && ['player', 'opponent'].includes(button.dataset.searchOpen)) openItemSearch(button.dataset.searchOpen);
     if (button.dataset.applyBuild) undo.set(button.dataset.applyBuild, snapshotItems(button.dataset.applyBuild));
@@ -249,9 +236,12 @@
     select.replaceChildren(new Option('Select event', ''));
     events.forEach((record, i) => select.add(new Option(`${record.at.toFixed(2)} s · ${eventName(record)}`, String(i))));
     select.addEventListener('change', () => { selected = select.value === '' ? null : Number(select.value); if (selected !== null) time = events[selected].at; draw(); });
-    const range = $('.matchup-scrubber input');
-    range.max = result.end;
-    range.addEventListener('input', () => { time = Number(range.value); selected = null; draw(); });
+    $('#matchup-chart').onkeydown = event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      time = event.key === 'Home' ? 0 : event.key === 'End' ? result.end : Math.max(0, Math.min(result.end, time + (event.key === 'ArrowLeft' ? -1 : 1) * (event.shiftKey ? 1 : .1)));
+      selected = null; draw();
+    };
     return true;
   }
   function actorIndex(record) {
@@ -308,7 +298,10 @@
     healthBox.replaceChildren(...result.actors.map((actor, i) => { const cell = node('div'); cell.append(node('strong', '', result.names[i]), node('span', '', health ? `${format(current.participants[i]?.health)} / ${format(actor.hp)} HP (${format(percent[i])}%)` : `${format(current.dealt[i])} damage · ${format(percent[i])}% health`)); return cell; }));
     const difference = percent[0] - percent[1];
     $('.matchup-advantage').textContent = Math.abs(difference) < .5 ? 'Equal remaining health (%)' : `${result.names[difference >= 0 ? 0 : 1]} · ${format(Math.abs(difference))} percentage points more health`;
-    $('.matchup-scrubber input').value = time; $('.matchup-scrubber output').textContent = `${time.toFixed(2)} s`;
+    $('.matchup-time').textContent = `${time.toFixed(2)} s`;
+    box.setAttribute('aria-valuenow', time.toFixed(2));
+    box.setAttribute('aria-valuetext', `${time.toFixed(2)} seconds`);
+    $('.matchup-timeline-guide').style.left = `${x(time)}px`;
     document.querySelectorAll('[data-matchup-metric]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.matchupMetric === metric)));
     drawEvents(width, left, right);
   }
@@ -339,7 +332,8 @@
       lane.append(label, track); return lane;
     }));
     if (focused !== undefined) [...lanes.querySelectorAll('[data-trace-event]')].find(button => button.dataset.traceEvent === focused)?.focus({preventScroll: true});
-    const detail = $('.matchup-event-detail'); detail.hidden = selected === null;
+    const detail = $('.matchup-event-detail');
+    if (selected === null) detail.textContent = 'Select an event to inspect the simulated hit.';
     $('.matchup-event-select').value = selected === null ? '' : String(selected);
     if (selected !== null) {
       const event = events[selected], values = [];

@@ -1,4 +1,4 @@
-# Next improvements after v0.19.0
+# Next improvements after v0.20.0
 
 The order below prioritizes trustworthy build and fight comparisons, then the
 remaining work needed for a small player beta. Players continue to see a clear

@@ -17,6 +17,16 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
+Version 0.20.0 is released with exact action-readiness scheduling, corrected level
+interpolation and reviewed form projectiles, survival/source/trial comparisons,
+four champion save slots, side swapping and restored timeline artwork. Concurrent
+requests, idle-download cancellation, cache-write quotas and artwork retry bounds
+are covered by retained checks. Local gates, the [clean packaging/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39566625247)
+and [signed RPM/DNF publication and upgrade workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39565462931)
+passed. The downloaded RPM checksum and signature were verified. The clean browser
+run includes a test-only correction for measuring a redrawn timeline marker;
+application and packaging sources match the release tag. See [release notes](releases/0.20.0.md).
+
 Version 0.15.1 is released with a player-facing simulated-fight view, separate developer diagnostics, pinned item comparisons for practice/objective scenarios and failed-evaluation save protection. It preserves the paired matchup interface from v0.14.0 and includes the indexed replay evidence work on main. A full clean-checkout packaging/browser run, the [GitHub build/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39252024638), and the [signed RPM/DNF publication and upgrade workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39252025986) passed. The downloaded RPM checksum and signature were verified. The unsuccessful v0.15.0 tag remains unchanged and has no release assets. See [release notes](releases/0.15.1.md).
 
 **All six functional milestones are released through v0.7.0.** Local checks, the GitHub build/browser workflow and the signed RPM/DNF installation and upgrade workflow passed. Accuracy improvement remains ongoing through explicit coverage and reviewed calibration.

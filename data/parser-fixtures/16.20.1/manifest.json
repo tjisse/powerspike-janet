@@ -1,0 +1,41 @@
+{
+  "patch": "16.20.1",
+  "retrieved_at": "2026-10-21",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/annie/annie.bin.json?powerspike=1",
+      "fixture": "Annie-characters.json",
+      "sha256": "7bc7e9d3ca1f3d6cff9bb664c7e8876d672e119cc1ffbfbb3a5bee26ffd9f067"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Annie.json",
+      "fixture": "Annie-abilities.json",
+      "sha256": "58fe285e1297f6736143f80b15611601bd786ed95c7b793f715baaf9165a138f"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/garen/garen.bin.json?powerspike=1",
+      "fixture": "Garen-characters.json",
+      "sha256": "f7b79c0de0c1860c7341bb5de37d4d7375803de6fc0de01e6ef24af16117aaf2"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Garen.json",
+      "fixture": "Garen-abilities.json",
+      "sha256": "3de32d7d93cbd2c03f2381f2b68cac9c03003b0b3cceddc17773bd9bf0362536"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "fixture": "strings.json",
+      "sha256": "8ecc5117aab8b6fced2f5a1d221da24301d5894aeff9b4109f6be757eed45099",
+      "derived_excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Annie-characters.json": "7bc7e9d3ca1f3d6cff9bb664c7e8876d672e119cc1ffbfbb3a5bee26ffd9f067",
+    "Annie-abilities.json": "58fe285e1297f6736143f80b15611601bd786ed95c7b793f715baaf9165a138f",
+    "Garen-characters.json": "f7b79c0de0c1860c7341bb5de37d4d7375803de6fc0de01e6ef24af16117aaf2",
+    "Garen-abilities.json": "3de32d7d93cbd2c03f2381f2b68cac9c03003b0b3cceddc17773bd9bf0362536",
+    "strings.json": "1bed7a9776959b22df249c170b93a9d5f567c6b5329bc680d4b974ce1b83be95",
+    "legacy-package.jdn": "abc660448f647686f3748f62c0dc66932c8910df933c12cb564ed0dfcd59c59e"
+  },
+  "legacy_parser": "6"
+}

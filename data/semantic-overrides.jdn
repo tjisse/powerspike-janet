@@ -37,6 +37,10 @@
           :effects [{:kind :damage :damage-type :physical :variable "TotalDamage" :trigger :attack
                      :duration-variable "AttackWindow" :reset true}]
           :note "The next attack replaces ordinary attack damage with the source's total. Critical-strike interaction and silence are unresolved."}
-         {:champion "Annie" :slot :r :patch-min "16.17.1" :patch-max "16.19.1"
+         {:champion "Garen" :slot :q :patch-min "16.20.1" :patch-max "16.21.1"
+          :effects [{:kind :damage :damage-type :physical :variable "TotalDamage" :trigger :attack
+                     :attack-mode :replace :duration-variable "AttackWindow" :reset true}]
+          :note "The next attack replaces ordinary attack damage with the source's total. Critical-strike interaction and silence are unresolved."}
+         {:champion "Annie" :slot :r :patch-min "16.17.1" :patch-max "16.21.1"
           :rank-penetration {:magic-pen-percent "RPercentPenBuff"}
           :note "Learned R grants permanent magic penetration; Tibbers behavior remains unresolved."}]}

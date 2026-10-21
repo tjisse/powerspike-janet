@@ -2,7 +2,7 @@
 (import ./stats :as stats)
 (import ./validation :as v)
 
-(def parser-version "6")
+(def parser-version "7")
 
 # ASTs contain numbers and data references only; no Janet source is evaluated.
 (def stat-ids {0 :ap 1 :armor 2 :ad 4 :attack-speed 6 :mr 7 :move-speed 8 :crit-chance
@@ -36,8 +36,13 @@
   (def id (get part "mStat" 0))
   (def formula (get part "mStatFormula" 0))
   (def patch (get spell "__powerspike_patch" "16.19.1"))
-  (def family (some |(= $ (util/cdragon-version patch)) ["16.17" "16.18" "16.19"]))
-  (if (and family (stat-ids id) (some |(= $ formula) [0 1 2]))
+  (def family (util/cdragon-version patch))
+  # New patch mappings require matching source review. The Annie/Garen review
+  # establishes AP, AD and health on 16.20/16.21; other enums stay unresolved.
+  (def supported (or (some |(= $ family) ["16.17" "16.18" "16.19"])
+                     (and (some |(= $ family) ["16.20" "16.21"])
+                          (some |(= $ id) [0 2 12]))))
+  (if (and supported (stat-ids id) (some |(= $ formula) [0 1 2]))
     {:op :stat :stat (stat-ids id) :formula formula}
     (unresolved (string "Unknown stat/formula mapping " id "/" formula " on " patch))))
 
@@ -209,7 +214,7 @@
   # Old packages retain their source calculations but not the discarded flag.
   # Match complete legacy expressions to their current compilation in memory.
   # Ambiguous matches stay unresolved; source and immutable bytes are untouched.
-  (if (or (= parser-version (get record :expression-parser))
+  (if (or (some |(= $ (get record :expression-parser)) ["6" parser-version])
           (not (interpolation-flags? (get spell "mSpellCalculations" {})))) record
     (do
       (def replacements @{})

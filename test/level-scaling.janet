@@ -115,6 +115,10 @@
 (def ambiguous-spell {"mSpellCalculations" {"Amount" (merge part {"mScaleByStatProgressionMultiplier" true}) "Linear" part}})
 (def ambiguous {:variables [{:name "Amount" :expression (expr/variable "Amount" ambiguous-spell nil true)}]})
 (rejects (fn [] (expr/evaluate (get-in (expr/refresh ambiguous ambiguous-spell) [:variables 0 :expression]) (context 10))))
+# Parser 6 already preserved interpolation flags. A later parser version must
+# not rerun the lossy parser-5 repair against its correctly compiled linear AST.
+(def current-linear {:expression-parser "6" :variables [{:name "Linear" :expression (expr/variable "Linear" ambiguous-spell)}]})
+(close 28.5 (expr/evaluate (get-in (expr/refresh current-linear ambiguous-spell) [:variables 0 :expression]) (context 10)))
 
 # Exercise each cached record adapter and preserve the snapshot's actual bytes.
 (def catalog (util/read-data "data/16.19.1/catalog/catalog.jdn"))

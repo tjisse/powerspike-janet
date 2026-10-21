@@ -5,6 +5,14 @@ remaining work needed for a small player beta. Players continue to see a clear
 simulation and its actual omissions. Verification records and engineering
 diagnostics remain in the developer tools.
 
+The [16.20/16.21 ability correction](latest-patch-abilities.md) resolves the
+reported default-matchup regression: newly discovered patches had been offered
+even though their stat formulas were outside the parser's reviewed scope.
+Future patch work should check actual learned ability execution against retained
+matching sources, including manual refreshes, before treating downloads as ready
+for build comparisons. AP, AD and health are now reviewed on those two patches;
+other mappings and complete champion kits still need their own review.
+
 1. **Attack timing and projectile behavior.** Measure isolated ordinary and
    empowered attacks, review the remaining 30% windup assumption, and resolve
    ranged Spellblade consumption at launch versus impact. Use matching-patch sources

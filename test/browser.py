@@ -1003,6 +1003,7 @@ if __name__ == '__main__':
     parser.add_argument('--control-fixture', help='Also check synthetic control resumption using an exported fixture')
     parser.add_argument('--changing-fixture', help='Also check synthetic changing costs/ranges using an exported fixture')
     parser.add_argument('--health-cost-fixture', help='Also check a retained health-cost formula on a synthetic carrier')
+    parser.add_argument('--latest-patch-fixture', help='Also check refreshed 16.20/16.21 default matchups')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -1028,3 +1029,6 @@ if __name__ == '__main__':
     if args.health_cost_fixture:
         from health_cost_browser import verify as verify_health_cost
         verify_health_cost(args.binary, args.health_cost_fixture)
+    if args.latest_patch_fixture:
+        from latest_patch_browser import verify as verify_latest_patch
+        verify_latest_patch(args.binary, args.latest_patch_fixture)

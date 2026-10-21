@@ -1,0 +1,115 @@
+(import ../src/powerspike/expressions :as expr)
+(import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/data-util :as util)
+(import ../src/powerspike/packages :as packages)
+(import ../src/powerspike/scenario :as scenario)
+(import ../web/model :as model)
+(import ../web/ui :as ui)
+(import ../web/matchup :as matchup)
+(import pshash :as hash)
+
+(defn close [expected actual]
+  (assert (< (math/abs (- expected actual)) 0.00001) (string "Expected " expected ", got " actual)))
+(defn rejects [f] (assert (not (first (protect (f))))))
+(def context {:level 18 :rank 5 :stats {:ap 100 :ad 150 :hp 2000} :base {:ap 0 :ad 80 :hp 1000} :buffs {}})
+(def scratch (string "build/latest-patch-tests/" (hash/sha256 (os/cryptorand 8))))
+
+(each patch ["16.20.1" "16.21.1"]
+  (def root (string "data/parser-fixtures/" patch "/"))
+  (def manifest (util/read-json (slurp (string root "manifest.json"))))
+  (eachp [name expected] (manifest "fixture_sha256")
+    (assert (= expected (hash/sha256 (slurp (string root name)))) (string "Corrupt latest-patch fixture: " name)))
+  (def bytes (string (slurp (string root "legacy-package.jdn"))))
+  (def old (util/read-data (string root "legacy-package.jdn")))
+  (assert (= "6" (old :parser)))
+  (assert (= :unresolved (get-in old [:champions 0 :abilities 0 :effects 0 :status])))
+  (def snapshot (hash/sha256 bytes))
+  (def directory (string scratch "/patches/" patch "/" snapshot))
+  (util/write (string directory "/package.jdn") bytes)
+  (util/write (string directory "/manifest.json") (util/encode-json {"initial" false "package_sha256" snapshot}))
+  (util/write (string scratch "/patches/" patch "/current") snapshot)
+  (packages/initialize scratch nil)
+  (def previous-package (packages/load patch snapshot))
+  (assert (= :unresolved (get-in previous-package [:champion-map "Annie" :abilities 0 :effects 0 :status])))
+  (def fonts ((util/read-json (slurp (string root "strings.json"))) "entries"))
+  # Only an explicit refresh recompiles the retained patch with parser 7.
+  # The requester supplies exact retained responses instead of making network
+  # calls; the production fetch and immutable publication path runs normally.
+  (def details (tabseq [id :in ["Annie" "Garen"]] id
+                 (util/read-json (slurp (string root id "-abilities.json")))))
+  (defn provider [url cancelled]
+    (assert (not (cancelled)))
+    (util/encode-json
+      (cond
+        (string/has-suffix? "/champion.json" url)
+        {"version" patch "data" (tabseq [[id detail] :pairs details] id (get-in detail ["data" id]))}
+        (or (string/has-suffix? "/item.json" url) (string/has-suffix? "/summoner.json" url))
+        {"version" patch "data" {}}
+        (string/find "/lol.stringtable.json" url) {"entries" fonts}
+        (string/find "/champion/Annie.json" url) (details "Annie")
+        (string/find "/champion/Garen.json" url) (details "Garen")
+        (string/find "/annie/annie.bin.json" url) (util/read-json (slurp (string root "Annie-characters.json")))
+        (string/find "/garen/garen.bin.json" url) (util/read-json (slurp (string root "Garen-characters.json")))
+        {})))
+  (def refreshed (packages/fetch patch (string scratch "/jobs/refresh-" patch) (fn [progress] nil) (fn [] false) provider))
+  (assert (not= snapshot (refreshed :snapshot)))
+  (def package (packages/load patch))
+  (assert (= "7" (package :parser)))
+  (each id ["Annie" "Garen"]
+    (def objects (util/read-json (slurp (string root id "-characters.json"))))
+    (def detail (util/read-json (slurp (string root id "-abilities.json"))))
+    (def fresh (normalize/kit id objects detail fonts patch))
+    (def loaded ((package :champion-map) id))
+    (eachp [index ability] (fresh :abilities)
+      (def loaded-ability ((loaded :abilities) index))
+      (assert (= (util/canonical (ability :effects)) (util/canonical (loaded-ability :effects)))
+              (string id " " (ability :slot) " fresh and loaded effects differ"))
+      (assert (= (util/canonical (ability :variables)) (util/canonical (loaded-ability :variables))))
+      (assert (not (some |(string/has-prefix? "Unknown stat/formula mapping" $) (loaded-ability :unresolved))))
+      (assert (= (util/canonical loaded) (util/canonical (normalize/semantic-kit id patch loaded)))))
+    (when (= id "Annie")
+      (close 340 (expr/evaluate (get-in loaded [:abilities 0 :effects 0 :amount]) context))
+      (close 310 (expr/evaluate (get-in loaded [:abilities 1 :effects 0 :amount]) context))
+      (close 240 (expr/evaluate (get-in loaded [:abilities 2 :effects 1 :amount]) context))
+      (assert (= :unresolved (get-in loaded [:abilities 2 :effects 0 :status])))
+      (assert (= :unresolved (get-in loaded [:abilities 4 :effects 0 :trigger])))
+      (close 0.2 ((get-in loaded [:rank-penetration :r :magic-pen-percent]) 3)))
+    (when (= id "Garen")
+      (def q (get-in loaded [:abilities 0 :effects 0]))
+      (assert (= :attack (q :trigger)))
+      (assert (= :replace (q :attack-mode)))
+      (assert (q :reset))
+      (close 375 (expr/evaluate (q :amount) context))
+      (close 325 (expr/evaluate (get-in loaded [:abilities 1 :effects 0 :amount]) context))
+      (assert (all |(= :unresolved ($ :status)) (get-in loaded [:abilities 2 :effects])))
+      (assert (all |(= :unresolved ($ :status)) (get-in loaded [:abilities 3 :effects])))))
+  (def state (model/parse-state {"mode" "duel" "patch" patch "snapshot" (refreshed :snapshot) "snapshotlocked" true
+                                 "champion" "Annie" "opponent" "Garen" "selected" "custom"}))
+  (def result (model/compare state))
+  (def trace (get-in result [:selected :combat :trace]))
+  (each [actor source] [["player" "AnnieQ"] ["player" "AnnieW"] ["opponent" "GarenQ"]]
+    (assert (some |(and (= actor ($ :actor)) (= :cast ($ :kind)) (= source ($ :source))) trace)
+            (string "Default matchup never casts " actor "/" source)))
+  (def markup (ui/render (matchup/results result)))
+  (assert (string/find "AnnieQ.png" markup))
+  (assert (string/find "GarenQ.png" markup))
+  # Reverse the matchup and compare combat with the optimizer's compact path.
+  (def definition (get-in result [:selected :combat :scenario]))
+  (def reversed (merge definition {:player (definition :target) :target (merge (definition :player) {:kind :champion})}))
+  (def outcome (scenario/simulate reversed))
+  (assert (some |(and (= "player" ($ :actor)) (= "GarenQ" ($ :source))) (outcome :trace)))
+  (assert (= (outcome :metrics) ((scenario/fitness reversed) :metrics)))
+  (assert (= snapshot (hash/sha256 (slurp (string directory "/package.jdn")))))
+  (assert (= (refreshed :snapshot) (string/trim (slurp (string scratch "/patches/" patch "/current"))))))
+
+# Explicit scope: future patches, unreviewed enums, formulas and unknown
+# calculation kinds must never silently acquire a guessed interpretation.
+(each [patch id formula] [["16.22.1" 0 0] ["12.2.1" 0 0] ["16.21.1" 6 0]
+                          ["16.21.1" 255 0] ["16.21.1" 0 255]]
+  (rejects (fn [] (expr/evaluate (expr/stat-node {"mStat" id "mStatFormula" formula}
+                                                 {"__powerspike_patch" patch}) context))))
+(when-let [export (os/getenv "PS_LATEST_PATCH_FIXTURE")]
+  (when (os/stat export) (util/remove-tree export))
+  (util/copy-tree (string scratch "/patches") (string export "/seed")))
+(util/remove-tree scratch)
+(print "Latest-patch source formulas, explicit refresh, fresh/loaded parity, immutable snapshots, default and reversed casts, optimizer parity and patch boundaries passed.")

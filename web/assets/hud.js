@@ -17,11 +17,11 @@
       if(input){reveal(input);input.focus();}
       return;
     }
-    const button=event.target.closest('[data-ui-toggle]');
+    const button=event.target.closest('[data-ui-toggle],[data-ui-reveal]');
     if(!button)return;
-    const target=document.getElementById(button.dataset.uiToggle);
+    const target=document.getElementById(button.dataset.uiReveal || button.dataset.uiToggle);
     if(!target)return;
-    if(target.open)target.open=false;else reveal(target);
+    if(button.dataset.uiReveal)reveal(target);else if(target.open)target.open=false;else reveal(target);
     button.setAttribute('aria-expanded',String(target.open));
   });
 

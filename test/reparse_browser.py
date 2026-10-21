@@ -42,8 +42,8 @@ def verify(binary_path, fixture_path):
                 response = page.goto(old_url, wait_until='domcontentloaded')
                 assert response.status == 200
                 warning = page.locator('#parser-warning')
-                page.locator('#patch-settings > summary').click()
                 expect(warning).to_be_visible()
+                assert warning.evaluate('node => node.closest("#workspace-messages") !== null')
                 expect(warning).to_contain_text('Saved parser 6; current parser 7')
                 expect(warning.get_by_role('button', name='Reparse saved data', exact=True)).to_be_enabled()
                 assert pointer.read_text().strip() == document['snapshot']
@@ -54,10 +54,11 @@ def verify(binary_path, fixture_path):
                 page.locator('[name=duration]').press('Tab')
                 page.wait_for_function('JSON.parse(document.querySelector("#configuration-data").dataset.json).scenario.duration===6')
                 page.screenshot(path='build/reparse-warning-desktop.png', full_page=True)
-                page.locator('#patch-settings > summary').click()
                 with page.expect_navigation(wait_until='domcontentloaded'):
                     warning.get_by_role('button', name='Reparse saved data', exact=True).click()
                 expect(warning).not_to_be_visible()
+                expect(page.locator('#workspace-messages')).to_have_attribute('data-active', 'false')
+                expect(page.locator('.workspace-ready')).to_be_visible()
                 scenario = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
                 assert scenario['snapshot'] != document['snapshot']
                 assert scenario['duration'] == 6
@@ -74,8 +75,8 @@ def verify(binary_path, fixture_path):
                 # An old saved link remains pinned; simply viewing it never
                 # reparses data or silently switches to the newer snapshot.
                 page.goto(old_url, wait_until='domcontentloaded')
-                page.locator('#patch-settings > summary').click()
                 expect(warning).to_be_visible()
+                assert warning.evaluate('node => node.closest("#workspace-messages") !== null')
                 assert pointer.read_text().strip() == current
                 assert json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']['snapshot'] == document['snapshot']
                 for width in (736,390,320):
@@ -96,7 +97,6 @@ def verify(binary_path, fixture_path):
                 assert pointer.read_text().strip() == current
                 source.write_bytes(retained)
                 page.goto(base+'/?champion=Annie&patch=16.19.1&snapshotlocked=true', wait_until='domcontentloaded')
-                page.locator('#patch-settings > summary').click()
                 expect(warning).to_contain_text('Saved raw data is unavailable')
                 assert warning.get_by_role('button', name='Reparse saved data', exact=True).count() == 0
                 assert not errors, errors

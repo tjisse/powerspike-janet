@@ -235,7 +235,7 @@
                              (ui/render (verification/dashboard reviewed))))
         (assert (string/find "selected patch differs" (ui/render (verification/panel (model/compare model/default-state)))))))
 (test "rendered errors escape markup rather than executing it"
-      (fn [] (def text (ui/render (ui/error-result "<script>alert('bad')</script>")))
+      (fn [] (def text (ui/render (ui/evaluation-notice "<script>alert('bad')</script>")))
         (assert (string/find "&lt;script&gt;" text))
         (assert (not (string/find "<script>" text)))))
 (test "player views describe a simulation and keep verification in developer tools"
@@ -335,13 +335,13 @@
         (def result (model/compare (model/parse-state {"champion" "Ahri" "selected" "custom"})))
         (def pending {:id "fixture" :key "16.19.1" :status :running
                       :progress {:message "Downloading Ahri" :completed 1 :total 173}})
-        (def text (ui/render (ui/results (merge result {:spell-data-job pending}))))
-        (assert (string/find "Downloading ability data for Ahri" text))
+        (def text (ui/render (ui/patch-notice result pending)))
+        (assert (string/find "Loading champion abilities" text))
         (assert (not (string/find "Spells: not modeled" text)))
-        (def failed (ui/render (ui/results (merge result {:spell-data-job (merge pending {:status :failed})}))))
-        (assert (string/find "Ability data download failed for Ahri" failed))
-        (def cancelled (ui/render (ui/results (merge result {:spell-data-job (merge pending {:status :cancelled})}))))
-        (assert (string/find "Ability data download cancelled for Ahri" cancelled))
+        (def failed (ui/render (ui/patch-notice result (merge pending {:status :failed}))))
+        (assert (string/find "Patch download failed" failed))
+        (def cancelled (ui/render (ui/patch-notice result (merge pending {:status :cancelled}))))
+        (assert (string/find "Patch download cancelled" cancelled))
         (def done (merge pending {:status :done :result {:patch "16.19.1" :snapshot (string/repeat "a" 64)}}))
         (def panel (ui/render (ui/patch-panel result done)))
         (assert (string/find "new FormData(form)" panel))

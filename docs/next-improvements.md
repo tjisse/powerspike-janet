@@ -18,12 +18,14 @@ provider downloads. Saved snapshot links remain pinned; the action opens the new
 the active workspace.
 
 The matchup workspace now keeps customization tabs at a consistent height,
-places patch loading and manual reparsing in the header dropdown, and combines
-the chart and event lanes on one time axis. Champion collapse controls and the
+places patch loading in the header dropdown, and groups workspace actions in a
+shared attention area. The chart and event lanes share one time axis. Champion collapse controls and the
 extra time slider are removed. Item artwork is 32 px; the optimizer has bounded,
 independently scrolling settings/results, compact recommendations and persistent
 apply buttons. `test/workspace_browser.py` checks anchored layout, keyboard time
 inspection and accessible recommendations down to 320 px.
+`test/messages_browser.py` checks shared prompts, simultaneous action visibility,
+layout stability, direct reruns and error recovery.
 
 1. **Attack timing and projectile behavior.** Measure isolated ordinary and
    empowered attacks, review the remaining 30% windup assumption, and resolve

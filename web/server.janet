@@ -73,7 +73,7 @@
   (adapter/sse-response req {:on-open (fn [gen]
                                         (ds/with-open-sse gen
                                                           (ds/patch-signals gen {:evaluationerror true})
-                                                          (ds/patch-elements gen (ui/render (ui/error-result message)))))}))
+                                                          (ds/patch-elements gen (ui/render (ui/error-result message) (ui/evaluation-notice message)))))}))
 
 (defn asset-response [route]
   (def parts (string/split "/" route))
@@ -112,6 +112,8 @@
                    [(ui/tactics prepared) (optimizer/rune-editor package (prepared :state))])
                  (ui/patch-panel prepared (prepared :patch-job))
                  (ui/parser-warning prepared (prepared :patch-job))
+                 (ui/patch-notice prepared (prepared :patch-job))
+                 (ui/evaluation-notice) (ui/config-status) (ui/champion-notice) (ui/comparison-notice prepared) (ui/model-notice prepared) (ui/workspace-feedback)
                  (workspace/tools prepared) (ui/coverage prepared)))))
 
 (defn render-job [task input &opt key]
@@ -169,7 +171,8 @@
                                                       (with-dyns [:patch-package (prepared :package)]
                                                         (ds/patch-elements gen (ui/render (ui/loadout prepared) (ui/patch-panel prepared (prepared :patch-job))
                                                                                           (ui/parser-warning prepared (prepared :patch-job))
-                                                                                          (when notice [:p {:id "champion-action-status" :role "status"} notice])
+                                                                                          (ui/patch-notice prepared (prepared :patch-job))
+                                                                                          (ui/config-status) (ui/champion-notice notice)
                                                                                           (when applied (optimizer/panel prepared nil applied)))))))}))
 
 (defn app-inner [req]
@@ -234,7 +237,7 @@
                      (jobs/reparse-patch (package :patch) (package :snapshot))))
       (def job (when (first attempt) (attempt 1)))
       (def message (unless (first attempt) (string (attempt 1))))
-      (fragment req (ui/render (ui/patch-panel context job message) (ui/parser-warning context job message))))
+      (fragment req (ui/render (ui/patch-panel context job message) (ui/parser-warning context job message) (ui/patch-notice context job))))
     (and (= "POST" (req :method)) (= "/patches" (req :route)))
     (do
       (def signals (ds/get-signals req))
@@ -245,13 +248,13 @@
                        (some |(= $ patch) (packages/available))))
       (def job (if cached {:id "" :key patch :status :done :result {:patch patch :snapshot ((packages/load patch) :snapshot)}
                            :progress {:message "Cached" :completed 1 :total 1}} (jobs/fetch-patch patch)))
-      (fragment req (ui/render (ui/patch-panel result job))))
+      (fragment req (ui/render (ui/patch-panel result job) (ui/patch-notice result job))))
     (and (= "POST" (req :method)) (= "/jobs/cancel" (req :route)))
     (do (def job (jobs/cancel (get-in req [:query "id"])))
       (fragment req (ui/render (if (= :optimization (job :kind))
                                  (optimizer/panel (model/context (model/parse-state (ds/get-signals req))) job)
                                  (let [context (model/context (model/parse-state (ds/get-signals req)))]
-                                   [(ui/patch-panel context job) (ui/parser-warning context job)])))))
+                                   [(ui/patch-panel context job) (ui/parser-warning context job) (ui/patch-notice context job)])))))
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
     (= "/catalog" (req :route))
@@ -286,8 +289,8 @@
       (if stopped
         (do (def result (merge (model/compare-async state) {:spell-data-job job :patch-job job}))
           (fragment req (with-dyns [:patch-package (result :package)]
-                          (ui/render (ui/patch-panel result job) (ui/parser-warning result job) (ui/results result)))))
-        (fragment req (ui/render (ui/patch-panel context job) (ui/parser-warning context job)))))
+                          (ui/render (ui/patch-panel result job) (ui/parser-warning result job) (ui/patch-notice result job) (ui/results result)))))
+        (fragment req (ui/render (ui/patch-panel context job) (ui/parser-warning context job) (ui/patch-notice context job)))))
     (= "/api/patches" (req :route)) (response 200 (util/encode-json {:available catalog/patch-list :cached (packages/available)}) "application/json")
     (= "/" (req :route))
     (do (def query (get req :query {}))
@@ -318,7 +321,7 @@
       (cond (string/has-prefix? "/search" (req :route))
         (fragment req (ui/render (optimizer/error-panel (string (result 1)))))
         (some |(= $ (req :route)) ["/configure" "/champions/configure"])
-        (fragment req (ui/render [:p {:id "config-status" :class "measurement-error" :role "alert"} (string (result 1))]))
+        (fragment req (ui/render (ui/config-status (string (result 1)))))
         (evaluation-error req (string (result 1))))
       (response 400 (string (result 1)) "text/plain"))))
 

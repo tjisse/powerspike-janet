@@ -1,9 +1,9 @@
 # Reparse saved patch data
 
 When a snapshot's parser revision differs from the app's current revision,
-PowerSpike marks the active patch in the header and shows **Patch data needs
-reparsing** inside its dropdown. The
-warning identifies both revisions and offers **Reparse saved data** when the
+PowerSpike shows **Patch data needs reparsing** in the shared attention area
+above the champions, alongside other workspace actions. Expandable details
+identify both revisions. The warning offers **Reparse saved data** when the
 snapshot retains the required raw catalogs. This is a manual action. Opening,
 editing or rerunning a mismatched snapshot does not automatically reparse it.
 

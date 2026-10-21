@@ -253,7 +253,8 @@ def verify_item_comparison(browser, base):
     page.get_by_text('Runes & spells', exact=True).click()
     page.get_by_text('Strategies, ranks & activation rules', exact=True).click()
     page.locator('[name=qrank]').select_option('5')
-    page.locator('#results[data-evaluation-error=true]').wait_for()
+    page.locator('#results[data-evaluation-error=true]').wait_for(state='attached')
+    expect(page.locator('#workspace-messages #evaluation-notice')).to_be_visible()
     page.get_by_text('Saved scenarios', exact=True).click()
     for name in ['Save locally', 'Export JSON', 'Create share link']:
         expect(page.get_by_role('button', name=name, exact=True)).to_be_disabled()
@@ -760,6 +761,8 @@ def verify_movement_readiness(browser, base):
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        from messages_browser import verify as verify_messages
+        verify_messages(browser, base)
         from workspace_browser import verify as verify_workspace
         native_scrollbars = p.chromium.launch(headless=True, ignore_default_args=['--hide-scrollbars'])
         verify_workspace(native_scrollbars, base)

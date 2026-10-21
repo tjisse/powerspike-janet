@@ -10,7 +10,6 @@ button:disabled { cursor: default; opacity: .5; }
 .header-patch > summary { display: flex; align-items: center; gap: 8px; padding: 8px 0 8px 8px; list-style: none; white-space: nowrap; color: var(--muted); }
 .header-patch > summary::-webkit-details-marker { display: none; }
 .patch-indicator { visibility: hidden; width: 12px; text-align: center; color: var(--gold); }
-.header-patch:has(#parser-warning:not([hidden])) .patch-indicator { visibility: visible; }
 .header-patch:has(#patch-panel[data-poll=true]) .patch-indicator { visibility: visible; font-size: 0; }
 .header-patch:has(#patch-panel[data-poll=true]) .patch-indicator::after { content: '•'; font-size: 18px; color: var(--cyan); }
 .header-patch-panel { position: absolute; top: calc(100% + 12px); right: 0; width: min(370px, calc(100vw - 28px)); max-height: min(600px, calc(100dvh - 90px)); overflow-y: auto; overscroll-behavior: contain; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; box-shadow: 0 16px 50px #0009; }
@@ -19,9 +18,6 @@ button:disabled { cursor: default; opacity: .5; }
 .header-patch .patch-panel > label select { flex: 1; }
 .header-patch .patch-progress { display: grid; gap: 8px; }
 .header-patch .patch-progress-message { text-align: left; white-space: normal; overflow-wrap: anywhere; }
-.header-patch .parser-warning { margin: 0 0 16px; padding: 12px; display: grid; gap: 12px; }
-.header-patch .parser-warning-actions { flex-wrap: wrap; }
-.header-patch .parser-warning p { margin-top: 6px; }
 [data-layout=matchup] .content { padding-top: 22px; }
 .matchup-cards { grid-template-columns: repeat(2,minmax(0,1fr)); }
 .has-js .matchup-cards { display: grid; grid-template-columns: minmax(0,1fr) 36px minmax(0,1fr); gap: 12px; align-items: stretch; }
@@ -56,8 +52,6 @@ button:disabled { cursor: default; opacity: .5; }
 .matchup-results { gap: 12px; padding-top: 20px; }
 .matchup-result-header { min-height: 65px; align-items: start; }
 .matchup-result-header h2 { min-height: 24px; }
-.matchup-stale { padding: 5px 10px; margin-top: 6px; height: 34px; min-height: 34px; font-size: 11px; }
-.matchup-stale[hidden] { display: flex !important; visibility: hidden; }
 .matchup-visual { position: relative; border: 1px solid var(--line); border-radius: 4px; background: #0b141d; overflow: hidden; }
 .matchup-chart { margin-top: 0; padding: 0; height: 235px; }
 .matchup-chart svg { display: block; }
@@ -204,3 +198,48 @@ button:disabled { cursor: default; opacity: .5; }
 .catalog-dialog .catalog-retry { position: absolute; bottom: 24px; left: 24px; }
 .catalog-dialog .picker-empty { position: absolute; bottom: 30px; left: 20px; right: 20px; }
 .matchup-legend { flex-wrap: wrap; gap: 8px 20px; min-height: 26px; }
+
+/* Workspace-level prompts occupy one stable area, including while they clear. */
+.workspace-messages { height: 128px; margin-bottom: 20px; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 5px; background: var(--panel); }
+.workspace-messages[data-active=true] { position: sticky; top: 0; z-index: 4; border-color: #b69149; border-left-color: #e2b85c; background: #211d14; box-shadow: 0 5px 18px #0004; }
+.workspace-messages-heading { display: none; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #f1c773; }
+.workspace-messages[data-active=true] .workspace-messages-heading { display: flex; }
+.message-indicator { display: grid; place-items: center; width: 17px; height: 17px; flex-shrink: 0; border-radius: 50%; color: #17130c; background: #e2b85c; font-size: 12px; }
+.workspace-message-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 20px; overflow-y: auto; scrollbar-gutter: stable; min-height: 0; }
+#workspace-messages .workspace-message { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 18px; padding: 8px 0; margin: 0; height: auto; min-height: 0; border: 0; border-bottom: 1px solid #b6914933; border-radius: 0; background: transparent; color: #f0dfb9; font-size: 12px; line-height: 1.4; }
+#workspace-messages .workspace-message:last-child { border-bottom: 0; }
+#workspace-messages .workspace-message[hidden], #workspace-messages .workspace-message:empty { display: none !important; }
+#workspace-messages .workspace-message strong { display: block; color: #ffe0a0; font-size: 14px; font-weight: 600; }
+#workspace-messages .workspace-message p { margin: 2px 0 0; color: #cbbfA7; font-size: 11px; overflow-wrap: anywhere; }
+#workspace-messages .workspace-message > .parser-reparse-status, #workspace-messages .workspace-message > .measurement-error { grid-column: 1/-1; }
+#workspace-messages .workspace-message .apply { justify-content: center; display: inline-flex; align-items: center; min-width: 108px; min-height: 36px; padding: 7px 12px; border: 1px solid #e2b85c; border-radius: 4px; background: #e2b85c; color: #17130c; font-size: 12px; font-weight: 500; text-decoration: none; }
+#workspace-messages .workspace-message .apply:hover { background: #efd194; }
+#workspace-messages .parser-warning-actions { gap: 8px; max-width: 270px; }
+#workspace-messages .workspace-message .quiet-action { color: #e6c88f; }
+#workspace-messages .notice-error { color: #ffc6bb; }
+#workspace-messages .notice-error strong { color: #ffc6bb; }
+.workspace-messages:has(.notice-error:not([hidden]):not(:empty)) { border-color: #da8f7c; border-left-color: #f6ad95; background: #251a18; }
+#workspace-messages #config-status { display: block; color: #ffc6bb; }
+#config-status:not(:empty)::before { content: 'Check the configuration'; display: block; margin-bottom: 3px; color: #ffc6bb; font-size: 14px; font-weight: 600; }
+#champion-action-status:empty, .message-copy:has(#champion-action-status:not(:empty)) .configuration-default { display: none; }
+.workspace-ready { margin: auto 0; color: var(--muted); font-size: 12px; }
+@media(max-width:650px) {
+ .workspace-messages { height: 228px; padding: 10px; margin-bottom: 14px; }
+ #workspace-messages .workspace-message { gap: 6px 10px; }
+ #workspace-messages .workspace-message strong { font-size: 13px; }
+ #workspace-messages .workspace-message .apply { width: 106px; min-width: 106px; padding: 7px; font-size: 11px; }
+ #workspace-messages .parser-warning-actions { flex-direction: column; align-items: stretch; max-width: 106px; }
+}
+.message-details { margin-top: 3px; font-size: 11px; }
+.message-details summary { color: #cbbfa7; }
+.workspace-messages:has(.notice-error:not([hidden]):not(:empty)) .workspace-messages-heading { color: #ffc6bb; }
+.workspace-messages:has(.notice-error:not([hidden]):not(:empty)) .message-indicator { background: #f6ad95; }
+:root:has(#workspace-messages[data-active=true]) { scroll-padding-top: 180px; }
+@media(max-width:650px) { :root:has(#workspace-messages[data-active=true]) { scroll-padding-top: 248px; } }
+
+.workspace-messages[data-count="1"] .workspace-message-list { grid-template-columns: minmax(0,1fr); }
+@media(min-width:651px) and (max-width:900px) {
+ .workspace-messages { height: 160px; }
+ .workspace-message-list { grid-template-columns: minmax(0,1fr); }
+}
+@media(max-width:650px) { .workspace-message-list { grid-template-columns: minmax(0,1fr); } }

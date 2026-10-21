@@ -2,6 +2,21 @@
 (() => {
   const app = document.getElementById('powerspike');
   document.documentElement.classList.add('has-js');
+  // All workspace-level actions share one stable, accessible attention area.
+  const messages = document.getElementById('workspace-messages');
+  function updateMessages() {
+    if (!messages) return;
+    const count = [...messages.querySelectorAll('.workspace-message')].filter(node => !node.hidden && node.textContent.trim()).length;
+    const active = count > 0;
+    messages.dataset.count = String(count);
+    messages.dataset.active = String(active);
+    const ready = messages.querySelector('.workspace-ready');
+    if (ready.hidden !== active) ready.hidden = active;
+  }
+  if (messages) {
+    new MutationObserver(updateMessages).observe(messages, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:['hidden']});
+    updateMessages();
+  }
   // Catalog records are presentation only, loaded once per selected snapshot.
   const normalize = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const catalogLoaders = [];
@@ -166,7 +181,16 @@
 
   // Persistence carries Janet's canonical scenario; it does not calculate combat.
   const savesKey = 'powerspike.scenarios.v1';
-  const storageStatus = text => { const node = document.getElementById('scenario-storage-status'); if (node) node.textContent = text; };
+  const storageStatus = (text, attention = '') => {
+    const node = document.getElementById('scenario-storage-status');
+    if (node) node.textContent = attention ? '' : text;
+    const feedback = document.getElementById('workspace-feedback');
+    if (feedback) {
+      feedback.querySelector('[data-feedback-text]').textContent = attention ? text : '';
+      feedback.classList.toggle('notice-error', attention === 'error');
+      feedback.hidden = !attention;
+    }
+  };
   function localSaves() {
     const value = JSON.parse(localStorage.getItem(savesKey) || '[]');
     if (!Array.isArray(value) || value.length > 50) throw new Error('Local save collection is invalid.');
@@ -275,7 +299,7 @@
         const url = new URL('/', location.origin); url.searchParams.set('scenario', canonicalDocument());
         if (url.href.length > 16000) throw new Error('This scenario exceeds the share-link allowance. Export JSON instead.');
         document.getElementById('scenario-link').value = url.href;
-        storageStatus('Share link ready. Select and copy the link above.');
+        storageStatus('Share link ready. Select and copy it in Saved scenarios.', 'action');
       } else if (action === 'load' || action === 'remove') {
         const id = document.getElementById('saved-scenarios').value;
         const saves = localSaves(), entry = saves.find(value=>value.id===id);
@@ -288,7 +312,7 @@
           requestAnimationFrame(()=>document.getElementById('import-scenario').click());
         }
       }
-    } catch (error) { storageStatus(error.message); }
+    } catch (error) { storageStatus(error.message, 'error'); }
   });
   document.addEventListener('change', async event => {
     if (event.target.id !== 'scenario-file') return;
@@ -296,13 +320,13 @@
       const file = event.target.files?.[0];
       if (!file) return;
       if (file.size > 65536) throw new Error('Scenario JSON must fit within 64 KB.');
-      importText(await file.text()); storageStatus('JSON loaded. Select Load scenario to apply it.');
-    } catch (error) { storageStatus(error.message); }
+      importText(await file.text()); storageStatus('JSON loaded. Select Load scenario to apply it.', 'action');
+    } catch (error) { storageStatus(error.message, 'error'); }
   });
-  try { populateSaves(); } catch (error) { storageStatus(error.message); }
+  try { populateSaves(); } catch (error) { storageStatus(error.message, 'error'); }
   new MutationObserver(records=>{
     if (records.some(record=>record.target.closest?.('#scenario-tools') || Array.from(record.addedNodes).some(node=>node.nodeType===1 && (node.id==='scenario-tools' || node.querySelector?.('#saved-scenarios'))))) {
-      try { populateSaves(); } catch(error) { storageStatus(error.message); }
+      try { populateSaves(); } catch(error) { storageStatus(error.message, 'error'); }
     }
   }).observe(app,{subtree:true,childList:true});
 

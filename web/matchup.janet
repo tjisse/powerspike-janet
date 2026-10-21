@@ -193,7 +193,6 @@
                 [:input {:type "hidden" :name (string (if opponent "enemyslot" "slot") (inc index)) :value id
                          :data-bind (string (if opponent "enemyslot" "slot") (inc index))}])) [false true])
     [:noscript [:button {:type "submit"} "Run matchup"]]]
-   [:p {:id "config-status" :class "measurement-error" :role "alert"}]
    [:div {:class "matchup-cards"} (champion-card result false)
     [:button {:type "button" :class "matchup-swap js-only" :data-swap-champions true :aria-label "Swap champions" :title "Swap champions" :data-attr:disabled "$busy"}
      [:svg {:viewBox "0 0 24 24" :width 22 :height 22 :aria-hidden "true" :fill "none" :stroke "currentColor" :stroke-width 1.5}
@@ -270,18 +269,7 @@
     [:div {:class "matchup-metric" :aria-label "Chart metric"}
      [:button {:type "button" :data-matchup-metric "health" :aria-pressed "true"} "Health remaining"]
      [:button {:type "button" :data-matchup-metric "damage" :aria-pressed "false"} "Damage dealt"]]]
-   [:div {:class "matchup-stale" :hidden true :role "status"} [:span "Configuration changed. Previous result shown."]
-    [:button {:type "submit" :form "scenario" :data-attr:disabled "$busy"} "Rerun matchup"]]
    [:button {:type "button" :class "validation-badge coverage-link" :data-ui-toggle "coverage"} "Simulated fight · details ▾"]
-   (when (result :spell-data-job)
-     [:p {:class "muted"}
-      (case (get-in result [:spell-data-job :status])
-        :failed "Ability data unavailable. Refresh patch data to retry."
-        :cancelled "Ability data download cancelled."
-        :done "Ability data ready."
-        (let [player-ready (or (= "Annie" (state :champion)) (forms/fixed? (state :champion) (state :patch) (state :form)))
-              id (state (if player-ready :opponent :champion))]
-          (string "Downloading ability data for " (get-in result [:package :champion-map id :name] id) ".")))])
    [:div {:class "matchup-legend"}
     (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])
     (when (some |(= :parried ($ :kind)) trace)

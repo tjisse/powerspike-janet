@@ -110,7 +110,6 @@
   document.addEventListener('datastar-fetch', event => {
     if (championActionPending && event.detail.type === 'finished' && event.detail.el === app) {
       championActionPending = false; configurationPending = false;
-      if ($('#config-status')?.textContent.trim()) $('#champion-action-status').textContent = $('#config-status').textContent;
     }
   });
   function cards() {
@@ -194,7 +193,7 @@
     }
     if (button.hasAttribute('data-swap-champions')) {
       try { applyChampionAction('swap', 'player'); }
-      catch (error) { $('#champion-action-status').textContent = error.message; }
+      catch (error) { $('#config-status').textContent = error.message; }
     }
     if (button.dataset.tab) { tabs.set(button.dataset.who, button.dataset.tab); cards(); }
     if (button.hasAttribute('data-matchup-jump')) $('#results').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});

@@ -37,17 +37,21 @@
   (def local-job (when (and (= :reparse (get job :kind)) (= (package :patch) (jobs/patch job))
                             (= (package :snapshot) (get job :source-snapshot))) job))
   (def active (and local-job (some |(= $ (job :status)) [:queued :running :cancelling])))
-  [:section {:id "parser-warning" :class "parser-warning" :role "status" :hidden (not mismatch)}
+  [:section {:id "parser-warning" :class "parser-warning workspace-message" :role "status" :hidden (not mismatch)}
    (when mismatch
      [[:div [:strong "Patch data needs reparsing"]
-       [:p (string "Saved parser " (get package :parser "unknown") "; current parser " normalize/parser-version ".")]
-       [:p (if (packages/raw-sources? package) "Reparse the saved raw data without downloading it again."
-             "Saved raw data is unavailable. Refresh patch data to download it.")]]
+       [:details {:class "message-details"}
+        [:summary (string "Parser " (get package :parser "unknown") " → " normalize/parser-version)]
+        [:p (string "Saved parser " (get package :parser "unknown") "; current parser " normalize/parser-version ".")]
+        [:p (if (packages/raw-sources? package) "Reparse the saved data to use the current parser."
+              "Saved raw data is unavailable. Refresh patch data to download it.")]]]
       [:div {:class "parser-warning-actions"}
        (when (packages/raw-sources? package)
          [:button {:type "button" :class "apply js-only" :disabled active
                    :data-on:click "@post('/patches/reparse', {retry: 'never'})"}
           (if active "Reparsing saved data…" "Reparse saved data")])
+       (unless (packages/raw-sources? package)
+         [:button {:type "button" :class "apply js-only" :data-on:click "$patchchoice = $patch; @post('/patches?refresh=true')"} "Refresh patch data"])
        (when active
          [:button {:type "button" :class "quiet-action" :data-on:click (string "@post('/jobs/cancel?id=" (job :id) "')")} "Cancel reparse"])]
       (when local-job
@@ -66,7 +70,6 @@
      (map |[:option {:value $ :selected (= $ patch)} $] catalog/patch-list)]]
    [:span {:class "muted"} "Cached patches work offline"]
    [:button {:type "button" :data-on:click "@post('/patches?refresh=true')"} "Refresh patch data"]
-   (when message [:p {:class "measurement-error"} message])
    (when job
      [:div {:class "patch-progress" :role "status"}
       [:div {:class "patch-progress-controls"}
@@ -86,17 +89,83 @@
                                  "'); next.searchParams.set('snapshot', '" ((job :result) :snapshot) "'); location.assign(next)")}
           "Open patch"])]
       [:span {:class "patch-progress-message" :title (progress :message)} (progress :message)]
-      (when (= :failed (job :status)) [:p {:class "patch-progress-error"} (job :error)])
       [:span {:id "patch-job-signals" :data-init (string "$job = '" (job :id) "'")}]])])
 
 (defn patch-header [result]
   [:details {:id "patch-settings" :class "header-patch" :data-on:jobtick "@get('/patches/status')"}
-   [:summary {:aria-label (string "Active patch " ((result :package) :patch) (if (packages/parser-mismatch? (result :package)) ", data needs reparsing" ""))}
+   [:summary {:aria-label (string "Active patch " ((result :package) :patch))}
     [:span {:class "patch-indicator" :aria-label "Patch status"} "!"]
     [:span {:data-text "'Patch ' + $patch"} "Patch " ((result :package) :patch)] [:span "⌄"]]
    [:div {:class "header-patch-panel"}
-    (parser-warning result (get result :patch-job))
     (patch-panel result (get result :patch-job))]])
+
+(defn config-status [&opt message]
+  [:p {:id "config-status" :class "workspace-message notice-error" :role "alert"} message])
+
+(defn champion-notice [&opt message]
+  [:p {:id "champion-action-status"} message])
+
+(defn evaluation-notice [&opt message]
+  [:section {:id "evaluation-notice" :class "workspace-message notice-error" :role "alert" :hidden (not message)}
+   (when message
+     [[:div {:class "message-copy"} [:strong "Check the scenario"] [:p message]]
+      [:button {:type "submit" :form "scenario" :class "apply" :data-attr:disabled "$busy"} "Run again"]])])
+
+(defn patch-notice [result &opt job message]
+  (def status (get job :status))
+  (def stopped (and (not= :reparse (get job :kind)) (some |(= status $) [:failed :cancelled])))
+  (def loading (and (not= :reparse (get job :kind)) (some |(= status $) [:queued :running :cancelling])
+                    (get-in result [:package :manifest "initial"]) (= (jobs/patch job) (get-in result [:state :patch]))))
+  [:section {:id "patch-notice" :class (string "workspace-message" (if (or message (= status :failed)) " notice-error" ""))
+             :role "status" :hidden (not (or message stopped loading))}
+   (when (or message stopped loading)
+     [[:div {:class "message-copy"}
+       [:strong (cond message "Patch data needs attention" loading "Loading champion abilities"
+                  (= status :cancelled) "Patch download cancelled" "Patch download failed")]
+       [:p (or message (if loading "Ability data is downloading for this simulation." (get job :error "Cached patch data remains available.")))]]
+      (if loading
+        [:button {:type "button" :class "apply" :data-ui-reveal "patch-settings"} "View download"]
+        [:button {:type "button" :class "apply" :data-on:click (string "$patchchoice = '" (or (jobs/patch job) (get-in result [:state :patch])) "'; @post('/patches?refresh=true')")}
+         "Retry download"])])])
+
+(defn comparison-notice [result]
+  (def message (result :reference-error))
+  [:section {:id "comparison-notice" :class "workspace-message" :role "status" :hidden (not message)}
+   (when message
+     [[:div {:class "message-copy"} [:strong "Pinned comparison needs attention"] [:p message " Clear or replace the invalid pinned items before saving or sharing."]]
+      [:button {:type "button" :class "apply" :data-attr:disabled "$busy"
+                :data-on:click "$referencejson = ''; document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"} "Clear pinned items"]])])
+
+(defn model-notice [result]
+  (def saved (get-in result [:state :savedmodel]))
+  (def mismatch (and saved (not= workspace/model-identity saved)))
+  [:section {:id "model-notice" :class "workspace-message" :hidden (not mismatch) :role "status"}
+   (when mismatch
+     [[:div {:class "message-copy"} [:strong "Saved with a different model"]
+       [:p "This result uses the current model and the saved patch snapshot. Use the original release to reproduce the original calculation."]]
+      [:button {:type "button" :class "apply" :data-ui-reveal "scenario-tools"} "Reproduction details"]])])
+
+(defn workspace-feedback []
+  [:section {:id "workspace-feedback" :class "workspace-message" :hidden true :role "status"}
+   [:div {:class "message-copy"} [:strong "Scenario needs attention"] [:p {:data-feedback-text true}]]
+   [:button {:type "button" :class "apply" :data-ui-reveal "scenario-tools"} "Open saves"]])
+
+(defn messages [result &opt message]
+  (def active (or message (packages/parser-mismatch? (result :package)) (result :reference-error)
+                  (some |(= $ (get-in result [:patch-job :status])) [:failed :cancelled])))
+  [:section {:id "workspace-messages" :class "workspace-messages" :aria-label "Workspace messages" :data-active (if active "true" "false")}
+   [:div {:class "workspace-messages-heading"} [:span {:class "message-indicator" :aria-hidden "true"} "!"] [:span "Needs attention"]]
+   [:div {:class "workspace-message-list"}
+    (config-status) (evaluation-notice message) (workspace-feedback) (patch-notice result (get result :patch-job))
+    (parser-warning result (get result :patch-job))
+    [:section {:id "configuration-notice" :class "workspace-message matchup-stale" :hidden true :role "status"}
+     [:div {:class "message-copy"}
+      [:strong "Configuration changed"]
+      [:p {:class "configuration-default"} "Previous result shown."]
+      (champion-notice)]
+     [:button {:type "submit" :form "scenario" :class "apply" :data-attr:disabled "$busy"} "Run matchup"]]
+    (comparison-notice result) (model-notice result)]
+   [:p {:class "workspace-ready" :hidden active} "Workspace ready"]])
 
 (defn- icon [group id description &opt class]
   [:img {:src (string "/assets/" ((catalog/current) :patch) "/" ((catalog/current) :snapshot) "/" group "/" id (if (string/has-suffix? ".png" id) "" ".png")) :alt description
@@ -353,9 +422,6 @@
   (def state (result :state))
   (def totals (row :stats))
   [:section {:id "loadout-tray" :class "loadout-tray" :aria-label "Champion, stats and items"}
-   (when (and (state :savedmodel) (not= workspace/model-identity (state :savedmodel)))
-     [:p {:class "model-notice warning"} "Saved model differs. This result uses the current model. "
-      [:button {:type "button" :class "quiet-action" :data-ui-toggle "scenario-tools"} "Reproduction details"]])
    [:div {:class "tray-champion"} (scenario result)
     [:div {:class "loadout-effects" :aria-label "Selected runes and summoner spells"}
      (map (fn [effect]
@@ -686,7 +752,7 @@
      (when pinned
        [:button {:type "button" :class "quiet-action" :data-attr:disabled "$busy"
                  :data-on:click "$referencejson = ''; document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"} "Clear comparison"])]]
-   (cond (result :reference-error) [:p {:class "warning" :role "status"} (result :reference-error)]
+   (cond (result :reference-error) nil
      reference
      [[:p {:class "muted comparison-context"} "Both builds use the current champion, level, opponent, runes, skills and fight settings, with the same trial seeds. Only items change."]
       (when-let [outcome (comparison-outcome row reference)] [:p {:class "comparison-outcome"} outcome])
@@ -729,9 +795,6 @@
   (def totals (row :stats))
   (def combat (row :combat))
   (def spell-job (get result :spell-data-job))
-  (def spell-champion (if (and (= "Annie" ((result :champion) :id)) (= "duel" (state :mode)))
-                        (get-in result [:package :champion-map (state :opponent) :name] (state :opponent))
-                        ((result :champion) :name)))
   (def broad (some champion-ability? (get row :ability-settings [])))
   (def damage-model (some damage-ability? (get row :ability-settings [])))
   (def has-spells (or damage-model (and (= "Annie" ((result :champion) :id)) (get-in row [:ranks :q]))))
@@ -752,16 +815,9 @@
             :data-scenario (get combat :scenario-id (string ((result :package) :snapshot) "/" (json/encode state)))}]
     [:section {:class "chart-panel" :aria-label "Damage timeline"}
      [:div {:class "section-header"} [:h2 chart-title] [:span {:class "muted"} "Cumulative damage"]]
-     (when (or (not has-spells) spell-job)
+     (when (and (not has-spells) (not spell-job))
        [:p {:class "chart-coverage muted"}
         (cond
-          (and spell-job (some |(= $ (spell-job :status)) [:queued :running :cancelling]))
-          (string "Downloading ability data for " spell-champion " and the rest of this patch. Current estimate shown until the download completes.")
-          (and spell-job (= :failed (spell-job :status)))
-          (string "Ability data download failed for " spell-champion ". Current simulation shown. Open the patch menu in the header to retry.")
-          (and spell-job (= :cancelled (spell-job :status)))
-          (string "Ability data download cancelled for " spell-champion ". Current simulation shown. Open the patch menu in the header to retry.")
-          (and spell-job (= :done (spell-job :status))) "Ability data ready. Opening the completed patch…"
           (forms/fixed? (state :champion) (state :patch) (state :form))
           (case (state :champion)
             "Elise" "Fixed form · ordinary attacks, form stats and Spider Queen in Spider form. See Simulation details for omissions."
@@ -818,8 +874,7 @@
 (defn fight-controls [result] (if (= "duel" (get-in result [:state :mode])) (matchup/fight-controls result) (legacy-fight-controls result)))
 
 (defn error-result [message]
-  [:div {:id "results" :class "results" :role "alert" :data-evaluation-error "true"}
-   [:section {:class "error-panel"} [:h2 "Check the scenario"] [:p message]]])
+  [:div {:id "results" :class "results" :data-evaluation-error "true"}])
 
 (defn evidence-panel [evidence]
   [:details {:id "evidence" :class "evidence"}
@@ -892,9 +947,9 @@
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
               [:div {:class "top-meta"} (patch-header result)]]
              [:main {:class "content"}
+              (messages result message)
               (loadout result) (if (= "duel" (state :mode)) (matchup/fightbar result) (native-inventory result))
               (if message (error-result message) (results result))
-              (when (= "duel" (state :mode)) [:p {:id "champion-action-status" :role "status"}])
               [:div {:class "secondary-controls"} (fight-controls result) (when (not= "duel" (state :mode)) (ability-group result))
                (when (not= "duel" (state :mode)) [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"])
                (workspace/tools result)

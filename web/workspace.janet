@@ -36,10 +36,6 @@
       [:span {:id "scenario-data" :hidden true :data-json (util/encode-json {:format "powerspike-scenario" :version 1 :scenario definition})}]
       [:span {:id "workspace-data" :hidden true :data-json (when (not (result :reference-error)) (saves/encode result))}]
       [:span {:id "problem-report-data" :hidden true :data-json (when (not (result :reference-error)) (util/encode-json (report-context result)))}]
-      (when (result :reference-error)
-        [:p {:class "warning"} "Clear or replace the invalid pinned items before saving or sharing."])
-      (when (and (get-in result [:state :savedmodel]) (not= engine/identity (get-in result [:state :savedmodel])))
-        [:p {:class "warning"} "The saved model differs from this release. Its exact patch snapshot is retained, and this result uses the current model. Use the original release to reproduce the original calculation."])
       [:div {:class "scenario-actions"}
        [:input {:id "scenario-name" :type "text" :maxlength 80 :aria-label "Scenario name" :placeholder "Scenario name"}]
        (map (fn [[action caption]]

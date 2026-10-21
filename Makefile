@@ -61,6 +61,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-patch.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-mages.janet
+	JANET_PATH=build/web-modules $(JANET) test/latest-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
@@ -108,6 +109,7 @@ format-check: build/formatter-ready
 test-runtime: build
 	JANET_PATH=build/web-modules PS_REPARSE_FIXTURE=$(CURDIR)/build/reparse-runtime-fixture $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules PS_LATEST_PATCH_FIXTURE=$(CURDIR)/build/latest-patch-runtime-fixture $(JANET) test/latest-patch.janet
+	JANET_PATH=build/web-modules PS_LATEST_ATTACK_FIXTURE=$(CURDIR)/build/latest-attack-runtime-fixture $(JANET) test/latest-attacks.janet
 	JANET_PATH=build/web-modules PS_PARRY_FIXTURE=$(CURDIR)/build/parry-runtime-fixture $(JANET) test/parry.janet
 	JANET_PATH=build/web-modules PS_LEVEL_SCALING_FIXTURE=$(CURDIR)/build/level-scaling-runtime-fixture $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules PS_CONTROL_FIXTURE=$(CURDIR)/build/control-runtime-fixture $(JANET) test/control-resumption.janet
@@ -117,7 +119,7 @@ test-runtime: build
 	JANET_PATH=build/web-modules PS_MOVEMENT_FIXTURE=$(CURDIR)/build/movement-runtime-fixture $(JANET) test/movement-readiness.janet
 	JANET_PATH=build/web-modules PS_CHANGING_FIXTURE=$(CURDIR)/build/changing-runtime-fixture $(JANET) test/changing-readiness.janet
 	JANET_PATH=build/web-modules PS_HEALTH_COST_FIXTURE=$(CURDIR)/build/health-cost-runtime-fixture $(JANET) test/health-cost-readiness.janet
-	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture --resource-fixture build/resource-runtime-fixture --health-fixture build/health-runtime-fixture --movement-fixture build/movement-runtime-fixture --changing-fixture build/changing-runtime-fixture --health-cost-fixture build/health-cost-runtime-fixture
+	$(PYTHON) test/runtime.py dist/bin/powerspike --parry-fixture build/parry-runtime-fixture --level-scaling-fixture build/level-scaling-runtime-fixture --control-fixture build/control-runtime-fixture --reset-fixture build/reset-runtime-fixture --resource-fixture build/resource-runtime-fixture --health-fixture build/health-runtime-fixture --movement-fixture build/movement-runtime-fixture --changing-fixture build/changing-runtime-fixture --health-cost-fixture build/health-cost-runtime-fixture --latest-attack-fixture build/latest-attack-runtime-fixture
 	$(PYTHON) test/concurrency.py dist/bin/powerspike
 
 test-package:

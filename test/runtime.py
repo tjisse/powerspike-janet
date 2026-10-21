@@ -91,7 +91,7 @@ def get(base, path, headers=None):
         return response.headers, response.read()
 
 
-def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None, resource_fixture=None, health_fixture=None, movement_fixture=None, changing_fixture=None, health_cost_fixture=None):
+def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixture=None, control_fixture=None, reset_fixture=None, resource_fixture=None, health_fixture=None, movement_fixture=None, changing_fixture=None, health_cost_fixture=None, latest_attack_fixture=None):
     source = Path(binary_path).resolve()
     seed_source = Path(seed_path or 'dist/share/powerspike/seed').resolve()
     with tempfile.TemporaryDirectory(prefix='powerspike-runtime-') as temp:
@@ -114,6 +114,30 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
             bad = subprocess.run([str(binary)], cwd=cwd, env=configuration(PS_PATCH_TIMEOUT_SECONDS=invalid),
                                  capture_output=True, timeout=10)
             assert bad.returncode != 0 and b'PS_PATCH_TIMEOUT_SECONDS' in bad.stderr, (invalid, bad.stderr)
+        if latest_attack_fixture:
+            # Current-model projections must be embedded, including profiles
+            # keyed by patch. The copied snapshots deliberately lack them.
+            with tempfile.TemporaryDirectory(prefix='latest-attacks-', dir=cwd) as check:
+                check = Path(check)
+                fixture = Path(latest_attack_fixture).resolve()
+                shutil.copytree(fixture / 'seed', check / 'seed')
+                env = clean_env(PS_SEED_DIR=str(check / 'seed'), PS_DATA_DIR=str(check / 'data'))
+                for case in json.loads((fixture / 'cases.json').read_text()):
+                    path = check / 'scenario.json'
+                    path.write_text(json.dumps(case['document']))
+                    outcome = json.loads(subprocess.check_output(
+                        [str(binary), '--simulate', str(path)], cwd=check,
+                        env=env, text=True, timeout=10))
+                    assert outcome['metrics'] == case['metrics']
+                    if 'first-impact' in case:
+                        assert abs(outcome['events'][0]['at'] - case['first-impact']) < 1e-6
+                        assert outcome['actors'][0]['attack-missile-speed'] == case['missile-speed']
+                        assert outcome['actors'][0]['windup-fraction'] == case['windup']
+                    else:
+                        for source, expected in [('ViktorQ', case['empowered-at']), ('attack', case['ordinary-at'])]:
+                            assert any(event['source'] == source and abs(event['at'] - expected) < 1e-6
+                                       for event in outcome['events'])
+            print('Relocated executable: latest-patch mage projectiles/windups, cached snapshots and empowered Q separation passed.')
         if parry_fixture:
             # Load an old raw-source snapshot with the copied executable and no
             # checkout access. Cast-start defense and proc consumption must be
@@ -533,8 +557,9 @@ if __name__ == '__main__':
     parser.add_argument('--movement-fixture')
     parser.add_argument('--changing-fixture')
     parser.add_argument('--health-cost-fixture')
+    parser.add_argument('--latest-attack-fixture')
     args = parser.parse_args()
     verify(args.binary, parry_fixture=args.parry_fixture, level_scaling_fixture=args.level_scaling_fixture,
            control_fixture=args.control_fixture, reset_fixture=args.reset_fixture, resource_fixture=args.resource_fixture,
            health_fixture=args.health_fixture, movement_fixture=args.movement_fixture, changing_fixture=args.changing_fixture,
-           health_cost_fixture=args.health_cost_fixture)
+           health_cost_fixture=args.health_cost_fixture, latest_attack_fixture=args.latest_attack_fixture)

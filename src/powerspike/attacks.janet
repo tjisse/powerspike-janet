@@ -8,6 +8,14 @@
 (def manifest (util/read-json (slurp (string fixtures "manifest.json"))))
 (def reviewed-timing (util/read-data "data/attack-fixtures/16.19.1/reviewed-timing.jdn"))
 (assert (= "16.19.1" (reviewed-timing :patch)) "Unsupported reviewed timing patch.")
+(def latest-timing (util/read-data "data/attack-fixtures/latest-mage-timing.jdn"))
+(assert (= 1 (latest-timing :schema)) "Unsupported latest attack timing review.")
+(def timing-reviews
+  (merge {"16.19.1" reviewed-timing}
+         (tabseq [[patch champions] :pairs (latest-timing :patches)]
+           patch (merge reviewed-timing {:patch patch :reference (latest-timing :reference)
+                                         :champions (tabseq [[id receipt] :pairs champions]
+                                                      id (merge (get-in reviewed-timing [:champions id]) receipt))}))))
 (def retained @{})
 (def retained-windups @{})
 (def reviewed-forms (util/read-data "data/attack-fixtures/16.19.1/reviewed-form-projectiles.jdn"))
@@ -121,29 +129,34 @@
   (assert (all |(= (movement :missile-speed) (get-in objects [$ "mSpell" "missileSpeed"])) paths)
           "Ordinary attack legacy and movement speeds conflict.")
   movement)
-(defn source-records [champion]
+(defn source-records [champion &opt patch]
+  (def version (or patch "16.19.1"))
+  (def review (get-in timing-reviews [version :champions champion]))
   (def name (string champion "-characters.json"))
-  (def bytes (slurp (string fixtures name)))
-  (def expected (get-in manifest ["fixture_sha256" name]))
-  (assert (= expected (hash/sha256 bytes) (get-in reviewed-timing [:champions champion :source-sha256]))
+  (def path (get review :source-path (string fixtures name)))
+  (def receipt (if (review :manifest-path) (util/read-json (slurp (review :manifest-path))) manifest))
+  (def bytes (slurp path))
+  (def expected (get-in receipt ["fixture_sha256" name]))
+  (assert (and (= version (receipt "patch")) (= expected (hash/sha256 bytes) (review :source-sha256)))
           "Ordinary attack source differs from its reviewed profile.")
-  {:objects (util/read-json bytes) :source {:patch "16.19.1" :path (string fixtures name) :sha256 expected}})
+  {:objects (util/read-json bytes) :source {:patch version :path path :sha256 expected}})
 (defn attack-paths [champion names]
   (map |(string "Characters/" champion "/Spells/" $) names))
-(defn reviewed-projectile [champion objects review]
+(defn reviewed-projectile [champion objects review &opt reference]
   (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
   (def movement (fixed-movement objects paths))
   (assert (and (= (movement :missile-speed) (review :movement-speed))
                (all |(= (review :legacy-speed) (get-in objects [$ "mSpell" "missileSpeed"])) paths))
           "Reviewed projectile conflict no longer matches the retained source.")
-  (merge movement {:legacy-speed (review :legacy-speed) :reference (reviewed-timing :reference)}))
+  (merge movement {:legacy-speed (review :legacy-speed) :reference (or reference (reviewed-timing :reference))}))
 (defn windup-profile [champion patch]
-  (when (and (= patch (reviewed-timing :patch)) (= champion "Ahri"))
-    (or (retained-windups champion)
+  (def review (get-in timing-reviews [patch :champions champion]))
+  (when (get review :windup-fraction)
+    (def key [champion patch])
+    (or (retained-windups key)
         (do
-          (def data (source-records champion))
+          (def data (source-records champion patch))
           (def root (get-in data [:objects (string "Characters/" champion "/CharacterRecords/Root")]))
-          (def review (get-in reviewed-timing [:champions champion]))
           (assert (and (util/finite? (review :windup-fraction)) (< 0 (review :windup-fraction) 1))
                   "Reviewed windup fraction must be finite and between zero and one.")
           (def primary (root "basicAttack"))
@@ -153,8 +166,8 @@
                        (not (has-key? primary "mAttackDelayCastOffsetPercentAttackSpeedRatio"))
                        (all |(= (review :cast-offset) (get $ "mAttackDelayCastOffsetPercent")) (root "critAttacks")))
                   "Reviewed windup no longer matches the retained source.")
-          (def result {:fraction (review :windup-fraction) :source (data :source) :reference (reviewed-timing :reference)})
-          (put retained-windups champion result)
+          (def result {:fraction (review :windup-fraction) :source (data :source) :reference (get-in timing-reviews [patch :reference])})
+          (put retained-windups key result)
           result))))
 
 (defn reviewed-form-projectile [champion objects review]
@@ -183,11 +196,12 @@
           result))))
 
 (defn profile [champion patch]
-  (when (and (= patch "16.19.1") (some |(= champion $) ["Ahri" "Annie" "Viktor"]))
-    (or (retained champion)
+  (def review (get-in timing-reviews [patch :champions champion]))
+  (when review
+    (def key [champion patch])
+    (or (retained key)
         (do
-          (def data (source-records champion))
-          (def review (get-in reviewed-timing [:champions champion]))
+          (def data (source-records champion patch))
           (def paths (attack-paths champion [;(review :ordinary-variants) ;(review :critical-variants)]))
           (when (= champion "Viktor")
             (def empowered (review :empowered))
@@ -196,20 +210,20 @@
                          (= (empowered :legacy-speed) (spell "missileSpeed"))
                          (= :release (empowered :delivery)))
                     "Reviewed empowered attack record changed; delivery needs review."))
-          (def result (merge (if (= champion "Annie") (reviewed-projectile champion (data :objects) review)
+          (def result (merge (if (= champion "Annie") (reviewed-projectile champion (data :objects) review (get-in timing-reviews [patch :reference]))
                                (fixed-projectile (data :objects) paths))
                              {:source (data :source)}))
-          (put retained champion result)
+          (put retained key result)
           result))))
 
 # JPM serializes these values. Resolve bundled sources during module import so
 # relocated executables never need source-tree files when loading a snapshot.
 (attack-range "Ahri" "16.19.1" nil)
 (attack-style "Ahri" "16.19.1" nil)
-(profile "Ahri" "16.19.1")
-(profile "Annie" "16.19.1")
-(profile "Viktor" "16.19.1")
-(windup-profile "Ahri" "16.19.1")
+(eachp [patch review] timing-reviews
+  (each champion (keys (review :champions))
+    (profile champion patch)
+    (windup-profile champion patch)))
 (form-profile "Nidalee" "16.19.1" "human")
 (form-profile "Elise" "16.19.1" "human")
 (form-profile "Jayce" "16.19.1" "cannon")

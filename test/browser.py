@@ -732,6 +732,7 @@ if __name__ == '__main__':
     parser.add_argument('--health-cost-fixture', help='Also check a retained health-cost formula on a synthetic carrier')
     parser.add_argument('--latest-patch-fixture', help='Also check refreshed 16.20/16.21 default matchups')
     parser.add_argument('--reparse-fixture', help='Also check parser warnings and explicit offline raw-data reparsing')
+    parser.add_argument('--latest-attack-fixture', help='Also check latest-patch mage attack timings from saved snapshots')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -763,3 +764,6 @@ if __name__ == '__main__':
     if args.reparse_fixture:
         from reparse_browser import verify as verify_reparse
         verify_reparse(args.binary, args.reparse_fixture)
+    if args.latest_attack_fixture:
+        from latest_attack_browser import verify as verify_latest_attacks
+        verify_latest_attacks(args.binary, args.latest_attack_fixture)

@@ -15,6 +15,10 @@ other mappings and complete champion kits still need their own review.
 The [Ahri/Viktor follow-up](latest-mage-abilities.md) now checks multi-hit,
 empowered-attack, recast and storm execution on both patches, including Viktor's
 changed 16.21 shield value, both matchup positions and optimizer scoring parity.
+The [ordinary attack follow-up](latest-mage-attacks.md) extends the reviewed
+Ahri/Annie/Viktor projectiles and Ahri windup to both patches, with cached-data,
+both-actor, exact-impact and relocated-executable checks. Other windups,
+exceptional attacks and later patches still require their own review.
 An explicit [local reparse action](patch-reparse.md) now rebuilds a mismatched
 snapshot from its retained raw sources, with a parser-version warning and no
 provider downloads. Saved snapshot links remain pinned; the action opens the new parsed result in

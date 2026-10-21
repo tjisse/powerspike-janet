@@ -1,0 +1,22 @@
+{:schema 1
+ :reference {:url "https://www.leagueoflegends.com/en-sg/news/game-updates/patch-13-22-notes/"
+             :date "2023-11-07"
+             :scope "Historical named values corroborated by exact matching-patch ordinary/critical records; reviewed against 16.19.1. Not an in-game timing capture."}
+ :patches {"16.20.1" {"Ahri" {:source-path "data/combat-fixtures/16.20.1/Ahri-characters.json"
+                              :manifest-path "data/combat-fixtures/16.20.1/manifest.json"
+                              :source-sha256 "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2"}
+                      "Annie" {:source-path "data/parser-fixtures/16.20.1/Annie-characters.json"
+                               :manifest-path "data/parser-fixtures/16.20.1/manifest.json"
+                               :source-sha256 "7bc7e9d3ca1f3d6cff9bb664c7e8876d672e119cc1ffbfbb3a5bee26ffd9f067"}
+                      "Viktor" {:source-path "data/combat-fixtures/16.20.1/Viktor-characters.json"
+                                :manifest-path "data/combat-fixtures/16.20.1/manifest.json"
+                                :source-sha256 "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367"}}
+           "16.21.1" {"Ahri" {:source-path "data/combat-fixtures/16.21.1/Ahri-characters.json"
+                              :manifest-path "data/combat-fixtures/16.21.1/manifest.json"
+                              :source-sha256 "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2"}
+                      "Annie" {:source-path "data/parser-fixtures/16.21.1/Annie-characters.json"
+                               :manifest-path "data/parser-fixtures/16.21.1/manifest.json"
+                               :source-sha256 "1e2df5d07cd47b90d40779562b48ceafbb4e09a9076790f5c9a072d58c77789c"}
+                      "Viktor" {:source-path "data/combat-fixtures/16.21.1/Viktor-characters.json"
+                                :manifest-path "data/combat-fixtures/16.21.1/manifest.json"
+                                :source-sha256 "11cafb1bb334296ef427e27171d902884a511b06c6273d91c5d8f75e11dfc823"}}}}

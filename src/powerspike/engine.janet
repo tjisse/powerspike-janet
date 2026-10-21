@@ -33,6 +33,7 @@
                                    (slurp "data/combat-fixtures/16.19.1/Annie-characters.json")
                                    (slurp "data/combat-fixtures/16.19.1/Viktor-characters.json")
                                    (slurp "data/attack-fixtures/16.19.1/reviewed-timing.jdn")
+                                   (slurp "data/attack-fixtures/latest-mage-timing.jdn")
                                    (slurp "data/attack-fixtures/16.19.1/reviewed-form-projectiles.jdn")
                                    (slurp "data/attack-fixtures/16.19.1/kayle-manifest.json")
                                    (slurp "data/attack-fixtures/16.19.1/Kayle-characters.json")

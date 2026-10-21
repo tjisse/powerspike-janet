@@ -37,7 +37,9 @@ Spirit Rush movement/takedown resets/healing, evolved Viktor effects, storm
 redirection/extensions and passive triggers remain excluded. Viktor's empowered
 attack retains its declared zero-travel assumption. Ordinary attack timing,
 projectile and attack-speed-cap profiles are not extended by this ability
-review. No new in-game timing or damage measurements are claimed.
+review. The subsequent [ordinary attack review](latest-mage-attacks.md) extends
+reviewed projectile/windup profiles to these two patches while preserving the
+empowered-Q assumption. No new in-game timing or damage measurements are claimed.
 
 ## Existing data and checks
 

@@ -16,7 +16,7 @@
 (close 1200 (annie-profile :legacy-speed))
 (assert (= 3 (length (annie-profile :spell-paths))))
 (close 0.2 ((attacks/windup-profile "Ahri" "16.19.1") :fraction))
-(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.20.1"] ["Annie" "16.19.1"] ["Garen" "16.19.1"]]
+(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.22.1"] ["Annie" "16.19.1"] ["Garen" "16.19.1"]]
   (assert (nil? (attacks/windup-profile champion patch))))
 (def dragon (util/read-json (slurp "data/16.19.1/catalog/sources/champions-ddragon.json")))
 (assert (= 173 (length (dragon "data"))))
@@ -27,7 +27,7 @@
 (assert (nil? (attacks/attack-range "Unknown" "16.19.1" nil)))
 (each invalid [-1 0 math/inf "550"]
   (assert (not (first (protect (attacks/attack-range "Ahri" "16.19.1" invalid))))))
-(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.20.1"] ["Annie" "16.18.1"] ["Annie" "16.20.1"] ["Viktor" "16.18.1"] ["Viktor" "16.20.1"]]
+(each [champion patch] [["Ahri" "16.18.1"] ["Ahri" "16.22.1"] ["Annie" "16.18.1"] ["Annie" "16.22.1"] ["Viktor" "16.18.1"] ["Viktor" "16.22.1"]]
   (assert (nil? (attacks/profile champion patch))))
 (def repaired (normalize/semantic-kit "Ahri" "16.19.1"
                                       {:abilities [] :limitations ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]}))
@@ -37,8 +37,8 @@
 (assert (not (some |(string/find "projectile travel zero" $) (repaired :limitations))))
 (assert (not (some |(string/find "windup 30%" $) (repaired :limitations))))
 (assert (= (util/canonical repaired) (util/canonical (normalize/semantic-kit "Ahri" "16.19.1" repaired))))
-(assert (nil? ((attacks/apply-profile "Ahri" "16.20.1" repaired) :attack-projectile)))
-(assert (nil? ((attacks/apply-profile "Ahri" "16.20.1" repaired) :attack-windup)))
+(assert (nil? ((attacks/apply-profile "Ahri" "16.22.1" repaired) :attack-projectile)))
+(assert (nil? ((attacks/apply-profile "Ahri" "16.22.1" repaired) :attack-windup)))
 
 # Incomplete/ambiguous movement cannot quietly become a speed or zero travel.
 (defn spell [speed kind &opt legacy]

@@ -12,6 +12,9 @@ Future patch work should check actual learned ability execution against retained
 matching sources, including manual refreshes, before treating downloads as ready
 for build comparisons. AP, AD and health are now reviewed on those two patches;
 other mappings and complete champion kits still need their own review.
+The [Ahri/Viktor follow-up](latest-mage-abilities.md) now checks multi-hit,
+empowered-attack, recast and storm execution on both patches, including Viktor's
+changed 16.21 shield value, both matchup positions and optimizer scoring parity.
 An explicit [local reparse action](patch-reparse.md) now rebuilds a mismatched
 snapshot from its retained raw sources, with a parser-version warning and no
 provider downloads. Saved snapshot links remain pinned; the action opens the new parsed result in

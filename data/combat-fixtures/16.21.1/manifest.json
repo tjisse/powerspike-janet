@@ -1,0 +1,39 @@
+{
+  "patch": "16.21.1",
+  "retrieved_at": "2026-10-21T17:50:27.833862+00:00",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ahri/ahri.bin.json?powerspike=1",
+      "fixture": "Ahri-characters.json",
+      "sha256": "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ahri.json",
+      "fixture": "Ahri-abilities.json",
+      "sha256": "0151ae0b832b27c5908e579e2f0db70bdbec9e35feac5a7e0a1a07ae701beeb8"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/viktor/viktor.bin.json?powerspike=1",
+      "fixture": "Viktor-characters.json",
+      "sha256": "11cafb1bb334296ef427e27171d902884a511b06c6273d91c5d8f75e11dfc823"
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Viktor.json",
+      "fixture": "Viktor-abilities.json",
+      "sha256": "96cf107f6676b5a84b0ae1bfce239db45a235d28ad10df71c6ca00a30b4dc405"
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "fixture": "strings.json",
+      "sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "derived_excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "Ahri-characters.json": "770a7e5b7bdaf1d1de42b7d33a09912a8e56a3244bb0ab2b5d00d94e8b0013a2",
+    "Ahri-abilities.json": "0151ae0b832b27c5908e579e2f0db70bdbec9e35feac5a7e0a1a07ae701beeb8",
+    "Viktor-characters.json": "11cafb1bb334296ef427e27171d902884a511b06c6273d91c5d8f75e11dfc823",
+    "Viktor-abilities.json": "96cf107f6676b5a84b0ae1bfce239db45a235d28ad10df71c6ca00a30b4dc405",
+    "strings.json": "a5136f7b6cd8bbeb3433e4711dc283507c6a272fbedaffc1999a634250ffec43"
+  }
+}

@@ -60,6 +60,7 @@ test-web: build/web-ready format-check
 	$(PYTHON) test/https.py --janet $(JANET)
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-patch.janet
+	JANET_PATH=build/web-modules $(JANET) test/latest-mages.janet
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet

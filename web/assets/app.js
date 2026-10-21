@@ -10,8 +10,6 @@
     const active = count > 0;
     messages.dataset.count = String(count);
     messages.dataset.active = String(active);
-    const ready = messages.querySelector('.workspace-ready');
-    if (ready.hidden !== active) ready.hidden = active;
   }
   if (messages) {
     new MutationObserver(updateMessages).observe(messages, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:['hidden']});

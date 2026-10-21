@@ -199,8 +199,9 @@ button:disabled { cursor: default; opacity: .5; }
 .catalog-dialog .picker-empty { position: absolute; bottom: 30px; left: 20px; right: 20px; }
 .matchup-legend { flex-wrap: wrap; gap: 8px 20px; min-height: 26px; }
 
-/* Workspace-level prompts occupy one stable area, including while they clear. */
+/* Workspace-level prompts share one area, hidden when no action is needed. */
 .workspace-messages { height: 128px; margin-bottom: 20px; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 5px; background: var(--panel); }
+.workspace-messages:not(:has(.workspace-message:not([hidden]):not(:empty))) { display: none; }
 .workspace-messages[data-active=true] { position: sticky; top: 0; z-index: 4; border-color: #b69149; border-left-color: #e2b85c; background: #211d14; box-shadow: 0 5px 18px #0004; }
 .workspace-messages-heading { display: none; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #f1c773; }
 .workspace-messages[data-active=true] .workspace-messages-heading { display: flex; }
@@ -222,7 +223,6 @@ button:disabled { cursor: default; opacity: .5; }
 #workspace-messages #config-status { display: block; color: #ffc6bb; }
 #config-status:not(:empty)::before { content: 'Check the configuration'; display: block; margin-bottom: 3px; color: #ffc6bb; font-size: 14px; font-weight: 600; }
 #champion-action-status:empty, .message-copy:has(#champion-action-status:not(:empty)) .configuration-default { display: none; }
-.workspace-ready { margin: auto 0; color: var(--muted); font-size: 12px; }
 @media(max-width:650px) {
  .workspace-messages { height: 228px; padding: 10px; margin-bottom: 14px; }
  #workspace-messages .workspace-message { gap: 6px 10px; }

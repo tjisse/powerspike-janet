@@ -58,7 +58,7 @@ def verify(binary_path, fixture_path):
                     warning.get_by_role('button', name='Reparse saved data', exact=True).click()
                 expect(warning).not_to_be_visible()
                 expect(page.locator('#workspace-messages')).to_have_attribute('data-active', 'false')
-                expect(page.locator('.workspace-ready')).to_be_visible()
+                expect(page.locator('#workspace-messages')).not_to_be_visible()
                 scenario = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
                 assert scenario['snapshot'] != document['snapshot']
                 assert scenario['duration'] == 6

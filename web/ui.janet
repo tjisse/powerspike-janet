@@ -164,8 +164,7 @@
       [:p {:class "configuration-default"} "Previous result shown."]
       (champion-notice)]
      [:button {:type "submit" :form "scenario" :class "apply" :data-attr:disabled "$busy"} "Run matchup"]]
-    (comparison-notice result) (model-notice result)]
-   [:p {:class "workspace-ready" :hidden active} "Workspace ready"]])
+    (comparison-notice result) (model-notice result)]])
 
 (defn- icon [group id description &opt class]
   [:img {:src (string "/assets/" ((catalog/current) :patch) "/" ((catalog/current) :snapshot) "/" group "/" id (if (string/has-suffix? ".png" id) "" ".png")) :alt description

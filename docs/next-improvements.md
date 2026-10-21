@@ -118,8 +118,13 @@ diagnostics remain in the developer tools.
    window with HTTP retry guidance. [Refresh deadlines](patch-refresh-deadlines.md)
    now bound cumulative provider waits with one active-job budget, preserve
    cached snapshots on expiry, and check successful retry after recovery.
-   Next, run the checks through the actual deployment's reverse proxy.
-   Longer-running memory/disk usage and the player issue-report flow
+   The [hosted smoke check](hosted-smoke.md) now exercises the deployed proxy,
+   two-client isolation, finite SSE updates, bounded search cancellation and
+   desktop/touch configuration flows. It found repeatable 9–11-second page
+   responses with about 3.4 MB of initial HTML, despite fast health/CSS requests.
+   Profile page generation and reduce the initial catalog payload next.
+   Controlled slow/provider-outage proxy checks, longer-running memory/disk
+   usage and the player issue-report flow
    remain beta checks.
 6. **Player beta readiness.** Prepare a short comparison walkthrough and a
    repeatable issue-report flow that includes a scenario export. Use concrete

@@ -36,6 +36,8 @@ The developer page at `/developer` reports comparisons against the five identity
 
 `make test-web` runs the frontend model/rendering checks. With Playwright installed and the local app running, `node test/matchup-browser.cjs` checks the paired configuration flow, optimization, Undo, mobile layouts and native form fallback. `PS_TEST_URL`, `PLAYWRIGHT_MODULE` and `BROWSER_EXECUTABLE` can select a test server or browser runtime. `web/deps.lock` pins the SDK and rendering dependencies; generated modules and downloaded assets stay under ignored `build/`. The local development server binds to loopback. Restart it after changing frontend files.
 
+For a small opt-in check through a deployed reverse proxy, run `python test/hosted.py` with `PS_TEST_URL` supplied privately at run time. Its screenshots default to a temporary directory outside the checkout. See [hosted checks and observations](docs/hosted-smoke.md); keep deployment addresses out of repository files.
+
 The [catalog notes](data/16.19.1/catalog/README.md) explain retained sources, normalization boundaries and reproducibility. The unvalidated catalog does not expand the scope of the five measured Annie fixtures.
 
 ### Comparing your item choices

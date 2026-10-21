@@ -17,6 +17,14 @@ Preserve all curated calculations and five measured Annie fixtures. Retained rea
 
 ## Current progress
 
+Version 0.20.1 is released with a shared active-refresh deadline, bounded
+provider waits, guarded publication checks and successful retry after recovery.
+Cached snapshots remain usable on timeout. Local gates, the
+[clean packaging/browser workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39577341983)
+and [signed RPM/DNF publication and upgrade workflow](https://github.com/tjisse/powerspike-janet/actions/runs/39577497113)
+passed. The downloaded RPM checksum and signature were verified. See
+[release notes](releases/0.20.1.md).
+
 Version 0.20.0 is released with exact action-readiness scheduling, corrected level
 interpolation and reviewed form projectiles, survival/source/trial comparisons,
 four champion save slots, side swapping and restored timeline artwork. Concurrent

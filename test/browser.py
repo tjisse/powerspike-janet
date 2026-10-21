@@ -607,7 +607,14 @@ def verify_timeline_icons(browser, base):
     marker = fallback.locator(f'[data-trace-event="{index}"]')
     expect(marker.locator('img')).to_have_count(0)
     expect(marker).to_have_text('Q')
-    assert marker.bounding_box()['width'] >= 44
+    # ResizeObserver can replace the marker between locator resolution and
+    # Playwright's geometry request. Measure the current visible touch target
+    # in one browser task, retrying while the redraw finishes.
+    fallback.wait_for_function('''index => {
+        const marker = document.querySelector(`[data-trace-event="${index}"]`);
+        const box = marker?.getBoundingClientRect();
+        return box && box.width >= 44 && box.height >= 44;
+    }''', arg=index, timeout=5000)
     attempts = len(failed)
     fallback.locator('[data-matchup-metric=damage]').click()
     expect(marker).to_have_text('Q')

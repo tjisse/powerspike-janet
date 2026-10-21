@@ -55,7 +55,8 @@ def verify(browser, base):
     for width in (736,390,320):
         page.set_viewport_size({'width':width, 'height':1000})
         assert dialog.evaluate('(node)=>node.scrollWidth <= node.clientWidth + 1')
-        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
+        # Charts resize through ResizeObserver and the next animation frame.
+        page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1', timeout=5000)
     page.screenshot(path='build/problem-report-mobile.png')
     page.keyboard.press('Escape')
     expect(opener).to_be_focused()

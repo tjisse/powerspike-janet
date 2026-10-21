@@ -10,12 +10,15 @@
 (import pshash :as hash)
 
 (defn close [expected actual] (assert (< (math/abs (- expected actual)) 0.000001)))
-(close 3 (limits/baseline "16.19.1"))
-(each patch ["16.18.1" "16.20.1" "99.1.1"]
+(each patch ["16.19.1" "16.20.1" "16.21.1"]
+  (close 3 (limits/baseline patch))
+  (close 3 (limits/cap {:patch patch :attack-speed-cap 2.5}))
+  (close 3 (limits/cap {:patch patch}))
+  (each configured [1.5 3 90]
+    (close configured (limits/cap {:patch patch :attack-speed-cap configured}))))
+(each patch ["16.18.1" "16.22.1" "99.1.1"]
   (assert (nil? (limits/baseline patch)))
   (close 2.5 (limits/cap {:patch patch :attack-speed-cap 2.5})))
-(each configured [1.5 3 90]
-  (close configured (limits/cap {:patch "16.19.1" :attack-speed-cap configured})))
 (def old {:patch "16.19.1" :abilities [] :attack-speed-cap 2.5
           :limitations ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]})
 (each id ["Ahri" "Annie" "Garen"]

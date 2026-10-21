@@ -4,12 +4,14 @@
   (let [forms (parse-all (slurp "data/attack-fixtures/16.19.1/reviewed-speed-cap.jdn"))]
     (assert (= 1 (length forms)) "Expected one attack-speed limit review.")
     (def value (first forms))
-    (assert (and (= "16.19.1" (value :patch)) (= 3.0 (value :baseline-cap)) (= 2.5 (value :previous-assumption)))
+    (assert (and (= "16.19.1" (value :patch)) (= 3.0 (value :baseline-cap)) (= 2.5 (value :previous-assumption))
+                 (indexed? (value :patches)) (not (empty? (value :patches)))
+                 (all string? (value :patches)) (some |(= $ (value :patch)) (value :patches)))
             "Attack-speed limit review requires a supported patch and baseline.")
     value))
 
 (defn baseline [patch]
-  (when (= patch (review :patch)) (review :baseline-cap)))
+  (when (some |(= patch $) (review :patches)) (review :baseline-cap)))
 
 (defn cap [champion]
   (def configured (get champion :attack-speed-cap))

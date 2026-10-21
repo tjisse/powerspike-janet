@@ -129,6 +129,7 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                         [str(binary), '--simulate', str(path)], cwd=check,
                         env=env, text=True, timeout=10))
                     assert outcome['metrics'] == case['metrics']
+                    assert outcome['actors'][0]['attack-speed-cap'] == 3
                     if 'first-impact' in case:
                         assert abs(outcome['events'][0]['at'] - case['first-impact']) < 1e-6
                         assert outcome['actors'][0]['attack-missile-speed'] == case['missile-speed']

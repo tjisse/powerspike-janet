@@ -50,7 +50,9 @@ Decorative section dividers and redundant result labels are removed.
    and reviewed replay context; retain discrepancies instead of fitting timing
    to the desired result. The [baseline attack-speed cap correction](attack-speed-cap.md)
    now replaces the old 2.5 assumption with Riot's published 3.0 baseline on
-   16.19.1, across cached data, temporary buffs, both actors and optimization.
+   16.19.1, 16.20.1 and 16.21.1, across cached data, temporary buffs, both actors
+   and optimization. The latest-patch extension explicitly continues the
+   published baseline after reviewing the matching Riot patch notes.
    Windup values and special cap rules still need their own review.
    Finish with reproducible release/impact cases before
    expanding the projectile profiles. The first [source-level corrections](attack-timing.md)

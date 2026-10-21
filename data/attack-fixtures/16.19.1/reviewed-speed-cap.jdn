@@ -1,8 +1,13 @@
 {:patch "16.19.1"
+ :patches ["16.19.1" "16.20.1" "16.21.1"]
  :baseline-cap 3.0
  :previous-assumption 2.5
  :reference {:url "https://www.leagueoflegends.com/en-us/news/game-updates/patch-2025-s1-3-notes/"
              :published "2025-02-04"
              :section "Systems / Attack Speed Cap"
              :excerpt "Baseline Attack Speed Cap: 2.5 ⇒ 3.0"}
- :scope "Published Summoner's Rift baseline, applied to the retained 16.19.1 model. Special champion, rune and mode cap overrides require separate handlers. Server tick quantization and sub-millisecond cap precision are not established by this source. No in-game measurement is admitted."}
+ :continuation-references [{:patch "16.20.1" :published "2026-10-06"
+                            :url "https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-20-notes/"}
+                           {:patch "16.21.1" :published "2026-10-20"
+                            :url "https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-21-notes/"}]
+ :scope "Published Summoner's Rift baseline, applied to the explicitly listed retained model patches. The 26.20 and 26.21 Summoner's Rift notes announce no replacement baseline; retaining 3.0 is a bounded continuation of the published rule, not a raw server-constant measurement. Special champion, rune and mode cap overrides require separate handlers. Server tick quantization and sub-millisecond cap precision are not established by these sources. No in-game measurement is admitted."}

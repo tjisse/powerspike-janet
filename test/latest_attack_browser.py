@@ -24,6 +24,7 @@ def verify(binary_path, fixture_path):
                     response = page.goto(base+'/?'+urlencode({'scenario':json.dumps(case['document'])}), wait_until='domcontentloaded')
                     assert response.status == 200
                     expect(page.locator('#timeline')).to_be_visible()
+                    assert 'cap 2.5' not in page.locator('#coverage').inner_text()
                     events = json.loads(page.locator('#timeline').get_attribute('data-events'))
                     if 'first-impact' in case:
                         assert abs(events[0]['at'] - case['first-impact']) < 1e-6

@@ -49,6 +49,8 @@ This review does not extend attack-speed-cap rules, add other champions or
 change Spellblade consumption policy. Later patches do not inherit these
 profiles without matching review. Player-facing simulation details describe the
 remaining assumptions; hashes and verification records remain developer details.
+The subsequent [baseline-cap follow-up](attack-speed-cap.md#latest-patch-follow-up)
+extends the published 3.0 baseline to these two explicitly reviewed patches.
 
 ## Saved data and validation
 

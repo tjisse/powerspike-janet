@@ -1,6 +1,7 @@
 # Baseline attack-speed cap
 
-The retained 16.19.1 model now uses a baseline cap of **3.0 attacks/second**.
+The retained 16.19.1, 16.20.1 and 16.21.1 models use a baseline cap of
+**3.0 attacks/second**.
 The previous generic 2.5 cap clipped high-attack-speed builds and temporary
 attack-speed buffs too early, changing attack windups, cadence and fight totals.
 
@@ -21,12 +22,19 @@ did not expose a named attack-speed or minimum-attack-delay field, so this
 correction is bound to Riot's published value and does not claim a raw server
 constant or newly measured timing precision.
 
-The 16.19.1 patch check is explicit. Other patches keep their existing declared
+The supported patch list is explicit. Other patches keep their existing declared
 limits. Exceptional declared limits, such as a synthetic 1.5 or 90 cap, are
-preserved. Generic 2.5 values in older 16.19.1 data are reinterpreted as the new
+preserved. Generic 2.5 values in older supported data are reinterpreted as the new
 baseline when calculating stats or loading a kit. Special champion attacks,
 passives, transformations and cap-changing effects still have their existing
 coverage notes until their own handlers are supported.
+
+The 16.20/16.21 follow-up reviewed Riot's [26.20 notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-20-notes/)
+and [26.21 notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-21-notes/).
+Their Summoner's Rift changes announce no replacement global baseline. Applying
+the published 3.0 value to these two retained patches is an explicit continuation
+of that rule, not a new measurement or a recovered server constant. The review
+records both references and dates; later patches remain outside its scope.
 
 ## Shared behavior
 
@@ -87,3 +95,21 @@ Python syntax and Git diff checks passed.
 
 The model fingerprint at this correction is
 `e96375e739815cb01c1560fde1a442d659ccb432aafb59c753c6ab86d0ce753c`.
+
+## Latest-patch follow-up
+
+`test/latest-attacks.janet` now reconstructs parser-7 snapshots carrying the old
+2.5 cap and checks fresh/loaded agreement on both latest patches. The retained
+champions' real base attack speed and ratio feed synthetic stat-bonus stress
+cases below, at and above the cap. Those bonuses are laboratory inputs, not
+claims about newly reviewed items or champion abilities. Ordinary and critical
+cadence, half-open impact boundaries, temporary bonus recapping and expiry are
+checked independently. Both compiled combatants carry the same reviewed cap;
+direct simulation and optimizer scoring still agree.
+
+The eight exported saved scenarios continue to check ordinary and empowered
+timing in the relocated executable, now also asserting that snapshots with an
+old generic cap produce actors capped at 3.0. The UI import checks verify that
+obsolete 2.5-cap assumptions are removed while remaining timing omissions stay
+visible. `test/attack-limits.janet` checks all three supported patch identifiers,
+preserved explicit alternative caps and abstention on unreviewed patches.

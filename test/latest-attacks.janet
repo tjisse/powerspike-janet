@@ -5,6 +5,7 @@
 (import ../src/powerspike/scenario :as scenario)
 (import ../src/powerspike/scenario-wire :as wire)
 (import ../src/powerspike/engine :as engine)
+(import ../src/powerspike/stats :as stats)
 (import ../src/powerspike/data-util :as util)
 (import pshash :as hash)
 
@@ -40,12 +41,15 @@
   (def package (packages/load patch (fetched :snapshot)))
   (def source-file (string (package :directory) "/package.jdn"))
   (def snapshot-bytes (string (slurp source-file)))
-  # A parser-7 snapshot produced before the reviewed attack profiles existed.
-  # Existing model loading must supply them without rewriting the package.
+  # A parser-7 snapshot produced before the reviewed profiles and latest-patch
+  # cap existed. Model loading must supply them without rewriting the package.
   (def prior-data (merge (util/read-data source-file)
                          {:champions (map (fn [champion]
-                                            (tabseq [[key value] :pairs champion
-                                                     :when (not (some |(= key $) [:attack-projectile :attack-windup]))] key value))
+                                            (merge (tabseq [[key value] :pairs champion
+                                                            :when (not (some |(= key $) [:attack-projectile :attack-windup]))] key value)
+                                                   {:attack-speed-cap 2.5
+                                                    :limitations [;(champion :limitations)
+                                                                  "Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."]}))
                                           (package :champions))}))
   (def prior-bytes (util/encode-data (util/canonical prior-data)))
   (def prior-id (hash/sha256 prior-bytes))
@@ -53,6 +57,10 @@
   (util/write (string prior-dir "/package.jdn") prior-bytes)
   (util/write (string prior-dir "/manifest.json") (util/encode-json {"initial" false "package_sha256" prior-id}))
   (def prior (packages/load patch prior-id))
+  (each champion (package :champions) (close 3 (champion :attack-speed-cap)))
+  (each champion (prior :champions)
+    (close 3 (champion :attack-speed-cap))
+    (assert (not (some |(string/find "cap 2.5" $) (champion :limitations)))))
   (each [id speed windup] [["Ahri" 1750 0.2] ["Annie" 1500 0.3] ["Viktor" 2300 0.3]]
     (def loaded ((package :champion-map) id))
     (def movement (attacks/profile id patch))
@@ -84,11 +92,41 @@
     (def player (get-in compiled [:actors 0]))
     (close speed (player :attack-missile-speed))
     (close windup (player :windup-fraction))
+    (close 3 (player :attack-speed-cap))
     (def outcome (scenario/simulate spec))
     (close (+ (/ windup (get-in player [:stats :attack-speed])) (/ 300 speed)) (get-in outcome [:events 0 :at]))
     (assert (= (outcome :metrics) ((scenario/fitness spec) :metrics)))
     (array/push cases {:document (util/read-json (wire/encode spec)) :metrics (outcome :metrics)
                        :first-impact (get-in outcome [:events 0 :at]) :missile-speed speed :windup windup})
+    # Synthetic stat bonuses isolate the baseline, without claiming new item or
+    # champion effects. The champion's real base/ratio still drive the totals.
+    (each raw [2.4 2.9 3 3.4]
+      (def totals (stats/total-stats loaded 1 [] [{:attack-speed-bonus (/ (- raw (loaded :attack-speed-base)) (loaded :attack-speed-ratio))}]))
+      (close raw (totals :attack-speed-uncapped))
+      (close (min raw 3) (totals :attack-speed))
+      (each critical [0 1]
+        (def actor (merge player {:position 0 :triggers [] :attack-missile-speed 0
+                                  :stats (merge totals {:ad 10 :crit-chance critical})}))
+        (def target (merge (get-in compiled [:actors 1]) {:position 0}))
+        (def first-impact (/ windup (min raw 3)))
+        (def boundary (engine/simulate {:duration first-impact :actors [actor target]}))
+        (assert (empty? (boundary :events)))
+        (def capped (engine/simulate {:duration 1.2 :actors [actor target]}))
+        (def attacks (filter |(= "attack" ($ :source)) (capped :events)))
+        (when (>= raw 3) (assert (= 4 (length attacks))))
+        (eachp [index hit] attacks
+          (close (+ first-impact (/ index (min raw 3))) (hit :at))
+          (assert (= (= critical 1) (hit :critical)))))
+      # The engine re-caps temporary bonuses and restores the uncapped baseline
+      # after expiry. Effect magnitude/duration are explicit synthetic inputs.
+      (def unit (merge player {:stats totals :triggers [] :strategy {:attacks false :abilities false}}))
+      (def boost {:at 0 :kind :effect :actor 0 :target 0 :source "synthetic-cap-test" :origin "synthetic-cap-test"
+                  :effect {:kind :buff :buff "cap-test" :duration 0.3 :refresh true
+                           :stat-bonuses {:attack-speed-bonus 0.5}}})
+      (def during (engine/simulate {:duration 0.1 :actors [unit (get-in compiled [:actors 1])] :initial-events [boost]}))
+      (close (min 3 (+ raw (* 0.5 (loaded :attack-speed-ratio)))) (get-in during [:actors 0 :stats :attack-speed]))
+      (def expired (engine/simulate {:duration 0.4 :actors [unit (get-in compiled [:actors 1])] :initial-events [boost]}))
+      (close (min raw 3) (get-in expired [:actors 0 :stats :attack-speed])))
     # Independent release-plus-travel expectations include critical attacks,
     # changed attack speeds and the half-open endpoint of the scoring window.
     (each attack-speed [0.5 1 2]
@@ -104,6 +142,7 @@
     (def duel (merge spec {:target (merge (spec :player) {:kind :champion :champion (if (= id "Ahri") "Viktor" "Ahri")})}))
     (def duel-actors ((scenario/compile duel) :actors))
     (each actor duel-actors
+      (close 3 (actor :attack-speed-cap))
       (close ((attacks/profile (actor :champion) patch) :missile-speed) (actor :attack-missile-speed)))
     (def duel-result (scenario/simulate duel))
     (assert (= (duel-result :metrics) ((scenario/fitness duel) :metrics)))

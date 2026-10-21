@@ -122,7 +122,11 @@ diagnostics remain in the developer tools.
    two-client isolation, finite SSE updates, bounded search cancellation and
    desktop/touch configuration flows. It found repeatable 9–11-second page
    responses with about 3.4 MB of initial HTML, despite fast health/CSS requests.
-   Profile page generation and reduce the initial catalog payload next.
+   The [lazy catalog follow-up](catalog-loading.md) now removes eager closed
+   dialog rendering, reducing the retained page from 3.37 MB to 0.63 MB and
+   local page generation from about 2.9 seconds to 0.9 seconds. It preserves
+   exact-snapshot selection, server tooltip values and native forms. Verify the
+   improvement through the public proxy after deployment.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
    usage and the player issue-report flow
    remain beta checks.

@@ -50,6 +50,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/matchup.janet
 	JANET_PATH=build/web-modules $(JANET) test/champion-configs.janet
 	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
+	JANET_PATH=build/web-modules $(JANET) test/pickers.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
 	JANET_PATH=build/web-modules $(JANET) test/patch-deadline.janet
 	JANET_PATH=build/web-modules $(JANET) test/storage.janet

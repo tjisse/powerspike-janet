@@ -2,17 +2,31 @@
 (() => {
   const app = document.getElementById('powerspike');
   document.documentElement.classList.add('has-js');
-  // Catalog searching is presentation only; selections and calculations use Datastar/Janet.
+  // Catalog records are presentation only, loaded once per selected snapshot.
   const normalize = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const catalogLoaders = [];
+  function catalogSnapshot() {
+    const text = document.getElementById('configuration-data')?.dataset.json || document.getElementById('scenario-data')?.dataset.json;
+    if (text) {
+      const scenario = JSON.parse(text).scenario;
+      return {patch: scenario.patch, snapshot: scenario.snapshot};
+    }
+    // The original legacy view has no canonical scenario document.
+    const form = document.forms.scenario;
+    const patch = form?.elements.namedItem('patch')?.value, snapshot = form?.elements.namedItem('snapshot')?.value;
+    if (!patch || !snapshot) throw new Error('No catalog snapshot');
+    return {patch, snapshot};
+  }
   for (const dialog of document.querySelectorAll('.catalog-dialog')) {
     dialog.addEventListener('keydown', event => {
       if (event.key === 'Escape') { event.preventDefault(); dialog.close(); }
     });
-    const search = dialog.querySelector('.catalog-search');
-    const scope = dialog.querySelector('.catalog-scope');
-    const cards = [...dialog.querySelectorAll('.catalog-card')];
-    const indexed = cards.map(card => [card, normalize(card.dataset.search)]);
+    const kind = dialog.dataset.catalog, search = dialog.querySelector('.catalog-search');
+    const scope = dialog.querySelector('.catalog-scope'), grid = dialog.querySelector('.catalog-grid');
+    const status = dialog.querySelector('.catalog-status'), retry = dialog.querySelector('.catalog-retry');
+    let indexed = [], loadedKey = '', pending = null, requestedKey = '';
     function filter() {
+      if (!loadedKey) return;
       const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
       let visible = 0;
       for (const [card, text] of indexed) {
@@ -20,13 +34,71 @@
           (!scope || scope.value === 'all' || card.dataset.rift === 'true'));
         if (!card.hidden) visible++;
       }
-      dialog.querySelector('.catalog-count').textContent = `${visible} / ${cards.length} ${scope ? 'items' : 'champions'}`;
+      dialog.querySelector('.catalog-count').textContent = `${visible} / ${indexed.length} ${kind}`;
       dialog.querySelector('.picker-empty').hidden = visible > 0;
     }
-    search.addEventListener('input', filter);
-    scope?.addEventListener('change', filter);
-    filter();
+    function cardFor(record) {
+      const card = document.createElement('button'); card.type = 'button'; card.className = 'catalog-card';
+      const image = document.createElement('img'); image.src = record.icon; image.alt = record.name;
+      image.width = image.height = 64; image.loading = 'lazy';
+      const name = document.createElement('span'); name.textContent = record.name; card.append(image, name);
+      if (kind === 'champions') card.dataset.championId = record.id;
+      else {
+        card.dataset.itemId = record.id; card.dataset.detailItem = record.id;
+        card.dataset.rift = String(Boolean(record.rift));
+        card.dataset.detailPin = 'false'; card.setAttribute('aria-haspopup', 'dialog');
+        card.dataset.details = JSON.stringify({name: record.name, icon: record.icon, subtitle: `${record.gold} gold · item`,
+          body: ['Loading item description…'], coverage: 'Values load for the current build. See Simulation details for effects not included.',
+          loading: true, 'patch-description': record.description, action: 'item-picker', 'action-label': 'Change item'});
+        const price = document.createElement('small'); price.textContent = `${record.gold} gold · ${record.id}`; card.append(price);
+      }
+      return [card, normalize([record.name, record.id, record.description || '', ...(record.tags || [])].join(' '))];
+    }
+    async function load() {
+      if (!dialog.open) return;
+      let snapshot;
+      try { snapshot = catalogSnapshot(); } catch { return; }
+      const key = JSON.stringify(snapshot);
+      if (loadedKey === key) { filter(); return; }
+      if (pending && requestedKey === key) return;
+      pending?.abort();
+      const request = new AbortController(); pending = request; requestedKey = key;
+      loadedKey = ''; indexed = []; dialog.dispatchEvent(new Event('catalogreset')); grid.replaceChildren();
+      delete dialog.dataset.catalogReady;
+      dialog.querySelector('.catalog-count').textContent = kind === 'items' ? 'Items' : 'Champions';
+      dialog.setAttribute('aria-busy', 'true'); retry.hidden = true;
+      status.hidden = false; status.textContent = `Loading ${kind}…`;
+      dialog.querySelector('.picker-empty').hidden = true;
+      const timeout = setTimeout(() => request.abort(), 15000);
+      try {
+        const response = await fetch(`/catalog?${new URLSearchParams({...snapshot, kind})}`, {signal: request.signal});
+        if (!response.ok) throw new Error('Catalog unavailable');
+        const data = await response.json();
+        if (data.kind !== kind || data.patch !== snapshot.patch || data.snapshot !== snapshot.snapshot || !Array.isArray(data.records) || data.records.length > 5000) throw new Error('Invalid catalog');
+        if (request.signal.aborted || pending !== request) return;
+        if (JSON.stringify(catalogSnapshot()) !== key) { load(); return; }
+        indexed = data.records.map(cardFor);
+        grid.replaceChildren(...indexed.map(([card]) => card));
+        loadedKey = key; dialog.dataset.catalogReady = 'true'; status.hidden = true; filter();
+      } catch {
+        if (pending !== request) return;
+        status.hidden = false; status.textContent = `Could not load ${kind}. Please retry.`; retry.hidden = false;
+      } finally {
+        clearTimeout(timeout);
+        if (pending === request) { pending = null; dialog.setAttribute('aria-busy', 'false'); }
+      }
+    }
+    search.addEventListener('input', filter); scope?.addEventListener('change', filter);
+    retry.addEventListener('click', load);
+    new MutationObserver(load).observe(dialog, {attributes: true, attributeFilter: ['open']});
+    catalogLoaders.push(load);
   }
+  new MutationObserver(records => {
+    if (records.some(record => ['configuration-data', 'scenario-data'].includes(record.target.id) ||
+      [...record.addedNodes].some(node => node.nodeType === 1 && (['loadout-tray', 'configuration-data', 'scenario-data'].includes(node.id) || node.querySelector?.('#configuration-data,#scenario-data'))))) {
+      catalogLoaders.forEach(load => load());
+    }
+  }).observe(app, {childList: true, subtree: true, attributes: true, attributeFilter: ['data-json']});
   setInterval(() => {
     if (document.getElementById('search-panel')?.dataset.poll === 'true') document.getElementById('optimizer-dialog').dispatchEvent(new Event('searchtick'));
     if (document.getElementById('patch-panel')?.dataset.poll === 'true') document.getElementById('patch-settings').dispatchEvent(new Event('jobtick'));

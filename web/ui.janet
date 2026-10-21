@@ -371,24 +371,27 @@
     [:button {:class "apply" :type "submit" :form "scenario" :name "selected" :value "custom"} "Apply inventory"]]])
 
 (defn catalog-pickers []
-  [[:dialog {:id "champion-picker" :class "catalog-dialog" :aria-labelledby "champion-picker-title"}
+  [[:dialog {:id "champion-picker" :class "catalog-dialog" :aria-labelledby "champion-picker-title" :data-catalog "champions"
+             :data-on:click (string "const card = evt.target.closest('[data-champion-id]'); if (card) { "
+                                    "if ($mode === 'duel' && $editingwho === 'opponent') $opponent = card.dataset.championId; "
+                                    "else { $champion = card.dataset.championId; $selected = 'custom'; } "
+                                    "document.getElementById('champion-picker').close(); "
+                                    "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate')); }")}
     [:div {:class "picker-header"} [:h2 {:id "champion-picker-title"} "Choose champion"]
      [:button {:type "button" :class "catalog-close" :data-on:click "document.getElementById('champion-picker').close()"} "Close"]]
     [:div {:class "picker-toolbar"}
      [:label "Search champions" [:input {:type "search" :class "catalog-search" :placeholder "Name or role" :autocomplete "off" :autofocus true}]]
      [:span {:class "muted catalog-count"} (length (catalog/champion-list)) " champions"]]
-    [:div {:class "catalog-grid champion-grid"}
-     (map (fn [champion]
-            [:button {:type "button" :class "catalog-card"
-                      :data-champion-id (champion :id)
-                      :data-search (string (champion :name) " " (string/join (champion :tags) " "))
-                      :data-on:click (string "if ($mode === 'duel' && $editingwho === 'opponent') $opponent = '" (champion :id) "'; else { $champion = '" (champion :id) "'; $selected = 'custom'; } "
-                                             "document.getElementById('champion-picker').close(); "
-                                             "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")}
-             (icon "champion" (champion :icon) (champion :name))
-             [:span (champion :name)]]) (catalog/champion-list))]
+    [:p {:class "catalog-status" :role "status" :hidden true}]
+    [:button {:type "button" :class "catalog-retry" :hidden true} "Retry loading champions"]
+    [:div {:class "catalog-grid champion-grid"}]
     [:p {:class "picker-empty" :hidden true} "No champions match your search."]]
-   [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title" :data-attr:data-who "$editingwho"}
+   [:dialog {:id "item-picker" :class "catalog-dialog" :aria-labelledby "item-picker-title" :data-catalog "items" :data-attr:data-who "$editingwho"
+             :data-on:click (string "const card = evt.target.closest('[data-item-id]'); if (card) { "
+                                    (string/join (seq [index :range [1 7]]
+                                                   (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = card.dataset.itemId; else $slot" index " = card.dataset.itemId; }")) " ")
+                                    " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
+                                    "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate')); }")}
     [:div {:class "picker-header"} [:h2 {:id "item-picker-title"} "Choose item"]
      [:button {:type "button" :class "catalog-close" :data-on:click "document.getElementById('item-picker').close()"} "Close"]]
     [:div {:class "picker-toolbar"}
@@ -402,20 +405,9 @@
                                       "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")} "Empty slot"]]
     [:p {:class "muted picker-note"} [:span {:class "catalog-count"} (length (catalog/item-list)) " items"]
      " · Select an item to add it to this fight."]
-    [:div {:class "catalog-grid item-grid"}
-     (map (fn [item]
-            (def rift (and (item :purchasable) (item :in-store) (some |(= 11 $) (item :maps))))
-            [:button (merge (details/attrs (details/item item)) {:type "button" :class "catalog-card" :hidden (not rift) :data-detail-item (item :id)
-                                                                 :data-item-id (item :id)
-                                                                 :data-rift (if rift "true" "false")
-                                                                 :data-search (string (item :name) " " (item :id) " " (item :description) " " (string/join (item :tags) " "))
-                                                                 :data-on:click (string (string/join (seq [index :range [1 7]]
-                                                                                                       (string "if ($editing === " index ") { if ($editingwho === 'opponent') $enemyslot" index " = '" (item :id) "'; else $slot" index " = '" (item :id) "'; }")) " ")
-                                                                                        " if ($editingwho !== 'opponent') $selected = 'custom'; document.getElementById('item-picker').close(); "
-                                                                                        "document.getElementById('powerspike').dispatchEvent(new Event($mode === 'duel' ? 'configurationchange' : 'evaluate'))")})
-             (icon "item" (item :icon) (item :name))
-             [:span (item :name)] [:small (item :gold) " gold · " (item :id)]
-             [:span {:class "item-description"} (item :description)]]) (catalog/item-list))]
+    [:p {:class "catalog-status" :role "status" :hidden true}]
+    [:button {:type "button" :class "catalog-retry" :hidden true} "Retry loading items"]
+    [:div {:class "catalog-grid item-grid"}]
     [:p {:class "picker-empty" :hidden true} "No items match your search."]]])
 
 (defn- chart [row duration title]

@@ -10,6 +10,7 @@
 (import ./verification :as verification)
 (import ./details :as details)
 (import ./asset-cache :as asset-cache)
+(import ./pickers :as pickers)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
@@ -111,6 +112,12 @@
                  (ui/patch-panel prepared (prepared :patch-job))
                  (workspace/tools prepared) (ui/coverage prepared)))))
 
+(defn render-job [task input &opt key]
+  (def job (jobs/submit :render key task input))
+  (while (not (jobs/terminal? job)) (ev/sleep 0.01))
+  (assert (= :done (job :status)) (or (job :error) "Rendering cancelled."))
+  (job :result))
+
 (defn render-async [view result &opt state applied message]
   # Rendering long traces is CPU work too. Keep it off the HTTP event loop,
   # with one bounded worker independent of combat and provider downloads.
@@ -118,10 +125,12 @@
   (def package (result :package))
   (def input {:view view :result (merge result {:package {:patch (package :patch) :snapshot (package :snapshot)}})
               :state state :applied applied :message message})
-  (def job (jobs/submit :render nil render-task input))
-  (while (not (jobs/terminal? job)) (ev/sleep 0.01))
-  (assert (= :done (job :status)) (or (job :error) "Rendering cancelled."))
-  (job :result))
+  (render-job render-task input))
+
+(defn catalog-task [input progress cancelled]
+  (when (cancelled) (error "Cancelled."))
+  (def package (packages/load (input :patch) (input :snapshot)))
+  (with-dyns [:patch-package package] (util/encode-json (pickers/records (input :kind)))))
 
 (defn show-result [req result &opt state job-id]
   (def prepared (prepare-result result job-id))
@@ -230,6 +239,15 @@
                                  (ui/patch-panel (model/context (model/parse-state {})) job)))))
     (not= "GET" (req :method)) (response 405 "Use GET or a supported action." "text/plain")
     (= "/healthz" (req :route)) (response 200 "ok\n" "text/plain")
+    (= "/catalog" (req :route))
+    (do (def query (get req :query {}))
+      (def kind (get query "kind"))
+      (assert (some |(= kind $) ["items" "champions"]) "Unknown catalog.")
+      (def patch (get query "patch"))
+      (def snapshot (get query "snapshot"))
+      (packages/directory patch snapshot)
+      (response 200 (render-job catalog-task {:patch patch :snapshot snapshot :kind kind}
+                                (string "catalog/" patch "/" snapshot "/" kind)) "application/json"))
     (= "/verification" (req :route)) (response 200 (string "<!doctype html>" (ui/render (verification/page))))
     (= "/developer" (req :route))
     (do (def query (get req :query {}))

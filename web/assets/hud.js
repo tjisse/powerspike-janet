@@ -89,6 +89,8 @@
     if(!payload && pin && detailAnchor===trigger && detailPinned){closeDetails();return;}
     let data;try{data=payload || JSON.parse(trigger.dataset.details);}catch{return;}
     const scenario=document.getElementById('configuration-data')?.dataset.json || document.getElementById('scenario-data')?.dataset.json;
+    if(!payload && !scenario && data.loading)data={...data,loading:false,body:[data['patch-description'] || 'Item description unavailable.'],
+      coverage:'Patch description. Build-specific values are not available in this legacy view.'};
     const who=trigger.closest('#item-picker')?.dataset.who || 'player';
     const cacheKey=trigger.dataset.detailItem && scenario?JSON.stringify([trigger.dataset.detailItem,who,scenario]):null;
     if(!payload && cacheKey && itemDetailsCache.has(cacheKey))data=itemDetailsCache.get(cacheKey);
@@ -134,9 +136,15 @@
         method:'POST',headers:{'Content-Type':'application/json'},body:scenario,signal:request.signal
       }).then(response=>{if(!response.ok)throw new Error('Item details unavailable');return response.json();}).then(details=>{
         if(request.signal.aborted || detailAnchor!==trigger)return;
+        const current=document.getElementById('configuration-data')?.dataset.json || document.getElementById('scenario-data')?.dataset.json;
+        if(current!==scenario || (trigger.closest('#item-picker')?.dataset.who || 'player')!==who){showDetails(trigger,false);return;}
         if(itemDetailsCache.size>=64)itemDetailsCache.delete(itemDetailsCache.keys().next().value);
         itemDetailsCache.set(cacheKey,details);showDetails(trigger,detailPinned,details);
-      }).catch(()=>{});
+      }).catch(()=>{
+        if(!request.signal.aborted && detailAnchor===trigger && data.loading)showDetails(trigger,detailPinned,
+          {...data,loading:false,body:['Item description unavailable. Hover or focus this item again to retry.'],
+            coverage:'Build-specific values could not be loaded.'});
+      });
     }
   }
   document.addEventListener('pointerover',event=>{const trigger=event.target.closest('[data-details]');if(trigger && !trigger.contains(event.relatedTarget) && event.pointerType!=='touch')showDetails(trigger);});
@@ -145,6 +153,11 @@
   document.addEventListener('focusout',event=>{if(detailAnchor?.contains(event.target) && !popover.contains(event.relatedTarget) && !detailPinned)detailTimer=setTimeout(closeDetails,180);});
   document.addEventListener('click',event=>{const trigger=event.target.closest('[data-details]');if(trigger?.dataset.detailPin==='true')showDetails(trigger,true);else if(!trigger && !popover.contains(event.target))closeDetails();});
   document.addEventListener('close',event=>{if(detailAnchor?.closest('dialog')===event.target){closeDetails();app.append(popover);}},true);
+  document.addEventListener('catalogreset',event=>{if(detailAnchor?.closest('dialog')===event.target)closeDetails();},true);
+  new MutationObserver(records=>{
+    if(detailAnchor?.dataset.detailItem && records.some(record=>['configuration-data','scenario-data'].includes(record.target.id) ||
+      [...record.addedNodes].some(node=>node.nodeType===1 && (['configuration-data','scenario-data'].includes(node.id) || node.querySelector?.('#configuration-data,#scenario-data')))))closeDetails();
+  }).observe(app,{childList:true,subtree:true,attributes:true,attributeFilter:['data-json']});
   popover.addEventListener('pointerenter',()=>clearTimeout(detailTimer));
   popover.addEventListener('focusin',()=>clearTimeout(detailTimer));
   popover.addEventListener('focusout',event=>{if(!popover.contains(event.relatedTarget) && !detailPinned)detailTimer=setTimeout(closeDetails,180);});

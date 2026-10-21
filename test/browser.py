@@ -756,6 +756,8 @@ def verify_movement_readiness(browser, base):
 def verify(base):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        from catalog_browser import verify as verify_catalogs
+        verify_catalogs(browser, base)
         from champion_browser import verify as verify_champion_configs
         verify_champion_configs(browser, base)
         verify_timeline_icons(browser, base)

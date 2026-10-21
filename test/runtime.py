@@ -245,7 +245,15 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
             _, verification_page = get(base, '/verification')
             assert verification_page.startswith(b'<!doctype html>') and b'Verification progress' in verification_page
             retained = next(path.name for path in (seed / '16.19.1').iterdir() if path.is_dir() and len(path.name) == 64)
+            for kind, count in [('items', 870), ('champions', 173)]:
+                catalog_headers, catalog_bytes = get(base, '/catalog?'+urllib.parse.urlencode(
+                    {'kind': kind, 'patch': '16.19.1', 'snapshot': retained}))
+                catalog = json.loads(catalog_bytes)
+                assert catalog_headers['Content-Type'] == 'application/json'
+                assert catalog['snapshot'] == retained and catalog['kind'] == kind
+                assert len(catalog['records']) == count and len(catalog_bytes) < 1024*1024
             _, matchup_raw = get(base, '/?' + urllib.parse.urlencode({'snapshot': retained}))
+            assert len(matchup_raw) < 1024*1024, 'Initial retained matchup embedded a full catalog again.'
             matchup = Page()
             matchup.feed(matchup_raw.decode())
             assert matchup.matchup['names'] == ['Annie', 'Garen']

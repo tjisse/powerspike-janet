@@ -51,6 +51,9 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/champion-configs.janet
 	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
+	JANET_PATH=build/web-modules $(JANET) test/storage.janet
+	JANET_PATH=build/web-modules $(JANET) test/storage-packages.janet
+	JANET_PATH=build/web-modules $(JANET) test/assets.janet
 	JANET_PATH=build/web-modules $(JANET) test/job-queue.janet
 	$(PYTHON) test/https.py --janet $(JANET)
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet

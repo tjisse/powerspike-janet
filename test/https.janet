@@ -3,6 +3,8 @@
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
+(import ../src/powerspike/storage :as storage)
+(import ../web/asset-cache :as cache)
 
 # Only this test process redirects the allowed provider to a trusted local TLS
 # fixture. Production certificate/hostname validation stays enabled.
@@ -42,4 +44,19 @@
 (assert (empty? (os/dir (string root "/jobs"))))
 (assert (= retained ((packages/load packages/default-version) :snapshot)))
 (assert (= "fixture" (https/get (string base "ok"))))
+(var instant 100)
+(defn clock [] instant)
+(def image (string root "/patches/test-outage.png"))
+(def outcomes @[])
+(for index 0 6
+  (ev/go (fn [] (array/push outcomes (cache/fetch root image (string base "outage.png") (packages/storage-limit) nil clock)))))
+(while (< (length outcomes) 6) (ev/sleep 0.01))
+(assert (all |(= :failed ($ :status)) outcomes))
+(assert (= 1 (get (util/read-json (https/get (string base "counts"))) "/outage.png")))
+(assert (= :failed ((cache/fetch root image (string base "outage.png") (packages/storage-limit) nil clock) :status)))
+(https/get (string base "recover"))
+(set instant 131)
+(assert (= :ready ((cache/fetch root image (string base "outage.png") (packages/storage-limit) nil clock) :status)))
+(assert (= 2 (get (util/read-json (https/get (string base "counts"))) "/outage.png")))
+(storage/remove image)
 (print "TLS provider checks: success, HTTP outage, redirect/size rejection, idle cancellation, network worker release and cached snapshot/staging integrity passed.")

@@ -1,5 +1,6 @@
 """Exercise the production HTTPS client with a local TLS provider fixture."""
 import argparse
+from collections import Counter
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import os
 from pathlib import Path
@@ -11,21 +12,35 @@ import time
 
 
 class Provider(BaseHTTPRequestHandler):
+    requests = Counter()
+    recovered = False
+    lock = threading.Lock()
     def log_message(self, *args):
         pass
 
     def do_GET(self):
+        with Provider.lock:
+            Provider.requests[self.path] += 1
+        if self.path == '/recover':
+            Provider.recovered = True
         idle = self.path in ('/idle', '/cdn/16.19.1/data/en_US/champion.json')
-        status = 503 if self.path == '/unavailable' or '/16.18.1/' in self.path else 302 if self.path == '/redirect' else 200
+        status = 503 if self.path == '/unavailable' or '/16.18.1/' in self.path or (self.path == '/outage.png' and not Provider.recovered) else 302 if self.path == '/redirect' else 200
         self.send_response(status)
         if status == 302:
             self.send_header('Location', '/ok')
         body = b'x'*64 if self.path == '/too-large' else b'fixture'
+        if self.path == '/counts':
+            import json
+            body = json.dumps(Provider.requests).encode()
+        elif self.path == '/outage.png' and Provider.recovered:
+            body = b'\x89PNG\r\n\x1a\n'+b'fixture'
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.flush()
         if idle:
             time.sleep(6)
+        elif self.path == '/outage.png':
+            time.sleep(.1)
         try:
             self.wfile.write(body)
         except (OSError, ssl.SSLError):
@@ -33,6 +48,8 @@ class Provider(BaseHTTPRequestHandler):
 
 
 def verify(janet):
+    Provider.requests.clear()
+    Provider.recovered = False
     with tempfile.TemporaryDirectory(prefix='powerspike-tls-') as temp:
         root = Path(temp)
         cert, key = root/'cert.pem', root/'key.pem'

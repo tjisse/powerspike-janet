@@ -18,8 +18,11 @@
 
 (defn atomic-write [path bytes]
   (def temp (string path "." (string/slice (hash/sha256 (os/cryptorand 16)) 0 12) ".tmp"))
-  (write temp bytes)
-  (os/rename temp path))
+  (def result (protect (write temp bytes) (os/rename temp path)))
+  (unless (first result)
+    (when (os/stat temp) (os/rm temp))
+    (error (result 1)))
+  (result 1))
 
 (defn read-data [path]
   (def records (parse-all (slurp path)))

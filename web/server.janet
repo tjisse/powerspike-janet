@@ -9,10 +9,10 @@
 (import ./champion-configs :as champion-configs)
 (import ./verification :as verification)
 (import ./details :as details)
+(import ./asset-cache :as asset-cache)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
 (import ../src/powerspike/data-util :as util)
-(import ../src/powerspike/https :as https)
 (import ../src/powerspike/scenario-wire :as wire)
 (import ../src/powerspike/forms :as forms)
 (import spork/http :as http)
@@ -24,9 +24,6 @@
    "/assets/matchup.js" {:type "text/javascript" :body (slurp "web/assets/matchup.js")}
    "/assets/datastar.js" {:type "text/javascript" :body (slurp "build/web-assets/datastar.js")}})
 (def evidence (model/evidence))
-(def asset-pending @{})
-(var asset-active 0)
-(var asset-waiting 0)
 (def automatic-spell-jobs @{})
 
 (defn needs-spell-data? [result]
@@ -86,23 +83,16 @@
   (assert (and (some |(= $ group) ["champion" "item" "spell" "passive" "rune"])
                (util/safe-id? file) (string/has-suffix? ".png" file)) "Invalid asset identifier.")
   (def path (string (package :directory) "/assets/" group "/" file))
-  (unless (os/stat path)
-    (assert (< asset-waiting 128) "Asset queue is full. Retry shortly.")
-    (++ asset-waiting)
-    (while (or (>= asset-active 8) (asset-pending path)) (ev/sleep 0.02))
-    (-- asset-waiting)
-    (unless (os/stat path)
-      (++ asset-active) (put asset-pending path true)
-      (def fetched (protect
-                     (def bytes (https/get-async (if (= group "rune") (details/rune-source package file)
-                                                   (string "https://ddragon.leagueoflegends.com/cdn/" (package :patch) "/img/" group "/" file)) (* 1024 1024)))
-                     (assert (string/has-prefix? "\x89PNG\r\n\x1a\n" bytes) "Provider asset is not PNG.")
-                     (assert (<= (+ (util/tree-size-async packages/data-dir) (* 8 1024 1024)) (packages/storage-limit)) "Data storage allowance reached.")
-                     (util/atomic-write path bytes)))
-      (-- asset-active) (put asset-pending path nil)
-      (unless (first fetched) (error (string (fetched 1))))))
-  (merge (response 200 (slurp path) "image/png")
-         {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}}))
+  (def outcome (asset-cache/fetch packages/data-dir path
+                                  (fn [] (if (= group "rune") (details/rune-source package file)
+                                           (string "https://ddragon.leagueoflegends.com/cdn/" (package :patch) "/img/" group "/" file)))
+                                  (packages/storage-limit)))
+  (if (= :ready (outcome :status))
+    (merge (response 200 (slurp path) "image/png")
+           {:headers {"Content-Type" "image/png" "Cache-Control" "public, max-age=31536000, immutable" "X-Content-Type-Options" "nosniff"}})
+    (do
+      (def unavailable (response 503 "Artwork unavailable. Retry shortly.\n" "text/plain; charset=utf-8"))
+      (merge unavailable {:headers (merge (unavailable :headers) {"Retry-After" (string (outcome :retry-after))})}))))
 
 (defn render-task [input progress cancelled]
   (when (cancelled) (error "Cancelled."))

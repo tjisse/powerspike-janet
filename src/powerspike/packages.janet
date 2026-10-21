@@ -5,6 +5,7 @@
 (import ./tooltip :as tooltip)
 (import ./objectives :as objectives)
 (import ./runes :as rune-data)
+(import ./storage :as storage)
 (import pshash :as hash)
 
 (var data-dir nil)
@@ -65,6 +66,7 @@
 
 (defn initialize [directory seed]
   (storage-limit)
+  (storage/initialize)
   (each key (keys loaded) (put loaded key nil))
   (set data-dir (util/mkdirs directory))
   (util/mkdirs (string data-dir "/patches"))
@@ -72,9 +74,13 @@
   (when (and seed (os/stat seed))
     (each version (os/dir seed)
       (when (and (util/version? version) (not (os/stat (string data-dir "/patches/" version "/current"))))
-        (util/copy-tree (string seed "/" version) (string data-dir "/patches/" version)))))
+        (storage/exclusive
+          (fn []
+            (when (and (not (os/stat (string data-dir "/patches/" version "/current")))
+                       (<= (+ (util/tree-size data-dir) (util/tree-size (string seed "/" version))) (storage-limit)))
+              (util/copy-tree (string seed "/" version) (string data-dir "/patches/" version))))))))
   (def patches (available))
-  (assert (not (empty? patches)) "No cached patches. Set PS_SEED_DIR to the installed seed data directory.")
+  (assert (not (empty? patches)) "No cached patches. Check PS_SEED_DIR and allow enough PS_DATA_LIMIT_MB space to import the seed.")
   (def candidates (if (some |(= default-version $) patches) [default-version ;patches] patches))
   (var selected nil)
   (each version candidates
@@ -90,7 +96,8 @@
   (when (first response)
     (def values (util/read-json (response 1)))
     (assert (and (indexed? values) (not (some |(not (util/version? $)) values))) "Invalid provider patch list.")
-    (util/atomic-write path (response 1)))
+    # Discovery must not make cached patches unusable when storage is full.
+    (protect (storage/write-async data-dir path (response 1) (storage-limit))))
   (if (os/stat path) (util/read-json (slurp path)) (available)))
 
 # Executed only on a background worker. Publish the current pointer last.
@@ -99,18 +106,14 @@
   (def request (or requester https/get))
   (def sources @[])
   (def missing @[])
-  (var downloaded 0)
   (def quota (storage-limit))
-  (def starting-size (util/tree-size data-dir))
   (defn obtain [url relative &opt optional]
     (when (cancelled) (error "Cancelled."))
     (def result (protect (request url cancelled)))
     (if (first result)
       (do
         (def bytes (result 1))
-        (+= downloaded (length bytes))
-        (assert (<= (+ starting-size downloaded) (- quota (* 8 1024 1024))) "Data storage allowance reached. Prune unused patches.")
-        (util/write (string staging "/" relative) bytes)
+        (storage/write data-dir (string staging "/" relative) bytes quota)
         (array/push sources {"url" url "path" relative "sha256" (hash/sha256 bytes)})
         (util/read-json bytes))
       (if optional (do (array/push missing (string "Unavailable source: " relative)) nil)
@@ -163,13 +166,11 @@
                 :objectives objective-records :coverage missing :sources sources})
   (def bytes (util/encode-data package))
   (def id (hash/sha256 bytes))
-  (util/write (string staging "/package.jdn") bytes)
-  (util/write (string staging "/manifest.json") (util/encode-json
-                                                  {"schema" 1 "patch" version "snapshot" id "parser" normalize/parser-version "package_sha256" id
-                                                   "sources" sources "downloaded_at" (os/time) "initial" false}))
+  (storage/write data-dir (string staging "/package.jdn") bytes quota)
+  (storage/write data-dir (string staging "/manifest.json") (util/encode-json
+                                                              {"schema" 1 "patch" version "snapshot" id "parser" normalize/parser-version "package_sha256" id
+                                                               "sources" sources "downloaded_at" (os/time) "initial" false}) quota)
   (when (cancelled) (error "Cancelled."))
   (def destination (directory version id))
-  (util/mkdirs (string data-dir "/patches/" version))
-  (if (os/stat destination) (util/remove-tree staging) (os/rename staging destination))
-  (util/atomic-write (string data-dir "/patches/" version "/current") id)
+  (storage/publish data-dir staging destination (string data-dir "/patches/" version "/current") id quota)
   {:patch version :snapshot id})

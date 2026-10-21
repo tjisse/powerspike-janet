@@ -1,6 +1,7 @@
 (import ./data-util :as util)
 (import ./packages :as packages)
 (import ./fitness-cache :as fitness)
+(import ./storage :as storage)
 (import pshash :as hash)
 (def records @{})
 (def queue @[])
@@ -82,7 +83,7 @@
 (defn fetch-task [input progress cancelled]
   (def staging (string packages/data-dir "/jobs/" (input :id) ".download"))
   (def result (protect (packages/fetch (input :patch) staging progress cancelled)))
-  (unless (first result) (util/remove-tree staging) (error (string (result 1))))
+  (unless (first result) (storage/remove staging) (error (string (result 1))))
   (result 1))
 (defn fetch-patch [patch]
   (assert (util/version? patch) "Invalid patch identifier.")

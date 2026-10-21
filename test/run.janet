@@ -50,7 +50,7 @@
 (test "Annie's attack speed ratio differs from base attack speed"
       (fn [] (near ((stats/total-stats annie 1 [boots]) :attack-speed) 0.7975)))
 (test "attack speed is capped"
-      (fn [] (near ((stats/total-stats garen 18 (map (fn [_] dagger) (range 100))) :attack-speed) 2.5)))
+      (fn [] (near ((stats/total-stats garen 18 (map (fn [_] dagger) (range 100))) :attack-speed) 3.0)))
 (test "stat aggregation does not mutate champion data"
       (fn [] (stats/total-stats garen 18 [ie]) (near ((garen :base) :ad) 69)))
 (test "critical chance uses fractions consistently"

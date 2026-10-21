@@ -1,4 +1,5 @@
 (import ./data-util :as util)
+(import ./attack-limits :as attack-limits)
 (import pshash :as hash)
 
 # Keep ordinary attack movement separate from spell cast timing and empowered
@@ -219,17 +220,22 @@
                 :limitations [;(filter |(not (some (fn [note] (= $ note))
                                                    ["Attack-speed cap 2.5, windup 30% and projectile travel zero are assumptions."
                                                     "Attack-speed cap 2.5 and windup 30% remain estimates."
-                                                    "Attack-speed cap 2.5 remains an estimate."]))
+                                                    "Attack-speed cap 2.5 remains an estimate."
+                                                    "Windup 30% and projectile travel zero are assumptions."
+                                                    "Windup 30% remains an estimate."]))
                                        (get kit :limitations []))
-                              (if windup "Attack-speed cap 2.5 remains an estimate."
-                                "Attack-speed cap 2.5 and windup 30% remain estimates.")]})
+                              ;(attack-limits/notes (kit :patch)
+                                                    [(if windup "Attack-speed cap 2.5 remains an estimate."
+                                                       "Attack-speed cap 2.5 and windup 30% remain estimates.")])]})
     (tabseq [[key value] :pairs kit :when (not= key :attack-projectile)] key value)))
 
 (defn apply-profile [champion patch kit]
   (def movement (profile champion patch))
   (def windup (windup-profile champion patch))
   (def corrected (merge (tabseq [[key value] :pairs kit :when (not= key :attack-windup)] key value)
-                        {:attack-style (attack-style champion patch (kit :attack-style))}
+                        {:patch patch :attack-style (attack-style champion patch (kit :attack-style))}
+                        (if-let [cap (attack-limits/cap (merge kit {:patch patch}))] {:attack-speed-cap cap} {})
                         (if windup {:attack-windup windup} {})
                         (if-let [range (attack-range champion patch (kit :attack-range))] {:attack-range range} {})))
-  (apply-projectile corrected movement windup))
+  (def projected (apply-projectile corrected movement windup))
+  (merge projected {:limitations (attack-limits/notes patch (get projected :limitations []))}))

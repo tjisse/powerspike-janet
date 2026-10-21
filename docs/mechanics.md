@@ -54,7 +54,7 @@ Structured item stats supply flat values, crit chance and attack speed where ava
 
 For level L, growth factor is `(L - 1) * (0.7025 + 0.0175 * (L - 1))`. It is zero at level 1, 0.72 at level 2, and 17 at level 18. AD gained through levels belongs to base AD, not bonus AD.
 
-Attack speed is `base-AS + ratio * (growth-bonus + item-bonus)`, bounded by the champion's configured cap. The curated champions use 2.5; this is not a universal rule for every champion or buff.
+Attack speed is `base-AS + ratio * (growth-bonus + item-bonus)`, bounded by the champion's configured cap. The 16.19.1 model uses [Riot's published 3.0 baseline](attack-speed-cap.md), including when older retained records declare the generic 2.5 assumption. Uncapped speed remains available for temporary-buff recalculation. Special champion and rune cap overrides require their own handlers.
 
 Expected basic-attack raw damage is `AD * (1 + crit-chance * (crit-multiplier - 1))`. Crit chance is capped at one. This evaluates mean damage; it does not reproduce League's finite-sequence crit randomness.
 

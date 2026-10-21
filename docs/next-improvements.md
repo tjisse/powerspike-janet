@@ -9,7 +9,11 @@ diagnostics remain in the developer tools.
    empowered attacks, review the remaining 30% windup assumption, and resolve
    ranged Spellblade consumption at launch versus impact. Use matching-patch sources
    and reviewed replay context; retain discrepancies instead of fitting timing
-   to the desired result. Finish with reproducible release/impact cases before
+   to the desired result. The [baseline attack-speed cap correction](attack-speed-cap.md)
+   now replaces the old 2.5 assumption with Riot's published 3.0 baseline on
+   16.19.1, across cached data, temporary buffs, both actors and optimization.
+   Windup values and special cap rules still need their own review.
+   Finish with reproducible release/impact cases before
    expanding the projectile profiles. The first [source-level corrections](attack-timing.md)
    now supply Ahri's reviewed windup and resolve Annie's projectile fields;
    the [Viktor follow-up](viktor-attacks.md) adds ordinary projectile travel while

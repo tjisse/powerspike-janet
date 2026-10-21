@@ -3,6 +3,7 @@
 (import pshash :as hash)
 (import ./data-util :as util)
 (import ./attacks :as attacks)
+(import ./attack-limits :as attack-limits)
 
 (def parser-version expr/parser-version)
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
@@ -99,12 +100,12 @@
    :attack-speed-base (number-field root "attackSpeedModifiable" (get dd "attackspeed" 0.625))
    :attack-speed-ratio (number-field root "attackSpeedRatioModifiable" (get dd "attackspeed" 0.625))
    :attack-speed-growth (/ (number-field root "attackSpeedPerLevelModifiable" (get dd "attackspeedperlevel" 0)) 100)
-   :attack-speed-cap 2.5 :crit-damage (number-field root "critDamageMultiplier" 1.75)
+   :attack-speed-cap (or (attack-limits/baseline patch) 2.5) :crit-damage (number-field root "critDamageMultiplier" 1.75)
    :attack-range (get dd "attackrange" 125)
    :attack-style (attacks/style-from-identities (get root "purchaseIdentities" []))
-   :limitations [(if (empty? root) "Character record unavailable; Data Dragon fallback stats." "Character root supplies base stats; ability coverage is reported separately.")
-                 "Special champion attack rules and transformations require handlers."
-                 "Attack-speed cap 2.5 and windup 30% remain estimates."]})
+   :limitations (attack-limits/notes patch [(if (empty? root) "Character record unavailable; Data Dragon fallback stats." "Character root supplies base stats; ability coverage is reported separately.")
+                                            "Special champion attack rules and transformations require handlers."
+                                            "Attack-speed cap 2.5 and windup 30% remain estimates."])})
 
 (defn spell-paths [id root]
   # Current references take precedence over legacy names and old extracted spells.

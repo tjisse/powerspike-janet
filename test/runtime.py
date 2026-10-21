@@ -309,6 +309,29 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                 [str(binary), '--simulate', str(rune_input)], cwd=cwd, env=configuration(), text=True, timeout=10))
             assert abs(rune_result['metrics']['damage'] - float(rune_page.timeline['data-total'])) < 1e-6
             rune_input.unlink()
+            # The relocated binary repairs old seed caps without modifying its
+            # retained snapshot, and exports the same capped fight used by CLI.
+            fast_fields = {'mode':'practice', 'champion':'Gnar', 'form':'mini', 'selected':'custom',
+                           'level':18, 'duration':1.2, 'samples':1, 'seed':7, 'abilities':'false',
+                           'movement':'hold', 'distance':0, 'targethealth':1000000,
+                           'snapshot':retained, 'snapshotlocked':'true'}
+            fast_fields.update({f'slot{index}':item for index,item in enumerate(['3046','3115','3091','3032','2512','6675'],1)})
+            _, fast_raw = get(base, '/?'+urllib.parse.urlencode(fast_fields))
+            fast_page = Page()
+            fast_page.feed(fast_raw.decode())
+            fast_file = cwd/'attack-limit.json'
+            fast_file.write_text(fast_page.scenario['data-json'])
+            fast_result = json.loads(subprocess.check_output([str(binary), '--simulate', str(fast_file)],
+                cwd=cwd, env=configuration(), text=True, timeout=10))
+            assert fast_result['actors'][0]['attack-speed-cap'] == 3
+            assert fast_result['actors'][0]['stats']['attack-speed'] == 3
+            assert fast_result['actors'][0]['stats']['attack-speed-uncapped'] > 3
+            fast_hits = [event for event in fast_result['events'] if event['source']=='attack']
+            assert len(fast_hits) == 4
+            for index,event in enumerate(fast_hits):
+                assert abs(event['at']-(.3/3+index/3)) < 1e-6
+            assert abs(fast_result['metrics']['damage']-float(fast_page.timeline['data-total'])) < 1e-6
+            fast_file.unlink()
             for path in ['/assets/champion/Ahri.png', '/assets/champion/MonkeyKing.png',
                          '/assets/item/222051.png', '/assets/spell/AnnieQ.png']:
                 headers, image = get(base, path)

@@ -72,6 +72,16 @@
   (def capped (run 0.15 {:stats (merge (unit :stats) {:attack-speed (min raw 2.5) :attack-speed-uncapped raw})}))
   (close expected (stat capped :attack-speed))
   (close (+ raw 0.25) (stat capped :attack-speed-uncapped)))
+# The explicit synthetic 2.5 cap above remains a control. Current-patch actors
+# receive the reviewed 3.0 baseline, including priming, consumption and expiry.
+(each [raw expected] [[2.4 2.65] [2.9 3] [3.2 3]]
+  (def fields {:attack-speed-cap 3 :stats (merge (unit :stats) {:attack-speed (min raw 3) :attack-speed-uncapped raw})})
+  (def capped (run 0.15 fields))
+  (close expected (stat capped :attack-speed))
+  (close (+ raw 0.25) (stat capped :attack-speed-uncapped))
+  (close (+ 0.1 (/ 0.3 expected)) ((first (sourced (run 2 fields) "attack")) :at))
+  (close (min raw 3) (stat (run 2 fields) :attack-speed))
+  (close (min raw 3) (stat (run 10.2 (merge fields {:strategy no-attacks})) :attack-speed)))
 (def missed (run 2 {:strategy (merge (unit :strategy) {:hit-chance 0})}))
 (assert (empty? (sourced missed "item/3100/hit")))
 (close 1.75 (stat missed :attack-speed))

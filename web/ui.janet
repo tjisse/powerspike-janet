@@ -208,7 +208,7 @@
    [:summary [:span "Opponent & fight"] [:span {:class "muted"} (state :mode) " · " (state :duration) " s"]]
    [:div {:class "tactics-grid"}
     [:label {:for "duration"} "Combat window (seconds)"
-     [:input {:form "scenario" :id "duration" :name "duration" :type "number" :min "0.5" :max "120" :step "0.5"
+     [:input {:form "scenario" :id "duration" :name "duration" :type "number" :min "0.5" :max "120" :step "any"
               :required true :value (state :duration) :data-bind:duration true}]]
     [:label {:for "mr"} "Target magic resistance"
      [:input {:form "scenario" :id "mr" :name "mr" :type "number" :min "0" :max "1000" :step "1"

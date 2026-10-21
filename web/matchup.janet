@@ -201,7 +201,7 @@
    [:div {:class "matchup-cards"} (champion-card result false) (champion-card result true)]])
 (defn fightbar [result]
   [:div {:id "matchup-fightbar" :class "matchup-fightbar"}
-   (input "duration" "Duration (s)" (get-in result [:state :duration]) 0.5 120 0.5)
+   (input "duration" "Duration (s)" (get-in result [:state :duration]) 0.5 120 "any")
    [:button {:type "button" :class "quiet-action matchup-swap js-only" :data-swap-champions true
              :data-attr:disabled "$busy"} "⇄ Swap champions"]
    [:button {:type "button" :class "quiet-action matchup-jump" :data-matchup-jump true} "Results ↓"]

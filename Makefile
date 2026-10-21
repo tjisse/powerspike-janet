@@ -62,6 +62,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-cadence.janet
+	JANET_PATH=build/web-modules $(JANET) test/attack-limits.janet
 	JANET_PATH=build/web-modules $(JANET) test/ability-readiness.janet
 	JANET_PATH=build/web-modules $(JANET) test/control-resumption.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-resets.janet

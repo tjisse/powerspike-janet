@@ -762,6 +762,8 @@ def verify(base):
         browser = p.chromium.launch(headless=True)
         from report_browser import verify as verify_reports
         verify_reports(browser, base)
+        from attack_limit_browser import verify as verify_attack_limits
+        verify_attack_limits(browser, base)
         from catalog_browser import verify as verify_catalogs
         verify_catalogs(browser, base)
         from champion_browser import verify as verify_champion_configs

@@ -9,6 +9,7 @@
 (import ./validation :as v)
 (import ./data-util :as util)
 (import ./attacks :as attacks)
+(import ./attack-limits :as attack-limits)
 (import ./forms :as forms)
 (import pshash :as hash)
 (import ../../data/16.19.1/annie :as annie)
@@ -84,7 +85,7 @@
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
    :form (champion :form) :form-name (champion :form-name)
    :form-resistance (champion :form-resistance)
-   :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (champion :attack-speed-cap)
+   :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (attack-limits/cap champion)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :windup-fraction (get-in champion [:attack-windup :fraction] 0.3)
    :base (merge (stats/base-stats champion level) {:ap 0 :attack-speed (champion :attack-speed-base) :attack-range (champion :attack-range)

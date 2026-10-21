@@ -1,4 +1,5 @@
 (import ./validation :as v)
+(import ./attack-limits :as attack-limits)
 
 (def flat-stats [:hp :mp :ad :ap :armor :mr :hp-regen :mp-regen :move-speed])
 (def percent-stats [:armor-pen-percent :magic-pen-percent])
@@ -79,7 +80,7 @@
   (v/nonnegative (result :magic-pen-flat) "flat magic penetration")
   (def raw-as (+ (champion :attack-speed-base)
                  (* (champion :attack-speed-ratio) bonus-as)))
-  (put result :attack-speed (max 0 (min raw-as (champion :attack-speed-cap))))
+  (put result :attack-speed (max 0 (min raw-as (attack-limits/cap champion))))
   (put result :attack-speed-uncapped raw-as)
   (put result :attack-speed-bonus bonus-as)
   (def raw-ms (* (result :move-speed) (+ 1 move-bonus)))

@@ -11,6 +11,8 @@
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
                                    (slurp "src/powerspike/normalize.janet")
                                    (slurp "src/powerspike/attacks.janet")
+                                   (slurp "src/powerspike/attack-limits.janet")
+                                   (slurp "data/attack-fixtures/16.19.1/reviewed-speed-cap.jdn")
                                    (slurp "src/powerspike/forms.janet")
                                    (slurp "data/form-fixtures/16.19.1/manifest.json")
                                    (slurp "data/form-fixtures/16.19.1/Nidalee-characters.json")

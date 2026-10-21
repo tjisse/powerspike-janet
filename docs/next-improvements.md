@@ -1,4 +1,4 @@
-# Next improvements after v0.21.0
+# Next improvements after v0.22.0
 
 The order below prioritizes trustworthy build and fight comparisons, then the
 remaining work needed for a small player beta. Players continue to see a clear
@@ -27,7 +27,14 @@ inspection and accessible recommendations down to 320 px.
 `test/messages_browser.py` checks shared prompts, simultaneous action visibility,
 layout stability, direct reruns and error recovery.
 
-1. **Attack timing and projectile behavior.** Measure isolated ordinary and
+1. **Patch accuracy and readiness.** Broaden the retained refreshed-patch checks
+   beyond the default Annie/Garen matchup. Compare interpreted formulas and
+   actual learned-ability execution for common matchups, both champion sides
+   and optimizer results. Report unresolved mappings and missing effects in
+   developer checks before treating a new patch as ready. Keep refresh and
+   reparse explicit; do not introduce automatic migrations or silently repair
+   pinned snapshots.
+2. **Attack timing and projectile behavior.** Measure isolated ordinary and
    empowered attacks, review the remaining 30% windup assumption, and resolve
    ranged Spellblade consumption at launch versus impact. Use matching-patch sources
    and reviewed replay context; retain discrepancies instead of fitting timing
@@ -81,7 +88,7 @@ layout stability, direct reruns and error recovery.
    ordering, exceptional interactions, exact release timing and complete
    expiry/refresh context remain next. A two-replay shield screen found no
    positive overlap with observed Riposte windows; it leaves ordering unresolved.
-2. **Level and form transitions.** Kayle's [fixed-level attack type and range](kayle-levels.md)
+3. **Level and form transitions.** Kayle's [fixed-level attack type and range](kayle-levels.md)
    now drive both participants and supported item scaling on 16.19.1, with her
    remaining passive effects explicit. Nidalee now has [fixed Human/Cougar forms](nidalee-forms.md)
    for ordinary attacks and supported item scaling. Jayce now has [fixed Hammer/Cannon forms](jayce-forms.md),
@@ -98,12 +105,12 @@ layout stability, direct reruns and error recovery.
    now corrects named and hashed stat-progression flags, including retained
    cached formulas. Gnar's fixed-form stats were already correct. The remaining
    passive triggers and automatic transitions still require their own evidence.
-3. **Broader combat regression evidence.** Expand reviewed comparisons across
+4. **Broader combat regression evidence.** Expand reviewed comparisons across
    independent games and common build decisions: armor/penetration, critical
    hits, current-health on-hits, shields and changing health. Keep exact patch
    and model identities, pre-hit inputs, mismatches and exclusions. Decoder
    agreement and aggregate totals remain separate from model accuracy.
-4. **Comparison usability and visual polish.** Exercise component purchases,
+5. **Comparison usability and visual polish.** Exercise component purchases,
    completed-item swaps, equal-gold alternatives and survival tradeoffs. Make
    the reason for a difference easy to inspect and keep controls, explanations
    and comparisons readable on mobile. Preserve reproducible scenario exports
@@ -126,7 +133,7 @@ layout stability, direct reruns and error recovery.
    [Champion configurations](champion-configurations.md) now add four reusable
    browser save slots and an atomic side swap, preserving forms, ranks, item
    positions and strategies while keeping the completed fight until a rerun.
-5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
+6. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before
    treating deployment behavior as covered. The [local concurrency audit](timeline-and-concurrency.md)
@@ -159,7 +166,7 @@ layout stability, direct reruns and error recovery.
    remains a performance improvement opportunity.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
    usage remain beta checks.
-6. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)
+7. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)
    now provide local report downloads with the completed scenario, pinned items,
    player notes and recorded outcomes. The existing importer reproduces both
    builds without treating those recorded outcomes as inputs. Collect concrete

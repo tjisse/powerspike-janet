@@ -33,7 +33,7 @@ layouts must fit. A separate touch context checks actual ability artwork,
 event selection and the 44-pixel timeline control. Screenshots support visual
 review. Browser storage is confined to these disposable contexts.
 
-## Observed deployment results, 21 October 2026
+## v0.20.1 deployment baseline, 21 October 2026
 
 The deployed model matched v0.20.1. Two-client simulation isolation, exact SSE
 reproduction, cancellation, save/load, swap, timeline artwork and responsive
@@ -51,11 +51,10 @@ delay:
 | Duel, 5 seconds, one trial | 10.720 s | 11.055 s | 3,579,832 |
 | Application CSS | 0.134 s | 0.136 s | 50,649 |
 
-The next priority is profiling page generation and reducing the initial catalog
-payload. These observations do not identify the exact slow function or separate
-origin time from proxy time. The source currently renders the entire item
-catalog and its detail payloads into each page; that is a profiling candidate,
-not a measured attribution of the delay.
+These observations prompted profiling page generation and reducing the initial
+catalog payload. At that point the source rendered the entire item catalog and
+its detail payloads into each page. The subsequent retained-data profile and
+implementation are documented in [catalog loading](catalog-loading.md).
 
 The edge rejected the default Python user agent with HTTP 403/error 1010, while
 Chromium and the explicitly named smoke-check user agent succeeded. The helper
@@ -66,3 +65,41 @@ ordinary browser interactions, rather than establishing peak throughput or
 long-lived stream flushing. Controlled provider outages, cold refreshes,
 quota exhaustion and longer-running memory/disk behavior through the proxy
 remain staging/deployment checks. No game-mechanics evidence is added.
+
+## v0.21.0 deployment follow-up, 21 October 2026
+
+After the upgrade, the same bounded hosted smoke passed simulation isolation,
+exact SSE reproduction, own-job cancellation, champion save/load, swapping,
+timeline artwork and desktop/touch layouts. Five browser SSE responses passed
+content-type/cache-policy checks with zero JavaScript errors. Four health probes
+had a maximum observed response time of 0.469 seconds. The concurrent page check
+took 6.662 seconds to first byte; its SSE rerun took 1.161 seconds. The combat
+model still matched the release fingerprint.
+
+A separate disposable browser context confirmed the declared release was
+0.21.0 and that item cards were absent before opening the catalog. The first
+open loaded 870 items; reopening reused them with one catalog request in total.
+Search found Amplifying Tome. A local report download included the completed
+workspace and observed outcomes exactly, declared release 0.21.0, and omitted
+the page origin. The mobile report and desktop catalog screenshots were
+visually reviewed. No report was submitted.
+
+Three sequential warm requests per case produced:
+
+| Request | Median first byte | First-byte range | HTML bytes |
+| --- | ---: | ---: | ---: |
+| Practice, 3 seconds, one trial | 3.072 s | 2.929–3.129 s | 531,662 |
+| Duel, 5 seconds, one trial | 4.459 s | 4.118–4.665 s | 682,616 |
+
+The new sequential cases used a level-six Annie practice scenario and an
+Annie versus Cougar Nidalee duel, with fixed seeds and cached snapshots.
+Page configurations differ from the earlier sequential baseline; these timings
+are small live samples. Initial pages are substantially smaller and faster than
+the earlier 9–11-second observations, while 3–5-second warm first-byte times
+still leave room for further work. The retained local benchmark provides the
+controlled before/after comparison for the catalog change.
+
+All live-check scripts, logs, downloaded reports and screenshots stayed under
+temporary directories outside the checkout. Only this origin-free summary is
+retained. The throughput, long-running resource use and controlled outage limits
+of the original smoke check still apply.

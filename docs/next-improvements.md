@@ -125,8 +125,12 @@ diagnostics remain in the developer tools.
    The [lazy catalog follow-up](catalog-loading.md) now removes eager closed
    dialog rendering, reducing the retained page from 3.37 MB to 0.63 MB and
    local page generation from about 2.9 seconds to 0.9 seconds. It preserves
-   exact-snapshot selection, server tooltip values and native forms. Verify the
-   improvement through the public proxy after deployment.
+   exact-snapshot selection, server tooltip values and native forms. A
+   [v0.21.0 deployment follow-up](hosted-smoke.md#v0210-deployment-follow-up-21-october-2026)
+   now confirms live catalog reuse, local report downloads and smaller initial
+   pages. Three warm samples per case observed median first-byte times of
+   3.072 seconds for practice and 4.459 seconds for a duel; initial loading
+   remains a performance improvement opportunity.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
    usage remain beta checks.
 6. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)

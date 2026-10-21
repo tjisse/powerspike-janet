@@ -6,6 +6,10 @@
   const format = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value || 0);
   const tabs = new Map(), expanded = new Map(), undo = new Map(), lockState = new Map();
   const unavailableIcons = new Set();
+  const championSlotsKey = 'powerspike.champions.v1';
+  const commandFields = new Set(['championaction', 'championwho', 'championjson']);
+  let configurationPending = false;
+  let championActionPending = false;
   let baseline = null, pending = null, identity = '', result = null, rows = [], events = [];
   let time = 0, metric = 'health', selected = null, narrow = null, scheduled = false;
   const node = (tag, className, text) => {
@@ -17,7 +21,7 @@
   function configuration() {
     const form = $('#scenario');
     if (!form) return '';
-    const values = new Map(new FormData(form));
+    const values = new Map([...new FormData(form)].filter(([name]) => !commandFields.has(name)));
     for (const field of form.elements) if (field.type === 'checkbox') values.set(field.name, String(field.checked));
     return JSON.stringify([...values].sort(([a], [b]) => a.localeCompare(b)));
   }
@@ -36,11 +40,79 @@
     field.dispatchEvent(new Event('input', {bubbles: true}));
   }
   function refreshConfiguration() {
+    configurationPending = true;
     requestAnimationFrame(() => {
       dirty();
       app.dispatchEvent(new Event('configurationchange'));
     });
   }
+  function championStatus(message) {
+    $('#champion-slots-status').textContent = message;
+  }
+  function championSlots() {
+    const text = localStorage.getItem(championSlotsKey);
+    if (!text) return [null, null, null, null];
+    if (text.length > 80000) throw new Error('Champion save collection exceeds its allowance.');
+    const value = JSON.parse(text);
+    if (value.version !== 1 || !Array.isArray(value.slots) || value.slots.length !== 4 || value.slots.some(entry =>
+      entry !== null && (typeof entry.name !== 'string' || entry.name.length > 80 || typeof entry.document !== 'string' || entry.document.length > 16384))) {
+      throw new Error('Champion save slots are invalid. Your saved data has been kept.');
+    }
+    return value.slots;
+  }
+  function currentChampion(who) {
+    if (configurationPending || !document.forms.scenario.reportValidity() || app.classList.contains('is-pending')) {
+      throw new Error('Wait for valid champion details to finish updating before saving or loading.');
+    }
+    return JSON.parse($('#champion-configurations').dataset.json)[who];
+  }
+  function writeChampionSlots(slots) {
+    const bytes = JSON.stringify({version: 1, slots});
+    if (new TextEncoder().encode(bytes).length > 128 * 1024) throw new Error('Champion save allowance reached.');
+    localStorage.setItem(championSlotsKey, bytes);
+  }
+  function populateChampionSlots() {
+    const slots = championSlots(), dialog = $('#champion-slots-dialog'), who = dialog.dataset.who;
+    const current = JSON.parse($('#champion-configurations').dataset.json)[who];
+    $('#champion-slots-title').textContent = `${$(`#${who}-card`).dataset.name} · Champion save slots`;
+    $('#champion-slots-description').textContent = `Save this configuration or load a slot onto ${who === 'player' ? 'your champion' : 'the opponent'}.`;
+    $('#champion-slots-list').replaceChildren(...slots.map((entry, index) => {
+      const row = node('section', 'champion-save-slot');
+      const label = node('label', '', `Slot ${index + 1}`), name = node('input');
+      name.type = 'text'; name.maxLength = 80; name.placeholder = 'Name this configuration'; name.value = entry?.name || '';
+      name.id = `champion-slot-name-${index}`; label.htmlFor = name.id; label.append(name); row.append(label);
+      let compatible = false;
+      if (entry) {
+        const saved = JSON.parse(entry.document);
+        compatible = saved.patch === current.patch && saved.snapshot === current.snapshot;
+        const summary = node('p', 'muted', `${saved.champion?.champion || 'Champion'} · Level ${saved.champion?.level || '—'} · Patch ${saved.patch || 'unknown'}`);
+        if (!compatible) summary.append(node('span', '', ' · Switch to the saved patch snapshot to load.'));
+        row.append(summary);
+      } else row.append(node('p', 'muted', 'Empty slot'));
+      const actions = node('div', 'champion-slot-actions');
+      for (const [action, caption] of [['save', entry ? 'Replace' : 'Save here'], ['load', 'Load'], ['clear', 'Clear']]) {
+        const button = node('button', '', caption); button.type = 'button'; button.dataset.championSlotAction = action;
+        button.dataset.slot = index; button.setAttribute('aria-label', `${caption} slot ${index + 1}`);
+        button.disabled = action === 'load' ? !entry || !compatible : action === 'clear' && !entry;
+        actions.append(button);
+      }
+      row.append(actions); return row;
+    }));
+  }
+  function applyChampionAction(action, who, documentText = '') {
+    currentChampion(who);
+    undo.clear(); lockState.clear();
+    setField('championaction', action); setField('championwho', who); setField('championjson', documentText);
+    configurationPending = true;
+    championActionPending = true;
+    app.dispatchEvent(new Event('championconfigure'));
+  }
+  document.addEventListener('datastar-fetch', event => {
+    if (championActionPending && event.detail.type === 'finished' && event.detail.el === app) {
+      championActionPending = false; configurationPending = false;
+      if ($('#config-status')?.textContent.trim()) $('#champion-action-status').textContent = $('#config-status').textContent;
+    }
+  });
   function cards() {
     // Fragment parsers can turn noscript fallback selects into live form
     // controls. Keep those duplicates out of the JavaScript configuration.
@@ -88,7 +160,10 @@
     $('#optimizer-dialog').dataset.who = who;
   }
   document.addEventListener('input', event => {
-    if (event.target.form?.id === 'scenario') requestAnimationFrame(dirty);
+    if (event.target.form?.id === 'scenario') {
+      if (!commandFields.has(event.target.name)) configurationPending = true;
+      requestAnimationFrame(dirty);
+    }
   });
   document.addEventListener('change', event => {
     if (event.target.form?.id === 'scenario') refreshConfiguration();
@@ -106,6 +181,33 @@
   document.addEventListener('click', event => {
     const button = event.target.closest('button');
     if (!button) return;
+    if (button.dataset.championSlots) {
+      const dialog = $('#champion-slots-dialog'); dialog.dataset.who = button.dataset.championSlots;
+      dialog.showModal(); championStatus('');
+      try { populateChampionSlots(); } catch (error) { championStatus(error.message); }
+    }
+    if (button.hasAttribute('data-close-champion-slots')) $('#champion-slots-dialog').close();
+    if (button.dataset.championSlotAction) {
+      try {
+        const slots = championSlots(), index = Number(button.dataset.slot), action = button.dataset.championSlotAction;
+        const who = $('#champion-slots-dialog').dataset.who;
+        if (action === 'save') {
+          const document = currentChampion(who);
+          const name = $(`#champion-slot-name-${index}`).value.trim() || `${document.champion.champion} · Level ${document.champion.level}`;
+          slots[index] = {name, document: JSON.stringify(document)};
+          writeChampionSlots(slots); populateChampionSlots(); championStatus(`Saved ${name} in slot ${index + 1}.`);
+        } else if (action === 'clear') {
+          slots[index] = null; writeChampionSlots(slots); populateChampionSlots(); championStatus(`Slot ${index + 1} cleared.`);
+        } else if (action === 'load') {
+          if (!slots[index]) throw new Error('Choose a saved champion.');
+          applyChampionAction('load', who, slots[index].document); $('#champion-slots-dialog').close();
+        }
+      } catch (error) { championStatus(error.message); }
+    }
+    if (button.hasAttribute('data-swap-champions')) {
+      try { applyChampionAction('swap', 'player'); }
+      catch (error) { $('#champion-action-status').textContent = error.message; }
+    }
     if (button.dataset.tab) { tabs.set(button.dataset.who, button.dataset.tab); cards(); }
     if (button.dataset.collapse) { const who = button.dataset.collapse; expanded.set(who, !expanded.get(who)); cards(); }
     if (button.hasAttribute('data-matchup-jump')) $('#results').scrollIntoView({block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
@@ -264,6 +366,17 @@
   new MutationObserver(records => {
     if (records.some(record => ['data-run-id', 'data-matchup-result'].includes(record.attributeName) || [...record.addedNodes].some(n => n.nodeType === 1 && (['loadout-tray', 'results'].includes(n.id) || n.querySelector?.('#loadout-tray,#results'))))) schedule();
   }).observe(app, {childList: true, subtree: true, attributes: true, attributeFilter: ['data-run-id', 'data-matchup-result']});
+  new MutationObserver(records => {
+    if (records.some(record => ['configuration-data', 'champion-configurations'].includes(record.target.id) ||
+      [...record.addedNodes].some(n => n.nodeType === 1 && (n.id === 'loadout-tray' || n.querySelector?.('#configuration-data'))))) {
+      configurationPending = false;
+    }
+  }).observe(app, {childList: true, subtree: true, attributes: true, attributeFilter: ['data-json']});
+  window.addEventListener('storage', event => {
+    if ((event.key === championSlotsKey || event.key === null) && $('#champion-slots-dialog')?.open) {
+      try { populateChampionSlots(); championStatus('Save slots updated from another tab.'); } catch (error) { championStatus(error.message); }
+    }
+  });
   new ResizeObserver(schedule).observe(app);
   requestAnimationFrame(update);
 })();

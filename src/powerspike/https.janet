@@ -10,7 +10,9 @@
                   {:url url :method :get
                    :options {:protocols "https" :followlocation false :ssl-verifypeer true :ssl-verifyhost 2
                              :connecttimeout-ms 5000 :timeout-ms 45000 :maxfilesize maximum
-                             :useragent "Mozilla/5.0 PowerSpike/2" :nosignal true}
+                             :useragent "Mozilla/5.0 PowerSpike/2" :nosignal true
+                             :noprogress (not cancelled)
+                             :xferinfofunction (fn [& counts] (not (and cancelled (cancelled))))}
                    :stream (fn [bytes]
                              (if (or (and cancelled (cancelled)) (> (+ (length output) (length bytes)) maximum))
                                0 (do (buffer/push output bytes) (length bytes))))}))

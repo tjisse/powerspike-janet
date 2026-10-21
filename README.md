@@ -16,6 +16,8 @@ Open **http://localhost:8090**. The first run builds the local Janet runtime if 
 
 Select a champion and an opponent. Each panel has an independent level, six item slots, runes, shards, summoner spells, skill order and attack priority. The panels sit side by side on desktop and collapse into editable summaries on mobile. Item searches open beside each inventory: set a budget, keep selected items, compare the current and proposed builds, and apply or undo the item changes. The opposing champion's configuration stays fixed during a search.
 
+Open **Champion save slots** on either card to save the current configuration in one of four named browser-local slots. Slots can load onto either side and preserve level, form, inventory positions, runes, summoners and combat settings. Loading requires the same patch snapshot. **Swap champions** exchanges both complete configurations while keeping the shared fight settings. Loading and swapping leave the completed fight visible until **Run matchup**. See [champion configuration notes](docs/champion-configurations.md).
+
 Edits update build stats without simulating combat. **Run matchup** updates the shared health or damage graph; the previous result is marked when its configuration is outdated. The outcome and graph describe trial zero, with health shown as both HP and percentage. Select a combat event or inspect a time to see damage, healing, shielding and control from either champion. Timeline markers show the completed snapshot's ability/item/rune artwork and each attacker's portrait, with readable text when artwork is unavailable. Detailed champion and fight settings are collapsed by default. Champion defenses come from their builds; duel setup has no separate target-health or resistance inputs. Saved practice, objective and reference scenarios retain their existing controls.
 
 The item picker defaults to Summoner's Rift shop entries; **All modes & special items** exposes the full sandbox catalog. Other-mode, unavailable and champion-restricted items remain selectable and appear in coverage notes. Catalog availability flags are unvalidated.
@@ -65,6 +67,8 @@ make rpm                    # Tests, build, then x86_64 RPM on an x86_64 builder
 ```
 
 The build requires Git, a C compiler, Make, Python 3, ripgrep, libcurl development headers and OpenSSL development headers; RPM packaging also requires `rpmbuild`, `readelf` and standard archive tools. Dependencies are pinned in `web/deps.lock` and the Janet bootstrap. The formatter excludes downloaded dependencies, generated build output and data-only `.jdn` snapshots. `make test` and `make test-web` enforce formatting.
+
+The provider regression in `make test-web` also uses the `openssl` executable to generate an ephemeral certificate for a local TLS fixture. It exercises outages and idle cancellation without contacting a game-data provider.
 
 Set `PS_PORT` at runtime, for example `PS_PORT=8765 make serve` or `PS_PORT=8765 dist/bin/powerspike`. `--port` overrides the environment; `PS_HOST` / `--host` configure the listen address. The default is `127.0.0.1:8090`. Invalid ports fail startup.
 

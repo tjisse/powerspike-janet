@@ -48,9 +48,11 @@ serve: build/web-ready
 test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/web.janet
 	JANET_PATH=build/web-modules $(JANET) test/matchup.janet
+	JANET_PATH=build/web-modules $(JANET) test/champion-configs.janet
 	JANET_PATH=build/web-modules $(JANET) test/patch-upgrades.janet
 	JANET_PATH=build/web-modules $(JANET) test/packages.janet
 	JANET_PATH=build/web-modules $(JANET) test/job-queue.janet
+	$(PYTHON) test/https.py --janet $(JANET)
 	JANET_PATH=build/web-modules $(JANET) test/parser.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet

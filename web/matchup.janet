@@ -2,6 +2,7 @@
 (import ./catalog :as catalog)
 (import ./model :as model)
 (import ./details :as details)
+(import ./champion-configs :as champion-configs)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/runes :as rune-data)
 (import ../src/powerspike/forms :as forms)
@@ -146,7 +147,8 @@
      [:button {:type "button" :class "matchup-collapse js-only" :data-collapse who :aria-controls (string who "-loadout") :aria-expanded "true"} "Collapse −"]]
     [:div {:class "matchup-mini" :aria-label "Inventory summary"}
      (map (fn [id] (if (= id "") [:span {:class "mini-empty"}] (icon package "item" id (get-in package [:item-map id :name] id)))) chosen)
-     [:span {:class "muted"} (text-number cost) " gold"]]]
+     [:span {:class "muted"} (text-number cost) " gold"]]
+    [:button {:type "button" :class "quiet-action champion-slots-open js-only" :data-champion-slots who} "Champion save slots"]]
    [:div {:id (string who "-loadout") :class "matchup-loadout"}
     [:div {:class "matchup-tabs" :role "tablist" :aria-label (string (champion :name) " customization")}
      (map (fn [[tab caption]] [:button {:type "button" :role "tab" :id (string who "-tab-" tab) :aria-controls (string who "-panel-" tab)
@@ -179,12 +181,17 @@
    [:span {:id "configuration-data" :hidden true
            :data-json (json/encode {:format "powerspike-scenario" :version 1
                                     :scenario (or (result :definition) (get-in result [:selected :combat :scenario]))})}]
+   [:span {:id "champion-configurations" :hidden true
+           :data-json (json/encode (champion-configs/documents
+                                     (or (result :definition) (get-in result [:selected :combat :scenario]))
+                                     (ids result false) (ids result true)))}]
    [:form {:id "scenario" :method "get" :action "/" :class "matchup-form"
            :data-on:submit__prevent "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
     [:input {:type "hidden" :name "nativeform" :value "true"}]
     (map (fn [[name value]] [:input {:type "hidden" :name name :value value :data-bind name}])
          [["patch" (state :patch)] ["snapshot" (state :snapshot)] ["snapshotlocked" (if (state :snapshotlocked) "true" "false")]
-          ["mode" "duel"] ["selected" (state :selected)]])
+          ["mode" "duel"] ["selected" (state :selected)]
+          ["championaction" ""] ["championwho" "player"] ["championjson" ""]])
     (mapcat (fn [opponent]
               (seq [[index id] :pairs (ids result opponent)]
                 [:input {:type "hidden" :name (string (if opponent "enemyslot" "slot") (inc index)) :value id
@@ -195,8 +202,19 @@
 (defn fightbar [result]
   [:div {:id "matchup-fightbar" :class "matchup-fightbar"}
    (input "duration" "Duration (s)" (get-in result [:state :duration]) 0.5 120 0.5)
+   [:button {:type "button" :class "quiet-action matchup-swap js-only" :data-swap-champions true
+             :data-attr:disabled "$busy"} "⇄ Swap champions"]
    [:button {:type "button" :class "quiet-action matchup-jump" :data-matchup-jump true} "Results ↓"]
    [:button {:type "submit" :form "scenario" :class "matchup-run" :data-attr:disabled "$busy"} "Run matchup"]])
+(defn champion-slots-dialog []
+  [:dialog {:id "champion-slots-dialog" :class "champion-slots-dialog" :aria-labelledby "champion-slots-title"}
+   [:header [:h2 {:id "champion-slots-title"} "Champion save slots"]
+    [:button {:type "button" :data-close-champion-slots true :aria-label "Close champion save slots"} "×"]]
+   [:p {:id "champion-slots-description"} "Save this champion's configuration, or load a slot onto this side."]
+   [:p {:class "muted"} "Four slots shared by both sides. Saved in this browser."]
+   [:div {:id "champion-slots-list"}]
+   [:p {:id "champion-slots-status" :role "status"}]
+   [:noscript [:p "Champion save slots require JavaScript."]]])
 (defn fight-controls [result]
   (def state (result :state))
   [:details {:id "fight-settings" :class "control-group" :data-preserve-attr "open"}

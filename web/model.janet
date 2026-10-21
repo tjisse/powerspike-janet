@@ -115,7 +115,7 @@
                                        :target-health (numeric (get input "targethealth" (get input "target-health" (default-state :target-health))) "Target health" 1 1000000)
                                        :distance (numeric (get input "distance" 300) "Starting distance" 0 10000)
                                        :mode mode :opponent opponent :opponentlevel (numeric (get input "opponentlevel" 18) "Opponent level" 1 18 true)
-                                       :opponentitems (if (has-key? input "enemyslot1") (filter |(not= "" $) (map |(slots $) enemy-slot-keys)) (list-field "opponentitems"))
+                                       :opponentitems (if (some |(has-key? input (string $)) enemy-slot-keys) (filter |(not= "" $) (map |(slots $) enemy-slot-keys)) (list-field "opponentitems"))
                                        :runes (map |(numeric $ "Rune ID" 1 99999 true)
                                                    (if (has-key? input "runepage1") (filter |(not= "" $) (map |(string (get input (string "runepage" $) "")) (range 1 7))) (list-field "runes")))
                                        :opponentrunes (map |(numeric $ "Opponent rune ID" 1 99999 true)

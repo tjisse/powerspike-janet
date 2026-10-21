@@ -814,7 +814,8 @@
      [:span "The initial Annie subset uses Q before W. Fetched kits use the declared priority and changing health/resources; see each result's assumptions. The five captures above belong to patch 26.19. Damage and timing remain unverified."]]]])
 
 (defn signals [state]
-  (def values (merge optimizer/defaults {:referencejson ""} state {:savedmodel workspace/model-identity :scenariojson "" :evaluationerror false :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
+  (def values (merge optimizer/defaults {:referencejson ""} state {:championaction "" :championwho "player" :championjson ""
+                                                                   :savedmodel workspace/model-identity :scenariojson "" :evaluationerror false :busy false :editing 1 :editingwho "player" :patchchoice (state :patch) :job ""}))
   (def preset (find |(= ($ :id) (state :selected)) model/builds))
   (when preset (for index 0 6 (put values (model/slot-keys index) (get (preset :ids) index ""))))
   (each [source target] [[:health-fraction :healthfraction] [:resource-fraction :resourcefraction] [:hit-chance :hitchance]
@@ -858,11 +859,13 @@
                    :data-on:evaluate "if(document.getElementById('scenario').reportValidity()) @get('/evaluate', {requestCancellation: 'auto', retry: 'never'})"
                    :data-indicator:busy true :data-class:is-pending "$busy"
                    :data-layout (if (= "duel" (state :mode)) "matchup" "legacy")
+                   :data-on:championconfigure "@post('/champions/configure', {requestCancellation: 'auto', retry: 'never'})"
                    :data-on:configurationchange "if(document.getElementById('scenario').reportValidity()) @get('/configure', {requestCancellation: 'auto', retry: 'never'})"}
              [:header {:class "top"} [:span {:class "brand"} "POWER" [:span "SPIKE"]]
               [:div {:class "top-meta"} [:button {:type "button" :class "quiet-action" :data-ui-toggle "patch-settings" :data-text "'Patch ' + $patch + ' ▾'"} "Patch " ((result :package) :patch) " ▾"]]]
              [:main {:class "content"} (loadout result) (if (= "duel" (state :mode)) (matchup/fightbar result) (native-inventory result))
               (if message (error-result message) (results result))
+              (when (= "duel" (state :mode)) [:p {:id "champion-action-status" :role "status"}])
               [:div {:class "secondary-controls"} (fight-controls result) (when (not= "duel" (state :mode)) (ability-group result))
                (when (not= "duel" (state :mode)) [:button {:type "button" :class "optimizer-settings-open" :data-search-open true} "Optimization & restrictions"])
                (workspace/tools result)
@@ -871,6 +874,7 @@
                 (patch-panel result (get result :patch-job)) (coverage result)]]]
              [:aside {:id "detail-popover" :class "detail-popover" :popover "manual" :role "dialog" :aria-label "Element details"}]
              (optimizer/dialog result)
+             (when (= "duel" (state :mode)) (matchup/champion-slots-dialog))
              (catalog-pickers)
              [:footer {:class "footer"} [:span (length (catalog/champion-list)) " champions · " (length (catalog/item-list)) " items"]
               [:span "Simulated combat · configured fight conditions"]

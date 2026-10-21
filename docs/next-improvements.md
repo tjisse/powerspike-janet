@@ -97,6 +97,9 @@ diagnostics remain in the developer tools.
    [Timeline artwork](timeline-and-concurrency.md) now restores snapshot-scoped
    ability, item and rune icons and attacker portraits, with keyboard selection,
    readable missing-artwork fallbacks and the full crowded-event selector.
+   [Champion configurations](champion-configurations.md) now add four reusable
+   browser save slots and an atomic side swap, preserving forms, ranks, item
+   positions and strategies while keeping the completed fight until a rerun.
 5. **Hosted reliability.** Exercise simultaneous simulations, cancellation,
    slow or unavailable providers, offline cached data and bounded cache/storage
    use. Check the packaged service through the actual reverse proxy before
@@ -104,7 +107,12 @@ diagnostics remain in the developer tools.
    now checks simultaneous simulations and SSE reruns, cancellation isolation,
    queue capacity and responsive health checks. It fixes cancelled queue slots,
    retries attaching to cancelling jobs, and long-result rendering on the HTTP
-   event loop. Next, exercise slow/unavailable providers and storage limits,
+   event loop. The [TLS provider follow-up](champion-configurations.md#provider-reliability)
+   now exercises real HTTP outages and stalled bodies through a local TLS
+   fixture. Idle downloads observe cancellation even when no bytes arrive;
+   cancelled/failed refreshes release their worker and staging without
+   replacing cached data. Next, check storage limits under concurrent downloads,
+   repeated asset failures and the overall duration of partial provider outages,
    then run the checks through the actual deployment's reverse proxy.
 6. **Player beta readiness.** Prepare a short comparison walkthrough and a
    repeatable issue-report flow that includes a scenario export. Use concrete

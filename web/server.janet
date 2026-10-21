@@ -6,6 +6,7 @@
 (import ./optimizer :as optimizer)
 (import ./workspace :as workspace)
 (import ./saves :as saves)
+(import ./champion-configs :as champion-configs)
 (import ./verification :as verification)
 (import ./details :as details)
 (import ../src/powerspike/packages :as packages)
@@ -152,13 +153,13 @@
   (def result (protect (model/compare-async (model/parse-state input))))
   (if (first result) (show-result req (result 1) nil (get input "job")) (evaluation-error req (string (result 1)))))
 
-(defn configure [req state &opt applied]
+(defn configure [req state &opt applied notice]
   (assert (= "duel" (state :mode)) "Configuration previews require a champion matchup.")
   (def prepared (prepare-result (model/preview state) (get (ds/get-signals req) "job")))
   (adapter/sse-response req
                         {:on-open (fn [gen]
                                     (ds/with-open-sse gen
-                                                      (when applied
+                                                      (when (or applied notice)
                                                         (def values (ui/signals state))
                                                         (def current (ds/get-signals req))
                                                         (each key [:searchwho :searchbudget :searchslots :searchseconds :searchpreset :searchpool :searchexclude :nextpurchase :searchjob]
@@ -166,10 +167,16 @@
                                                         (ds/patch-signals gen values))
                                                       (with-dyns [:patch-package (prepared :package)]
                                                         (ds/patch-elements gen (ui/render (ui/loadout prepared) (ui/patch-panel prepared (prepared :patch-job))
+                                                                                          (when notice [:p {:id "champion-action-status" :role "status"} notice])
                                                                                           (when applied (optimizer/panel prepared nil applied)))))))}))
 
 (defn app-inner [req]
   (cond
+    (and (= "POST" (req :method)) (= "/champions/configure" (req :route)))
+    (do (def input (ds/get-signals req))
+      (def changed (champion-configs/apply-action (model/parse-state input) (get input "championaction")
+                                                  (get input "championwho" "player") (get input "championjson")))
+      (configure req (changed :state) nil (changed :message)))
     (and (= "POST" (req :method)) (= "/details/item" (req :route)))
     (do
       (def size (scan-number (get-in req [:headers "content-length"] "0")))
@@ -287,7 +294,7 @@
     (if (= "true" (get-in req [:headers "datastar-request"]))
       (cond (string/has-prefix? "/search" (req :route))
         (fragment req (ui/render (optimizer/error-panel (string (result 1)))))
-        (= "/configure" (req :route))
+        (some |(= $ (req :route)) ["/configure" "/champions/configure"])
         (fragment req (ui/render [:p {:id "config-status" :class "measurement-error" :role "alert"} (string (result 1))]))
         (evaluation-error req (string (result 1))))
       (response 400 (string (result 1)) "text/plain"))))

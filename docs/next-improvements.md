@@ -115,9 +115,11 @@ diagnostics remain in the developer tools.
    now serializes managed writes against the current file-byte total, accounts
    for normalized packages/manifests/atomic replacements, and preserves cached
    reads at the allowance. Artwork failures share a bounded 30-second retry
-   window with HTTP retry guidance. Next, bound the overall duration of partial
-   provider outages and run the checks through the actual deployment's reverse
-   proxy. Longer-running memory/disk usage and the player issue-report flow
+   window with HTTP retry guidance. [Refresh deadlines](patch-refresh-deadlines.md)
+   now bound cumulative provider waits with one active-job budget, preserve
+   cached snapshots on expiry, and check successful retry after recovery.
+   Next, run the checks through the actual deployment's reverse proxy.
+   Longer-running memory/disk usage and the player issue-report flow
    remain beta checks.
 6. **Player beta readiness.** Prepare a short comparison walkthrough and a
    repeatable issue-report flow that includes a scenario export. Use concrete

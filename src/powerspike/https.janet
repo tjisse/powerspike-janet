@@ -2,22 +2,28 @@
 (import jurl/native :as native)
 
 (def hosts ["https://ddragon.leagueoflegends.com/" "https://raw.communitydragon.org/"])
-(defn get [url &opt cancelled limit]
+(defn get [url &opt cancelled limit deadline]
   (assert (some |(string/has-prefix? $ url) hosts) "Unsupported data provider.")
+  (defn expired? [] (and deadline (>= (os/clock :monotonic) deadline)))
+  (defn check []
+    (when (and cancelled (cancelled)) (error "Cancelled."))
+    (when (expired?) (error "Provider request timed out.")))
+  (check)
+  (def timeout (if deadline (min 45000 (max 1 (math/ceil (* 1000 (- deadline (os/clock :monotonic)))))) 45000))
   (def output @"")
   (def maximum (or limit (* 64 1024 1024)))
   (def response (jurl/request
                   {:url url :method :get
                    :options {:protocols "https" :followlocation false :ssl-verifypeer true :ssl-verifyhost 2
-                             :connecttimeout-ms 5000 :timeout-ms 45000 :maxfilesize maximum
+                             :connecttimeout-ms (min 5000 timeout) :timeout-ms timeout :maxfilesize maximum
                              :useragent "Mozilla/5.0 PowerSpike/2" :nosignal true
-                             :noprogress (not cancelled)
-                             :xferinfofunction (fn [& counts] (not (and cancelled (cancelled))))}
+                             :noprogress (not (or cancelled deadline))
+                             :xferinfofunction (fn [& counts] (not (or (expired?) (and cancelled (cancelled)))))}
                    :stream (fn [bytes]
-                             (if (or (and cancelled (cancelled)) (> (+ (length output) (length bytes)) maximum))
+                             (if (or (expired?) (and cancelled (cancelled)) (> (+ (length output) (length bytes)) maximum))
                                0 (do (buffer/push output bytes) (length bytes))))}))
   (native/reset (response :handle))
-  (when (and cancelled (cancelled)) (error "Cancelled."))
+  (check)
   (assert (and (= :ok (response :error)) (= 200 (response :status)))
           (string "Provider request failed (" (response :status) "): " url))
   (string output))

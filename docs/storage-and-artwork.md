@@ -101,6 +101,7 @@ and retained combat fixtures. Final-build champion/timeline browser checks and
 cached-artwork reads without provider metadata also passed. Formatting, Python
 syntax and Git diff checks passed.
 
-The remaining deployment checks include total patch-refresh duration during a
-partial provider outage, actual reverse-proxy behavior, and longer-running
-memory/disk use under player traffic.
+The [refresh-deadline follow-up](patch-refresh-deadlines.md) bounds cumulative
+provider waits and checks timeout cleanup/recovery. Actual reverse-proxy
+behavior and longer-running memory/disk use under player traffic remain
+deployment checks.

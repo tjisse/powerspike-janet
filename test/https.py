@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import json
 import os
 from pathlib import Path
 import ssl
@@ -14,6 +15,7 @@ import time
 class Provider(BaseHTTPRequestHandler):
     requests = Counter()
     recovered = False
+    patch_recovered = False
     lock = threading.Lock()
     def log_message(self, *args):
         pass
@@ -23,14 +25,26 @@ class Provider(BaseHTTPRequestHandler):
             Provider.requests[self.path] += 1
         if self.path == '/recover':
             Provider.recovered = True
+        if self.path == '/recover-patch':
+            Provider.patch_recovered = True
         idle = self.path in ('/idle', '/cdn/16.19.1/data/en_US/champion.json')
-        status = 503 if self.path == '/unavailable' or '/16.18.1/' in self.path or (self.path == '/outage.png' and not Provider.recovered) else 302 if self.path == '/redirect' else 200
+        partial = self.path.startswith('/cdn/16.17.1/data/en_US/')
+        partial_catalog = partial and self.path.endswith(('champion.json', 'item.json'))
+        partial_outage = partial and not partial_catalog and not Provider.patch_recovered
+        status = 503 if self.path == '/unavailable' or '/16.18.1/' in self.path or partial_outage or (self.path == '/outage.png' and not Provider.recovered) else 302 if self.path == '/redirect' else 200
         self.send_response(status)
         if status == 302:
             self.send_header('Location', '/ok')
         body = b'x'*64 if self.path == '/too-large' else b'fixture'
+        # Required catalogs succeed, then optional sources stall in succession.
+        # Neither response alone reaches the existing 45-second request limit.
+        if partial_catalog or (partial and Provider.patch_recovered and self.path.endswith('summoner.json')):
+            body = json.dumps({'version':'16.17.1', 'data':{}}).encode()
+        elif partial and Provider.patch_recovered:
+            body = b'[]'
+        elif self.path.startswith('/16.17/') and Provider.patch_recovered:
+            body = b'{}'
         if self.path == '/counts':
-            import json
             body = json.dumps(Provider.requests).encode()
         elif self.path == '/outage.png' and Provider.recovered:
             body = b'\x89PNG\r\n\x1a\n'+b'fixture'
@@ -38,6 +52,10 @@ class Provider(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.flush()
         if idle:
+            time.sleep(6)
+        elif partial_outage and self.path.endswith('runesReforged.json'):
+            time.sleep(.75)
+        elif partial_outage and self.path.endswith('summoner.json'):
             time.sleep(6)
         elif self.path == '/outage.png':
             time.sleep(.1)
@@ -50,12 +68,13 @@ class Provider(BaseHTTPRequestHandler):
 def verify(janet):
     Provider.requests.clear()
     Provider.recovered = False
+    Provider.patch_recovered = False
     with tempfile.TemporaryDirectory(prefix='powerspike-tls-') as temp:
         root = Path(temp)
         cert, key = root/'cert.pem', root/'key.pem'
         subprocess.run(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-days', '1',
                         '-subj', '/CN=ddragon.leagueoflegends.com', '-addext',
-                        'subjectAltName=DNS:ddragon.leagueoflegends.com', '-keyout', str(key), '-out', str(cert)],
+                        'subjectAltName=DNS:ddragon.leagueoflegends.com,DNS:raw.communitydragon.org', '-keyout', str(key), '-out', str(cert)],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         server = ThreadingHTTPServer(('127.0.0.1', 0), Provider)
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)

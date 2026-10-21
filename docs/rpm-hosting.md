@@ -142,3 +142,11 @@ The service uses `PS_DATA_DIR=/var/lib/powerspike`; systemd creates that writabl
 The patch selector lists Riot’s archived builds. Sources missing from a matching CommunityDragon archive are recorded as coverage gaps; another patch is never substituted. The initial seed preserves the existing Annie subset; fetched packages currently model generic attacks while the ability parser is developed.
 
 Storage is bounded to 5 GB by default (`PS_DATA_LIMIT_MB=5120` in the service configuration). To prune, stop the service, remove an unused version directory under `/var/lib/powerspike/patches`, then restart. Keep at least one completed patch. Removing a snapshot prevents reproduction of scenarios that reference it; export or back it up first. Incomplete job folders can be removed while the service is stopped. Neither upgrades nor failed downloads prune completed packages.
+
+`PS_PATCH_TIMEOUT_SECONDS` sets a shared active-refresh budget: 300 seconds by
+default, with whole values from 1 to 1800 accepted. It starts when the download
+worker begins, excluding time in the work queue. Individual HTTPS requests use
+the remaining budget, capped at 45 seconds, and connection establishment remains
+capped at five seconds. Expiry fails the refresh and preserves completed cached
+snapshots; retry gets a fresh budget. Existing preserved service configuration
+files can omit the setting to use the default. Restart after changing it.

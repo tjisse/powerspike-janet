@@ -37,11 +37,14 @@
   (unless (first result) (error (result 1)))
   (result 1))
 (defn remove [path] (exclusive (fn [] (util/remove-tree path))))
-(defn publish [root staging destination pointer id quota]
+(defn publish [root staging destination pointer id quota &opt ready]
   (exclusive (fn []
                # Reserve the atomic pointer before moving any directory. A
                # quota failure must leave the previous current snapshot usable.
                (check root (length id) quota)
+               # Recheck a caller's cancellation/deadline after waiting for the
+               # writer guard and scanning the quota, before publishing anything.
+               (when ready (ready))
                (def parts (string/split "/" destination))
                (util/mkdirs (string/join (take (dec (length parts)) parts) "/"))
                (if (os/stat destination) (util/remove-tree staging) (os/rename staging destination))

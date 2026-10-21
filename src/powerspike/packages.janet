@@ -11,6 +11,11 @@
 (var data-dir nil)
 (var default-version "16.19.1")
 (def loaded @{})
+(defn refresh-timeout []
+  (def seconds (scan-number (os/getenv "PS_PATCH_TIMEOUT_SECONDS" "300")))
+  (assert (and (number? seconds) (= seconds (math/floor seconds)) (<= 1 seconds 1800))
+          "PS_PATCH_TIMEOUT_SECONDS must be a whole number from 1 to 1800.")
+  seconds)
 (defn storage-limit []
   (def text (os/getenv "PS_DATA_LIMIT_MB" "5120"))
   (def megabytes (scan-number text))
@@ -66,6 +71,7 @@
 
 (defn initialize [directory seed]
   (storage-limit)
+  (refresh-timeout)
   (storage/initialize)
   (each key (keys loaded) (put loaded key nil))
   (set data-dir (util/mkdirs directory))
@@ -101,15 +107,24 @@
   (if (os/stat path) (util/read-json (slurp path)) (available)))
 
 # Executed only on a background worker. Publish the current pointer last.
-(defn fetch [version staging progress cancelled &opt requester]
+(defn fetch [version staging progress cancelled &opt requester clock]
   (assert (util/version? version) "Invalid patch identifier.")
-  (def request (or requester https/get))
+  (def now (or clock (fn [] (os/clock :monotonic))))
+  (def deadline (+ (now) (refresh-timeout)))
+  (defn check []
+    (when (cancelled) (error "Cancelled."))
+    (when (>= (now) deadline)
+      (error "Patch refresh timed out. Cached patches remain available. Try again.")))
+  (def request (or requester (fn [url cancelled] (https/get url cancelled nil deadline))))
   (def sources @[])
   (def missing @[])
   (def quota (storage-limit))
   (defn obtain [url relative &opt optional]
-    (when (cancelled) (error "Cancelled."))
+    (check)
     (def result (protect (request url cancelled)))
+    # Optional provider errors can reduce coverage; expiry/cancellation must
+    # instead stop the entire refresh and preserve the previous current pointer.
+    (check)
     (if (first result)
       (do
         (def bytes (result 1))
@@ -145,6 +160,7 @@
   (def champions @[])
   (def ids (sorted (keys (champion-data "data"))))
   (eachp [index id] ids
+    (check)
     (progress {:message (string "Downloading " id) :completed index :total (length ids)})
     (def name (string/ascii-lower id))
     (def objects (obtain (string cd "game/data/characters/" name "/" name ".bin.json?powerspike=1")
@@ -165,12 +181,13 @@
                                                               :record record :available true :checked false})) (values (summoners "data"))) [])
                 :objectives objective-records :coverage missing :sources sources})
   (def bytes (util/encode-data package))
+  (check)
   (def id (hash/sha256 bytes))
   (storage/write data-dir (string staging "/package.jdn") bytes quota)
   (storage/write data-dir (string staging "/manifest.json") (util/encode-json
                                                               {"schema" 1 "patch" version "snapshot" id "parser" normalize/parser-version "package_sha256" id
                                                                "sources" sources "downloaded_at" (os/time) "initial" false}) quota)
-  (when (cancelled) (error "Cancelled."))
+  (check)
   (def destination (directory version id))
-  (storage/publish data-dir staging destination (string data-dir "/patches/" version "/current") id quota)
+  (storage/publish data-dir staging destination (string data-dir "/patches/" version "/current") id quota check)
   {:patch version :snapshot id})

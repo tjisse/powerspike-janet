@@ -110,6 +110,10 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
         for invalid in ['bad', '8090.5', '1023', '65536']:
             bad = subprocess.run([str(binary)], cwd=cwd, env=configuration(PS_PORT=invalid), capture_output=True, timeout=10)
             assert bad.returncode != 0 and b'1024' in bad.stderr, (invalid, bad.stderr)
+        for invalid in ['invalid', '0', '1801']:
+            bad = subprocess.run([str(binary)], cwd=cwd, env=configuration(PS_PATCH_TIMEOUT_SECONDS=invalid),
+                                 capture_output=True, timeout=10)
+            assert bad.returncode != 0 and b'PS_PATCH_TIMEOUT_SECONDS' in bad.stderr, (invalid, bad.stderr)
         if parry_fixture:
             # Load an old raw-source snapshot with the copied executable and no
             # checkout access. Cast-start defense and proc consumption must be

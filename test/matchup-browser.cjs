@@ -72,6 +72,7 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   assert.deepEqual(await items('player'), primaryBefore);
   console.log('Opponent optimization, locks, comparison, apply and Undo passed.');
   const eventOptions = await page.locator('.matchup-event-select option').count(); assert(eventOptions > 2);
+  await page.locator('.matchup-event-select').scrollIntoViewIfNeeded();
   await page.locator('.matchup-event-select').selectOption('0'); assert(await page.locator('.matchup-event-detail').isVisible());
   assert((await page.locator('.matchup-event-detail').innerText()).includes('damage'));
   await page.locator('[data-matchup-metric=damage]').click(); assert((await page.locator('.matchup-health').innerText()).includes('damage'));

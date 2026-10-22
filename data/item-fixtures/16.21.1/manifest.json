@@ -1,0 +1,30 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-22",
+  "scope": "Existing single-target item handlers, selected snapshot values, tooltip rates and source item groups; no new proc semantics or in-game evidence.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/items.cdtb.bin.json?powerspike=1",
+      "complete-sha256": "8c7b798a7a8ddf4bd7238c05c0864cc6fa29d33b7c57041ae24230f2d26514ec",
+      "path": "records.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/item.json",
+      "complete-sha256": "e4d316609f9c616a51863c4b8314204c82c01b8a971f54c6d46e86e17c43b106",
+      "path": "items.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "path": "strings.json",
+      "excerpt": true
+    }
+  ],
+  "fixture_sha256": {
+    "records.json": "a327ec076363d0343a7ffaa310279c3970999b7bf2b13bfa50021cadbfdf910e",
+    "items.json": "eca50f8075b33fdcb58f503a20a407bf3087af56ea6f8a3697925e8b0a72d6d6",
+    "strings.json": "aa93491e12ac4ac43ae0cc7e7d90185c3617168b3a6b4120cc1fd8739c0cc454"
+  }
+}

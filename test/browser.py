@@ -762,6 +762,7 @@ if __name__ == '__main__':
     parser.add_argument('--latest-patch-fixture', help='Also check refreshed 16.20/16.21 default matchups')
     parser.add_argument('--reparse-fixture', help='Also check parser warnings and explicit offline raw-data reparsing')
     parser.add_argument('--latest-attack-fixture', help='Also check latest-patch mage attack timings from saved snapshots')
+    parser.add_argument('--latest-loadout-fixture', help='Also check latest-patch form controls and saved loadouts')
     args=parser.parse_args()
     if args.url:
         verify(args.url)
@@ -796,3 +797,7 @@ if __name__ == '__main__':
     if args.latest_attack_fixture:
         from latest_attack_browser import verify as verify_latest_attacks
         verify_latest_attacks(args.binary, args.latest_attack_fixture)
+
+    if args.latest_loadout_fixture:
+        from latest_loadouts_browser import verify as verify_latest_loadouts
+        verify_latest_loadouts(args.binary, args.latest_loadout_fixture)

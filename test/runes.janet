@@ -20,7 +20,7 @@
 (defn records [patch]
   (def data (runes/source-data patch))
   (tabseq [record :in (values (data :records))] (record "mPerkId") {:patch patch "id" (record "mPerkId") :record record "name" (record "mPerkName")}))
-(each patch ["16.18.1" "16.19.1"]
+(each patch ["16.18.1" "16.19.1" "16.20.1" "16.21.1"]
   (def raw (records patch))
   (defn rules [ids] (runes/damage-rules (map |(raw $) ids) patch))
   (close 1.08 (runes/damage-multiplier (rules [8014]) 1 0.39 :magic true))

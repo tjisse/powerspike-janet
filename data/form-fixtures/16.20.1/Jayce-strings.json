@@ -1,0 +1,8 @@
+{
+  "entries": {
+    "game_buff_tooltip_jaycestancegun": "<titleLeft>Mercury Cannon</titleLeft><mainText>Jayce is wielding the Mercury Cannon and is ranged.</mainText><postScriptLeft>Source: @SourceName@</postScriptLeft>",
+    "game_buff_tooltip_jaycestancehammer": "<titleLeft>Mercury Hammer</titleLeft><mainText>Jayce is wielding the Mercury Hammer and is melee.</mainText><postScriptLeft>Source: @SourceName@</postScriptLeft>",
+    "spell_jaycestancehtg_tooltip": "<keywordMajor>Mercury Hammer</keywordMajor>: Jayce transforms his weapon into the <keywordMajor>Mercury Cannon</keywordMajor>, gaining Attack Range and new Abilities. Jayce's next Attack removes <scaleArmor>@spell.JayceStanceHtG:RangedFormShred@ Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR> for @spell.JayceStanceHtG:ShredDuration@ seconds.",
+    "spell_jaycestancegth_tooltip": "<keywordMajor>Mercury Cannon:</keywordMajor> Jayce transforms his weapon into the <keywordMajor>Mercury Hammer</keywordMajor>, becoming melee ranged and gaining new Abilities and <scaleArmor>@spell.JayceStanceHtG:Resists@ Armor</scaleArmor> and <scaleMR>Magic Resist</scaleMR>. Jayce's next Attack deals an additional <magicDamage>@spell.JayceStanceHtG:Damage@ magic damage</magicDamage>."
+  }
+}

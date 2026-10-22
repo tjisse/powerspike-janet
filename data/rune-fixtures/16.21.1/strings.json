@@ -1,0 +1,16 @@
+{
+  "entries": {
+    "perk_short_desc_statmodhealth": "+@StatGain@ Health",
+    "perk_long_desc_8112": "Hitting a champion with 3 <b>separate</b> attacks or abilities within @WindowDuration@s deals bonus <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_AdaptiveDmg'><font color='#48C4B7'>adaptive damage</font></lol-uikit-tooltipped-keyword>.<br><br>Damage: @DamageBase@ - @DamageMax@ (+@BonusADRatio.-1@ bonus AD, +@APRatio.-1@ AP) damage.<br>Cooldown: @Cooldown@s<br><br><i>'We called them the Thunderlords, for to speak of their lightning was to invite disaster.'</i>",
+    "perk_long_desc_statmodhealthscaling": "+@StatGainMin@-@StatGainMax@ Health (based on level)",
+    "perk_long_desc_statmodadaptive": "+@StatGain2@ <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_Adaptive'><font color='#48C4B7'>Adaptive Force</font></lol-uikit-tooltipped-keyword>",
+    "perk_long_desc_coupdegrace": "Deal @BonusPercentDamage.0 *100@% more damage to champions who have less than @EnemyHealthPercentageThreshold*100@% health.",
+    "perk_long_desc_8234": "Deal @MinBonusDamagePercent.0*100@% - @MaxBonusDamagePercent.0*100@% increased damage to champions while you are below @HealthThresholdStart.0*100@% health. Max damage gained at @HealthThresholdEnd.0*100@% health.",
+    "perk_long_desc_statmodcooldownreductionscaling": "+@HasteGain@ <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> ",
+    "perk_long_desc_cutdown": "Deal @BonusPercentDamage*100@% more damage to champions who have more than @EnemyHealthPercentageThreshold*100@% health.",
+    "perk_long_desc_scorch": "Your next damaging ability hit sets champions on fire dealing @damage@ - @damagemax@ bonus magic damage based on level after @dotduration@s.<br><br>Cooldown: @BurnlockoutDuration@s",
+    "perk_long_desc_transcendence": "Gain bonuses upon reaching the following levels:<br>Level @LevelToTurnOn@: +@HasteBonus1*100@ <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level @LevelToTurnOn2@: +@HasteBonus2*100@ <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_CDR'>Ability Haste</lol-uikit-tooltipped-keyword> <br>Level @LevelToTurnOn3@: On Champion takedown, reduce the remaining cooldown of basic abilities by @KillCooldownRefund*100@%.",
+    "perk_long_desc_statmodattackspeed": "+@StatGain@% Attack Speed",
+    "perk_long_desc_statmodmovementspeed": "+@StatGain1@% <lol-uikit-tooltipped-keyword key='LinkTooltip_Description_MS'>Move Speed</lol-uikit-tooltipped-keyword>"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "patch": "16.20.1",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/data/characters/kayle/kayle.bin.json?powerspike=1",
+      "complete-sha256": "9ed0ad909795f27331e292e7742ee00ff0b6e34c87879a6cb6987344229ae831",
+      "path": "Kayle-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.20/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "8ecc5117aab8b6fced2f5a1d221da24301d5894aeff9b4109f6be757eed45099",
+      "path": "Kayle-strings.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.20.1/data/en_US/champion/Kayle.json",
+      "complete-sha256": "32cbb4760f80e98dfc982b8de9f26761af48afd7e980c06c7344f63f594938cb",
+      "path": "Kayle-abilities.json",
+      "excerpt": false
+    }
+  ],
+  "fixture_sha256": {
+    "Kayle-characters.json": "9ed0ad909795f27331e292e7742ee00ff0b6e34c87879a6cb6987344229ae831",
+    "Kayle-strings.json": "24a87af6c1e9e63884d11a1f45070498a55db65680f06d66f540a138301f0a0a",
+    "Kayle-abilities.json": "32cbb4760f80e98dfc982b8de9f26761af48afd7e980c06c7344f63f594938cb"
+  },
+  "references": [
+    "https://www.leagueoflegends.com/en-us/news/game-updates/patch-11-10-notes/"
+  ],
+  "scope": "Divine Ascent ordinary attack type and range at a fixed selected level after assigning all skill points. Other passive effects and empowered attacks require separate support.",
+  "reviewed_at": "2026-10-22"
+}

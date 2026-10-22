@@ -73,7 +73,7 @@
   (close speed (profile :missile-speed))
   (assert (= variants (length (profile :spell-paths))))
   (assert (= (get-in profile [:source :sha256]) (hash/sha256 (slurp (get-in profile [:source :path])))))
-  (each [patch form] [["16.18.1" ranged-form] ["16.20.1" ranged-form] ["16.19.1" melee] ["16.19.1" nil]]
+  (each [patch form] [["16.18.1" ranged-form] ["16.22.1" ranged-form] ["16.19.1" melee] ["16.19.1" nil]]
     (assert (nil? (attacks/form-profile champion patch form))))
   (def definition (merge (definition ranged-form 1 champion) {:distance 300 :duration 2
                                                               :player (merge (spec ranged-form 1 champion) {:loadout {:items []}})}))

@@ -1,0 +1,29 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-22",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/perks.cdtb.bin.json",
+      "complete-sha256": "f0212502bb1180c0920a1be7074af8de2e6d4cefe3fc51f2a0ca9e08116a2c9f",
+      "path": "records.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/runesReforged.json",
+      "complete-sha256": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44",
+      "path": "styles.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "path": "strings.json",
+      "excerpt": true
+    }
+  ],
+  "sha256": {
+    "records.json": "cbd078f1de84273bbf7ec5bb71d034dd0e385179ba0933e4d19b9ed81a597e29",
+    "styles.json": "74d1e211982f4c976f2c76c1229f5c09b6eabdf2bf76b8f1bbd6d7248a60fc44",
+    "strings.json": "d7b59e18ef4c030a352ca935e24e36239a28a6907accd065a1fefd7fdc5aedbe"
+  }
+}

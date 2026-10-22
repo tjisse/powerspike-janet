@@ -1,0 +1,43 @@
+{
+  "patch": "16.21.1",
+  "scope": "Fixed Elise forms: ordinary attacks, range/type, base movement speed, and champion/practice Spider Queen on-hit damage/healing. No active casts, Spiderlings, Rappel amplification or form switching.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/elise/elise.bin.json?powerspike=1",
+      "complete-sha256": "549b8b34df8951d5fb7dc4a1db1436d1f9439df8e2376f1d765d7b85e5e601b6",
+      "path": "Elise-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/elisespider/elisespider.bin.json?powerspike=1",
+      "complete-sha256": "86cb8a11648e89f2bd746f8c368315da0550a145551b020e2a4a6e50fd9c8674",
+      "path": "EliseSpider-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "path": "Elise-strings.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Elise.json",
+      "complete-sha256": "85529c134c9ba4e1269282a54ee8520f4969e8837b9c975b96f33d2113632ade",
+      "path": "Elise-abilities.json",
+      "excerpt": false
+    }
+  ],
+  "fixture_sha256": {
+    "Elise-characters.json": "549b8b34df8951d5fb7dc4a1db1436d1f9439df8e2376f1d765d7b85e5e601b6",
+    "EliseSpider-characters.json": "86cb8a11648e89f2bd746f8c368315da0550a145551b020e2a4a6e50fd9c8674",
+    "Elise-strings.json": "aa55a62c041250c01fab6049c2e21410a65a157e1df85b28278a458512e375d3",
+    "Elise-abilities.json": "85529c134c9ba4e1269282a54ee8520f4969e8837b9c975b96f33d2113632ade"
+  },
+  "references": [
+    {
+      "url": "https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-19-notes/",
+      "supports": "Spider Queen on-hit base damage changed from 12/22/32/42 to 14/24/34/44; prefer canonical EliseR calculation over stale EliseRSpider tooltip-only values."
+    }
+  ],
+  "reviewed_at": "2026-10-22"
+}

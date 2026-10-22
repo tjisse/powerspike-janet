@@ -1,0 +1,37 @@
+{
+  "patch": "16.21.1",
+  "scope": "Fixed selected Nidalee form, ordinary attack type and range only. Abilities, Hunt/Prowl and form switching excluded.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nidalee/nidalee.bin.json?powerspike=1",
+      "complete-sha256": "46f1c5b0a1905ebd9eda82b96c45234a6d78b23d03c3afa3b3ccb1d9d57bddaa",
+      "path": "Nidalee-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nidaleecougar/nidaleecougar.bin.json?powerspike=1",
+      "complete-sha256": "91a06cba49963725f55dee4a4bfbe8ce6ecc5ecd78d2023d9fcb1e7d675fcb7d",
+      "path": "NidaleeCougar-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "path": "strings.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nidalee.json",
+      "complete-sha256": "2942ed41c95e4e5d153a3041f0c11e5d65eac86c2175ff0cf2bec6d9fafdd7b0",
+      "path": "Nidalee-abilities.json",
+      "excerpt": false
+    }
+  ],
+  "fixture_sha256": {
+    "Nidalee-characters.json": "46f1c5b0a1905ebd9eda82b96c45234a6d78b23d03c3afa3b3ccb1d9d57bddaa",
+    "NidaleeCougar-characters.json": "91a06cba49963725f55dee4a4bfbe8ce6ecc5ecd78d2023d9fcb1e7d675fcb7d",
+    "strings.json": "ade7b3915de5565bc9884d9aa1b086c5af82fc7563f021e9279fc402bf3ca00d",
+    "Nidalee-abilities.json": "2942ed41c95e4e5d153a3041f0c11e5d65eac86c2175ff0cf2bec6d9fafdd7b0"
+  },
+  "reviewed_at": "2026-10-22"
+}

@@ -1,0 +1,30 @@
+{
+  "patch": "16.21.1",
+  "scope": "Fixed Jayce form ordinary attacks, type/range and Hammer armor/MR scaling. No form switching, ability casts, Hextech Capacitor or transformation attack bonuses.",
+  "sources": [
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/jayce/jayce.bin.json?powerspike=1",
+      "complete-sha256": "7f26f095495bcf0ad6658fdd8fc45bed712b0d08d532a665bf6a601685b98c8a",
+      "path": "Jayce-characters.json",
+      "excerpt": false
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "path": "Jayce-strings.json",
+      "excerpt": true
+    },
+    {
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Jayce.json",
+      "complete-sha256": "9f85305f693ad3c7bb4fc533f5a351780aea5d4a1a9ff249551fe2efefb4e41c",
+      "path": "Jayce-abilities.json",
+      "excerpt": false
+    }
+  ],
+  "fixture_sha256": {
+    "Jayce-characters.json": "7f26f095495bcf0ad6658fdd8fc45bed712b0d08d532a665bf6a601685b98c8a",
+    "Jayce-strings.json": "13b28dc372275ca2833c59f905d7128722af1b6f046243f69d5bd1264762020b",
+    "Jayce-abilities.json": "9f85305f693ad3c7bb4fc533f5a351780aea5d4a1a9ff249551fe2efefb4e41c"
+  },
+  "reviewed_at": "2026-10-22"
+}

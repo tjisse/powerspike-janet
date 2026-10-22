@@ -18,7 +18,7 @@
   (def variables (get item :effect-variables []))
   (if (and (= "3153" (item :id)) (dictionary? context)
            (not (empty? (get item :record {})))
-           (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"]))
+           (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19" "16.20" "16.21"]))
     # Resolve on presentation so retained snapshots and both duel participants
     # use the same melee/ranged rate as combat without rewriting cached data.
     [{:name "Item_Melee_Ranged_Split_Dynamic" :expression (multiply (bork-rate item (context :ranged)) (constant 100))
@@ -30,7 +30,7 @@
     variables))
 (def spellblade-types {"3057" :physical "3100" :magic "3078" :physical "3508" :physical "6662" :physical})
 (defn item-supported? [item]
-  (and (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19"])
+  (and (some |(= $ (util/cdragon-version (item :patch))) ["16.17" "16.18" "16.19" "16.20" "16.21"])
        (not (empty? (get item :record {})))))
 (defn item-limitations [item &opt ranged]
   (case (item :id)

@@ -3,15 +3,15 @@
 (import pshash :as hash)
 
 # Resolve retained sources during import so packaged runtimes need no checkout.
-(def nidalee
-  (let [root "data/form-fixtures/16.19.1/"
+(defn read-nidalee [patch]
+  (let [root (string "data/form-fixtures/" patch "/")
         manifest (util/read-json (slurp (string root "manifest.json")))]
     (eachp [path expected] (manifest "fixture_sha256")
       (assert (= expected (hash/sha256 (slurp (string root path)))) "Form source integrity check failed."))
     (def human (get-in (util/read-json (slurp (string root "Nidalee-characters.json"))) ["Characters/Nidalee/CharacterRecords/Root"]))
     (def cougar (get-in (util/read-json (slurp (string root "NidaleeCougar-characters.json"))) ["Characters/NidaleeCougar/CharacterRecords/Root"]))
     (def tooltip (get-in (util/read-json (slurp (string root "strings.json"))) ["entries" "spell_aspectofthecougar_tooltip"]))
-    (assert (and (= "16.19.1" (manifest "patch"))
+    (assert (and (= patch (manifest "patch"))
                  (= "Nidalee" (human "mCharacterName")) (= "NidaleeCougar" (cougar "mCharacterName"))
                  (= "Nidalee" (cougar "mFallbackCharacterName"))
                  (= 525 (get-in human ["attackRangeModifiable" "baseValue"]))
@@ -31,8 +31,8 @@
               "Nidalee form stats differ; form projection needs review."))
     {"human" {:name "Human" :attack-style "ranged" :attack-range (get-in human ["attackRangeModifiable" "baseValue"])}
      "cougar" {:name "Cougar" :attack-style "melee" :attack-range (get-in cougar ["attackRangeModifiable" "baseValue"])}}))
-(def jayce
-  (let [root "data/form-fixtures/16.19.1/"
+(defn read-jayce [patch]
+  (let [root (string "data/form-fixtures/" patch "/")
         manifest (util/read-json (slurp (string root "jayce-manifest.json")))]
     (eachp [path expected] (manifest "fixture_sha256")
       (assert (= expected (hash/sha256 (slurp (string root path)))) "Jayce form source integrity check failed."))
@@ -44,7 +44,7 @@
     (def steps (get (first parts) "mBreakpoints"))
     (def ratio (get (get parts 1) "mCoefficient"))
     (def strings (get (util/read-json (slurp (string root "Jayce-strings.json"))) "entries"))
-    (assert (and (= "16.19.1" (manifest "patch")) (= "Jayce" (record "mCharacterName"))
+    (assert (and (= patch (manifest "patch")) (= "Jayce" (record "mCharacterName"))
                  (= 125 (get-in record ["attackRangeModifiable" "baseValue"]))
                  (all |(= $ 375) increase) (= 7 (length increase))
                  (= 2 (length parts)) (= "ByCharLevelBreakpointsCalculationPart" (get (first parts) "__type"))
@@ -61,8 +61,8 @@
                :resist-levels [1 ;(map |($ "mLevel") steps)] :resist-base (get (first parts) "mLevel1Value")
                :resist-step (get (first steps) "mAdditionalBonusAtThisLevel") :bonus-ad-ratio ratio}
      "cannon" {:name "Cannon" :attack-style "ranged" :attack-range (+ (get-in record ["attackRangeModifiable" "baseValue"]) (first increase))}}))
-(def elise
-  (let [root "data/form-fixtures/16.19.1/"
+(defn read-elise [patch]
+  (let [root (string "data/form-fixtures/" patch "/")
         manifest (util/read-json (slurp (string root "elise-manifest.json")))]
     (eachp [path expected] (manifest "fixture_sha256")
       (assert (= expected (hash/sha256 (slurp (string root path)))) "Elise form source integrity check failed."))
@@ -74,7 +74,7 @@
     (def damage (get-in spell ["mSpellCalculations" "PassiveTotalDamage" "mFormulaParts"]))
     (def healing (get-in spell ["mSpellCalculations" "PassiveTotalHealing" "mFormulaParts"]))
     (def strings (get (util/read-json (slurp (string root "Elise-strings.json"))) "entries"))
-    (assert (and (= "16.19.1" (manifest "patch"))
+    (assert (and (= patch (manifest "patch"))
                  (= "Elise" (human "mCharacterName")) (= "EliseSpider" (spider "mCharacterName"))
                  (= "Elise" (spider "mFallbackCharacterName"))
                  (= 550 (get-in human ["attackRangeModifiable" "baseValue"]))
@@ -112,8 +112,8 @@
                :move-speed (get-in spider ["baseMoveSpeedModifiable" "baseValue"])
                :damage (values "PassiveBonusDamage") :healing (values "PassiveHealing")
                :damage-ratio damage-ratio :heal-ratio heal-ratio}}))
-(def gnar
-  (let [root "data/form-fixtures/16.19.1/"
+(defn read-gnar [patch]
+  (let [root (string "data/form-fixtures/" patch "/")
         manifest (util/read-json (slurp (string root "gnar-manifest.json")))]
     (eachp [path expected] (manifest "fixture_sha256")
       (assert (= expected (hash/sha256 (slurp (string root path)))) "Gnar form source integrity check failed."))
@@ -128,7 +128,7 @@
     (def range (first (get-in calculations ["TotalAttackRange" "mFormulaParts"])))
     (def hp (first (get-in calculations ["TotalMegaGnarHealth" "mFormulaParts"])))
     (defn field [record key] (get-in record [key "baseValue"]))
-    (assert (and (= "16.19.1" (manifest "patch")) (= "Gnar" (mini "mCharacterName"))
+    (assert (and (= patch (manifest "patch")) (= "Gnar" (mini "mCharacterName"))
                  (= "GnarBig" (mega "mCharacterName")) (= "Gnar" (mega "mFallbackCharacterName"))
                  (= "Fighter,melee" (get-in mega ["characterToolData" "searchTags"]))
                  (= 175 (field mini "attackRangeModifiable") (field mega "attackRangeModifiable"))
@@ -167,9 +167,11 @@
      "mega" {:name "Mega" :attack-style "melee" :attack-range (field mega "attackRangeModifiable")
              :move-speed (field mega "baseMoveSpeedModifiable") :stat-bonuses (table/to-struct bonuses)
              :attack-speed-growth (/ (field mega "attackSpeedPerLevelModifiable") 100)}}))
-(def profiles {"Nidalee" nidalee "Jayce" jayce "Elise" elise "Gnar" gnar})
+(def profiles
+  (tabseq [patch :in ["16.19.1" "16.20.1" "16.21.1"]]
+    patch {"Nidalee" (read-nidalee patch) "Jayce" (read-jayce patch) "Elise" (read-elise patch) "Gnar" (read-gnar patch)}))
 (defn choices [champion patch]
-  (if (= patch "16.19.1")
+  (if (get-in profiles [patch champion])
     (case champion
       "Nidalee" [["human" "Human · ranged"] ["cougar" "Cougar · melee"]]
       "Jayce" [["hammer" "Hammer · melee"] ["cannon" "Cannon · ranged"]]
@@ -178,13 +180,13 @@
 (defn fixed? [champion patch form]
   (not (nil? (find |(= form ($ 0)) (choices champion patch)))))
 (defn known-choice? [patch form]
-  (some |(fixed? $ patch form) (keys profiles)))
+  (some |(fixed? $ patch form) (keys (get profiles patch {}))))
 (defn apply-form [champion form &opt level ranks]
   (if (nil? form) champion
     (do
       (assert (and (string? form) (fixed? (champion :id) (champion :patch) form))
               "Choose a supported form for this champion and patch.")
-      (def selected (get-in profiles [(champion :id) form]))
+      (def selected (get-in profiles [(champion :patch) (champion :id) form]))
       (when (some |(= $ (champion :id)) ["Jayce" "Gnar"])
         (assert (and (number? level) (= level (math/floor level)) (<= 1 level 18)) "This fixed form requires a valid level."))
       (def base (merge (champion :base) (if (selected :move-speed) {:move-speed (selected :move-speed)} {})))

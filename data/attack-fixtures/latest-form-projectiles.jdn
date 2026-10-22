@@ -1,0 +1,44 @@
+{:schema 1 :patches {"16.20.1" {:patch "16.20.1"
+                                :scope "Ordinary and critical attacks in explicitly selected reviewed forms only. Source-derived fixed movement, not measured launch geometry or windup. Alternate forms and empowered attacks require separate review."
+                                :forms {"Nidalee" {"human" {:source-path "data/form-fixtures/16.20.1/Nidalee-characters.json"
+                                                            :source-sha256 "5f13749ee7360b9ce507151501b24168dc711a66c23db61209650715bf97ff1c"
+                                                            :missile-speed 2500
+                                                            :ordinary-variants ["NidaleeBasicAttack" "NidaleeBasicAttack2"]
+                                                            :critical-variants ["NidaleeCritAttack"]}}
+                                        "Elise" {"human" {:source-path "data/form-fixtures/16.20.1/Elise-characters.json"
+                                                          :source-sha256 "00d27cc5183db32ac62b482232307c177fb30ccb9d473e633d32fe7e65aef5dc"
+                                                          :missile-speed 1600
+                                                          :ordinary-variants ["EliseBasicAttack" "EliseBasicAttack2" "EliseBasicAttack3"]
+                                                          :critical-variants ["EliseCritAttack"]}}
+                                        "Jayce" {"cannon" {:source-path "data/form-fixtures/16.20.1/Jayce-characters.json"
+                                                           :source-sha256 "a5356d431e3388d88f5dc15772f76b93481d414ae985927430298ecf22c8d756"
+                                                           :missile-speed 2000
+                                                           :ordinary-variants ["JayceRangedAttack" "JayceRangedAttack2"]
+                                                           :critical-variants ["JayceRangedCritAttack"]
+                                                           :selection-note "Cannon ranged_attack1/ranged_attack2/ranged_crit variants apply ordinary attack damage. Hammer/root attack slots, transformation hits and Hyper Charge are separate records and excluded. Legacy alternate names and spell cast ranges do not select form range or timing."
+                                                           :excluded-variants ["JayceBasicAttack" "JayceBasicAttack2" "JayceCritAttack"
+                                                                               "JaycePassiveAbility/JaycePassiveMeleeAttack"
+                                                                               "JaycePassiveAbility/JaycePassiveRangedAttack"
+                                                                               "JayceHyperChargeAbility/JayceHyperChargeRangedAttack"]}}}}
+                     "16.21.1" {:patch "16.21.1"
+                                :scope "Ordinary and critical attacks in explicitly selected reviewed forms only. Source-derived fixed movement, not measured launch geometry or windup. Alternate forms and empowered attacks require separate review."
+                                :forms {"Nidalee" {"human" {:source-path "data/form-fixtures/16.21.1/Nidalee-characters.json"
+                                                            :source-sha256 "46f1c5b0a1905ebd9eda82b96c45234a6d78b23d03c3afa3b3ccb1d9d57bddaa"
+                                                            :missile-speed 2500
+                                                            :ordinary-variants ["NidaleeBasicAttack" "NidaleeBasicAttack2"]
+                                                            :critical-variants ["NidaleeCritAttack"]}}
+                                        "Elise" {"human" {:source-path "data/form-fixtures/16.21.1/Elise-characters.json"
+                                                          :source-sha256 "549b8b34df8951d5fb7dc4a1db1436d1f9439df8e2376f1d765d7b85e5e601b6"
+                                                          :missile-speed 1600
+                                                          :ordinary-variants ["EliseBasicAttack" "EliseBasicAttack2" "EliseBasicAttack3"]
+                                                          :critical-variants ["EliseCritAttack"]}}
+                                        "Jayce" {"cannon" {:source-path "data/form-fixtures/16.21.1/Jayce-characters.json"
+                                                           :source-sha256 "7f26f095495bcf0ad6658fdd8fc45bed712b0d08d532a665bf6a601685b98c8a"
+                                                           :missile-speed 2000
+                                                           :ordinary-variants ["JayceRangedAttack" "JayceRangedAttack2"]
+                                                           :critical-variants ["JayceRangedCritAttack"]
+                                                           :selection-note "Cannon ranged_attack1/ranged_attack2/ranged_crit variants apply ordinary attack damage. Hammer/root attack slots, transformation hits and Hyper Charge are separate records and excluded. Legacy alternate names and spell cast ranges do not select form range or timing."
+                                                           :excluded-variants ["JayceBasicAttack" "JayceBasicAttack2" "JayceCritAttack"
+                                                                               "JaycePassiveAbility/JaycePassiveMeleeAttack"
+                                                                               "JaycePassiveAbility/JaycePassiveRangedAttack"
+                                                                               "JayceHyperChargeAbility/JayceHyperChargeRangedAttack"]}}}}}}

@@ -10,9 +10,9 @@
 (def retained @{})
 (def preferences @{})
 (defn supported-patch? [patch]
-  (some |(= $ (util/cdragon-version patch)) ["16.17" "16.18" "16.19"]))
+  (some |(= $ (util/cdragon-version patch)) ["16.17" "16.18" "16.19" "16.20" "16.21"]))
 (defn source-data [patch]
-  (when (some |(= patch $) ["16.18.1" "16.19.1"])
+  (when (some |(= patch $) ["16.18.1" "16.19.1" "16.20.1" "16.21.1"])
     (or (retained patch)
         (do
           (def root (string "data/rune-fixtures/" patch "/"))
@@ -24,7 +24,7 @@
           (put retained patch data) data))))
 # JPM serializes module values into the executable. Read bundled records during
 # import so relocated binaries never need these source-tree paths at runtime.
-(each patch ["16.18.1" "16.19.1"] (source-data patch))
+(each patch ["16.18.1" "16.19.1" "16.20.1" "16.21.1"] (source-data patch))
 (def initial-root-records
   (tabseq [id :in ["Annie" "Garen"]]
     id (util/read-json (slurp (string "data/16.19.1/sources/" (string/ascii-lower id) "-character-record.json")))))

@@ -1,0 +1,6 @@
+{
+  "entries": {
+    "spell_kaylepassive_name": "Divine Ascent",
+    "spell_kaylepassive_tooltip": "Kayle's attacks rank up as she gains levels and spends skill points.<br><br><ul><li><scaleLevel>Level @LevelForPassiveRank0@ - Zealous:</scaleLevel> Attacks grant <attackSpeed>@EnrageTotalASPerStack@% Attack Speed</attackSpeed> for @EnrageDuration@ seconds (max 5 stacks). At max stacks Kayle becomes Exalted, gaining <speed>@MSTowardsEnemy*100@% Move Speed</speed>.<br></li><li><scaleLevel>Level @LevelForPassiveRank1@ - Arisen: </scaleLevel>Attack range is increased to @UpgradedAttackRange@.<br></li><li><scaleLevel>Level @LevelForPassiveRank2@ - Aflame:</scaleLevel> Exalted attacks launch fire waves that deal <magicDamage>@PassiveWaveDamage@ magic damage</magicDamage>.<br></li><li><scaleLevel>Level @LevelForPassiveRank3@ - Transcendent:</scaleLevel> Become permanently Exalted. Attack range is increased to @FinalAttackRange@.</li></ul>"
+  }
+}

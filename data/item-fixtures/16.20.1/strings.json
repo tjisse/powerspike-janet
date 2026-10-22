@@ -1,0 +1,14 @@
+{
+  "entries": {
+    "item_3100_tooltip": "<passive>Spellblade</passive> {{ Item_Cooldown}}<br>After using an Ability, your next Attack within @SpellBladeDuration@ seconds gains <attackSpeed>@SheenASBuff*100@% Attack Speed</attackSpeed> and deals <magicDamage>@SpellbladeDamage@ bonus magic damage</magicDamage> {{ Item_Keyword_OnHit }}.",
+    "item_3153_tooltip": "<passive>Mist's Edge</passive><br>Attacks deal <physicalDamage>{{ Item_Melee_Ranged_Split_Dynamic }}</physicalDamage> of enemy's current Health as <physicalDamage>bonus physical damage</physicalDamage> {{ Item_Keyword_OnHit }}.<br><br><passive>Clawing Shadows</passive> {{Item_Cooldown}}<br>Attacking a champion 3 times <status>Slows</status> them by @MoveSpeedMod*-100@% for @MoveSpeedDuration@ second.",
+    "item_6662_tooltip": "<passive>Spellblade</passive> {{ Item_Cooldown }}<br>After using an Ability, your next Attack deals <physicalDamage>@SpellbladeDamage@ bonus physical damage</physicalDamage> {{ Item_Keyword_OnHit }} and creates a frost field for @SlowFieldDuration@s that <status>Slows</status> by @SlowAmountMeleeRangedSplit@.<br>",
+    "item_3078_tooltip": "<passive>Spellblade</passive> {{ Item_Cooldown }}<br>After using an Ability, your next Attack deals <physicalDamage>@SpellbladeDamage@ bonus physical damage</physicalDamage> {{ Item_Keyword_OnHit }}.<br> <br><passive>Quicken</passive><br>Attacking grants <speed>@MoveSpeedBonus@ Move Speed</speed> for @MSDuration@ seconds.",
+    "item_3057_tooltip": "<passive>Spellblade</passive> {{ Item_Cooldown }}<br>After using an Ability, your next Attack deals <physicalDamage>@SpellbladeDamage@ bonus physical damage</physicalDamage> {{ Item_Keyword_OnHit }}.<br>",
+    "item_3508_tooltip": "<passive>Spellblade</passive> {{ Item_Cooldown }}<br>After using an Ability, your next Attack deals <physicalDamage>@SpellbladeDamage@ bonus physical damage</physicalDamage> and grants <scaleMana>@TotalManaRefund@ Mana</scaleMana> {{ Item_Keyword_OnHit }}.<br>",
+    "item_3115_tooltip": "<passive>Icathian Bite</passive><br>Attacks deal <magicDamage>@TotalOnHitDamage@ bonus magic damage</magicDamage> {{ Item_Keyword_OnHit }}.",
+    "item_3145_tooltip": "<passive>Revved</passive> {{ Item_Cooldown }}<br>Damaging a champion deals <magicDamage>@DamageAmount@ bonus magic damage</magicDamage>.",
+    "item_6655_tooltip": "<passive>Echo</passive> {{ Item_Cooldown }}<br>Damaging Abilities fire @MaxCharges@ Echoes that deal <magicDamage>@Damage@ bonus magic damage</magicDamage> to the target and nearby enemies. Remaining Echoes fire on the primary target, dealing @RepeatDamageReduction*100@% damage. (Maximum: <magicDamage>@SingleTargetMax@</magicDamage>)<br>",
+    "item_3089_tooltip": "<passive>Magical Opus</passive><br>Increases your total <scaleAP>Ability Power by @APAmp*100@%</scaleAP>."
+  }
+}

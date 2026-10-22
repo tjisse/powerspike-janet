@@ -20,6 +20,9 @@
 (def retained-windups @{})
 (def reviewed-forms (util/read-data "data/attack-fixtures/16.19.1/reviewed-form-projectiles.jdn"))
 (assert (= "16.19.1" (reviewed-forms :patch)) "Unsupported reviewed form projectile patch.")
+(def latest-forms (util/read-data "data/attack-fixtures/latest-form-projectiles.jdn"))
+(assert (= 1 (latest-forms :schema)) "Unsupported latest form projectile review.")
+(def form-reviews (merge {"16.19.1" reviewed-forms} (latest-forms :patches)))
 (def retained-forms @{})
 (def styles @{})
 (defn style-from-identities [identities]
@@ -52,8 +55,8 @@
 
 # A reviewed fixed-level projection, separate from immutable snapshot metadata.
 # Retain and validate it during import for the relocated executable as well.
-(def kayle
-  (let [root "data/attack-fixtures/16.19.1/"
+(defn read-kayle [patch]
+  (let [root (string "data/attack-fixtures/" patch "/")
         receipt (util/read-json (slurp (string root "kayle-manifest.json")))]
     (eachp [path expected] (receipt "fixture_sha256")
       (assert (= expected (hash/sha256 (slurp (string root path)))) "Kayle attack-transition source integrity check failed."))
@@ -65,7 +68,7 @@
                   (do (assert (all |(= $ (first (value "values"))) (value "values")) "Kayle transition value varies by rank.")
                     (first (value "values")))))
     (def tooltip (get-in (util/read-json (slurp (string root "Kayle-strings.json"))) ["entries" "spell_kaylepassive_tooltip"]))
-    (assert (and (= "16.19.1" (receipt "patch")) (= "Kayle" (record "mCharacterName"))
+    (assert (and (= patch (receipt "patch")) (= "Kayle" (record "mCharacterName"))
                  (= "form-dependent" (style-from-identities (record "purchaseIdentities")))
                  (= 175 (get-in record ["attackRangeModifiable" "baseValue"]))
                  (= 6 (values "LevelForPassiveRank1")) (= 16 (values "LevelForPassiveRank3"))
@@ -79,8 +82,10 @@
     {:ranged-level (values "LevelForPassiveRank1") :final-level (values "LevelForPassiveRank3")
      :melee-range (get-in record ["attackRangeModifiable" "baseValue"])
      :ranged-range (values "UpgradedAttackRange") :final-range (values "FinalAttackRange")}))
+(def kayle-profiles (tabseq [patch :in ["16.19.1" "16.20.1" "16.21.1"]] patch (read-kayle patch)))
 (defn at-level [champion level ranks]
-  (if (and (= "Kayle" (champion :id)) (= "16.19.1" (champion :patch)))
+  (def kayle (get kayle-profiles (champion :patch)))
+  (if (and (= "Kayle" (champion :id)) kayle)
     (do
       (assert (or (< level (kayle :ranged-level)) (= level (sum (values ranks))))
               "Assign all of Kayle's skill points to simulate her ascension at this level.")
@@ -182,9 +187,9 @@
   movement)
 
 (defn form-profile [champion patch form]
-  (def review (when (= patch (reviewed-forms :patch)) (get-in reviewed-forms [:forms champion form])))
+  (def review (get-in form-reviews [patch :forms champion form]))
   (when review
-    (def key [champion form])
+    (def key [champion patch form])
     (or (retained-forms key)
         (do
           (def bytes (slurp (review :source-path)))
@@ -224,9 +229,10 @@
   (each champion (keys (review :champions))
     (profile champion patch)
     (windup-profile champion patch)))
-(form-profile "Nidalee" "16.19.1" "human")
-(form-profile "Elise" "16.19.1" "human")
-(form-profile "Jayce" "16.19.1" "cannon")
+(each patch (keys form-reviews)
+  (form-profile "Nidalee" patch "human")
+  (form-profile "Elise" patch "human")
+  (form-profile "Jayce" patch "cannon"))
 
 (defn apply-projectile [kit movement &opt windup]
   (if movement

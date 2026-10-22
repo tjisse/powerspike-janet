@@ -90,7 +90,7 @@
 # Explicit scope: future patches, unreviewed enums, formulas and unknown
 # calculation kinds must never silently acquire a guessed interpretation.
 (each [patch id formula] [["16.22.1" 0 0] ["12.2.1" 0 0] ["16.21.1" 6 0]
-                          ["16.21.1" 255 0] ["16.21.1" 0 255]]
+                          ["16.21.1" 8 1] ["16.21.1" 255 0] ["16.21.1" 0 255]]
   (rejects (fn [] (expr/evaluate (expr/stat-node {"mStat" id "mStatFormula" formula}
                                                  {"__powerspike_patch" patch}) context))))
 (when-let [export (os/getenv "PS_LATEST_PATCH_FIXTURE")]

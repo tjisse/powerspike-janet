@@ -34,6 +34,9 @@ def verify(binary_path, fixture_path):
                         assert any(event['kind'] == 'damage' and event.get('source') == source for event in result['trace'])
                         assert result['sources'][source]['icon'].endswith(f'/spell/{source}.png')
                     assert any(status['effect'] == 'Judgment' for status in result['statuses'])
+                    payload = json.loads(page.locator('#opponent-ranks [data-ability-slot=e]').get_attribute('data-details'))
+                    text = ''.join(segment['text'] for line in payload['body-rich'] for segment in line)
+                    assert '9 times' in text, text
                     for band in page.locator('.matchup-status-band[aria-label*="Judgment"]').all():
                         expect(band).to_be_visible()
                     assert result['sources']['AnnieQ']['icon'].endswith('/spell/AnnieQ.png')

@@ -59,7 +59,9 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    blink and area ticks on 16.21.1. Its unseen fears and remaining kit effects
    remain open. The [defense follow-up](defense-abilities.md) restores Riven E's
    shield timing, Jarvan W's shield/slow/self-cast and Malphite E's scoped
-   armor damage plus attack-speed reduction. Next: remaining shared formula/activation gaps from
+   armor damage plus attack-speed reduction. The [Silver Bolts follow-up](vayne-silver-bolts.md)
+   now supplies Vayne W's passive hit damage, refreshed marks and passive-aware
+   execution audit. Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -70,11 +72,11 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    reparse explicit; do not introduce automatic migrations or silently repair
    pinned snapshots.
    The [all-champion ability audit](ability-coverage-audit.md) now inventories
-   all 173 champions and 692 active-ability entries on 16.21.1, with per-ability
+   all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
-   Fiddlesticks' source-root casing and adding Garen E/R plus Fiddlesticks Q/W/R,
+   Fiddlesticks' source-root casing and the five reviewed completeness batches,
    it records 180 without an executable
-   effect, 22 unable to cast in the controlled probe and 24 casting without
+   effect, 21 unable to cast in the controlled probe and 24 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

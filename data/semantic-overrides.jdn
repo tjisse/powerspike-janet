@@ -1,5 +1,7 @@
 {:schema 1
- :rules [{:champion "Riven" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
+ :rules [{:champion "Vayne" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :vayne-w :note "Vayne uses reviewed Silver Bolts semantics."}
+         {:champion "Riven" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
           :effects [{:kind :shield :target :self :variable "TotalShield" :duration-variable "ShieldDuration" :trigger :cast-start}]
           :note "Valor shields at cast start for its source-defined duration. Dash movement, animation cancels and the remaining Riven kit need review."}
          {:champion "JarvanIV" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :self-cast true

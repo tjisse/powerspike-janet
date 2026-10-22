@@ -9,6 +9,7 @@
 (import ../src/powerspike/data-util :as util)
 (import ../web/catalog :as catalog)
 (import ../web/model :as model)
+(import ../web/tooltip :as tooltip)
 (import pshash :as hash)
 
 (defn close [expected actual]
@@ -47,6 +48,9 @@
   (def actor (scenario/participant package spec "player" 0))
   (def spin-display (find |(= "f1" ($ :name)) (get-in champion [:abilities 2 :variables])))
   (close 9 (expr/evaluate (spin-display :expression) (engine/context (engine/state actor 0) (engine/state actor 1) 1)))
+  (def e (get-in champion [:abilities 2]))
+  (def rendered (tooltip/body (e :tooltip) (e :variables) (engine/context (engine/state actor 0) (engine/state actor 1) 1)))
+  (assert (string/find "9 times" (string/join (mapcat |(map (fn [segment] (segment :text)) $) rendered))))
   (def future (normalize/semantic-kit "Garen" "16.22.1"
                                       {:abilities [(normalize/ability :e "" {} {} {} "16.22.1")]}))
   (assert (not (some |(= :estimated ($ :status)) (get-in future [:abilities 0 :effects]))))
@@ -115,6 +119,9 @@
   (def attacking (probe actor :e {:strategy {:abilities true :attacks true :priority [:e] :movement :hold}} nil nil 3.5))
   (def attacks (filter |(= :attack ($ :kind)) (attacking :trace)))
   (close 3 ((attacks 0) :at))
+  (def missed-spin (probe actor :e {:strategy {:abilities true :attacks true :priority [:e] :movement :hold :hit-chance 0}} nil nil 3.5))
+  (assert (empty? (hits missed-spin "GarenE")))
+  (close 3 ((first (filter |(= :attack ($ :kind)) (missed-spin :trace))) :at))
   (def combo (probe actor :e {:strategy {:abilities true :attacks false :priority [:e :q :w :r] :movement :hold}
                               :ranks {:q 1 :w 1 :e 1 :r 1}} nil nil 4))
   (def r-cast (find |(and (= :cast ($ :kind)) (= "GarenR" ($ :source))) (combo :trace)))
@@ -147,7 +154,16 @@
       (assert (some |(and (= :damage ($ :kind)) (= source ($ :source))) (outcome :trace))))
     (assert (= (outcome :metrics) ((scenario/fitness definition) :metrics)))
     (array/push cases {:document (util/read-json (wire/encode definition)) :metrics (outcome :metrics)
-                       :sources ["GarenE" "GarenR"]}))
+                       :sources ["GarenE" "GarenR"]})
+    (def miss-strategy {:abilities true :attacks true :priority [:e] :movement :hold :hit-chance 0})
+    (def miss-definition (merge definition {:duration 3.5 :distance 0
+                                            :player (merge (definition :player) {:strategy (if (= player "Garen") miss-strategy idle)})
+                                            :target (merge (definition :target) {:strategy (if (= target "Garen") miss-strategy idle)})}))
+    (def miss-outcome (scenario/simulate miss-definition))
+    (close 3 ((first (filter |(= :attack ($ :kind)) (miss-outcome :trace))) :at))
+    (array/push cases {:document (util/read-json (wire/encode miss-definition)) :metrics (miss-outcome :metrics) :sources []
+                       :trace-counts [{:kind :cast :source "GarenE" :count 1} {:kind :damage :source "GarenE" :count 0}
+                                      {:kind :attack :source "attack" :count 1}]}))
   (assert (= bytes (string (slurp file))) "Combat semantics must not rewrite saved snapshot bytes."))
 
 (when-let [export (os/getenv "PS_GAREN_FIXTURE")]

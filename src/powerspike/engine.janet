@@ -221,7 +221,7 @@
            (each slot (get-in actor [:strategy :priority] [:q :w :e :r])
              (def ability (find |(= slot ($ :slot)) (get actor :abilities [])))
              (def rank (get (actor :ranks) slot 0))
-             (when (and ability (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
+             (when (and ability (not (ability :passive)) (> rank 0) (some |(= :estimated ($ :status)) (ability :effects)))
                (array/push ordered [ability rank (get-in actor [:strategy :activation slot :after])
                                     (event-value? (ability :cost))
                                     (and (ability :recast) (event-value? (get-in ability [:recast :cost] 0)))
@@ -487,19 +487,30 @@
           (def result (protect
                         (def counter (get (owner :proc-counts) id @{:count 0 :last (- math/inf) :origins @[]}))
                         (def window (value (get effect :window 999) owner target 1))
-                        (when (> (- at (get counter :first (- math/inf))) window) (put counter :count 0) (put counter :origins @[]))
+                        (def elapsed (- at (get counter (if (effect :refresh-window) :last :first) (- math/inf))))
+                        (when (if (effect :refresh-window) (>= elapsed window) (> elapsed window))
+                          (put counter :count 0) (put counter :origins @[]))
                         (when (= 0 (counter :count)) (put counter :first at))
-                        (unless (some |(= $ origin) (counter :origins))
+                        (def fresh (not (some |(= $ origin) (counter :origins))))
+                        (when fresh
                           (put counter :count (inc (counter :count))) (array/push (counter :origins) origin))
-                        (put counter :last at) (put (owner :proc-counts) id counter)
+                        (when (or fresh (not (effect :refresh-window))) (put counter :last at))
+                        (put (owner :proc-counts) id counter)
                         (when (>= (counter :count) (value (get effect :every 1) owner target 1))
-                          (put counter :count 0) (put counter :origins @[])
+                          (put counter :count 0) (put counter :origins (if (effect :allow-same-time) (array origin) @[]))
                           (when (effect :consume-buff)
                             (put (owner :buff-counts) (effect :consume-buff) 0)
                             (refresh-stats owner))
-                          (put (owner :proc-ready) id (+ at (max 0.001 (value (get effect :cooldown 0) owner target 1))))
+                          (put (owner :proc-ready) id (+ at (max (if (effect :allow-same-time) 0 0.001) (value (get effect :cooldown 0) owner target 1))))
                           (schedule (+ at (max 0 (value (get effect :delay 0) owner target 1))) 10 :effect {:actor (owner :index) :target (if (= :self (effect :target)) (owner :index) (target :index)) :effect effect :rank 1
-                                                                                                            :source id :origin origin :depth (inc depth)}))))
+                                                                                                            :source id :origin origin :depth (inc depth)}))
+                        (when (and fresh (effect :counter-buff))
+                          (def buff (effect :counter-buff))
+                          (put (target :buff-counts) buff (counter :count))
+                          (when (> (counter :count) 0)
+                            (def expires (+ at window))
+                            (put (target :buffs) buff expires)
+                            (schedule expires 0 :buff-expire {:actor (target :index) :buff buff :stacks (counter :count) :refresh true :expires expires})))))
           (unless (first result) (note (string id ": " (result 1))))))))
   (defn apply-effect [event]
     (def owner (actors (event :actor)))
@@ -775,7 +786,7 @@
               (schedule (+ impact (* i interval)) 10 :effect
                         {:actor (actor :index) :target (if (= :self (effect :target)) (actor :index) (target :index))
                          :effect effect :rank (event :rank) :source (ability :id) :origin (event :origin) :ability-slot (ability :slot)
-                         :pulse-key (when (effect :refresh-pulse) impact)})))
+                         :pulse-key (when (effect :refresh-pulse) impact) :missed (event :missed)})))
           (note (string (ability :id) ": Unsupported effect trigger"))))))
   (defn release [event]
     (def actor (actors (event :actor)))
@@ -786,15 +797,16 @@
       (def speed (get ability :missile-speed (get actor :attack-missile-speed 0)))
       (def travel (if (> speed 0) (/ distance speed) 0))
       (def hit-chance (get-in actor [:strategy :hit-chance] 1))
+      (def missed (and (or (= :attack (event :action))
+                           (and (not (get ability :self-cast)) (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (get ability :effects []))))
+                       (>= (random-at seed trial (actor :id) (event :source) (event :counter)) hit-chance)))
       (cond
         (and (get ability :interruptible-channel)
              (or (not= (event :origin) (get-in actor [:channel :origin])) (get-in actor [:channel :cancelled])))
         nil
         (and (= :attack (event :action)) (controlled? actor [:stun :charm :fear :airborne :suppression] at))
         (record :interrupted {:source "attack" :actor (actor :id)})
-        (and (or (= :attack (event :action))
-                 (and (not (get ability :self-cast)) (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (get ability :effects []))))
-             (>= (random-at seed trial (actor :id) (event :source) (event :counter)) hit-chance))
+        (and missed (not (get ability :always-release-self)))
         (record :miss {:source (event :source) :actor (actor :id)})
         (= :attack (event :action))
         (do
@@ -828,6 +840,7 @@
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
         (do
+          (when missed (record :miss {:source (event :source) :actor (actor :id)}))
           (when (ability :blink-to-target)
             (put actor :position (event :destination))
             (record :blink {:actor (actor :id) :source (ability :id) :position (actor :position)}))
@@ -837,8 +850,9 @@
             (each effect (filter |(= :cast-start (get $ :trigger)) (ability :effects))
               (def started (protect (release-effect event actor target ability (merge effect {:trigger :cast}) 0)))
               (unless (first started) (note (string (ability :id) ": " (started 1))))))
-          (each effect (filter |(not= :cast-start (get $ :trigger)) (ability :effects))
-            (def released (protect (release-effect event actor target ability effect travel)))
+          (each effect (filter |(and (not= :cast-start (get $ :trigger))
+                                     (or (not missed) (= :self ($ :target)) ($ :state-on-miss))) (ability :effects))
+            (def released (protect (release-effect (merge event {:missed missed}) actor target ability effect travel)))
             (unless (first released) (note (string (ability :id) ": " (released 1)))))))))
   (defn decide [actor]
     (def target (actors (actor :target)))
@@ -1041,7 +1055,7 @@
                 (when (or (event :final) (<= (target :health) 0)) (finish-drain actor))))))
         :judgment-tick
         (let [actor (actors (event :actor)) target (actors (event :target)) effect (event :effect)]
-          (when (and (alive? actor) (> (actor :health) 0) (= (event :origin) (get-in actor [:judgment :origin]))
+          (when (and (not (event :missed)) (alive? actor) (> (actor :health) 0) (= (event :origin) (get-in actor [:judgment :origin]))
                      (<= (math/abs (- (actor :position) (target :position))) (value (effect :radius) actor target (event :rank))))
             (def outcome (protect
                            (def critical (and (not (target :no-crit))

@@ -1,0 +1,22 @@
+{
+  "entries": {
+    "spell_vaynee_name": "Condemn",
+    "spell_vaynee_tooltip": "Vayne fires a bolt that <status>Knocks Back</status> and deals <physicalDamage>@TotalDamage@ physical damage</physicalDamage>. If the target collides with terrain, they take <physicalDamage>@EmpoweredDamageTT@ bonus physical damage</physicalDamage> and become <status>Stunned</status> for @StunDuration@ seconds. ",
+    "spell_vaynee_summary": "Vayne draws a heavy crossbow from her back, and fires a huge bolt at her target, knocking them back and dealing damage. If they collide with terrain, they are impaled, dealing bonus damage and stunning them.",
+    "game_character_passivename_vayne": "Night Hunter",
+    "game_character_passivedescription_vayne": "Vayne ruthlessly hunts evil-doers, gaining @MovementSpeed@ Move Speed when moving toward nearby enemy champions.",
+    "game_character_passivesummary_vayne": "Vayne ruthlessly hunts evil-doers, gaining Move Speed when moving toward nearby enemy champions.",
+    "spell_vayner_name": "Final Hour",
+    "spell_vayner_tooltip": "Vayne gains <physicalDamage>@BonusAttackDamage@ Attack Damage</physicalDamage> for @BaseDuration@ seconds, extended by @DurationToAdd@ seconds whenever a champion damaged by Vayne dies within @DamagedMarkerDuration@ seconds. Additionally, during the duration:<li><spellName>Night Hunter</spellName> instead grants <speed>@MovementSpeed@ Move Speed</speed>.<li>The Cooldown of <spellName>Tumble</spellName> is reduced by @TumbleCDReduction@%, and grants <keywordStealth>Invisibility</keywordStealth> for @TumbleStealthDuration@ second.",
+    "spell_vayner_summary": "Readying herself for an epic confrontation, Vayne gains increased Attack Damage, Invisibility during Tumble, reduced Tumble cooldown, and more bonus Move Speed from Night Hunter",
+    "spell_vayneinquisition_tooltipextendedbelowline": "<rules>{{Reminder_Invisibility}}<br>This Ability's duration can't be increased past its maximum duration</rules>",
+    "spell_vayneq_name": "Tumble",
+    "spell_vayneq_tooltip": "Vayne rolls a short distance, and deals an additional <physicalDamage>@ADRatioBonus@ physical damage</physicalDamage> on her next Attack.<br><br><rules>{{ buff_desc_SpellEffects }}</rules>",
+    "spell_vayneq_summary": "Vayne tumbles, maneuvering to carefully place her next shot. Her next attack deals bonus damage.",
+    "spell_vaynew_name": "Silver Bolts",
+    "spell_vayne_w_tooltip": "<spellPassive>Passive</spellPassive>: Every third consecutive Attack or Ability against an enemy deals an additional <trueDamage>@TotalDamage@ max Health true damage</trueDamage>.",
+    "spell_vaynew_summary": "Vayne tips her bolts with a rare metal, toxic to evil things. The third consecutive attack or ability against the same target deals a percentage of the target's max health as bonus true damage.",
+    "spell_passive": "<spellPassive>Passive</spellPassive>",
+    "spell_vaynesilveredbolts_tooltipextendedbelowline": "<rules>Deals a minimum of @DamageFloor@ damage.<br>Deals @DamageVsMonsters@ damage against jungle monsters. </rules>"
+  }
+}

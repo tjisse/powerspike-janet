@@ -10307,20 +10307,20 @@
       ]
     },
     {
-      "status": "not-cast",
+      "status": "executes",
       "cast-count": 0,
-      "runtime": [
-        "VayneSilveredBolts: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "runtime": [],
       "champion": "Vayne",
       "ability": "VayneSilveredBolts",
       "name": "Silver Bolts",
       "slot": "w",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 2,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Silver Bolts deals true damage on the third consecutive hit against the sole opponent, with a source-defined health ratio, damage floor and refreshed mark duration. It is passive and costs no cast or resource. Monster variants and target switching remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -12104,14 +12104,14 @@
     }
   ],
   "summary": {
-    "executes": 466,
+    "executes": 467,
     "no-executable-effect": 180,
-    "not-cast": 22,
+    "not-cast": 21,
     "cast-without-effect": 24
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "108fc789ac2a018e892866936b1f1f22c3ac360a031fa161d8b250b2eac35ede",
+  "model": "b1a0c190005fb170c2acc2267d0f9a5676243e36a9956d303e004f16bafa40c5",
   "parser": "7",
   "champions": 173,
-  "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."
+  "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."
 }

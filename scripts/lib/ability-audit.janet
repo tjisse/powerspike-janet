@@ -3,15 +3,17 @@
 (import ../../src/powerspike/engine :as engine)
 (import ../../src/powerspike/expressions :as expr)
 (import ../../src/powerspike/scenario :as scenario)
+(import ../../src/powerspike/effects :as effects)
 
 (defn inspect [id ability]
   (def estimated (filter |(= :estimated ($ :status)) (ability :effects)))
+  (def ranks {(ability :slot) (min (get ability :max-rank 5) (if (= :r (ability :slot)) 3 5))})
   (defn simulate []
     (engine/simulate {:duration 8 :actors
                       [{:id "player" :kind :champion :champion id :level 18 :position 0 :attack-range 200
                         :base {:ad 100 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 0 :move-speed 350}
                         :stats {:ad 150 :bonus-ad 50 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 100 :move-speed 350 :crit-chance 0 :crit-damage 2 :attack-speed 1 :attack-speed-item-growth 0 :ability-haste 0}
-                        :health 50000 :resource 100000 :abilities [ability] :ranks {(ability :slot) (min (get ability :max-rank 5) (if (= :r (ability :slot)) 3 5))}
+                        :health 50000 :resource 100000 :abilities [ability] :ranks ranks :triggers (effects/ability-triggers [ability] ranks)
                         :strategy {:attacks true :abilities true :priority [(ability :slot)] :movement :hold}}
                        {:id "target" :kind :champion :level 18 :position 0 :base {:hp 1000000 :ad 100} :stats {:hp 1000000 :ad 100 :armor 50 :mr 50}
                         :strategy {:attacks false :abilities false :movement :hold}}]}))
@@ -21,7 +23,8 @@
   (def applied (when outcome (filter |(and (= (ability :id) ($ :source)) (some (fn [kind] (= kind ($ :kind))) [:damage :shield :heal :control :stat-buff :buff :parry-start :cleanse])) (outcome :trace))))
   (def status (cond (empty? estimated) :no-executable-effect
                 (and result (not (first result))) :probe-error
-                (empty? casts) :not-cast
+                (and (empty? casts) (not (ability :passive))) :not-cast
+                (and (ability :passive) (empty? applied)) :passive-without-effect
                 (empty? applied) :cast-without-effect :executes))
   {:champion id :slot (ability :slot) :ability (ability :id) :name (ability :name) :status status
    :estimated (length estimated) :unresolved-effects (count |(= :unresolved ($ :status)) (ability :effects))
@@ -44,4 +47,4 @@
       (array/push rows row)))
   {:patch (package :patch) :snapshot (package :snapshot) :model engine/identity :parser (package :parser)
    :champions (length (package :champions)) :summary counts :abilities rows
-   :scope "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."})
+   :scope "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."})

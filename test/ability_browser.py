@@ -34,6 +34,18 @@ def verify(binary_path, fixture_path):
                             if field in case['document']['scenario'][side]:
                                 assert saved[side].get(field) == case['document']['scenario'][side][field], (side, field)
                     result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+                    for check in case.get('tooltips', []):
+                        tile = page.locator(f'#{check["side"]}-card [data-ability-slot="{check["slot"]}"]')
+                        payload = json.loads(tile.get_attribute('data-details'))
+                        text = ''.join(segment['text'] for line in payload['body-rich'] for segment in line)
+                        assert check['contains'] in text, (check, text)
+                        for expected in check.get('stats', []):
+                            assert expected in payload['stats']
+                    if case.get('passive-side'):
+                        side = case['passive-side']
+                        prefix = 'enemy' if side == 'opponent' else ''
+                        expect(page.locator(f'#{side}-card [name="{prefix}wafter"]')).to_be_disabled()
+                        assert any(status['effect'] == 'Silver Bolts' for status in result['statuses'])
                     for source in case['sources']:
                         assert any(row['kind'] == 'damage' and row.get('source') == source for row in result['trace'])
                     for check in case.get('trace-counts', []):

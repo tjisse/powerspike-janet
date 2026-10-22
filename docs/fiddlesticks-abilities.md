@@ -33,6 +33,8 @@ the per-tick amount and its 0.25 multiplier establishes the interval. `Duration`
 and `castRadius` supply the five-second window and 600-unit radius. Each tick
 checks the caster is alive and the opponent is currently in range. The first
 tick is scheduled one interval after channel completion.
+Configured hit chance applies to damage; a missed cast still completes its
+blink and active Crowstorm state. An interrupted channel does neither.
 
 Interruptible-channel state remembers control applied during the channel. A
 short stun or silence cannot expire and accidentally allow the interrupted

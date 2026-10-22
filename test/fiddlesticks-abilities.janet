@@ -6,6 +6,7 @@
 (import ../src/powerspike/engine :as engine)
 (import ../src/powerspike/data-util :as util)
 (import ../web/catalog :as catalog)
+(import ../web/tooltip :as tooltip)
 (import pshash :as hash)
 
 (defn close [expected actual]
@@ -25,6 +26,10 @@
 (def base (merge actor {:health 500 :resource 10000 :ranks {:q 1 :w 1 :e 1 :r 1}
                         :stats (merge (actor :stats) {:hp 1000 :hp-regen 0 :mp 10000 :mp-regen 0 :ap 100 :attack-speed 1})}))
 (def idle {:abilities false :attacks false :movement :hold})
+(def q (find |(= :q ($ :slot)) (champion :abilities)))
+(def display (tooltip/body (q :tooltip) (q :variables) (engine/context (engine/state base 0) (engine/state base 1) 1)))
+(def display-text (string/join (mapcat |(map (fn [segment] (segment :text)) $) display)))
+(assert (and (string/find "7%" display-text) (string/find "14%" display-text)))
 (defn run [slot &opt fields target events duration]
   (engine/simulate {:duration (or duration 3) :initial-events (or events [])
                     :actors [(merge base {:strategy {:abilities true :attacks false :priority [slot] :movement :hold}} (or fields {}))
@@ -95,6 +100,11 @@
 (close 1.5 ((first (traced storm :blink "FiddleSticksR")) :at))
 (close 1.75 ((first (ticks storm "FiddleSticksR")) :at))
 (close 6.5 ((last (ticks storm "FiddleSticksR")) :at))
+(def missed (run :r {:strategy {:abilities true :attacks false :priority [:r] :movement :hold :hit-chance 0}}
+                 {:position 700} nil 7))
+(assert (empty? (ticks missed "FiddleSticksR")))
+(close 700 (get-in missed [:actors 0 :position]))
+(assert (some |(= "Crowstorm" ($ :effect)) (missed :statuses)))
 (assert (empty? (ticks (run :r nil nil [(cc 0.2 :stun 0.01)] 7) "FiddleSticksR")))
 (assert (empty? (ticks (run :r nil nil [(cc 0.2 :grounded 0.01)] 7) "FiddleSticksR")))
 (close 1 ((first (traced (run :r nil nil [(cc 0 :grounded 1)] 4) :cast "FiddleSticksR")) :at))
@@ -116,7 +126,14 @@
   (each source ["FiddleSticksQ" "FiddleSticksW" "FiddleSticksR"]
     (assert (not (empty? (ticks result source)))))
   (array/push cases {:document (util/read-json (wire/encode definition)) :metrics (result :metrics)
-                     :sources ["FiddleSticksQ" "FiddleSticksW" "FiddleSticksR"]}))
+                     :sources ["FiddleSticksQ" "FiddleSticksW" "FiddleSticksR"]
+                     :tooltips [{:side (if (= active 0) "player" "opponent") :slot "q" :contains "6%"}]})
+  (def miss-fiddle (merge fiddle {:strategy {:abilities true :attacks false :priority [:r] :movement :hold :hit-chance 0}}))
+  (def miss-definition (merge definition {:duration 3 :player (if (= active 0) miss-fiddle sera)
+                                          :target (merge (if (= active 1) miss-fiddle sera) {:kind :champion})}))
+  (def miss-outcome (scenario/simulate miss-definition))
+  (array/push cases {:document (util/read-json (wire/encode miss-definition)) :metrics (miss-outcome :metrics) :sources []
+                     :trace-counts [{:kind :blink :source "FiddleSticksR" :count 1} {:kind :damage :source "FiddleSticksR" :count 0}]}))
 (when-let [export (os/getenv "PS_FIDDLESTICKS_FIXTURE")]
   (when (os/stat export) (util/remove-tree export))
   (util/copy-tree (string scratch "/patches") (string export "/seed"))

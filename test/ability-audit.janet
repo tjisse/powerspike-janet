@@ -63,6 +63,10 @@
 (assert (= :cast-without-effect (no-effect :status)))
 (assert (> (no-effect :cast-count) 0))
 (assert (= 0 (no-effect :effect-count)))
+(def passive (audit/inspect "Synthetic" (merge base {:passive true :effects [{:kind :damage :trigger :passive :on [:attack]
+                                                                              :every 20 :amount 10 :damage-type :true :status :estimated}]})))
+(assert (= :passive-without-effect (passive :status)))
+(assert (= 0 (passive :cast-count)))
 (def parry (audit/inspect "Synthetic" (merge base {:effects [{:kind :parry :status :estimated :target :self :duration 0.75 :source-kinds [:champion]}]})))
 (assert (= :executes (parry :status)))
 (def missing (audit/run (merge package {:champions [{:id "Empty" :abilities []}]})))

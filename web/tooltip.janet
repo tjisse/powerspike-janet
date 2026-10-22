@@ -11,6 +11,7 @@
 (def labels {:ap "ability power" :ad "attack damage" :hp "maximum health" :health "current health"
              :mp "maximum mana" :armor "armor" :mr "magic resist" :attack-speed "attack speed"
              :attack-speed-bonus "bonus attack speed" :move-speed "movement speed"
+             :attack-speed-item-growth "bonus attack-speed fraction from items and levels"
              :crit-chance "critical strike chance" :crit-damage "critical damage" :ability-haste "ability haste"
              :health-percent "health fraction" :missing-health "missing health" :missing-health-percent "missing health fraction"
              :armor-pen-flat "lethality" :attack-range "attack range"})
@@ -31,6 +32,10 @@
                   0 value
                   1 (child (parts 0))
                   (string "(" (string/join (map child parts) " × ") ")")))
+    :divide (string "(" (child ((expression :children) 0)) " ÷ " (child ((expression :children) 1)) ")")
+    :floor (string "round down(" (child ((expression :children) 0)) ")")
+    :minimum (string "min(" (string/join (map child (expression :children)) ", ") ")")
+    :maximum (string "max(" (string/join (map child (expression :children)) ", ") ")")
     :with-rank (formula ((expression :children) 0) (merge context (if (number? (expression :rank)) {:rank (expression :rank)} {})) (inc nesting))
     :level-interpolation (if (expression :stat-progression)
                            (string value " (level " (context :level) "; scales with level like champion stats, "
@@ -57,7 +62,9 @@
            (def variable (find |(= ($ :name) (token :name)) (or variables [])))
            (def result (when (and context variable)
                          (protect
-                           (def expression (variable :expression))
+                           (def expression (if (variable :display-scale)
+                                             {:op :multiply :children [(variable :expression) {:op :constant :value (variable :display-scale)}]}
+                                             (variable :expression)))
                            (def value (expr/evaluate expression context))
                            (def shown (string (number value) (get variable :suffix "")))
                            {:text shown :calculation (string (formula expression context) " = " shown

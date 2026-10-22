@@ -6,6 +6,9 @@
 (defn product-of [& children] {:op :multiply :children children})
 (defn quotient [a b] {:op :divide :children [a b]})
 (defn literal [value] {:op :constant :value value})
+(defn percent-display [ability names]
+  (map |(if (some (fn [name] (= name (string/ascii-lower ($ :name)))) names)
+          (merge $ {:display-scale 100 :suffix "%"}) $) (ability :variables)))
 (defn garen [ability handler]
   (def spell (ability :record))
   (defn term [name] (expr/variable name spell))
@@ -30,7 +33,8 @@
   (def compiled (merge effect {:id (string (ability :id) "/reviewed") :target :enemy
                                :target-kinds [:champion :practice] :trigger :cast :condition :always
                                :status (if (empty? problems) :estimated :unresolved)
-                               :evidence {:override true :tooltip note}}))
+                               :evidence {:override true :tooltip note}}
+                       (if (= handler :garen-e) {:state-on-miss true} {})))
   # These targeted handlers replace the generic tooltip's incomplete effects.
   # Keep unrelated source/input failures; remove only the superseded effect notes.
   (def notes (filter |(not (or (= $ note) (= $ "Judgment uses reviewed spin semantics.")
@@ -45,7 +49,8 @@
                                (map |(if (= "f1" ($ :name)) (merge $ {:expression spins}) $) (ability :variables))
                                (ability :variables))
                   :cast-time (if (= handler :garen-e) 0 (ability :cast-time))
-                  :unresolved [;notes ;problems note]}))
+                  :unresolved [;notes ;problems note]}
+         (if (= handler :garen-e) {:always-release-self true} {})))
 
 (defn seraphine [ability handler]
   (defn term [name] (expr/variable name (ability :record)))
@@ -129,13 +134,30 @@
                                (and (= handler :fiddlesticks-e) (string/has-prefix? "Control trigger/duration unresolved:" $))
                                (string/has-prefix? "Periodic damage needs" $)
                                (string/has-prefix? "Conditional/maximum effect needs" $))) (ability :unresolved)))
-  (merge ability {:effects effects :unresolved [;notes note] :missile-speed 0}
+  (merge ability {:effects effects :unresolved [;notes note] :missile-speed 0
+                  :variables (if (= handler :fiddlesticks-q)
+                               (percent-display ability ["totalpercenthealthdamage" "totalpercenthealthdamagefeared"])
+                               (ability :variables))}
          (case handler
            :fiddlesticks-w {:interruptible-channel true :cast-lock (fixed (sum-of (literal (ability :cast-time)) (term "DrainDuration")))}
-           :fiddlesticks-r {:interruptible-channel true :channel true :blink-to-target true :finish-channel-on-release true
+           :fiddlesticks-r {:interruptible-channel true :channel true :blink-to-target true :finish-channel-on-release true :always-release-self true
                             :disabled-controls [:grounded] :channel-interrupts [:stun :charm :fear :airborne :suppression :silence :grounded]
                             :cast-time (fixed (term "ChannelTime"))}
            {})))
+
+(defn vayne [ability]
+  (defn term [name] (expr/variable name (ability :record)))
+  (def note "Silver Bolts deals true damage on the third consecutive hit against the sole opponent, with a source-defined health ratio, damage floor and refreshed mark duration. It is passive and costs no cast or resource. Monster variants and target switching remain excluded.")
+  (def amount {:op :maximum :children [(term "DamageFloor")
+                                       (product-of (term "MaxHealthRatio") {:op :target-stat :stat :hp})]})
+  (def problems [;(expr/problems amount) ;(expr/problems (term "DebuffDuration"))])
+  (merge ability {:passive true :variables (percent-display ability ["totaldamage"])
+                  :effects [{:kind :damage :damage-type :true :target :enemy :target-kinds [:champion :practice]
+                             :amount amount :trigger :passive :on [:attack :spell-hit] :every 3 :window (term "DebuffDuration")
+                             :refresh-window true :allow-same-time true :counter-buff "Silver Bolts"
+                             :condition :always :status (if (empty? problems) :estimated :unresolved)
+                             :evidence {:tooltip note :override true}}]
+                  :unresolved [;problems note]}))
 
 (defn review [ability handler]
   (case handler
@@ -145,4 +167,5 @@
     :fiddlesticks-w (fiddlesticks ability handler)
     :fiddlesticks-e (fiddlesticks ability handler)
     :fiddlesticks-r (fiddlesticks ability handler)
+    :vayne-w (vayne ability)
     (seraphine ability handler)))

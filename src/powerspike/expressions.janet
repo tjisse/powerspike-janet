@@ -186,6 +186,7 @@
       :divide (/ (next ((expression :children) 0)) (next ((expression :children) 1)))
       :floor (math/floor (next ((expression :children) 0)))
       :minimum (min ;(map next (expression :children)))
+      :maximum (max ;(map next (expression :children)))
       :with-rank (evaluate ((expression :children) 0) (merge context (if (number? (expression :rank)) {:rank (expression :rank)} {})) (inc nesting))
       :conditional (do (assert (dictionary? (context :buffs)) "Conditional buff state unavailable")
                      (def active (> (get (context :buffs) (expression :buff) 0) 0))

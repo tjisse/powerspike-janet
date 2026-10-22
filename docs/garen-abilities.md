@@ -43,6 +43,8 @@ measurement of either retained patch. Crit scaling follows the selected raw
 - Basic attacks wait until E ends. Q/W remain available subject to ordinary
   controls and cast locks. The automatic strategy completes E before considering
   E/R again; it does not immediately cancel E to follow the next priority entry.
+  A configured missed cast still occupies the spin window, while dealing no
+  spin damage; it cannot accidentally grant extra ordinary attacks.
 - The sole opponent receives the source's nearest-enemy bonus. Six landed hits
   apply champion armor reduction after the sixth hit's damage. The seventh and
   each subsequent group of six refresh it. The reduction does not stack with

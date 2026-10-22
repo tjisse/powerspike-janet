@@ -97,7 +97,7 @@
    :strategy tactics
    :shards (get loadout :shards []) :shard-bonuses shard-modifiers
    :damage-rules (rune-effects :rules)
-   :triggers [;(mapcat |(effects/item-triggers $ ranged) items) ;(mapcat |(effects/rune-triggers $ (package :patch)) chosen-runes)
+   :triggers [;(effects/ability-triggers abilities ranks) ;(mapcat |(effects/item-triggers $ ranged) items) ;(mapcat |(effects/rune-triggers $ (package :patch)) chosen-runes)
               ;(get champion :form-triggers [])]
    :coverage [;(get champion :limitations []) ;(mapcat |(get $ :unresolved []) abilities)
               ;(mapcat |(map (fn [note] (string ($ :name) ": " note)) (get $ :limitations [])) items)

@@ -15,9 +15,9 @@
             (if (string/has-suffix? ".png" id) "" ".png"))))
 (defn icon [package group id name]
   [:img {:src (icon-source package group id) :alt name :width 64 :height 64 :loading "lazy"}])
-(defn input [name caption value minimum maximum &opt step]
+(defn input [name caption value minimum maximum &opt step disabled]
   [:label caption [:input {:form "scenario" :name name :data-bind name :type "number" :value value
-                           :min minimum :max maximum :step (or step 1) :required true}]])
+                           :min minimum :max maximum :step (or step 1) :required true :disabled disabled}]])
 (defn select-field [name caption value choices &opt native-name]
   [:label caption [:select {:form "scenario" :name (or native-name name) :data-bind name}
                    (map (fn [[id caption]] [:option {:value id :selected (= (string id) (string value))} caption]) choices)]])
@@ -88,13 +88,14 @@
     [:div {:class "ability-controls"}
      (map (fn [slot]
             (def base (string prefix slot))
-            [:article [:strong (string/ascii-upper (string slot))]
+            (def passive (get (find |(= slot ($ :slot)) settings) :passive))
+            [:article [:strong (string (string/ascii-upper (string slot)) (if passive " · Passive" ""))]
              (when (some |(= slot $) [:q :w :e :r])
                (select-field (string base "rank") (if (and (= "Elise" (champion :id)) (= slot :r)) "Additional R points (free first rank included)" "Rank") (get state (keyword (string base "rank")) -1)
                              [[-1 "Automatic"] ;(map |[$ (string $)] (range 0 (if (= slot :r) 4 6)))]))
-             (input (string base "after") "Cast after (s)" (get state (keyword (string base "after")) 0) 0 120 0.1)
-             (input (string base "selfbelow") "Self health at most (0–1)" (get state (keyword (string base "selfbelow")) 1) 0 1 0.05)
-             (input (string base "targetbelow") "Target health at most (0–1)" (get state (keyword (string base "targetbelow")) 1) 0 1 0.05)]) scenarios/slots)]]])
+             (input (string base "after") "Cast after (s)" (get state (keyword (string base "after")) 0) 0 120 0.1 passive)
+             (input (string base "selfbelow") "Self health at most (0–1)" (get state (keyword (string base "selfbelow")) 1) 0 1 0.05 passive)
+             (input (string base "targetbelow") "Target health at most (0–1)" (get state (keyword (string base "targetbelow")) 1) 0 1 0.05 passive)]) scenarios/slots)]]])
 (defn sequence-fields [result opponent]
   (def state (result :state))
   (def prefix (if opponent "opponent" ""))

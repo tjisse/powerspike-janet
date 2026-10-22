@@ -1,4 +1,4 @@
-# Active-ability coverage audit — 22 October 2026
+# Champion ability-slot coverage audit — 22 October 2026
 
 The reported Seraphine/Garen fight exposed two separate issues: incomplete
 champion mechanics and timeline markers that silently disappeared when events
@@ -63,9 +63,9 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 466 |
+| At least one effect recorded | 467 |
 | No executable effect | 180 |
-| Has an estimated effect but does not cast | 22 |
+| Has an estimated effect but does not cast | 21 |
 | Casts without recording an applied effect | 24 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
@@ -73,7 +73,10 @@ one learned spell at level 18, with 100 AP, 150 AD, ample resource, half startin
 health, zero distance, enabled ordinary attacks and an inactive champion target
 for eight seconds. It uses generic combat inputs to expose execution paths.
 It does not exercise complete champion strategies, every conditional state,
-alternate forms, passive triggers, projectile geometry or live-game timing.
+alternate forms, unmodeled passive triggers, projectile geometry or live-game timing.
+Explicitly modeled passive Q/W/E/R slots, starting with
+[Vayne W](vayne-silver-bolts.md), now run from ordinary hits in the probe. They
+can execute without casting. Other champion P passives remain outside the probe.
 A recorded effect can coexist with substantial missing mechanics. A delayed
 effect beyond the probe window can appear in the no-effect group.
 
@@ -115,6 +118,8 @@ completes more effects within already-executing entries, leaving counts unchange
 The [defense follow-up](defense-abilities.md) moves Riven E and Jarvan W from
 cast-without-effect to execution, and Malphite E from no executable effect to
 execution. Other categories remain unchanged.
+Vayne W subsequently moves from not-cast to execution with zero casts and
+observed passive damage. Counts measure actual applied effects, not cast spam.
 Restoring a record is not enough to claim supported mechanics.
 
 ## Main causes and next work

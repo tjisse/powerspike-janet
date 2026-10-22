@@ -1,0 +1,30 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Vayne Silver Bolts on-hit damage and target mark timing; partial kit, no game captures.",
+  "sources": [
+    {
+      "path": "Vayne-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/vayne/vayne.bin.json?powerspike=1",
+      "sha256": "564bc80e7c15ef2e8f135a7b3487bd1b8f6d6942ffd2f82f72cf755ff4e8f3f6",
+      "bytes": 52910
+    },
+    {
+      "path": "Vayne-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Vayne.json",
+      "sha256": "46271d24b71beb11d860826b5d4ee4228f065db3cfe93d71e93d828472760400",
+      "bytes": 13963
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "excerpt": true,
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc"
+    }
+  ],
+  "fixture_sha256": {
+    "Vayne-abilities.json": "46271d24b71beb11d860826b5d4ee4228f065db3cfe93d71e93d828472760400",
+    "Vayne-characters.json": "564bc80e7c15ef2e8f135a7b3487bd1b8f6d6942ffd2f82f72cf755ff4e8f3f6",
+    "strings.json": "5f451b3bd31f7b5fb1438fc756dbcc22b99025ec6184c3a60810e2123f1d76cd"
+  }
+}

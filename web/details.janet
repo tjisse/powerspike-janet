@@ -78,9 +78,10 @@
 (defn ability [ability]
   {:name (ability :name) :icon (asset (ability :icon-group) (ability :icon))
    :subtitle (string (string/ascii-upper (string (ability :slot))) (if (> (ability :rank) 0) (string " · rank " (ability :rank)) " · Locked (not learned)"))
-   :stats [["Cooldown" (cond (= 0 (ability :rank)) "Not learned"
-                         (number? (ability :effective-cooldown)) (string (amount (ability :effective-cooldown)) " s")
-                         "Not available")]]
+   :stats [(if (ability :passive) ["Type" "Passive"]
+             ["Cooldown" (cond (= 0 (ability :rank)) "Not learned"
+                           (number? (ability :effective-cooldown)) (string (amount (ability :effective-cooldown)) " s")
+                           "Not available")])]
    :body (lines (get ability :tooltip ""))
    :body-rich (tooltip/body (get ability :tooltip "") (get ability :variables []) (when (> (ability :rank) 0) (ability :tooltip-context)))
    :coverage "Calculated values use this build at the start of the fight. See Simulation details for effects not included."

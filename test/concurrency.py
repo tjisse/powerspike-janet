@@ -144,6 +144,15 @@ def verify(binary_path):
             signals = {**query, 'duration':5, 'samples':1, 'searchseconds':30,
                        'searchslots':6, 'searchbudget':10000, 'searchpool':''}
             first = search('/search', signals)
+            # An optimizer may run for 30 seconds. A new fight and its HTML
+            # must complete while that optimizer still owns its CPU slot.
+            started = time.monotonic()
+            ordinary = simulation({**query, 'samples':1, 'duration':2, 'seed':4299})
+            interactive_elapsed = time.monotonic()-started
+            assert ordinary[0] > 0
+            assert interactive_elapsed < 10, f'Ordinary fight waited behind optimizer: {interactive_elapsed:.3f}s'
+            current = search('/search/status', {**signals, 'searchjob':first['data-job']}, post=False)
+            assert current['data-status'] == 'running', current
             other_signals = {**signals, 'searchpool':'1036,1052', 'searchslots':1, 'searchseconds':5}
             other = search('/search', other_signals)
             queued = search('/search', signals)
@@ -164,8 +173,8 @@ def verify(binary_path):
                 time.sleep(.02)
             assert simulation(query) == results[0]
             health()
-    print('Concurrent HTTP: four shared simulations, independent inventories, four distinct matchup/native forms, SSE reruns, queued/running search cancellation and unaffected neighbor passed. '
-          f'{len(latencies)} health probes; maximum local latency {max(latencies):.3f}s (limit 2s).')
+    print('Concurrent HTTP: shared simulations, independent inventories, four matchup/native forms, SSE reruns, an ordinary fight during optimization, queued/running cancellation and unaffected neighbor passed. '
+          f'Interactive fight during search {interactive_elapsed:.3f}s; {len(latencies)} health probes; maximum local latency {max(latencies):.3f}s (limit 2s).')
 
 
 if __name__ == '__main__':

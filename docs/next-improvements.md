@@ -19,6 +19,12 @@ The [ordinary attack follow-up](latest-mage-attacks.md) extends the reviewed
 Ahri/Annie/Viktor projectiles and Ahri windup to both patches, with cached-data,
 both-actor, exact-impact and relocated-executable checks. Other windups,
 exceptional attacks and later patches still require their own review.
+The [latest loadout follow-up](latest-loadouts.md) now extends existing item
+procs, supported rune/shard effects, Kayle's fixed-level attacks and the four
+reviewed fixed-form champions to 16.20.1 and 16.21.1. It also establishes
+Essence Reaver's total-critical-chance mapping and checks manual refresh,
+both actors, optimizer parity and relocated cached snapshots. Unreviewed
+mechanics and later patches remain outside that scope.
 An explicit [local reparse action](patch-reparse.md) now rebuilds a mismatched
 snapshot from its retained raw sources, with a parser-version warning and no
 provider downloads. Saved snapshot links remain pinned; the action opens the new parsed result in
@@ -104,7 +110,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    expiry/refresh context remain next. A two-replay shield screen found no
    positive overlap with observed Riposte windows; it leaves ordering unresolved.
 3. **Level and form transitions.** Kayle's [fixed-level attack type and range](kayle-levels.md)
-   now drive both participants and supported item scaling on 16.19.1, with her
+   now drive both participants and supported item scaling on 16.19.1, 16.20.1
+   and 16.21.1, with her
    remaining passive effects explicit. Nidalee now has [fixed Human/Cougar forms](nidalee-forms.md)
    for ordinary attacks and supported item scaling. Jayce now has [fixed Hammer/Cannon forms](jayce-forms.md),
    including Hammer's level/bonus-AD resistance scaling. Elise now has
@@ -184,6 +191,12 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    native controls. Expanded checks also fix native practice checkbox
    submissions and exercise four distinct matchup pages concurrently.
    Hosted improvements still require a measurement after deployment.
+   The [two-slot scheduler follow-up](timeline-and-concurrency.md#two-shared-cpu-slots-22-october-2026)
+   now allows ordinary fights and views during one long optimizer, prioritizes
+   queued interactive work and shares a two-job CPU allowance across rendering
+   and combat. Serialized publication, cancellation and queue limits remain
+   checked. A short local memory sample is recorded; sustained hosted load and
+   persistent worker reuse remain future work.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
    usage remain beta checks.
 7. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)

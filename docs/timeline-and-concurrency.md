@@ -103,3 +103,41 @@ This is a local software reliability check with a small number of clients. It
 does not establish production throughput, proxy behavior, provider outage
 handling or a memory/storage capacity budget. Those checks remain on the
 [next-improvement list](next-improvements.md).
+
+## Two shared CPU slots (22 October 2026)
+
+After v0.24.0, rendering and combat work share **two active CPU slots**, with
+**at most one optimizer**. Previously all simulations waited behind the active
+optimizer, even when the rendering lane was idle. A running optimizer now leaves
+a slot available for ordinary fights and views. Queued interactive work takes
+priority over a queued search, preserving FIFO within each class. Running jobs
+are not preempted; a search can wait while interactive requests keep arriving.
+
+Provider downloads and offline reparse/publication retain their single separate
+lane. That worker can also use CPU when parsing downloaded records. This keeps
+managed publication serialized while network waits do not occupy either of the
+two render/combat slots. The eight-job waiting limit, shared identical work,
+64-record history bound and request-specific HTML remain unchanged.
+
+Active jobs are now tracked by job ID. A cancelling worker retains its occupied
+slot until it finishes, so a retry cannot create an extra active worker. Both
+failure and success release exactly that job's slot. The event loop continues
+to handle health checks and SSE progress while native threads perform work.
+Threads are still created per job; this change does not introduce a persistent
+worker pool or a new server configuration setting.
+
+The deterministic queue gate now holds both CPU slots and verifies the shared
+limit across rendering/simulation, one optimizer, interactive queue priority,
+serialized downloads/reparse, cancellation cleanup, retry isolation and recovery
+after a worker failure. The packaged HTTP gate also requires an ordinary fight
+and its HTML to finish while a 30-second optimizer is still running. The local
+run completed that fight in **0.322 seconds**, with 243 health probes and a
+maximum health latency of **0.375 seconds** (two-second limit).
+
+A separate short local burst used four clients to request 20 distinct duel
+pages during one optimizer. `/proc/<pid>/status` showed 22.94 MiB initial RSS
+and a **306.75 MiB** high-water mark, still retained immediately after the burst.
+Browser verification ran concurrently in a different process, so this is a
+per-process memory sample, not an uncontended throughput benchmark. It does not
+establish a long-running memory bound or production capacity. Check deployed
+latency and sustained resource use separately on the two-core host.

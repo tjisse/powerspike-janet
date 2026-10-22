@@ -9,6 +9,21 @@
 (defn lane [job] (case (job :kind) :patch :network :reparse :network :render :render :compute))
 (defn get-job [id] (get records id))
 (defn terminal? [job] (some |(= $ (job :status)) [:done :failed :cancelled]))
+# Rendering, simulations and optimization share the CPU allowance. A long
+# optimizer occupies at most one slot, leaving another for interactive work.
+# Provider/publication work remains serialized independently.
+(def cpu-limit 2)
+(defn available? [job]
+  (def running (values active))
+  (if (= :network (lane job))
+    (not (some |(= :network (lane $)) running))
+    (and (< (count |(not= :network (lane $)) running) cpu-limit)
+         (or (not= :optimization (job :kind))
+             (not (some |(= :optimization ($ :kind)) running))))))
+(defn next-index []
+  (def eligible (filter |(or (terminal? (queue $)) (available? (queue $))) (range 0 (length queue))))
+  # Preserve FIFO within each class; queued UI work goes before another search.
+  (or (find |(not= :optimization ((queue $) :kind)) eligible) (first eligible)))
 (defn cancel [id]
   (def job (records id))
   (assert job "Unknown job.")
@@ -26,12 +41,12 @@
   job)
 (defn pump []
   (while (not (empty? queue))
-    (def index (find |(or (terminal? (queue $)) (not (active (lane (queue $))))) (range 0 (length queue))))
+    (def index (next-index))
     (unless index (break))
     (def selected (queue index))
     (array/remove queue index 1)
     (unless (terminal? selected)
-      (put active (lane selected) (selected :id))
+      (put active (selected :id) selected)
       (put selected :status :running)
       (def channel (ev/thread-chan 8))
       (def cancel-channel (ev/thread-chan 1))
@@ -65,7 +80,7 @@
                      (ev/chan-close cancel-channel)
                      (put selected :cancel-channel nil)
                      (put selected :task nil) (put selected :input nil)
-                     (put active (lane selected) nil) (pump) (break)))))))))
+                     (put active (selected :id) nil) (pump) (break)))))))))
 (defn submit [kind key task input]
   (def shared (when key (find |(and (= kind ($ :kind)) (= key ($ :key)) (not (terminal? $)) (not ($ :cancel-requested))) (values records))))
   (or shared

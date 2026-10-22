@@ -14,6 +14,33 @@ keep requesting a failed image. Parried effects retain their crossed-out
 appearance and consumption details. Crowded markers remain available through
 the complete event selector, including on narrow screens.
 
+## Status duration bands
+
+The same champion lanes now show colored intervals for applied controls, named
+buffs, temporary stat effects, shields, parry and ready empowered attacks.
+Overlapping effect types occupy separate strips within the fixed-height lane;
+ability markers remain above them. A compact key identifies the colors. Hover,
+keyboard focus and touch inspection expose the affected champion and the
+interval's start, end and active duration without changing result layout.
+
+`status-timeline.janet` observes actor state after each engine event, only when
+tracing is enabled. It does not schedule events or change combat calculations.
+Intervals account for tenacity, reapplication, selective cleanse, buff stacks
+and consumption, depleted shields, empowerment consumption at release, expiry
+and death. Known expiry times bound intervals even when no expiry event is
+scheduled. The UI clips them at the displayed fight end and uses the graph's
+time scale. Colors remain consistent across participants and redraws. Only
+effects actually modeled and applied are shown; excluded effects gain no new
+mechanics from this presentation change.
+
+`test/status-timeline.janet` checks these boundaries with explicit synthetic
+engine scenarios and scoring parity with tracing disabled. Its generated
+browser fixture checks exact band geometry, overlap, colors, empty results,
+fight-end clipping, keyboard/touch tooltips and layouts down to 320 px.
+These synthetic cases are UI/engine checks, not new champion evidence. The
+retained control and Riposte browser fixtures also check real response payloads
+and their rendered silence/parry bands through the packaged executable.
+
 ## Reliability fixes
 
 Cancelling a queued job previously marked its record cancelled but left its

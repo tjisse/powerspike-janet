@@ -29,13 +29,18 @@ def verify(binary_path, fixture_path):
                              'movement': 'hold', 'opponentmovement': 'hold', 'snapshot': snapshot, 'samples': 1}
                     page.goto(base + '/?' + urllib.parse.urlencode(query), wait_until='domcontentloaded')
                     expect(page.locator('#matchup-chart svg')).to_be_visible()
-                    trace = json.loads(page.locator('#results').get_attribute('data-matchup-result'))['trace']
+                    payload = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
+                    trace = payload['trace']
                     who = 'opponent' if reverse else 'player'
                     casts = [row for row in trace if row['kind'] == 'cast' and row['source'] == 'fixture-q']
                     assert len(casts) == 2 and all(row['actor'] == who for row in casts)
                     control = next(row for row in trace if row['kind'] == 'control' and row['target'] == who)
                     assert control['control'] == 'silence'
                     assert abs(control['at'] - .013) < 1e-6
+                    status = next(row for row in payload['statuses'] if row['effect'] == 'silence' and row['actor'] == who)
+                    assert abs(status['start'] - control['at']) < 1e-6
+                    assert abs(status['end'] - (control['at'] + control['duration'])) < 1e-6
+                    expect(page.locator('[data-status-effect="silence"]')).to_have_count(1)
                     assert abs(casts[1]['at'] - (control['at'] + control['duration'])) < 1e-6
                     assert sum(row['damage'] for row in trace if row['kind'] == 'damage' and row['source'] == 'fixture-q') == 20
                     page.set_viewport_size({'width': 320, 'height': 1000})

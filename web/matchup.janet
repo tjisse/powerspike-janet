@@ -255,6 +255,7 @@
   (def endpoint (or (find |(<= ($ :at) end) (reverse trace)) (last trace)))
   (def hp (when winner (get-in endpoint [:participants winner :health] (get-in actors [winner :health] 0))))
   [:section {:id "results" :class "results matchup-results" :data-matchup-result (json/encode {:trace trace :duration (state :duration) :end end :names names
+                                                                                               :statuses (get combat :statuses [])
                                                                                                :sources (event-sources (result :package) actors trace)
                                                                                                :actors (map |{:id ($ :id) :hp (get-in $ [:stats :hp] 1)
                                                                                                               :icon (icon-source (result :package) "champion"
@@ -278,6 +279,7 @@
     [:section {:id "matchup-events" :class "matchup-events" :aria-label "Combat events"}
      [:div {:class "matchup-event-lanes"}]]
     [:div {:class "matchup-timeline-guide" :aria-hidden "true"}]]
+   [:div {:class "matchup-status-legend" :aria-label "Active effect colors"}]
    [:div {:class "matchup-inspection"}
     [:output {:class "matchup-time" :aria-label "Fight time"} "0.00 s"]
     [:label "Event" [:select {:class "matchup-event-select" :aria-label "Select combat event"} [:option {:value ""} "Select event"]]]]

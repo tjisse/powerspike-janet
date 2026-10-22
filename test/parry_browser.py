@@ -30,6 +30,10 @@ def verify(binary_path, fixture_path):
                 expect(page.locator('#matchup-chart svg')).to_be_visible()
                 payload = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
                 trace = payload['trace']
+                status = next(row for row in payload['statuses'] if row['effect'] == 'parry')
+                assert status['actor'] == 'opponent' and status['start'] == 0
+                assert abs(status['end'] - .74) < 1e-6
+                expect(page.locator('[data-status-effect="parry"]')).to_have_count(1)
                 parries = [r for r in trace if r['kind'] == 'parried']
                 assert parries and any(r['source'] == 'item/3100/hit' for r in parries)
                 assert sum(r.get('damage', 0) for r in trace if r['kind'] == 'damage') == 0

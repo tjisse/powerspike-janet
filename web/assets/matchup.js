@@ -10,7 +10,17 @@
   const commandFields = new Set(['championaction', 'championwho', 'championjson']);
   let configurationPending = false;
   let championActionPending = false;
-  let baseline = null, pending = null, identity = '', result = null, rows = [], events = [];
+  let baseline = null, pending = null, identity = '', result = null, rows = [], events = [], statuses = [];
+  const timelineTargets = '[data-trace-event],[data-status-index]';
+  const statusNames = {stun: 'Stun', silence: 'Silence', slow: 'Slow', root: 'Root', charm: 'Charm', fear: 'Fear', airborne: 'Airborne', suppression: 'Suppression', blind: 'Blind', disarm: 'Disarm', grounded: 'Grounded', shield: 'Shield', parry: 'Parry', spellblade: 'Spellblade', 'outgoing-multiplier': 'Damage reduction', 'healing-multiplier': 'Healing reduction', 'move-speed': 'Movement speed', tenacity: 'Tenacity', armor: 'Armor', mr: 'Magic resistance'};
+  const statusColors = {stun: '#efb85c', silence: '#c59aff', slow: '#68b9ed', root: '#8cce75', charm: '#f58db4', fear: '#e99062', airborne: '#d6e3ef', suppression: '#a7a1f4', blind: '#8e9aab', disarm: '#f0ca91', grounded: '#b2b68c', shield: '#5fdfca', parry: '#f3d88a', spellblade: '#67cdd9', 'outgoing-multiplier': '#df8878', 'healing-multiplier': '#d59dbc', 'move-speed': '#8ade9d', tenacity: '#9caff0', armor: '#c4b06b', mr: '#83c4a0'};
+  const statusName = status => status.kind === 'empowerment' ? `${result.sources?.[status.effect]?.name || 'Empowered attack'} ready` : statusNames[status.effect] || String(status.effect).replace(/[-_]/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase());
+  const statusColor = status => {
+    if (statusColors[status.effect]) return statusColors[status.effect];
+    let hash = 0;
+    for (const letter of String(status.effect)) hash = (Math.imul(hash, 31) + letter.charCodeAt(0)) | 0;
+    return `hsl(${(hash >>> 0) % 360} 65% 72%)`;
+  };
   let time = 0, metric = 'health', selected = null, scheduled = false;
   let eventTooltipAnchor = null, eventTooltipTimer, restoringEventFocus = false;
   const node = (tag, className, text) => {
@@ -209,6 +219,7 @@
     }
     if (button.dataset.matchupMetric) { metric = button.dataset.matchupMetric; draw(); }
     if (button.hasAttribute('data-trace-event')) selectEvent(Number(button.dataset.traceEvent));
+    if (button.hasAttribute('data-status-index')) showStatusTooltip(Number(button.dataset.statusIndex), button);
   }, true);
 
   const ns = 'http://www.w3.org/2000/svg';
@@ -231,6 +242,15 @@
       return {...record, dealt: [...totals]};
     });
     events = rows.filter(record => ['damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried'].includes(record.kind));
+    statuses = (result.statuses || []).map(status => ({...status, start: Math.max(0, status.start), end: Math.min(status.end, result.end)}))
+      .filter(status => Number.isFinite(status.start) && Number.isFinite(status.end) && status.end > status.start && result.actors.some(actor => actor.id === status.actor));
+    const legend = $('.matchup-status-legend');
+    legend.replaceChildren(...[...new Map(statuses.map(status => [status.effect, status])).values()].map(status => {
+      const key = node('span', 'matchup-status-key', statusName(status));
+      key.style.setProperty('--status-color', statusColor(status));
+      return key;
+    }));
+    legend.hidden = !statuses.length;
     baseline = pending || configuration(); pending = null;
     const select = $('.matchup-event-select');
     select.replaceChildren(new Option('Select event', ''));
@@ -281,9 +301,20 @@
   function showEventTooltip(index, anchor) {
     const detail = $('#combat-event-tooltip'), event = events[index];
     if (!detail || !event || !anchor) return;
+    showTimelineTooltip(`${event.at.toFixed(2)} s · ${eventName(event)}`, eventValues(event), anchor);
+  }
+  function showStatusTooltip(index, anchor) {
+    const status = statuses[index];
+    if (!status || !anchor) return;
+    const who = result.actors.findIndex(actor => actor.id === status.actor);
+    showTimelineTooltip(`${result.names[who]} · ${statusName(status)}`,
+      `${Number(status.start.toFixed(3))}–${Number(status.end.toFixed(3))} s · ${Number((status.end - status.start).toFixed(3))} s active`, anchor);
+  }
+  function showTimelineTooltip(title, values, anchor) {
+    const detail = $('#combat-event-tooltip');
     hideEventTooltip();
     eventTooltipAnchor = anchor;
-    detail.replaceChildren(node('strong', '', `${event.at.toFixed(2)} s · ${eventName(event)}`), node('span', '', eventValues(event)));
+    detail.replaceChildren(node('strong', '', title), node('span', '', values));
     anchor.setAttribute('aria-describedby', detail.id);
     detail.hidden = false;
     if (typeof detail.showPopover === 'function') detail.showPopover();
@@ -302,21 +333,27 @@
     showEventTooltip(index, anchor || $(`[data-trace-event="${index}"]`));
   }
   app.addEventListener('pointerover', event => {
-    const anchor = event.target.closest('[data-trace-event]');
-    if (anchor && !anchor.contains(event.relatedTarget) && event.pointerType !== 'touch') showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+    const anchor = event.target.closest(timelineTargets);
+    if (anchor && !anchor.contains(event.relatedTarget) && event.pointerType !== 'touch') {
+      if (anchor.hasAttribute('data-status-index')) showStatusTooltip(Number(anchor.dataset.statusIndex), anchor);
+      else showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+    }
     if (event.target.closest('#combat-event-tooltip')) clearTimeout(eventTooltipTimer);
   });
   app.addEventListener('pointerout', event => {
-    const anchor = event.target.closest('[data-trace-event],#combat-event-tooltip');
+    const anchor = event.target.closest(`${timelineTargets},#combat-event-tooltip`);
     if (anchor && !anchor.contains(event.relatedTarget) && document.activeElement !== eventTooltipAnchor) eventTooltipTimer = setTimeout(hideEventTooltip, 120);
   });
   app.addEventListener('focusin', event => {
-    const anchor = event.target.closest('[data-trace-event]');
-    if (anchor && !restoringEventFocus) showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+    const anchor = event.target.closest(timelineTargets);
+    if (anchor && !restoringEventFocus) {
+      if (anchor.hasAttribute('data-status-index')) showStatusTooltip(Number(anchor.dataset.statusIndex), anchor);
+      else showEventTooltip(Number(anchor.dataset.traceEvent), anchor);
+    }
   });
   app.addEventListener('focusout', event => { if (event.target === eventTooltipAnchor) eventTooltipTimer = setTimeout(hideEventTooltip, 120); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') hideEventTooltip(); });
-  document.addEventListener('click', event => { if (!event.target.closest('[data-trace-event],#combat-event-tooltip,.matchup-event-select')) hideEventTooltip(); });
+  document.addEventListener('click', event => { if (!event.target.closest(`${timelineTargets},#combat-event-tooltip,.matchup-event-select`)) hideEventTooltip(); });
   document.addEventListener('scroll', event => { if (!event.target.closest?.('#combat-event-tooltip')) positionEventTooltip(); }, true);
   function recordAt(t) {
     let lo = 0, hi = rows.length;
@@ -367,13 +404,28 @@
   function drawEvents(width, left, right) {
     const selectorTooltip = eventTooltipAnchor?.matches('.matchup-event-select');
     const tooltipIndex = selectorTooltip ? selected : eventTooltipAnchor?.dataset.traceEvent;
+    const statusIndex = eventTooltipAnchor?.dataset.statusIndex;
     hideEventTooltip();
     const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 48 : 36;
     const focused = document.activeElement?.dataset.traceEvent;
+    const focusedStatus = document.activeElement?.dataset.statusIndex;
     lanes.replaceChildren(...result.actors.map((actor, side) => {
       const lane = node('div', 'matchup-event-lane'), label = node('span', 'matchup-lane-name', result.names[side]), track = node('div', 'matchup-event-track');
       label.title = result.names[side];
       track.style.marginLeft = `${left}px`; track.style.width = `${right - left}px`;
+      const effects = [...new Set(statuses.filter(status => status.actor === actor.id).map(status => status.effect))].sort();
+      statuses.forEach((status, index) => {
+        if (status.actor !== actor.id) return;
+        const band = node('button', 'matchup-status-band');
+        band.type = 'button'; band.dataset.statusIndex = index; band.dataset.statusEffect = status.effect;
+        band.setAttribute('aria-label', `${result.names[side]}, ${statusName(status)}, ${Number(status.start.toFixed(3))} to ${Number(status.end.toFixed(3))} seconds`);
+        band.style.setProperty('--status-color', statusColor(status));
+        band.style.left = `${status.start / result.duration * 100}%`;
+        band.style.width = `${(status.end - status.start) / result.duration * 100}%`;
+        band.style.top = `${effects.indexOf(status.effect) / effects.length * 100}%`;
+        band.style.height = `${100 / effects.length}%`;
+        track.append(band);
+      });
       let previous = -Infinity;
       events.forEach((record, index) => {
         if (actorIndex(record) !== side) return;
@@ -396,8 +448,10 @@
     }));
     restoringEventFocus = true;
     if (focused !== undefined) [...lanes.querySelectorAll('[data-trace-event]')].find(button => button.dataset.traceEvent === focused)?.focus({preventScroll: true});
+    if (focusedStatus !== undefined) lanes.querySelector(`[data-status-index="${focusedStatus}"]`)?.focus({preventScroll: true});
     restoringEventFocus = false;
     if (tooltipIndex !== undefined && tooltipIndex !== null) showEventTooltip(Number(tooltipIndex), selectorTooltip ? $('.matchup-event-select') : lanes.querySelector(`[data-trace-event="${tooltipIndex}"]`));
+    if (statusIndex !== undefined) showStatusTooltip(Number(statusIndex), lanes.querySelector(`[data-status-index="${statusIndex}"]`));
     $('.matchup-event-select').value = selected === null ? '' : String(selected);
   }
   function update() {

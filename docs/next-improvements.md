@@ -36,6 +36,9 @@ layout stability, direct reruns and error recovery.
 The attention area is hidden when empty. Patch refresh progress fits a fixed
 header dropdown; event details appear in hover, keyboard-focus and tap tooltips.
 Decorative section dividers and redundant result labels are removed.
+The [combat lanes](timeline-and-concurrency.md#status-duration-bands) also show
+colored status durations on the shared time axis, including overlap and early
+removal, with fixed lane heights and hover, keyboard and touch inspection.
 
 1. **Patch accuracy and readiness.** Broaden the retained refreshed-patch checks
    beyond the default Annie/Garen matchup. Compare interpreted formulas and

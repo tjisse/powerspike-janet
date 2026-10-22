@@ -33,7 +33,7 @@
 (each slot [:e :r] (assert (= :executes ((row "Garen" slot) :status))))
 (assert (= :executes ((row "Fiddlesticks" :e) :status)))
 (each slot [:q :w :r]
-  (assert (= :no-executable-effect ((row "Fiddlesticks" slot) :status))))
+  (assert (= :executes ((row "Fiddlesticks" slot) :status))))
 (def objects (read "data/ability-fixtures/16.21.1/Fiddlesticks-characters.json"))
 (def detail (read "data/ability-fixtures/16.21.1/Fiddlesticks-abilities.json"))
 (def expected "Characters/FiddleSticks/CharacterRecords/Root")

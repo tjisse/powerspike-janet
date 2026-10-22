@@ -92,8 +92,57 @@
          (if (= handler :seraphine-p)
            {:echo (when (empty? echo-problems) {:every 3 :delay echo-delay})} {})))
 
+(defn fiddlesticks [ability handler]
+  (def spell (ability :record))
+  (defn term [name] (expr/variable name spell))
+  (def tick (expr/compile-part (get-in spell ["mSpellCalculations" "DamageDone" "mMultiplier"]) spell))
+  (def note (case handler
+              :fiddlesticks-q "Terrify deals a percentage of current health with a minimum, fears on a ready target and doubles damage during its own recent-fear timer. Unseen/effigy passive fears and fear-driven fleeing remain excluded."
+              :fiddlesticks-w "Bountiful Harvest channels, deals separate drain ticks and a final missing-health hit, heals from pre-mitigation damage and refunds 60% of remaining cooldown on completion or target death. Control and an escaped tether end the channel without a refund. Monster/minion variants remain excluded."
+              :fiddlesticks-e "Reap deals its source-defined magic damage and slow. The ground slash is assumed to apply at cast completion; center-hit silence, unseen fear and geometry remain excluded."
+              :fiddlesticks-r "Crowstorm channels before blinking to the opponent's position selected at cast start, then deals separate area ticks while alive and in range. Unseen fear, terrain, vision and multi-target behavior remain excluded."))
+  (def specs (case handler
+               :fiddlesticks-q [{:kind :terrify :target :enemy :amount (term "TotalPercentHealthDamage")
+                                 :minimum (term "MinimumDamage") :duration (term "FearDuration") :fear-cooldown (ability :cooldown)}]
+               :fiddlesticks-w [{:kind :drain :target :enemy :amount (quotient (term "DrainDamageCalc") (term "TicksPerSecond"))
+                                 :interval (quotient (literal 1) (term "TicksPerSecond")) :duration (term "DrainDuration")
+                                 :leash (term "DrainLeashRange") :finisher-ratio (term "PercentMultiplier")
+                                 :heal-ratio (product-of (literal 0.01) (term "VampPercentage"))
+                                 :refund (if (string/find "60%" (ability :tooltip)) (literal 0.6)
+                                           (expr/unresolved "Drain completion refund is not established by this tooltip."))}]
+               :fiddlesticks-e [{:kind :damage :target :enemy :damage-type :magic :amount (term "Damage")}
+                                {:kind :control :target :enemy :control :slow :duration (term "SilenceDuration")
+                                 :strength (product-of (literal -1) (term "SlowAmount"))}]
+               :fiddlesticks-r [{:kind :damage :target :enemy :damage-type :magic :amount (term "DamageDone")
+                                 :delay tick :interval tick :hits (quotient (term "Duration") tick)
+                                 :range-at-impact (expr/ranked (get spell "castRadius") 0 "Crowstorm radius") :requires-caster-alive true}
+                                {:kind :buff :target :self :amount (literal 0) :buff "Crowstorm" :refresh true :duration (term "Duration")}]))
+  (def effects (map (fn [effect]
+                      (def problems (mapcat |(if (and (dictionary? $) ($ :op)) (expr/problems $) []) (values effect)))
+                      (merge {:trigger :cast :condition :always :target-kinds [:champion :practice]
+                              :status (if (empty? problems) :estimated :unresolved) :evidence {:tooltip note :override true}} effect)) specs))
+  (defn fixed [expression]
+    (def checked (protect (expr/evaluate expression {:rank 1})))
+    (if (first checked) (checked 1) :unresolved))
+  (def notes (filter |(not (or (= $ note) (string/has-prefix? "Fiddlesticks uses reviewed" $)
+                               (string/find "require an explicit handler;" $)
+                               (and (= handler :fiddlesticks-e) (string/has-prefix? "Control trigger/duration unresolved:" $))
+                               (string/has-prefix? "Periodic damage needs" $)
+                               (string/has-prefix? "Conditional/maximum effect needs" $))) (ability :unresolved)))
+  (merge ability {:effects effects :unresolved [;notes note] :missile-speed 0}
+         (case handler
+           :fiddlesticks-w {:interruptible-channel true :cast-lock (fixed (sum-of (literal (ability :cast-time)) (term "DrainDuration")))}
+           :fiddlesticks-r {:interruptible-channel true :channel true :blink-to-target true :finish-channel-on-release true
+                            :disabled-controls [:grounded] :channel-interrupts [:stun :charm :fear :airborne :suppression :silence :grounded]
+                            :cast-time (fixed (term "ChannelTime"))}
+           {})))
+
 (defn review [ability handler]
   (case handler
     :garen-e (garen ability handler)
     :garen-r (garen ability handler)
+    :fiddlesticks-q (fiddlesticks ability handler)
+    :fiddlesticks-w (fiddlesticks ability handler)
+    :fiddlesticks-e (fiddlesticks ability handler)
+    :fiddlesticks-r (fiddlesticks ability handler)
     (seraphine ability handler)))

@@ -1,0 +1,125 @@
+(import ./latest-provider :as fixtures)
+(import ../src/powerspike/normalize :as normalize)
+(import ../src/powerspike/packages :as packages)
+(import ../src/powerspike/scenario :as scenario)
+(import ../src/powerspike/scenario-wire :as wire)
+(import ../src/powerspike/engine :as engine)
+(import ../src/powerspike/data-util :as util)
+(import ../web/catalog :as catalog)
+(import pshash :as hash)
+
+(defn close [expected actual]
+  (assert (< (math/abs (- expected actual)) 0.0003) (string "Expected " expected ", got " actual)))
+(def scratch (string "build/fiddlesticks-tests/" (hash/sha256 (os/cryptorand 8))))
+(def root "data/ability-fixtures/16.21.1/")
+(eachp [file expected] ((util/read-json (slurp (string root "manifest.json"))) "fixture_sha256")
+  (assert (= expected (hash/sha256 (slurp (string root file))))))
+(catalog/initialize scratch "build/seed")
+(def refreshed (packages/fetch "16.21.1" (string scratch "/job") (fn [progress] nil) (fn [] false)
+                               (fixtures/provider "16.21.1" root ["Fiddlesticks" "Seraphine"])))
+(def package (packages/load "16.21.1" (refreshed :snapshot)))
+(def champion (get-in package [:champion-map "Fiddlesticks"]))
+(assert (= (util/canonical champion) (util/canonical (normalize/semantic-kit "Fiddlesticks" "16.21.1" champion))))
+(def order [:q :w :e :q :q :r :q :w :q :w :r :w :w :e :e :r :e :e])
+(def actor (scenario/participant package {:champion "Fiddlesticks" :level 18 :skill-order order} "player" 0))
+(def base (merge actor {:health 500 :resource 10000 :ranks {:q 1 :w 1 :e 1 :r 1}
+                        :stats (merge (actor :stats) {:hp 1000 :hp-regen 0 :mp 10000 :mp-regen 0 :ap 100 :attack-speed 1})}))
+(def idle {:abilities false :attacks false :movement :hold})
+(defn run [slot &opt fields target events duration]
+  (engine/simulate {:duration (or duration 3) :initial-events (or events [])
+                    :actors [(merge base {:strategy {:abilities true :attacks false :priority [slot] :movement :hold}} (or fields {}))
+                             (merge {:id "target" :kind :champion :level 18 :position 0
+                                     :stats {:hp 2000 :armor 0 :mr 0 :move-speed 0} :strategy idle} (or target {}))]}))
+(defn initial [at who effect]
+  {:at at :kind :effect :actor (- 1 who) :target who :source "fixture" :origin "fixture" :rank 1 :effect effect})
+(defn traced [result kind source]
+  (filter |(and (= kind ($ :kind)) (= source ($ :source))) (result :trace)))
+(defn ticks [result source] (traced result :damage source))
+
+# Q is current-health percentage damage with a floor, never a flat percentage.
+(close 140 ((first (ticks (run :q) "FiddleSticksQ")) :raw))
+(close 40 ((first (ticks (run :q nil {:health 100}) "FiddleSticksQ")) :raw))
+(close 180 ((first (ticks (run :q {:ranks {:q 5}}) "FiddleSticksQ")) :raw))
+(close 1.2 ((first (traced (run :q) :control "FiddleSticksQ")) :duration))
+(def reap (run :e nil {:stats {:hp 2000 :armor 0 :mr 0 :move-speed 100}} nil 1))
+(close 120 ((first (ticks reap "FiddleSticksE")) :raw))
+(close 0.4 ((first (ticks reap "FiddleSticksE")) :at))
+(close 1.25 ((first (traced reap :control "FiddleSticksE")) :duration))
+(close 70 (get-in reap [:actors 1 :stats :move-speed]))
+# A synthetic early recast isolates the recent-fear branch, independently of
+# the ordinary Q cooldown; it does not claim that Q naturally resets itself.
+(def early (map |(if (= :q ($ :slot)) (merge $ {:cooldown 1}) $) (base :abilities)))
+(def recent (run :q {:abilities early} nil nil 1.8))
+(close 260.4 (((ticks recent "FiddleSticksQ") 1) :raw))
+(assert (= 1 (length (traced recent :control "FiddleSticksQ"))))
+
+# W: seven ordinary ticks before the final combined hit, then a remaining-CD
+# refund. 105 DPS / 4 = 26.25; final = 26.25 + .12 * (7 * 26.25).
+(def drain (run :w))
+(def drained (ticks drain "FiddleSticksW"))
+(assert (= 8 (length drained)))
+(each hit (take 7 drained) (close 26.25 (hit :raw)))
+(close 48.3 ((last drained) :raw))
+(close 232.05 (drain :damage))
+(close 58.0125 (get-in drain [:actors 0 :healed]))
+(for i 0 8 (close (+ 0.5 (* i 0.25)) ((drained i) :at)))
+(close 5.35 (get-in drain [:actors 0 :ready "FiddleSticksW"]))
+(assert (some |(and (= :channel ($ :kind)) (= 0 ($ :start)) (= 2.25 ($ :end))) (drain :statuses)))
+(def resisted (run :w nil {:stats {:hp 2000 :armor 0 :mr 100 :move-speed 0}}))
+(close 6.5625 ((first (traced resisted :heal "FiddleSticksW")) :amount))
+(close 13.125 ((first (ticks resisted "FiddleSticksW")) :damage))
+(defn cc [at kind duration] (initial at 0 {:kind :control :control kind :duration duration}))
+(def interrupted (run :w nil nil [(cc 1 :stun 0.01)]))
+(assert (= 2 (length (ticks interrupted "FiddleSticksW"))))
+(close 10 (get-in interrupted [:actors 0 :ready "FiddleSticksW"]))
+(assert (= 8 (length (ticks (run :w nil nil [(cc 1 :root 0.2)]) "FiddleSticksW"))))
+(assert (empty? (ticks (run :w nil nil [(cc 0.1 :silence 0.01)]) "FiddleSticksW")))
+(def escaping (run :w nil {:position 640 :stats {:hp 2000 :armor 0 :mr 0 :move-speed 100}
+                           :strategy {:abilities false :attacks false :movement :hold-range :preferred-range 1000}}))
+(assert (= 2 (length (ticks escaping "FiddleSticksW"))))
+(def break-at ((first (traced escaping :channel-end "FiddleSticksW")) :at))
+(close 0.85 break-at)
+(close 10 (get-in escaping [:actors 0 :ready "FiddleSticksW"]))
+(def target-death (run :w nil nil [(initial 0.6 1 {:kind :damage :damage-type :true :amount 10000})]))
+(close 0.6 ((first (traced target-death :channel-end "FiddleSticksW")) :at))
+(close 4.36 (get-in target-death [:actors 0 :ready "FiddleSticksW"]))
+(def dead (run :w nil nil [(initial 1 0 {:kind :damage :damage-type :true :amount 10000})]))
+(assert (= 2 (length (ticks dead "FiddleSticksW"))))
+
+# R: the source's 1.5-second channel precedes a fixed cast-time destination.
+# Each quarter-second tick deals (150 + .5 * 100) / 4 = 50 at rank one.
+(def storm (run :r nil {:position 700 :stats {:hp 10000 :armor 0 :mr 0 :move-speed 0}} nil 6.51))
+(assert (= 20 (length (ticks storm "FiddleSticksR"))))
+(close 1000 (storm :damage))
+(close 700 (get-in storm [:actors 0 :position]))
+(close 1.5 ((first (traced storm :blink "FiddleSticksR")) :at))
+(close 1.75 ((first (ticks storm "FiddleSticksR")) :at))
+(close 6.5 ((last (ticks storm "FiddleSticksR")) :at))
+(assert (empty? (ticks (run :r nil nil [(cc 0.2 :stun 0.01)] 7) "FiddleSticksR")))
+(assert (empty? (ticks (run :r nil nil [(cc 0.2 :grounded 0.01)] 7) "FiddleSticksR")))
+(close 1 ((first (traced (run :r nil nil [(cc 0 :grounded 1)] 4) :cast "FiddleSticksR")) :at))
+(assert (= 20 (length (ticks (run :r nil {:stats {:hp 10000 :armor 0 :mr 0}} [(cc 2 :stun 0.01)] 6.51) "FiddleSticksR"))))
+(def moving (run :r nil {:position 700 :stats {:hp 10000 :armor 0 :mr 0 :move-speed 300}
+                         :strategy {:abilities false :attacks false :movement :hold-range :preferred-range 1000}} nil 6.51))
+(close 700 (get-in moving [:actors 0 :position]))
+(assert (= 4 (length (ticks moving "FiddleSticksR"))))
+(assert (= 1 (length (ticks (run :r nil nil [(initial 2 0 {:kind :damage :damage-type :true :amount 10000})] 7) "FiddleSticksR"))))
+
+(def cases @[])
+(each active [0 1]
+  (def fiddle {:champion "Fiddlesticks" :level 18 :skill-order order :strategy {:attacks false :abilities true :movement :hold}})
+  (def sera {:champion "Seraphine" :level 18 :skill-order order :strategy idle})
+  (def definition {:schema 1 :patch "16.21.1" :snapshot (refreshed :snapshot) :duration 10 :distance 100 :samples 1 :seed 1
+                   :player (if (= active 0) fiddle sera) :target (merge (if (= active 1) fiddle sera) {:kind :champion})})
+  (def result (scenario/simulate definition))
+  (assert (= (result :metrics) ((scenario/fitness definition) :metrics)))
+  (each source ["FiddleSticksQ" "FiddleSticksW" "FiddleSticksR"]
+    (assert (not (empty? (ticks result source)))))
+  (array/push cases {:document (util/read-json (wire/encode definition)) :metrics (result :metrics)
+                     :sources ["FiddleSticksQ" "FiddleSticksW" "FiddleSticksR"]}))
+(when-let [export (os/getenv "PS_FIDDLESTICKS_FIXTURE")]
+  (when (os/stat export) (util/remove-tree export))
+  (util/copy-tree (string scratch "/patches") (string export "/seed"))
+  (util/write (string export "/cases.json") (util/encode-json cases)))
+(util/remove-tree scratch)
+(print "Fiddlesticks: current-health fear/minimum, drain tick/healing/finisher/refund arithmetic, persistent channel interruption, tether loss, Crowstorm blink/range and both-role scoring parity passed.")

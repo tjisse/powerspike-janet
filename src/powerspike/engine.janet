@@ -107,7 +107,7 @@
                     :resource (min (get stats :mp 0) (get actor :resource (get stats :mp 0)))
                     :position (get actor :position 0) :velocity 0 :busy-until 0 :attack-ready 0
                     :parry-until 0 :parry-source-kinds [] :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
-                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[] :pending-pulses @{}
+                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[] :pending-pulses @{} :terrify-ready @{}
                     :damage-dealt 0 :attack-damage 0 :breakdown @{} :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
 (defn context [actor target rank]
   (def stats (merge @{} (actor :stats)
@@ -358,6 +358,8 @@
             (each entry (range-boundaries (actor :index))
               (def boundary (if (number? entry) entry (entry :value)))
               (when (and (util/finite? boundary) (> distance boundary)) (crossing boundary))))
+          (when (and (get-in actor [:channel :leash]) (not (get-in actor [:channel :cancelled])))
+            (crossing (+ (get-in actor [:channel :leash]) 0.0000001)))
           (when (not= 0 (actor :velocity))
             (def desired (get-in actor [:strategy :preferred-range] (get actor :attack-range 125)))
             (crossing (if (= :hold-range (get-in actor [:strategy :movement])) desired (get actor :attack-range 125)))
@@ -432,6 +434,20 @@
   (defn record [kind fields]
     (when tracing
       (array/push trace (merge fields {:at at :kind kind :before before :participants (participants)}))))
+  (defn interrupt-channel [actor]
+    (when (and (actor :channel) (> (get-in actor [:channel :end]) at) (not (get-in actor [:channel :cancelled])))
+      (put (actor :channel) :cancelled true)
+      (put actor :busy-until at)
+      (record :interrupted {:actor (actor :id) :source (get-in actor [:channel :source])})))
+  (defn finish-drain [actor &opt refund]
+    (when (and (get-in actor [:channel :drain]) (not (get-in actor [:channel :cancelled])))
+      (def channel (actor :channel))
+      (def remaining (max 0 (- (get (actor :ready) (channel :source) at) at)))
+      (def fraction (if (= false refund) 1 (- 1 (channel :refund))))
+      (put (actor :ready) (channel :source) (+ at (* remaining fraction)))
+      (put actor :channel nil) (put actor :busy-until at)
+      (record :channel-end {:actor (actor :id) :source (channel :source) :cooldown-left (* remaining fraction)})
+      (resume actor)))
   (defn advance [time]
     (def dt (- time at))
     (def positions (map |($ :position) actors))
@@ -501,7 +517,7 @@
                       (not= :attack (get event :trigger)) (not (effect :affects-structures))))
     (def parried (and (not= (owner :index) (target :index)) (> (target :parry-until) at)
                       (some |(= $ (owner :kind)) (target :parry-source-kinds))
-                      (some |(= $ (effect :kind)) [:damage :control :buff :stat-buff])))
+                      (some |(= $ (effect :kind)) [:damage :control :buff :stat-buff :terrify])))
     (when (and parried (alive? target) (target-allowed? effect target)
                (not= :unresolved (get effect :condition :always)))
       (record :parried {:source source :actor (owner :id) :target (target :id) :effect-kind (effect :kind) :origin (event :origin)})
@@ -513,6 +529,10 @@
     (when blocked (record :immune {:source source :target (target :id)}))
     (when unknown-slow (note (string source ": Slow strength unresolved; movement reduction and utility contribution excluded.")))
     (when (and (alive? target) (not= :unresolved (get effect :condition :always))
+               (or (not (effect :requires-caster-alive)) (and (alive? owner) (> (owner :health) 0)))
+               (or (not (effect :range-at-impact))
+                   (<= (math/abs (- (owner :position) (target :position)))
+                       (+ 0.0000001 (value (effect :range-at-impact) owner target rank))))
                (or (not (effect :refresh-pulse))
                    (and (> (owner :health) 0) (= (event :pulse-key) (get-in owner [:pending-pulses source]))))
                (target-allowed? effect target) (not blocked) (not unknown-slow) (not parried))
@@ -560,6 +580,9 @@
                            (trigger owner target (get event :trigger :spell-hit) (event :origin) depth (event :ability-slot))
                            (trigger owner target :damage (event :origin) depth)
                            (trigger target owner :damage-taken (event :origin) depth))
+                         (when (and (effect :heal-owner-ratio) (alive? owner) (> (owner :health) 0))
+                           (apply-effect (merge event {:target (owner :index)
+                                                       :effect {:kind :heal :amount (* capped outgoing (effect :heal-owner-ratio))}})))
                          (when (effect :judgment-hit)
                            (def spin (owner :judgment))
                            (put spin :landed (inc (spin :landed)))
@@ -593,6 +616,29 @@
                                      (merge event {:spin-index i})))
                          (schedule (spin :end) 15 :judgment-end {:actor (owner :index) :origin (event :origin)})
                          (record :buff {:actor (owner :id) :target (owner :id) :source source :buff "Judgment" :duration duration}))
+                       :terrify
+                       (do
+                         (def recent (> (get (target :terrify-ready) (owner :id) 0) at))
+                         (def raw (* (if recent 2 1) (max (value (effect :minimum) owner target rank)
+                                                          (* (target :health) (value (effect :amount) owner target rank)))))
+                         (apply-effect (merge event {:effect {:kind :damage :damage-type :magic :amount raw}}))
+                         (unless recent
+                           (apply-effect (merge event {:effect {:kind :control :control :fear :duration (effect :duration)}}))
+                           (put (target :terrify-ready) (owner :id)
+                                (+ at (damage/cooldown (value (effect :fear-cooldown) owner target rank)
+                                                       (get-in owner [:stats :ability-haste] 0))))))
+                       :drain
+                       (do
+                         (assert (= (event :origin) (get-in owner [:channel :origin])) "Drain channel is not active.")
+                         (def duration (value (effect :duration) owner target rank))
+                         (def interval (value (effect :interval) owner target rank))
+                         (def count (/ duration interval))
+                         (assert (and (= count (math/floor count)) (<= 1 count 100)) "Invalid drain tick schedule.")
+                         (put (owner :channel) :drain true)
+                         (put (owner :channel) :leash (value (effect :leash) owner target rank))
+                         (put (owner :channel) :refund (value (effect :refund) owner target rank))
+                         (for i 1 (inc count)
+                           (schedule (+ at (* i interval)) 10 :drain-tick (merge event {:final (= i count)}))))
                        :parry
                        (do
                          (assert (= (owner :index) (target :index)) "Parry must target its caster.")
@@ -625,6 +671,9 @@
                                         (if (some |(= $ (effect :control)) [:airborne :suppression]) 1
                                           (- 1 (max 0 (min 1 (get (target :stats) :tenacity 0)))))))
                          (put (target :controls) (effect :control) (max (get (target :controls) (effect :control) 0) (+ at length)))
+                         (when (and (> length 0) (some |(= $ (effect :control))
+                                                       (get-in target [:channel :interrupts] [:stun :charm :fear :airborne :suppression :silence])))
+                           (interrupt-channel target))
                          (when (= :slow (effect :control))
                            (if (effect :strength)
                              (do (put (target :stat-effects) :slow {:stat :move-speed :mode :multiply
@@ -680,6 +729,7 @@
     (and (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)
                    (some |(= $ (ability :slot)) [:e :r])))
          (>= at (get activation :after 0))
+         (not (controlled? actor (get ability :disabled-controls []) at))
          (health-permitted? actor target activation)))
   (defn release-effect [event actor target ability effect travel]
     (if (or (= :unresolved (get effect :status)) (= :unresolved (get effect :condition)))
@@ -732,6 +782,9 @@
       (def travel (if (> speed 0) (/ distance speed) 0))
       (def hit-chance (get-in actor [:strategy :hit-chance] 1))
       (cond
+        (and (get ability :interruptible-channel)
+             (or (not= (event :origin) (get-in actor [:channel :origin])) (get-in actor [:channel :cancelled])))
+        nil
         (and (= :attack (event :action)) (controlled? actor [:stun :charm :fear :airborne :suppression] at))
         (record :interrupted {:source "attack" :actor (actor :id)})
         (and (or (= :attack (event :action)) (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (get ability :effects [])))
@@ -769,6 +822,10 @@
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
         (do
+          (when (ability :blink-to-target)
+            (put actor :position (event :destination))
+            (record :blink {:actor (actor :id) :source (ability :id) :position (actor :position)}))
+          (when (ability :finish-channel-on-release) (put actor :channel nil))
           (when (event :echo)
             (record :echo {:actor (actor :id) :source (ability :id)})
             (each effect (filter |(= :cast-start (get $ :trigger)) (ability :effects))
@@ -782,6 +839,8 @@
     (when (and (alive? actor) (alive? target))
       (def strategy (get actor :strategy {}))
       (def distance (math/abs (- (actor :position) (target :position))))
+      (when (and (get-in actor [:channel :leash]) (> distance (get-in actor [:channel :leash])))
+        (finish-drain actor false))
       (def range (get actor :attack-range 125))
       (var selected nil)
       (var rank 0)
@@ -888,13 +947,17 @@
                                                        :next (+ at (value (get-in selected [:recast :delay] 0.1) actor target rank)) :expires expires}))))
           (record :cast {:actor (actor :id) :source (selected :id) :rank rank :cost cost :cooldown cooldown})
           (def origin (string (actor :id) "/" (selected :id) "/" counter))
+          (when (selected :interruptible-channel)
+            (put actor :channel @{:origin origin :source (selected :id) :name (selected :name) :end (actor :busy-until)
+                                  :interrupts (get selected :channel-interrupts [:stun :charm :fear :airborne :suppression :silence])}))
           (unless (selected :unhasted) (trigger actor target :cast origin 0))
           (each effect (filter |(= :cast-start (get $ :trigger)) (selected :effects))
             (def started (protect (release-effect {:rank rank :origin origin} actor target selected
                                                   (merge effect {:trigger :cast}) 0)))
             (unless (first started) (note (string (selected :id) ": " (started 1)))))
           (schedule (+ at cast-time) 5 :release {:actor (actor :index) :target (target :index) :ability selected
-                                                 :rank rank :action :spell :source (selected :id) :counter counter :origin origin})
+                                                 :rank rank :action :spell :source (selected :id) :counter counter :origin origin
+                                                 :destination (when (selected :blink-to-target) (target :position))})
           (when (and (actor :echo) (some |(= $ (selected :slot)) [:q :w :e]))
             (put actor :echo-count (inc (get actor :echo-count 0)))
             (when (= 0 (% (actor :echo-count) (get-in actor [:echo :every])))
@@ -956,6 +1019,20 @@
         :decide (do (put decision-at (event :actor) nil) (decide (actors (event :actor))))
         :release (release event)
         :effect (apply-effect event)
+        :drain-tick
+        (let [actor (actors (event :actor)) target (actors (event :target)) effect (event :effect)]
+          (when (and (alive? actor) (> (actor :health) 0) (= (event :origin) (get-in actor [:channel :origin]))
+                     (not (get-in actor [:channel :cancelled])))
+            (if (or (not (alive? target)) (<= (target :health) 0)
+                    (> (math/abs (- (actor :position) (target :position))) (get-in actor [:channel :leash])))
+              (finish-drain actor (or (not (alive? target)) (<= (target :health) 0)))
+              (do
+                (def raw (+ (value (effect :amount) actor target (event :rank))
+                            (if (event :final) (* (value (effect :finisher-ratio) actor target (event :rank))
+                                                  (- ((target :stats) :hp) (target :health))) 0)))
+                (apply-effect (merge event {:effect {:kind :damage :damage-type :magic :amount raw
+                                                     :heal-owner-ratio (value (effect :heal-ratio) actor target (event :rank))}}))
+                (when (or (event :final) (<= (target :health) 0)) (finish-drain actor))))))
         :judgment-tick
         (let [actor (actors (event :actor)) target (actors (event :target)) effect (event :effect)]
           (when (and (alive? actor) (> (actor :health) 0) (= (event :origin) (get-in actor [:judgment :origin]))
@@ -979,7 +1056,8 @@
                  (when (and (alive? actor) (<= (actor :health) 0))
                    (put actor :dead-at at) (put actor :velocity 0)
                    (record :death {:actor (actor :id)})
-                   (trigger (actors (actor :target)) actor :kill (string "death/" (actor :id)) 0)))
+                   (trigger (actors (actor :target)) actor :kill (string "death/" (actor :id)) 0)
+                   (finish-drain (actors (actor :target)))))
         :buff-expire (let [actor (actors (event :actor))]
                        (when (or (not (event :refresh)) (= (event :expires) ((actor :buffs) (event :buff))))
                          (put (actor :buff-counts) (event :buff) (max 0 (- (get (actor :buff-counts) (event :buff) 0) (event :stacks))))

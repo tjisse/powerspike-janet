@@ -2305,71 +2305,68 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Fiddlesticks",
       "ability": "FiddleSticksQ",
       "name": "Terrify",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalPercentHealthDamageFeared",
         "Control trigger/duration unresolved: fear",
-        "Terrify's current-health percentage, minimum damage, recent-fear doubling and passive/active fear rules require an explicit handler; Q effects remain excluded."
-      ]
-    },
-    {
-      "status": "no-executable-effect",
-      "cast-count": 0,
-      "champion": "Fiddlesticks",
-      "ability": "FiddleSticksW",
-      "name": "Bountiful Harvest",
-      "slot": "w",
-      "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 0,
-      "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/PercentForTooltip",
-        "Conditional/maximum effect needs semantics: heal//VampPercentage",
-        "Bountiful Harvest's channel ticks, final missing-health hit, healing and completion refund require an explicit handler; W effects remain excluded."
+        "Terrify deals a percentage of current health with a minimum, fears on a ready target and doubles damage during its own recent-fear timer. Unseen/effigy passive fears and fear-driven fleeing remain excluded."
       ]
     },
     {
       "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "FiddleSticksE: Silenced",
-        "FiddleSticksE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
+      "champion": "Fiddlesticks",
+      "ability": "FiddleSticksW",
+      "name": "Bountiful Harvest",
+      "slot": "w",
+      "inputs": [],
+      "estimated": 1,
+      "effect-count": 32,
+      "unresolved-effects": 0,
+      "notes": [
+        "Bountiful Harvest channels, deals separate drain ticks and a final missing-health hit, heals from pre-mitigation damage and refunds 60% of remaining cooldown on completion or target death. Control and an escaped tether end the channel without a refund. Monster/minion variants remain excluded."
+      ]
+    },
+    {
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Fiddlesticks",
       "ability": "FiddleSticksE",
       "name": "Reap",
       "slot": "e",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 2,
-      "unresolved-effects": 1,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: silence"
+        "Reap deals its source-defined magic damage and slow. The ground slash is assumed to apply at cast completion; center-hit silence, unseen fear and geometry remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Fiddlesticks",
       "ability": "FiddleSticksR",
       "name": "Crowstorm",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 21,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage"
+        "Crowstorm channels before blinking to the opponent's position selected at cast start, then deals separate area ticks while alive and in range. Unseen fear, terrain, vision and multi-target behavior remain excluded."
       ]
     },
     {
@@ -12110,13 +12107,13 @@
     }
   ],
   "summary": {
-    "executes": 460,
-    "no-executable-effect": 184,
+    "executes": 463,
+    "no-executable-effect": 181,
     "not-cast": 22,
     "cast-without-effect": 26
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "0c15024a4b9508ebb0a359a1813e4a3f853479fa591858dd857fe31d5ae99d9b",
+  "model": "f7c461bf36235bf6b67945d165ca81d9bb985fc4ce7c2dfe3243ae9ab44124cb",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."

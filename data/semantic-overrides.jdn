@@ -11,10 +11,18 @@
           :handler :garen-e :note "Judgment uses reviewed spin semantics."}
          {:champion "Garen" :slot :r :patch-min "16.20.1" :patch-max "16.21.1"
           :handler :garen-r :note "Demacian Justice uses reviewed missing-health semantics."}
-         {:champion "Fiddlesticks" :slot :q :patch-min "16.17.1" :patch-max "16.21.1"
+         {:champion "Fiddlesticks" :slot :q :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :fiddlesticks-q :note "Fiddlesticks uses reviewed Terrify semantics."}
+         {:champion "Fiddlesticks" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :fiddlesticks-w :note "Fiddlesticks uses reviewed Bountiful Harvest semantics."}
+         {:champion "Fiddlesticks" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :fiddlesticks-e :note "Fiddlesticks uses reviewed Reap semantics."}
+         {:champion "Fiddlesticks" :slot :r :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :fiddlesticks-r :note "Fiddlesticks uses reviewed Crowstorm semantics."}
+         {:champion "Fiddlesticks" :slot :q :patch-min "16.17.1" :patch-max "16.20.1"
           :effects []
           :note "Terrify's current-health percentage, minimum damage, recent-fear doubling and passive/active fear rules require an explicit handler; Q effects remain excluded."}
-         {:champion "Fiddlesticks" :slot :w :patch-min "16.17.1" :patch-max "16.21.1"
+         {:champion "Fiddlesticks" :slot :w :patch-min "16.17.1" :patch-max "16.20.1"
           :effects []
           :note "Bountiful Harvest's channel ticks, final missing-health hit, healing and completion refund require an explicit handler; W effects remain excluded."}
          {:champion "Fiora" :slot :w :patch-min "16.19.1" :patch-max "16.19.1"

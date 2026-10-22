@@ -63,8 +63,8 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 460 |
-| No executable effect | 184 |
+| At least one effect recorded | 463 |
+| No executable effect | 181 |
 | Has an estimated effect but does not cast | 22 |
 | Casts without recording an applied effect | 26 |
 
@@ -98,17 +98,20 @@ saved snapshot bytes are not silently rebuilt.
 
 This restores Reap's base magic damage from the actual `Damage` calculation.
 With 100 AP, its source gives 120 damage at rank 1 and 260 at rank 5, before
-resistance. Slow and center-hit silence remain excluded. Q's health-percentage
-and recent-fear rules and W's channel/final hit/healing need explicit handlers;
-conservative guards prevent the recovered records from turning those numbers
-into flat single hits. Crowstorm also remains excluded pending channel/tick
-semantics. This is a partial correction, not a complete Fiddlesticks kit.
+resistance. The
+[Fiddlesticks follow-up](fiddlesticks-abilities.md) now implements Q's
+health-percentage and recent-fear behavior, W's drain and R's channel/blink/area
+damage and E's slow on 16.21.1. Center-hit silence remains excluded.
+Earlier patch guards still prevent recovered records from
+turning those numbers into flat single hits. Unseen fear and other interactions
+remain excluded; this is not a complete Fiddlesticks kit.
 
 Before that correction, the probe recorded 457 entries with an applied effect,
 185 with no executable effect, 22 unable to cast and 28 casting without an
 applied effect. The table above and linked per-ability report reflect the
-correction followed by the Garen E/R handlers. After the casing correction alone,
-the counts were 458/186/22/26; Garen E/R are the only subsequent category changes.
+correction followed by the Garen E/R and Fiddlesticks Q/W/R handlers. After the
+casing correction alone, the counts were 458/186/22/26. Seraphine's follow-up
+completes more effects within already-executing entries, leaving counts unchanged.
 Restoring a record is not enough to claim supported mechanics.
 
 ## Main causes and next work
@@ -116,7 +119,8 @@ Restoring a record is not enough to claim supported mechanics.
 1. **Missing combat semantics:** periodic/channel damage, conditional executes,
    multi-part damage, stacks, marks, recasts and form changes. The first Garen
    E/R and Seraphine follow-ups are covered by numerical regressions;
-   Fiddlesticks Q/W/R remain concrete next cases.
+   Fiddlesticks Q/W/R now have source-backed handlers. Remaining champion
+   mechanics and unreviewed edges stay in the inventory.
 2. **Formula/source resolution:** cross-spell references, unresolved tooltip
    variables and unreviewed stat mappings. They need matching source review;
    simply enabling the ability would hide missing damage.

@@ -19,6 +19,8 @@
       (put statuses [:parry] {:kind :parry :effect :parry :expires (actor :parry-until)}))
     (when (> (get-in actor [:judgment :end] 0) at)
       (put statuses [:buff "Judgment"] {:kind :buff :effect "Judgment" :expires (get-in actor [:judgment :end])}))
+    (when (and (> (get-in actor [:channel :end] 0) at) (not (get-in actor [:channel :cancelled])))
+      (put statuses [:channel] {:kind :channel :effect (get-in actor [:channel :name]) :expires (get-in actor [:channel :end])}))
     (each modifier (actor :modifiers)
       (when (and (> (modifier :remaining) 0) (> (modifier :expires) at))
         (def key [:empowerment (modifier :source)])

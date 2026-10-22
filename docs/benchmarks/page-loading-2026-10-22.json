@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-22",
+  "baseline_commit": "312fff4",
+  "scope": "Local retained seed; sequential warm samples after one warmup. Hosted timings are a separate small pre-deployment observation.",
+  "before": [
+    {
+      "patch": "16.19.1",
+      "mode": "practice",
+      "snapshot": "1f774c1b65886f768cc2dca3628fe3ece2971a5719b4f3bfb862844e230c5928",
+      "metrics": {
+        "absorbed": 0,
+        "healing": 0,
+        "death-rate": 0,
+        "resource": 383.44600000000054,
+        "kill-rate": 0,
+        "attack-damage": 67.18611111111112,
+        "damage": 606.8202574525745,
+        "control": 0,
+        "health": 939.2,
+        "win-rate": 0,
+        "damage-taken": 0
+      },
+      "page": {
+        "bytes": 515227,
+        "seconds": [
+          0.5430526189738885,
+          0.5628575250157155,
+          0.5439438250032254
+        ],
+        "median-seconds": 0.5439438250032254
+      },
+      "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+      "loadout": {
+        "bytes": 21595,
+        "seconds": [
+          0.017756037996150553,
+          0.007815952994860709,
+          0.017168840975500643
+        ],
+        "median-seconds": 0.017168840975500643
+      },
+      "native-inventory": {
+        "bytes": 359190,
+        "seconds": [
+          0.3515784689807333,
+          0.35820841504028067,
+          0.35522816295269877
+        ],
+        "median-seconds": 0.35522816295269877
+      }
+    },
+    {
+      "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+      "patch": "16.19.1",
+      "mode": "duel",
+      "loadout": {
+        "bytes": 586377,
+        "seconds": [
+          0.757205014990177,
+          0.7491261459654197,
+          0.7626862889737822
+        ],
+        "median-seconds": 0.757205014990177
+      },
+      "snapshot": "1f774c1b65886f768cc2dca3628fe3ece2971a5719b4f3bfb862844e230c5928",
+      "metrics": {
+        "absorbed": 0,
+        "healing": 0,
+        "death-rate": 0,
+        "resource": 317.9100000000008,
+        "kill-rate": 1,
+        "attack-damage": 117.3442654764215,
+        "damage": 1085.1702051624825,
+        "control": 0,
+        "health": 758.1105633273743,
+        "mean-kill-time": 4.448787048863641,
+        "win-rate": 1,
+        "damage-taken": 187.55403458213257
+      },
+      "page": {
+        "bytes": 639277,
+        "seconds": [
+          0.913677126984112,
+          0.9168399419868365,
+          0.9094709180062637
+        ],
+        "median-seconds": 0.913677126984112
+      }
+    }
+  ],
+  "after": [
+    {
+      "patch": "16.19.1",
+      "mode": "practice",
+      "snapshot": "1f774c1b65886f768cc2dca3628fe3ece2971a5719b4f3bfb862844e230c5928",
+      "metrics": {
+        "absorbed": 0,
+        "healing": 0,
+        "death-rate": 0,
+        "resource": 383.44600000000054,
+        "kill-rate": 0,
+        "attack-damage": 67.18611111111112,
+        "damage": 606.8202574525745,
+        "control": 0,
+        "health": 939.2,
+        "win-rate": 0,
+        "damage-taken": 0
+      },
+      "page": {
+        "bytes": 515302,
+        "seconds": [
+          0.18412179296137765,
+          0.18468634999589995,
+          0.2118752030073665
+        ],
+        "median-seconds": 0.18468634999589995
+      },
+      "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+      "loadout": {
+        "bytes": 21670,
+        "seconds": [
+          0.0187057179864496,
+          0.007876884017605335,
+          0.016723409993574023
+        ],
+        "median-seconds": 0.016723409993574023
+      },
+      "native-inventory": {
+        "bytes": 359190,
+        "seconds": [
+          0.03265350800938904,
+          0.03760800196323544,
+          0.030353819951415062
+        ],
+        "median-seconds": 0.03265350800938904
+      }
+    },
+    {
+      "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+      "patch": "16.19.1",
+      "mode": "duel",
+      "loadout": {
+        "bytes": 586377,
+        "seconds": [
+          0.15667505795136094,
+          0.15026621898869053,
+          0.1500644279876724
+        ],
+        "median-seconds": 0.15026621898869053
+      },
+      "snapshot": "1f774c1b65886f768cc2dca3628fe3ece2971a5719b4f3bfb862844e230c5928",
+      "metrics": {
+        "absorbed": 0,
+        "healing": 0,
+        "death-rate": 0,
+        "resource": 317.9100000000008,
+        "kill-rate": 1,
+        "attack-damage": 117.3442654764215,
+        "damage": 1085.1702051624825,
+        "control": 0,
+        "health": 758.1105633273743,
+        "mean-kill-time": 4.448787048863641,
+        "win-rate": 1,
+        "damage-taken": 187.55403458213257
+      },
+      "page": {
+        "bytes": 639277,
+        "seconds": [
+          0.23206941498210654,
+          0.24395320698386058,
+          0.23403792700264603
+        ],
+        "median-seconds": 0.23403792700264603
+      }
+    }
+  ],
+  "standalone_http": [
+    {
+      "build": "before",
+      "case": "practice",
+      "bytes": 535685,
+      "median_first_byte": 0.4787782150087878,
+      "samples": [
+        0.47874632402090356,
+        0.4787782150087878,
+        0.4821210910449736
+      ]
+    },
+    {
+      "build": "before",
+      "case": "duel",
+      "bytes": 657223,
+      "median_first_byte": 0.7630165879963897,
+      "samples": [
+        0.7630165879963897,
+        0.7793855770141818,
+        0.7491152410511859
+      ]
+    },
+    {
+      "build": "after",
+      "case": "practice",
+      "bytes": 535760,
+      "median_first_byte": 0.17911689798347652,
+      "samples": [
+        0.17300186696229503,
+        0.18287445598980412,
+        0.17911689798347652
+      ]
+    },
+    {
+      "build": "after",
+      "case": "duel",
+      "bytes": 657223,
+      "median_first_byte": 0.20231779100140557,
+      "samples": [
+        0.2026066069956869,
+        0.20231779100140557,
+        0.19909071299480274
+      ]
+    }
+  ],
+  "hosted_before": {
+    "request": "practice / cached patch / level 6 / duration 3 / one trial",
+    "samples_first_byte_seconds": [
+      5.955,
+      3.993,
+      3.8
+    ],
+    "median_first_byte_seconds": 3.993,
+    "bytes": 542070,
+    "version_not_checked": true
+  },
+  "local_deployment_helper": {
+    "http": {
+      "page": {
+        "first_byte_seconds": 0.392,
+        "total_seconds": 0.393,
+        "cache_control": "no-store",
+        "edge_cache_status": ""
+      },
+      "sse": {
+        "first_byte_seconds": 0.115,
+        "total_seconds": 0.115,
+        "cache_control": "no-cache",
+        "edge_cache_status": ""
+      },
+      "health_probes": 4,
+      "max_health_seconds": 0.018,
+      "search_terminal_status": "cancelled"
+    },
+    "browser": {
+      "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+      "streams_checked": 5,
+      "javascript_errors": 0,
+      "viewport_widths": [
+        1200,
+        736,
+        390,
+        320
+      ],
+      "touch_timeline": "passed"
+    }
+  }
+}

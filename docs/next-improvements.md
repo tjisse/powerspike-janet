@@ -178,6 +178,12 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    pages. Three warm samples per case observed median first-byte times of
    3.072 seconds for practice and 4.459 seconds for a duel; initial loading
    remains a performance improvement opportunity.
+   The [native option rendering follow-up](catalog-loading.md#native-item-option-rendering-22-october-2026)
+   now builds each render's item list once, reducing local complete-page
+   generation by about 66% for practice and 74% for duels without removing
+   native controls. Expanded checks also fix native practice checkbox
+   submissions and exercise four distinct matchup pages concurrently.
+   Hosted improvements still require a measurement after deployment.
    Controlled slow/provider-outage proxy checks, longer-running memory/disk
    usage remain beta checks.
 7. **Player beta readiness.** The [comparison walkthrough and problem reports](problem-reports.md)

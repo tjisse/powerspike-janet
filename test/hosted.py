@@ -184,11 +184,16 @@ def verify_browser(base, output, expected_model=None):
         mobile.goto(base+query, wait_until='domcontentloaded', timeout=30000)
         expect(mobile.locator('#matchup-chart svg')).to_be_visible()
         expect(mobile.locator('#player-loadout')).to_be_visible()
+        mobile_result = json.loads(mobile.locator('#results').get_attribute('data-matchup-result'))
+        source = next(info for identifier, info in mobile_result['sources'].items()
+                      if info.get('slot') == 'q' and any(event.get('source') == identifier and event.get('actor') == 'player'
+                                                       for event in mobile_result['trace']))
         options = mobile.locator('.matchup-event-select option').evaluate_all('options => options.map(option => ({value:option.value,text:option.textContent}))')
-        option = next(option for option in options if 'Disintegrate' in option['text'])
+        option = next(option for option in options if source['name'] in option['text'])
+        mobile.locator('.matchup-event-select').scroll_into_view_if_needed()
         mobile.locator('.matchup-event-select').select_option(option['value'])
         mobile.wait_for_function('index => {const marker=document.querySelector(`[data-trace-event="${index}"]`); const rect=marker?.getBoundingClientRect(); const img=marker?.querySelector("img"); return rect?.width>=44 && rect.height>=44 && img?.complete && img.naturalWidth>0}', arg=option['value'])
-        expect(mobile.locator('.matchup-event-detail')).to_contain_text('Disintegrate')
+        expect(mobile.locator('.matchup-event-detail')).to_contain_text(source['name'])
         mobile.locator('#matchup-events').screenshot(path=str(output/'touch-events.png'))
         assert not errors, errors
         assert {stream['path'] for stream in streams} >= {'/configure', '/evaluate', '/champions/configure'}

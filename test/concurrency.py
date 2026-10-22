@@ -19,6 +19,27 @@ class Search(HTMLParser):
             self.result = attrs
 
 
+class NativeInventory(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.current = None
+        self.selected = {}
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'select':
+            name = attrs.get('name', '')
+            self.current = name if name.startswith(('nativeslot', 'nativeenemyslot')) else None
+            if self.current:
+                self.selected[self.current] = []
+        if tag == 'option' and self.current and 'selected' in attrs:
+            self.selected[self.current].append(attrs['value'])
+
+    def handle_endtag(self, tag):
+        if tag == 'select':
+            self.current = None
+
+
 def verify(binary_path):
     root, binary = Path.cwd(), Path(binary_path).resolve()
     chosen = port()
@@ -82,6 +103,34 @@ def verify(binary_path):
                 assert updates[0].result() == results[0]
                 assert updates[1].result() == variant.result()
 
+            # Four different complete matchup pages cannot share selected
+            # native options or scenario data while waiting for the render lane.
+            items = ['1052', '1036', '1042', '']
+            def matchup(index):
+                own, enemy = items[index], items[(index+1) % len(items)]
+                fields = {'mode':'duel', 'champion':'Annie', 'opponent':'Garen',
+                          'selected':'custom', 'level':6, 'opponentlevel':6,
+                          'samples':1, 'duration':2, 'snapshotlocked':'true',
+                          'slot1':own, 'enemyslot1':enemy}
+                body = request('/?'+urllib.parse.urlencode(fields)).decode()
+                native = NativeInventory()
+                native.feed(body)
+                expected = {f'native{side}slot{slot}':[item if slot == 1 else '']
+                            for side, item in [('',own), ('enemy',enemy)] for slot in range(1,7)}
+                assert native.selected == expected, (native.selected, expected)
+                page = Page()
+                page.feed(body)
+                assert page.matchup and page.scenario
+                return page.matchup, page.scenario['data-json']
+
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                pages = [pool.submit(matchup, index) for index in range(4)]
+                while not all(page.done() for page in pages):
+                    health()
+                    time.sleep(.02)
+                matchups = [page.result() for page in pages]
+            assert matchup(0) == matchups[0], 'Concurrent page rendering changed the retained matchup.'
+
             def search(path, signals, post=True):
                 if post:
                     body = request(path, signals)
@@ -115,7 +164,7 @@ def verify(binary_path):
                 time.sleep(.02)
             assert simulation(query) == results[0]
             health()
-    print('Concurrent HTTP: four shared simulations, independent inventory, SSE reruns, queued/running search cancellation and unaffected neighbor passed. '
+    print('Concurrent HTTP: four shared simulations, independent inventories, four distinct matchup/native forms, SSE reruns, queued/running search cancellation and unaffected neighbor passed. '
           f'{len(latencies)} health probes; maximum local latency {max(latencies):.3f}s (limit 2s).')
 
 

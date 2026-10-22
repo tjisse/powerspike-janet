@@ -301,7 +301,9 @@
         (each key [;model/slot-keys ;model/enemy-slot-keys]
           (when (has-key? query (string "native" key)) (put fields (string key) (get query (string "native" key)))))
         (each key ["attacks" "abilities" "opponentattacks" "opponentabilities"]
-          (put fields key (has-key? query key))))
+          (put fields key (has-key? query key)))
+        (unless (= "duel" (get fields "mode"))
+          (each key ["retaliation" "minionspresent"] (put fields key (has-key? query key)))))
       (def result (protect (model/compare-async
                              (if (get-in req [:query "scenario"])
                                (saves/decode (get-in req [:query "scenario"]))

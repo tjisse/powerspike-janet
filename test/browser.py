@@ -209,6 +209,7 @@ def verify_practice_controls(browser, base):
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.goto(base+'/?mode=practice&champion=Annie&selected=custom', wait_until='domcontentloaded')
+    assert not page.evaluate('new FormData(document.forms.scenario).has("nativeform")')
     assert page.locator('#item-comparison, .coverage-link').count() == 0
     page.get_by_role('button', name='Goal: burst', exact=True).click()
     assert page.locator('#optimizer-dialog').evaluate('(node)=>node.open')
@@ -235,6 +236,32 @@ def verify_practice_controls(browser, base):
     expect(page.get_by_role('button', name='Save locally', exact=True)).to_be_enabled()
     assert not errors, errors
     page.close()
+
+    native = browser.new_page(java_script_enabled=False, viewport={'width':390,'height':844})
+    native.goto(base+'/?mode=practice&champion=Annie&selected=custom&snapshotlocked=true&slot1=1052&slot3=1036', wait_until='domcontentloaded')
+    native.get_by_text('Edit inventory', exact=True).click()
+    for index, item in enumerate(['1052', '', '1036', '', '', ''], 1):
+        select = native.locator(f'.native-editor [name=slot{index}]')
+        expect(select.locator('option')).to_have_count(871)
+        assert select.input_value() == item
+    native.locator('.native-editor [name=slot1]').select_option('')
+    native.locator('.native-editor [name=slot2]').select_option('1042')
+    native.locator('.native-editor [name=slot6]').select_option('1052')
+    native.locator('#ability-settings > summary').click()
+    native.locator('#tactics > summary').click()
+    native.locator('[name=attacks]').uncheck()
+    native.locator('#fight-settings > summary').click()
+    native.locator('[name=retaliation]').uncheck()
+    native.get_by_role('button', name='Apply inventory', exact=True).click()
+    expect(native.locator('.native-editor [name=slot2]')).to_have_value('1042')
+    assert [native.locator(f'.native-editor [name=slot{index}]').input_value() for index in range(1,7)] == ['', '1042', '1036', '', '', '1052']
+    expect(native.locator('#timeline')).to_be_visible()
+    assert not native.locator('[name=attacks]').is_checked()
+    assert not native.locator('[name=retaliation]').is_checked()
+    assert native.locator('[name=minionspresent]').is_checked()
+    assert json.loads(native.locator('#scenario-data').get_attribute('data-json'))['scenario']['player']['strategy']['attacks'] is False
+    assert native.evaluate('document.documentElement.scrollWidth <= innerWidth+1')
+    native.close()
 
 def verify_runes(browser, base):
     page = browser.new_page(viewport={'width':1440,'height':1080})

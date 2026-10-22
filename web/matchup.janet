@@ -3,6 +3,7 @@
 (import ./model :as model)
 (import ./details :as details)
 (import ./champion-configs :as champion-configs)
+(import ./select-options :as select-options)
 (import ../src/powerspike/scenario :as scenarios)
 (import ../src/powerspike/runes :as rune-data)
 (import ../src/powerspike/forms :as forms)
@@ -115,7 +116,7 @@
                   [["approach" "Approach into range"] ["hold" "Hold position"] ["hold-range" "Keep preferred range"]])
     (input (string prefix "preferredrange") "Preferred distance" (get state (keyword (string prefix "preferredrange")) 500) 0 10000)
     (input (string prefix "hitchance") "Hit chance (0–1)" (get state (if opponent :opponent-hit-chance :hit-chance) 1) 0 1 0.05)]])
-(defn champion-card [result opponent]
+(defn champion-card [result opponent native-options]
   (def state (result :state))
   (def package (result :package))
   (def who (if opponent "opponent" "player"))
@@ -165,14 +166,16 @@
      [:div {:class "matchup-undo" :data-undo-row who :hidden true} [:span "Items updated"] [:button {:type "button" :class "quiet-action" :data-undo who} "Undo"]]
      [:noscript [:details [:summary "Edit items"] [:div {:class "matchup-fields"}
                                                    (seq [[index id] :pairs chosen]
-                                                     (select-field (string (if opponent "enemyslot" "slot") (inc index)) (string "Slot " (inc index)) id
-                                                                   [["" "Empty"] ;(map |[($ :id) ($ :name)] (catalog/item-list))]
-                                                                   (string "native" (if opponent "enemyslot" "slot") (inc index))))]]]]
+                                                     [:label (string "Slot " (inc index))
+                                                      [:select {:form "scenario" :name (string "native" (if opponent "enemyslot" "slot") (inc index))
+                                                                :data-bind (string (if opponent "enemyslot" "slot") (inc index))}
+                                                       (select-options/selected native-options id)]])]]]]
     [:section {:id (string who "-panel-runes") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-runes")} (rune-fields result opponent)]
     [:section {:id (string who "-panel-abilities") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-abilities")} (ability-fields result opponent)]
     [:section {:id (string who "-panel-sequence") :class "matchup-tab-panel" :role "tabpanel" :aria-labelledby (string who "-tab-sequence")} (sequence-fields result opponent) (champion-settings result opponent)]]])
 (defn loadout [result]
   (def state (result :state))
+  (def native-options (select-options/prepare [["" "Empty"] ;(map |[($ :id) ($ :name)] (catalog/item-list))]))
   [:section {:id "loadout-tray" :class "matchup-tray"}
    [:span {:id "configuration-data" :hidden true
            :data-json (json/encode {:format "powerspike-scenario" :version 1
@@ -183,7 +186,6 @@
                                      (ids result false) (ids result true)))}]
    [:form {:id "scenario" :method "get" :action "/" :class "matchup-form"
            :data-on:submit__prevent "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
-    [:input {:type "hidden" :name "nativeform" :value "true"}]
     (map (fn [[name value]] [:input {:type "hidden" :name name :value value :data-bind name}])
          [["patch" (state :patch)] ["snapshot" (state :snapshot)] ["snapshotlocked" (if (state :snapshotlocked) "true" "false")]
           ["mode" "duel"] ["selected" (state :selected)]
@@ -192,12 +194,13 @@
               (seq [[index id] :pairs (ids result opponent)]
                 [:input {:type "hidden" :name (string (if opponent "enemyslot" "slot") (inc index)) :value id
                          :data-bind (string (if opponent "enemyslot" "slot") (inc index))}])) [false true])
-    [:noscript [:button {:type "submit"} "Run matchup"]]]
-   [:div {:class "matchup-cards"} (champion-card result false)
+    [:noscript [:input {:type "hidden" :name "nativeform" :value "true"}]
+     [:button {:type "submit"} "Run matchup"]]]
+   [:div {:class "matchup-cards"} (champion-card result false native-options)
     [:button {:type "button" :class "matchup-swap js-only" :data-swap-champions true :aria-label "Swap champions" :title "Swap champions" :data-attr:disabled "$busy"}
      [:svg {:viewBox "0 0 24 24" :width 22 :height 22 :aria-hidden "true" :fill "none" :stroke "currentColor" :stroke-width 1.5}
       [:path {:d "M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"}]]]
-    (champion-card result true)]])
+    (champion-card result true native-options)]])
 (defn fightbar [result]
   [:div {:id "matchup-fightbar" :class "matchup-fightbar"}
    (input "duration" "Duration (s)" (get-in result [:state :duration]) 0.5 120 "any")

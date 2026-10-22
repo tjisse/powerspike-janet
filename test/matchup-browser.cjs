@@ -11,6 +11,7 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   page.on('pageerror', error => { errors.push(error.message); console.error('Page error:', error.message); });
   await page.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
   await page.locator('#matchup-chart svg').waitFor();
+  assert.equal(await page.evaluate(() => new FormData(document.forms.scenario).has('nativeform')), false);
   assert.equal(await page.locator('.matchup-card').count(), 2);
   assert.equal(await page.locator('.coverage-link, #item-comparison').count(), 0);
   assert.equal(await page.locator('#verification-progress, #source-evidence, #evidence').count(), 0);
@@ -91,12 +92,29 @@ const snapshotQuery = process.env.PS_TEST_SNAPSHOT
   const noJS = await browser.newContext({javaScriptEnabled: false}), native = await noJS.newPage();
   await native.goto(`${base}/?${snapshotQuery}`, {waitUntil: 'domcontentloaded'});
   assert(await native.evaluate(() => document.documentElement.scrollWidth <= innerWidth+1));
+  for (const who of ['player', 'opponent']) {
+    const ids = JSON.parse(await native.locator(`#${who}-card`).getAttribute('data-items'));
+    for (let index = 0; index < 6; index++) {
+      const select = native.locator(`select[name=native${who === 'opponent' ? 'enemy' : ''}slot${index+1}]`);
+      assert.equal(await select.locator('option').count(), 871);
+      assert.equal(await select.inputValue(), ids[index]);
+    }
+  }
   await native.locator('[name=level]').selectOption('6');
   await native.locator('#player-card noscript summary').click();
   await native.locator('noscript select[name=nativeslot1]').selectOption('1052');
+  await native.locator('noscript select[name=nativeslot2]').selectOption('');
+  await native.locator('noscript select[name=nativeslot6]').selectOption('1042');
+  await native.locator('#opponent-card noscript summary').click();
+  await native.locator('noscript select[name=nativeenemyslot2]').selectOption('1052');
+  await native.locator('noscript select[name=nativeenemyslot6]').selectOption('1036');
   await Promise.all([native.waitForURL(url => url.searchParams.get('level') === '6', {waitUntil: 'domcontentloaded'}), native.locator('.matchup-run').click()]);
   assert.equal(await native.locator('[name=level]').inputValue(), '6');
   assert((await native.locator('#player-card').getAttribute('data-items')).includes('1052'));
+  const nativePlayer = JSON.parse(await native.locator('#player-card').getAttribute('data-items'));
+  const nativeOpponent = JSON.parse(await native.locator('#opponent-card').getAttribute('data-items'));
+  assert.equal(nativePlayer[1], ''); assert.equal(nativePlayer[5], '1042');
+  assert.deepEqual(nativeOpponent, ['', '1052', '', '', '', '1036']);
   console.log('Shared chart, events, mobile and native form fallback passed.');
   await browser.close();
 })().catch(error => { console.error(error); process.exit(1); });

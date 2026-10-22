@@ -100,3 +100,69 @@ visually reviewed. The final RPM passed extracted-payload, runtime, configuratio
 and service/lifecycle checks. Formatting, Python syntax, Git diff and unchanged
 model-fingerprint checks also passed. Deployment addresses remain outside
 repository files; public performance must be rechecked after release/upgrade.
+
+## Native item-option rendering, 22 October 2026
+
+The remaining native inventory controls repeated the full 870-item option tree
+six times in practice mode and twelve times in a duel. The HTML library's
+option-list rendering repeatedly concatenated the growing immutable string.
+Local profiling put practice's native inventory at about 0.36 seconds and the
+duel loadout at about 0.75 seconds, despite much cheaper simulation work.
+
+`web/select-options.janet` now constructs one escaped option template using a
+buffer and records where each option's selected marker belongs. Each inventory
+slot receives a fresh selected string from that template. Practice and duel
+keep their existing labels, full catalogs, physical empty slots and native
+forms. Both values and captions use the existing HTML escaping. The template
+lives only for the current render: it adds no global cache, expiry policy,
+snapshot invalidation or user-specific response reuse. Dynamic responses keep
+their existing cache policy and rendering stays on its bounded worker.
+
+The [retained measurements](benchmarks/page-loading-2026-10-22.json) use the same
+16.19.1 seed, level-six Annie scenarios, model, snapshot and simulation inputs.
+Each local case has one warm-up and three sequential samples. Median complete
+page-generation time fell from **0.544 to 0.185 seconds** for practice and
+**0.914 to 0.234 seconds** for a duel. Simulation metrics and model identity are
+unchanged. The duel's page size is unchanged; practice adds 75 bytes for a
+missing native-form marker described below. The large native catalog payload
+still travels with the page, so this change reduces rendering cost rather than
+claiming another download-size reduction.
+
+A copied-executable HTTP comparison reduced median warm first-byte time from
+**0.479 to 0.179 seconds** for practice and **0.763 to 0.202 seconds** for duels;
+its samples are retained with the profile. Those are local software
+measurements. Three small sequential requests to the deployed practice page
+before deployment of this change returned 542,070 bytes and first-byte times
+of 5.955, 3.993 and 3.800 seconds. The deployed version was not checked in that
+small timing sample. These measurements establish remaining hosted latency,
+not a measured public improvement from this implementation.
+
+The expanded native browser checks found a separate existing reliability bug:
+practice forms submitted checkbox values as `on` without the native-form
+marker, causing an invalid on/off error. The marker now appears inside
+`noscript` in both layouts. Native requests normalize checked/unchecked combat
+and objective controls, while JavaScript-enabled form navigation keeps explicit
+false values. Item changes, physical holes and both champions' selected
+options round-trip correctly. JavaScript forms do not submit a native marker.
+
+`test/select-options.janet` checks escaped provider text/values, exactly one
+selection, immutable template reuse and separate templates for changed data.
+The browser gate checks all 871 choices per slot, edits on both duel sides,
+practice checkbox settings, empty-slot preservation and mobile native forms.
+The concurrency gate adds four distinct matchup pages with independent native
+selections while health checks continue. The opt-in hosted smoke check uses the
+completed snapshot's Q metadata for its touch event and scrolls the selector
+into view before inspecting the anchored tooltip.
+
+The remaining deployment work is to remeasure after release/upgrade and run
+controlled provider-outage and longer memory/disk checks in staging. Initial
+payload size and first-use catalog/artwork latency remain profiling targets.
+
+Core/source/Python, frontend, combat, standalone runtime, expanded concurrency
+and full browser gates passed. The concurrent check completed 358 health
+probes with a maximum local latency of 0.280 seconds (two-second limit).
+The deployment smoke helper also passed against a fresh local packaged service:
+independent inventories, finite SSE reruns, dynamic cache headers, own-job
+cancellation, five browser SSE responses, zero JavaScript errors and desktop/
+touch layouts. Its four health probes had a maximum of 0.018 seconds. This
+local helper check does not establish reverse-proxy outage behavior or capacity.

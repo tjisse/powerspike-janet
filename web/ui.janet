@@ -8,6 +8,7 @@
 (import ./trial-comparison :as trial-comparison)
 (import ./verification :as verification)
 (import ./details :as details)
+(import ./select-options :as select-options)
 (import ../src/powerspike/normalize :as normalize)
 (import ../src/powerspike/packages :as packages)
 (import ../src/powerspike/jobs :as jobs)
@@ -218,6 +219,7 @@
           :data-on:change "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
           :data-on:input__debounce.200ms "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"
           :data-on:submit__prevent "document.getElementById('powerspike').dispatchEvent(new Event('evaluate'))"}
+   [:noscript [:input {:type "hidden" :name "nativeform" :value "true"}]]
    [:div {:class "champion-identity"} (champion-display result)
     [:label {:class "native-only" :for "champion"} "Champion"
      [:select {:id "champion" :name "champion" :data-bind:champion true}
@@ -458,15 +460,15 @@
 
 (defn native-inventory [result]
   (def ids (inventory-ids (result :selected) (result :state)))
+  (def options (select-options/prepare [["" "Empty"]
+                                        ;(map |[($ :id) (string ($ :name) " · " ($ :id) " · " ($ :gold) " gold")] (catalog/item-list))]))
   [:noscript
    [:details {:class "native-editor"} [:summary "Edit inventory"]
     [:div {:class "native-slots"}
      (seq [index :range [0 6]]
        [:label (string "Slot " (inc index))
         [:select {:form "scenario" :name (string "slot" (inc index))}
-         [:option {:value "" :selected (= "" (ids index))} "Empty"]
-         (map (fn [item] [:option {:value (item :id) :selected (= (item :id) (ids index))}
-                          (item :name) " · " (item :id) " · " (item :gold) " gold"]) (catalog/item-list))]])]
+         (select-options/selected options (ids index))]])]
     [:button {:class "apply" :type "submit" :form "scenario" :name "selected" :value "custom"} "Apply inventory"]]])
 
 (defn catalog-pickers []

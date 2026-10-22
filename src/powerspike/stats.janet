@@ -39,6 +39,10 @@
   (def result (base-stats champion level))
   (def base-ad (result :ad))
   (var bonus-as (* (growth-factor level) (champion :attack-speed-growth)))
+  # Judgment accepts permanent item stats and level growth, excluding shards,
+  # runes and temporary buffs. Preserve this provenance before merging them.
+  (put result :attack-speed-item-growth
+       (+ bonus-as (sum (map |(get-in $ [:stats :attack-speed-bonus] 0) items))))
   (var crit 0)
   (var crit-damage (champion :crit-damage))
   (var ap-multiplier 1)

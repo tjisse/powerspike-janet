@@ -66,8 +66,9 @@
       (assert (q :reset))
       (close 375 (expr/evaluate (q :amount) context))
       (close 325 (expr/evaluate (get-in loaded [:abilities 1 :effects 0 :amount]) context))
-      (assert (all |(= :unresolved ($ :status)) (get-in loaded [:abilities 2 :effects])))
-      (assert (all |(= :unresolved ($ :status)) (get-in loaded [:abilities 3 :effects])))))
+      (assert (= :judgment (get-in loaded [:abilities 2 :effects 0 :kind])))
+      (each index [2 3]
+        (assert (= :estimated (get-in loaded [:abilities index :effects 0 :status]))))))
   (def state (model/parse-state {"mode" "duel" "patch" patch "snapshot" (refreshed :snapshot) "snapshotlocked" true
                                  "champion" "Annie" "opponent" "Garen" "selected" "custom"}))
   (def result (model/compare state))

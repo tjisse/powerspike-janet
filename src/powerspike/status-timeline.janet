@@ -17,6 +17,8 @@
       (put statuses [:shield] {:kind :shield :effect :shield :expires (max ;(map |($ :expires) shields))}))
     (when (> (actor :parry-until) at)
       (put statuses [:parry] {:kind :parry :effect :parry :expires (actor :parry-until)}))
+    (when (> (get-in actor [:judgment :end] 0) at)
+      (put statuses [:buff "Judgment"] {:kind :buff :effect "Judgment" :expires (get-in actor [:judgment :end])}))
     (each modifier (actor :modifiers)
       (when (and (> (modifier :remaining) 0) (> (modifier :expires) at))
         (def key [:empowerment (modifier :source)])

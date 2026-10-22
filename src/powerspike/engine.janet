@@ -12,6 +12,7 @@
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
                                    (slurp "src/powerspike/normalize.janet")
+                                   (slurp "src/powerspike/champion-abilities.janet")
                                    (slurp "src/powerspike/attacks.janet")
                                    (slurp "data/attack-fixtures/latest-form-projectiles.jdn")
                                    (slurp "data/attack-fixtures/16.20.1/kayle-manifest.json")
@@ -550,7 +551,40 @@
                          (when (= depth 0)
                            (trigger owner target (get event :trigger :spell-hit) (event :origin) depth (event :ability-slot))
                            (trigger owner target :damage (event :origin) depth)
-                           (trigger target owner :damage-taken (event :origin) depth)))
+                           (trigger target owner :damage-taken (event :origin) depth))
+                         (when (effect :judgment-hit)
+                           (def spin (owner :judgment))
+                           (put spin :landed (inc (spin :landed)))
+                           (def threshold (spin :shred-hits))
+                           # Grant on the sixth landed hit; refresh on the next
+                           # hit and each subsequent group of six, without stacking.
+                           (when (and (some |(= $ :champion) (get target :tags [(target :kind)])) (> ((target :stats) :armor) 0)
+                                      (or (= threshold (spin :landed))
+                                          (and (> (spin :landed) threshold) (= 1 (% (spin :landed) threshold)))))
+                             (apply-effect (merge event {:effect {:kind :stat-buff :target :enemy :stat :armor
+                                                                  :mode :multiply :relative true
+                                                                  :amount (- (spin :shred-amount)) :duration (spin :shred-duration)}})))))
+                       :judgment
+                       (do
+                         (def duration (value (effect :duration) owner target rank))
+                         (def bonus (get-in owner [:original-stats :attack-speed-item-growth]))
+                         (assert (and (util/finite? bonus) (>= bonus 0)) "Judgment requires item/level attack-speed provenance.")
+                         (def per-spin (value (effect :attack-speed-per-spin) owner target rank))
+                         (assert (> per-spin 0) "Invalid attack speed per spin.")
+                         (def count (value (effect :spins) owner target rank))
+                         (assert (and (= count (math/floor count)) (<= 1 count 100) (< 0 duration 10)) "Invalid Judgment spin schedule.")
+                         (def spin @{:origin (event :origin) :source source :end (+ at duration) :landed 0
+                                     :shred-hits (value (effect :shred-hits) owner target rank)
+                                     :shred-amount (value (effect :shred-amount) owner target rank)
+                                     :shred-duration (value (effect :shred-duration) owner target rank)})
+                         (assert (and (= (spin :shred-hits) (math/floor (spin :shred-hits))) (> (spin :shred-hits) 0)
+                                      (<= 0 (spin :shred-amount) 1) (> (spin :shred-duration) 0)) "Invalid Judgment armor reduction.")
+                         (put owner :judgment spin)
+                         (for i 1 (inc count)
+                           (schedule (+ at (* duration (/ i count))) 10 :judgment-tick
+                                     (merge event {:spin-index i})))
+                         (schedule (spin :end) 15 :judgment-end {:actor (owner :index) :origin (event :origin)})
+                         (record :buff {:actor (owner :id) :target (owner :id) :source source :buff "Judgment" :duration duration}))
                        :parry
                        (do
                          (assert (= (owner :index) (target :index)) "Parry must target its caster.")
@@ -634,7 +668,9 @@
     (max (get ability :cast-time 0.25) duration))
   (defn permitted? [actor target ability]
     (def activation (get-in actor [:strategy :activation (ability :slot)] {}))
-    (and (>= at (get activation :after 0))
+    (and (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)
+                   (some |(= $ (ability :slot)) [:e :r])))
+         (>= at (get activation :after 0))
          (health-permitted? actor target activation)))
   (defn release-effect [event actor target ability effect travel]
     (if (or (= :unresolved (get effect :status)) (= :unresolved (get effect :condition)))
@@ -842,6 +878,7 @@
                                                  :rank rank :action :spell :source (selected :id) :counter counter :origin origin})
           (set next (max (+ at 0.01) (actor :busy-until))))
         (and (<= (actor :busy-until) at) (<= (actor :attack-ready) at)
+             (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)))
              (<= distance range) (get strategy :attacks true)
              (not (controlled? actor [:stun :charm :fear :airborne :suppression] at))
              (> (get (actor :stats) :attack-speed 0) 0))
@@ -874,6 +911,7 @@
           (wake (get-in actor [:charges (ability :id) :next-recharge]))
           (wake after)))
       (when recovery-deadline (wake recovery-deadline))
+      (when (actor :judgment) (wake (get-in actor [:judgment :end])))
       (request-decision (actor :index) next)))
   (record :start {})
   (each actor actors (request-decision (actor :index) 0))
@@ -892,6 +930,25 @@
         :decide (do (put decision-at (event :actor) nil) (decide (actors (event :actor))))
         :release (release event)
         :effect (apply-effect event)
+        :judgment-tick
+        (let [actor (actors (event :actor)) target (actors (event :target)) effect (event :effect)]
+          (when (and (alive? actor) (> (actor :health) 0) (= (event :origin) (get-in actor [:judgment :origin]))
+                     (<= (math/abs (- (actor :position) (target :position))) (value (effect :radius) actor target (event :rank))))
+            (def outcome (protect
+                           (def critical (and (not (target :no-crit))
+                                              (< (random-at seed trial (actor :id) (event :origin) (event :spin-index))
+                                                 (get-in actor [:stats :crit-chance] 0))))
+                           (def multiplier (if critical (+ 1 (* (value (effect :crit-mod) actor target (event :rank))
+                                                                (- (get-in actor [:stats :crit-damage] 2) 1))) 1))
+                           (def raw (* (value (effect :amount) actor target (event :rank)) multiplier
+                                       (+ 1 (value (effect :nearest-bonus) actor target (event :rank)))))
+                           (apply-effect (merge event {:critical critical
+                                                       :effect {:kind :damage :damage-type :physical :target-kinds [:champion :practice]
+                                                                :amount raw :judgment-hit true}}))))
+            (unless (first outcome) (note (string (event :source) ": " (outcome 1))))))
+        :judgment-end (let [actor (actors (event :actor))]
+                        (when (= (event :origin) (get-in actor [:judgment :origin]))
+                          (put actor :judgment nil) (resume actor)))
         :death (let [actor (actors (event :actor))]
                  (when (and (alive? actor) (<= (actor :health) 0))
                    (put actor :dead-at at) (put actor :velocity 0)

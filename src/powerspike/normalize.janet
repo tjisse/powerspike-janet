@@ -4,6 +4,7 @@
 (import ./data-util :as util)
 (import ./attacks :as attacks)
 (import ./attack-limits :as attack-limits)
+(import ./champion-abilities :as champion-abilities)
 
 (def parser-version expr/parser-version)
 (def semantic-rules ((util/read-data "data/semantic-overrides.jdn") :rules))
@@ -218,6 +219,8 @@
                                           :cast-lock (if (rule :cast-lock-variable)
                                                        (expr/variable (rule :cast-lock-variable) (chosen :record)) (chosen :cast-lock))
                                           :unresolved [;notes (rule :note)]}))
+      (when (rule :handler)
+        (put abilities index (champion-abilities/garen (abilities index) (rule :handler))))
       (when (rule :rank-penetration)
         (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]

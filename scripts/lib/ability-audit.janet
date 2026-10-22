@@ -10,7 +10,7 @@
     (engine/simulate {:duration 8 :actors
                       [{:id "player" :kind :champion :champion id :level 18 :position 0 :attack-range 200
                         :base {:ad 100 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 0 :move-speed 350}
-                        :stats {:ad 150 :bonus-ad 50 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 100 :move-speed 350 :crit-chance 0 :crit-damage 2 :attack-speed 1 :ability-haste 0}
+                        :stats {:ad 150 :bonus-ad 50 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 100 :move-speed 350 :crit-chance 0 :crit-damage 2 :attack-speed 1 :attack-speed-item-growth 0 :ability-haste 0}
                         :health 50000 :resource 100000 :abilities [ability] :ranks {(ability :slot) (min (get ability :max-rank 5) (if (= :r (ability :slot)) 3 5))}
                         :strategy {:attacks true :abilities true :priority [(ability :slot)] :movement :hold}}
                        {:id "target" :kind :champion :level 18 :position 0 :base {:hp 1000000 :ad 100} :stats {:hp 1000000 :ad 100 :armor 50 :mr 50}

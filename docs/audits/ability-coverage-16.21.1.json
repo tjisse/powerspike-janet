@@ -2694,37 +2694,35 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Garen",
       "ability": "GarenE",
       "name": "Judgment",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 15,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/physical/TotalDamage",
-        "Conditional/maximum effect needs semantics: damage/physical/NearestEnemyBonus*100",
-        "Unresolved tooltip variable: f1",
-        "Recasts/charges need explicit semantics.",
-        "Stack state requires explicit triggers."
+        "Judgment uses item/level attack speed, separate spins, critical hits and champion armor reduction. This duel assumes the opponent is the nearest enemy. Spins are spaced evenly across the source duration, with the first at the end of one spin. Automatic strategy completes the spin before E/R; early cancellation is excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Garen",
       "ability": "GarenR",
       "name": "Demacian Justice",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/true/BaseDamage"
+        "Demacian Justice deals base plus a fraction of the opponent's missing health, evaluated at impact. Vision is excluded."
       ]
     },
     {
@@ -12123,13 +12121,13 @@
     }
   ],
   "summary": {
-    "executes": 458,
-    "no-executable-effect": 186,
+    "executes": 460,
+    "no-executable-effect": 184,
     "not-cast": 22,
     "cast-without-effect": 26
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "8e869250587d737ad1a0635c264cedfdf20e444133b8e0ed864534ae8978ddc0",
+  "model": "0008131ac7f9eb48506ffe8ec34b96ea8242fa4aef6b525027f6aaa505a445bd",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."

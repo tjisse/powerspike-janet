@@ -30,8 +30,7 @@
 (each slot [:w :e]
   (assert (= :executes ((row "Seraphine" slot) :status)))
   (assert (> ((row "Seraphine" slot) :effect-count) 0)))
-(assert (= :no-executable-effect ((row "Garen" :e) :status)))
-(assert (some |(string/find "Periodic damage needs" $) ((row "Garen" :e) :notes)))
+(each slot [:e :r] (assert (= :executes ((row "Garen" slot) :status))))
 (assert (= :executes ((row "Fiddlesticks" :e) :status)))
 (each slot [:q :w :r]
   (assert (= :no-executable-effect ((row "Fiddlesticks" slot) :status))))
@@ -72,4 +71,4 @@
 (assert (= 173 (baseline "champions")))
 (assert (= (* 4 (baseline "champions")) (length (baseline "abilities"))))
 (assert (= (length (baseline "abilities")) (sum (values (baseline "summary")))))
-(print "Ability audit: reported Seraphine W/E execution, Garen E exclusion, applied-effect checks, activation/runtime omissions, parry, missing definitions, complete inventory and immutable inputs passed.")
+(print "Ability audit: reported Seraphine W/E and reviewed Garen E/R execution, applied-effect checks, activation/runtime omissions, parry, missing definitions, complete inventory and immutable inputs passed.")

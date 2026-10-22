@@ -29,6 +29,13 @@ def verify(binary_path, fixture_path):
                     result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
                     casts = {(event.get('actor'), event.get('source')) for event in result['trace'] if event['kind']=='cast'}
                     assert {('player', 'AnnieQ'), ('player', 'AnnieW'), ('opponent', 'GarenQ'), ('opponent', 'GarenW')} <= casts
+                    for source in ('GarenE', 'GarenR'):
+                        assert ('opponent', source) in casts
+                        assert any(event['kind'] == 'damage' and event.get('source') == source for event in result['trace'])
+                        assert result['sources'][source]['icon'].endswith(f'/spell/{source}.png')
+                    assert any(status['effect'] == 'Judgment' for status in result['statuses'])
+                    for band in page.locator('.matchup-status-band[aria-label*="Judgment"]').all():
+                        expect(band).to_be_visible()
                     assert result['sources']['AnnieQ']['icon'].endswith('/spell/AnnieQ.png')
                     assert result['sources']['GarenQ']['icon'].endswith('/spell/GarenQ.png')
                     assert 'Unknown stat/formula mapping' not in page.locator('#coverage').inner_text()

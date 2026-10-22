@@ -65,6 +65,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/latest-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-loadouts.janet
 	JANET_PATH=build/web-modules $(JANET) test/ability-audit.janet
+	JANET_PATH=build/web-modules $(JANET) test/garen-abilities.janet
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
@@ -111,6 +112,8 @@ format-check: build/formatter-ready
 	JANET=$(JANET) bash scripts/format.sh --check
 
 test-runtime: build
+	JANET_PATH=build/web-modules PS_GAREN_FIXTURE=$(CURDIR)/build/garen-runtime-fixture $(JANET) test/garen-abilities.janet
+	$(PYTHON) test/garen_runtime.py dist/bin/powerspike build/garen-runtime-fixture
 	JANET_PATH=build/web-modules PS_LATEST_LOADOUT_FIXTURE=$(CURDIR)/build/latest-loadout-runtime-fixture $(JANET) test/latest-loadouts.janet
 	$(PYTHON) test/latest_loadouts_runtime.py dist/bin/powerspike build/latest-loadout-runtime-fixture
 	JANET_PATH=build/web-modules PS_REPARSE_FIXTURE=$(CURDIR)/build/reparse-runtime-fixture $(JANET) test/reparse.janet

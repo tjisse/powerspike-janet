@@ -36,13 +36,15 @@ requires every event to remain represented, W/E names and outcomes to be
 discoverable, individual selection to work and result geometry to stay fixed
 at desktop and narrow widths, including keyboard and touch.
 
-Garen E has no executable effect in the model. Its source contains per-strike
+Before the first completeness batch, Garen E had no executable effect. Its source contains per-strike
 damage and a three-second duration, but the displayed strike count uses the
 unresolved `f1` value. Attack-speed-dependent strikes, channel timing, the
 nearest-enemy bonus, armor shred after six strikes, critical interactions and
-early recast need an explicit reviewed handler. The audit records this as
-missing mechanics; it does not turn the per-strike number into an invented
-single hit. Garen R also retains an unresolved execute calculation.
+early recast need explicit semantics. The
+[Garen E/R follow-up](garen-abilities.md) now implements separate spins,
+item/level attack-speed scaling, crits, armor reduction and impact-time execute
+damage on 16.20/16.21. Early cancellation and measured spin timing remain
+limitations. The current report below includes this follow-up.
 
 Seraphine's ordinary W shield and E damage execute in the source regression.
 W's conditional missing-health healing, E's conditional root/stun conversion
@@ -60,8 +62,8 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 458 |
-| No executable effect | 186 |
+| At least one effect recorded | 460 |
+| No executable effect | 184 |
 | Has an estimated effect but does not cast | 22 |
 | Casts without recording an applied effect | 26 |
 
@@ -104,13 +106,16 @@ semantics. This is a partial correction, not a complete Fiddlesticks kit.
 Before that correction, the probe recorded 457 entries with an applied effect,
 185 with no executable effect, 22 unable to cast and 28 casting without an
 applied effect. The table above and linked per-ability report reflect the
-correction. Restoring a record is not enough to claim supported mechanics.
+correction followed by the Garen E/R handlers. After the casing correction alone,
+the counts were 458/186/22/26; Garen E/R are the only subsequent category changes.
+Restoring a record is not enough to claim supported mechanics.
 
 ## Main causes and next work
 
 1. **Missing combat semantics:** periodic/channel damage, conditional executes,
-   multi-part damage, stacks, marks, recasts and form changes. Garen E/R are
-   representative cases. These need reviewed handlers and numerical tests.
+   multi-part damage, stacks, marks, recasts and form changes. The first Garen
+   E/R handlers are now covered by numerical regressions; Fiddlesticks Q/W/R and
+   Seraphine's conditional W/E mechanics remain concrete next cases.
 2. **Formula/source resolution:** cross-spell references, unresolved tooltip
    variables and unreviewed stat mappings. They need matching source review;
    simply enabling the ability would hide missing damage.

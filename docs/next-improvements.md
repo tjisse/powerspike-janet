@@ -46,7 +46,16 @@ The [combat lanes](timeline-and-concurrency.md#status-duration-bands) also show
 colored status durations on the shared time axis, including overlap and early
 removal, with fixed lane heights and hover, keyboard and touch inspection.
 
-1. **Patch accuracy and readiness.** Broaden the retained refreshed-patch checks
+1. **Champion ability completeness and accuracy — main priority.** Resolve missing
+   and partial effects before resuming the lower-priority roadmap. Review whole
+   ability behavior, not just whether a spell casts or records one effect.
+   The [first Garen E/R batch](garen-abilities.md) adds separate spins, eligible
+   attack-speed scaling, critical hits, armor reduction and impact-time execute
+   damage on both latest retained patches. Next: Fiddlesticks Q/W/R, Seraphine's
+   conditional W healing and E control, then shared formula/activation gaps from
+   the audit. Keep all remaining omissions explicit; a selectable champion or
+   successful probe is not a complete kit.
+   Broaden the retained refreshed-patch checks
    beyond the default Annie/Garen matchup. Compare interpreted formulas and
    actual learned-ability execution for common matchups, both champion sides
    and optimizer results. Report unresolved mappings and missing effects in
@@ -56,7 +65,7 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    The [all-champion ability audit](ability-coverage-audit.md) now inventories
    all 173 champions and 692 active-ability entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
-   Fiddlesticks' source-root casing, it records 186 without an executable
+   Fiddlesticks' source-root casing and adding Garen E/R, it records 184 without an executable
    effect, 22 unable to cast in the controlled probe and 26 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already

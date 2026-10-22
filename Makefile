@@ -64,6 +64,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/latest-mages.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-attacks.janet
 	JANET_PATH=build/web-modules $(JANET) test/latest-loadouts.janet
+	JANET_PATH=build/web-modules $(JANET) test/ability-audit.janet
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet

@@ -1,0 +1,2044 @@
+{
+  "duration": 10,
+  "trace": [
+    {
+      "at": 0,
+      "participants": [
+        {
+          "resource": 1040,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2356,
+          "position": 300
+        }
+      ],
+      "kind": "start"
+    },
+    {
+      "at": 0,
+      "before": [
+        {
+          "resource": 1040,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2356,
+          "position": 300
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "player",
+      "cost": 100,
+      "source": "SeraphineQ",
+      "participants": [
+        {
+          "resource": 940,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2356,
+          "position": 300
+        }
+      ],
+      "cooldown": 6
+    },
+    {
+      "absorbed": 0,
+      "at": 0,
+      "before": [
+        {
+          "resource": 940,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2356,
+          "position": 300
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 227.600001627207,
+      "critical": false,
+      "type": "magic",
+      "damage": 143.732240475108,
+      "target": "opponent",
+      "source": "SeraphineQ",
+      "health": 2212.26775952489,
+      "origin": "player/SeraphineQ/0",
+      "participants": [
+        {
+          "resource": 940,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.26775952489,
+          "position": 300
+        }
+      ],
+      "effective-resistance": 58.3499991893768
+    },
+    {
+      "at": 0,
+      "before": [
+        {
+          "resource": 940,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.26775952489,
+          "position": 300
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "opponent",
+      "cost": 0,
+      "source": "GarenQ",
+      "participants": [
+        {
+          "resource": 940,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.26775952489,
+          "position": 300
+        }
+      ],
+      "cooldown": 8
+    },
+    {
+      "at": 0.01,
+      "before": [
+        {
+          "resource": 940.0553,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.30075952538,
+          "position": 300
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "player",
+      "cost": 90,
+      "source": "SeraphineW",
+      "participants": [
+        {
+          "resource": 850.0553,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.30075952538,
+          "position": 300
+        }
+      ],
+      "cooldown": 22
+    },
+    {
+      "at": 0.01,
+      "amount": 173.800000813603,
+      "before": [
+        {
+          "resource": 850.0553,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.30075952538,
+          "position": 300
+        }
+      ],
+      "source": "SeraphineW",
+      "kind": "shield",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 850.0553,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.30075952538,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "at": 0.02,
+      "before": [
+        {
+          "resource": 850.1106,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.33375952588,
+          "position": 300
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "player",
+      "cost": 60,
+      "source": "SeraphineE",
+      "participants": [
+        {
+          "resource": 790.1106,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.33375952588,
+          "position": 300
+        }
+      ],
+      "cooldown": 11
+    },
+    {
+      "absorbed": 0,
+      "at": 0.02,
+      "before": [
+        {
+          "resource": 790.1106,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2212.33375952588,
+          "position": 300
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 274.50000077486,
+      "critical": false,
+      "type": "magic",
+      "damage": 173.350175042676,
+      "target": "opponent",
+      "source": "SeraphineE",
+      "health": 2038.9835844832,
+      "origin": "player/SeraphineE/0",
+      "participants": [
+        {
+          "resource": 790.1106,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2038.9835844832,
+          "position": 300
+        }
+      ],
+      "effective-resistance": 58.3499991893768
+    },
+    {
+      "at": 0.03,
+      "before": [
+        {
+          "resource": 790.1659,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2039.01658448369,
+          "position": 300
+        }
+      ],
+      "rank": 3,
+      "kind": "cast",
+      "actor": "player",
+      "cost": 100,
+      "source": "SeraphineR",
+      "participants": [
+        {
+          "resource": 690.1659,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2039.01658448369,
+          "position": 300
+        }
+      ],
+      "cooldown": 120
+    },
+    {
+      "at": 0.521749973297119,
+      "before": [
+        {
+          "resource": 692.885277352333,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2040.63935941975,
+          "position": 300
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "opponent",
+      "cost": 0,
+      "source": "GarenW",
+      "participants": [
+        {
+          "resource": 692.885277352333,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2040.63935941975,
+          "position": 300
+        }
+      ],
+      "cooldown": 12
+    },
+    {
+      "absorbed": 0,
+      "at": 0.53,
+      "before": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 2040.66658450828,
+          "position": 300
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 317.600001627207,
+      "critical": false,
+      "type": "magic",
+      "damage": 200.568363279482,
+      "target": "opponent",
+      "source": "SeraphineR",
+      "health": 1840.0982212288,
+      "origin": "player/SeraphineR/0",
+      "participants": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.0982212288,
+          "position": 300
+        }
+      ],
+      "effective-resistance": 58.3499991893768
+    },
+    {
+      "control": "charm",
+      "duration": 1.75,
+      "target": "opponent",
+      "at": 0.53,
+      "before": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.0982212288,
+          "position": 300
+        }
+      ],
+      "source": "SeraphineR",
+      "kind": "control",
+      "participants": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.0982212288,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "at": 0.53,
+      "before": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.0982212288,
+          "position": 300
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 692.9309,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.0982212288,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "at": 0.771749973297119,
+      "amount": 145,
+      "before": [
+        {
+          "resource": 694.267777352333,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.89599615256,
+          "position": 300
+        }
+      ],
+      "source": "GarenW",
+      "kind": "shield",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 694.267777352333,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1840.89599615256,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "absorbed": 145,
+      "at": 0.870328973271182,
+      "before": [
+        {
+          "resource": 694.81291922219,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1841.22130685733,
+          "position": 300
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 301,
+      "critical": false,
+      "type": "physical",
+      "damage": 12.2622806161013,
+      "target": "opponent",
+      "source": "attack",
+      "health": 1828.95902624123,
+      "origin": "player/attack/0",
+      "participants": [
+        {
+          "resource": 694.81291922219,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1828.95902624123,
+          "position": 300
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 1.52174997329712,
+      "before": [
+        {
+          "resource": 698.415277352332,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1831.10871557334,
+          "position": 300
+        }
+      ],
+      "kind": "expire",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 698.415277352332,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1831.10871557334,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "at": 1.66442991090394,
+      "before": [
+        {
+          "resource": 699.204297407298,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1831.57955937446,
+          "position": 300
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 699.204297407298,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1831.57955937446,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 2.00475888417512,
+      "before": [
+        {
+          "resource": 701.086316629488,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1832.70264500299,
+          "position": 300
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 692.3,
+      "critical": true,
+      "type": "physical",
+      "damage": 361.703245417033,
+      "target": "opponent",
+      "source": "attack",
+      "health": 1470.99939958596,
+      "origin": "player/attack/1",
+      "participants": [
+        {
+          "resource": 701.086316629488,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1470.99939958596,
+          "position": 300
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 2.28,
+      "before": [
+        {
+          "resource": 702.608399999999,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1471.90769528172,
+          "position": 300
+        }
+      ],
+      "kind": "expire",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 702.608399999999,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1471.90769528172,
+          "position": 300
+        }
+      ]
+    },
+    {
+      "at": 2.51,
+      "before": [
+        {
+          "resource": 703.880299999999,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1472.66669529303,
+          "position": 217.89
+        }
+      ],
+      "kind": "expire",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 703.880299999999,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1472.66669529303,
+          "position": 217.89
+        }
+      ]
+    },
+    {
+      "at": 2.630140057,
+      "before": [
+        {
+          "resource": 704.544674515209,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.06315748703,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 704.544674515209,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.06315748703,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 2.79885982180788,
+      "before": [
+        {
+          "resource": 705.477694814596,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.6199327192,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 705.477694814596,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.6199327192,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 2.86770501426231,
+      "before": [
+        {
+          "resource": 705.858408728869,
+          "id": "player",
+          "health": 2185,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.84712185768,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 578.25,
+      "critical": true,
+      "type": "physical",
+      "damage": 292.933135510808,
+      "target": "player",
+      "source": "GarenQ",
+      "health": 1892.06686448919,
+      "origin": "opponent/attack/0",
+      "participants": [
+        {
+          "resource": 705.858408728869,
+          "id": "player",
+          "health": 1892.06686448919,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1473.84712185768,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "absorbed": 0,
+      "at": 3.13918879507906,
+      "before": [
+        {
+          "resource": 707.359714036786,
+          "id": "player",
+          "health": 1892.9736202918,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1474.74301834773,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 692.3,
+      "critical": true,
+      "type": "physical",
+      "damage": 361.703245417033,
+      "target": "opponent",
+      "source": "attack",
+      "health": 1113.03977293069,
+      "origin": "player/attack/2",
+      "participants": [
+        {
+          "resource": 707.359714036786,
+          "id": "player",
+          "health": 1892.9736202918,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1113.03977293069,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 3.42202324787435,
+      "before": [
+        {
+          "resource": 708.923788560744,
+          "id": "player",
+          "health": 1893.91828733775,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1113.97312663883,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 708.923788560744,
+          "id": "player",
+          "health": 1893.91828733775,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1113.97312663883,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 3.65958820513665,
+      "before": [
+        {
+          "resource": 710.237522774405,
+          "id": "player",
+          "health": 1894.71175427284,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1114.75709100948,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 656.65,
+      "critical": true,
+      "type": "physical",
+      "damage": 332.649448219926,
+      "target": "player",
+      "source": "attack",
+      "health": 1562.06230605292,
+      "origin": "opponent/attack/1",
+      "participants": [
+        {
+          "resource": 710.237522774405,
+          "id": "player",
+          "health": 1562.06230605292,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1114.75709100948,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "at": 3.93328973271182,
+      "before": [
+        {
+          "resource": 711.751092221895,
+          "id": "player",
+          "health": 1562.97646912949,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1115.66030606393,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 711.751092221895,
+          "id": "player",
+          "health": 1562.97646912949,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1115.66030606393,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 4.2139064387487,
+      "before": [
+        {
+          "resource": 713.302902606279,
+          "id": "player",
+          "health": 1563.91372890147,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1116.58634120765,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 713.302902606279,
+          "id": "player",
+          "health": 1563.91372890147,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1116.58634120765,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 4.273618705983,
+      "before": [
+        {
+          "resource": 713.633111444085,
+          "id": "player",
+          "health": 1564.11316786847,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 1116.78339169246,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 301,
+      "critical": false,
+      "type": "physical",
+      "damage": 157.262280616101,
+      "target": "opponent",
+      "source": "attack",
+      "health": 959.521111076362,
+      "origin": "player/attack/3",
+      "participants": [
+        {
+          "resource": 713.633111444085,
+          "id": "player",
+          "health": 1564.11316786847,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 959.521111076362,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "absorbed": 0,
+      "at": 4.451471396011,
+      "before": [
+        {
+          "resource": 714.61663681994,
+          "id": "player",
+          "health": 1564.70719583657,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 960.1080249622,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 656.65,
+      "critical": true,
+      "type": "physical",
+      "damage": 332.649448219926,
+      "target": "player",
+      "source": "attack",
+      "health": 1232.05774761665,
+      "origin": "opponent/attack/2",
+      "participants": [
+        {
+          "resource": 714.61663681994,
+          "id": "player",
+          "health": 1232.05774761665,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 960.1080249622,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "at": 5.00578962962305,
+      "before": [
+        {
+          "resource": 717.682016651815,
+          "id": "player",
+          "health": 1233.9091704652,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 961.937275160377,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 717.682016651815,
+          "id": "player",
+          "health": 1233.9091704652,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 961.937275160377,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 5.06771964361576,
+      "before": [
+        {
+          "resource": 718.024489629195,
+          "id": "player",
+          "health": 1234.11601670616,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 962.141644209599,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 718.024489629195,
+          "id": "player",
+          "health": 1234.11601670616,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 962.141644209599,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 5.24335458688535,
+      "before": [
+        {
+          "resource": 718.995750865476,
+          "id": "player",
+          "health": 1234.7026374003,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 962.721239531025,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 656.65,
+      "critical": true,
+      "type": "physical",
+      "damage": 332.649448219926,
+      "target": "player",
+      "source": "attack",
+      "health": 902.053189180373,
+      "origin": "opponent/attack/3",
+      "participants": [
+        {
+          "resource": 718.995750865476,
+          "id": "player",
+          "health": 902.053189180373,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 962.721239531025,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "absorbed": 0,
+      "at": 5.40804861688694,
+      "before": [
+        {
+          "resource": 719.906508851385,
+          "id": "player",
+          "health": 902.603267225215,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 963.264729838129,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 301,
+      "critical": false,
+      "type": "physical",
+      "damage": 157.262280616101,
+      "target": "opponent",
+      "source": "attack",
+      "health": 806.002449222027,
+      "origin": "player/attack/4",
+      "participants": [
+        {
+          "resource": 719.906508851385,
+          "id": "player",
+          "health": 902.603267225215,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 806.002449222027,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 5.7976728204974,
+      "before": [
+        {
+          "resource": 722.06113069735,
+          "id": "player",
+          "health": 903.904612028929,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 807.288209113102,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 722.06113069735,
+          "id": "player",
+          "health": 903.904612028929,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 807.288209113102,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 6,
+      "before": [
+        {
+          "resource": 723.18,
+          "id": "player",
+          "health": 904.580384789595,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 807.95588881541,
+          "position": 174.999999651
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "player",
+      "cost": 100,
+      "source": "SeraphineQ",
+      "participants": [
+        {
+          "resource": 623.18,
+          "id": "player",
+          "health": 904.580384789595,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 807.95588881541,
+          "position": 174.999999651
+        }
+      ],
+      "cooldown": 6
+    },
+    {
+      "absorbed": 0,
+      "at": 6,
+      "before": [
+        {
+          "resource": 623.18,
+          "id": "player",
+          "health": 904.580384789595,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 807.95588881541,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 227.600001627207,
+      "critical": false,
+      "type": "magic",
+      "damage": 143.732240475108,
+      "target": "opponent",
+      "source": "SeraphineQ",
+      "health": 664.223648340301,
+      "origin": "player/SeraphineQ/1",
+      "participants": [
+        {
+          "resource": 623.18,
+          "id": "player",
+          "health": 904.580384789595,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 664.223648340301,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 58.3499991893768
+    },
+    {
+      "absorbed": 0,
+      "at": 6.0352377777597,
+      "before": [
+        {
+          "resource": 623.374864911011,
+          "id": "player",
+          "health": 904.698078964025,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 664.339933008641,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 656.65,
+      "critical": true,
+      "type": "physical",
+      "damage": 332.649448219926,
+      "target": "player",
+      "source": "attack",
+      "health": 572.048630744099,
+      "origin": "opponent/attack/4",
+      "participants": [
+        {
+          "resource": 623.374864911011,
+          "id": "player",
+          "health": 572.048630744099,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 664.339933008641,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "at": 6.2021495545197,
+      "before": [
+        {
+          "resource": 624.297887036493,
+          "id": "player",
+          "health": 572.606116062908,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 664.890741880157,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 624.297887036493,
+          "id": "player",
+          "health": 572.606116062908,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 664.890741880157,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 6.54247852779088,
+      "before": [
+        {
+          "resource": 626.179906258683,
+          "id": "player",
+          "health": 573.742814801887,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 666.013827508687,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 301,
+      "critical": false,
+      "type": "physical",
+      "damage": 157.262280616101,
+      "target": "opponent",
+      "source": "attack",
+      "health": 508.751546892586,
+      "origin": "player/attack/5",
+      "participants": [
+        {
+          "resource": 626.179906258683,
+          "id": "player",
+          "health": 573.742814801887,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 508.751546892586,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 6.58955601137175,
+      "before": [
+        {
+          "resource": 626.440244742885,
+          "id": "player",
+          "health": 573.900053592656,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 508.906902590717,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 626.440244742885,
+          "id": "player",
+          "health": 573.900053592656,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 508.906902590717,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 6.82712096863405,
+      "before": [
+        {
+          "resource": 627.753978956546,
+          "id": "player",
+          "health": 574.693520527751,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 509.690866961365,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 656.65,
+      "critical": true,
+      "type": "physical",
+      "damage": 332.649448219926,
+      "target": "player",
+      "source": "attack",
+      "health": 242.044072307825,
+      "origin": "opponent/attack/5",
+      "participants": [
+        {
+          "resource": 627.753978956546,
+          "id": "player",
+          "health": 242.044072307825,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 509.690866961365,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "at": 7.33657946542364,
+      "before": [
+        {
+          "resource": 630.571284443793,
+          "id": "player",
+          "health": 243.745663639579,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 511.372080025822,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 630.571284443793,
+          "id": "player",
+          "health": 243.745663639579,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 511.372080025822,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 7.3814392022461,
+      "before": [
+        {
+          "resource": 630.819358788421,
+          "id": "player",
+          "health": 243.895495156382,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 511.520117159542,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 630.819358788421,
+          "id": "player",
+          "health": 243.895495156382,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 511.520117159542,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 7.6190041595084,
+      "before": [
+        {
+          "resource": 632.133093002082,
+          "id": "player",
+          "health": 244.688962091477,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 512.30408153019,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 285.5,
+      "critical": false,
+      "type": "physical",
+      "damage": 144.630194878229,
+      "target": "player",
+      "source": "attack",
+      "health": 100.058767213249,
+      "origin": "opponent/attack/6",
+      "participants": [
+        {
+          "resource": 632.133093002082,
+          "id": "player",
+          "health": 100.058767213249,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 512.30408153019,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "absorbed": 0,
+      "at": 7.67690843869482,
+      "before": [
+        {
+          "resource": 632.453303665983,
+          "id": "player",
+          "health": 100.25216750033,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 512.495165654352,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "player",
+      "raw": 301,
+      "critical": false,
+      "type": "physical",
+      "damage": 157.262280616101,
+      "target": "opponent",
+      "source": "attack",
+      "health": 355.232885038251,
+      "origin": "player/attack/6",
+      "participants": [
+        {
+          "resource": 632.453303665983,
+          "id": "player",
+          "health": 100.25216750033,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 355.232885038251,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 91.3999967575073
+    },
+    {
+      "at": 8,
+      "before": [
+        {
+          "resource": 634.240000000001,
+          "id": "player",
+          "health": 101.331293284951,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 356.299087206446,
+          "position": 174.999999651
+        }
+      ],
+      "rank": 5,
+      "kind": "cast",
+      "actor": "opponent",
+      "cost": 0,
+      "source": "GarenQ",
+      "participants": [
+        {
+          "resource": 634.240000000001,
+          "id": "player",
+          "health": 101.331293284951,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 356.299087206446,
+          "position": 174.999999651
+        }
+      ],
+      "cooldown": 8
+    },
+    {
+      "at": 8.47100937632758,
+      "before": [
+        {
+          "resource": 636.844681851093,
+          "id": "player",
+          "health": 102.904464557949,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 357.853418171488,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 636.844681851093,
+          "id": "player",
+          "health": 102.904464557949,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 357.853418171488,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 8.52174997329712,
+      "before": [
+        {
+          "resource": 637.125277352334,
+          "id": "player",
+          "health": 103.073938147094,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.020862143983,
+          "position": 174.999999651
+        }
+      ],
+      "source": "attack",
+      "kind": "attack",
+      "actor": "opponent",
+      "participants": [
+        {
+          "resource": 637.125277352334,
+          "id": "player",
+          "health": 103.073938147094,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.020862143983,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "absorbed": 0,
+      "at": 8.75931493055942,
+      "before": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 103.86740508219,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.80482651463,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "damage",
+      "actor": "opponent",
+      "raw": 578.25,
+      "critical": true,
+      "type": "physical",
+      "damage": 103.86740508219,
+      "target": "player",
+      "source": "GarenQ",
+      "health": 0,
+      "origin": "opponent/attack/7",
+      "participants": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 0,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.80482651463,
+          "position": 174.999999651
+        }
+      ],
+      "effective-resistance": 97.3999967575073
+    },
+    {
+      "at": 8.75931493055942,
+      "before": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 0,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.80482651463,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "death",
+      "actor": "player",
+      "participants": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 0,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 358.80482651463,
+          "position": 174.999999651
+        }
+      ]
+    },
+    {
+      "at": 10,
+      "participants": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 0,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 362.899087304794,
+          "position": 174.999999651
+        }
+      ],
+      "before": [
+        {
+          "resource": 638.439011565995,
+          "id": "player",
+          "health": 0,
+          "position": 0
+        },
+        {
+          "resource": 0,
+          "id": "opponent",
+          "health": 362.899087304794,
+          "position": 174.999999651
+        }
+      ],
+      "kind": "end"
+    }
+  ],
+  "end": 8.75931493055942,
+  "actors": [
+    {
+      "id": "player",
+      "hp": 2185,
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/champion/Seraphine.png"
+    },
+    {
+      "id": "opponent",
+      "hp": 2356,
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/champion/Garen.png"
+    }
+  ],
+  "statuses": [
+    {
+      "end": 2.51,
+      "start": 0.01,
+      "kind": "shield",
+      "id": "(:shield)",
+      "effect": "shield",
+      "actor": "player"
+    },
+    {
+      "end": 2.86770501426231,
+      "start": 0.521749973297119,
+      "kind": "empowerment",
+      "id": "(:empowerment \"GarenQ\")",
+      "effect": "GarenQ",
+      "actor": "opponent"
+    },
+    {
+      "end": 2.28,
+      "start": 0.53,
+      "kind": "control",
+      "id": "(:control :charm)",
+      "effect": "charm",
+      "actor": "opponent"
+    },
+    {
+      "end": 0.870328973271182,
+      "start": 0.771749973297119,
+      "kind": "shield",
+      "id": "(:shield)",
+      "effect": "shield",
+      "actor": "opponent"
+    },
+    {
+      "end": 8.75931493055942,
+      "start": 8.52174997329712,
+      "kind": "empowerment",
+      "id": "(:empowerment \"GarenQ\")",
+      "effect": "GarenQ",
+      "actor": "opponent"
+    }
+  ],
+  "names": [
+    "Seraphine",
+    "Garen"
+  ],
+  "sources": {
+    "GarenQ": {
+      "name": "Decisive Strike",
+      "slot": "q",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/GarenQ.png"
+    },
+    "SeraphineR": {
+      "name": "Encore",
+      "slot": "r",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/SeraphineR.png"
+    },
+    "SeraphineQ": {
+      "name": "High Note",
+      "slot": "q",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/SeraphineQ.png"
+    },
+    "attack": {
+      "name": "Basic attack"
+    },
+    "SeraphineW": {
+      "name": "Surround Sound",
+      "slot": "w",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/SeraphineW.png"
+    },
+    "GarenW": {
+      "name": "Courage",
+      "slot": "w",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/GarenW.png"
+    },
+    "SeraphineE": {
+      "name": "Beat Drop",
+      "slot": "e",
+      "icon": "/assets/16.21.1/55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d/spell/SeraphineE.png"
+    }
+  }
+}

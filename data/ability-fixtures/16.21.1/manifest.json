@@ -1,0 +1,44 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-22",
+  "scope": "Reported Seraphine W/E execution, Fiddlesticks root casing and explicit partial-kit audit; no independent game capture. Garen inputs reuse the parser fixtures.",
+  "sources": [
+    {
+      "path": "Seraphine-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/seraphine/seraphine.bin.json?powerspike=1",
+      "sha256": "5092bf04681d91eee01a7b353eb7d8df3744d5efbc35e482bf10bbe8d29be0f5",
+      "bytes": 73388
+    },
+    {
+      "path": "Seraphine-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Seraphine.json",
+      "sha256": "c4efd831095fa7d5f0a685223fd9a8e36d4b3aa92f4c5db222817389e8f30b58",
+      "bytes": 14940
+    },
+    {
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "path": "strings.json",
+      "excerpt": true,
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc"
+    },
+    {
+      "path": "Fiddlesticks-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/fiddlesticks/fiddlesticks.bin.json?powerspike=1",
+      "sha256": "35c4c06d85ccefd636d60e025877396c8b4e8cd1e5967b350e29c4299c7f3655",
+      "bytes": 62798
+    },
+    {
+      "path": "Fiddlesticks-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Fiddlesticks.json",
+      "sha256": "a992fbf294f30d6dd643828bebb1a2deb6f118f081f5d28b31223398a4b95ee8",
+      "bytes": 12602
+    }
+  ],
+  "fixture_sha256": {
+    "Seraphine-characters.json": "5092bf04681d91eee01a7b353eb7d8df3744d5efbc35e482bf10bbe8d29be0f5",
+    "Seraphine-abilities.json": "c4efd831095fa7d5f0a685223fd9a8e36d4b3aa92f4c5db222817389e8f30b58",
+    "strings.json": "ff2580498252700423c25a8234405ba781104e173dc1d57cf3a7a268d53588cb",
+    "Fiddlesticks-characters.json": "35c4c06d85ccefd636d60e025877396c8b4e8cd1e5967b350e29c4299c7f3655",
+    "Fiddlesticks-abilities.json": "a992fbf294f30d6dd643828bebb1a2deb6f118f081f5d28b31223398a4b95ee8"
+  }
+}

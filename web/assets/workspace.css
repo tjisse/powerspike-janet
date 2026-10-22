@@ -64,6 +64,8 @@ button:disabled { cursor: default; opacity: .5; }
 .matchup-event-lane { height: 44px; }
 .matchup-event-track { isolation: isolate; }
 .matchup-event-track > .matchup-event { z-index: 1; }
+.matchup-event-count { position: absolute; right: -7px; top: -6px; min-width: 17px; padding: 1px 3px; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--gold); font-size: 9px; line-height: 12px; font-variant-numeric: tabular-nums; }
+.matchup-event-detail > span { white-space: pre-line; }
 .matchup-event-track > .matchup-status-band { position: absolute; z-index: 0; min-width: 0; min-height: 0; padding: 0; margin: 0; border: 0; border-bottom: 2px solid var(--status-color); border-radius: 2px; background: color-mix(in srgb, var(--status-color) 35%, transparent); cursor: help; }
 .matchup-status-band:focus-visible { outline: 2px solid var(--status-color); outline-offset: 1px; z-index: 2; }
 .matchup-status-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11px; color: var(--muted); }

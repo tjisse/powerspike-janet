@@ -53,6 +53,14 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    developer checks before treating a new patch as ready. Keep refresh and
    reparse explicit; do not introduce automatic migrations or silently repair
    pinned snapshots.
+   The [all-champion ability audit](ability-coverage-audit.md) now inventories
+   all 173 champions and 692 active-ability entries on 16.21.1, with per-ability
+   compilation and execution reasons. After correcting
+   Fiddlesticks' source-root casing, it records 186 without an executable
+   effect, 22 unable to cast in the controlled probe and 26 casting without
+   an applied effect. Prioritize these mechanics and false-positive effects
+   before adding more champion coverage. The reported Seraphine W/E already
+   execute; crowded timeline markers now disclose their grouped events.
 2. **Attack timing and projectile behavior.** Measure isolated ordinary and
    empowered attacks, review the remaining 30% windup assumption, and resolve
    ranged Spellblade consumption at launch versus impact. Use matching-patch sources

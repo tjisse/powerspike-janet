@@ -1,5 +1,11 @@
 {:schema 1
- :rules [{:champion "Fiora" :slot :w :patch-min "16.19.1" :patch-max "16.19.1"
+ :rules [{:champion "Fiddlesticks" :slot :q :patch-min "16.17.1" :patch-max "16.21.1"
+          :effects []
+          :note "Terrify's current-health percentage, minimum damage, recent-fear doubling and passive/active fear rules require an explicit handler; Q effects remain excluded."}
+         {:champion "Fiddlesticks" :slot :w :patch-min "16.17.1" :patch-max "16.21.1"
+          :effects []
+          :note "Bountiful Harvest's channel ticks, final missing-health hit, healing and completion refund require an explicit handler; W effects remain excluded."}
+         {:champion "Fiora" :slot :w :patch-min "16.19.1" :patch-max "16.19.1"
           :cast-lock-variable "ParryDuration"
           :effects [{:kind :parry :variable "ParryDuration" :duration-variable "ParryDuration"
                      :target :self :trigger :cast-start :source-kinds [:champion]}]

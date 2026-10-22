@@ -76,8 +76,14 @@
    :description (plain description) :tooltip description :limitations limitations
    :from (get source "from" []) :into (get source "into" []) :source source})
 
+(defn character-root-path [id objects]
+  (def expected (string "Characters/" id "/CharacterRecords/Root"))
+  (if (has-key? objects expected) expected
+    (let [matches (filter |(= (string/ascii-lower expected) (string/ascii-lower $)) (keys objects))]
+      (assert (<= (length matches) 1) "Ambiguous character root casing in source data.")
+      (or (first matches) expected))))
 (defn champion [patch source objects]
-  (def root-path (string "Characters/" (source "id") "/CharacterRecords/Root"))
+  (def root-path (character-root-path (source "id") objects))
   (def root (get objects root-path {}))
   (def dd (source "stats"))
   (def base @{})
@@ -223,7 +229,7 @@
                                                           :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}}))
 
 (defn kit [id objects detail fonts &opt patch]
-  (def root (get objects (string "Characters/" id "/CharacterRecords/Root") {}))
+  (def root (get objects (character-root-path id objects) {}))
   (def paths (spell-paths id root))
   (def dd (get-in detail ["data" id] {}))
   (def abilities @[])

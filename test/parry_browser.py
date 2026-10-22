@@ -52,7 +52,7 @@ def verify(binary_path, fixture_path):
                 page.locator('.matchup-event-select').select_option(lich)
                 expect(page.locator('.matchup-event-detail')).to_contain_text('0 damage')
                 expect(page.locator('.matchup-event-detail')).to_contain_text('Spellblade consumed')
-                expect(page.locator(f'[data-trace-event="{lich}"][aria-pressed=true]')).to_have_text('×')
+                expect(page.locator(f'[data-trace-event="{lich}"][aria-pressed=true] .matchup-event-label')).to_have_text('×')
                 assert 'item/3100/hit' not in page.locator('.matchup-event-detail').inner_text()
                 page.locator('#results').screenshot(path='build/parry-events-desktop.png')
                 for width in (736, 390, 320):

@@ -1,0 +1,197 @@
+{
+  "format": "powerspike-scenario",
+  "version": 1,
+  "scenario": {
+    "patch": "16.21.1",
+    "player": {
+      "level": 18,
+      "health-fraction": 1,
+      "skill-order": [
+        "q",
+        "w",
+        "e",
+        "q",
+        "q",
+        "r",
+        "q",
+        "w",
+        "q",
+        "w",
+        "r",
+        "w",
+        "w",
+        "e",
+        "e",
+        "r",
+        "e",
+        "e"
+      ],
+      "resource-fraction": 1,
+      "loadout": {
+        "summoners": [],
+        "adaptive-stat": "auto",
+        "shards": [
+          0,
+          0,
+          0
+        ],
+        "items": [
+          "2003",
+          "2523",
+          "3031",
+          "3142",
+          "6690",
+          "3089"
+        ],
+        "runes": []
+      },
+      "strategy": {
+        "activation": {
+          "d": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "e": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "f": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "w": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "q": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "r": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          }
+        },
+        "preferred-range": 500,
+        "priority": [
+          "q",
+          "w",
+          "e",
+          "r",
+          "d",
+          "f"
+        ],
+        "abilities": true,
+        "hit-chance": 1,
+        "attacks": true,
+        "movement": "approach"
+      },
+      "champion": "Seraphine"
+    },
+    "samples": 1,
+    "schema": 1,
+    "snapshot": "55d32acfa3dded3f03e7f6c391a5d408cbfce62c53c27576e7da6e48695b3a8d",
+    "seed": 1,
+    "model": "e28e629f369c0b5eea7335aadc9d38da0b3b73c1394482fda4334a8c7b2cf938",
+    "duration": 10,
+    "target": {
+      "level": 18,
+      "health-fraction": 1,
+      "skill-order": [
+        "q",
+        "w",
+        "e",
+        "q",
+        "q",
+        "r",
+        "q",
+        "w",
+        "q",
+        "w",
+        "r",
+        "w",
+        "w",
+        "e",
+        "e",
+        "r",
+        "e",
+        "e"
+      ],
+      "resource-fraction": 1,
+      "loadout": {
+        "summoners": [],
+        "adaptive-stat": "auto",
+        "shards": [
+          0,
+          0,
+          0
+        ],
+        "items": [
+          "1018",
+          "1036",
+          "2003",
+          "2523",
+          "3031",
+          "3085"
+        ],
+        "runes": []
+      },
+      "strategy": {
+        "activation": {
+          "d": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "e": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "f": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "w": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "q": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          },
+          "r": {
+            "target-health-below": 1,
+            "self-health-below": 1,
+            "after": 0
+          }
+        },
+        "preferred-range": 500,
+        "priority": [
+          "q",
+          "w",
+          "e",
+          "r",
+          "d",
+          "f"
+        ],
+        "abilities": true,
+        "hit-chance": 1,
+        "attacks": true,
+        "movement": "approach"
+      },
+      "champion": "Garen",
+      "kind": "champion"
+    },
+    "distance": 300
+  }
+}

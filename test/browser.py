@@ -363,7 +363,7 @@ def verify_timeline_icons(browser, base):
     fallback.locator('.matchup-event-select').select_option(str(index))
     marker = fallback.locator(f'[data-trace-event="{index}"]')
     expect(marker.locator('img')).to_have_count(0)
-    expect(marker).to_have_text('Q')
+    expect(marker.locator('.matchup-event-label')).to_have_text('Q')
     # ResizeObserver can replace the marker between locator resolution and
     # Playwright's geometry request. Measure the current visible touch target
     # in one browser task, retrying while the redraw finishes.
@@ -374,7 +374,7 @@ def verify_timeline_icons(browser, base):
     }''', arg=index, timeout=5000)
     attempts = len(failed)
     fallback.locator('[data-matchup-metric=damage]').click()
-    expect(marker).to_have_text('Q')
+    expect(marker.locator('.matchup-event-label')).to_have_text('Q')
     expect(marker.locator('img')).to_have_count(0)
     assert len(failed) == attempts
     marker.click()
@@ -530,6 +530,8 @@ def verify(base):
         from champion_browser import verify as verify_champion_configs
         verify_champion_configs(browser, base)
         verify_timeline_icons(browser, base)
+        from crowded_events_browser import verify as verify_crowded_events
+        verify_crowded_events(browser, base)
         verify_ability_readiness(browser, base)
         verify_resource_readiness(browser, base)
         verify_health_activation(browser, base)

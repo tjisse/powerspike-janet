@@ -1,0 +1,146 @@
+# Active-ability coverage audit — 22 October 2026
+
+The reported Seraphine/Garen fight exposed two separate issues: incomplete
+champion mechanics and timeline markers that silently disappeared when events
+were close together. This audit covers every Q/W/E/R entry for all **173
+champions** in the matching **16.21.1** Data Dragon catalog.
+
+## Reported fight
+
+The supplied saved scenario uses level-18 Seraphine against level-18 Garen,
+full starting resources, enabled abilities and the standard Q/W/E/R priority.
+Its served trace contains:
+
+| Event | Time | Applied result |
+| --- | ---: | --- |
+| Seraphine W | 0.01 s | Approximately 173.8 shield |
+| Seraphine E | 0.02 s | Approximately 173.35 magic damage after resistance |
+
+Those are simulation timestamps; cast locks and projectile behavior still use
+the current model assumptions. They are not newly measured game timings.
+
+Those events were simulated. The old timeline skipped nearby icons to avoid
+overlap, leaving their presence visible only through the complete selector.
+The timeline now assigns every displayed event to a visible marker group.
+Crowded groups show a `+N` badge and list all event names, exact times and
+outcomes on hover, focus or tap. Selecting an individual event still shows its
+own icon and sets the time guide to its exact time. Group positions and lane
+heights remain stable during selection. Status duration bands keep their
+independent exact time geometry.
+
+`test/fixtures/seraphine-garen-timeline.json` retains the served result payload,
+with relative artwork paths and no hosting origin. It is a presentation
+regression input from this app, not independent game evidence. Its model
+identity is the v0.24.0 model recorded in the saved scenario. The browser check
+requires every event to remain represented, W/E names and outcomes to be
+discoverable, individual selection to work and result geometry to stay fixed
+at desktop and narrow widths, including keyboard and touch.
+
+Garen E has no executable effect in the model. Its source contains per-strike
+damage and a three-second duration, but the displayed strike count uses the
+unresolved `f1` value. Attack-speed-dependent strikes, channel timing, the
+nearest-enemy bonus, armor shred after six strikes, critical interactions and
+early recast need an explicit reviewed handler. The audit records this as
+missing mechanics; it does not turn the per-strike number into an invented
+single hit. Garen R also retains an unresolved execute calculation.
+
+Seraphine's ordinary W shield and E damage execute in the source regression.
+W's conditional missing-health healing, E's conditional root/stun conversion
+and its unresolved slow strength remain omissions. Executing one part of an
+ability does not imply its entire behavior is supported.
+
+## Complete inventory
+
+The [per-ability report](audits/ability-coverage-16.21.1.json) records **692**
+entries and the [source receipts](audits/ability-sources-16.21.1.json) identify
+the matching catalog, character records and ability descriptions with their
+original response hashes. Full downloaded responses remain in the local
+developer audit cache; reported-case raw sources are also retained in
+`data/ability-fixtures/16.21.1/` and `data/parser-fixtures/16.21.1/`.
+
+| Controlled probe result | Abilities |
+| --- | ---: |
+| At least one effect recorded | 458 |
+| No executable effect | 186 |
+| Has an estimated effect but does not cast | 22 |
+| Casts without recording an applied effect | 26 |
+
+These counts are **coverage triage, not an accuracy score**. The probe isolates
+one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
+health, zero distance, enabled ordinary attacks and an inactive champion target
+for eight seconds. It uses generic combat inputs to expose execution paths.
+It does not exercise complete champion strategies, every conditional state,
+alternate forms, passive triggers, projectile geometry or live-game timing.
+A recorded effect can coexist with substantial missing mechanics. A delayed
+effect beyond the probe window can appear in the no-effect group.
+
+The full audit uses a developer snapshot containing the freshly normalized
+ability catalog, with no item or rune selections. Its recorded snapshot hash
+is distinct from the supplied user's saved snapshot. Matching raw sources
+were checked before normalization. Existing saved application data was not
+rewritten or migrated.
+
+## Source lookup correction
+
+The audit found one root-record casing mismatch in the complete 173-champion
+source set: Data Dragon identifies `Fiddlesticks`, while CommunityDragon's
+canonical root is `Characters/FiddleSticks/CharacterRecords/Root`. The old
+lookup missed that root and all four current spell references.
+
+Normalization now prefers an exact root key, then accepts a unique match that
+differs only by ASCII case. Ambiguous matches are rejected. Public champion IDs
+stay unchanged, while the normalized root path preserves the provider's actual
+key for later source lookups. Fresh refresh/reparse uses the corrected root;
+saved snapshot bytes are not silently rebuilt.
+
+This restores Reap's base magic damage from the actual `Damage` calculation.
+With 100 AP, its source gives 120 damage at rank 1 and 260 at rank 5, before
+resistance. Slow and center-hit silence remain excluded. Q's health-percentage
+and recent-fear rules and W's channel/final hit/healing need explicit handlers;
+conservative guards prevent the recovered records from turning those numbers
+into flat single hits. Crowstorm also remains excluded pending channel/tick
+semantics. This is a partial correction, not a complete Fiddlesticks kit.
+
+Before that correction, the probe recorded 457 entries with an applied effect,
+185 with no executable effect, 22 unable to cast and 28 casting without an
+applied effect. The table above and linked per-ability report reflect the
+correction. Restoring a record is not enough to claim supported mechanics.
+
+## Main causes and next work
+
+1. **Missing combat semantics:** periodic/channel damage, conditional executes,
+   multi-part damage, stacks, marks, recasts and form changes. Garen E/R are
+   representative cases. These need reviewed handlers and numerical tests.
+2. **Formula/source resolution:** cross-spell references, unresolved tooltip
+   variables and unreviewed stat mappings. They need matching source review;
+   simply enabling the ability would hide missing damage.
+3. **Activation rules:** zero-cooldown stack abilities, toggles and continuous
+   resource costs intentionally fail generic activation checks. Several
+   source wrapper records also need their actual spell behavior reviewed.
+4. **Effects parsed but not applied:** several shields lack a resolved
+   duration, and slow tags lack strength. Some entries are ally-only or
+   conditional effects treated too loosely by generic extraction. These
+   should be reviewed before expanding the champion catalog further.
+
+The report includes compilation notes, unresolved inputs, cast/effect counts,
+runtime exclusions and errors for each ability. This stays in developer tooling;
+it adds no player-facing engineering dashboard or automatic repair process.
+
+## Repeating the check
+
+Run from a development checkout with its pinned Janet modules available:
+
+```sh
+JANET_PATH=build/web-modules build/janet scripts/audit-abilities.janet \
+  /path/to/developer-data 16.21.1 - build/ability-report.json
+```
+
+Replace `-` with a saved snapshot hash to inspect that exact revision. Without
+the report path, JSON is written to stdout. The command reads the existing
+snapshot and applies the same current semantic model used by the app. It does
+not download providers, refresh or reparse saved data. Use the ordinary explicit
+refresh/reparse workflow when a new normalized snapshot is wanted.
+
+`test/ability-audit.janet` checks the reported source cases, classifications,
+zero-cooldown exclusion, a cast with no applied effect, parry activation,
+missing definitions, complete inventory counts and unchanged input data.

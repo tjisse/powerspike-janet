@@ -301,6 +301,13 @@
   function showEventTooltip(index, anchor) {
     const detail = $('#combat-event-tooltip'), event = events[index];
     if (!detail || !event || !anchor) return;
+    const group = JSON.parse(anchor.dataset.traceEvents || '[]');
+    if (group.length > 1) {
+      const first = events[group[0]], last = events[group.at(-1)];
+      showTimelineTooltip(`${first.at.toFixed(2)}–${last.at.toFixed(2)} s · ${group.length} events`,
+        group.map(i => `${events[i].at.toFixed(2)} s · ${eventName(events[i])}\n${eventValues(events[i])}`).join('\n\n'), anchor);
+      return;
+    }
     showTimelineTooltip(`${event.at.toFixed(2)} s · ${eventName(event)}`, eventValues(event), anchor);
   }
   function showStatusTooltip(index, anchor) {
@@ -406,7 +413,7 @@
     const tooltipIndex = selectorTooltip ? selected : eventTooltipAnchor?.dataset.traceEvent;
     const statusIndex = eventTooltipAnchor?.dataset.statusIndex;
     hideEventTooltip();
-    const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 48 : 36;
+    const lanes = $('.matchup-event-lanes'), minDistance = matchMedia('(pointer: coarse)').matches ? 56 : 42;
     const focused = document.activeElement?.dataset.traceEvent;
     const focusedStatus = document.activeElement?.dataset.statusIndex;
     lanes.replaceChildren(...result.actors.map((actor, side) => {
@@ -426,12 +433,17 @@
         band.style.height = `${100 / effects.length}%`;
         track.append(band);
       });
-      let previous = -Infinity;
+      const groups = [];
       events.forEach((record, index) => {
         if (actorIndex(record) !== side) return;
         const position = record.at / result.duration * (right - left);
-        if (position - previous < minDistance && selected !== index) return;
-        previous = position;
+        const previous = groups.at(-1);
+        if (previous && position - previous.position < minDistance) previous.indices.push(index);
+        else groups.push({position, indices: [index]});
+      });
+      groups.forEach(({position, indices}) => {
+        const index = indices.includes(selected) ? selected : indices.includes(Number(focused)) ? Number(focused) : indices[0];
+        const record = events[index];
         const source = result.sources?.[record.source];
         const label = record.kind === 'parried' ? '×' : record.kind === 'death' ? 'KO' : record.source === 'attack' ? 'AA' : record.kind === 'control' ? 'CC' : source?.slot?.toUpperCase() || (record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.source?.match(/[QWER]$/)?.[0] || 'Hit');
         const button = node('button', `matchup-event ${['parried', 'parry-start'].includes(record.kind) ? record.kind : ''}`);
@@ -442,7 +454,11 @@
           img.src = artwork; button.classList.add('has-icon'); button.append(img);
         }
         button.append(node('span', 'matchup-event-label', label));
-        button.type = 'button'; button.dataset.traceEvent = index; button.style.left = `${position}px`; button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}, ${eventValues(record)}`); button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
+        if (indices.length > 1) button.append(node('span', 'matchup-event-count', `+${indices.length - 1}`));
+        button.type = 'button'; button.dataset.traceEvent = index; button.dataset.traceEvents = JSON.stringify(indices);
+        button.style.left = `${position}px`;
+        button.setAttribute('aria-label', `${record.at.toFixed(2)} seconds, ${eventName(record)}, ${eventValues(record)}${indices.length > 1 ? `; ${indices.length} events grouped here` : ''}`);
+        button.setAttribute('aria-pressed', String(selected === index)); track.append(button);
       });
       lane.append(label, track); return lane;
     }));

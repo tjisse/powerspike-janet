@@ -40,7 +40,8 @@
   # New patch mappings require matching source review. The Annie/Garen review
   # establishes AP, AD and health on 16.20/16.21. The matching Essence Reaver
   # review adds total critical chance (8/0); other mappings stay unresolved.
-  (def supported (or (some |(= $ family) ["16.17" "16.18" "16.19"])
+  (def supported (or (some |(and (= id ($ 0)) (= formula ($ 1))) (get spell "__powerspike_stat_scope" []))
+                     (some |(= $ family) ["16.17" "16.18" "16.19"])
                      (and (some |(= $ family) ["16.20" "16.21"])
                           (or (some |(= $ id) [0 2 12]) (and (= id 8) (= formula 0))))))
   (if (and supported (stat-ids id) (some |(= $ formula) [0 1 2]))

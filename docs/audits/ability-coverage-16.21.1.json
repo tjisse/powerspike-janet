@@ -3556,23 +3556,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "JarvanIVGoldenAegis: @BonusShield@",
-        "JarvanIVGoldenAegis: expected integer key for keyword in range [0, 2), got nil",
-        "JarvanIVGoldenAegis: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "JarvanIV",
       "ability": "JarvanIVGoldenAegis",
       "name": "Golden Aegis",
       "slot": "w",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: shield//BonusShield"
+        "Golden Aegis always grants its base shield. The sole nearby champion adds the source's bonus shield and receives the slow if in range. Additional enemies and the remaining kit need review."
       ]
     },
     {
@@ -5495,18 +5491,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Malphite",
       "ability": "Landslide",
       "name": "Ground Slam",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/0 on 16.21.1"
+        "Ground Slam deals its source-defined armor/AP-scaling damage and reduces attack speed. Granite Shield, Thunderclap's passive armor and the rest of the kit remain excluded."
       ]
     },
     {
@@ -7831,20 +7828,20 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "RivenFeint: expected integer key for keyword in range [0, 2), got nil"
-      ],
+      "runtime": [],
       "champion": "Riven",
       "ability": "RivenFeint",
       "name": "Valor",
       "slot": "e",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 2,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Valor shields at cast start for its source-defined duration. Dash movement, animation cancels and the remaining Riven kit need review."
+      ]
     },
     {
       "status": "executes",
@@ -12107,13 +12104,13 @@
     }
   ],
   "summary": {
-    "executes": 463,
-    "no-executable-effect": 181,
+    "executes": 466,
+    "no-executable-effect": 180,
     "not-cast": 22,
-    "cast-without-effect": 26
+    "cast-without-effect": 24
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "f7c461bf36235bf6b67945d165ca81d9bb985fc4ce7c2dfe3243ae9ab44124cb",
+  "model": "108fc789ac2a018e892866936b1f1f22c3ac360a031fa161d8b250b2eac35ede",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."

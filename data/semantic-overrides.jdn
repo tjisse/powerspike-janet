@@ -1,5 +1,18 @@
 {:schema 1
- :rules [{:champion "Seraphine" :slot :q :patch-min "16.21.1" :patch-max "16.21.1"
+ :rules [{:champion "Riven" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
+          :effects [{:kind :shield :target :self :variable "TotalShield" :duration-variable "ShieldDuration" :trigger :cast-start}]
+          :note "Valor shields at cast start for its source-defined duration. Dash movement, animation cancels and the remaining Riven kit need review."}
+         {:champion "JarvanIV" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :self-cast true
+          :effects [{:kind :shield :target :self :variable "TotalShield" :duration-variable "Effect4Amount" :nearby-bonus-variable "BonusShield"}
+                    {:kind :control :target :enemy :control :slow :variable "BaseSlowAmount" :strength-variable "BaseSlowAmount" :duration-variable "Effect5Amount" :within-range true}]
+          :resolved-notes ["Conditional/maximum effect needs semantics: shield//BonusShield"]
+          :note "Golden Aegis always grants its base shield. The sole nearby champion adds the source's bonus shield and receives the slow if in range. Additional enemies and the remaining kit need review."}
+         {:champion "Malphite" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :stat-scope [[1 0]]
+          :effects [{:kind :damage :target :enemy :damage-type :magic :variable "EDamageCalc"}
+                    {:kind :stat-buff :target :enemy :stat :attack-speed :mode :multiply :relative true :variable "ASReduction" :scale -0.01 :duration-variable "Duration"}]
+          :resolved-notes ["Unknown stat/formula mapping 1/0 on 16.21.1"]
+          :note "Ground Slam deals its source-defined armor/AP-scaling damage and reduces attack speed. Granite Shield, Thunderclap's passive armor and the rest of the kit remain excluded."}
+         {:champion "Seraphine" :slot :q :patch-min "16.21.1" :patch-max "16.21.1"
           :handler :seraphine-q :note "Seraphine uses reviewed High Note semantics."}
          {:champion "Seraphine" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
           :handler :seraphine-w :note "Seraphine uses reviewed Surround Sound semantics."}

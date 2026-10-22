@@ -28,6 +28,11 @@ def verify(binary_path, fixture_path):
                     response = page.goto(base + '/?scenario=' + query, wait_until='domcontentloaded')
                     assert response.ok, page.locator('main').inner_text()[:2500]
                     expect(page.locator('#matchup-chart svg')).to_be_visible()
+                    saved = json.loads(page.locator('#scenario-data').get_attribute('data-json'))['scenario']
+                    for side in ('player', 'target'):
+                        for field in ('champion', 'ranks', 'skill-order', 'level'):
+                            if field in case['document']['scenario'][side]:
+                                assert saved[side].get(field) == case['document']['scenario'][side][field], (side, field)
                     result = json.loads(page.locator('#results').get_attribute('data-matchup-result'))
                     for source in case['sources']:
                         assert any(row['kind'] == 'damage' and row.get('source') == source for row in result['trace'])

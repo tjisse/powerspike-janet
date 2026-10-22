@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 463 |
-| No executable effect | 181 |
+| At least one effect recorded | 466 |
+| No executable effect | 180 |
 | Has an estimated effect but does not cast | 22 |
-| Casts without recording an applied effect | 26 |
+| Casts without recording an applied effect | 24 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -112,6 +112,9 @@ applied effect. The table above and linked per-ability report reflect the
 correction followed by the Garen E/R and Fiddlesticks Q/W/R handlers. After the
 casing correction alone, the counts were 458/186/22/26. Seraphine's follow-up
 completes more effects within already-executing entries, leaving counts unchanged.
+The [defense follow-up](defense-abilities.md) moves Riven E and Jarvan W from
+cast-without-effect to execution, and Malphite E from no executable effect to
+execution. Other categories remain unchanged.
 Restoring a record is not enough to claim supported mechanics.
 
 ## Main causes and next work

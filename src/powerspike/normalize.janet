@@ -141,6 +141,8 @@
 
 (defn ability [slot path object dd fonts &opt patch]
   (def spell (merge (get object "mSpell" {}) {"__powerspike_patch" (or patch "16.19.1")}))
+  # Only reviewed semantic rules may expand the formula scope.
+  (put spell "__powerspike_stat_scope" nil)
   (def client (get-in spell ["mClientData" "mTooltipData"] {}))
   (def key (or (get-in client ["mLocKeys" "keyTooltip"]) (get client "keyTooltip")))
   (def text (or (when key (or (get fonts key) (get fonts (string/ascii-lower key)) (get fonts (hash/tooltip-key (string/ascii-lower key)))))
@@ -191,19 +193,27 @@
     (def chosen (find |(= ($ :slot) (rule :slot)) abilities))
     (when chosen
       (def index (find-index |(= ($ :slot) (rule :slot)) abilities))
+      (def spell (merge (chosen :record) {"__powerspike_stat_scope" (get rule :stat-scope [])}))
       (def effects (when (rule :effects)
                      (map (fn [spec]
-                            (def spell (chosen :record))
-                            (def amount (expr/variable (spec :variable) spell))
+                            (def raw-amount (expr/variable (spec :variable) spell))
+                            (def amount (if (spec :scale) {:op :multiply :children [raw-amount {:op :constant :value (spec :scale)}]} raw-amount))
                             (def duration (if (spec :duration-variable) (expr/variable (spec :duration-variable) spell) (spec :duration)))
                             (def hits (if (spec :hits-variable) (expr/variable (spec :hits-variable) spell) (get spec :hits 1)))
                             (def interval (if (spec :interval-variable) (expr/variable (spec :interval-variable) spell) (get spec :interval 0)))
                             (def hit-delay (if (spec :delay-variable) (expr/variable (spec :delay-variable) spell) (get spec :delay 0)))
+                            (def extra (merge
+                                         (if (spec :strength-variable)
+                                           {:strength {:op :multiply :children [(expr/variable (spec :strength-variable) spell)
+                                                                                {:op :constant :value (get spec :strength-scale 1)}]}} {})
+                                         (if (spec :nearby-bonus-variable)
+                                           {:nearby-bonus (expr/variable (spec :nearby-bonus-variable) spell) :nearby-radius (chosen :range)} {})
+                                         (if (spec :within-range) {:range-at-impact (chosen :range)} {})))
                             (merge spec {:id (string id "/" (rule :slot) "/" (spec :variable)) :amount amount
                                          :target (get spec :target :enemy) :trigger (get spec :trigger :cast) :condition :always
                                          :duration duration :hits hits :interval interval :delay hit-delay
-                                         :status (if (empty? (mapcat |(if (dictionary? $) (expr/problems $) []) [amount duration hits interval hit-delay])) :estimated :unresolved)
-                                         :evidence {:tooltip (rule :note) :override true}})) (rule :effects))))
+                                         :status (if (empty? (mapcat |(if (dictionary? $) (expr/problems $) []) [amount duration hits interval hit-delay ;(values extra)])) :estimated :unresolved)
+                                         :evidence {:tooltip (rule :note) :override true}} extra)) (rule :effects))))
       (def kept (when effects (filter |(some (fn [kind] (= kind ($ :kind))) (get rule :preserve-kinds [])) (chosen :effects))))
       (def notes (filter |(and (not= $ (rule :note)) (not (some (fn [note] (= note $)) (get rule :resolved-notes []))))
                          (get chosen :unresolved [])))
@@ -218,7 +228,11 @@
                                           :recast (or recast (chosen :recast))
                                           :cast-lock (if (rule :cast-lock-variable)
                                                        (expr/variable (rule :cast-lock-variable) (chosen :record)) (chosen :cast-lock))
-                                          :unresolved [;notes (rule :note)]}))
+                                          :variables (if (rule :stat-scope)
+                                                       (map |(merge $ {:expression (expr/variable ($ :name) spell)}) (chosen :variables))
+                                                       (chosen :variables))
+                                          :unresolved [;notes (rule :note)]}
+                                  (if (rule :self-cast) {:self-cast true} {})))
       (when (rule :handler)
         (put abilities index (champion-abilities/review (abilities index) (rule :handler))))
       (when (rule :rank-penetration)

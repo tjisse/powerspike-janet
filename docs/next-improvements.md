@@ -57,7 +57,9 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    The [Fiddlesticks follow-up](fiddlesticks-abilities.md) adds Q's current-health
    damage/fear, W's drain/healing/finisher/refund and R's interruptible channel,
    blink and area ticks on 16.21.1. Its unseen fears and remaining kit effects
-   remain open. Next: shared formula/activation gaps from
+   remain open. The [defense follow-up](defense-abilities.md) restores Riven E's
+   shield timing, Jarvan W's shield/slow/self-cast and Malphite E's scoped
+   armor damage plus attack-speed reduction. Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -71,8 +73,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 active-ability entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and adding Garen E/R plus Fiddlesticks Q/W/R,
-   it records 181 without an executable
-   effect, 22 unable to cast in the controlled probe and 26 casting without
+   it records 180 without an executable
+   effect, 22 unable to cast in the controlled probe and 24 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

@@ -1,0 +1,58 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Riven E shield, Jarvan IV W shield/slow, and Malphite E damage/attack-speed reduction. Partial kits; no game captures.",
+  "sources": [
+    {
+      "path": "Riven-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/riven/riven.bin.json?powerspike=1",
+      "sha256": "c98391e6c5f4f32bdf59399c2b7e37fedfec13a02a1a21b2bb5135effd55ca33",
+      "bytes": 52570
+    },
+    {
+      "path": "Riven-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Riven.json",
+      "sha256": "e5e37d27e8dd7b1351bc1b1f9cfa097bf4139e2881305c02779b78149a2a42ba",
+      "bytes": 14258
+    },
+    {
+      "path": "JarvanIV-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/jarvaniv/jarvaniv.bin.json?powerspike=1",
+      "sha256": "3c5ee5971bd32bf8b062ea77460b99f73d8140acb98ba3f8c0613d47855d3514",
+      "bytes": 42202
+    },
+    {
+      "path": "JarvanIV-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/JarvanIV.json",
+      "sha256": "e942aca363feb955cdcf92bd477b2c5b2046e0705037f8ccb19fb693e042fb96",
+      "bytes": 13088
+    },
+    {
+      "path": "Malphite-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/malphite/malphite.bin.json?powerspike=1",
+      "sha256": "a0f65a1a8da4e28490dd71ff6dafdfe9b2793742aeb88eb2350710f83e7c5878",
+      "bytes": 49996
+    },
+    {
+      "path": "Malphite-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Malphite.json",
+      "sha256": "c38ba299b4104d85604b57e08c3abc160d0ba908abca2c474b6cba472dc17739",
+      "bytes": 13145
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "excerpt": true,
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc"
+    }
+  ],
+  "fixture_sha256": {
+    "JarvanIV-abilities.json": "e942aca363feb955cdcf92bd477b2c5b2046e0705037f8ccb19fb693e042fb96",
+    "JarvanIV-characters.json": "3c5ee5971bd32bf8b062ea77460b99f73d8140acb98ba3f8c0613d47855d3514",
+    "Malphite-abilities.json": "c38ba299b4104d85604b57e08c3abc160d0ba908abca2c474b6cba472dc17739",
+    "Malphite-characters.json": "a0f65a1a8da4e28490dd71ff6dafdfe9b2793742aeb88eb2350710f83e7c5878",
+    "Riven-abilities.json": "e5e37d27e8dd7b1351bc1b1f9cfa097bf4139e2881305c02779b78149a2a42ba",
+    "Riven-characters.json": "c98391e6c5f4f32bdf59399c2b7e37fedfec13a02a1a21b2bb5135effd55ca33",
+    "strings.json": "d1a8ae5a39b7741eb7762511fd2a6b1aeb1b907ea59460785776fbc2037db9cf"
+  }
+}

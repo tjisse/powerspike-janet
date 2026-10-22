@@ -20,6 +20,7 @@ def verify(binary_path, fixture_path):
         cases = json.loads((fixture / 'cases.json').read_text())
         assert cases
         for case in cases:
+            assert case['sources'] or case.get('trace-counts')
             scenario = cwd / 'scenario.json'
             scenario.write_text(json.dumps(case['document']))
             outcome = json.loads(subprocess.check_output(
@@ -28,6 +29,9 @@ def verify(binary_path, fixture_path):
             for source in case['sources']:
                 assert any(event['kind'] == 'damage' and event.get('source') == source
                            for event in outcome['trace'])
+            for check in case.get('trace-counts', []):
+                assert sum(row['kind'] == check['kind'] and row.get('source') == check['source']
+                           for row in outcome['trace']) == check['count'], check
     print(f'Relocated executable: {len(cases)} reviewed ability scenarios and scoring parity passed.')
 
 

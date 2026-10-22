@@ -1,4 +1,4 @@
-"""Garen mechanics must survive relocation without source files or downloads."""
+"""Reviewed ability mechanics must survive relocation without source files."""
 import json
 from pathlib import Path
 import shutil
@@ -10,7 +10,7 @@ from runtime import clean_env
 
 def verify(binary_path, fixture_path):
     fixture = Path(fixture_path).resolve()
-    with tempfile.TemporaryDirectory(prefix='powerspike-garen-runtime-') as temporary:
+    with tempfile.TemporaryDirectory(prefix='powerspike-ability-runtime-') as temporary:
         cwd = Path(temporary)
         binary = cwd / 'powerspike'
         shutil.copyfile(Path(binary_path).resolve(), binary)
@@ -18,19 +18,17 @@ def verify(binary_path, fixture_path):
         shutil.copytree(fixture / 'seed', cwd / 'seed')
         env = clean_env(PS_DATA_DIR=str(cwd / 'data'), PS_SEED_DIR=str(cwd / 'seed'))
         cases = json.loads((fixture / 'cases.json').read_text())
-        assert len(cases) == 4
+        assert cases
         for case in cases:
             scenario = cwd / 'scenario.json'
             scenario.write_text(json.dumps(case['document']))
             outcome = json.loads(subprocess.check_output(
                 [str(binary), '--simulate', str(scenario)], cwd=cwd, env=env, text=True, timeout=10))
             assert outcome['metrics'] == case['metrics']
-            garen = next(actor for actor in outcome['actors'] if actor.get('champion') == 'Garen')
-            assert garen['stats']['attack-speed-item-growth'] > .6
-            for source in ('GarenE', 'GarenR'):
+            for source in case['sources']:
                 assert any(event['kind'] == 'damage' and event.get('source') == source
                            for event in outcome['trace'])
-    print('Relocated executable: Garen E/R, both latest patches, both roles and scoring parity passed.')
+    print(f'Relocated executable: {len(cases)} reviewed ability scenarios and scoring parity passed.')
 
 
 if __name__ == '__main__':

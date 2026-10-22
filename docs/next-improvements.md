@@ -51,8 +51,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    ability behavior, not just whether a spell casts or records one effect.
    The [first Garen E/R batch](garen-abilities.md) adds separate spins, eligible
    attack-speed scaling, critical hits, armor reduction and impact-time execute
-   damage on both latest retained patches. Next: Fiddlesticks Q/W/R, Seraphine's
-   conditional W healing and E control, then shared formula/activation gaps from
+   damage on both latest retained patches. The [Seraphine follow-up](seraphine-abilities.md)
+   adds Q's health amplification, conditional W healing, E control upgrades and
+   Echo on 16.21.1. Notes and decaying movement speed remain open.
+   Next: Fiddlesticks Q/W/R, then shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks

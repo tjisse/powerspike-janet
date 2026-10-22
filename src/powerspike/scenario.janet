@@ -85,6 +85,7 @@
   {:id id :kind :champion :champion (champion :id) :patch (package :patch) :level level :ranged ranged :attack-style attack-style :stats computed
    :form (champion :form) :form-name (champion :form-name)
    :form-resistance (champion :form-resistance)
+   :echo (champion :echo)
    :attack-speed-ratio (champion :attack-speed-ratio) :attack-speed-cap (attack-limits/cap champion)
    :attack-missile-speed (get-in champion [:attack-projectile :missile-speed] 0)
    :windup-fraction (get-in champion [:attack-windup :fraction] 0.3)

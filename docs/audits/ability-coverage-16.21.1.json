@@ -8212,9 +8212,7 @@
     {
       "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "SeraphineQ: @TotalEmpoweredDamage@ damage"
-      ],
+      "runtime": [],
       "champion": "Seraphine",
       "ability": "SeraphineQ",
       "name": "High Note",
@@ -8222,50 +8220,41 @@
       "inputs": [],
       "estimated": 1,
       "effect-count": 2,
-      "unresolved-effects": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalEmpoweredDamage"
+        "High Note increases its damage with the opponent's missing health, capped at the source's execute threshold. Geometry and minion damage remain excluded."
       ]
     },
     {
       "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "SeraphineW: @WMissingHPHeal@% missing Health"
-      ],
+      "runtime": [],
       "champion": "Seraphine",
       "ability": "SeraphineW",
       "name": "Surround Sound",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
+      "estimated": 2,
       "effect-count": 1,
-      "unresolved-effects": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//WMissingHPHeal"
+        "Surround Sound shields immediately. If already shielded at cast start, it heals missing health after the source delay; repeat pulses refresh the delay. Other allies and decaying movement speed remain excluded."
       ]
     },
     {
       "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "SeraphineE: Slowed",
-        "SeraphineE: Rooted",
-        "SeraphineE: Stunned",
-        "SeraphineE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Seraphine",
       "ability": "SeraphineE",
       "name": "Beat Drop",
       "slot": "e",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 1,
-      "unresolved-effects": 3,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: root",
-        "Control trigger/duration unresolved: stun"
+        "Beat Drop slows, upgrades to root on an already slowed enemy, or stun on an immobilized/grounded enemy, checked at impact. Projectile collision remains excluded."
       ]
     },
     {
@@ -12127,7 +12116,7 @@
     "cast-without-effect": 26
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "0008131ac7f9eb48506ffe8ec34b96ea8242fa4aef6b525027f6aaa505a445bd",
+  "model": "0c15024a4b9508ebb0a359a1813e4a3f853479fa591858dd857fe31d5ae99d9b",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned spell at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. A recorded effect is partial execution, not complete-kit or in-game validation. Passive and automatic form behavior are outside this probe."

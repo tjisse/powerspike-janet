@@ -46,10 +46,11 @@ item/level attack-speed scaling, crits, armor reduction and impact-time execute
 damage on 16.20/16.21. Early cancellation and measured spin timing remain
 limitations. The current report below includes this follow-up.
 
-Seraphine's ordinary W shield and E damage execute in the source regression.
-W's conditional missing-health healing, E's conditional root/stun conversion
-and its unresolved slow strength remain omissions. Executing one part of an
-ability does not imply its entire behavior is supported.
+Seraphine's ordinary W shield and E damage already executed in the source regression.
+The [Seraphine follow-up](seraphine-abilities.md) now adds W's conditional heal,
+E's slow/root/stun behavior, Q's missing-health scaling and passive Echo on
+16.21.1. Notes, W movement and other kit limitations remain explicit. Executing
+one part of an ability does not imply its entire behavior is supported.
 
 ## Complete inventory
 
@@ -114,8 +115,8 @@ Restoring a record is not enough to claim supported mechanics.
 
 1. **Missing combat semantics:** periodic/channel damage, conditional executes,
    multi-part damage, stacks, marks, recasts and form changes. The first Garen
-   E/R handlers are now covered by numerical regressions; Fiddlesticks Q/W/R and
-   Seraphine's conditional W/E mechanics remain concrete next cases.
+   E/R and Seraphine follow-ups are covered by numerical regressions;
+   Fiddlesticks Q/W/R remain concrete next cases.
 2. **Formula/source resolution:** cross-spell references, unresolved tooltip
    variables and unreviewed stat mappings. They need matching source review;
    simply enabling the ability would hide missing damage.

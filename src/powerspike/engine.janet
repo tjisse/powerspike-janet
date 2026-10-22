@@ -107,7 +107,7 @@
                     :resource (min (get stats :mp 0) (get actor :resource (get stats :mp 0)))
                     :position (get actor :position 0) :velocity 0 :busy-until 0 :attack-ready 0
                     :parry-until 0 :parry-source-kinds [] :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
-                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[]
+                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[] :pending-pulses @{}
                     :damage-dealt 0 :attack-damage 0 :breakdown @{} :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
 (defn context [actor target rank]
   (def stats (merge @{} (actor :stats)
@@ -119,6 +119,7 @@
    :shards (get actor :shards []) :shard-bonuses (get actor :shard-bonuses [])
    :champion-target (some |(= $ :champion) (get target :tags [(target :kind)]))
    :target (merge (target :stats) {:health (target :health)
+                                   :missing-health-percent (- 1 (/ (target :health) ((target :stats) :hp)))
                                    :missing-health (- ((target :stats) :hp) (target :health))})})
 (defn value [expression actor target rank]
   (if (number? expression) expression (expr/evaluate expression (context actor target rank))))
@@ -487,7 +488,12 @@
   (defn apply-effect [event]
     (def owner (actors (event :actor)))
     (def target (actors (event :target)))
-    (def effect (event :effect))
+    (def supplied (event :effect))
+    (def effect (if (supplied :upgrade-on-control)
+                  (merge supplied {:control (cond
+                                              (controlled? target [:root :stun :charm :fear :airborne :suppression :grounded] at) :stun
+                                              (controlled? target [:slow] at) :root
+                                              :slow)}) supplied))
     (def rank (get event :rank 1))
     (def depth (get event :depth 0))
     (def source (event :source))
@@ -507,6 +513,8 @@
     (when blocked (record :immune {:source source :target (target :id)}))
     (when unknown-slow (note (string source ": Slow strength unresolved; movement reduction and utility contribution excluded.")))
     (when (and (alive? target) (not= :unresolved (get effect :condition :always))
+               (or (not (effect :refresh-pulse))
+                   (and (> (owner :health) 0) (= (event :pulse-key) (get-in owner [:pending-pulses source]))))
                (target-allowed? effect target) (not blocked) (not unknown-slow) (not parried))
       (def outcome (protect
                      (case (effect :kind)
@@ -597,8 +605,9 @@
                          (put target :parry-until (max (target :parry-until) expires))
                          (record :parry-start {:source source :actor (owner :id) :expires expires}))
                        :heal
-                       (do (def amount (min (- ((target :stats) :hp) (target :health))
-                                            (max 0 (* (value (effect :amount) owner target rank) (get (target :stats) :healing-multiplier 1)))))
+                       (do (when (effect :refresh-pulse) (put (owner :pending-pulses) source nil))
+                         (def amount (min (- ((target :stats) :hp) (target :health))
+                                          (max 0 (* (value (effect :amount) owner target rank) (get (target :stats) :healing-multiplier 1)))))
                          (def health-before (when (> amount 0) (health-status)))
                          (put target :health (+ (target :health) amount))
                          (health-changed health-before)
@@ -675,40 +684,44 @@
   (defn release-effect [event actor target ability effect travel]
     (if (or (= :unresolved (get effect :status)) (= :unresolved (get effect :condition)))
       (note (string (ability :id) ": " (get-in effect [:evidence :tooltip] "Unresolved effect")))
-      (case (get effect :trigger :cast)
-        :attack
-        (do
-          (when (has-key? effect :attack-delivery)
-            (assert (and (= :release (effect :attack-delivery)) (= :damage (effect :kind))
-                         (= :replace (get effect :attack-mode :replace)))
-                    "Attack delivery overrides require a supported replacement damage effect."))
-          (def duration (effect :duration))
-          (def count (if (has-key? effect :attack-count) (effect :attack-count) 1))
-          (assert (or duration (not= count :all)) "Timed attack empowerment requires a duration.")
-          (unless duration (note (string (ability :id) ": Empowerment expiry unavailable; retained until its attack count is consumed.")))
-          (def window (when duration (value duration actor target (event :rank))))
-          (when duration (assert (and (util/finite? window) (>= window 0)) "Empowered attack duration must be nonnegative."))
-          (def expires (if duration (+ at window) math/inf))
-          (def remaining (if (= count :all) math/inf (value count actor target (event :rank))))
-          (assert (and (> remaining 0) (or (= remaining math/inf) (= remaining (math/floor remaining))))
-                  "Empowered attack count must be a positive integer.")
-          # Recasting refreshes this effect; separate abilities may coexist.
-          (put actor :modifiers (filter |(not (and (= ($ :source) (ability :id))
-                                                   (= (get-in $ [:effect :id]) (effect :id)))) (actor :modifiers)))
-          (array/push (actor :modifiers) @{:effect effect :source (ability :id) :rank (event :rank)
-                                           :remaining remaining :expires expires})
-          (when (effect :reset) (reset-attack actor)))
-        :cast
-        (do
-          (def impact (+ at (* travel (get effect :travel-multiplier 1))
-                         (value (get effect :delay 0) actor target (event :rank))))
-          (def count (min 100 (max 1 (value (get effect :hits 1) actor target (event :rank)))))
-          (def interval (value (get effect :interval 0) actor target (event :rank)))
-          (for i 0 count
-            (schedule (+ impact (* i interval)) 10 :effect
-                      {:actor (actor :index) :target (if (= :self (effect :target)) (actor :index) (target :index))
-                       :effect effect :rank (event :rank) :source (ability :id) :origin (event :origin) :ability-slot (ability :slot)})))
-        (note (string (ability :id) ": Unsupported effect trigger")))))
+      (unless (and (effect :requires-shield-at-cast)
+                   (not (some |(and (> ($ :expires) at) (> ($ :amount) 0)) (actor :shields))))
+        (case (get effect :trigger :cast)
+          :attack
+          (do
+            (when (has-key? effect :attack-delivery)
+              (assert (and (= :release (effect :attack-delivery)) (= :damage (effect :kind))
+                           (= :replace (get effect :attack-mode :replace)))
+                      "Attack delivery overrides require a supported replacement damage effect."))
+            (def duration (effect :duration))
+            (def count (if (has-key? effect :attack-count) (effect :attack-count) 1))
+            (assert (or duration (not= count :all)) "Timed attack empowerment requires a duration.")
+            (unless duration (note (string (ability :id) ": Empowerment expiry unavailable; retained until its attack count is consumed.")))
+            (def window (when duration (value duration actor target (event :rank))))
+            (when duration (assert (and (util/finite? window) (>= window 0)) "Empowered attack duration must be nonnegative."))
+            (def expires (if duration (+ at window) math/inf))
+            (def remaining (if (= count :all) math/inf (value count actor target (event :rank))))
+            (assert (and (> remaining 0) (or (= remaining math/inf) (= remaining (math/floor remaining))))
+                    "Empowered attack count must be a positive integer.")
+            # Recasting refreshes this effect; separate abilities may coexist.
+            (put actor :modifiers (filter |(not (and (= ($ :source) (ability :id))
+                                                     (= (get-in $ [:effect :id]) (effect :id)))) (actor :modifiers)))
+            (array/push (actor :modifiers) @{:effect effect :source (ability :id) :rank (event :rank)
+                                             :remaining remaining :expires expires})
+            (when (effect :reset) (reset-attack actor)))
+          :cast
+          (do
+            (def impact (+ at (* travel (get effect :travel-multiplier 1))
+                           (value (get effect :delay 0) actor target (event :rank))))
+            (def count (min 100 (max 1 (value (get effect :hits 1) actor target (event :rank)))))
+            (def interval (value (get effect :interval 0) actor target (event :rank)))
+            (when (effect :refresh-pulse) (put (actor :pending-pulses) (ability :id) impact))
+            (for i 0 count
+              (schedule (+ impact (* i interval)) 10 :effect
+                        {:actor (actor :index) :target (if (= :self (effect :target)) (actor :index) (target :index))
+                         :effect effect :rank (event :rank) :source (ability :id) :origin (event :origin) :ability-slot (ability :slot)
+                         :pulse-key (when (effect :refresh-pulse) impact)})))
+          (note (string (ability :id) ": Unsupported effect trigger"))))))
   (defn release [event]
     (def actor (actors (event :actor)))
     (def target (actors (event :target)))
@@ -755,9 +768,15 @@
                                                          :critical (and critical (= modifier replacement))}))))
         (and (get ability :channel false) (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
         (record :interrupted {:source (ability :id) :actor (actor :id)})
-        (each effect (filter |(not= :cast-start (get $ :trigger)) (ability :effects))
-          (def released (protect (release-effect event actor target ability effect travel)))
-          (unless (first released) (note (string (ability :id) ": " (released 1))))))))
+        (do
+          (when (event :echo)
+            (record :echo {:actor (actor :id) :source (ability :id)})
+            (each effect (filter |(= :cast-start (get $ :trigger)) (ability :effects))
+              (def started (protect (release-effect event actor target ability (merge effect {:trigger :cast}) 0)))
+              (unless (first started) (note (string (ability :id) ": " (started 1))))))
+          (each effect (filter |(not= :cast-start (get $ :trigger)) (ability :effects))
+            (def released (protect (release-effect event actor target ability effect travel)))
+            (unless (first released) (note (string (ability :id) ": " (released 1)))))))))
   (defn decide [actor]
     (def target (actors (actor :target)))
     (when (and (alive? actor) (alive? target))
@@ -876,6 +895,13 @@
             (unless (first started) (note (string (selected :id) ": " (started 1)))))
           (schedule (+ at cast-time) 5 :release {:actor (actor :index) :target (target :index) :ability selected
                                                  :rank rank :action :spell :source (selected :id) :counter counter :origin origin})
+          (when (and (actor :echo) (some |(= $ (selected :slot)) [:q :w :e]))
+            (put actor :echo-count (inc (get actor :echo-count 0)))
+            (when (= 0 (% (actor :echo-count) (get-in actor [:echo :every])))
+              (def echo-delay (value (get-in actor [:echo :delay]) actor target 1))
+              (assert (< 0 echo-delay 2) "Invalid Echo delay.")
+              (schedule (+ at cast-time echo-delay) 5 :release {:actor (actor :index) :target (target :index) :ability selected
+                                                                :rank rank :action :spell :source (selected :id) :counter counter :origin origin :echo true})))
           (set next (max (+ at 0.01) (actor :busy-until))))
         (and (<= (actor :busy-until) at) (<= (actor :attack-ready) at)
              (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)))

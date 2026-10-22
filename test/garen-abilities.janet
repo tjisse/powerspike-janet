@@ -146,7 +146,8 @@
     (each source ["GarenE" "GarenR"]
       (assert (some |(and (= :damage ($ :kind)) (= source ($ :source))) (outcome :trace))))
     (assert (= (outcome :metrics) ((scenario/fitness definition) :metrics)))
-    (array/push cases {:document (util/read-json (wire/encode definition)) :metrics (outcome :metrics)}))
+    (array/push cases {:document (util/read-json (wire/encode definition)) :metrics (outcome :metrics)
+                       :sources ["GarenE" "GarenR"]}))
   (assert (= bytes (string (slurp file))) "Combat semantics must not rewrite saved snapshot bytes."))
 
 (when-let [export (os/getenv "PS_GAREN_FIXTURE")]

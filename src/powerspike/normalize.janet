@@ -220,13 +220,14 @@
                                                        (expr/variable (rule :cast-lock-variable) (chosen :record)) (chosen :cast-lock))
                                           :unresolved [;notes (rule :note)]}))
       (when (rule :handler)
-        (put abilities index (champion-abilities/garen (abilities index) (rule :handler))))
+        (put abilities index (champion-abilities/review (abilities index) (rule :handler))))
       (when (rule :rank-penetration)
         (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]
                               :when (and (indexed? values) (not (empty? values)))] stat values))
         (unless (empty? bonuses) (put penetration (rule :slot) bonuses)))))
   (merge (attacks/apply-profile id patch kit) {:abilities abilities :rank-penetration penetration
+                                               :echo (get (find |(= :p ($ :slot)) abilities) :echo)
                                                :coverage {:available (count |($ :available) abilities)
                                                           :implemented (sum (map |(count (fn [effect] (= :estimated (effect :status))) ($ :effects)) abilities))
                                                           :checked 0 :unresolved (mapcat |($ :unresolved) abilities)}}))

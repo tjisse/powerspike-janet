@@ -1,5 +1,13 @@
 {:schema 1
- :rules [{:champion "Garen" :slot :e :patch-min "16.20.1" :patch-max "16.21.1"
+ :rules [{:champion "Seraphine" :slot :q :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :seraphine-q :note "Seraphine uses reviewed High Note semantics."}
+         {:champion "Seraphine" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :seraphine-w :note "Seraphine uses reviewed Surround Sound semantics."}
+         {:champion "Seraphine" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :seraphine-e :note "Seraphine uses reviewed Beat Drop semantics."}
+         {:champion "Seraphine" :slot :p :patch-min "16.21.1" :patch-max "16.21.1"
+          :handler :seraphine-p :note "Seraphine uses reviewed Echo semantics."}
+         {:champion "Garen" :slot :e :patch-min "16.20.1" :patch-max "16.21.1"
           :handler :garen-e :note "Judgment uses reviewed spin semantics."}
          {:champion "Garen" :slot :r :patch-min "16.20.1" :patch-max "16.21.1"
           :handler :garen-r :note "Demacian Justice uses reviewed missing-health semantics."}

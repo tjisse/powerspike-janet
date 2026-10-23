@@ -23,7 +23,7 @@
   (def result (when (not (empty? estimated)) (protect (simulate))))
   (def outcome (when (and result (first result)) (result 1)))
   (def casts (when outcome (filter |(and (= :cast ($ :kind)) (= "player" ($ :actor)) (= (ability :id) ($ :source))) (outcome :trace))))
-  (def applied (when outcome (filter |(and (= (ability :id) ($ :source)) (some (fn [kind] (= kind ($ :kind))) [:damage :shield :heal :control :stat-buff :buff :parry-start :cleanse :cooldown-refund :resource])) (outcome :trace))))
+  (def applied (when outcome (filter |(and (= (ability :id) ($ :source)) (some (fn [kind] (= kind ($ :kind))) [:damage :shield :heal :control :stat-buff :buff :parry-start :cleanse :cooldown-refund :resource :displacement :blink])) (outcome :trace))))
   (def status (cond (empty? estimated) :no-executable-effect
                 (and result (not (first result))) :probe-error
                 (and (empty? casts) (not (ability :passive))) :not-cast

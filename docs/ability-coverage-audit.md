@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 546 |
-| No executable effect | 116 |
+| At least one effect recorded | 571 |
+| No executable effect | 94 |
 | Has an estimated effect but does not cast | 18 |
-| Casts without recording an applied effect | 12 |
+| Casts without recording an applied effect | 9 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -147,6 +147,12 @@ combat-sensitive movement, coupled ramping slows, death protection, execute
 thresholds, armor multipliers, mana-cost stacks and damage-vamp state. All
 remaining kit/timing boundaries stay with that batch. The probe now supplies
 zero lethality, as an ordinary empty build does, for Pyke's scoped formulas.
+
+The [area/impact follow-up](areas-impact-ability-follow-up.md) adds another 25
+executing slots across 24 champions, with maintained areas, conditional marks,
+interruptible beams, consumed attacks, recovery and movement. Fifty retained
+scenarios cover both roles. Its deliberately partial kits and excluded
+mechanics remain documented; the probe also recognizes actual displacement.
 
 ## Main causes and next work
 

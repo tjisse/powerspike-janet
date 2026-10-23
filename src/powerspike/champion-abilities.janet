@@ -702,8 +702,170 @@
                                                :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
                         :unresolved [;unresolved note]}))
 
+(defn areas-impact [ability handler forms]
+  (def spell (ability :record))
+  (defn term [name] (expr/variable name spell))
+  (defn pct [name] (product-of (literal 0.01) (term name)))
+  (defn self-stat [key] {:op :stat :stat key :formula 0})
+  (defn enemy-stat [key] {:op :target-stat :stat key})
+  (defn dmg [amount &opt type] {:kind :damage :target :enemy :damage-type (or type :magic) :amount amount})
+  (defn slow [strength duration] {:kind :control :target :enemy :control :slow :strength strength :duration duration})
+  (defn speed [amount duration] {:kind :stat-buff :target :self :stat :move-speed :mode :multiply :amount (sum-of (literal 1) amount) :duration duration})
+  (defn field [duration interval radius effects &opt extra]
+    (merge {:kind :field :target :self :duration duration :interval interval :radius radius :effects effects} (or extra {})))
+  (defn aux [suffix] (get (find |(string/has-suffix? (string/ascii-lower suffix) (string/ascii-lower ($ :path))) (or forms [])) :record))
+  (def ez-missile (when (= handler :ezreal-w) (aux "/EzrealW")))
+  (def naut-missile (when (= handler :nautilus-q) (aux "/NautilusAnchorDragMissile")))
+  (def lucian-p (when (= handler :lucian-e) (aux "/LucianPassive")))
+  (def gangplank-missile (when (= handler :gangplank-q) (aux "/GangplankQProceed")))
+  (def twitch-missile (when (= handler :twitch-w) (aux "/TwitchVenomCaskMissile")))
+  (def note (case handler
+              :aatrox-e "Umbral Dash heals for the selected champion-damage vamp and moves toward the opponent up to its source range at cast completion. Continuous dash travel, casting during another windup and World Ender amplification remain excluded."
+              :alistar-e "Trample checks radius every half second, gains stacks on champion hits, and grants one stunning empowered attack on five hits. Its aura ends on consumption. Ghosted collision and exact initial tick phase remain excluded."
+              :amumu-w "Despair toggles on automatically, pays mana for each half-second interval, checks radius and deals source percentage-health damage. It stops when unaffordable. Manual toggle-off and Curse refresh remain excluded."
+              :anivia-r "Glacial Storm persists at the opponent's cast position, drains mana, grows to its source damage and slow strengths, and ends on disabling control, range leash or resource depletion. Circular growth uses source minimum/maximum radii with linear model growth; Frostbite synergy and manual recasting remain excluded."
+              :braum-e "Unbreakable grants source movement and absorbs the first non-true damaging hit, then reduces non-true damage while facing the sole opponent. This duel assumes continued facing; missile interception geometry and allies remain excluded."
+              :ezreal-w "Essence Flux marks its hit target, detonates on a subsequent ordinary attack or ability damage, and refunds the detonating ability's paid mana plus the source return. Item procs do not detonate it independently. Collision and structures remain excluded."
+              :gangplank-q "Parrrley deals source physical damage, rolls critical damage using the selected calculation and applies supported attack on-hits once. Barrel interaction, gold and Silver Serpents remain excluded."
+              :ivern-w "Brushmaker places brush at the caster's cast position and grants its source on-hit while inside, lingering after exit. Three charges and source recovery are modeled; allies, vision and natural map brush remain excluded."
+              :kled-w "Violent Tendencies starts on an ordinary attack, grants four attacks of source attack speed and adds source maximum-health damage on the fourth release. Cooldown begins on consumption or expiry; champion hits refund source cooldown. Dismounting, structures and special hit interactions remain excluded."
+              :lucian-e "Relentless Pursuit moves toward the opponent up to source range at cast completion and resets the attack timer. Its next Lightslinger adds the selected passive second shot and refunds E on both hits. Simultaneous movement, other abilities' Lightslinger activations and Vigilance remain excluded."
+              :malzahar-r "Nether Grasp immediately suppresses and channels ten source beam ticks, with a fixed-position percentage-health pool lasting independently. Interrupting the caster ends the beam and its suppression. Geometry, voidlings and manual cancel remain excluded."
+              :milio-q "Ultra Mega Fire Kick knocks the sole target away, applies source damage/slow at modeled projectile impact and refunds half the paid mana on a champion hit. Bounce flight and minion geometry remain excluded."
+              :nautilus-q "Dredge Line uses the selected missile, deals source damage, stuns and draws both actors to their midpoint on hit. Pull travel and terrain refunds remain excluded."
+              :ornn-e "Searing Charge advances toward the opponent and deals source bonus-resistance damage at cast completion within dash range. Terrain collision and its conditional knockup are excluded because this duel has no terrain input."
+              :rumble-q "Flamespitter checks radius every source quarter-second, deals base/AP and maximum-health damage, and scales with tracked Danger Zone heat. Heat gain from these reviewed Q/W casts, delayed decay and overheat ability lock are modeled; E/R heat interactions remain excluded. Overheated attacks, cone facing and post-exit burn remain excluded."
+              :rumble-w "Scrap Shield grants the source shield and movement, with tracked Danger Zone heat amplification. Heat gain from these reviewed Q/W casts, delayed decay and overheat ability lock are modeled; E/R heat interactions remain excluded. Overheated attacks remain excluded."
+              :taliyah-w "Seismic Shove displaces the target toward the caster after its source delay. Direction is fixed to pull; airborne flight, terrain and Unraveled Earth interaction remain excluded."
+              :thresh-e "Flay applies source magic damage and slow and pushes the target away. Its passive starts fully charged, scales with time since the previous attack and retains configured soul counts. Airborne flight, chosen swing direction and soul collection remain excluded."
+              :trundle-e "Pillar of Ice pushes the target away and maintains a source slow within the fixed-position area. Terrain path blocking and airborne flight remain excluded."
+              :twitch-w "Venom Cask maintains its source slow in a fixed-position cloud. Deadly Venom stack damage and Contaminate coupling remain excluded; this slot currently models the cloud's movement effect only."
+              :warwick-r "Infinite Duress reaches the sole target at modeled cast completion, suppresses and channels three source magic hits with supported on-hits and healing for post-resistance damage. It ends on caster control or target death. Leap travel, collision and passive heal amplification remain excluded."
+              :fizz-r "Chum the Waters attaches a fish, applies a distance-tier slow, then source tier damage and a one-second knockup after the detonation delay. Distance is sampled at release. Missile collision and extra targets remain excluded."
+              :senna-e "Curse of the Black Mist grants the source AP-scaled movement boost for its source duration. Camouflage, target visibility, ally sharing and the rest of Senna's kit remain excluded."
+              :tryndamere-q "Bloodlust consumes the configured Fury pool and heals base/AP plus source healing per Fury, capped at 100 Fury. Fury generation, Fury-derived critical chance and passive missing-health attack damage remain excluded."
+              :velkoz-r "Life Form Disintegration Ray channels ten evenly spaced magic-damage model ticks with its source slow and range checks, interrupted by disabling control. Research, Deconstruction stack/true-damage conversion, cursor geometry and manual cancel remain excluded."))
+  (assert note "Unknown area/impact handler.")
+  (def specs (case handler
+               :aatrox-e [{:kind :damage-vamp :target :self :trigger :combat-start :duration (literal 180) :radius (literal 1e6) :amount (term "TotalEVamp") :buff "Umbral Dash"}
+                          {:kind :advance :target :self :distance (term "EMaxRange")}]
+               :alistar-e [(field (term "Duration") (literal 0.5) (term "Radius")
+                                  [(dmg (quotient (term "TotalDamage") (literal 10)))]
+                                  {:stacks (term "MaxStacks") :empower {:kind :empower :count (literal 1) :duration (literal 6) :range-bonus (term "BonusAARange")
+                                                                        :end-field true :spell-shield-sensitive true :consume-on-miss false :effects [(dmg (term "AttackBonusDamage")) {:kind :control :control :stun :target :enemy :duration (term "StunDuration")}]}})]
+               :amumu-w [(field (literal 180) (literal 0.5) (ability :range)
+                                [(dmg (product-of (literal 0.5) (sum-of (term "BaseDamage") (product-of (pct "TotalHealthDamage") (enemy-stat :hp)))))]
+                                {:mana-per-second (expr/ranked (get spell "mana") -1 "Despair mana per second") :toggle true})]
+               :anivia-r [(field (literal 180) (term "TickRate") (literal 400)
+                                 [(dmg (product-of (term "TickRate") (term "TotalDamagePerSecond")))
+                                  (slow (pct "SlowAmount") (term "ChillDuration"))]
+                                 {:fixed true :toggle true :leash (term "LeashBreak") :interrupt-controls [:stun :charm :fear :airborne :suppression :silence :polymorph]
+                                  :mana-per-second (term "ManaCostPerSecond") :growth (term "GrowthTime") :initial-radius (literal 200) :growth-damage (pct "BonusMultiplier") :growth-slow (term "EnhancedSlow") :growth-slow-duration (product-of (term "ChillDuration") (term "SlowDurationAtMaxMultiplier"))})]
+               :braum-e [{:kind :protection :target :self :buff "Unbreakable" :duration (term "ShieldHoldDuration") :first-hit-immune true :damage-types [:physical :magic] :reduction (pct "ShieldFacingDRAmount")}
+                         (speed (pct "MoveSpeedPercent") (term "ShieldHoldDuration"))]
+               :ezreal-w [{:kind :attach :target :enemy :amount (term "Damage") :duration (term "DetonationTimeout") :mana-return (term "ManaReturn")}]
+               :gangplank-q [(merge (dmg (term "ShotDamage") :physical) {:critical-amount (term "ShotCrit") :applies-on-hit true})]
+               :ivern-w [{:kind :brush :target :self :duration (term "MaxBrushDuration") :radius (term "BrushRadius") :linger (term "BuffDuration") :amount (term "TotalDamage")}]
+               :kled-w [{:kind :attack-cycle :target :self :trigger :combat-start :count (literal 4) :duration (term "ActiveDuration") :attack-speed (term "AttackSpeed")
+                         :refund (term "ChampCooldownRefund")
+                         :effects [(dmg (sum-of (term "BaseFlatDamage") (product-of (term "PercentDamage") (enemy-stat :hp))) :physical)]}]
+               :lucian-e [{:kind :advance :target :self :distance (term "MaxDistance")}
+                          {:kind :reset :target :self}
+                          {:kind :empower :target :self :count (literal 1) :duration (expr/variable "PassiveDuration" lucian-p)
+                           :effects [(merge (dmg (expr/variable "TotalDamage" lucian-p) :physical) {:applies-on-hit true :separate-origin true :attack-hit true :inherit-critical true :critical-amount (product-of (expr/variable "TotalDamage" lucian-p) (self-stat :crit-damage))})
+                                     {:kind :cooldown-refund :target :self :slots [:e] :amount (product-of (literal 2) (term "CDRefundChampion"))}]}]
+               :malzahar-r [{:kind :beam :target :enemy :duration (term "CCDuration") :pulses (term "BeamDamageTicks") :amount (term "TotalDamageTooltip") :radius (term "BeamTetherRange") :break-on-range true :control :suppression}
+                            (field (term "PoolDuration") (literal 0.5) (literal 250)
+                                   [(dmg (product-of (quotient (term "ZoneDamageTooltip") (literal 10)) (enemy-stat :hp)))] {:fixed true :persists-after-death true})]
+               :milio-q [{:kind :sequence :target :enemy :effects
+                          [(dmg (term "Damage")) (slow (term "SlowAmountPercent") (term "SlowDuration"))
+                           {:kind :displace :mode :away :distance (term "KnockbackDistance")}
+                           {:kind :paid-mana-refund :target :self :amount (term "RefundRatio")}]}]
+               :nautilus-q [{:kind :sequence :target :enemy :effects
+                             [(dmg (term "QDamageCalc")) {:kind :control :control :stun :duration (literal 1)} {:kind :meet :target :enemy}]}]
+               :ornn-e [(dmg (term "TotalDamage") :physical) {:kind :advance :target :self :distance (term "DashRange")}]
+               :rumble-q [(field (term "FlamespitterDuration") (term "TickRate") (ability :range)
+                                 [(dmg (quotient (sum-of (term "FlatDamage") (product-of (term "HealthDamage") (enemy-stat :hp))) (term "TotalTicks")))] {:heat-scaled true})]
+               :rumble-w [{:kind :shield :target :self :amount (term "TotalShield") :duration (term "ShieldDuration") :heat-scaled true}
+                          (merge (speed (term "MoveSpeed") (term "MoveSpeedDuration")) {:heat-scaled true})]
+               :taliyah-w [{:kind :displace :target :enemy :mode :toward :distance (term "ThrowDistance") :delay (term "KnockupDelay")}]
+               :thresh-e [(dmg (term "TotalDamage")) (slow (pct "ActiveSlowPercentage") (term "SlowDuration"))
+                          {:kind :displace :target :enemy :mode :away :distance (literal 200)}
+                          {:kind :charged-attack :target :enemy :trigger :passive :on [:attack] :allow-same-time true :amount (term "PAttackDamageMin") :maximum (term "PAttackDamageMax") :duration (term "FullChargeDuration")}]
+               :trundle-e [{:kind :displace :target :enemy :mode :away :distance (term "EnemyDisplacementRange")}
+                           (field (term "PillarDuration") (literal 0.25) (term "SlowRadius") [(slow (pct "SlowAmount") (literal 0.25))] {:fixed true :immediate true :persists-after-death true})]
+               :twitch-w [(field (term "Duration") (literal 0.25) (term "AoERadius") [(slow (pct "TotalSlowAmount") (literal 0.25))] {:fixed true :immediate true :persists-after-death true})]
+               :warwick-r [{:kind :beam :target :enemy :duration (term "RDuration") :pulses (literal 3) :amount (term "DamageCumulative") :radius (literal 2500) :break-on-range true :control :suppression :applies-on-hit true :heal-ratio (literal 1)}]
+               :fizz-r [{:kind :shark :target :enemy :amount (term "SmallSharkDamage") :medium (term "MidDamageMulti") :large (term "LargeDamageMulti") :duration (term "DetonationTime")}]
+               :senna-e [(speed (term "TotalMS") (term "BuffDuration"))]
+               :tryndamere-q [{:kind :fury-heal :target :self :amount (term "BaseHeal") :per-fury (term "HealPerFury")}]
+               :velkoz-r [{:kind :beam :target :enemy :duration (literal 2.5) :pulses (literal 10) :amount (term "TotalDamage") :radius (ability :range) :slow (pct "Effect3Amount")}]))
+  (def extra (case handler
+               :aatrox-e {:self-cast true :missile-speed 0 :disabled-controls [:grounded :root]}
+               :alistar-e {:self-cast true :missile-speed 0 :cast-time 0}
+               :amumu-w {:cost-resource :resource :minimum-resource (product-of (literal 0.5) (expr/ranked (get spell "mana") -1 "Despair minimum mana")) :self-cast true :missile-speed 0 :cast-time 0 :cost (literal 0)}
+               :anivia-r {:cast-range-required true :cost (expr/ranked (get spell "mana") -1 "Glacial Storm initial mana") :cost-resource :resource :range (literal 750) :missile-speed 0 :cast-time 0}
+               :braum-e {:self-cast true :missile-speed 0 :cast-time 0}
+               :ezreal-w {:missile-speed (get-in ez-missile ["mMissileSpec" "movementComponent" "mSpeed"])}
+               :gangplank-q {:missile-speed (get-in gangplank-missile ["mMissileSpec" "movementComponent" "mSpeed"]) :cast-time 0.25}
+               :ivern-w {:self-cast true :missile-speed 0 :max-charges (literal 3) :recharge-time (expr/ranked (get spell "mAmmoRechargeTime") 0 "Brushmaker charge recovery") :charge-delay (literal 0.5)}
+               :kled-w {:passive true :self-cast true :missile-speed 0 :cooldown (term "WCooldown")}
+               :lucian-e {:self-cast true :missile-speed 0 :disabled-controls [:grounded :root]}
+               :malzahar-r {:missile-speed 0 :channel true :interruptible-channel true :cast-lock (term "CCDuration") :cancel-on-target-death true}
+               :milio-q {:missile-speed (get-in spell ["mMissileSpec" "movementComponent" "mSpeed"])}
+               :nautilus-q {:missile-speed (get-in naut-missile ["mMissileSpec" "movementComponent" "mSpeed"]) :range (ability :range)}
+               :ornn-e {:missile-speed 0 :range (term "DashRange") :disabled-controls [:grounded :root]}
+               :rumble-q {:cost-resource :mana :self-cast true :missile-speed 0 :cast-time 0 :heat-gain (term "InitialHeatCost") :cost (literal 0)}
+               :rumble-w {:cost-resource :mana :self-cast true :missile-speed 0 :cast-time 0 :heat-gain (term "HeatCost") :cost (literal 0)}
+               :taliyah-w {:missile-speed 0}
+               :thresh-e {:missile-speed 0 :range (literal 500)}
+               :trundle-e {:missile-speed 0}
+               :twitch-w {:cast-range-required true :missile-speed (get-in twitch-missile ["mMissileSpec" "movementComponent" "mSpeed"])}
+               :warwick-r {:missile-speed 0 :range (product-of (self-stat :move-speed) (literal 2.5)) :blink-to-target true :channel true :interruptible-channel true :cast-lock (sum-of (literal 0.1) (term "RDuration")) :cancel-on-target-death true :disabled-controls [:grounded :root]}
+               :fizz-r {:missile-speed (get spell "missileSpeed") :range (term "MaxDistance")}
+               :senna-e {:self-cast true :missile-speed 0}
+               :tryndamere-q {:cost-resource :mana :self-cast true :missile-speed 0 :cast-time 0 :cost (literal 0)}
+               :velkoz-r {:missile-speed 0 :channel true :interruptible-channel true :cast-lock (literal 2.75)} {}))
+  (defn problems [node] (cond (and (dictionary? node) (node :op)) (expr/problems node)
+                          (dictionary? node) (mapcat problems (values node))
+                          (indexed? node) (mapcat problems node) []))
+  (def missing (seq [[key record] :in [[:lucian-e lucian-p] [:ezreal-w ez-missile] [:nautilus-q naut-missile]]
+                     :when (and (= handler key) (not record))] "Selected auxiliary spell source is missing."))
+  (def invalid-missile (and (some |(= handler $) [:ezreal-w :gangplank-q :milio-q :nautilus-q :twitch-w :fizz-r])
+                            (or (not (util/finite? (extra :missile-speed))) (<= (extra :missile-speed) 0))))
+  (def unresolved [;(problems specs) ;(problems extra) ;missing ;(if invalid-missile ["Selected projectile speed is missing or invalid."] [])])
+  (merge ability extra {:effects (map |(merge {:trigger :cast :condition :always :target-kinds [:champion :practice]
+                                               :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
+                        :unresolved [;unresolved note]}))
+
 (defn review [ability handler &opt forms]
   (case handler
+    :aatrox-e (areas-impact ability handler forms)
+    :alistar-e (areas-impact ability handler forms)
+    :amumu-w (areas-impact ability handler forms)
+    :anivia-r (areas-impact ability handler forms)
+    :braum-e (areas-impact ability handler forms)
+    :ezreal-w (areas-impact ability handler forms)
+    :gangplank-q (areas-impact ability handler forms)
+    :ivern-w (areas-impact ability handler forms)
+    :kled-w (areas-impact ability handler forms)
+    :lucian-e (areas-impact ability handler forms)
+    :malzahar-r (areas-impact ability handler forms)
+    :milio-q (areas-impact ability handler forms)
+    :nautilus-q (areas-impact ability handler forms)
+    :ornn-e (areas-impact ability handler forms)
+    :rumble-q (areas-impact ability handler forms)
+    :rumble-w (areas-impact ability handler forms)
+    :taliyah-w (areas-impact ability handler forms)
+    :thresh-e (areas-impact ability handler forms)
+    :trundle-e (areas-impact ability handler forms)
+    :twitch-w (areas-impact ability handler forms)
+    :warwick-r (areas-impact ability handler forms)
+    :fizz-r (areas-impact ability handler forms)
+    :senna-e (areas-impact ability handler forms)
+    :tryndamere-q (areas-impact ability handler forms)
+    :velkoz-r (areas-impact ability handler forms)
+
     :chogath-e (attack-defense ability handler forms)
     :kayle-e (attack-defense ability handler forms)
     :fizz-w (attack-defense ability handler forms)

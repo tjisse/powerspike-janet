@@ -1,0 +1,380 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Twenty-five bounded area, impact, attack and recovery effects; remaining kit limitations documented.",
+  "slots": {
+    "Aatrox": "e",
+    "Alistar": "e",
+    "Amumu": "w",
+    "Anivia": "r",
+    "Braum": "e",
+    "Ezreal": "w",
+    "Gangplank": "q",
+    "Ivern": "w",
+    "Kled": "w",
+    "Lucian": "e",
+    "Malzahar": "r",
+    "Milio": "q",
+    "Nautilus": "q",
+    "Ornn": "e",
+    "Rumble": "qw",
+    "Taliyah": "w",
+    "Thresh": "e",
+    "Trundle": "e",
+    "Twitch": "w",
+    "Warwick": "r",
+    "Fizz": "r",
+    "Senna": "e",
+    "Tryndamere": "q",
+    "Velkoz": "r"
+  },
+  "sources": [
+    {
+      "path": "Aatrox-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/aatrox/aatrox.bin.json?powerspike=1",
+      "sha256": "39428a99037e3df8286412a4d5cf953dfedbf16dc87fea41f7adde0c8725a68a",
+      "bytes": 57828
+    },
+    {
+      "path": "Aatrox-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Aatrox.json",
+      "sha256": "2b8e6a852d6c282eefd0e93d60d5d9f0cfff4619fd40de16bfebcbf362a48d59",
+      "bytes": 11417
+    },
+    {
+      "path": "Alistar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/alistar/alistar.bin.json?powerspike=1",
+      "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
+      "bytes": 45755
+    },
+    {
+      "path": "Alistar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Alistar.json",
+      "sha256": "c6bd9653a745fc5955116fdb9282d364846b895a9499435848d839ef18f3ab64",
+      "bytes": 11273
+    },
+    {
+      "path": "Amumu-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/amumu/amumu.bin.json?powerspike=1",
+      "sha256": "717286e8b83178464ca5ca9974c3b824978e69f7e4569d3116857fa140ed0405",
+      "bytes": 42839
+    },
+    {
+      "path": "Amumu-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Amumu.json",
+      "sha256": "80611c2ad5bce2a6c7cc9d53c0faf7a3a9525fce7852cab56d736699d7a29536",
+      "bytes": 12985
+    },
+    {
+      "path": "Anivia-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/anivia/anivia.bin.json?powerspike=1",
+      "sha256": "9b3d47d23a5e4f08bf9050031fd60ef9678201a5228e97785ab044fde082e718",
+      "bytes": 45042
+    },
+    {
+      "path": "Anivia-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Anivia.json",
+      "sha256": "b5393e8375eccad74e112a242c75240c0f578d9412d1bd37e854bd2735262b30",
+      "bytes": 13892
+    },
+    {
+      "path": "Braum-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/braum/braum.bin.json?powerspike=1",
+      "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+      "bytes": 82269
+    },
+    {
+      "path": "Braum-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Braum.json",
+      "sha256": "055012e93428d51bb345b60e9ee4c134986b77b3cc24e68ca3c7d65f6e49a4ea",
+      "bytes": 14226
+    },
+    {
+      "path": "Ezreal-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ezreal/ezreal.bin.json?powerspike=1",
+      "sha256": "73233b5c6b72e2641696d105c33eece8d5d141294925843180ba67b9e8b49962",
+      "bytes": 47287
+    },
+    {
+      "path": "Ezreal-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ezreal.json",
+      "sha256": "0e15db9da5aafbdcc400042c885de35190d34598c39729fca433542e0abf0dc3",
+      "bytes": 14948
+    },
+    {
+      "path": "Gangplank-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/gangplank/gangplank.bin.json?powerspike=1",
+      "sha256": "4caeb8116d87d41a10eb04f5cf66a5f26817607db1aaa749ac22f9d944ffb0f3",
+      "bytes": 59098
+    },
+    {
+      "path": "Gangplank-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Gangplank.json",
+      "sha256": "e8a6aaa2e4dd8044a4aede92c3774e7117c8dabbf03eaafbfb43ef17be36090a",
+      "bytes": 11984
+    },
+    {
+      "path": "Ivern-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ivern/ivern.bin.json?powerspike=1",
+      "sha256": "f86a8ed71c31e377361611c249330cda646cb3fb1e1e025d59e60b4ddeb14234",
+      "bytes": 59377
+    },
+    {
+      "path": "Ivern-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ivern.json",
+      "sha256": "04f82b7b55dc85eb4b3db4fa8663aa61a569dc4368ca8f448114b0448626500f",
+      "bytes": 11841
+    },
+    {
+      "path": "Kled-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/kled/kled.bin.json?powerspike=1",
+      "sha256": "943bfa26f56e4b1d36bb2262206271d7a6c1e64dbb7c42b2b06dc8aa676bcf93",
+      "bytes": 71527
+    },
+    {
+      "path": "Kled-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Kled.json",
+      "sha256": "3ff0c95ecff4fd40e92d42c16eb66ce26e11e26761b4c7ca69083e450159d19e",
+      "bytes": 10957
+    },
+    {
+      "path": "Lucian-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/lucian/lucian.bin.json?powerspike=1",
+      "sha256": "6b51705f1905a84a82455f33fc1676f9daa365b6d2a4ef7a4564ec474c110cf7",
+      "bytes": 63866
+    },
+    {
+      "path": "Lucian-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Lucian.json",
+      "sha256": "865cea7cc7187f08b12c07811c38fa683a1b5d10a9fddaab65c85b1643b52b03",
+      "bytes": 14162
+    },
+    {
+      "path": "Malzahar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json?powerspike=1",
+      "sha256": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+      "bytes": 58574
+    },
+    {
+      "path": "Malzahar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Malzahar.json",
+      "sha256": "bc535753c03de7e5409de00846f0de043670c740f099bd50d32fbdb1c18163cd",
+      "bytes": 13250
+    },
+    {
+      "path": "Milio-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/milio/milio.bin.json?powerspike=1",
+      "sha256": "f8e00ddb6e9210f607e1ea6fafcabfa7a27d564995741cefa6f97c8e22dd660b",
+      "bytes": 58006
+    },
+    {
+      "path": "Milio-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Milio.json",
+      "sha256": "befee18a9ae76d7ff531f7ed241998950cf2d4f5ff0297a4caa8fc22ac880226",
+      "bytes": 10419
+    },
+    {
+      "path": "Nautilus-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nautilus/nautilus.bin.json?powerspike=1",
+      "sha256": "e7427a2a89bff74ff810038cfde73ff93faa21c0effc6707943429e8ed3b6dc6",
+      "bytes": 57719
+    },
+    {
+      "path": "Nautilus-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nautilus.json",
+      "sha256": "55884d79d84e7531194ecf660cb2283cd522c3238d06a00447df205d29c06980",
+      "bytes": 12375
+    },
+    {
+      "path": "Ornn-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ornn/ornn.bin.json?powerspike=1",
+      "sha256": "fe57bd59107f6476570cec1c2aa275073f06a9be1734c22fbcc1b0a04bf7877a",
+      "bytes": 71443
+    },
+    {
+      "path": "Ornn-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ornn.json",
+      "sha256": "87ec67004f60545c56f310dc51c17ffb9b6f8b279c5e0684e49997670d05a1f0",
+      "bytes": 12214
+    },
+    {
+      "path": "Rumble-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/rumble/rumble.bin.json?powerspike=1",
+      "sha256": "2e071f899c159ecc2c39f7ec10197ddf95970ecbee134992689ccdb25d630287",
+      "bytes": 67623
+    },
+    {
+      "path": "Rumble-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Rumble.json",
+      "sha256": "c3e82a85898f4a3b1a4eb74f8657529180ed45586c1796a5ab542384eef3a4e8",
+      "bytes": 11450
+    },
+    {
+      "path": "Taliyah-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/taliyah/taliyah.bin.json?powerspike=1",
+      "sha256": "1e29cca3896b7bada0fc88372ce33b2f2ce63eb71040e1d88b3e106733377cab",
+      "bytes": 72554
+    },
+    {
+      "path": "Taliyah-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Taliyah.json",
+      "sha256": "4bc6bbf7dea8022fd885218b72faede93dde8b98925935d6e032ca40c4a748fa",
+      "bytes": 10301
+    },
+    {
+      "path": "Thresh-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/thresh/thresh.bin.json?powerspike=1",
+      "sha256": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+      "bytes": 77119
+    },
+    {
+      "path": "Thresh-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Thresh.json",
+      "sha256": "ce25fba503e43d1df916d6dff1530836d35016d07f604138c5b68a4af7bb7125",
+      "bytes": 14321
+    },
+    {
+      "path": "Trundle-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/trundle/trundle.bin.json?powerspike=1",
+      "sha256": "ed189cfc739eb55497456fe497a34f721ece696979f838972dc5ff58a2444bec",
+      "bytes": 49468
+    },
+    {
+      "path": "Trundle-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Trundle.json",
+      "sha256": "09c91ba04de4867a718c2f977bab42ab67ee881d68611b9a3e400ba2dd9f5138",
+      "bytes": 10104
+    },
+    {
+      "path": "Twitch-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/twitch/twitch.bin.json?powerspike=1",
+      "sha256": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+      "bytes": 51094
+    },
+    {
+      "path": "Twitch-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Twitch.json",
+      "sha256": "16d9b4f1a74fe5ca20893936e838b38b5fa705426a4058df4c70c5da7d971fc7",
+      "bytes": 13250
+    },
+    {
+      "path": "Warwick-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/warwick/warwick.bin.json?powerspike=1",
+      "sha256": "cf1ed1425366b05755da01f6b26f1a34806a305aae6b1c5c6f97bdefec119ee3",
+      "bytes": 70172
+    },
+    {
+      "path": "Warwick-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Warwick.json",
+      "sha256": "90edb89a488fd2038908a9131dce6eb609ae905fb545fdbe01046e3abfb41efb",
+      "bytes": 13284
+    },
+    {
+      "path": "Fizz-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/fizz/fizz.bin.json?powerspike=1",
+      "sha256": "d948b0cc25153e2f9e1f4edb28ec373b1ff7da0c89d584e575e2bb7d50f0de6a",
+      "bytes": 58588
+    },
+    {
+      "path": "Fizz-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Fizz.json",
+      "sha256": "618de9ada31d5413484b751272e98f18e48d918ba185e6fbaf87e45161b7dd16",
+      "bytes": 12794
+    },
+    {
+      "path": "Senna-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/senna/senna.bin.json?powerspike=1",
+      "sha256": "8c0c6f68c65d6d341a15f100b0af25ec7a47aa154fe2d4d94bf9046444b42262",
+      "bytes": 73177
+    },
+    {
+      "path": "Senna-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Senna.json",
+      "sha256": "888367358abe955a6e57dfb080a5f0565c26851f9a0c61f64cd4c062c8c44416",
+      "bytes": 15907
+    },
+    {
+      "path": "Tryndamere-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/tryndamere/tryndamere.bin.json?powerspike=1",
+      "sha256": "8aa5cb2a621a7eb1daef86484caa9f8c84e93482d458c0bfb3cc1a7b15185bc1",
+      "bytes": 40049
+    },
+    {
+      "path": "Tryndamere-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Tryndamere.json",
+      "sha256": "956816a675ed785caf839fabb7e288e84e2a425fc9bf451461091941a61cfcc5",
+      "bytes": 11897
+    },
+    {
+      "path": "Velkoz-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/velkoz/velkoz.bin.json?powerspike=1",
+      "sha256": "d5eaa98b64430bd29ae02a96b8d4b584d0077eefd83c3f36d8619f08959ed892",
+      "bytes": 49742
+    },
+    {
+      "path": "Velkoz-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Velkoz.json",
+      "sha256": "a0e67c236127ffdacca6b95e4928cd68925ef0c4b7cd55bda1b9dafa7e008407",
+      "bytes": 11438
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json",
+      "sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "bytes": 32320350,
+      "retained": "selected localization excerpt"
+    }
+  ],
+  "fixture_sha256": {
+    "Aatrox-abilities.json": "2b8e6a852d6c282eefd0e93d60d5d9f0cfff4619fd40de16bfebcbf362a48d59",
+    "Aatrox-characters.json": "39428a99037e3df8286412a4d5cf953dfedbf16dc87fea41f7adde0c8725a68a",
+    "Alistar-abilities.json": "c6bd9653a745fc5955116fdb9282d364846b895a9499435848d839ef18f3ab64",
+    "Alistar-characters.json": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
+    "Amumu-abilities.json": "80611c2ad5bce2a6c7cc9d53c0faf7a3a9525fce7852cab56d736699d7a29536",
+    "Amumu-characters.json": "717286e8b83178464ca5ca9974c3b824978e69f7e4569d3116857fa140ed0405",
+    "Anivia-abilities.json": "b5393e8375eccad74e112a242c75240c0f578d9412d1bd37e854bd2735262b30",
+    "Anivia-characters.json": "9b3d47d23a5e4f08bf9050031fd60ef9678201a5228e97785ab044fde082e718",
+    "Braum-abilities.json": "055012e93428d51bb345b60e9ee4c134986b77b3cc24e68ca3c7d65f6e49a4ea",
+    "Braum-characters.json": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+    "Ezreal-abilities.json": "0e15db9da5aafbdcc400042c885de35190d34598c39729fca433542e0abf0dc3",
+    "Ezreal-characters.json": "73233b5c6b72e2641696d105c33eece8d5d141294925843180ba67b9e8b49962",
+    "Fizz-abilities.json": "618de9ada31d5413484b751272e98f18e48d918ba185e6fbaf87e45161b7dd16",
+    "Fizz-characters.json": "d948b0cc25153e2f9e1f4edb28ec373b1ff7da0c89d584e575e2bb7d50f0de6a",
+    "Gangplank-abilities.json": "e8a6aaa2e4dd8044a4aede92c3774e7117c8dabbf03eaafbfb43ef17be36090a",
+    "Gangplank-characters.json": "4caeb8116d87d41a10eb04f5cf66a5f26817607db1aaa749ac22f9d944ffb0f3",
+    "Ivern-abilities.json": "04f82b7b55dc85eb4b3db4fa8663aa61a569dc4368ca8f448114b0448626500f",
+    "Ivern-characters.json": "f86a8ed71c31e377361611c249330cda646cb3fb1e1e025d59e60b4ddeb14234",
+    "Kled-abilities.json": "3ff0c95ecff4fd40e92d42c16eb66ce26e11e26761b4c7ca69083e450159d19e",
+    "Kled-characters.json": "943bfa26f56e4b1d36bb2262206271d7a6c1e64dbb7c42b2b06dc8aa676bcf93",
+    "Lucian-abilities.json": "865cea7cc7187f08b12c07811c38fa683a1b5d10a9fddaab65c85b1643b52b03",
+    "Lucian-characters.json": "6b51705f1905a84a82455f33fc1676f9daa365b6d2a4ef7a4564ec474c110cf7",
+    "Malzahar-abilities.json": "bc535753c03de7e5409de00846f0de043670c740f099bd50d32fbdb1c18163cd",
+    "Malzahar-characters.json": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+    "Milio-abilities.json": "befee18a9ae76d7ff531f7ed241998950cf2d4f5ff0297a4caa8fc22ac880226",
+    "Milio-characters.json": "f8e00ddb6e9210f607e1ea6fafcabfa7a27d564995741cefa6f97c8e22dd660b",
+    "Nautilus-abilities.json": "55884d79d84e7531194ecf660cb2283cd522c3238d06a00447df205d29c06980",
+    "Nautilus-characters.json": "e7427a2a89bff74ff810038cfde73ff93faa21c0effc6707943429e8ed3b6dc6",
+    "Ornn-abilities.json": "87ec67004f60545c56f310dc51c17ffb9b6f8b279c5e0684e49997670d05a1f0",
+    "Ornn-characters.json": "fe57bd59107f6476570cec1c2aa275073f06a9be1734c22fbcc1b0a04bf7877a",
+    "Rumble-abilities.json": "c3e82a85898f4a3b1a4eb74f8657529180ed45586c1796a5ab542384eef3a4e8",
+    "Rumble-characters.json": "2e071f899c159ecc2c39f7ec10197ddf95970ecbee134992689ccdb25d630287",
+    "Senna-abilities.json": "888367358abe955a6e57dfb080a5f0565c26851f9a0c61f64cd4c062c8c44416",
+    "Senna-characters.json": "8c0c6f68c65d6d341a15f100b0af25ec7a47aa154fe2d4d94bf9046444b42262",
+    "Taliyah-abilities.json": "4bc6bbf7dea8022fd885218b72faede93dde8b98925935d6e032ca40c4a748fa",
+    "Taliyah-characters.json": "1e29cca3896b7bada0fc88372ce33b2f2ce63eb71040e1d88b3e106733377cab",
+    "Thresh-abilities.json": "ce25fba503e43d1df916d6dff1530836d35016d07f604138c5b68a4af7bb7125",
+    "Thresh-characters.json": "34ea5a73b17deb273bdfa2af957dd85a34f9d0ba56af66b4b0d69b74ab859920",
+    "Trundle-abilities.json": "09c91ba04de4867a718c2f977bab42ab67ee881d68611b9a3e400ba2dd9f5138",
+    "Trundle-characters.json": "ed189cfc739eb55497456fe497a34f721ece696979f838972dc5ff58a2444bec",
+    "Tryndamere-abilities.json": "956816a675ed785caf839fabb7e288e84e2a425fc9bf451461091941a61cfcc5",
+    "Tryndamere-characters.json": "8aa5cb2a621a7eb1daef86484caa9f8c84e93482d458c0bfb3cc1a7b15185bc1",
+    "Twitch-abilities.json": "16d9b4f1a74fe5ca20893936e838b38b5fa705426a4058df4c70c5da7d971fc7",
+    "Twitch-characters.json": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+    "Velkoz-abilities.json": "a0e67c236127ffdacca6b95e4928cd68925ef0c4b7cd55bda1b9dafa7e008407",
+    "Velkoz-characters.json": "d5eaa98b64430bd29ae02a96b8d4b584d0077eefd83c3f36d8619f08959ed892",
+    "Warwick-abilities.json": "90edb89a488fd2038908a9131dce6eb609ae905fb545fdbe01046e3abfb41efb",
+    "Warwick-characters.json": "cf1ed1425366b05755da01f6b26f1a34806a305aae6b1c5c6f97bdefec119ee3",
+    "mechanics.json": "a189ea28cc33738b3fe534f898887de46afcbe1a26743d0ff59981916cf3a390",
+    "strings.json": "6e4ce39fb5482aa4a208763820ff5ead9e2bc65854ca62b40e448d4ba16e8b42"
+  }
+}

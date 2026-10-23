@@ -39,18 +39,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Aatrox",
       "ability": "AatroxE",
       "name": "Umbral Dash",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Umbral Dash heals for the selected champion-damage vamp and moves toward the opponent up to its source range at cast completion. Continuous dash travel, casting during another windup and World Ender amplification remain excluded."
       ]
     },
     {
@@ -302,21 +303,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Alistar",
       "ability": "AlistarE",
       "name": "Trample",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/AttackBonusDamage",
-        "Control trigger/duration unresolved: stun",
-        "Stack state requires explicit triggers."
+        "Trample checks radius every half second, gains stacks on champion hits, and grants one stunning empowered attack on five hits. Its aura ends on consumption. Ghosted collision and exact initial tick phase remain excluded."
       ]
     },
     {
@@ -420,21 +419,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Amumu",
       "ability": "AuraofDespair",
       "name": "Despair",
       "slot": "w",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "inputs": [],
+      "estimated": 1,
+      "effect-count": 16,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage",
-        "Continuous/channeling resource costs require a handler."
+        "Despair toggles on automatically, pays mana for each half-second interval, checks radius and deals source percentage-health damage. It stops when unaffordable. Manual toggle-off and Curse refresh remain excluded."
       ]
     },
     {
@@ -524,25 +521,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Anivia",
       "ability": "GlacialStorm",
       "name": "Glacial Storm",
       "slot": "r",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 4,
+      "inputs": [],
+      "estimated": 1,
+      "effect-count": 31,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamagePerSecond",
-        "Conditional/maximum effect needs semantics: damage/magic/EmpoweredDamagePerSecondTooltipOnly",
-        "Periodic damage needs tick/duration semantics: damage/magic/EmpoweredDamagePerSecondTooltipOnly",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: slow",
-        "Continuous/channeling resource costs require a handler."
+        "Glacial Storm persists at the opponent's cast position, drains mana, grows to its source damage and slow strengths, and ends on disabling control, range leash or resource depletion. Circular growth uses source minimum/maximum radii with linear model growth; Frostbite synergy and manual recasting remain excluded."
       ]
     },
     {
@@ -1275,18 +1266,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Braum",
       "ability": "BraumE",
       "name": "Unbreakable",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Unbreakable grants source movement and absorbs the first non-true damaging hit, then reduces non-true damage while facing the sole opponent. This duel assumes continued facing; missile interception geometry and allies remain excluded."
       ]
     },
     {
@@ -1878,7 +1870,7 @@
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 2,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
         "Moonfall pulls the sole nearby champion to the caster in one dimension, slows, and checks range again for its delayed base explosion. Multi-champion amplification, flight/airborne timing and geometry remain excluded."
@@ -2253,18 +2245,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Ezreal",
       "ability": "EzrealW",
       "name": "Essence Flux",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/Damage"
+        "Essence Flux marks its hit target, detonates on a subsequent ordinary attack or ability damage, and refunds the detonating ability's paid mana plus the source return. Item procs do not detonate it independently. Collision and structures remain excluded."
       ]
     },
     {
@@ -2359,7 +2352,7 @@
       "slot": "r",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 21,
+      "effect-count": 22,
       "unresolved-effects": 0,
       "notes": [
         "Crowstorm channels before blinking to the opponent's position selected at cast start, then deals separate area ticks while alive and in range. Unseen fear, terrain, vision and multi-target behavior remain excluded."
@@ -2488,26 +2481,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "FizzR: @SmallSharkDamage@ to @BigSharkDamage@ magic damage",
-        "FizzR: Knocking Up",
-        "FizzR: Knocking Back",
-        "FizzR: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Fizz",
       "ability": "FizzR",
       "name": "Chum the Waters",
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/SmallSharkDamage",
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: airborne"
+        "Chum the Waters attaches a fish, applies a distance-tier slow, then source tier damage and a one-second knockup after the detonation delay. Distance is sampled at release. Missile collision and extra targets remain excluded."
       ]
     },
     {
@@ -2587,19 +2573,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Gangplank",
       "ability": "GangplankQWrapper",
       "name": "Parrrley",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_GangplankQWrapper_Tooltip_@GameModeInteger@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Parrrley deals source physical damage, rolls critical damage using the selected calculation and applies supported attack on-hits once. Barrel interaction, gold and Silver Serpents remain excluded."
       ]
     },
     {
@@ -3411,19 +3397,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Ivern",
       "ability": "IvernW",
       "name": "Brushmaker",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 11,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/TotalAllyDamage"
+        "Brushmaker places brush at the caster's cast position and grants its source on-hit while inside, lingering after exit. Three charges and source recovery are modeled; allies, vision and natural map brush remain excluded."
       ]
     },
     {
@@ -4336,7 +4322,7 @@
       "slot": "e",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
         "Shunpo uses the reviewed enemy-target blink, damage, attack reset and auxiliary cast time. Ally/dagger targeting, dagger pickups and their cooldown refunds remain excluded."
@@ -4709,18 +4695,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "status": "executes",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Kled",
       "ability": "KledW",
       "name": "Violent Tendencies",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 6,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/BaseFlatDamage"
+        "Violent Tendencies starts on an ordinary attack, grants four attacks of source attack speed and adds source maximum-health damage on the fourth release. Cooldown begins on consumption or expiry; champion hits refund source cooldown. Dismounting, structures and special hit interactions remain excluded."
       ]
     },
     {
@@ -5287,18 +5274,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Lucian",
       "ability": "LucianE",
       "name": "Relentless Pursuit",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Relentless Pursuit moves toward the opponent up to source range at cast completion and resets the attack timer. Its next Lightslinger adds the selected passive second shot and refunds E on both hits. Simultaneous movement, other abilities' Lightslinger activations and Vigilance remain excluded."
       ]
     },
     {
@@ -5556,20 +5544,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Malzahar",
       "ability": "MalzaharR",
       "name": "Nether Grasp",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 22,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamageTooltip",
-        "Conditional/maximum effect needs semantics: damage/magic/ZoneDamageTooltip",
-        "Periodic damage needs tick/duration semantics: damage/magic/ZoneDamageTooltip"
+        "Nether Grasp immediately suppresses and channels ten source beam ticks, with a fixed-position percentage-health pool lasting independently. Interrupting the caster ends the beam and its suppression. Geometry, voidlings and manual cancel remain excluded."
       ]
     },
     {
@@ -5781,21 +5768,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Milio",
       "ability": "MilioQ",
       "name": "Ultra Mega Fire Kick",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/Damage",
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: Spell_MilioKickballQ_Name"
+        "Ultra Mega Fire Kick knocks the sole target away, applies source damage/slow at modeled projectile impact and refunds half the paid mana on a champion hit. Bounce flight and minion geometry remain excluded."
       ]
     },
     {
@@ -6335,19 +6320,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nautilus",
       "ability": "NautilusAnchorDrag",
       "name": "Dredge Line",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/QDamageCalc",
-        "Control trigger/duration unresolved: stun"
+        "Dredge Line uses the selected missile, deals source damage, stuns and draws both actors to their midpoint on hit. Pull travel and terrain refunds remain excluded."
       ]
     },
     {
@@ -6910,20 +6895,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Ornn",
       "ability": "OrnnE",
       "name": "Searing Charge",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/2 on 16.21.1",
-        "Unknown stat/formula mapping 6/2 on 16.21.1",
-        "Control trigger/duration unresolved: airborne"
+        "Searing Charge advances toward the opponent and deals source bonus-resistance damage at cast completion within dash range. Terrain collision and its conditional knockup are excluded because this duel has no terrain input."
       ]
     },
     {
@@ -7161,7 +7145,7 @@
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
         "Death From Below checks live health: below threshold it deals shield-bypassing true damage; otherwise reduced physical damage. It blinks on an unblocked champion hit. Undying protection still prevents death. X geometry, kill-gold/recasts and other targets remain excluded."
@@ -7855,41 +7839,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Rumble",
       "ability": "RumbleFlameThrower",
       "name": "Flamespitter",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 21,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/FlatDamage",
-        "Periodic damage needs tick/duration semantics: damage/magic/FlatDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/EmpoweredDamage",
-        "Minion-specific rules are outside champion estimates."
+        "Flamespitter checks radius every source quarter-second, deals base/AP and maximum-health damage, and scales with tracked Danger Zone heat. Heat gain from these reviewed Q/W casts, delayed decay and overheat ability lock are modeled; E/R heat interactions remain excluded. Overheated attacks, cone facing and post-exit burn remain excluded."
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "RumbleShield: @EmpoweredShield@ Shield",
-        "RumbleShield: Unresolved tooltip variable: ShieldDuration.1"
-      ],
+      "runtime": [],
       "champion": "Rumble",
       "ability": "RumbleShield",
       "name": "Scrap Shield",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: shield//EmpoweredShield",
-        "Unresolved tooltip variable: ShieldDuration.1"
+        "Scrap Shield grants the source shield and movement, with tracked Danger Zone heat amplification. Heat gain from these reviewed Q/W casts, delayed decay and overheat ability lock are modeled; E/R heat interactions remain excluded. Overheated attacks remain excluded."
       ]
     },
     {
@@ -8165,18 +8143,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Senna",
       "ability": "SennaE",
       "name": "Curse of the Black Mist",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Curse of the Black Mist grants the source AP-scaled movement boost for its source duration. Camouflage, target visibility, ally sharing and the rest of Senna's kit remain excluded."
       ]
     },
     {
@@ -8609,7 +8588,7 @@
       "slot": "e",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
         "Fling deals base/AP plus maximum-health damage and flips the opponent over the caster in one dimension. Movement is applied at impact; airborne flight timing and Mega Adhesive's landing root remain excluded."
@@ -9389,18 +9368,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Taliyah",
       "ability": "TaliyahWVC",
       "name": "Seismic Shove",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: airborne"
+        "Seismic Shove displaces the target toward the caster after its source delay. Direction is fixed to pull; airborne flight, terrain and Unraveled Earth interaction remain excluded."
       ]
     },
     {
@@ -9676,25 +9656,19 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "ThreshE: @PAttackDamageMin@",
-        "ThreshE: @PAttackDamageMax@ magic damage",
-        "ThreshE: @TotalDamage@ magic damage",
-        "ThreshE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Thresh",
       "ability": "ThreshE",
       "name": "Flay",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 4,
+      "effect-count": 11,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/PAttackDamageMax",
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage"
+        "Flay applies source magic damage and slow and pushes the target away. Its passive starts fully charged, scales with time since the previous attack and retains configured soul counts. Airborne flight, chosen swing direction and soul collection remain excluded."
       ]
     },
     {
@@ -9826,19 +9800,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Trundle",
       "ability": "TrundleCircle",
       "name": "Pillar of Ice",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 27,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: slow"
+        "Pillar of Ice pushes the target away and maintains a source slow within the fixed-position area. Terrain path blocking and airborne flight remain excluded."
       ]
     },
     {
@@ -9856,19 +9830,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Tryndamere",
       "ability": "TryndamereQ",
       "name": "Bloodlust",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//BaseHeal",
-        "Unmodeled ability-resource kind"
+        "Bloodlust consumes the configured Fury pool and heals base/AP plus source healing per Fury, capped at 100 Fury. Fury generation, Fury-derived critical chance and passive missing-health attack damage remain excluded."
       ]
     },
     {
@@ -10003,19 +9977,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Twitch",
       "ability": "TwitchVenomCask",
       "name": "Venom Cask",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 14,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow",
-        "Stack state requires explicit triggers."
+        "Venom Cask maintains its source slow in a fixed-position cloud. Deadly Venom stack damage and Contaminate coupling remain excluded; this slot currently models the cloud's movement effect only."
       ]
     },
     {
@@ -10478,21 +10452,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Velkoz",
       "ability": "VelkozR",
       "name": "Life Form Disintegration Ray",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 20,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: Spell_VelkozPassive_Name",
-        "Stack state requires explicit triggers."
+        "Life Form Disintegration Ray channels ten evenly spaced magic-damage model ticks with its source slow and range checks, interrupted by disabling control. Research, Deconstruction stack/true-damage conversion, cursor geometry and manual cancel remain excluded."
       ]
     },
     {
@@ -10963,18 +10935,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Warwick",
       "ability": "WarwickR",
       "name": "Infinite Duress",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/DamageCumulative"
+        "Infinite Duress reaches the sole target at modeled cast completion, suppresses and channels three source magic hits with supported on-hits and healing for post-resistance damage. It ends on caster control or target death. Leap travel, collision and passive heal amplification remain excluded."
       ]
     },
     {
@@ -12092,13 +12065,13 @@
     }
   ],
   "summary": {
-    "executes": 546,
-    "no-executable-effect": 116,
+    "executes": 571,
+    "no-executable-effect": 94,
     "not-cast": 18,
-    "cast-without-effect": 12
+    "cast-without-effect": 9
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "e467b70ad469cc31a8b88f2a440a00a0d2c4ac3211d5ea67ad35092bb7f4014a",
+  "model": "4ca86fea1629201ad721bd2333dfc4e8f25f3e813e079360585e1dbecfeb5de8",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

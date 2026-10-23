@@ -75,8 +75,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    boundaries. The [attack/defense follow-up](attack-defense-ability-follow-up.md)
    adds another 25 slots with consumed attacks, combat movement, coupled slows,
    death protection, executes, armor passives, mana stacks and vamp, covered by
-   56 retained scenarios. Next: remaining shared formula/activation gaps from
-   the audit. Keep all remaining omissions explicit; a selectable champion or
+   56 retained scenarios. The [area/impact follow-up](areas-impact-ability-follow-up.md)
+   adds 25 further slots with maintained areas, marks, channels, attack phases
+   and recovery, covered by 50 retained scenarios with explicit kit exclusions.
+   Next: remaining shared formula/activation gaps from the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
    beyond the default Annie/Garen matchup. Compare interpreted formulas and
@@ -89,8 +91,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 116 without an executable
-   effect, 18 unable to cast in the controlled probe and 12 casting without
+   it records 94 without an executable
+   effect, 18 unable to cast in the controlled probe and 9 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

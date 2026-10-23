@@ -1,5 +1,30 @@
 {:schema 1
- :rules [{:champion "Chogath" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :chogath-e}
+ :rules [{:champion "Aatrox" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :aatrox-e}
+         {:champion "Alistar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :alistar-e}
+         {:champion "Amumu" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :amumu-w}
+         {:champion "Anivia" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :anivia-r}
+         {:champion "Braum" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :braum-e}
+         {:champion "Ezreal" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :ezreal-w}
+         {:champion "Gangplank" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :gangplank-q :stat-scope [[9 0]]}
+         {:champion "Ivern" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :ivern-w}
+         {:champion "Kled" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :kled-w}
+         {:champion "Lucian" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :lucian-e}
+         {:champion "Malzahar" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :malzahar-r}
+         {:champion "Milio" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :milio-q}
+         {:champion "Nautilus" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :nautilus-q}
+         {:champion "Ornn" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :ornn-e :stat-scope [[1 2] [6 2]]}
+         {:champion "Rumble" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :rumble-q}
+         {:champion "Rumble" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :rumble-w}
+         {:champion "Taliyah" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :taliyah-w}
+         {:champion "Thresh" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :thresh-e}
+         {:champion "Trundle" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :trundle-e}
+         {:champion "Twitch" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :twitch-w}
+         {:champion "Warwick" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :warwick-r}
+         {:champion "Fizz" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :fizz-r}
+         {:champion "Senna" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :senna-e}
+         {:champion "Tryndamere" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :tryndamere-q}
+         {:champion "Velkoz" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :velkoz-r}
+         {:champion "Chogath" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :chogath-e}
          {:champion "Kayle" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayle-e}
          {:champion "Fizz" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :fizz-w}
          {:champion "Sett" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :sett-q}

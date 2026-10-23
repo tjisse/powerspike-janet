@@ -1,0 +1,45 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Supplementary timing and geometry; numerical formulas use the selected retained game records. Not a live game capture.",
+  "references": [
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Alistar",
+      "reviewed_fact": "Half-second Trample pulses; six-second empowered-attack window."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Anivia",
+      "reviewed_fact": "Storm radius 200\u2013400; cast target range 750; disable/leash termination."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Braum",
+      "reviewed_fact": "Continued facing assumption and first-hit damage negation."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Kled",
+      "reviewed_fact": "Four-attack burst and cooldown refunds."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Rumble",
+      "reviewed_fact": "50/150 heat thresholds; four-second decay delay; ten heat per second; four-second overheat."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Nautilus",
+      "reviewed_fact": "One-second Dredge Line stun; pull flight remains excluded."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Thresh",
+      "reviewed_fact": "200-unit Flay displacement; ten-second passive charge."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Fizz",
+      "reviewed_fact": "Attachment distance tiers below455,455through910,above910; 40/60/80percent slows."
+    }
+  ],
+  "model_schedules": {
+    "beam": "Ten equal model intervals for Velkoz; source ten beam ticks for Malzahar; three model hits for Warwick.",
+    "fields": "Source tick intervals where retained; quarter-second occupancy for stationary slows, half-second Malzahar pool, half-second Alistar aura.",
+    "movement": "Instantaneous advance/displacement at modeled completion; pull direction fixed toward caster for Taliyah, push away for Thresh/Trundle/Milio.",
+    "Parrrley": "Quarter-second modeled cast time."
+  }
+}

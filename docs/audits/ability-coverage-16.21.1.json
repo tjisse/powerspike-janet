@@ -1444,18 +1444,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Caitlyn",
       "ability": "CaitlynR",
       "name": "Ace in the Hole",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1"
+        "Ace in the Hole uses its source critical-stat scaling, a one-second channel after the raw cast time and the selected missile. Control or target death interrupts it, setting a five-second cooldown without refunding mana. Interception, vision and exceptional untargetability remain excluded."
       ]
     },
     {
@@ -1640,23 +1641,19 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "VorpalSpikes: @FlatDamageCalc@ plus @MaxHealthPercentCalc@ of the target's max Health magic damage",
-        "VorpalSpikes: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Chogath",
       "ability": "VorpalSpikes",
       "name": "Vorpal Spikes",
       "slot": "e",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 12,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/FlatDamageCalc",
-        "Periodic damage needs tick/duration semantics: damage/magic/FlatDamageCalc"
+        "Vorpal Spikes resets the attack timer and empowers three attacks with magic damage, decaying slows and range. Cooldown begins after consumption/expiry. Feast stacks start at zero; width, secondary targets and monsters remain excluded."
       ]
     },
     {
@@ -1872,24 +1869,19 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "DianaR: @RExplosionDamage@ magic damage",
-        "DianaR: @MaxDamage@ damage",
-        "DianaR: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Diana",
       "ability": "DianaR",
       "name": "Moonfall",
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/RExplosionDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/MaxDamage"
+        "Moonfall pulls the sole nearby champion to the caster in one dimension, slows, and checks range again for its delayed base explosion. Multi-champion amplification, flight/airborne timing and geometry remain excluded."
       ]
     },
     {
@@ -2213,19 +2205,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Evelynn",
       "ability": "EvelynnE",
       "name": "Whiplash",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/EmpoweredDamage"
+        "Base Whiplash deals base plus maximum-health damage, applies supported on-hit effects and grants movement when it hits. Demon Shade empowerment, its dash and reset remain excluded."
       ]
     },
     {
@@ -2460,20 +2452,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Fizz",
       "ability": "FizzW",
       "name": "Seastone Trident",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 2,
+      "effect-count": 37,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/DoTDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/ActiveDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/OnHitBuffDamage"
+        "Seastone Trident adds refreshing bleed pulses. Its next attack gains bonus damage; a surviving target enables five seconds of extra on-hit damage, while a killing attack refunds mana and sets a short cooldown. Monster rules and Q application remain excluded."
       ]
     },
     {
@@ -2973,19 +2964,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Gwen",
       "ability": "GwenW",
       "name": "Hallowed Mist",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
+        "Hallowed Mist grants resistances and blocks enemy damage/control from outside its fixed zone. The zone follows automatically once when Gwen exits, then ends on a second exit. Manual repositioning, terrain, edge hitboxes and exceptional targeting remain excluded."
       ]
     },
     {
@@ -3041,20 +3032,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Hecarim",
       "ability": "HecarimW",
       "name": "Spirit of Dread",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 4,
+      "effect-count": 19,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Conditional/maximum effect needs semantics: heal//LeechAmount",
-        "Conditional/maximum effect needs semantics: heal//AllyTooltipLeachValue"
+        "Spirit of Dread deals source-rate nearby pulses, grants resistances and heals from Hecarim's damage to nearby champions after resistance, including shield absorption. Allies, monsters, geometry and exceptional damage interactions remain excluded."
       ]
     },
     {
@@ -3490,23 +3480,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "SowTheWind: @TotalDamage@ + @spell.TailwindSelf:BonusDamage@ magic damage",
-        "SowTheWind: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Janna",
       "ability": "SowTheWind",
       "name": "Zephyr",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 3,
+      "effect-count": 5,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage",
-        "Unresolved tooltip variable: spell.TailwindSelf:BonusDamage"
+        "Zephyr grants learned-rank movement at combat start, then deals base/AP plus selected Tailwind bonus-movement damage and a slow. Temporary AP changes to its passive movement, ghosted collision and other allies remain excluded."
       ]
     },
     {
@@ -4410,19 +4396,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Kayle",
       "ability": "KayleE",
       "name": "Starfire Spellblade",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 12,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/ActiveTotalExecuteDamage",
-        "Unresolved tooltip variable: Spell.KaylePassive:LevelForPassiveRank2"
+        "Starfire Spellblade grants passive attack damage and a ranged, resetting next attack with live missing-health magic damage. Its ordinary modeled attack delivers the hit; explosion geometry and exceptional on-hit ordering remain excluded."
       ]
     },
     {
@@ -4823,19 +4809,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 8,
+      "runtime": [],
       "champion": "KogMaw",
       "ability": "KogMawLivingArtillery",
       "name": "Living Artillery",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamageCalc",
-        "Conditional/maximum effect needs semantics: damage/magic/MaxDamageCalc"
+        "Living Artillery scales with live missing health, doubles below the source tooltip's 40% threshold, and stacks mana costs with a cap and eight-second expiry. Ground impact delay and vision remain excluded; impact uses modeled cast completion."
       ]
     },
     {
@@ -5478,22 +5464,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Malphite",
       "ability": "Obduracy",
       "name": "Thunderclap",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/0 on 16.21.1",
-        "Unknown stat/formula mapping 1/0 on 16.21.1",
-        "Conditional/maximum effect needs semantics: damage/physical/ThunderclapSplash",
-        "Unresolved tooltip variable: f1",
-        "Unresolved tooltip variable: f2"
+        "Thunderclap grants permanent armor, resets and empowers an attack, then adds aftershocks on later attacks. Granite Shield's tripled armor, cone geometry and monsters remain excluded."
       ]
     },
     {
@@ -5816,20 +5799,21 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [
+        "MilioW: Missing stat attack-range"
+      ],
       "champion": "Milio",
       "ability": "MilioW",
       "name": "Cozy Campfire",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 12,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: heal//HealingOverTime",
-        "Unresolved tooltip variable: Spell_MilioPassive_Name",
-        "Recasts/charges need explicit semantics."
+        "Self-following Cozy Campfire grants attack range and twelve half-second healing pulses over its duration. Ally retargeting, Fired Up and measured healing tick phase remain excluded."
       ]
     },
     {
@@ -5882,19 +5866,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "MissFortune",
       "ability": "MissFortuneViciousStrikes",
       "name": "Strut",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
-        "Unsupported calculation: CooldownMultiplierCalculationPart",
-        "No recognized executable effect; this does not imply zero damage."
+        "Strut grants learned-rank out-of-combat movement in two stages. Activation restores full movement and grants attack speed; new damage removes the movement bonus and restarts recovery. The fight begins fully recovered. Love Tap and its cooldown refunds remain excluded."
       ]
     },
     {
@@ -6300,22 +6284,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "NasusW: Slow",
-        "NasusW: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Nasus",
       "ability": "NasusW",
       "name": "Wither",
       "slot": "w",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow"
+        "Wither ramps movement and attack-speed reduction together in source-strength, one-second steps scaled by tenacity. Tenacity shortens the control window, cleanse removes both, and slow immunity blocks both. The source maximum persists through the final step interval."
       ]
     },
     {
@@ -6815,18 +6796,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Olaf",
       "ability": "OlafRagnarok",
       "name": "Ragnarok",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 4,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Ragnarok grants permanent resistances, cleanses and prevents controls, grants AD and brief chase movement. Distinct champion attacks or E hits refresh its remaining duration to at least the source extension. Exceptional displacement, E cast-only refresh and other passive effects remain excluded."
       ]
     },
     {
@@ -7136,19 +7118,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Pyke",
       "ability": "PykeW",
       "name": "Ghostwater Dive",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 29/0 on 16.21.1",
-        "No recognized executable effect; this does not imply zero damage."
+        "Ghostwater Dive grants lethality-scaled decaying movement, ending on a subsequent attack/cast. Camouflage, detection and grey-health healing remain excluded."
       ]
     },
     {
@@ -7170,19 +7152,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Pyke",
       "ability": "PykeR",
       "name": "Death From Below",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 29/0 on 16.21.1",
-        "Recasts/charges need explicit semantics."
+        "Death From Below checks live health: below threshold it deals shield-bypassing true damage; otherwise reduced physical damage. It blinks on an unblocked champion hit. Undying protection still prevents death. X geometry, kill-gold/recasts and other targets remain excluded."
       ]
     },
     {
@@ -8274,18 +8256,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Sett",
       "ability": "SettQ",
       "name": "Knuckle Down",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/BaseDamage"
+        "Knuckle Down resets attacks, empowers the next two with maximum-health damage and grants movement only while approaching the sole champion. Sett's alternating-hand passive timing and other kit effects remain excluded."
       ]
     },
     {
@@ -8447,18 +8430,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Shen",
       "ability": "ShenW",
       "name": "Spirit's Refuge",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Spirit's Refuge blocks ordinary attacks and their procs for its duration, assuming Shen and his spirit blade are together and he remains in the zone. Blade placement, allies and delayed entry remain excluded."
       ]
     },
     {
@@ -8984,20 +8968,20 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "SonaE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Sona",
       "ability": "SonaE",
       "name": "Song of Celerity",
       "slot": "e",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 1,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Song of Celerity grants self movement for at least three seconds, up to seven while unharmed. Damage after the minimum ends it. Allied aura, Power Chord and passive stacks remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -9546,19 +9530,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Taric",
       "ability": "TaricW",
       "name": "Bastion",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: shield//ShieldHPRatio",
-        "Unknown stat/formula mapping 1/0 on 16.21.1"
+        "Bastion grants its learned-rank armor multiplier and self maximum-health shield. Linked allies and duplicate spell origins remain excluded."
       ]
     },
     {
@@ -9610,18 +9594,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Teemo",
       "ability": "TeemoW",
       "name": "Move Quick",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Move Quick grants passive movement while out of champion/turret combat, recovering after the source delay. The active replaces it with doubled movement that persists through damage. The fight assumes no recent pre-fight damage; camouflage and other passive effects remain excluded."
       ]
     },
     {
@@ -9917,18 +9902,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Tryndamere",
       "ability": "UndyingRage",
       "name": "Undying Rage",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Undying Rage prevents damage from reducing health below its source floor without healing a caster already below it. It casts while disabled and restores Fury in the configured resource pool. Fury-derived crits, exceptional death effects and other passives remain excluded."
       ]
     },
     {
@@ -10858,20 +10844,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Volibear",
       "ability": "VolibearQ",
       "name": "Thundering Smash",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/CalculatedDamage",
-        "Control trigger/duration unresolved: stun",
-        "Control trigger/duration unresolved: stun"
+        "Thundering Smash resets attacks, grants conditional chase speed/range and replaces the next attack's damage with its base/AD result plus stun. Immobilization before consumption cancels the buff and resets cooldown. Terrain, unit collision and exceptional attack effects remain excluded."
       ]
     },
     {
@@ -11011,18 +10996,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Xayah",
       "ability": "XayahW",
       "name": "Deadly Plumage",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 14,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Deadly Plumage grants attack speed and a secondary physical blade sharing the attack's rolled raw damage; a successful blade grants movement speed. Rakan sharing, feather geometry and secondary projectile timing remain excluded."
       ]
     },
     {
@@ -12106,13 +12092,13 @@
     }
   ],
   "summary": {
-    "executes": 521,
-    "no-executable-effect": 136,
+    "executes": 546,
+    "no-executable-effect": 116,
     "not-cast": 18,
-    "cast-without-effect": 17
+    "cast-without-effect": 12
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "100a59ec52a4bf0d9ae8d1a60653420a0e93b2bdb709ea956367c0cc9e474f85",
+  "model": "e467b70ad469cc31a8b88f2a440a00a0d2c4ac3211d5ea67ad35092bb7f4014a",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 521 |
-| No executable effect | 136 |
+| At least one effect recorded | 546 |
+| No executable effect | 116 |
 | Has an estimated effect but does not cast | 18 |
-| Casts without recording an applied effect | 17 |
+| Casts without recording an applied effect | 12 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -140,6 +140,13 @@ executing entries across twenty champions, including base-form wrapper spells,
 continuous tethers, attack dodges, damage/slow immunity, damage reductions,
 shield-dependent movement and source-rate spray/shred. Exact scope and remaining
 movement, timing, form and kit limitations stay documented with that batch.
+
+The [attack/defense follow-up](attack-defense-ability-follow-up.md) adds 25 more
+executing entries across 24 champions, with consumed attack empowerments,
+combat-sensitive movement, coupled ramping slows, death protection, execute
+thresholds, armor multipliers, mana-cost stacks and damage-vamp state. All
+remaining kit/timing boundaries stay with that batch. The probe now supplies
+zero lethality, as an ordinary empty build does, for Pyke's scoped formulas.
 
 ## Main causes and next work
 

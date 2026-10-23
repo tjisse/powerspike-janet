@@ -15,7 +15,7 @@
                         :attack-speed-ratio 1 :attack-speed-cap 3
                         :base {:ad 100 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 0 :move-speed 350}
                         :stats {:ad 150 :bonus-ad 50 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 100 :move-speed 350 :crit-chance 0 :crit-damage 2
-                                :attack-speed (+ 1 bonus-as) :attack-speed-uncapped (+ 1 bonus-as) :attack-speed-bonus bonus-as :attack-speed-item-growth 0 :ability-haste 0}
+                                :attack-speed (+ 1 bonus-as) :attack-speed-uncapped (+ 1 bonus-as) :attack-speed-bonus bonus-as :attack-speed-item-growth 0 :ability-haste 0 :armor-pen-flat 0}
                         :health 50000 :resource 100000 :abilities [ability] :ranks ranks :triggers (effects/ability-triggers [ability] ranks)
                         :strategy {:attacks true :abilities true :priority [(ability :slot)] :movement :hold}}
                        {:id "target" :kind :champion :level 18 :position 0 :base {:hp 1000000 :ad 100} :stats {:hp 1000000 :ad 100 :armor 50 :mr 50}

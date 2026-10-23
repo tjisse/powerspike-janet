@@ -1,0 +1,19 @@
+{
+  "CaitlynR": {
+    "channel-after-cast": 1,
+    "cancel-cooldown": 5,
+    "source": "https://wiki.leagueoflegends.com/en-us/Caitlyn#Ace_in_the_Hole"
+  },
+  "OlafR": {
+    "extension": "Refreshes at least to 2.5 seconds remaining, not unbounded accumulated duration.",
+    "source": "https://wiki.leagueoflegends.com/en-us/Olaf#Ragnarok"
+  },
+  "reviewed_at": "2026-10-23",
+  "scope": "Supplementary mechanical references; numerical formulas remain selected-source driven, no raw game capture.",
+  "NasusW": {
+    "step-seconds": 1,
+    "affected-by-tenacity": true,
+    "source": "https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-18-notes/",
+    "corroboration": "https://wiki.leagueoflegends.com/en-us/Nasus#Wither"
+  }
+}

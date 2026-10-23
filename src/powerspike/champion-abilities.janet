@@ -545,8 +545,191 @@
                                  :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
           :unresolved [;unresolved note]}))
 
+(defn attack-defense [ability handler forms]
+  (def spell (ability :record))
+  (defn term [name] (expr/variable name spell))
+  (defn pct [name] (product-of (literal 0.01) (term name)))
+  (defn neg [node] (product-of (literal -1) node))
+  (defn one-plus [node] (sum-of (literal 1) node))
+  (defn self-stat [key] {:op :stat :stat key :formula 0})
+  (defn target-stat [key] {:op :target-stat :stat key})
+  (defn dmg [type amount &opt fields] (merge {:kind :damage :target :enemy :damage-type type :amount amount} (or fields {})))
+  (defn stat [key amount duration &opt mode fields]
+    (merge {:kind :stat-buff :target :self :stat key :amount amount :duration duration :mode (or mode :add)} (or fields {})))
+  (defn haste [amount duration &opt fields] (stat :move-speed (one-plus amount) duration :multiply fields))
+  (defn buff [name bonuses duration] {:kind :buff :target :self :buff name :stat-bonuses bonuses :duration duration :refresh true})
+  (defn empower [count duration effects &opt fields]
+    (merge {:kind :empower :target :self :count count :duration duration :effects effects} (or fields {})))
+  (defn aux [suffix]
+    (get (find |(string/has-suffix? (string/ascii-lower suffix) (string/ascii-lower ($ :path))) (or forms [])) :record))
+  (def janna-passive (when (= handler :janna-w) (aux "/TailwindSelf")))
+  (def cait-missile (when (= handler :caitlyn-r) (aux "/CaitlynRMissile")))
+  (def all-cc [:stun :root :charm :fear :airborne :suppression :silence :slow :grounded :polymorph])
+  (def note (case handler
+              :chogath-e "Vorpal Spikes resets the attack timer and empowers three attacks with magic damage, decaying slows and range. Cooldown begins after consumption/expiry. Feast stacks start at zero; width, secondary targets and monsters remain excluded."
+              :kayle-e "Starfire Spellblade grants passive attack damage and a ranged, resetting next attack with live missing-health magic damage. Its ordinary modeled attack delivers the hit; explosion geometry and exceptional on-hit ordering remain excluded."
+              :fizz-w "Seastone Trident adds refreshing bleed pulses. Its next attack gains bonus damage; a surviving target enables five seconds of extra on-hit damage, while a killing attack refunds mana and sets a short cooldown. Monster rules and Q application remain excluded."
+              :sett-q "Knuckle Down resets attacks, empowers the next two with maximum-health damage and grants movement only while approaching the sole champion. Sett's alternating-hand passive timing and other kit effects remain excluded."
+              :volibear-q "Thundering Smash resets attacks, grants conditional chase speed/range and replaces the next attack's damage with its base/AD result plus stun. Immobilization before consumption cancels the buff and resets cooldown. Terrain, unit collision and exceptional attack effects remain excluded."
+              :xayah-w "Deadly Plumage grants attack speed and a secondary physical blade sharing the attack's rolled raw damage; a successful blade grants movement speed. Rakan sharing, feather geometry and secondary projectile timing remain excluded."
+              :sona-e "Song of Celerity grants self movement for at least three seconds, up to seven while unharmed. Damage after the minimum ends it. Allied aura, Power Chord and passive stacks remain excluded."
+              :teemo-w "Move Quick grants passive movement while out of champion/turret combat, recovering after the source delay. The active replaces it with doubled movement that persists through damage. The fight assumes no recent pre-fight damage; camouflage and other passive effects remain excluded."
+              :miss-fortune-w "Strut grants learned-rank out-of-combat movement in two stages. Activation restores full movement and grants attack speed; new damage removes the movement bonus and restarts recovery. The fight begins fully recovered. Love Tap and its cooldown refunds remain excluded."
+              :nasus-w "Wither ramps movement and attack-speed reduction together in source-strength, one-second steps scaled by tenacity. Tenacity shortens the control window, cleanse removes both, and slow immunity blocks both. The source maximum persists through the final step interval."
+              :shen-w "Spirit's Refuge blocks ordinary attacks and their procs for its duration, assuming Shen and his spirit blade are together and he remains in the zone. Blade placement, allies and delayed entry remain excluded."
+              :tryndamere-r "Undying Rage prevents damage from reducing health below its source floor without healing a caster already below it. It casts while disabled and restores Fury in the configured resource pool. Fury-derived crits, exceptional death effects and other passives remain excluded."
+              :olaf-r "Ragnarok grants permanent resistances, cleanses and prevents controls, grants AD and brief chase movement. Distinct champion attacks or E hits refresh its remaining duration to at least the source extension. Exceptional displacement, E cast-only refresh and other passive effects remain excluded."
+              :malphite-w "Thunderclap grants permanent armor, resets and empowers an attack, then adds aftershocks on later attacks. Granite Shield's tripled armor, cone geometry and monsters remain excluded."
+              :taric-w "Bastion grants its learned-rank armor multiplier and self maximum-health shield. Linked allies and duplicate spell origins remain excluded."
+              :evelynn-e "Base Whiplash deals base plus maximum-health damage, applies supported on-hit effects and grants movement when it hits. Demon Shade empowerment, its dash and reset remain excluded."
+              :kogmaw-r "Living Artillery scales with live missing health, doubles below the source tooltip's 40% threshold, and stacks mana costs with a cap and eight-second expiry. Ground impact delay and vision remain excluded; impact uses modeled cast completion."
+              :caitlyn-r "Ace in the Hole uses its source critical-stat scaling, a one-second channel after the raw cast time and the selected missile. Control or target death interrupts it, setting a five-second cooldown without refunding mana. Interception, vision and exceptional untargetability remain excluded."
+              :pyke-w "Ghostwater Dive grants lethality-scaled decaying movement, ending on a subsequent attack/cast. Camouflage, detection and grey-health healing remain excluded."
+              :pyke-r "Death From Below checks live health: below threshold it deals shield-bypassing true damage; otherwise reduced physical damage. It blinks on an unblocked champion hit. Undying protection still prevents death. X geometry, kill-gold/recasts and other targets remain excluded."
+              :gwen-w "Hallowed Mist grants resistances and blocks enemy damage/control from outside its fixed zone. The zone follows automatically once when Gwen exits, then ends on a second exit. Manual repositioning, terrain, edge hitboxes and exceptional targeting remain excluded."
+              :janna-w "Zephyr grants learned-rank movement at combat start, then deals base/AP plus selected Tailwind bonus-movement damage and a slow. Temporary AP changes to its passive movement, ghosted collision and other allies remain excluded."
+              :diana-r "Moonfall pulls the sole nearby champion to the caster in one dimension, slows, and checks range again for its delayed base explosion. Multi-champion amplification, flight/airborne timing and geometry remain excluded."
+              :milio-w "Self-following Cozy Campfire grants attack range and twelve half-second healing pulses over its duration. Ally retargeting, Fired Up and measured healing tick phase remain excluded."
+              :hecarim-w "Spirit of Dread deals source-rate nearby pulses, grants resistances and heals from Hecarim's damage to nearby champions after resistance, including shield absorption. Allies, monsters, geometry and exceptional damage interactions remain excluded."))
+  (assert note "Unknown attack/defense handler.")
+  (def specs
+    (case handler
+      :chogath-e [(empower (term "MaximumAttacks") (term "BuffDuration")
+                           [(dmg :magic (sum-of (term "FlatDamageCalc") (product-of (term "MaxHealthPercentCalc") (target-stat :hp))))
+                            {:kind :control :control :slow :target :enemy :strength (pct "SlowAmountPercentage") :duration (term "SlowDuration") :decay-steps (literal 16)}]
+                           {:reset true :range-bonus (term "AttackRangeIncrease") :cooldown-after true})]
+      :kayle-e [(dmg :magic (term "EPassiveTotalDamage") {:trigger :passive :on [:attack] :allow-same-time true})
+                (empower (literal 1) (term "BuffDuration") [(dmg :magic (product-of (term "ActiveTotalExecuteDamage") (target-stat :missing-health)))]
+                         {:reset true :range-floor (ability :range)})]
+      :fizz-w [{:kind :periodic :target :enemy :trigger :passive :on [:attack] :allow-same-time true :damage-type :magic :amount (term "DoTDamage")
+                :duration (term "BleedDuration") :pulse-count (product-of (term "BleedDuration") (term "DoTTicksPerSecond"))
+                :pulse-interval (quotient (literal 1) (term "DoTTicksPerSecond")) :first-delay (quotient (literal 1) (term "DoTTicksPerSecond")) :preserve-pulse-phase true :buff "Seastone bleed"}
+               (empower (literal 1) (term "ActiveDuration") [(dmg :magic (term "ActiveDamage"))]
+                        {:reset true :after-first [(empower :all (term "OnHitBuffDuration") [(dmg :magic (term "OnHitBuffDamage"))])]
+                         :on-kill [{:kind :resource :target :self :amount (term "OnKillManaRefund")}
+                                   {:kind :set-cooldown :target :self :amount (term "OnKillNewCooldown")}]})]
+      :sett-q [(empower (literal 2) (term "Duration") [(dmg :physical (sum-of (term "BaseDamage") (product-of (term "MaxHealthDamageCalc") (target-stat :hp))))] {:reset true})
+               (haste (term "MSAmount") (term "MSDuration") {:chase-only true})]
+      :volibear-q [(empower (literal 1) (term "Duration")
+                            [(dmg :physical (sum-of (term "CalculatedDamage") (neg (self-stat :ad))))
+                             {:kind :control :control :stun :target :enemy :duration (term "StunDuration")}]
+                            {:reset true :range-bonus (term "BonusRange") :reset-on-controls [:stun :root :charm :fear :airborne :suppression :polymorph]})
+                   (haste (term "MinSpeed") (term "Duration") {:requires-empowerment (ability :id) :chase-amount (one-plus (term "MaxSpeed"))})]
+      :xayah-w [(buff "Deadly Plumage" {:attack-speed-bonus (pct "WAttackSpeedAmount")} (term "WAttackSpeedDuration"))
+                (empower :all (term "WAttackSpeedDuration")
+                         [(dmg :physical (literal 0) {:attack-raw-ratio (pct "BonusDamagePercent") :suppress-procs true})
+                          (haste (pct "WMoveSpeedAmount") (term "WMoveSpeedDuration"))])]
+      :sona-e [{:kind :combat-move :target :self :policy :sona :amount (term "TotalSelfMovementSpeed")
+                :minimum (term "SelfMovementSpeedDurationMin") :maximum (term "SelfMovementSpeedDurationMax")}]
+      :teemo-w [{:kind :combat-move :target :self :trigger :combat-start :policy :teemo :amount (term "PassiveMoveSpeedBonus") :recovery (term "PassiveCooldownOnDamageTaken")}
+                {:kind :combat-move :target :self :policy :activate :amount (term "ActiveMoveSpeedBonus") :duration (term "ActiveMoveSpeedBuffDuration")}]
+      :miss-fortune-w [{:kind :combat-move :target :self :trigger :combat-start :policy :strut :amount (term "PassiveBaseMS") :maximum-amount (term "PassiveMaxMS")
+                        :recovery (term "PassiveBaseMSOOC") :second-recovery (term "PassiveMaxMSExtraOOC")}
+                       (buff "Strut attack speed" {:attack-speed-bonus (term "ActiveAS")} (term "ActiveDuration"))
+                       {:kind :combat-move :target :self :policy :restore}]
+      :nasus-w [{:kind :withering :target :enemy :strength (pct "SlowBase") :maximum (pct "MaxSlowTooltipOnly") :increment (pct "SlowPerTick") :attack-ratio (term "AttackSpeedSlowMult") :duration (term "Duration")}]
+      :shen-w [{:kind :protection :target :self :buff "Spirit's Refuge" :block-attacks true :duration (term "ZoneDuration")}]
+      :tryndamere-r [{:kind :protection :target :self :buff "Undying Rage" :duration (term "TryndRDuration") :health-floor (term "TryndRMinHealth")}
+                     {:kind :resource :target :self :amount (term "TryndRFuryGain")}]
+      :olaf-r [{:kind :cleanse :target :self :controls all-cc :attack-speed-slows true}
+               {:kind :protection :target :self :buff "Ragnarok" :duration (term "Duration") :controls all-cc :attack-speed-slows true
+                :extend-on [:attack :spell-hit] :extend-slots [:e] :extension (term "DurationExtension")}
+               (stat :ad (term "AD") (literal 100000) :add {:requires-protection (ability :id)})
+               (haste (term "Haste") (term "HasteDuration") {:chase-only true})]
+      :malphite-w [(empower (literal 1) (term "ThunderclapBuffDuration") [(dmg :physical (term "TotalBonusDamage")) (dmg :physical (term "ThunderclapSplash"))]
+                            {:reset true :after-first [(empower :all (term "ThunderclapBuffDuration") [(dmg :physical (term "ThunderclapSplash"))])]})]
+      :taric-w [{:kind :shield :target :self :amount (product-of (pct "ShieldHPRatio") (self-stat :hp)) :duration (term "ShieldDuration")}]
+      :evelynn-e [{:kind :sequence :target :enemy :effects
+                   [(dmg :magic (sum-of (term "BaseDamage") (product-of (term "PercentHealthBaseTOOLTIP") (target-stat :hp))) {:applies-on-hit true})
+                    (haste (term "SpeedAmount") (term "SpeedDuration"))]}]
+      :kogmaw-r [{:kind :health-threshold-damage :target :enemy :amount (term "BaseDamageCalc") :amplification (term "TooltipMissingHealthDamageAmp")
+                  :threshold (literal 0.4) :maximum (term "FinalDamageMult") :damage-type :magic}]
+      :caitlyn-r [(dmg :physical (term "RTotalDamage"))]
+      :pyke-w [(merge (haste (pct "MoveSpeed") (term "CamoDuration") {:end-on-action true}) {:decay-steps (literal 16)})]
+      :pyke-r [{:kind :threshold-strike :target :enemy :amount (term "RDamage") :ratio (term "ReducedDamage")}]
+      :gwen-w [{:kind :protection :target :self :buff "Hallowed Mist" :duration (term "ZoneDuration") :zone-radius (term "ZoneRadius") :zone-relocations 1 :outside-untargetable true}
+               (stat :armor (term "TotalResists") (term "ZoneDuration") :add {:requires-protection (ability :id)})
+               (stat :mr (term "TotalResists") (term "ZoneDuration") :add {:requires-protection (ability :id)})]
+      :janna-w [(merge (haste (term "TotalMS") (literal 100000)) {:trigger :combat-start})
+                (dmg :magic (sum-of (term "TotalDamage") (expr/variable "BonusDamage" (merge (or janna-passive {}) {"__powerspike_patch" "16.21.1" "__powerspike_stat_scope" [[7 2]]}))))
+                {:kind :control :target :enemy :control :slow :strength (term "TotalSlow") :duration (term "SlowDuration")}]
+      :diana-r [{:kind :moonfall :target :enemy :amount (term "RExplosionDamage") :delay-duration (term "Delay")
+                 :strength (neg (term "SlowPotency")) :duration (term "SlowDuration") :radius (ability :range)}]
+      :milio-w [(stat :attack-range (product-of (term "RangePctIncrease") (self-stat :attack-range)) (term "ZoneDuration"))
+                {:kind :heal :target :self :amount (quotient (term "HealingOverTime") (literal 12)) :hits 12 :interval (quotient (term "ZoneDuration") (literal 12))
+                 :delay (quotient (term "ZoneDuration") (literal 12)) :requires-caster-alive true}]
+      :hecarim-w [(stat :armor (term "ResistAmount") (term "BuffDuration")) (stat :mr (term "ResistAmount") (term "BuffDuration"))
+                  {:kind :damage-vamp :target :self :duration (term "BuffDuration") :radius (ability :range) :amount (pct "LeechAmount")}
+                  (dmg :magic (quotient (term "TotalDamage") (quotient (term "BuffDuration") (term "TickTime")))
+                       {:hits (quotient (term "BuffDuration") (term "TickTime")) :interval (term "TickTime") :delay (term "TickTime")
+                        :range-at-impact (ability :range) :requires-caster-alive true :heal-dealt-ratio (pct "LeechAmount") :vamp-accounted true})]))
+  (def extra
+    (case handler
+      :chogath-e {:self-cast true :cast-time 0 :missile-speed 0}
+      :kayle-e {:self-cast true :cast-time 0 :missile-speed 0}
+      :fizz-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :sett-q {:self-cast true :cast-time 0 :missile-speed 0}
+      :volibear-q {:self-cast true :cast-time 0 :missile-speed 0}
+      :xayah-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :sona-e {:self-cast true :cast-time 0 :missile-speed 0}
+      :teemo-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :miss-fortune-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :nasus-w {:missile-speed 0}
+      :shen-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :tryndamere-r {:self-cast true :cast-time 0 :missile-speed 0 :usable-controls all-cc}
+      :olaf-r {:self-cast true :cast-time 0 :missile-speed 0 :usable-controls all-cc :rank-bonuses {:armor (term "Resists") :mr (term "Resists")}}
+      :malphite-w {:self-cast true :cast-time 0 :missile-speed 0 :rank-bonuses {:armor-multiplier (one-plus (term "BonusArmorPassive"))}}
+      :taric-w {:self-cast true :missile-speed 0 :rank-bonuses {:armor-multiplier (one-plus (term "ArmorBonusPercentage"))}}
+      :evelynn-e {:missile-speed 0}
+      :kogmaw-r {:missile-speed 0 :stacking-cost {:base (term "BaseCost") :cap (term "ManaCostCap") :window (term "ManaCostDuration")}}
+      :caitlyn-r {:missile-speed (get-in cait-missile ["mMissileSpec" "movementComponent" "mSpeed"])
+                  :cast-time (+ (get spell "mCastTime" (get spell "spellCastTime" 0.25)) 1) :channel true :interruptible-channel true :finish-channel-on-release true :cancel-cooldown 5 :cancel-on-target-death true}
+      :pyke-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :pyke-r {:missile-speed 0}
+      :gwen-w {:self-cast true :cast-time 0 :missile-speed 0}
+      :diana-r {:self-cast true :missile-speed 0}
+      :milio-w {:self-cast true :missile-speed 0}
+      :hecarim-w {:self-cast true :cast-time 0 :missile-speed 0}
+      {}))
+  (defn problems [node]
+    (cond (and (dictionary? node) (node :op)) (expr/problems node)
+      (dictionary? node) (mapcat problems (values node))
+      (indexed? node) (mapcat problems node) []))
+  (def missing [;(if (and (= handler :janna-w) (not janna-passive)) ["Zephyr requires selected Tailwind source."] [])
+                ;(if (and (= handler :caitlyn-r) (not cait-missile)) ["Ace in the Hole requires selected missile source."] [])])
+  (def unresolved [;(problems specs) ;(problems extra) ;missing])
+  (merge ability extra {:effects (map |(merge {:trigger :cast :condition :always :target-kinds [:champion :practice]
+                                               :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
+                        :unresolved [;unresolved note]}))
+
 (defn review [ability handler &opt forms]
   (case handler
+    :chogath-e (attack-defense ability handler forms)
+    :kayle-e (attack-defense ability handler forms)
+    :fizz-w (attack-defense ability handler forms)
+    :sett-q (attack-defense ability handler forms)
+    :volibear-q (attack-defense ability handler forms)
+    :xayah-w (attack-defense ability handler forms)
+    :sona-e (attack-defense ability handler forms)
+    :teemo-w (attack-defense ability handler forms)
+    :miss-fortune-w (attack-defense ability handler forms)
+    :nasus-w (attack-defense ability handler forms)
+    :shen-w (attack-defense ability handler forms)
+    :tryndamere-r (attack-defense ability handler forms)
+    :olaf-r (attack-defense ability handler forms)
+    :malphite-w (attack-defense ability handler forms)
+    :taric-w (attack-defense ability handler forms)
+    :evelynn-e (attack-defense ability handler forms)
+    :kogmaw-r (attack-defense ability handler forms)
+    :caitlyn-r (attack-defense ability handler forms)
+    :pyke-w (attack-defense ability handler forms)
+    :pyke-r (attack-defense ability handler forms)
+    :gwen-w (attack-defense ability handler forms)
+    :janna-w (attack-defense ability handler forms)
+    :diana-r (attack-defense ability handler forms)
+    :milio-w (attack-defense ability handler forms)
+    :hecarim-w (attack-defense ability handler forms)
+
     :blitzcrank-w (twenty-five ability handler forms)
     :katarina-w (twenty-five ability handler forms)
     :viego-e (twenty-five ability handler forms)

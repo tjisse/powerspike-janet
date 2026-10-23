@@ -241,7 +241,7 @@
       if (record.kind === 'damage' && actor >= 0) totals[actor] += record.damage;
       return {...record, dealt: [...totals]};
     });
-    events = rows.filter(record => ['damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'attack-dodged'].includes(record.kind));
+    events = rows.filter(record => ['damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'attack-dodged', 'attack-blocked'].includes(record.kind));
     statuses = (result.statuses || []).map(status => ({...status, start: Math.max(0, status.start), end: Math.min(status.end, result.end)}))
       .filter(status => Number.isFinite(status.start) && Number.isFinite(status.end) && status.end > status.start && result.actors.some(actor => actor.id === status.actor));
     const legend = $('.matchup-status-legend');
@@ -270,9 +270,9 @@
   function eventName(record) {
     const who = actorIndex(record), source = result.sources?.[record.source]?.name || (record.source === 'attack' ? 'Basic attack' : record.source || record.kind);
     if (record.kind === 'parry-start') return `${result.names[who] || ''} · ${source} begins`;
-    if (['parried', 'spell-block', 'attack-dodged'].includes(record.kind)) {
+    if (['parried', 'spell-block', 'attack-dodged', 'attack-blocked'].includes(record.kind)) {
       const target = result.actors.findIndex(actor => actor.id === record.target);
-      return `${result.names[who] || ''} · ${source} · ${record.kind === 'spell-block' ? 'spell blocked' : record.kind === 'attack-dodged' ? 'attack dodged' : 'parried'}${target >= 0 ? ' by ' + result.names[target] : ''}`;
+      return `${result.names[who] || ''} · ${source} · ${record.kind === 'spell-block' ? 'spell blocked' : record.kind === 'attack-dodged' ? 'attack dodged' : record.kind === 'attack-blocked' ? 'attack blocked' : 'parried'}${target >= 0 ? ' by ' + result.names[target] : ''}`;
     }
     return `${who >= 0 ? result.names[who] + ' · ' : ''}${source} · ${record.kind === 'control' ? 'control received' : record.kind}`;
   }
@@ -292,6 +292,7 @@
     if (event.kind === 'death') values.push('Knockout');
     if (event.kind === 'parry-start') values.push(`Defense active for ${Number(Math.max(0, event.expires - event.at).toFixed(2))} s`);
     if (event.kind === 'attack-dodged') values.push('Attack dodged · 0 damage');
+    if (event.kind === 'attack-blocked') values.push('Attack blocked · 0 damage');
     if (event.kind === 'spell-block') values.push('Spell shield consumed · incoming spell impact blocked');
     if (event.kind === 'parried') {
       values.push(event['effect-kind'] === 'damage' ? '0 damage' : event['effect-kind'] === 'control' ? 'Control blocked' : 'Effect blocked');
@@ -447,8 +448,8 @@
         const index = indices.includes(selected) ? selected : indices.includes(Number(focused)) ? Number(focused) : indices[0];
         const record = events[index];
         const source = result.sources?.[record.source];
-        const label = ['parried', 'spell-block', 'attack-dodged'].includes(record.kind) ? '×' : record.kind === 'death' ? 'KO' : record.source === 'attack' ? 'AA' : record.kind === 'control' ? 'CC' : source?.slot?.toUpperCase() || (record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.source?.match(/[QWER]$/)?.[0] || 'Hit');
-        const button = node('button', `matchup-event ${['parried', 'spell-block', 'attack-dodged', 'parry-start'].includes(record.kind) ? ['spell-block', 'attack-dodged'].includes(record.kind) ? 'parried' : record.kind : ''}`);
+        const label = ['parried', 'spell-block', 'attack-dodged', 'attack-blocked'].includes(record.kind) ? '×' : record.kind === 'death' ? 'KO' : record.source === 'attack' ? 'AA' : record.kind === 'control' ? 'CC' : source?.slot?.toUpperCase() || (record.kind === 'heal' ? '+' : record.kind === 'shield' ? 'S' : record.source?.match(/[QWER]$/)?.[0] || 'Hit');
+        const button = node('button', `matchup-event ${['parried', 'spell-block', 'attack-dodged', 'attack-blocked', 'parry-start'].includes(record.kind) ? ['spell-block', 'attack-dodged', 'attack-blocked'].includes(record.kind) ? 'parried' : record.kind : ''}`);
         const artwork = record.kind === 'death' ? null : record.source === 'attack' ? actor.icon : source?.icon;
         if (artwork && !unavailableIcons.has(artwork)) {
           const img = node('img'); img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.draggable = false;

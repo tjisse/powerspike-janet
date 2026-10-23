@@ -58,6 +58,8 @@ def verify(binary_path, fixture_path):
                         expect(page.locator(f'[data-status-effect="{effect}"]').first).to_be_visible()
                     if case.get('blocked-source'):
                         expect(page.locator('.matchup-event-select')).to_contain_text('spell blocked')
+                    if case.get('blocked-attack'):
+                        expect(page.locator('.matchup-event-select')).to_contain_text('attack blocked')
                     if case.get('dodged-source'):
                         expect(page.locator('.matchup-event-select')).to_contain_text('attack dodged')
                     for width in (1200, 390, 320):
@@ -66,7 +68,7 @@ def verify(binary_path, fixture_path):
                         represented = page.locator('[data-trace-events]').evaluate_all(
                             'nodes => nodes.flatMap(node => JSON.parse(node.dataset.traceEvents))')
                         expected = [row for row in result['trace'] if row['at'] <= result['end'] and row['kind'] in
-                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'attack-dodged')]
+                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'attack-dodged', 'attack-blocked')]
                         assert sorted(represented) == list(range(len(expected)))
                 assert not errors, errors
                 browser.close()

@@ -72,7 +72,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    base-form wrapper spells, continuous tethers, distinct defensive protections,
    shield-dependent movement and periodic damage/shred across twenty champions.
    Its 54 standalone/browser cases retain the remaining timing, geometry and kit
-   boundaries. Next: remaining shared formula/activation gaps from
+   boundaries. The [attack/defense follow-up](attack-defense-ability-follow-up.md)
+   adds another 25 slots with consumed attacks, combat movement, coupled slows,
+   death protection, executes, armor passives, mana stacks and vamp, covered by
+   56 retained scenarios. Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -86,8 +89,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 136 without an executable
-   effect, 18 unable to cast in the controlled probe and 17 casting without
+   it records 116 without an executable
+   effect, 18 unable to cast in the controlled probe and 12 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

@@ -1,5 +1,30 @@
 {:schema 1
- :rules [{:champion "Blitzcrank" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :blitzcrank-w}
+ :rules [{:champion "Chogath" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :chogath-e}
+         {:champion "Kayle" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayle-e}
+         {:champion "Fizz" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :fizz-w}
+         {:champion "Sett" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :sett-q}
+         {:champion "Volibear" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :volibear-q}
+         {:champion "Xayah" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :xayah-w}
+         {:champion "Sona" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :sona-e}
+         {:champion "Teemo" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :teemo-w}
+         {:champion "MissFortune" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :miss-fortune-w}
+         {:champion "Nasus" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :nasus-w}
+         {:champion "Shen" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :shen-w}
+         {:champion "Tryndamere" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :tryndamere-r}
+         {:champion "Olaf" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :olaf-r}
+         {:champion "Malphite" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :malphite-w :stat-scope [[1 0]]}
+         {:champion "Taric" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :taric-w}
+         {:champion "Evelynn" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :evelynn-e}
+         {:champion "KogMaw" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :kogmaw-r}
+         {:champion "Caitlyn" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :caitlyn-r :stat-scope [[9 0]]}
+         {:champion "Pyke" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :pyke-w :stat-scope [[29 0]]}
+         {:champion "Pyke" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :pyke-r :stat-scope [[29 0]]}
+         {:champion "Gwen" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :gwen-w}
+         {:champion "Janna" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :janna-w}
+         {:champion "Diana" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :diana-r}
+         {:champion "Milio" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :milio-w}
+         {:champion "Hecarim" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :hecarim-w}
+         {:champion "Blitzcrank" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :blitzcrank-w}
          {:champion "Katarina" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :katarina-w}
          {:champion "Viego" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :viego-e}
          {:champion "Tryndamere" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :tryndamere-w}

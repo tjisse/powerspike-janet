@@ -234,7 +234,7 @@
                                           :unresolved [;notes (rule :note)]}
                                   (if (rule :self-cast) {:self-cast true} {})))
       (when (rule :handler)
-        (put abilities index (champion-abilities/review (merge (abilities index) {:record spell}) (rule :handler) (kit :forms))))
+        (put abilities index (champion-abilities/review (merge (abilities index) {:record spell}) (rule :handler) [;(get kit :forms []) ;(map |{:path ($ :path) :record ($ :record)} abilities)])))
       (when (rule :rank-penetration)
         (def bonuses (tabseq [[stat name] :pairs (rule :rank-penetration)
                               :let [values (expr/lookup (expr/named-values (chosen :record)) name)]

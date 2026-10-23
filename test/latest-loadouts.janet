@@ -99,11 +99,20 @@
     (assert (some |(= (if ranged "6%" "9%") ($ :text))
                   (mapcat identity ((details/item ((package :item-map) "3153") context) :body-rich))))
     (each side [0 1]
-      (def attacker (merge actor {:stats (merge (actor :stats) {:ad 100 :attack-speed 1 :crit-chance 0})}))
+      # Isolate the item's attack-type coefficient from champion on-hit damage.
+      (def attacker (merge actor {:stats (merge (actor :stats) {:ad 100 :attack-speed 1 :crit-chance 0})
+                                  :triggers (filter |(= "item/3153/mist" ($ :id)) (actor :triggers))}))
       (def result (engine/simulate {:duration 0.7 :actors (if (= side 0) [attacker target] [target attacker])}))
       (def proc (find |(= "item/3153/mist" ($ :source)) (result :trace)))
       (assert proc (string "Missing on-hit: " champion " " form " at level " level " on side " side))
-      (close (* 900 (if ranged 0.06 0.09)) (proc :damage))))
+      (close (* 900 (if ranged 0.06 0.09)) (proc :damage))
+      # The complete model deliberately applies Kayle's passive before Mist's Edge.
+      (when (and (= champion "Kayle") (= patch "16.21.1") (> (get-in actor [:ranks :e] 0) 0))
+        (def full-attacker (merge attacker {:triggers (actor :triggers)}))
+        (def complete (engine/simulate {:duration 0.7 :actors (if (= side 0) [full-attacker target] [target full-attacker])}))
+        (def e-rank (get-in actor [:ranks :e]))
+        (def passive (+ ([0 15 20 25 30 35] e-rank) (* 0.2 (get-in actor [:stats :ap])) (* 0.1 (- 100 (get-in actor [:base :ad])))))
+        (close (* (- 900 passive) (if ranged 0.06 0.09)) ((find |(= "item/3153/mist" ($ :source)) (complete :trace)) :damage)))))
   # Fixed forms retain their matching-patch ordinary/critical projectile profiles.
   (each [champion form speed] [["Nidalee" "human" 2500] ["Elise" "human" 1600] ["Jayce" "cannon" 2000]]
     (def definition (merge (definition champion form 6 []) {:distance 300 :duration 2}))

@@ -63,9 +63,9 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 467 |
-| No executable effect | 180 |
-| Has an estimated effect but does not cast | 21 |
+| At least one effect recorded | 477 |
+| No executable effect | 172 |
+| Has an estimated effect but does not cast | 19 |
 | Casts without recording an applied effect | 24 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
@@ -120,6 +120,13 @@ cast-without-effect to execution, and Malphite E from no executable effect to
 execution. Other categories remain unchanged.
 Vayne W subsequently moves from not-cast to execution with zero casts and
 observed passive damage. Counts measure actual applied effects, not cast spam.
+The [ten-slot follow-up](ten-ability-follow-up.md) then moves Vi W and Twisted
+Fate E from not-cast to execution, and Tristana Q, Singed R, Gangplank W,
+Veigar R, Zac W, Zilean E, Malzahar E and Cassiopeia Q from no executable
+effect to execution. The probe supplies the ratio/cap needed for bonus AS and
+installs explicitly reviewed permanent rank bonuses; ordinary scenarios use
+their selected champion's real values. Timing and remaining kit omissions are
+recorded with the follow-up rather than counted as complete support.
 Restoring a record is not enough to claim supported mechanics.
 
 ## Main causes and next work

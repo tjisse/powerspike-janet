@@ -6,6 +6,11 @@
 # is retained as unresolved and will be reported by the event engine.
 (defn multiply [& children] {:op :multiply :children children})
 (defn constant [value] {:op :constant :value value})
+(defn ability-bonuses [abilities ranks]
+  (map (fn [ability]
+         (tabseq [[stat expression] :pairs (get ability :rank-bonuses {})]
+           stat (expr/evaluate expression {:rank (get ranks (ability :slot) 0)})))
+       (filter |(and (> (get ranks ($ :slot) 0) 0) ($ :rank-bonuses)) abilities)))
 (defn ability-triggers [abilities ranks]
   (mapcat (fn [ability]
             (def rank (get ranks (ability :slot) 0))
@@ -14,7 +19,7 @@
                      (merge (tabseq [[key value] :pairs effect] key
                               (if (and (dictionary? value) (value :op))
                                 {:op :with-rank :rank rank :children [value]} value))
-                            {:id (ability :id)}))
+                            {:id (ability :id) :proc-rank rank}))
                    (filter |(and (= :estimated ($ :status)) (= :passive ($ :trigger))) (ability :effects))) [])) abilities))
 (defn item-spell [item]
   {"mDataValues" (get-in item [:record "mDataValues"] [])

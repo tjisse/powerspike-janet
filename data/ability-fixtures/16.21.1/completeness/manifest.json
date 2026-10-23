@@ -1,0 +1,156 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Ten reviewed Q/W/E/R effects; partial champion kits and explicitly bounded timing assumptions.",
+  "sources": [
+    {
+      "path": "Cassiopeia-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/cassiopeia/cassiopeia.bin.json?powerspike=1",
+      "sha256": "082be5712b3fe4585b344b7228d031260feedaab28efadce7e1750cd6bf9c20f",
+      "bytes": 53355
+    },
+    {
+      "path": "Cassiopeia-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Cassiopeia.json",
+      "sha256": "fa68b59fe941138e7891650a23d6b97ffcfcad687a44dc7a04ff1d42f3d15b3d",
+      "bytes": 11076
+    },
+    {
+      "path": "Gangplank-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/gangplank/gangplank.bin.json?powerspike=1",
+      "sha256": "4caeb8116d87d41a10eb04f5cf66a5f26817607db1aaa749ac22f9d944ffb0f3",
+      "bytes": 59098
+    },
+    {
+      "path": "Gangplank-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Gangplank.json",
+      "sha256": "e8a6aaa2e4dd8044a4aede92c3774e7117c8dabbf03eaafbfb43ef17be36090a",
+      "bytes": 11984
+    },
+    {
+      "path": "Malzahar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/malzahar/malzahar.bin.json?powerspike=1",
+      "sha256": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+      "bytes": 58574
+    },
+    {
+      "path": "Malzahar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Malzahar.json",
+      "sha256": "bc535753c03de7e5409de00846f0de043670c740f099bd50d32fbdb1c18163cd",
+      "bytes": 13250
+    },
+    {
+      "path": "Singed-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/singed/singed.bin.json?powerspike=1",
+      "sha256": "61818d584a3a31cb52301faad2eab6d05085e9efab2ace1d76a4a30dfbd3917a",
+      "bytes": 40588
+    },
+    {
+      "path": "Singed-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Singed.json",
+      "sha256": "9db4dd0c776d9e019f278e06286408f3ed0308f2e666bf1de1b81f7a7b037339",
+      "bytes": 9785
+    },
+    {
+      "path": "Tristana-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/tristana/tristana.bin.json?powerspike=1",
+      "sha256": "3f66602ea0a4b0d003be604f5890aa5dd1f56ee5bed6c00840388fcb4dfa9a81",
+      "bytes": 41820
+    },
+    {
+      "path": "Tristana-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Tristana.json",
+      "sha256": "a5d13395cab89d6207bb2e13e89c018e9078ac005999aa3883886be7e969ca5b",
+      "bytes": 15368
+    },
+    {
+      "path": "TwistedFate-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/twistedfate/twistedfate.bin.json?powerspike=1",
+      "sha256": "1e076fe750a9f219fd2a5ca911f05c9f86af6f6bdb027253cdbf21fc99b923e9",
+      "bytes": 81513
+    },
+    {
+      "path": "TwistedFate-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/TwistedFate.json",
+      "sha256": "126dee11804797cfabb1dc8c71b83235dc7e428ee212bbd53491f67efae7e45e",
+      "bytes": 12420
+    },
+    {
+      "path": "Veigar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/veigar/veigar.bin.json?powerspike=1",
+      "sha256": "3082953876ebf65c238241caaea7eabb174e98bf1e389e305b9b717dc7aa14e4",
+      "bytes": 47800
+    },
+    {
+      "path": "Veigar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Veigar.json",
+      "sha256": "211d6c72aa30aa38d50a49f38deb911374637dc930cc79513725165426fa3884",
+      "bytes": 14094
+    },
+    {
+      "path": "Vi-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/vi/vi.bin.json?powerspike=1",
+      "sha256": "624725624075a9271bd9d4c445c441a121fd8c889ed39c5a5eb7570ace355013",
+      "bytes": 59662
+    },
+    {
+      "path": "Vi-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Vi.json",
+      "sha256": "c1de50f1be1363c8d1cdf35a378023b4aed0b66abb16d9cd4dfbba1ff92072a4",
+      "bytes": 12182
+    },
+    {
+      "path": "Zac-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zac/zac.bin.json?powerspike=1",
+      "sha256": "442b158984869d0fe3154d5211ce965321520d1724939e8f31e7a7a800c104ed",
+      "bytes": 55709
+    },
+    {
+      "path": "Zac-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zac.json",
+      "sha256": "27de6f28731604f198cfd69951230053a9eda7baaa91e1980a807378415e401f",
+      "bytes": 11981
+    },
+    {
+      "path": "Zilean-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zilean/zilean.bin.json?powerspike=1",
+      "sha256": "bf566037b247c627c38ebc44b6ea3acd437ad0c0127efbdf474f045a7d96f1bf",
+      "bytes": 71076
+    },
+    {
+      "path": "Zilean-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zilean.json",
+      "sha256": "00d264ac5d8ef2035dac31b71b1b8fce07533c531f02770e66a36cfebb57ba09",
+      "bytes": 10486
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "excerpt": true,
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc"
+    }
+  ],
+  "fixture_sha256": {
+    "Cassiopeia-abilities.json": "fa68b59fe941138e7891650a23d6b97ffcfcad687a44dc7a04ff1d42f3d15b3d",
+    "Cassiopeia-characters.json": "082be5712b3fe4585b344b7228d031260feedaab28efadce7e1750cd6bf9c20f",
+    "Gangplank-abilities.json": "e8a6aaa2e4dd8044a4aede92c3774e7117c8dabbf03eaafbfb43ef17be36090a",
+    "Gangplank-characters.json": "4caeb8116d87d41a10eb04f5cf66a5f26817607db1aaa749ac22f9d944ffb0f3",
+    "Malzahar-abilities.json": "bc535753c03de7e5409de00846f0de043670c740f099bd50d32fbdb1c18163cd",
+    "Malzahar-characters.json": "28fb1aa2d693c4d293cf75e4b18c8de3bf75c1d07a941cbdb83fc0805411f104",
+    "Singed-abilities.json": "9db4dd0c776d9e019f278e06286408f3ed0308f2e666bf1de1b81f7a7b037339",
+    "Singed-characters.json": "61818d584a3a31cb52301faad2eab6d05085e9efab2ace1d76a4a30dfbd3917a",
+    "Tristana-abilities.json": "a5d13395cab89d6207bb2e13e89c018e9078ac005999aa3883886be7e969ca5b",
+    "Tristana-characters.json": "3f66602ea0a4b0d003be604f5890aa5dd1f56ee5bed6c00840388fcb4dfa9a81",
+    "TwistedFate-abilities.json": "126dee11804797cfabb1dc8c71b83235dc7e428ee212bbd53491f67efae7e45e",
+    "TwistedFate-characters.json": "1e076fe750a9f219fd2a5ca911f05c9f86af6f6bdb027253cdbf21fc99b923e9",
+    "Veigar-abilities.json": "211d6c72aa30aa38d50a49f38deb911374637dc930cc79513725165426fa3884",
+    "Veigar-characters.json": "3082953876ebf65c238241caaea7eabb174e98bf1e389e305b9b717dc7aa14e4",
+    "Vi-abilities.json": "c1de50f1be1363c8d1cdf35a378023b4aed0b66abb16d9cd4dfbba1ff92072a4",
+    "Vi-characters.json": "624725624075a9271bd9d4c445c441a121fd8c889ed39c5a5eb7570ace355013",
+    "Zac-abilities.json": "27de6f28731604f198cfd69951230053a9eda7baaa91e1980a807378415e401f",
+    "Zac-characters.json": "442b158984869d0fe3154d5211ce965321520d1724939e8f31e7a7a800c104ed",
+    "Zilean-abilities.json": "00d264ac5d8ef2035dac31b71b1b8fce07533c531f02770e66a36cfebb57ba09",
+    "Zilean-characters.json": "bf566037b247c627c38ebc44b6ea3acd437ad0c0127efbdf474f045a7d96f1bf",
+    "strings.json": "03048d1bfb520eb1a8859edd6ab9cbd25327183cbace073a8cece493eb43d17b"
+  }
+}

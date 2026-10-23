@@ -44,8 +44,10 @@ def verify(binary_path, fixture_path):
                     if case.get('passive-side'):
                         side = case['passive-side']
                         prefix = 'enemy' if side == 'opponent' else ''
-                        expect(page.locator(f'#{side}-card [name="{prefix}wafter"]')).to_be_disabled()
-                        assert any(status['effect'] == 'Silver Bolts' for status in result['statuses'])
+                        slot = case.get('passive-slot', 'w')
+                        expect(page.locator(f'#{side}-card [name="{prefix}{slot}after"]')).to_be_disabled()
+                        effect = case.get('passive-effect', 'Silver Bolts')
+                        assert any(status['effect'] == effect for status in result['statuses'])
                     for source in case['sources']:
                         assert any(row['kind'] == 'damage' and row.get('source') == source for row in result['trace'])
                     for check in case.get('trace-counts', []):

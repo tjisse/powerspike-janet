@@ -1534,18 +1534,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Cassiopeia",
       "ability": "CassiopeiaQ",
       "name": "Noxious Blast",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 19,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TooltipTotalDamage"
+        "Noxious Blast applies seven poison pulses across three seconds, starting at modeled cast completion. Reapplication replaces remaining pulses. Ground detonation delay, decaying movement speed, Twin Fang synergy and geometry remain excluded."
       ]
     },
     {
@@ -2608,18 +2609,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Gangplank",
       "ability": "GangplankW",
       "name": "Remove Scurvy",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//BaseHealth"
+        "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow and grounding. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
       ]
     },
     {
@@ -5551,19 +5553,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Malzahar",
       "ability": "MalzaharE",
       "name": "Malefic Visions",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 20,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Minion-specific rules are outside champion estimates."
+        "Malefic Visions applies sixteen quarter-second damage pulses over four seconds; recasting replaces remaining pulses. The first pulse is one interval after application. Q/R refresh, spreading, mana restoration and minion rules remain excluded."
       ]
     },
     {
@@ -8625,18 +8627,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Singed",
       "ability": "InsanityPotion",
       "name": "Insanity Potion",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 6,
+      "effect-count": 6,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Insanity Potion grants temporary ability power, armor, magic resist, movement speed, health regeneration and mana regeneration. Poison Trail's Grievous Wounds and other kit effects remain excluded."
       ]
     },
     {
@@ -9722,18 +9725,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Tristana",
       "ability": "TristanaQ",
       "name": "Rapid Fire",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Rapid Fire grants source-defined bonus attack speed for its duration, at cast start and independently of enemy range. Other champion mechanics remain excluded."
       ]
     },
     {
@@ -9958,20 +9962,20 @@
       ]
     },
     {
-      "status": "not-cast",
+      "status": "executes",
       "cast-count": 0,
-      "runtime": [
-        "CardmasterStack: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "runtime": [],
       "champion": "TwistedFate",
       "ability": "CardmasterStack",
       "name": "Stacked Deck",
       "slot": "e",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 3,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Stacked Deck grants learned-rank bonus attack speed and magic damage on every fourth distinct attack, starting without pre-fight stacks. Other targets and structures remain excluded."
+      ]
     },
     {
       "status": "no-executable-effect",
@@ -10412,18 +10416,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Veigar",
       "ability": "VeigarR",
       "name": "Primordial Burst",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/MinDamage"
+        "Primordial Burst scales with live missing health up to twice its minimum damage at two-thirds missing health. The source's accelerating projectile uses distance at cast release; continued target movement during flight remains excluded."
       ]
     },
     {
@@ -10584,21 +10589,19 @@
       ]
     },
     {
-      "status": "not-cast",
+      "status": "executes",
       "cast-count": 0,
-      "runtime": [
-        "ViW: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "runtime": [],
       "champion": "Vi",
       "ability": "ViW",
       "name": "Denting Blows",
       "slot": "w",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 9,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.ViPassive:CDReductionOn3Hit"
+        "Denting Blows triggers on three distinct attacks or modeled Q/E hits, with refreshed marks, maximum-health damage, armor reduction and bonus attack speed. Proc damage precedes its new armor reduction in this simulation. Blast Shield cooldown reduction, pre-fight marks and monster variants remain excluded."
       ]
     },
     {
@@ -11651,18 +11654,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Zac",
       "ability": "ZacW",
       "name": "Unstable Matter",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage"
+        "Unstable Matter deals source-defined base plus target maximum-health damage, with its current-health cost. Blob pickup healing and cooldown refunds, monsters and minions remain excluded."
       ]
     },
     {
@@ -11935,18 +11939,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Zilean",
       "ability": "TimeWarp",
       "name": "Time Warp",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow"
+        "Time Warp uses its offensive enemy slow and source duration. Allied/self haste targeting remains excluded. It has no modeled projectile travel."
       ]
     },
     {
@@ -12104,13 +12109,13 @@
     }
   ],
   "summary": {
-    "executes": 467,
-    "no-executable-effect": 180,
-    "not-cast": 21,
+    "executes": 477,
+    "no-executable-effect": 172,
+    "not-cast": 19,
     "cast-without-effect": 24
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "b1a0c190005fb170c2acc2267d0f9a5676243e36a9956d303e004f16bafa40c5",
+  "model": "7b3901914adebaa2f171e91504c7cc4efe6907981976848f0319dcae39610f45",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

@@ -76,7 +76,7 @@
   (def shard-modifiers (rune-data/shard-modifiers package champion items (get loadout :shards []) (get loadout :adaptive-stat :auto) level))
   (def rune-effects (rune-data/compile chosen-runes (package :patch) level))
   (def computed (merge (stats/apply-rank-penetration champion (stats/total-stats champion level items
-                                                                                 [;shard-modifiers ;(rune-effects :stats)]) ranks)
+                                                                                 [;shard-modifiers ;(rune-effects :stats) ;(effects/ability-bonuses abilities ranks)]) ranks)
                        {:attack-range (champion :attack-range)}))
   (def attack-style (get champion :attack-style "unknown"))
   (def ranged (attacks/ranged? attack-style))

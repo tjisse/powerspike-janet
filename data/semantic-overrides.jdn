@@ -1,5 +1,15 @@
 {:schema 1
- :rules [{:champion "Vayne" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
+ :rules [{:champion "Vi" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :vi-w}
+         {:champion "TwistedFate" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :twisted-fate-e}
+         {:champion "Tristana" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :tristana-q}
+         {:champion "Singed" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-r}
+         {:champion "Gangplank" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :gangplank-w}
+         {:champion "Veigar" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :veigar-r}
+         {:champion "Zac" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :zac-w}
+         {:champion "Zilean" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :zilean-e}
+         {:champion "Malzahar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :malzahar-e}
+         {:champion "Cassiopeia" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :cassiopeia-q}
+         {:champion "Vayne" :slot :w :patch-min "16.21.1" :patch-max "16.21.1"
           :handler :vayne-w :note "Vayne uses reviewed Silver Bolts semantics."}
          {:champion "Riven" :slot :e :patch-min "16.21.1" :patch-max "16.21.1"
           :effects [{:kind :shield :target :self :variable "TotalShield" :duration-variable "ShieldDuration" :trigger :cast-start}]

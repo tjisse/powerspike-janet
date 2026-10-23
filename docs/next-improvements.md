@@ -61,7 +61,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    shield timing, Jarvan W's shield/slow/self-cast and Malphite E's scoped
    armor damage plus attack-speed reduction. The [Silver Bolts follow-up](vayne-silver-bolts.md)
    now supplies Vayne W's passive hit damage, refreshed marks and passive-aware
-   execution audit. Next: remaining shared formula/activation gaps from
+   execution audit. The [ten-slot follow-up](ten-ability-follow-up.md) adds
+   Vi W/Twisted Fate E passives, Tristana Q/Singed R buffs, Gangplank W,
+   Veigar R/Zac W health scaling, Zilean E and Malzahar E/Cassiopeia Q pulses.
+   Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -74,9 +77,9 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    The [all-champion ability audit](ability-coverage-audit.md) now inventories
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
-   Fiddlesticks' source-root casing and the five reviewed completeness batches,
-   it records 180 without an executable
-   effect, 21 unable to cast in the controlled probe and 24 casting without
+   Fiddlesticks' source-root casing and the reviewed completeness batches,
+   it records 172 without an executable
+   effect, 19 unable to cast in the controlled probe and 24 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

@@ -1,4 +1,5 @@
 (import ./expressions :as expr)
+(import ./data-util :as util)
 
 # Handwritten combat semantics, using numerical values from the selected raw
 # spell record. This is not another parser or a rewrite of saved packages.
@@ -159,6 +160,92 @@
                              :evidence {:tooltip note :override true}}]
                   :unresolved [;problems note]}))
 
+(defn completeness [ability handler]
+  (defn term [name] (expr/variable name (ability :record)))
+  (defn percent [name] (product-of (literal 0.01) (term name)))
+  (defn buff [name bonuses duration]
+    {:kind :buff :target :self :buff name :stat-bonuses bonuses :refresh true :duration duration})
+  (def note
+    (case handler
+      :vi-w "Denting Blows triggers on three distinct attacks or modeled Q/E hits, with refreshed marks, maximum-health damage, armor reduction and bonus attack speed. Proc damage precedes its new armor reduction in this simulation. Blast Shield cooldown reduction, pre-fight marks and monster variants remain excluded."
+      :twisted-fate-e "Stacked Deck grants learned-rank bonus attack speed and magic damage on every fourth distinct attack, starting without pre-fight stacks. Other targets and structures remain excluded."
+      :tristana-q "Rapid Fire grants source-defined bonus attack speed for its duration, at cast start and independently of enemy range. Other champion mechanics remain excluded."
+      :singed-r "Insanity Potion grants temporary ability power, armor, magic resist, movement speed, health regeneration and mana regeneration. Poison Trail's Grievous Wounds and other kit effects remain excluded."
+      :gangplank-w "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow and grounding. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
+      :veigar-r "Primordial Burst scales with live missing health up to twice its minimum damage at two-thirds missing health. The source's accelerating projectile uses distance at cast release; continued target movement during flight remains excluded."
+      :zac-w "Unstable Matter deals source-defined base plus target maximum-health damage, with its current-health cost. Blob pickup healing and cooldown refunds, monsters and minions remain excluded."
+      :zilean-e "Time Warp uses its offensive enemy slow and source duration. Allied/self haste targeting remains excluded. It has no modeled projectile travel."
+      :malzahar-e "Malefic Visions applies sixteen quarter-second damage pulses over four seconds; recasting replaces remaining pulses. The first pulse is one interval after application. Q/R refresh, spreading, mana restoration and minion rules remain excluded."
+      :cassiopeia-q "Noxious Blast applies seven poison pulses across three seconds, starting at modeled cast completion. Reapplication replaces remaining pulses. Ground detonation delay, decaying movement speed, Twin Fang synergy and geometry remain excluded."))
+  (def specs
+    (case handler
+      :vi-w
+      [{:kind :sequence :target :enemy :trigger :passive :on [:attack :spell-hit] :spell-slots [:q :e]
+        :every (sum-of (term "StacksBeforeEffect") (literal 1)) :window (term "MarkerBuffDuration")
+        :refresh-window true :allow-same-time true :counter-buff "Denting Blows"
+        :effects [{:kind :damage :target :enemy :damage-type :physical
+                   :amount (product-of (term "TotalDamageTooltip") {:op :target-stat :stat :hp})}
+                  {:kind :stat-buff :target :enemy :stat :armor :mode :multiply
+                   :amount (sum-of (literal 1) (product-of (literal -1) (percent "ShredAmount"))) :duration (term "SharedBuffsDuration")}
+                  (buff "Denting Blows attack speed" {:attack-speed-bonus (percent "AttackSpeed")} (term "SharedBuffsDuration"))]}]
+      :twisted-fate-e
+      [{:kind :damage :target :enemy :damage-type :magic :amount (term "BonusDamage")
+        :trigger :passive :on [:attack] :every (term "Effect4Amount") :allow-same-time true
+        :counter-buff "Stacked Deck" :counter-target :self}]
+      :tristana-q [(merge (buff "Rapid Fire" {:attack-speed-bonus (term "AttackSpeedMod")} (term "BuffDuration")) {:trigger :cast-start})]
+      :singed-r (map |{:kind :stat-buff :target :self :stat $ :amount (term "StatAmount") :duration (term "Duration")}
+                     [:ap :armor :mr :move-speed :hp-regen :mp-regen])
+      :gangplank-w
+      [{:kind :cleanse :target :self :controls [:stun :charm :fear :suppression :silence :root :slow :grounded]}
+       {:kind :heal :target :self :amount (sum-of (term "BaseHealth")
+                                                  (product-of (percent "PercentHeal") {:op :stat :stat :missing-health :formula 0}))}]
+      :veigar-r
+      [{:kind :damage :target :enemy :damage-type :magic
+        :amount (product-of (term "MinDamage")
+                            (sum-of (literal 1) {:op :minimum :children [(sum-of (term "MaxExecuteMult") (literal -1))
+                                                                         (product-of (literal 1.5) {:op :target-stat :stat :missing-health-percent})]}))}]
+      :zac-w
+      [{:kind :damage :target :enemy :damage-type :magic
+        :amount (sum-of (term "BaseDamage") (product-of (term "DisplayPercentDamage") {:op :target-stat :stat :hp}))}]
+      :zilean-e [{:kind :control :target :enemy :control :slow :strength (percent "SpeedAmount") :duration (term "Duration")}]
+      :malzahar-e [{:kind :periodic :target :enemy :damage-type :magic :amount (term "TotalDamage")
+                    :pulse-count (quotient (term "Duration") (term "SecondsPerTick")) :pulse-interval (term "SecondsPerTick")
+                    :first-delay (term "SecondsPerTick") :duration (term "Duration") :buff "Malefic Visions"}]
+      :cassiopeia-q [{:kind :periodic :target :enemy :damage-type :magic :amount (term "TooltipTotalDamage")
+                      :pulse-count (term "NumDamageTicks") :pulse-interval (quotient (term "PoisonDuration") (sum-of (term "NumDamageTicks") (literal -1)))
+                      :first-delay (literal 0) :duration (term "PoisonDuration") :buff "Noxious Blast poison"}]))
+  (defn problems [value]
+    (cond (and (dictionary? value) (value :op)) (expr/problems value)
+      (dictionary? value) (mapcat problems (values value))
+      (indexed? value) (mapcat problems value) []))
+  (assert (string? note) "Unknown reviewed champion handler.")
+  (def motion (get-in ability [:record "mMissileSpec" "movementComponent"]))
+  (def valid-motion (and (dictionary? motion) (= "AcceleratingMovement" (get motion "__type"))
+                         (util/finite? (get motion "mInitialSpeed")) (> (motion "mInitialSpeed") 0)
+                         (util/finite? (get motion "mAcceleration")) (> (motion "mAcceleration") 0)
+                         (util/finite? (get motion "mMaxSpeed")) (>= (motion "mMaxSpeed") (motion "mInitialSpeed"))))
+  (def unresolved [;(problems specs)
+                   ;(if (and (= handler :veigar-r) (not valid-motion)) ["Primordial Burst's accelerating projectile source is unavailable."] [])
+                   ;(if (= handler :twisted-fate-e) (problems (percent "AttackSpeedBonus")) [])])
+  (def effects (map |(merge {:target-kinds [:champion :practice] :condition :always :trigger :cast
+                             :status (if (empty? unresolved) :estimated :unresolved)
+                             :evidence {:tooltip note :override true}} $) specs))
+  (merge ability {:effects effects :unresolved [;unresolved note]}
+         (case handler
+           :vi-w {:passive true :variables (percent-display ability ["totaldamagetooltip"])}
+           :twisted-fate-e {:passive true :rank-bonuses (if (empty? unresolved) {:attack-speed-bonus (percent "AttackSpeedBonus")} {})}
+           :tristana-q {:cast-time 0 :self-cast true :missile-speed 0}
+           :singed-r {:self-cast true :missile-speed 0}
+           :gangplank-w {:self-cast true :missile-speed 0
+                         :usable-controls (if (and (get (ability :record) "canCastWhileDisabled")
+                                                   (get (ability :record) "cannotBeSuppressed"))
+                                            [:stun :charm :fear :suppression :silence] [])}
+           :veigar-r {:projectile-motion motion}
+           :zac-w {:missile-speed 0 :variables (percent-display ability ["displaypercentdamage"])}
+           :zilean-e {:missile-speed 0}
+           :malzahar-e {:missile-speed 0}
+           :cassiopeia-q {:missile-speed 0})))
+
 (defn review [ability handler]
   (case handler
     :garen-e (garen ability handler)
@@ -168,4 +255,8 @@
     :fiddlesticks-e (fiddlesticks ability handler)
     :fiddlesticks-r (fiddlesticks ability handler)
     :vayne-w (vayne ability)
-    (seraphine ability handler)))
+    :seraphine-q (seraphine ability handler)
+    :seraphine-w (seraphine ability handler)
+    :seraphine-e (seraphine ability handler)
+    :seraphine-p (seraphine ability handler)
+    (completeness ability handler)))

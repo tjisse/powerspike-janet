@@ -107,7 +107,7 @@
                     :resource (min (get stats :mp 0) (get actor :resource (get stats :mp 0)))
                     :position (get actor :position 0) :velocity 0 :busy-until 0 :attack-ready 0
                     :parry-until 0 :parry-source-kinds [] :ready @{} :charges @{} :recasts @{} :controls @{} :buffs @{} :buff-counts @{} :shields @[] :stat-effects @{}
-                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[] :pending-pulses @{} :terrify-ready @{}
+                    :counters @{} :proc-ready @{} :proc-counts @{} :modifiers @[] :pending-pulses @{} :terrify-ready @{} :dots @{}
                     :damage-dealt 0 :attack-damage 0 :breakdown @{} :damage-taken 0 :healed 0 :absorbed 0 :control-time 0 :actions 0}))
 (defn context [actor target rank]
   (def stats (merge @{} (actor :stats)
@@ -123,6 +123,22 @@
                                    :missing-health (- ((target :stats) :hp) (target :health))})})
 (defn value [expression actor target rank]
   (if (number? expression) expression (expr/evaluate expression (context actor target rank))))
+(defn projectile-time [ability distance fallback]
+  (def motion (get ability :projectile-motion))
+  (if motion
+    (do
+      (assert (= "AcceleratingMovement" (get motion "__type")) "Unreviewed projectile movement.")
+      (def initial (get motion "mInitialSpeed"))
+      (def acceleration (get motion "mAcceleration"))
+      (def maximum (get motion "mMaxSpeed"))
+      (assert (and (util/finite? initial) (> initial 0) (util/finite? acceleration) (> acceleration 0)
+                   (util/finite? maximum) (>= maximum initial)) "Invalid accelerating projectile.")
+      (def ramp-time (/ (- maximum initial) acceleration))
+      (def ramp-distance (* 0.5 (+ initial maximum) ramp-time))
+      (if (<= distance ramp-distance)
+        (/ (- (math/sqrt (+ (* initial initial) (* 2 acceleration distance))) initial) acceleration)
+        (+ ramp-time (/ (- distance ramp-distance) maximum))))
+    (if (> fallback 0) (/ distance fallback) 0)))
 (defn fixed-value? [expression &opt depth]
   (def nesting (or depth 0))
   (cond
@@ -480,6 +496,7 @@
         (def id (effect :id))
         (when (and (some |(= $ event-key) (get effect :on []))
                    (or (not (effect :ability-slots)) (some |(= $ slot) (effect :ability-slots)))
+                   (or (not= event-key :spell-hit) (not (effect :spell-slots)) (some |(= $ slot) (effect :spell-slots)))
                    (<= (get (owner :proc-ready) id 0) at)
                    (or (not (effect :requires-ready)) (<= (get (owner :proc-ready) (effect :requires-ready) 0) at))
                    (or (not (effect :requires-buff)) (> (get (owner :buff-counts) (effect :requires-buff) 0) 0))
@@ -502,15 +519,16 @@
                             (put (owner :buff-counts) (effect :consume-buff) 0)
                             (refresh-stats owner))
                           (put (owner :proc-ready) id (+ at (max (if (effect :allow-same-time) 0 0.001) (value (get effect :cooldown 0) owner target 1))))
-                          (schedule (+ at (max 0 (value (get effect :delay 0) owner target 1))) 10 :effect {:actor (owner :index) :target (if (= :self (effect :target)) (owner :index) (target :index)) :effect effect :rank 1
+                          (schedule (+ at (max 0 (value (get effect :delay 0) owner target 1))) 10 :effect {:actor (owner :index) :target (if (= :self (effect :target)) (owner :index) (target :index)) :effect effect :rank (get effect :proc-rank 1)
                                                                                                             :source id :origin origin :depth (inc depth)}))
                         (when (and fresh (effect :counter-buff))
                           (def buff (effect :counter-buff))
-                          (put (target :buff-counts) buff (counter :count))
+                          (def marked (if (= :self (effect :counter-target)) owner target))
+                          (put (marked :buff-counts) buff (counter :count))
                           (when (> (counter :count) 0)
                             (def expires (+ at window))
-                            (put (target :buffs) buff expires)
-                            (schedule expires 0 :buff-expire {:actor (target :index) :buff buff :stacks (counter :count) :refresh true :expires expires})))))
+                            (put (marked :buffs) buff expires)
+                            (schedule expires 0 :buff-expire {:actor (marked :index) :buff buff :stacks (counter :count) :refresh true :expires expires})))))
           (unless (first result) (note (string id ": " (result 1))))))))
   (defn apply-effect [event]
     (def owner (actors (event :actor)))
@@ -528,7 +546,7 @@
                       (not= :attack (get event :trigger)) (not (effect :affects-structures))))
     (def parried (and (not= (owner :index) (target :index)) (> (target :parry-until) at)
                       (some |(= $ (owner :kind)) (target :parry-source-kinds))
-                      (some |(= $ (effect :kind)) [:damage :control :buff :stat-buff :terrify])))
+                      (some |(= $ (effect :kind)) [:damage :control :buff :stat-buff :terrify :periodic])))
     (when (and parried (alive? target) (target-allowed? effect target)
                (not= :unresolved (get effect :condition :always)))
       (record :parried {:source source :actor (owner :id) :target (target :id) :effect-kind (effect :kind) :origin (event :origin)})
@@ -540,6 +558,7 @@
     (when blocked (record :immune {:source source :target (target :id)}))
     (when unknown-slow (note (string source ": Slow strength unresolved; movement reduction and utility contribution excluded.")))
     (when (and (alive? target) (not= :unresolved (get effect :condition :always))
+               (or (not (event :dot-key)) (= (event :dot-token) (get (target :dots) (event :dot-key))))
                (or (not (effect :requires-caster-alive)) (and (alive? owner) (> (owner :health) 0)))
                (or (not (effect :range-at-impact))
                    (<= (math/abs (- (owner :position) (target :position)))
@@ -549,6 +568,25 @@
                (target-allowed? effect target) (not blocked) (not unknown-slow) (not parried))
       (def outcome (protect
                      (case (effect :kind)
+                       :sequence
+                       (each child (effect :effects)
+                         (apply-effect (merge event {:effect child :target (if (= :self (child :target)) (owner :index) (target :index))})))
+                       :periodic
+                       (do
+                         (def count (value (effect :pulse-count) owner target rank))
+                         (assert (and (= count (math/floor count)) (<= 1 count 100)) "Invalid periodic hit count.")
+                         (def interval (value (effect :pulse-interval) owner target rank))
+                         (def first-delay (value (effect :first-delay) owner target rank))
+                         (assert (and (>= interval 0) (>= first-delay 0)) "Invalid periodic timing.")
+                         (def key (string (owner :id) "/" source))
+                         (def token (string (event :origin) "/" at))
+                         (put (target :dots) key token)
+                         (apply-effect (merge event {:effect {:kind :buff :buff (effect :buff) :refresh true :duration (effect :duration)}}))
+                         (for i 0 count
+                           (schedule (+ at first-delay (* i interval)) 10 :effect
+                                     (merge event {:dot-key key :dot-token token
+                                                   :effect {:kind :damage :damage-type (effect :damage-type)
+                                                            :amount {:op :divide :children [(effect :amount) {:op :constant :value count}]}}}))))
                        :damage
                        (do
                          (def raw (max 0 (value (effect :amount) owner target rank)))
@@ -742,7 +780,9 @@
     (max (get ability :cast-time 0.25) duration))
   (defn permitted? [actor target ability]
     (def activation (get-in actor [:strategy :activation (ability :slot)] {}))
-    (and (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)
+    (and (not (controlled? actor (filter |(not (some (fn [control] (= control $)) (get ability :usable-controls [])))
+                                         [:stun :charm :fear :airborne :suppression :silence]) at))
+         (not (and (actor :judgment) (> (get-in actor [:judgment :end]) at)
                    (some |(= $ (ability :slot)) [:e :r])))
          (>= at (get activation :after 0))
          (not (controlled? actor (get ability :disabled-controls []) at))
@@ -795,7 +835,7 @@
       (def ability (event :ability))
       (def distance (math/abs (- (actor :position) (target :position))))
       (def speed (get ability :missile-speed (get actor :attack-missile-speed 0)))
-      (def travel (if (> speed 0) (/ distance speed) 0))
+      (def travel (projectile-time ability distance speed))
       (def hit-chance (get-in actor [:strategy :hit-chance] 1))
       (def missed (and (or (= :attack (event :action))
                            (and (not (get ability :self-cast)) (some |(and (= :enemy ($ :target)) (not= :attack (get $ :trigger))) (get ability :effects []))))
@@ -869,7 +909,6 @@
       (var recovery-deadline nil)
       (var next (+ at 0.05))
       (when (and (<= (actor :busy-until) at)
-                 (not (controlled? actor [:stun :charm :fear :airborne :suppression :silence] at))
                  (get strategy :abilities true))
         (each [ability learned after forecastable recast-forecastable affine recast-affine] (decision-abilities (actor :index))
           (unless selected

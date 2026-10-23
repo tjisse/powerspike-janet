@@ -1,5 +1,24 @@
 (import ./expressions :as expr)
 (import ./data-util :as util)
+(import pshash :as hash)
+
+# Reviewed auxiliary spells are embedded at build time, just like fixed-form
+# profiles. Never pair them with a changed primary record or another patch.
+(def supplement-root "data/ability-fixtures/16.21.1/twenty/")
+(def supplement-manifest (util/read-json (slurp (string supplement-root "manifest.json"))))
+(def supplement-records
+  (tabseq [id :in ["Katarina" "Velkoz"]]
+    id (do
+         (def file (string id "-characters.json"))
+         (def bytes (slurp (string supplement-root file)))
+         (assert (= (hash/sha256 bytes) (get-in supplement-manifest ["fixture_sha256" file])))
+         (util/read-json bytes))))
+(defn supplement [ability id primary auxiliary]
+  (def records (supplement-records id))
+  (defn spell [name] (get-in (find |(and (dictionary? $) (= name (get $ "mScriptName"))) (values records)) ["mSpell"]))
+  (def selected (merge @{} (ability :record)))
+  (put selected "__powerspike_patch" nil) (put selected "__powerspike_stat_scope" nil)
+  (when (= (util/canonical selected) (util/canonical (spell primary))) (spell auxiliary)))
 
 # Handwritten combat semantics, using numerical values from the selected raw
 # spell record. This is not another parser or a rewrite of saved packages.
@@ -171,7 +190,7 @@
       :twisted-fate-e "Stacked Deck grants learned-rank bonus attack speed and magic damage on every fourth distinct attack, starting without pre-fight stacks. Other targets and structures remain excluded."
       :tristana-q "Rapid Fire grants source-defined bonus attack speed for its duration, at cast start and independently of enemy range. Other champion mechanics remain excluded."
       :singed-r "Insanity Potion grants temporary ability power, armor, magic resist, movement speed, health regeneration and mana regeneration. Poison Trail's Grievous Wounds and other kit effects remain excluded."
-      :gangplank-w "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow and grounding. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
+      :gangplank-w "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow, grounding and polymorph. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
       :veigar-r "Primordial Burst scales with live missing health up to twice its minimum damage at two-thirds missing health. The source's accelerating projectile uses distance at cast release; continued target movement during flight remains excluded."
       :zac-w "Unstable Matter deals source-defined base plus target maximum-health damage, with its current-health cost. Blob pickup healing and cooldown refunds, monsters and minions remain excluded."
       :zilean-e "Time Warp uses its offensive enemy slow and source duration. Allied/self haste targeting remains excluded. It has no modeled projectile travel."
@@ -196,7 +215,7 @@
       :singed-r (map |{:kind :stat-buff :target :self :stat $ :amount (term "StatAmount") :duration (term "Duration")}
                      [:ap :armor :mr :move-speed :hp-regen :mp-regen])
       :gangplank-w
-      [{:kind :cleanse :target :self :controls [:stun :charm :fear :suppression :silence :root :slow :grounded]}
+      [{:kind :cleanse :target :self :controls [:stun :charm :fear :suppression :silence :root :slow :grounded :polymorph]}
        {:kind :heal :target :self :amount (sum-of (term "BaseHealth")
                                                   (product-of (percent "PercentHeal") {:op :stat :stat :missing-health :formula 0}))}]
       :veigar-r
@@ -239,12 +258,141 @@
            :gangplank-w {:self-cast true :missile-speed 0
                          :usable-controls (if (and (get (ability :record) "canCastWhileDisabled")
                                                    (get (ability :record) "cannotBeSuppressed"))
-                                            [:stun :charm :fear :suppression :silence] [])}
+                                            [:stun :charm :fear :suppression :silence :polymorph] [])}
            :veigar-r {:projectile-motion motion}
            :zac-w {:missile-speed 0 :variables (percent-display ability ["displaypercentdamage"])}
            :zilean-e {:missile-speed 0}
            :malzahar-e {:missile-speed 0}
            :cassiopeia-q {:missile-speed 0})))
+
+(defn twenty [ability handler]
+  (defn term [name] (expr/variable name (ability :record)))
+  (defn percent [name] (product-of (literal 0.01) (term name)))
+  (defn steroid [name bonuses duration] {:kind :buff :target :self :buff name :stat-bonuses bonuses :duration duration :refresh true})
+  (defn stat [name amount duration &opt mode] {:kind :stat-buff :target :self :stat name :amount amount :duration duration :mode (or mode :add)})
+  (defn slow [strength duration steps] {:kind :control :target :enemy :control :slow :strength strength :duration duration :decay-steps steps})
+  (def bonus-as {:op :stat :stat :attack-speed-bonus :formula 0})
+  (def kata (when (= handler :katarina-e) (supplement ability "Katarina" "KatarinaEWrapper" "KatarinaE")))
+  (def velkoz (when (= handler :velkoz-q) (supplement ability "Velkoz" "VelkozQ" "VelkozQMissile")))
+  (def note
+    (case handler
+      :warwick-q "Jaws of the Beast uses its tap damage and heals from damage after resistance, including damage absorbed by shields. Held following, attachment, monsters and minions remain excluded."
+      :singed-w "Mega Adhesive applies its delayed grounding and slow to the sole opponent. This duel assumes they remain in the aimed area; leaving the field and Fling's landing root remain excluded."
+      :singed-e "Fling deals base/AP plus maximum-health damage and flips the opponent over the caster in one dimension. Movement is applied at impact; airborne flight timing and Mega Adhesive's landing root remain excluded."
+      :katarina-e "Shunpo uses the reviewed enemy-target blink, damage, attack reset and auxiliary cast time. Ally/dagger targeting, dagger pickups and their cooldown refunds remain excluded."
+      :xin-r "Crescent Guard deals base/scaling plus current-health damage and prevents champion damage from beyond its defense radius. Challenge-dependent knockback and other kit effects remain excluded."
+      :yone-w "Spirit Cleave deals equal physical/magic health-scaled halves and grants the sole-champion shield only when the strike lands. Bonus attack speed reduces cast time and cooldown using the selected caps; ability haste does not. Geometry, monsters, minions and other passive effects remain excluded."
+      :lulu-q "Glitterlance uses a primary bolt and its decaying slow. Pix's separate position, additional bolt damage, collision and other targets remain excluded."
+      :lulu-w "Whimsy uses its enemy polymorph, disabling attacks/casts while reducing movement speed. Self/ally attack-speed and movement buffs remain excluded."
+      :velkoz-q "Plasma Fission uses the reviewed primary bolt travel, damage and decaying slow. Split/recast geometry, mana-on-kill and passive stacks remain excluded."
+      :trundle-w "Frozen Domain grants its attack-speed, movement and healing bonuses. This duel assumes Trundle remains inside his placed area; field exits and other allies remain excluded."
+      :draven-w "Blood Rush grants attack speed and decaying movement speed. Axe catches, their cooldown resets and unit collision remain excluded."
+      :twitch-r "Spray and Pray grants attack damage and attack range. This duel uses the ordinary modeled attack delivery; piercing projectile travel, dodging and additional targets remain excluded."
+      :sivir-r "On the Hunt grants movement speed and reduces basic cooldowns on distinct champion attacks while active. Other allies and takedown duration refresh remain excluded."
+      :zilean-w "Rewind subtracts the source duration from Q/E cooldowns and wakes newly ready actions. It does not affect W, R, charges or recast timers."
+      :teemo-e "Toxic Shot adds impact damage and a refreshed poison. Further attacks preserve the next poison tick instead of repeatedly delaying it. Monster variants and other kit effects remain excluded."
+      :karthus-w "Wall of Pain applies its magic-resist reduction and decaying slow. This duel assumes the opponent crosses the placed wall; wall placement and repeated crossings remain excluded."
+      :nocturne-w "Shroud of Darkness grants passive attack speed and blocks the next eligible enemy spell impact. A successful block adds the passive bonus again for its duration. Existing poison, attacks and item procs do not consume this shield; exceptional spell interactions remain excluded."
+      :sivir-e "Spell Shield blocks the next eligible enemy spell impact and heals on a successful block. Existing poison, attacks and item procs do not consume it. Fleet of Foot and exceptional spell interactions remain excluded."
+      :kassadin-w "Nether Blade adds passive on-hit damage, empowers the next attack and restores missing mana against the sole champion opponent. The empowerment remains until consumed; its expiry, monsters and minions remain excluded."
+      :olaf-w "Tough It Out resets the attack timer, grants attack speed and shields using live missing health, capped at the selected low-health threshold. Other passive and kit effects remain excluded."))
+  (assert (string? note) "Unknown twenty-slot handler.")
+  (def specs
+    (case handler
+      :warwick-q [{:kind :damage :target :enemy :damage-type :magic
+                   :amount (sum-of (term "BaseBiteDamage") (product-of (percent "TargetPercentHPDamage") {:op :target-stat :stat :hp}))
+                   :heal-dealt-ratio (percent "LifestealPercent")}]
+      :singed-w [(merge (slow (percent "SlowPercent") (term "WDuration") nil) {:delay (term "DelayExecute")})
+                 {:kind :control :target :enemy :control :grounded :duration (term "WDuration") :delay (term "DelayExecute")}]
+      :singed-e [{:kind :sequence :target :enemy
+                  :effects [{:kind :damage :damage-type :magic :amount (sum-of (term "BaseDamage") (product-of (percent "MaxHPDamage") {:op :target-stat :stat :hp}))}
+                            {:kind :displace :distance (term "FlingDistance") :mode :over-caster}]}]
+      :katarina-e [{:kind :damage :target :enemy :damage-type :magic :amount (term "TotalDamage")}
+                   {:kind :reset :target :self :trigger :cast-start}]
+      :xin-r [{:kind :damage :target :enemy :damage-type :physical
+               :range-at-impact (ability :range)
+               :amount (sum-of (term "TotalDamage") (product-of (term "PercentCurrentHealthDamage") {:op :target-stat :stat :health}))}
+              {:kind :range-guard :target :self :radius (term "MissileDefenseRadius") :duration (term "MissileDefenseBaseDuration")}]
+      :yone-w
+      (let [half (product-of (literal 0.5) (sum-of (term "BaseDamage") (product-of (term "MaxHealthDamage") {:op :target-stat :stat :hp})))
+            shield (product-of (term "WShield") (sum-of (literal 1) (term "FirstChampShieldMultiplier")))]
+        [{:kind :sequence :target :enemy
+          :effects [{:kind :damage :damage-type :physical :amount half}
+                    {:kind :damage :damage-type :magic :amount half}
+                    {:kind :shield :target :self :amount shield :duration (term "ShieldDuration")}]}])
+      :lulu-q [{:kind :damage :target :enemy :damage-type :magic :amount (term "TotalDamage")}
+               (slow (product-of (literal -1) (term "SlowAmount")) (term "SlowDuration") (term "SlowDecayTicks"))]
+      :lulu-w [{:kind :control :target :enemy :control :polymorph :duration (term "CCDuration") :movement-penalty (term "SlowAmount")}]
+      :velkoz-q [{:kind :damage :target :enemy :damage-type :magic :amount (term "TotalDamage")}
+                 (slow (term "SlowAmount") (term "SlowDuration") (literal 16))]
+      :trundle-w [(steroid "Frozen Domain" {:attack-speed-bonus (term "ASBonus")} (term "Duration"))
+                  (stat :healing-multiplier (sum-of (literal 1) (term "HealingBonus")) (term "Duration") :multiply)
+                  (stat :move-speed (sum-of (literal 1) (term "MSBonus")) (term "Duration") :multiply)]
+      :draven-w [(steroid "Blood Rush" {:attack-speed-bonus (percent "Temp_AS")} (term "Temp_ASDuration"))
+                 (merge (stat :move-speed (sum-of (literal 1) (percent "Temp_MSMod")) (term "Temp_MSDuration") :multiply)
+                        {:decay-steps {:op :floor :children [(sum-of (literal 0.5) (quotient (percent "Temp_MSMod") (product-of (literal -1) (term "Temp_MSDecay"))))]}})]
+      :twitch-r [(steroid "Spray and Pray" {:ad (term "BonusAD")} (term "Duration"))
+                 (stat :attack-range (term "BonusRange") (term "Duration"))]
+      :sivir-r [(steroid "On the Hunt" {} (term "UltDuration"))
+                (stat :move-speed (sum-of (literal 1) (term "MaxMS")) (term "UltDuration") :multiply)
+                {:kind :cooldown-refund :target :self :trigger :passive :on [:attack] :allow-same-time true
+                 :requires-buff "On the Hunt" :slots [:q :w :e] :amount (term "AttackCooldownRefund")}]
+      :zilean-w [{:kind :cooldown-refund :target :self :slots [:q :e] :amount (term "CooldownReduction")}]
+      :teemo-e [{:kind :sequence :target :enemy :trigger :passive :on [:attack] :allow-same-time true
+                 :effects [{:kind :damage :damage-type :magic :amount (term "ImpactCalculatedDamage")}
+                           {:kind :periodic :damage-type :magic :amount (term "TotalDotDamage") :preserve-pulse-phase true
+                            :duration (term "PoisonDuration") :pulse-count (quotient (term "PoisonDuration") (term "TickFrequency"))
+                            :pulse-interval (term "TickFrequency") :first-delay (term "TickFrequency") :buff "Toxic Shot poison"}]}]
+      :karthus-w [{:kind :stat-buff :target :enemy :stat :mr :mode :multiply :amount (sum-of (literal 1) (product-of (literal -1) (percent "MagicResistShred"))) :duration (term "DebuffDuration")}
+                  (slow (percent "SlowPercent") (term "DebuffDuration") (literal 16))]
+      :nocturne-w [{:kind :spell-shield :target :self :duration (term "ShieldDuration") :trigger :cast-start
+                    :on-block [(steroid "Shroud attack speed" {:attack-speed-bonus (percent "ActiveAS")} (term "DoubleASDuration"))]}]
+      :sivir-e [{:kind :spell-shield :target :self :duration (term "SpellShieldDuration") :trigger :cast-start
+                 :on-block [{:kind :heal :target :self :amount (term "TotalHeal")}]}]
+      :kassadin-w [{:kind :damage :target :enemy :damage-type :magic :amount (term "OnHitDamage") :trigger :passive :on [:attack] :allow-same-time true}
+                   {:kind :sequence :target :enemy :trigger :attack :attack-count 1 :reset true
+                    :effects [{:kind :damage :damage-type :magic :amount (term "ActiveDamage")}
+                              {:kind :resource :target :self :amount (product-of (percent "ChampionMissingManaRatio") {:op :stat :stat :missing-mana :formula 0})}]}]
+      :olaf-w [{:kind :reset :target :self :trigger :cast-start}
+               (merge (steroid "Tough It Out" {:attack-speed-bonus (term "Attackspeed")} (term "Duration")) {:trigger :cast-start})
+               {:kind :shield :target :self :trigger :cast-start :duration (term "ShieldDuration")
+                :amount (sum-of (term "BaseShield")
+                                (product-of (term "ShieldPercMissingHP") {:op :minimum :children [{:op :stat :stat :missing-health :formula 0}
+                                                                                                  (product-of {:op :stat :stat :hp :formula 0} (sum-of (literal 1) (product-of (literal -1) (term "ThresholdForMax"))))]}))}]))
+  (defn problems [value]
+    (cond (and (dictionary? value) (value :op)) (expr/problems value)
+      (dictionary? value) (mapcat problems (values value))
+      (indexed? value) (mapcat problems value) []))
+  (def unresolved [;(problems specs)
+                   ;(if (and (= handler :katarina-e) (not kata)) ["Shunpo auxiliary record does not match the selected source."] [])
+                   ;(if (and (= handler :velkoz-q) (not velkoz)) ["Plasma Fission missile record does not match the selected source."] [])])
+  (def effects (map |(merge {:target-kinds [:champion :practice] :condition :always :trigger :cast
+                             :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs))
+  (merge ability {:effects effects :unresolved [;unresolved note]}
+         (case handler
+           :warwick-q {:missile-speed 0 :cast-time 0}
+           :singed-w {:missile-speed 0}
+           :singed-e {:missile-speed 0}
+           :katarina-e {:missile-speed 0 :cast-time (if kata (get kata "mCastTime") 0.15) :blink-to-target true :always-release-self true :disabled-controls [:grounded]}
+           :xin-r {:self-cast true :missile-speed 0 :always-release-self true}
+           :yone-w {:missile-speed 0 :unhasted true
+                    :cooldown (product-of (expr/ranked (get-in ability [:record "cooldownTime"]) 0 "Yone W base cooldown")
+                                          (sum-of (literal 1) (product-of (literal -1) {:op :minimum :children [(term "WAttackSpeedCDMax") (product-of bonus-as (term "WAttackSpeedCDPercent"))]})))
+                    :cast-time-expression (product-of (term "WBaseCastTime") (sum-of (literal 1) (product-of (literal -1) {:op :minimum :children [(term "WAttackSpeedCastReductionMax") (product-of bonus-as (term "WAttackSpeedCastReductionPercent"))]})))}
+           :lulu-q {}
+           :lulu-w {:missile-speed 0}
+           :velkoz-q {:missile-speed (get-in velkoz ["mMissileSpec" "movementComponent" "mSpeed"] 0) :recast nil}
+           :trundle-w {:self-cast true :missile-speed 0}
+           :draven-w {:self-cast true :missile-speed 0}
+           :twitch-r {:self-cast true :missile-speed 0 :cast-time 0}
+           :sivir-r {:self-cast true :missile-speed 0}
+           :zilean-w {:self-cast true :missile-speed 0}
+           :teemo-e {:passive true}
+           :karthus-w {:missile-speed 0}
+           :nocturne-w {:self-cast true :cast-time 0 :rank-bonuses {:attack-speed-bonus (percent "ActiveAS")}}
+           :sivir-e {:self-cast true :cast-time 0}
+           :kassadin-w {:self-cast true :cast-time 0}
+           :olaf-w {:self-cast true :cast-time 0})))
 
 (defn review [ability handler]
   (case handler
@@ -259,4 +407,14 @@
     :seraphine-w (seraphine ability handler)
     :seraphine-e (seraphine ability handler)
     :seraphine-p (seraphine ability handler)
-    (completeness ability handler)))
+    :vi-w (completeness ability handler)
+    :twisted-fate-e (completeness ability handler)
+    :tristana-q (completeness ability handler)
+    :singed-r (completeness ability handler)
+    :gangplank-w (completeness ability handler)
+    :veigar-r (completeness ability handler)
+    :zac-w (completeness ability handler)
+    :zilean-e (completeness ability handler)
+    :malzahar-e (completeness ability handler)
+    :cassiopeia-q (completeness ability handler)
+    (twenty ability handler)))

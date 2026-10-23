@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 477 |
-| No executable effect | 172 |
+| At least one effect recorded | 496 |
+| No executable effect | 155 |
 | Has an estimated effect but does not cast | 19 |
-| Casts without recording an applied effect | 24 |
+| Casts without recording an applied effect | 22 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -128,6 +128,12 @@ installs explicitly reviewed permanent rank bonuses; ordinary scenarios use
 their selected champion's real values. Timing and remaining kit omissions are
 recorded with the follow-up rather than counted as complete support.
 Restoring a record is not enough to claim supported mechanics.
+The [twenty-slot follow-up](twenty-ability-follow-up.md) adds nineteen more
+executing entries and functional Rewind cooldown reduction. The isolated W
+probe has no Q/E cooldown to refund, so its no-effect result remains honest;
+an E-enabled scenario separately verifies the changed readiness deadline.
+Spell shields, poison refresh timing, attack buffs and polymorph now have
+explicit state. Remaining kit/timing omissions stay documented with the batch.
 
 ## Main causes and next work
 

@@ -1,5 +1,25 @@
 {:schema 1
- :rules [{:champion "Vi" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :vi-w}
+ :rules [{:champion "Warwick" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :warwick-q}
+         {:champion "Singed" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-w}
+         {:champion "Singed" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-e}
+         {:champion "Katarina" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :katarina-e}
+         {:champion "XinZhao" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :xin-r}
+         {:champion "Yone" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :yone-w}
+         {:champion "Lulu" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :lulu-q}
+         {:champion "Lulu" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :lulu-w}
+         {:champion "Velkoz" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :velkoz-q}
+         {:champion "Trundle" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :trundle-w}
+         {:champion "Draven" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :draven-w}
+         {:champion "Twitch" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :twitch-r}
+         {:champion "Sivir" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :sivir-r}
+         {:champion "Sivir" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :sivir-e}
+         {:champion "Zilean" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :zilean-w}
+         {:champion "Teemo" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :teemo-e}
+         {:champion "Karthus" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :karthus-w}
+         {:champion "Nocturne" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :nocturne-w}
+         {:champion "Kassadin" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :kassadin-w}
+         {:champion "Olaf" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :olaf-w}
+         {:champion "Vi" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :vi-w}
          {:champion "TwistedFate" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :twisted-fate-e}
          {:champion "Tristana" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :tristana-q}
          {:champion "Singed" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-r}

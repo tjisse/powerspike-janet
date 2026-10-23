@@ -53,13 +53,18 @@ def verify(binary_path, fixture_path):
                     for check in case.get('trace-counts', []):
                         assert sum(row['kind'] == check['kind'] and row.get('source') == check['source']
                                    for row in result['trace']) == check['count'], check
+                    for effect in case.get('required-statuses', []):
+                        assert any(status['effect'] == effect for status in result['statuses'])
+                        expect(page.locator(f'[data-status-effect="{effect}"]').first).to_be_visible()
+                    if case.get('blocked-source'):
+                        expect(page.locator('.matchup-event-select')).to_contain_text('spell blocked')
                     for width in (1200, 390, 320):
                         page.set_viewport_size({'width': width, 'height': 1000})
                         page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
                         represented = page.locator('[data-trace-events]').evaluate_all(
                             'nodes => nodes.flatMap(node => JSON.parse(node.dataset.traceEvents))')
                         expected = [row for row in result['trace'] if row['at'] <= result['end'] and row['kind'] in
-                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried')]
+                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block')]
                         assert sorted(represented) == list(range(len(expected)))
                 assert not errors, errors
                 browser.close()

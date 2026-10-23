@@ -30,6 +30,7 @@ jobs:
           /tmp/powerspike-browser/bin/python test/ability_browser.py dist/bin/powerspike build/defense-ability-runtime-fixture
           /tmp/powerspike-browser/bin/python test/ability_browser.py dist/bin/powerspike build/vayne-runtime-fixture
           /tmp/powerspike-browser/bin/python test/ability_browser.py dist/bin/powerspike build/completeness-runtime-fixture
+          /tmp/powerspike-browser/bin/python test/ability_browser.py dist/bin/powerspike build/twenty-runtime-fixture
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: powerspike-x86_64

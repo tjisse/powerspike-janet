@@ -1986,18 +1986,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Draven",
       "ability": "DravenFury",
       "name": "Blood Rush",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Blood Rush grants attack speed and decaying movement speed. Axe catches, their cooldown resets and unit collision remain excluded."
       ]
     },
     {
@@ -2621,7 +2622,7 @@
       "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow and grounding. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
+        "Remove Scurvy heals base/AP plus live missing health and cleanses modeled stun, charm, fear, suppression, silence, root, slow, grounding and polymorph. Its source permits casting while disabled. Airborne displacement, stasis and non-control debuffs remain excluded."
       ]
     },
     {
@@ -4187,18 +4188,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Karthus",
       "ability": "KarthusWallOfPain",
       "name": "Wall of Pain",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow"
+        "Wall of Pain applies its magic-resist reduction and decaying slow. This duel assumes the opponent crosses the placed wall; wall placement and repeated crossings remain excluded."
       ]
     },
     {
@@ -4252,18 +4254,21 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [
+        "NetherBlade: Empowerment expiry unavailable; retained until its attack count is consumed."
+      ],
       "champion": "Kassadin",
       "ability": "NetherBlade",
       "name": "Nether Blade",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 12,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/ActiveDamage"
+        "Nether Blade adds passive on-hit damage, empowers the next attack and restores missing mana against the sole champion opponent. The empowerment remains until consumed; its expiry, monsters and minions remain excluded."
       ]
     },
     {
@@ -4333,19 +4338,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Katarina",
       "ability": "KatarinaEWrapper",
       "name": "Shunpo",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage",
-        "Unsupported calculation: CooldownMultiplierCalculationPart"
+        "Shunpo uses the reviewed enemy-target blink, damage, attack reset and auxiliary cast time. Ally/dagger targeting, dagger pickups and their cooldown refunds remain excluded."
       ]
     },
     {
@@ -5328,39 +5333,35 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "LuluQ: @TotalDamage@ magic damage",
-        "LuluQ: @BonusMissileDamage@ magic damage",
-        "LuluQ: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Lulu",
       "ability": "LuluQ",
       "name": "Glitterlance",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/BonusMissileDamage"
+        "Glitterlance uses a primary bolt and its decaying slow. Pix's separate position, additional bolt damage, collision and other targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Lulu",
       "ability": "LuluW",
       "name": "Whimsy",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Whimsy uses its enemy polymorph, disabling attacks/casts while reducing movement speed. Self/ally attack-speed and movement buffs remain excluded."
       ]
     },
     {
@@ -6638,18 +6639,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nocturne",
       "ability": "NocturneShroudofDarkness",
       "name": "Shroud of Darkness",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Shroud of Darkness grants passive attack speed and blocks the next eligible enemy spell impact. A successful block adds the passive bonus again for its duration. Existing poison, attacks and item procs do not consume this shield; exceptional spell interactions remain excluded."
       ]
     },
     {
@@ -6781,18 +6783,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Olaf",
       "ability": "OlafFrenziedStrikes",
       "name": "Tough It Out",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 3,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: shield//BaseShield"
+        "Tough It Out resets the attack timer, grants attack speed and shields using live missing health, capped at the selected low-health threshold. Other passive and kit effects remain excluded."
       ]
     },
     {
@@ -8594,36 +8597,35 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "MegaAdhesive: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Singed",
       "ability": "MegaAdhesive",
       "name": "Mega Adhesive",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Mega Adhesive applies its delayed grounding and slow to the sole opponent. This duel assumes they remain in the aimed area; leaving the field and Fling's landing root remain excluded."
+      ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Singed",
       "ability": "Fling",
       "name": "Fling",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage",
-        "Control trigger/duration unresolved: root",
-        "Unresolved tooltip variable: Spell_MegaAdhesive_Name"
+        "Fling deals base/AP plus maximum-health damage and flips the opponent over the caster in one dimension. Movement is applied at impact; airborne flight timing and Mega Adhesive's landing root remain excluded."
       ]
     },
     {
@@ -8751,33 +8753,35 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Sivir",
       "ability": "SivirE",
       "name": "Spell Shield",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//TotalHeal"
+        "Spell Shield blocks the next eligible enemy spell impact and heals on a successful block. Existing poison, attacks and item procs do not consume it. Fleet of Foot and exceptional spell interactions remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Sivir",
       "ability": "SivirR",
       "name": "On The Hunt",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "On the Hunt grants movement speed and reduces basic cooldowns on distinct champion attacks while active. Other allies and takedown duration refresh remain excluded."
       ]
     },
     {
@@ -9617,20 +9621,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "status": "executes",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Teemo",
       "ability": "TeemoE",
       "name": "Toxic Shot",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 23,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/ImpactCalculatedDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDotDamage",
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDotDamage"
+        "Toxic Shot adds impact damage and a refreshed poison. Further attacks preserve the next poison tick instead of repeatedly delaying it. Monster variants and other kit effects remain excluded."
       ]
     },
     {
@@ -9818,18 +9821,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Trundle",
       "ability": "trundledesecrate",
       "name": "Frozen Domain",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Frozen Domain grants its attack-speed, movement and healing bonuses. This duel assumes Trundle remains inside his placed area; field exits and other allies remain excluded."
       ]
     },
     {
@@ -10048,18 +10052,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Twitch",
       "ability": "TwitchFullAutomatic",
       "name": "Spray and Pray",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Spray and Pray grants attack damage and attack range. This duel uses the ordinary modeled attack delivery; piercing projectile travel, dodging and additional targets remain excluded."
       ]
     },
     {
@@ -10432,23 +10437,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 2,
-      "runtime": [
-        "VelkozQ: @TotalDamage@ magic damage",
-        "VelkozQ: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Velkoz",
       "ability": "VelkozQ",
       "name": "Plasma Fission",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Recasts/charges need explicit semantics."
+        "Plasma Fission uses the reviewed primary bolt travel, damage and decaying slow. Split/recast geometry, mana-on-kill and passive stacks remain excluded."
       ]
     },
     {
@@ -10934,19 +10935,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Warwick",
       "ability": "WarwickQ",
       "name": "Jaws of the Beast",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseBiteDamage",
-        "Conditional/maximum effect needs semantics: heal//LifestealPercent"
+        "Jaws of the Beast uses its tap damage and heals from damage after resistance, including damage absorbed by shields. Held following, attachment, monsters and minions remain excluded."
       ]
     },
     {
@@ -11182,19 +11183,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "XinZhao",
       "ability": "XinZhaoR",
       "name": "Crescent Guard",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/TotalDamage",
-        "Control trigger/duration unresolved: airborne"
+        "Crescent Guard deals base/scaling plus current-health damage and prevents champion damage from beyond its defense radius. Challenge-dependent knockback and other kit effects remain excluded."
       ]
     },
     {
@@ -11281,20 +11282,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yone",
       "ability": "YoneW",
       "name": "Spirit Cleave",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage*0.5",
-        "Conditional/maximum effect needs semantics: damage/physical/BaseDamage*0.5",
-        "Conditional/maximum effect needs semantics: shield//WShield"
+        "Spirit Cleave deals equal physical/magic health-scaled halves and grants the sole-champion shield only when the strike lands. Bonus attack speed reduces cast time and cooldown using the selected caps; ability haste does not. Geometry, monsters, minions and other passive effects remain excluded."
       ]
     },
     {
@@ -11924,18 +11924,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "cast-without-effect",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Zilean",
       "ability": "ZileanW",
       "name": "Rewind",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 1,
       "effect-count": 0,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Rewind subtracts the source duration from Q/E cooldowns and wakes newly ready actions. It does not affect W, R, charges or recast timers."
       ]
     },
     {
@@ -12109,13 +12110,13 @@
     }
   ],
   "summary": {
-    "executes": 477,
-    "no-executable-effect": 172,
+    "executes": 496,
+    "no-executable-effect": 155,
     "not-cast": 19,
-    "cast-without-effect": 24
+    "cast-without-effect": 22
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "7b3901914adebaa2f171e91504c7cc4efe6907981976848f0319dcae39610f45",
+  "model": "bd9a739b4de09f39a3a17e414c2493051275c95a9a87256d295042caa7f6f822",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

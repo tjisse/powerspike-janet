@@ -14,7 +14,7 @@
 (defn ability-triggers [abilities ranks]
   (mapcat (fn [ability]
             (def rank (get ranks (ability :slot) 0))
-            (if (and (ability :passive) (> rank 0))
+            (if (> rank 0)
               (map (fn [effect]
                      (merge (tabseq [[key value] :pairs effect] key
                               (if (and (dictionary? value) (value :op))

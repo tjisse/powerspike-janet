@@ -104,10 +104,10 @@
 # erase unrelated debuffs or pretend to cancel airborne displacement.
 (defn cc [control]
   {:at 0 :priority 0 :kind :effect :actor 1 :target 0 :source "fixture" :origin "cc"
-   :effect {:kind :control :control control :duration 2 :strength 0.5}})
+   :effect {:kind :control :control control :duration 2 :strength 0.5 :movement-penalty -60}})
 (close 700 (get-in (run "Gangplank" :w) [:actors 0 :health]))
 (close 800 (get-in (run "Gangplank" :w {:ranks {:w 5}}) [:actors 0 :health]))
-(each control [:stun :charm :fear :suppression :silence :root :slow :grounded]
+(each control [:stun :charm :fear :suppression :silence :root :slow :grounded :polymorph]
   (def cleansed (run "Gangplank" :w nil nil [(cc control)]))
   (assert (= 1 (length (rows cleansed :cleanse "GangplankW"))))
   (close 0 ((first (rows cleansed :cast "GangplankW")) :at))

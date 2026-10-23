@@ -64,6 +64,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    execution audit. The [ten-slot follow-up](ten-ability-follow-up.md) adds
    Vi W/Twisted Fate E passives, Tristana Q/Singed R buffs, Gangplank W,
    Veigar R/Zac W health scaling, Zilean E and Malzahar E/Cassiopeia Q pulses.
+   The [twenty-slot follow-up](twenty-ability-follow-up.md) extends this with
+   spell shields, attack buffs/range, on-hit poison, polymorph, live healing,
+   damage, decaying slows and actual basic-cooldown refunds across seventeen
+   source sets. It records the remaining geometry and kit exclusions.
    Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
@@ -78,8 +82,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 172 without an executable
-   effect, 19 unable to cast in the controlled probe and 24 casting without
+   it records 155 without an executable
+   effect, 19 unable to cast in the controlled probe and 22 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

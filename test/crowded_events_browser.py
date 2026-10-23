@@ -37,14 +37,21 @@ def verify(browser, base):
         page.wait_for_function('document.documentElement.scrollWidth <= innerWidth + 1')
         # Every event belongs to exactly one visible marker group. Old code
         # silently discarded neighboring markers unless individually selected.
-        represented = page.locator('[data-trace-events]').evaluate_all(
-            'nodes => nodes.flatMap(node => JSON.parse(node.dataset.traceEvents))')
+        # ResizeObserver can redraw between Playwright calls. Inspect each
+        # group's members and badge in one DOM snapshot, so the badge is
+        # compared with the group it actually describes.
+        groups = page.locator('[data-trace-events]').evaluate_all('''nodes => nodes.map(node => ({
+            index: node.dataset.traceEvent,
+            members: JSON.parse(node.dataset.traceEvents),
+            badge: node.querySelector('.matchup-event-count')?.textContent
+        }))''')
+        represented = [index for group in groups for index in group['members']]
         assert sorted(represented) == list(range(len(events)))
-        index = containing(page, w)
-        marker = page.locator(f'[data-trace-event="{index}"]')
-        members = json.loads(marker.get_attribute('data-trace-events'))
+        group = next(group for group in groups if w in group['members'])
+        marker = page.locator(f'[data-trace-event="{group["index"]}"]')
+        members = group['members']
         assert w in members and e in members
-        expect(marker.locator('.matchup-event-count')).to_have_text(f'+{len(members)-1}')
+        assert group['badge'] == f'+{len(members)-1}'
         marker.hover()
         tooltip = page.locator('#combat-event-tooltip')
         expect(tooltip).to_contain_text('Surround Sound')

@@ -1,0 +1,65 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Supplementary mechanical references; numerical formulas use retained matching game records. No live game capture or independently measured timing/decay curves.",
+  "references": [
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Briar",
+      "reviewed_fact": "Selected passive current-health cost; Chilling Scream cannot be interrupted by control; sole prey is not feared by R."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Dr._Mundo",
+      "reviewed_fact": "Rank-three nearby-champion bonuses add percentage points to both missing-health gain and regeneration ratios."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Kindred",
+      "reviewed_fact": "V 26.01 critical-stat scaling replaces old health-threshold/random bite criticals; three ordinary attacks; fixed shared protection zone."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Sett",
+      "reviewed_fact": "Grit stores unshielded post-mitigation damage with per-instance delayed decay; shield starts decaying after release."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Mordekaiser",
+      "reviewed_fact": "Outgoing post-mitigation and incoming pre-mitigation storage; four-second shield lifetime and recast after half a second."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Singed",
+      "reviewed_fact": "Cloud radius 180, lifetime 3.25 seconds, poison duration 2 seconds and quarter-second poison ticks."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Nunu",
+      "reviewed_fact": "Full charge duration 3 seconds; remaining shield decays for 3 seconds after channel. Selected numerical records supply 50 percent initial and 95 percent maximum slow."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Kai%27Sa",
+      "reviewed_fact": "Charge 1.2 to 0.6 seconds over 0 to 100 percent bonusAS; rank-one movement 55 to 110 percent; four-second AS buff; ordinary-hit cooldown refund 0.5 seconds; temporary windup 0.0644/missile 2500."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Ornn",
+      "reviewed_fact": "Five pulses over 0.75 seconds; direct displacement immunity; final hit applies Brittle unless blocked by spell shield."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Vladimir",
+      "reviewed_fact": "Pool radius 350 and half-second damage pulses over 2 seconds; current-health cost and pre-mitigation healing."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Zoe",
+      "reviewed_fact": "Portal range 575, one-second visit and attack reset. Flight windows excluded."
+    },
+    {
+      "url": "https://wiki.leagueoflegends.com/en-us/Jinx",
+      "reviewed_fact": "Rocket accelerates in game; this model retains initial 1700 speed and explicitly excludes acceleration."
+    }
+  ],
+  "model_schedules": {
+    "Mordekaiser": "Reviewed four-second shield lifetime overrides raw five-second duration. Capacity is initial*(1-(elapsed/4)^2), a model curve, not measured game evidence. Source delayed storage HealthDecay retained.",
+    "Nunu": "Linear charge-fraction damage, linear interpolation between retained slow endpoints, linear three-second post-channel shield capacity decay.",
+    "Singed": "Quarter-second cloud emission and occupancy sampling, phase-preserving quarter-second poison with exclusive expiry.",
+    "DrMundo": "Twenty half-second healing pulses, dynamic maximum health; last pulse precedes temporary-health expiry.",
+    "MasterYi": "Eight half-second live missing-health-scaled healing pulses.",
+    "Vladimir": "Pool four half-second damage/heal pulses; E quarter-second health payments; sixteen-step movement-speed decay over one second.",
+    "Kaisa": "Linear reviewed charge endpoints bounded at100percent bonusAS; does not expand generic source-expression parser.",
+    "movement": "One-dimensional instantaneous completion/carry/portal positions; no terrain or flight geometry."
+  }
+}

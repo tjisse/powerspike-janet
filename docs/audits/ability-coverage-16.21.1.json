@@ -1249,20 +1249,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Braum",
       "ability": "BraumW",
       "name": "Stand Behind Me",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/2 on 16.21.1",
-        "Unknown stat/formula mapping 6/2 on 16.21.1",
-        "No recognized executable effect; this does not imply zero damage."
+        "Stand Behind Me self-casts its source bonus-resistance shield stance. Ally dash and sharing are excluded."
       ]
     },
     {
@@ -1302,23 +1301,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "BriarQ: Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Briar",
       "ability": "BriarQ",
       "name": "Head Rush",
       "slot": "q",
-      "inputs": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
-      "estimated": 2,
-      "effect-count": 0,
+      "inputs": [],
+      "estimated": 1,
+      "effect-count": 5,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
+        "Head Rush pays the selected passive's current-health cost, lands on the sole opponent, deals source physical damage, stuns and shreds both resistances. Dash flight, bleed, passive healing amplification and Blood Frenzy target selection are excluded."
       ]
     },
     {
@@ -1342,46 +1337,35 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "BriarE: Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Briar",
       "ability": "BriarE",
       "name": "Chilling Scream",
       "slot": "e",
-      "inputs": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
-      "estimated": 3,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "inputs": [],
+      "estimated": 5,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/WallHitDamage",
-        "Periodic damage needs tick/duration semantics: heal//PercentMaxHPHeal",
-        "Control trigger/duration unresolved: airborne",
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
+        "Chilling Scream pays its selected current-health cost, charges fully for one second without control interruption, reduces damage and heals during charge, then damages, slows and pushes. Walls, early manual release, bleed, passive healing amplification and Frenzy cancellation are excluded."
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "BriarR: Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Briar",
       "ability": "BriarR",
       "name": "Certain Death",
       "slot": "r",
-      "inputs": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
-      "estimated": 1,
-      "effect-count": 0,
+      "inputs": [],
+      "estimated": 5,
+      "effect-count": 6,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
+        "Certain Death pays the selected current-health cost, lands its source magic damage and grants resists, lifesteal and chase movement against the sole prey. The prey is not feared. Missile/leap flight, forced pursuit, bleed, passive healing amplification and Blood Frenzy attack-speed/cleave are excluded."
       ]
     },
     {
@@ -1939,20 +1923,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "DrMundo",
       "ability": "DrMundoR",
       "name": "Maximum Dosage",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 18,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//MissingHealthHeal*100",
-        "Conditional/maximum effect needs semantics: heal//MaxHealthHoT*100",
-        "Periodic damage needs tick/duration semantics: heal//MaxHealthHoT*100"
+        "Maximum Dosage grants temporary base health from missing health, source movement and dynamic maximum-health healing pulses. Rank-three amplification counts the sole nearby enemy. Takedown extensions and resurrection are excluded; expiry clamps current health to the restored maximum."
       ]
     },
     {
@@ -3837,19 +3820,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Jinx",
       "ability": "JinxR",
       "name": "Super Mega Death Rocket!",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/DamageFloor",
-        "Periodic damage needs tick/duration semantics: damage/physical/DamageFloor"
+        "Super Mega Death Rocket uses its retained initial missile speed and ramps source direct damage over one modeled second of travel; live missing-health damage is not ramped. Acceleration, collision, launch-position drift and other targets remain excluded."
       ]
     },
     {
@@ -3971,20 +3954,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Kaisa",
       "ability": "KaisaE",
       "name": "Supercharge",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 4,
+      "effect-count": 15,
       "unresolved-effects": 0,
       "notes": [
-        "Unsupported calculation: ClampSubPartsCalculationPart",
-        "Unresolved tooltip variable: f10.1",
-        "No recognized executable effect; this does not imply zero damage."
+        "Unevolved Supercharge locks attacks/casts during its bonus-AS-scaled charge, grants scaled movement while charging, then source attack speed. Ordinary hits refund its cooldown. Evolution invisibility and manual charge behavior remain excluded."
       ]
     },
     {
@@ -4178,23 +4160,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "KarthusDefile: Resource cost semantics require a handler."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Karthus",
       "ability": "KarthusDefile",
       "name": "Defile",
       "slot": "e",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 1,
-      "effect-count": 0,
+      "inputs": [],
+      "estimated": 2,
+      "effect-count": 32,
       "unresolved-effects": 0,
       "notes": [
-        "Continuous/channeling resource costs require a handler."
+        "Defile maintains a radius-checked quarter-second damage aura, pays source continuous mana and restores source mana on a kill. Death Defied and manual toggle-off remain excluded."
       ]
     },
     {
@@ -4639,40 +4617,35 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "KindredEWrapper: @BaseBiteDamage@",
-        "KindredEWrapper: @PercentBiteDamage@ missing Health physical damage",
-        "KindredEWrapper: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Kindred",
       "ability": "KindredEWrapper",
       "name": "Mounting Dread",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Conditional/maximum effect needs semantics: damage/physical/PercentBiteDamage"
+        "Mounting Dread slows and marks the sole opponent. Three landed attacks with a refreshed source window consume it for source critical-stat-scaled base plus live missing-health damage. Marks default to their configured buff count; Wolf flight and non-champion caps remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Kindred",
       "ability": "KindredR",
       "name": "Lamb's Respite",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//HealFlat"
+        "Lamb's Respite creates a fixed zone protecting both champions from death below ten percent maximum health and blocking healing at that floor. Exiting removes protection; occupants heal at expiry. Other units and exceptional death/health-cost interactions remain excluded."
       ]
     },
     {
@@ -4912,19 +4885,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 4,
+      "runtime": [],
       "champion": "LeeSin",
       "ability": "LeeSinWOne",
       "name": "Safeguard / Iron Will",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: shield//ShieldAmount",
-        "Recasts/charges need explicit semantics."
+        "Safeguard self-casts its source shield with the champion cooldown refund. One automatic Iron Will recast pays the selected second-cast energy and grants source omnivamp. Ally/ward dashes, Flurry and non-champion vamp variants remain excluded."
       ]
     },
     {
@@ -5646,21 +5619,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "MasterYi",
       "ability": "Meditate",
       "name": "Meditate",
       "slot": "w",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "inputs": [],
+      "estimated": 3,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: heal//TotalHeal",
-        "Continuous/channeling resource costs require a handler."
+        "Meditate channels source healing with live missing-health amplification, initial/ongoing damage reduction and continuous maximum-mana drain. Disabling control or unaffordable drain ends it; damage reduction lingers afterwards. Tower variants, passive stacks and manual attack cancel remain excluded."
       ]
     },
     {
@@ -5991,25 +5962,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
-      "cast-count": 1,
-      "runtime": [
-        "MordekaiserW: @HealingPercent*100@% of the remaining Shield as Health",
-        "MordekaiserW: @MaxHealthTooltip@",
-        "MordekaiserW: expected integer key for keyword in range [0, 2), got nil"
-      ],
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Mordekaiser",
       "ability": "MordekaiserW",
       "name": "Indestructible",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//HealingPercent*100",
-        "Conditional/maximum effect needs semantics: shield//MaxHealthTooltip",
-        "Recasts/charges need explicit semantics."
+        "Indestructible stores source outgoing post-mitigation and incoming pre-mitigation champion damage, converts it to a decaying shield and can automatically recast to heal from the remaining shield. The shield uses a reviewed four-second lifetime and an explicit quadratic model decay; non-champions and measured decay curves remain excluded."
       ]
     },
     {
@@ -6304,19 +6269,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nasus",
       "ability": "NasusR",
       "name": "Fury of the Sands",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 6,
+      "effect-count": 21,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/DamageCalc",
-        "Conditional/maximum effect needs semantics: heal//BonusHealth"
+        "Fury of the Sands grants source maximum/current health, resists, attack range and a moving percentage-health aura; subsequent Q cooldowns are halved. Existing Q timers, size/collision and Siphoning Strike stacks remain excluded."
       ]
     },
     {
@@ -6715,21 +6680,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nunu",
       "ability": "NunuR",
       "name": "Absolute Zero",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 4,
+      "effect-count": 17,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/MaximumDamage",
-        "Periodic damage needs tick/duration semantics: shield//TotalShieldAmount",
-        "Control trigger/duration unresolved: slow",
-        "Recasts/charges need explicit semantics."
+        "Absolute Zero fully channels by default, with a source shield and ramping nearby slow. Interruption detonates at a linear charge fraction; surviving shield decays afterwards. Early manual release, brush visibility and measured charge/decay curves remain excluded."
       ]
     },
     {
@@ -6877,21 +6840,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Ornn",
       "ability": "OrnnW",
       "name": "Bellows Breath",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 2,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/MaxPercentHPPerTickTooltip",
-        "Periodic damage needs tick/duration semantics: damage/magic/MaxPercentHPPerTickTooltip",
-        "Conditional/maximum effect needs semantics: damage/magic/BrittlePercentMaxHPCalc",
-        "Control trigger/duration unresolved: airborne"
+        "Bellows Breath applies five source maximum-health/minimum-damage pulses, resists displacement during the breath, and marks the final hit Brittle. An attack or immobilization consumes Brittle for source damage and amplifies that control. Cone geometry, forward march and terrain interaction remain excluded."
       ]
     },
     {
@@ -6971,19 +6932,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Pantheon",
       "ability": "PantheonE",
       "name": "Aegis Assault",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/physical/DamageCalc",
-        "Conditional/maximum effect needs semantics: damage/physical/ShieldDamageCalc"
+        "Base Aegis Assault faces the sole opponent, blocks its non-turret damage, applies six source-rate physical pulses and the final close-range shield slam. Movement is allowed during its action lock. Mortal Will, facing changes and manual early recast remain excluded."
       ]
     },
     {
@@ -8251,22 +8212,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Sett",
       "ability": "SettW",
       "name": "Haymaker",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 3,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/true/DamageCalc",
-        "Unresolved tooltip variable: f1",
-        "Conditional/maximum effect needs semantics: damage/true/f1",
-        "Conditional/maximum effect needs semantics: shield//ShieldConversion*100",
-        "Periodic damage needs tick/duration semantics: shield//ShieldConversion*100"
+        "Haymaker stores unshielded post-mitigation damage as Grit, consumes it for a decaying shield at cast start and source center-line true damage at release. Stored instances decay separately after their source delay. The sole target is assumed centered; side damage and hitbox geometry remain excluded."
       ]
     },
     {
@@ -8289,22 +8247,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "SettR: @DamageCalc@ plus @MaxHealthDamage*100@% of the grabbed enemy's bonus Health physical damage",
-        "SettR: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Sett",
       "ability": "SettR",
       "name": "The Show Stopper",
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/DamageCalc"
+        "The Show Stopper suppresses and carries the sole target, then deals source base/bonus-AD plus target bonus-health physical damage and slows. Travel is a fixed one-dimensional carry; terrain, other enemies and edge falloff remain excluded."
       ]
     },
     {
@@ -8543,23 +8498,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "PoisonTrail: Resource cost semantics require a handler."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Singed",
       "ability": "PoisonTrail",
       "name": "Poison Trail",
       "slot": "q",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
+      "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 63,
       "unresolved-effects": 0,
       "notes": [
-        "Continuous/channeling resource costs require a handler."
+        "Poison Trail emits fixed-position model clouds every quarter second, paying continuous mana; clouds last their source duration and refresh phase-preserving poison. Cloud occupancy is sampled in one dimension; manual toggle and ultimate grievous wounds are excluded."
       ]
     },
     {
@@ -10531,20 +10482,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Vi",
       "ability": "ViQ",
       "name": "Vault Breaker",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 3,
+      "effect-count": 8,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/TotalDamage",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: airborne"
+        "Vault Breaker charges to its source maximum, slows Vi during charge, then lands source damage and knockback control and applies Denting Blows. Interruption cancels it with source cooldown/mana refund. Early manual release, terrain, dash flight and passive shield remain excluded."
       ]
     },
     {
@@ -10646,21 +10596,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Viego",
       "ability": "ViegoR",
       "name": "Heartbreaker",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 2,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Conditional/maximum effect needs semantics: damage/physical/TotalDamage",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: airborne"
+        "Base Heartbreaker lands on the sole opponent, applies source critical-stat-scaled physical damage plus live missing-health damage, supported on-hits and a brief slow. Possessions, displacement of other enemies and flight geometry remain excluded."
       ]
     },
     {
@@ -10757,44 +10705,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Vladimir",
       "ability": "VladimirSanguinePool",
       "name": "Sanguine Pool",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 3,
+      "effect-count": 15,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage",
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Periodic damage needs tick/duration semantics: heal//TotalHeal",
-        "Control trigger/duration unresolved: slow"
+        "Sanguine Pool pays source current health, prevents new enemy hits/controls, grants decaying movement and applies nearby source damage, slow and pre-mitigation healing. Already established tagged poison continues. Special ongoing effects, collision and casting during the pool remain excluded."
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "VladimirE: Resource cost semantics require a handler."
-      ],
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Vladimir",
       "ability": "VladimirE",
       "name": "Tides of Blood",
       "slot": "e",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "inputs": [],
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/MaxDamageTooltip",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: slow",
-        "Continuous/channeling resource costs require a handler."
+        "Tides of Blood charges to maximum over the source ramp time, pays health in quarter-second installments and releases source damage/slow. Control or insufficient health releases the accumulated charge. Projectile collision, early manual release and blood-resource interactions remain excluded."
       ]
     },
     {
@@ -11971,18 +11910,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Zoe",
       "ability": "ZoeR",
       "name": "Portal Jump",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Portal Jump advances toward the opponent up to the reviewed range, resets the attack timer, locks movement for one second and returns to the original position. Attacks/casts remain possible during the visit. Vision, flight windows and exceptional displacement/return interactions remain excluded."
       ]
     },
     {
@@ -12065,13 +12005,13 @@
     }
   ],
   "summary": {
-    "executes": 571,
-    "no-executable-effect": 94,
-    "not-cast": 18,
-    "cast-without-effect": 9
+    "executes": 596,
+    "no-executable-effect": 78,
+    "not-cast": 12,
+    "cast-without-effect": 6
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "4ca86fea1629201ad721bd2333dfc4e8f25f3e813e079360585e1dbecfeb5de8",
+  "model": "3be15e31db3c4c925c1f5dfbf01e79b8c1501f390369fe54a2a072fc3245b96a",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

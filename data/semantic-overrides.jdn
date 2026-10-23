@@ -1,5 +1,30 @@
 {:schema 1
- :rules [{:champion "Aatrox" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :aatrox-e}
+ :rules [{:champion "Braum" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :braum-w :stat-scope [[1 2] [6 2]]}
+         {:champion "Briar" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-q}
+         {:champion "Briar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-e}
+         {:champion "Briar" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-r}
+         {:champion "Karthus" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :karthus-e}
+         {:champion "Singed" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-q}
+         {:champion "DrMundo" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :drmundo-r}
+         {:champion "Nasus" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :nasus-r}
+         {:champion "MasterYi" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :masteryi-w}
+         {:champion "Nunu" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :nunu-r}
+         {:champion "Ornn" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :ornn-w}
+         {:champion "Pantheon" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :pantheon-e}
+         {:champion "Sett" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :sett-w}
+         {:champion "Sett" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :sett-r}
+         {:champion "Kaisa" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kaisa-e}
+         {:champion "LeeSin" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :leesin-w}
+         {:champion "Kindred" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kindred-e :stat-scope [[9 0]]}
+         {:champion "Kindred" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :kindred-r :stat-scope [[9 0]]}
+         {:champion "Mordekaiser" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :mordekaiser-w}
+         {:champion "Viego" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :viego-r :stat-scope [[9 0]]}
+         {:champion "Vi" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :vi-q}
+         {:champion "Vladimir" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :vladimir-w}
+         {:champion "Vladimir" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :vladimir-e}
+         {:champion "Jinx" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :jinx-r}
+         {:champion "Zoe" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :zoe-r}
+         {:champion "Aatrox" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :aatrox-e}
          {:champion "Alistar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :alistar-e}
          {:champion "Amumu" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :amumu-w}
          {:champion "Anivia" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :anivia-r}

@@ -1,4 +1,4 @@
-# Champion ability-slot coverage audit — 22 October 2026
+# Champion ability-slot coverage audit — 23 October 2026
 
 The reported Seraphine/Garen fight exposed two separate issues: incomplete
 champion mechanics and timeline markers that silently disappeared when events
@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 571 |
-| No executable effect | 94 |
-| Has an estimated effect but does not cast | 18 |
-| Casts without recording an applied effect | 9 |
+| At least one effect recorded | 596 |
+| No executable effect | 78 |
+| Has an estimated effect but does not cast | 12 |
+| Casts without recording an applied effect | 6 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -153,6 +153,13 @@ executing slots across 24 champions, with maintained areas, conditional marks,
 interruptible beams, consumed attacks, recovery and movement. Fifty retained
 scenarios cover both roles. Its deliberately partial kits and excluded
 mechanics remain documented; the probe also recognizes actual displacement.
+
+The [sustain/charge follow-up](sustain-charge-ability-follow-up.md) adds 25
+executing slots across 20 champions, including damage stores, healing channels,
+shared protection, charged releases and temporary movement. Its 56 retained
+scenarios cover both roles and mixed-mechanic fights; whole-kit, geometry and
+model schedule limits remain explicit. Sixteen slots move from no executable
+effect, six from not-cast and three from cast-without-effect.
 
 ## Main causes and next work
 

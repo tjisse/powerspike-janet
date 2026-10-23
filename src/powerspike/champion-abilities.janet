@@ -838,8 +838,195 @@
                                                :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
                         :unresolved [;unresolved note]}))
 
+(defn sustain-charge [ability handler forms]
+  (def spell (ability :record))
+  (defn term [name] (expr/variable name spell))
+  (defn pct [name] (product-of (literal 0.01) (term name)))
+  (defn one [node] (sum-of (literal 1) node))
+  (defn neg [node] (product-of (literal -1) node))
+  (defn self-stat [key] {:op :stat :stat key :formula 0})
+  (defn enemy-stat [key] {:op :target-stat :stat key})
+  (defn dmg [amount &opt type] {:kind :damage :target :enemy :damage-type (or type :magic) :amount amount})
+  (defn slow [strength duration] {:kind :control :target :enemy :control :slow :strength strength :duration duration})
+  (defn stat [key amount duration &opt mode] {:kind :stat-buff :target :self :stat key :amount amount :duration duration :mode (or mode :add)})
+  (defn speed [amount duration] (stat :move-speed (one amount) duration :multiply))
+  (defn field [duration interval radius effects &opt extra] (merge {:kind :field :target :self :duration duration :interval interval :radius radius :effects effects} (or extra {})))
+  (defn guard [name duration &opt fields] (merge {:kind :protection :target :self :buff name :duration duration} (or fields {})))
+  (defn aux [suffix] (get (find |(string/has-suffix? (string/ascii-lower suffix) (string/ascii-lower ($ :path))) (or forms [])) :record))
+  (def briar-p (when (some |(= handler $) [:briar-q :briar-e :briar-r]) (aux "/BriarP")))
+  (def lee-two (when (= handler :leesin-w) (aux "/LeeSinWTwo")))
+  (def all-cc [:stun :charm :fear :airborne :suppression :silence :root :slow :grounded :polymorph])
+  (def kaisa-bonus-as {:op :stat :stat :attack-speed-bonus :formula 0})
+  (def kaisa-time {:op :maximum :children [(term "Effect8Amount") (sum-of (term "Effect3Amount") (product-of (neg (sum-of (term "Effect3Amount") (neg (term "Effect8Amount")))) {:op :minimum :children [(literal 1) kaisa-bonus-as]}))]})
+  (def kaisa-speed (product-of (term "Effect1Amount") {:op :minimum :children [(literal 2) (one kaisa-bonus-as)]}))
+  (def note (case handler
+              :braum-w "Stand Behind Me self-casts its source bonus-resistance shield stance. Ally dash and sharing are excluded."
+              :briar-q "Head Rush pays the selected passive's current-health cost, lands on the sole opponent, deals source physical damage, stuns and shreds both resistances. Dash flight, bleed, passive healing amplification and Blood Frenzy target selection are excluded."
+              :briar-e "Chilling Scream pays its selected current-health cost, charges fully for one second without control interruption, reduces damage and heals during charge, then damages, slows and pushes. Walls, early manual release, bleed, passive healing amplification and Frenzy cancellation are excluded."
+              :briar-r "Certain Death pays the selected current-health cost, lands its source magic damage and grants resists, lifesteal and chase movement against the sole prey. The prey is not feared. Missile/leap flight, forced pursuit, bleed, passive healing amplification and Blood Frenzy attack-speed/cleave are excluded."
+              :karthus-e "Defile maintains a radius-checked quarter-second damage aura, pays source continuous mana and restores source mana on a kill. Death Defied and manual toggle-off remain excluded."
+              :singed-q "Poison Trail emits fixed-position model clouds every quarter second, paying continuous mana; clouds last their source duration and refresh phase-preserving poison. Cloud occupancy is sampled in one dimension; manual toggle and ultimate grievous wounds are excluded."
+              :drmundo-r "Maximum Dosage grants temporary base health from missing health, source movement and dynamic maximum-health healing pulses. Rank-three amplification counts the sole nearby enemy. Takedown extensions and resurrection are excluded; expiry clamps current health to the restored maximum."
+              :nasus-r "Fury of the Sands grants source maximum/current health, resists, attack range and a moving percentage-health aura; subsequent Q cooldowns are halved. Existing Q timers, size/collision and Siphoning Strike stacks remain excluded."
+              :masteryi-w "Meditate channels source healing with live missing-health amplification, initial/ongoing damage reduction and continuous maximum-mana drain. Disabling control or unaffordable drain ends it; damage reduction lingers afterwards. Tower variants, passive stacks and manual attack cancel remain excluded."
+              :nunu-r "Absolute Zero fully channels by default, with a source shield and ramping nearby slow. Interruption detonates at a linear charge fraction; surviving shield decays afterwards. Early manual release, brush visibility and measured charge/decay curves remain excluded."
+              :ornn-w "Bellows Breath applies five source maximum-health/minimum-damage pulses, resists displacement during the breath, and marks the final hit Brittle. An attack or immobilization consumes Brittle for source damage and amplifies that control. Cone geometry, forward march and terrain interaction remain excluded."
+              :pantheon-e "Base Aegis Assault faces the sole opponent, blocks its non-turret damage, applies six source-rate physical pulses and the final close-range shield slam. Movement is allowed during its action lock. Mortal Will, facing changes and manual early recast remain excluded."
+              :sett-w "Haymaker stores unshielded post-mitigation damage as Grit, consumes it for a decaying shield at cast start and source center-line true damage at release. Stored instances decay separately after their source delay. The sole target is assumed centered; side damage and hitbox geometry remain excluded."
+              :sett-r "The Show Stopper suppresses and carries the sole target, then deals source base/bonus-AD plus target bonus-health physical damage and slows. Travel is a fixed one-dimensional carry; terrain, other enemies and edge falloff remain excluded."
+              :kaisa-e "Unevolved Supercharge locks attacks/casts during its bonus-AS-scaled charge, grants scaled movement while charging, then source attack speed. Ordinary hits refund its cooldown. Evolution invisibility and manual charge behavior remain excluded."
+              :leesin-w "Safeguard self-casts its source shield with the champion cooldown refund. One automatic Iron Will recast pays the selected second-cast energy and grants source omnivamp. Ally/ward dashes, Flurry and non-champion vamp variants remain excluded."
+              :kindred-e "Mounting Dread slows and marks the sole opponent. Three landed attacks with a refreshed source window consume it for source critical-stat-scaled base plus live missing-health damage. Marks default to their configured buff count; Wolf flight and non-champion caps remain excluded."
+              :kindred-r "Lamb's Respite creates a fixed zone protecting both champions from death below ten percent maximum health and blocking healing at that floor. Exiting removes protection; occupants heal at expiry. Other units and exceptional death/health-cost interactions remain excluded."
+              :mordekaiser-w "Indestructible stores source outgoing post-mitigation and incoming pre-mitigation champion damage, converts it to a decaying shield and can automatically recast to heal from the remaining shield. The shield uses a reviewed four-second lifetime and an explicit quadratic model decay; non-champions and measured decay curves remain excluded."
+              :viego-r "Base Heartbreaker lands on the sole opponent, applies source critical-stat-scaled physical damage plus live missing-health damage, supported on-hits and a brief slow. Possessions, displacement of other enemies and flight geometry remain excluded."
+              :vi-q "Vault Breaker charges to its source maximum, slows Vi during charge, then lands source damage and knockback control and applies Denting Blows. Interruption cancels it with source cooldown/mana refund. Early manual release, terrain, dash flight and passive shield remain excluded."
+              :vladimir-w "Sanguine Pool pays source current health, prevents new enemy hits/controls, grants decaying movement and applies nearby source damage, slow and pre-mitigation healing. Already established tagged poison continues. Special ongoing effects, collision and casting during the pool remain excluded."
+              :vladimir-e "Tides of Blood charges to maximum over the source ramp time, pays health in quarter-second installments and releases source damage/slow. Control or insufficient health releases the accumulated charge. Projectile collision, early manual release and blood-resource interactions remain excluded."
+              :jinx-r "Super Mega Death Rocket uses its retained initial missile speed and ramps source direct damage over one modeled second of travel; live missing-health damage is not ramped. Acceleration, collision, launch-position drift and other targets remain excluded."
+              :zoe-r "Portal Jump advances toward the opponent up to the reviewed range, resets the attack timer, locks movement for one second and returns to the original position. Attacks/casts remain possible during the visit. Vision, flight windows and exceptional displacement/return interactions remain excluded."))
+  (assert note "Unknown sustain/charge handler.")
+  (def specs (case handler
+               :braum-w [(stat :armor (term "GrantedBraumArmor") (term "Duration")) (stat :mr (term "GrantedBraumMR") (term "Duration"))]
+               :briar-q [{:kind :sequence :target :enemy :effects [(dmg (term "TotalDamage") :physical)
+                                                                   {:kind :control :control :stun :duration (term "StunDuration")}
+                                                                   {:kind :stat-buff :stat :armor :mode :multiply :amount (sum-of (literal 1) (neg (term "ShredPercent"))) :duration (term "ShredDuration")}
+                                                                   {:kind :stat-buff :stat :mr :mode :multiply :amount (sum-of (literal 1) (neg (term "ShredPercent"))) :duration (term "ShredDuration")}]}]
+               :briar-e [(merge (guard "Chilling Scream" (literal 1) {:damage-types [:physical :magic] :reduction (pct "DRPercent")}) {:trigger :cast-start})
+                         (merge (field (literal 1) (literal 0.25) (literal 1e6) [{:kind :heal :target :self :amount (quotient (term "PercentMaxHPHeal") (literal 4))}] {:requires-channel true}) {:trigger :cast-start})
+                         (merge (dmg (term "Damage")) {:range-at-impact (term "MaxMissileRange")}) (merge (slow (term "SlowPercent") (term "SlowDuration")) {:range-at-impact (term "MaxMissileRange")}) {:kind :displace :target :enemy :mode :away :distance (term "KnockbackDistance") :range-at-impact (term "MaxMissileRange")}]
+               :briar-r [(dmg (term "Damage")) (stat :armor (term "TotalResists") (literal 180)) (stat :mr (term "TotalResists") (literal 180))
+                         {:kind :damage-vamp :target :self :duration (literal 180) :radius (literal 1e6) :amount (term "LifestealPercent") :attacks-only true :buff "Certain Death"} (merge (speed (term "ExtraMoveSpeedPercent") (literal 180)) {:chase-only true})]
+               :karthus-e [(field (literal 180) (literal 0.25) (ability :range) [(dmg (product-of (literal 0.25) (term "TotalDPS")))]
+                                  {:toggle true :mana-per-second (expr/ranked (get spell "mana") -1 "Defile mana per second")})
+                           {:kind :resource :target :self :trigger :passive :on [:kill] :amount (term "ManaRestoreOnKill")}]
+               :singed-q [(field (literal 180) (quotient (literal 1) (term "TicksPerSecond")) (literal 180) []
+                                 {:toggle true :trail true :cloud-duration (term "CloudDuration") :poison-duration (term "PoisonDuration") :dps (term "DamagePerSecond")
+                                  :mana-per-second (expr/ranked (get spell "mana") -1 "Poison Trail mana per second")})]
+               :drmundo-r [{:kind :dosage :target :self :amount (term "MissingHealthHeal") :duration (term "Duration") :regeneration (term "MaxHealthHoT") :nearby-bonus (term "BonusPerNearbyChampion")}
+                           (speed (term "SpeedBoostAmount") (term "Duration"))]
+               :nasus-r [{:kind :health-buff :target :self :amount (term "BonusHealth") :duration (term "Duration")}
+                         (stat :armor (term "InitialResistGain") (term "Duration")) (stat :mr (term "InitialResistGain") (term "Duration"))
+                         (stat :attack-range (term "AttackRangeIncrease") (term "Duration"))
+                         {:kind :cooldown-scale :target :self :slots [:q] :amount (sum-of (literal 1) (neg (term "QCDR"))) :duration (term "Duration")}
+                         (field (term "Duration") (term "TickRate") (term "MinAoERadius") [(dmg (product-of (term "TickRate") (term "DamageCalc") (enemy-stat :hp)))])]
+               :masteryi-w [(merge (guard "Meditate" (sum-of (term "HealDuration") (term "DRLinger")) {:damage-types [:physical :magic] :reduction (term "DamageReduction") :initial-reduction (term "InitialDR") :initial-duration (term "InitialExtraDRDuration") :channel-bound true :linger (term "DRLinger")}) {:trigger :cast-start})
+                            (merge (field (term "HealDuration") (term "TickFrequency") (literal 1e6)
+                                          [{:kind :heal :target :self :amount (product-of (quotient (term "TickFrequency") (term "HealDuration")) (term "TotalHeal")
+                                                                                          (one (product-of (term "MaxMissingHealthPercent") (self-stat :missing-health-percent))))}]
+                                          {:requires-channel true :end-channel-on-empty true :mana-per-second (product-of (term "PercentManaCostPerSecond") (self-stat :mp))}) {:trigger :cast-start})
+                            {:kind :reset :target :self :trigger :cast-start}]
+               :nunu-r [(merge {:kind :shield :target :self :amount (term "TotalShieldAmount") :duration (term "MaxShieldDuration") :shield-key "Absolute Zero" :channel-shield true :decay-after-channel (term "ShieldDecayDuration")} {:trigger :cast-start})
+                        (merge (field (term "ChannelDuration") (literal 0.25) (ability :range)
+                                      [(slow (neg (term "SlowStartAmount")) (literal 0.25))]
+                                      {:requires-channel true :immediate true :ramp-slow (neg (term "MaxSlowAmount")) :ramp-duration (term "ChannelDuration")}) {:trigger :cast-start})
+                        {:kind :charge-damage :target :enemy :damage-type :magic :amount (term "MaximumDamage") :minimum-factor (literal 0) :range-at-impact (ability :range)}
+                        {:kind :charged-slow :target :enemy :initial (neg (term "SlowStartAmount")) :strength (neg (term "MaxSlowAmount")) :duration (term "SlowDuration") :range-at-impact (ability :range)}]
+               :ornn-w [(guard "Bellows Breath" (term "BreathDuration") {:controls [:airborne] :direct-displacement-immune true})
+                        (field (term "BreathDuration") (quotient (term "BreathDuration") (term "NumberOfTicks")) (term "RectangleLength")
+                               [(dmg {:op :maximum :children [(term "MinimumDamagePerTick") (product-of (term "PercentHPPerTick") (enemy-stat :hp))]})]
+                               {:brittle-on-final {:duration (term "BrittleDuration") :amount (term "BrittlePercentMaxHPCalc") :amplification (literal 0.3)}})]
+               :pantheon-e [(merge (guard "Aegis Assault" (term "ShieldDuration") {:damage-immune true :exclude-turrets true}) {:trigger :cast-start})
+                            (merge (field (term "ShieldDuration") (quotient (literal 1) (term "AttacksPerSecond")) (term "SpearStrikesRadius")
+                                          [(dmg (quotient (term "DamageCalc") (product-of (term "ShieldDuration") (term "AttacksPerSecond"))) :physical)]) {:trigger :cast-start})
+                            (merge (dmg (term "ShieldDamageCalc") :physical) {:range-at-impact (term "ShieldSwipeRadius")})]
+               :sett-w [{:kind :damage-store :target :self :trigger :combat-start :taken (term "DamageStored") :cap (term "StoredHealth") :delay (term "AdrenalineStorageWindow") :decay-fraction (term "ResourceDecayRate") :per-instance true}
+                        {:kind :store-shield :target :self :trigger :cast-start :duration (term "ShieldMaxDuration") :amount (term "ShieldConversion") :shield-key "Haymaker" :decay-delay (term "ShieldDecayDelay") :lock (term "LockTime")}
+                        {:kind :stored-strike :target :enemy :damage-type :true :amount (term "DamageCalc") :ratio (term "DamageConversion")}]
+               :sett-r [{:kind :carry :target :enemy :amount (term "DamageCalc") :ratio (term "MaxHealthDamage") :duration (term "GrabDuration") :distance (term "DistancePastFirstHit") :slow (term "SlowAmount") :slow-duration (term "SlowDuration")}]
+               :kaisa-e [(merge (speed kaisa-speed kaisa-time) {:trigger :cast-start :channel-bound true})
+                         {:kind :buff :target :self :buff "Supercharge" :refresh true :stat-bonuses {:attack-speed-bonus (term "Effect5Amount")} :duration (term "Effect2Amount")}
+                         {:kind :attack-profile :target :self :duration (term "Effect2Amount") :windup 0.0644 :missile-speed 2500}
+                         {:kind :cooldown-refund :target :self :trigger :passive :on [:attack] :slots [:e] :allow-same-time true :amount (term "Effect4Amount")}]
+               :leesin-w [{:kind :shield :target :self :amount (term "ShieldAmount") :duration (term "ShieldDuration") :cast-phase :initial}
+                          {:kind :damage-vamp :target :self :duration (term "LifestealAndSpellVampTime") :amount (pct "LifestealAndSpellVamp") :radius (literal 1e6) :buff "Iron Will" :cast-phase :recast}]
+               :kindred-e [(slow (pct "TotalSlow") (term "SlowDuration"))
+                           {:kind :attack-mark :target :enemy :count (sum-of (term "StacksToProc") (literal -1)) :duration (term "TotalDuration") :amount (term "BaseBiteDamage") :ratio (term "PercentBiteDamage")}]
+               :kindred-r [{:kind :shared-sanctuary :target :self :duration (term "BuffDuration") :radius (term "AoERadius") :amount (term "HealFlat")}]
+               :mordekaiser-w [{:kind :damage-store :target :self :trigger :combat-start :taken (term "DamageTakenConversion") :taken-pre-mitigation true :dealt (term "DamageConversion")
+                                :cap (term "MaxHealthCap") :minimum (term "BaseShield") :delay (term "TimeBeforeDecay") :decay (term "HealthDecay") :shield-key "Indestructible"}
+                               {:kind :store-shield :target :self :duration (literal 4) :amount (literal 1) :shield-key "Indestructible" :decay-delay (literal 0) :quadratic true :cast-phase :initial}
+                               {:kind :consume-shield :target :self :shield-key "Indestructible" :amount (term "HealingPercent") :cast-phase :recast}]
+               :viego-r [(merge (dmg (sum-of (term "TotalDamage") (product-of (pct "TotalPercentHealth") (enemy-stat :missing-health))) :physical) {:applies-on-hit true})
+                         (slow (term "SlowPercent") (term "SlowDuration"))]
+               :vi-q [(merge (slow (pct "SelfSlow") (expr/ranked (get spell "mChannelDuration") 0 "Vault Breaker charge")) {:target :self :trigger :cast-start :channel-bound true})
+                      (dmg (term "MaxDamageTooltip") :physical)
+                      {:kind :control :target :enemy :control :airborne :duration (term "KnockbackDuration")}]
+               :vladimir-w [(guard "Sanguine Pool" (literal 2) {:untargetable true})
+                            (merge (speed (term "HasteBoost") (term "HasteDuration")) {:decay-steps (literal 16)})
+                            (field (literal 2) (literal 0.5) (literal 350) [(merge (dmg (quotient (term "TotalDamage") (literal 4))) {:heal-owner-ratio (term "VampPercent")})
+                                                                            (slow (neg (term "MoveSpeedMod")) (literal 0.5))])]
+               :vladimir-e [{:kind :charge-damage :target :enemy :damage-type :magic :amount (term "MaxDamageTooltip") :minimum-amount (term "MinDamageTooltip") :range-at-impact (ability :range)}
+                            (merge (slow (pct "SlowPercent") (literal 0.5)) {:requires-full-charge true})]
+               :jinx-r [{:kind :travel-damage :target :enemy :damage-type :physical :amount (term "DamageFloor") :maximum (term "DamageMax") :missing-ratio (pct "PercentDamage")}]
+               :zoe-r [{:kind :portal :target :self :distance (literal 575) :duration (literal 1)} {:kind :reset :target :self}]))
+  (def extra (case handler
+               :braum-w {:self-cast true :cast-time 0 :missile-speed 0}
+               :briar-q {:missile-speed 0 :blink-to-target true :disabled-controls [:grounded :root]}
+               :briar-e {:uninterruptible true :self-cast true :missile-speed 0 :range (term "MaxMissileRange") :cast-time 1 :channel true :interruptible-channel true :channel-interrupts [] :finish-channel-on-release true}
+               :briar-r {:missile-speed 0 :blink-to-target true}
+               :karthus-e {:self-cast true :cast-time 0 :missile-speed 0 :cost-resource :resource :cost (literal 0) :minimum-resource (product-of (literal 0.25) (expr/ranked (get spell "mana") -1 "Defile minimum mana"))}
+               :singed-q {:self-cast true :cast-time 0 :missile-speed 0 :cost-resource :resource :cost (literal 0) :cooldown (term "ToggleCooldown") :minimum-resource (product-of (literal 0.25) (expr/ranked (get spell "mana") -1 "Poison Trail minimum mana"))}
+               :drmundo-r {:self-cast true :cast-time 0 :missile-speed 0}
+               :nasus-r {:self-cast true :cast-time 0 :missile-speed 0}
+               :masteryi-w {:self-cast true :cast-time 0 :cast-lock (term "HealDuration") :channel true :interruptible-channel true :cost-resource :resource :cost (term "BaseManaCost") :missile-speed 0}
+               :nunu-r {:self-cast true :cast-time 3 :channel true :interruptible-channel true :finish-channel-on-release true :early-detonation true :missile-speed 0}
+               :ornn-w {:self-cast true :cast-time 0 :cast-lock (term "BreathDuration") :missile-speed 0}
+               :pantheon-e {:can-move true :self-cast true :cast-time 1.5 :missile-speed 0}
+               :sett-w {:range (literal 720) :missile-speed 0}
+               :sett-r {:missile-speed 0 :cast-lock (sum-of (term "GrabDuration") (literal 0.25))}
+               :kaisa-e {:uninterruptible true :self-cast true :cast-time-expression kaisa-time :missile-speed 0 :channel true :interruptible-channel true :channel-can-move true :channel-interrupts [] :finish-channel-on-release true}
+               :leesin-w {:self-cast true :cast-time 0 :missile-speed 0 :self-cooldown-factor (sum-of (literal 1) (neg (term "W1CooldownRecovered")))
+                          :recast {:count (literal 1) :window (term "W1ReactivateTime") :delay (literal 0.5) :cost (expr/ranked (get lee-two "mana") -1 "Iron Will energy")}}
+               :kindred-e {:missile-speed 0}
+               :kindred-r {:self-cast true :missile-speed 0}
+               :mordekaiser-w {:self-cast true :cast-time 0 :missile-speed 0 :recast {:count (literal 1) :window (literal 4) :delay (literal 0.5) :cost (literal 0)}}
+               :viego-r {:missile-speed 0 :blink-to-target true :disabled-controls [:grounded :root]}
+               :vi-q {:cast-time-expression (expr/ranked (get spell "mChannelDuration") 0 "Vault Breaker charge") :channel true :interruptible-channel true :cancel-cooldown (term "CanceledRefundTime") :cancel-refund (term "ManaRefundPercent")
+                      :finish-channel-on-release true :missile-speed 0 :range (sum-of (term "MinDashRange") (term "ExtraDashRangeAtMaxCharge")) :blink-to-target true :disabled-controls [:grounded :root]}
+               :vladimir-w {:can-move true :self-cast true :cast-time 0 :cast-lock 2 :missile-speed 0 :cost-resource :health :cost (product-of (term "HealthCost") (self-stat :health))}
+               :vladimir-e {:cast-time-expression (term "TimetoRampMaxDamage") :channel true :interruptible-channel true :finish-channel-on-release true :early-detonation true
+                            :health-drain (quotient (term "ChargeHealthTooltip") (term "TimetoRampMaxDamage")) :cost-resource :health :cost (literal 0) :missile-speed 0}
+               :jinx-r {:missile-speed (get spell "missileSpeed")}
+               :zoe-r {:self-cast true :missile-speed 0 :disabled-controls [:grounded :root]} {}))
+  (def health-cost (when (some |(= handler $) [:briar-q :briar-e :briar-r])
+                     {:cost-resource :health :cost (product-of (expr/variable "CurrentHealthPercentCost" briar-p) (self-stat :health))}))
+  (defn problems [node] (cond (and (dictionary? node) (node :op)) (expr/problems node) (dictionary? node) (mapcat problems (values node)) (indexed? node) (mapcat problems node) []))
+  (def missing [;(if (and (some |(= handler $) [:briar-q :briar-e :briar-r]) (not briar-p)) ["Selected Crimson Curse cost source missing."] [])
+                ;(if (and (= handler :leesin-w) (not lee-two)) ["Selected Iron Will cost source missing."] [])])
+  (def unresolved [;(problems specs) ;(problems extra) ;(problems health-cost) ;missing])
+  (merge ability extra (or health-cost {}) {:effects (map |(merge {:trigger :cast :condition :always :target-kinds [:champion :practice]
+                                                                   :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
+                                            :unresolved [;unresolved note]}))
+
 (defn review [ability handler &opt forms]
   (case handler
+    :braum-w (sustain-charge ability handler forms)
+    :briar-q (sustain-charge ability handler forms)
+    :briar-e (sustain-charge ability handler forms)
+    :briar-r (sustain-charge ability handler forms)
+    :karthus-e (sustain-charge ability handler forms)
+    :singed-q (sustain-charge ability handler forms)
+    :drmundo-r (sustain-charge ability handler forms)
+    :nasus-r (sustain-charge ability handler forms)
+    :masteryi-w (sustain-charge ability handler forms)
+    :nunu-r (sustain-charge ability handler forms)
+    :ornn-w (sustain-charge ability handler forms)
+    :pantheon-e (sustain-charge ability handler forms)
+    :sett-w (sustain-charge ability handler forms)
+    :sett-r (sustain-charge ability handler forms)
+    :kaisa-e (sustain-charge ability handler forms)
+    :leesin-w (sustain-charge ability handler forms)
+    :kindred-e (sustain-charge ability handler forms)
+    :kindred-r (sustain-charge ability handler forms)
+    :mordekaiser-w (sustain-charge ability handler forms)
+    :viego-r (sustain-charge ability handler forms)
+    :vi-q (sustain-charge ability handler forms)
+    :vladimir-w (sustain-charge ability handler forms)
+    :vladimir-e (sustain-charge ability handler forms)
+    :jinx-r (sustain-charge ability handler forms)
+    :zoe-r (sustain-charge ability handler forms)
+
     :aatrox-e (areas-impact ability handler forms)
     :alistar-e (areas-impact ability handler forms)
     :amumu-w (areas-impact ability handler forms)

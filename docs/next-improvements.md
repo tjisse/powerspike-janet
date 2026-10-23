@@ -78,6 +78,10 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    56 retained scenarios. The [area/impact follow-up](areas-impact-ability-follow-up.md)
    adds 25 further slots with maintained areas, marks, channels, attack phases
    and recovery, covered by 50 retained scenarios with explicit kit exclusions.
+   The [sustain/charge follow-up](sustain-charge-ability-follow-up.md) adds
+   25 slots across 20 champions, including healing channels, health costs,
+   damage stores, shared protection, charged releases and temporary movement.
+   Its 56 retained scenarios include both roles and mixed-mechanic fights.
    Next: remaining shared formula/activation gaps from the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -91,8 +95,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 94 without an executable
-   effect, 18 unable to cast in the controlled probe and 9 casting without
+   it records 78 without an executable
+   effect, 12 unable to cast in the controlled probe and 6 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

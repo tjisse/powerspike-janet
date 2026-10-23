@@ -153,18 +153,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Akali",
       "ability": "AkaliW",
       "name": "Twilight Shroud",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Twilight Shroud restores energy and temporarily increases its maximum; movement decays over its source duration. Shroud geometry, repeated concealment and True Sight remain excluded."
       ]
     },
     {
@@ -222,23 +223,26 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 4,
+      "runtime": [],
       "champion": "Akshan",
       "ability": "AkshanW",
       "name": "Going Rogue",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_AkshanW_Tooltip_@GameModeInteger@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Going Rogue grants source camouflage for its open-ground grace period, broken by offensive actions and detected inside the selected radius. Terrain persistence, Scoundrel pursuit/mana regeneration, gold and ally resurrection require additional context and remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "status": "requires-terrain",
       "cast-count": 0,
       "champion": "Akshan",
       "ability": "AkshanE",
@@ -247,27 +251,26 @@
       "inputs": [],
       "estimated": 0,
       "effect-count": 0,
-      "unresolved-effects": 1,
-      "notes": [
-        "Unknown stat/formula mapping 4/2 on 16.21.1"
-      ]
+      "unresolved-effects": 0,
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Akshan",
       "ability": "AkshanR",
       "name": "Comeuppance",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 7,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Conditional/maximum effect needs semantics: damage/physical/MaxDamagePerBullet",
-        "Recasts/charges need explicit semantics."
+        "Comeuppance fully charges, then fires the source bullet count at source intervals with live missing-health amplification and critical-stat scaling. Control cancels the channel and unreleased shots. Collision, manual early release and measured bullet flight remain excluded."
       ]
     },
     {
@@ -335,19 +338,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Ambessa",
       "ability": "AmbessaQ",
       "name": "Cunning Sweep / Sundering Slam",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/Calc_Damage_1_Max",
-        "Conditional/maximum effect needs semantics: damage/physical/Calc_Damage_2_Max"
+        "Cunning Sweep then one Sundering Slam use source damage and target maximum health. The sole opponent is assumed at the edge/first-hit position. Recast is granted only after an applied initial hit. Drakehound dashes and passive attacks remain excluded."
       ]
     },
     {
@@ -488,18 +491,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Anivia",
       "ability": "Crystallize",
       "name": "Crystallize",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Crystallize is placed under the sole opponent and applies the selected champion push, interrupting interruptible channels. Wall width/lifetime, path blocking, walking around terrain and repeated collisions remain excluded."
       ]
     },
     {
@@ -638,7 +642,10 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Aphelios has no third active ability. E displays the next weapon in his queue; this slot has no cast or independent damage effect."
+      ],
+      "status": "informational-slot",
       "cast-count": 0,
       "champion": "Aphelios",
       "ability": "ApheliosE_ClientTooltipWrapper",
@@ -648,10 +655,10 @@
       "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "Unresolved tooltip variable: spellmodifierdescriptionappend",
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "reason": "Aphelios E displays the weapon queue and is not an active ability.",
+        "kind": "informational-slot"
+      }
     },
     {
       "status": "executes",
@@ -670,21 +677,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "AsheQ: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Ashe",
       "ability": "AsheQ",
       "name": "Ranger's Focus",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 4,
+      "effect-count": 12,
       "unresolved-effects": 0,
       "notes": [
-        "Stack state requires explicit triggers."
+        "Ranger's Focus requires four real attacks before activation, consumes Focus and grants source AS/replacement attack damage. Attacks do not rebuild Focus during the buff. Stack expiry is modeled as a refreshed full window; gradual falloff, five-arrow presentation and Frost Shot remain excluded."
       ]
     },
     {
@@ -702,7 +707,10 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Hawkshot grants map vision rather than duel damage or combat stats. Map exploration and sight areas remain outside this known-position model; Hawkshot does not grant True Sight through invisibility."
+      ],
+      "status": "vision-only",
       "cast-count": 0,
       "champion": "Ashe",
       "ability": "AsheSpiritOfTheHawk",
@@ -712,10 +720,10 @@
       "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "Unsupported calculation: CooldownMultiplierCalculationPart",
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "reason": "Map vision is outside this duel's known-position model.",
+        "kind": "vision-only"
+      }
     },
     {
       "status": "executes",
@@ -738,42 +746,35 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "AurelionSolQ: Resource cost semantics require a handler."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "AurelionSol",
       "ability": "AurelionSolQ",
       "name": "Breath of Light",
       "slot": "q",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
+      "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "effect-count": 39,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BurstDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/BurstBonusTrueDamageToChamps",
-        "Continuous/channeling resource costs require a handler."
+        "Breath of Light channels source DPS, pays continuous mana, checks range every quarter second and bursts each full second on the sole target. Stardust defaults to configured stacks; flight, collecting Stardust, rotation and other targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "AurelionSol",
       "ability": "AurelionSolW",
       "name": "Astral Flight",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_AurelionSolQ_Name",
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
+        "Astral Flight grants source cruise speed, allows movement during Breath of Light, resets Q and removes its channel cooldown while flying. Q's flat damage receives the selected W amplification. Control ends flight and Q. Flight follows the configured one-dimensional movement strategy; fixed direction, terrain, Stardust range extension and takedown resets remain excluded."
       ]
     },
     {
@@ -835,18 +836,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Aurora",
       "ability": "AuroraW",
       "name": "Across the Veil",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Across the Veil advances toward the sole opponent and grants source movement. Passive spirits, terrain, True Sight and takedown reset remain excluded."
       ]
     },
     {
@@ -990,7 +992,10 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "status": "requires-terrain",
       "cast-count": 0,
       "champion": "Bard",
       "ability": "BardE",
@@ -1000,23 +1005,25 @@
       "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Bard",
       "ability": "BardR",
       "name": "Tempered Fate",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Tempered Fate places both actors inside the fixed impact area into untargetable invulnerable stasis for the source duration, disabling their actions and movement. Other units, terrain and measured projectile travel remain excluded."
       ]
     },
     {
@@ -1317,23 +1324,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Briar",
       "ability": "BriarW",
       "name": "Blood Frenzy / Snack Attack",
       "slot": "w",
-      "inputs": [
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost"
-      ],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "inputs": [],
+      "estimated": 4,
+      "effect-count": 7,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/TotalAttackBonusDamage",
-        "Conditional/maximum effect needs semantics: heal//AttackMaxHPHeal",
-        "Unresolved tooltip variable: spell.briarp:currenthealthpercentcost",
-        "Recasts/charges need explicit semantics."
+        "Blood Frenzy pays current health, leaps and grants source AS/movement; one Snack Attack recast empowers a hit with source live missing-health damage and healing, then ends Frenzy buffs. Forced pursuit, attack cleave, bleed and passive healing amplification remain excluded."
       ]
     },
     {
@@ -1669,19 +1672,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Corki",
       "ability": "CarpetBomb",
       "name": "Valkyrie",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 7,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/MaximumDamage",
-        "Periodic damage needs tick/duration semantics: damage/magic/MaximumDamage"
+        "Valkyrie advances within source range and leaves its source-rate five damage pulses in the landing area. The full path, flight and terrain geometry remain excluded."
       ]
     },
     {
@@ -2080,33 +2083,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Elise",
       "ability": "EliseHumanQ",
       "name": "Neurotoxin / Venomous Bite",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage"
+        "Human Neurotoxin deals source base/AP plus live current-health damage. Spider Venomous Bite and Spiderlings require separate form handling."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Elise",
       "ability": "EliseHumanW",
       "name": "Volatile Spiderling / Skittering Frenzy",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 1,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.EliseHumanW:TotalDamage"
+        "Human Volatile Spiderling uses the selected damage calculation and modeled projectile delivery. Autonomous pathfinding, three-second roaming and Spiderlings remain excluded."
       ]
     },
     {
@@ -2342,20 +2347,20 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "FioraQ: Cast timing directive requires a handler."
-      ],
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Fiora",
       "ability": "FioraQ",
       "name": "Lunge",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 9,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Lunge advances up to 400 units, deals selected physical damage, applies supported on-hits and refunds half the maximum cooldown on an applied hit. Vitals, aiming and measured dash flight remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -2396,21 +2401,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Fiora",
       "ability": "FioraR",
       "name": "Grand Challenge",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 32,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.FioraPassive:RDamageTotal",
-        "Conditional/maximum effect needs semantics: heal//HealPerSecondCalc",
-        "Periodic damage needs tick/duration semantics: heal//HealPerSecondCalc",
-        "Unresolved tooltip variable: Spell_FioraPassive_Name"
+        "Grand Challenge grants source movement while the marked opponent is within the source radius, sampled every quarter second. The one-dimensional duel has no facing or four vital directions: vital strikes, true damage and the completion/death healing field remain excluded."
       ]
     },
     {
@@ -2688,64 +2691,51 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "GnarQ: @spell.GnarQ:MiniTotalDamage@ physical damage",
-        "GnarQ: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Gnar",
       "ability": "GnarQ",
       "name": "Boomerang Throw / Boulder Toss",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.GnarQ:MiniTotalDamage",
-        "Unresolved tooltip variable: spell.GnarQ:SlowAmount",
-        "Unresolved tooltip variable: spell.GnarQ:SlowDuration",
-        "Unresolved tooltip variable: spell.GnarQ:MiniCDRefund"
+        "Mini Boomerang Throw uses source damage, slow and the selected decelerating missile. The sole opponent is hit once. Return path, catching, cooldown refund and subsequent targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
+      "status": "executes",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Gnar",
       "ability": "GnarW",
       "name": "Hyper / Wallop",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.GnarW:MiniTotalDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/spell.GnarW:MiniTotalDamage",
-        "Unresolved tooltip variable: spell.GnarW:MiniPercentHPDamage",
-        "Unresolved tooltip variable: spell.GnarR:RHyperMovementSpeedPercent",
-        "Unresolved tooltip variable: spell.GnarW:MiniHasteDuration"
+        "Mini Hyper triggers on three distinct attacks/abilities against the sole opponent, with source magic damage, maximum-health ratio and R-rank-based decaying movement. Rage and form transitions remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Gnar",
       "ability": "GnarE",
       "name": "Hop / Crunch",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.GnarE:MiniTotalDamage",
-        "Conditional/maximum effect needs semantics: damage/physical/spell.GnarE:MiniTotalDamage",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: spell.GnarE:MinibAS",
-        "Unresolved tooltip variable: spell.GnarE:MiniASDuration",
-        "Unresolved tooltip variable: spell.GnarE:MoveSpeedMod"
+        "Mini Hop lands on the sole opponent after the source travel time, applies source damage/slow and attack speed. The bounce's second destination, terrain and additional targets remain excluded."
       ]
     },
     {
@@ -2879,19 +2869,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Graves",
       "ability": "GravesMove",
       "name": "Quickdraw",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 10,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Stack state requires explicit triggers."
+        "Quickdraw dashes toward the sole champion and grants two source True Grit stacks, capped at eight, with source armor/MR and expiry. Each modeled attack refunds one source hit's cooldown. Shell/reload state, pellet hit counts and combat refresh remain excluded."
       ]
     },
     {
@@ -3136,30 +3126,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Hwei",
       "ability": "HweiQ",
       "name": "Subject: Disaster",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 6,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/Tooltip_QQDamage",
-        "Periodic damage needs tick/duration semantics: damage/magic/Tooltip_QQDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/Tooltip_QWDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/Tooltip_QWBonusDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/Tooltip_QEDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/Tooltip_QEDamagePerSecond",
-        "Periodic damage needs tick/duration semantics: damage/magic/Tooltip_QEDamagePerSecond",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: Spell_HweiQQ_Name",
-        "Unresolved tooltip variable: Spell_HweiQW_Name",
-        "Unresolved tooltip variable: Spell_HweiQE_Name",
-        "Unresolved tooltip variable: spell.HweiQE:SlowPercent",
-        "Unresolved tooltip variable: spell.HweiQE:Duration"
+        "Subject: Disaster currently selects Devastating Fire (QQ), using selected base/AP plus target maximum-health damage. QW/QE selection, missile collision, expanding area and other subjects remain excluded."
       ]
     },
     {
@@ -3210,38 +3189,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Hwei",
       "ability": "HweiR",
       "name": "Spiraling Despair",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 26,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/DamageOverTime",
-        "Conditional/maximum effect needs semantics: damage/magic/Damage",
-        "Control trigger/duration unresolved: slow",
-        "Stack state requires explicit triggers."
+        "Spiraling Despair attaches to the sole opponent, deals quarter-second source DPS pulses and a final explosion, with stacking slow capped at 90%. Expanding area and other enemies remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Illaoi",
       "ability": "IllaoiQ",
       "name": "Tentacle Smash",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.IllaoiQ:TentacleDamageAmp",
-        "Unresolved tooltip variable: spell.IllaoiQ:TentacleDamageTotal",
-        "Conditional/maximum effect needs semantics: damage/physical/spell.IllaoiQ:TentacleDamageTotal"
+        "Tentacle Smash uses selected level/AD/AP damage and learned Q amplification. Tentacle geometry, healing and autonomous passive slams remain excluded."
       ]
     },
     {
@@ -3631,60 +3607,51 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "JayceToTheSkies: @spell.JayceToTheSkies:Damage@ physical damage",
-        "JayceToTheSkies: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Jayce",
       "ability": "JayceToTheSkies",
       "name": "To the Skies! / Shock Blast",
       "slot": "q",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.JayceToTheSkies:Damage",
-        "Unresolved tooltip variable: spell.JayceToTheSkies:Slow",
-        "Unresolved tooltip variable: spell.JayceToTheSkies:SlowDuration"
+        "Hammer To the Skies lands on the sole opponent, deals selected damage and slows. Leap flight, additional targets and transformations remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Jayce",
       "ability": "JayceStaticField",
       "name": "Lightning Field / Hyper Charge",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 17,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.JayceStaticField:Damage",
-        "Periodic damage needs tick/duration semantics: damage/magic/spell.JayceStaticField:Damage",
-        "Unresolved tooltip variable: spell.JayceStaticField:ManaGain",
-        "Unresolved tooltip variable: spell.JayceStaticField:Duration"
+        "Hammer Lightning Field supplies source total damage as half-second nearby pulses; Hammer attacks restore source mana. Transformation bonuses and other targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Jayce",
       "ability": "JayceThunderingBlow",
       "name": "Thundering Blow / Acceleration Gate",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.JayceThunderingBlow:FlatDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/spell.JayceThunderingBlow:FlatDamage",
-        "Control trigger/duration unresolved: airborne",
-        "Unresolved tooltip variable: spell.JayceThunderingBlow:PercHPDamage"
+        "Hammer Thundering Blow deals source bonus-AD plus target maximum-health magic damage and knocks back the opponent. Terrain and Cannon Gate remain excluded."
       ]
     },
     {
@@ -3774,19 +3741,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "status": "executes",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Jinx",
       "ability": "JinxQ",
       "name": "Switcheroo!",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 17,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/RocketDamage",
-        "Stack state requires explicit triggers."
+        "Switcheroo currently keeps Pow-Pow selected. Actual attacks build source minigun AS in 50/75/100-percent increments of the maximum. Expiry uses a refreshed full window; gradual stack falloff, rocket selection, splash and rocket mana costs remain excluded."
       ]
     },
     {
@@ -3836,46 +3803,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "KSante",
       "ability": "KSanteQ",
       "name": "Ntofo Strikes",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/2 on 16.21.1",
-        "Unknown stat/formula mapping 6/2 on 16.21.1",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: stun",
-        "Unresolved tooltip variable: RCooldownReduction.0",
-        "Recasts/charges need explicit semantics.",
-        "Stack state requires explicit triggers."
+        "Base Ntofo Strikes uses source bonus-resistance damage and cooldown reduction. Applied hits build a refreshed two-stack window; the third hit stuns/pulls and consumes it, with extended range. Cast time uses the selected fixed directive; health scaling, wave flight and All Out remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "KSante",
       "ability": "KSanteW",
       "name": "Path Maker",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 5,
+      "estimated": 4,
+      "effect-count": 5,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/BaseDamage",
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: stun",
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: stun",
-        "Unresolved tooltip variable: MaxDuration.1",
-        "Unknown stat/formula mapping 1/2 on 16.21.1",
-        "Unknown stat/formula mapping 6/2 on 16.21.1"
+        "Base Path Maker fully charges with source damage reduction and control/displacement immunity, then deals base plus maximum-health physical damage and pushes/stuns. All Out, manual early release and dash flight remain excluded."
       ]
     },
     {
@@ -4016,26 +3972,26 @@
       "notes": []
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "KalistaExpungeWrapper: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Kalista",
       "ability": "KalistaExpungeWrapper",
       "name": "Rend",
       "slot": "e",
       "inputs": [],
       "estimated": 2,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/AdditionalDamage",
-        "Stack state requires explicit triggers."
+        "Rend requires actual attack/Pierce spears, consumes them for source base/additional damage and slow, and refunds source mana/cooldown on its own kill. Spears refresh a four-second window; target switching, Pierce transfer and minion/monster rules remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
+      ],
+      "status": "requires-ally",
       "cast-count": 0,
       "champion": "Kalista",
       "ability": "KalistaRx",
@@ -4044,10 +4000,11 @@
       "inputs": [],
       "estimated": 0,
       "effect-count": 0,
-      "unresolved-effects": 1,
-      "notes": [
-        "Control trigger/duration unresolved: airborne"
-      ]
+      "unresolved-effects": 0,
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
     },
     {
       "status": "executes",
@@ -4422,35 +4379,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Kayn",
       "ability": "KaynE",
       "name": "Shadow Step",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: game_spell_Kayn_E_main_@f1@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Shadow Step grants its source movement for the combat-limited duration. No terrain is supplied, so wall entry, wall healing, extended duration and evolved-form behavior remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Kayn",
       "ability": "KaynR",
       "name": "Umbral Trespass",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 4,
+      "effect-count": 10,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell_Kayn_R_main_@f1@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Umbral Trespass requires a recently damaged champion, becomes untargetable for the full source infest duration, then emerges at the sole target and applies source damage. Entry spell-shield cancellation, evolved forms, manual emergence, detailed flight and persistent control interactions remain excluded."
       ]
     },
     {
@@ -4564,20 +4521,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Khazix",
       "ability": "KhazixR",
       "name": "Void Assault",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KhazixR_Tooltip_@IsEvolved@",
-        "Unresolved tooltip variable: Spell_KhazixR_Tooltip_P",
-        "No recognized executable effect; this does not imply zero damage."
+        "Unevolved Void Assault grants source movement on each of two activations. Passive reset, True Sight and evolution remain excluded."
       ]
     },
     {
@@ -5159,27 +5115,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "LockeW: Resource cost semantics require a handler."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Locke",
       "ability": "LockeW",
       "name": "Soul Ignition",
       "slot": "w",
-      "inputs": [
-        "Continuous/channeling resource costs require a handler."
-      ],
-      "estimated": 2,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "inputs": [],
+      "estimated": 4,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//AdditionalHeal",
-        "Unsupported calculation: {ee18a47b}",
-        "Conditional/maximum effect needs semantics: heal//MaxHealingThreshold",
-        "Continuous/channeling resource costs require a handler.",
-        "Recasts/charges need explicit semantics."
+        "Soul Ignition grants source AS and decaying movement, paying quarter-second source current-health costs for its full duration. Its recent-damage restoration, missing-health recovery and manual early termination need additional temporal rules and remain excluded."
       ]
     },
     {
@@ -5722,20 +5670,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Mel",
       "ability": "MelR",
       "name": "Golden Eclipse",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 2,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/PassiveFlatDamage",
-        "Conditional/maximum effect needs semantics: damage/magic/UltFlatDamage",
-        "Stack state requires explicit triggers."
+        "Golden Eclipse requires actual prior hits to build six-second Overwhelm stacks, then deals source flat plus per-stack ultimate damage after its source delay. Passive bonus attack projectiles, the passive execute and per-projectile stack counts for multi-missile spells remain excluded; this handler does not claim those passive effects."
       ]
     },
     {
@@ -5895,18 +5842,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "MonkeyKing",
       "ability": "MonkeyKingDecoy",
       "name": "Warrior Trickster",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Warrior Trickster dashes toward the opponent and grants source invisibility. The stationary clone, mimic attacks/ultimate, collision and alternate dash directions remain excluded; no clone damage is invented."
       ]
     },
     {
@@ -5992,18 +5940,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Mordekaiser",
       "ability": "MordekaiserR",
       "name": "Realm of Death",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 12,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Realm of Death snapshots and steals source fractions of the sole target's AD, AP, armor, MR, AS and maximum/current health for seven seconds. Health removal is nonlethal and bypasses shields. The arena, realm isolation, target cancellation, projectile destruction and post-kill persistence remain excluded."
       ]
     },
     {
@@ -6070,30 +6019,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 4,
+      "runtime": [],
       "champion": "Naafiri",
       "ability": "NaafiriQ",
       "name": "Darkin Daggers",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 5,
+      "estimated": 1,
+      "effect-count": 7,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.NaafiriQ:TotalDamageFirstCast",
-        "Unresolved tooltip variable: spell.NaafiriQ:TotalBleedDamage",
-        "Conditional/maximum effect needs semantics: damage/physical/spell.NaafiriQ:TotalBleedDamage",
-        "Periodic damage needs tick/duration semantics: damage/physical/spell.NaafiriQ:TotalBleedDamage",
-        "Unresolved tooltip variable: spell.NaafiriQ:TotalMinDamageSecondCast",
-        "Conditional/maximum effect needs semantics: damage/physical/spell.NaafiriQ:TotalMinDamageSecondCast",
-        "Unresolved tooltip variable: spell.NaafiriQ:TotalMaxDamageSecondCast",
-        "Conditional/maximum effect needs semantics: damage/physical/spell.NaafiriQ:TotalMaxDamageSecondCast",
-        "Unresolved tooltip variable: spell.NaafiriQ:TotalHealSecondCast",
-        "Conditional/maximum effect needs semantics: heal//spell.NaafiriQ:TotalHealSecondCast",
-        "Unresolved tooltip variable: spell.NaafiriQ:BleedDuration",
-        "Unresolved tooltip variable: spell.NaafiriP:PackmateTauntDuration",
-        "Recasts/charges need explicit semantics."
+        "Darkin Daggers applies initial physical damage and source half-second bleed ticks. A second applied dagger cashes out remaining bleed, scales source second damage with missing health, and heals on a bleeding champion. Misses/spell shields cannot create or cash out bleed. Packmates and multi-target geometry remain excluded."
       ]
     },
     {
@@ -6536,22 +6474,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nilah",
       "ability": "NilahR",
       "name": "Apotheosis",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 3,
+      "effect-count": 16,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/physical/DamagePerTickCalcTooltip",
-        "Conditional/maximum effect needs semantics: damage/physical/DamageCalc",
-        "Conditional/maximum effect needs semantics: heal//ChampHealingPercent",
-        "Unresolved tooltip variable: spell.NilahQ:CritLifesteal",
-        "Unresolved tooltip variable: Spell_NilahQ_Name"
+        "Apotheosis applies six source-interval whirl hits and the final source burst/pull, healing from post-mitigation champion damage and shielding overheal. Movement remains possible. Allies, exact geometry and concurrent spell casts remain excluded."
       ]
     },
     {
@@ -7134,7 +7069,10 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "status": "requires-terrain",
       "cast-count": 0,
       "champion": "Qiyana",
       "ability": "QiyanaW",
@@ -7143,10 +7081,11 @@
       "inputs": [],
       "estimated": 0,
       "effect-count": 0,
-      "unresolved-effects": 1,
-      "notes": [
-        "Unresolved tooltip variable: Spell_QiyanaQv2_Name"
-      ]
+      "unresolved-effects": 0,
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
     },
     {
       "status": "executes",
@@ -7200,19 +7139,25 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Heightened Senses grants source AS/movement only after an actual attack consumes a Q/E-created Harrier mark, alongside selected passive damage. Automatic periodic Harrier assignment, enemy-facing reveal and map vision remain excluded. W does not invent a mark or grant unconditional combat stats."
+      ],
+      "status": "needs-harrier",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Quinn",
       "ability": "QuinnW",
       "name": "Heightened Senses",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 2,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Heightened Senses combat buffs require a Harrier mark from Q/E; this isolated-slot probe has neither.",
+        "kind": "needs-harrier"
+      }
     },
     {
       "status": "executes",
@@ -7281,22 +7226,23 @@
       "notes": []
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "RakanE: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
       ],
+      "status": "requires-ally",
+      "cast-count": 0,
       "champion": "Rakan",
       "ability": "RakanE",
       "name": "Battle Dance",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
+      "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "Recasts/charges need explicit semantics."
-      ]
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
     },
     {
       "status": "executes",
@@ -7331,20 +7277,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Rammus",
       "ability": "DefensiveBallCurl",
       "name": "Defensive Ball Curl",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 4,
+      "effect-count": 6,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 1/0 on 16.21.1",
-        "Unknown stat/formula mapping 6/0 on 16.21.1",
-        "Recasts/charges need explicit semantics."
+        "Defensive Ball Curl grants selected flat/total resistance bonuses and reflects source magic damage once per received modeled ordinary attack while active. Retaliation is not added for spells or independent on-hit packets. Manual ending/recast damage and passive Spiked Shell remain excluded."
       ]
     },
     {
@@ -7398,50 +7343,51 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 4,
+      "runtime": [],
       "champion": "RekSai",
       "ability": "RekSaiW",
       "name": "Burrow / Un-burrow",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 7,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Burrow grants source movement and disables attacks/unburrowed Q/E until the automatic Unburrow recast. Unburrow removes its movement, deals source magic damage inside source radius and knocks up subject to the per-target source immunity window. Burrowed Q/tunnels, Fury healing, tremor vision and manual stance retention remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "RekSai",
       "ability": "RekSaiE",
       "name": "Furious Bite / Tunnel",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.RekSaiE:BaseDamageCalculation",
-        "Unresolved tooltip variable: spell.RekSaiE:EmpoweredDamageCalculation"
+        "Unburrowed Furious Bite deals selected physical damage, or source-amplified true damage at 100 Fury and consumes Fury. Fury generation, Burrow and tunnels remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "RekSai",
       "ability": "RekSaiR",
       "name": "Void Rush",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 5,
+      "effect-count": 12,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/RBaseDamageCalc",
-        "Unresolved tooltip variable: Spell_RekSaiW_Name"
+        "Void Rush requires damage within the selected prey window, becomes untargetable during the modeled source delay, lands source base plus maximum-health damage and resets W. Leap trajectory, Fury generation and cancellation exceptions remain excluded."
       ]
     },
     {
@@ -7459,26 +7405,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Rell",
       "ability": "RellW_Dismount",
       "name": "Ferromancy: Crash Down",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 15,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.RellW_Dismount:DismountDamage",
-        "Unresolved tooltip variable: spell.RellW_Dismount:Shield",
-        "Control trigger/duration unresolved: airborne",
-        "Unresolved tooltip variable: spell.RellW_Dismount:MountedMoveSpeed",
-        "Unresolved tooltip variable: Spell_RellW_Dismount_Name",
-        "Unresolved tooltip variable: spell.RellW_Dismount:ResistanceIncrease",
-        "Unresolved tooltip variable: spell.RellW_Dismount:DismountedASBoost",
-        "Unresolved tooltip variable: spell.RellW_Dismount:DismountedRangeBoost",
-        "Unresolved tooltip variable: Spell_RellW_MountUp_Name2"
+        "Ferromancy alternates source Crash Down and Mount Up at the source cooldown, preserving dismounted shield/resists/AS/range until remounting. Remount removes that shield and grants mounted movement plus one empowered control attack. Terrain, slide/flip geometry, native form selection and passive shred remain excluded."
       ]
     },
     {
@@ -7532,18 +7471,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Renata",
       "ability": "RenataW",
       "name": "Bailout",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 3,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: heal//TriumphPercent"
+        "Self-cast Bailout ramps source AS/chase movement. One lethal hit during its duration restores full health, then drains one maximum-health bar over the selected ten quarter-second ticks (2.5 seconds; the prose tooltip says three); healing can delay the second death. A takedown ends the drain at source recovery health and refreshes owned buffs. Allies and measured ramp/decay phases remain excluded."
       ]
     },
     {
@@ -7563,18 +7503,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Renata",
       "ability": "RenataR",
       "name": "Hostile Takeover",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Hostile Takeover berserks the sole opponent, disables its spells and forces attacks with source bonus AS. With no allied/neutral targets in this duel, it attacks the caster. Forced pursuit outside normal movement strategy, team target priority and wave geometry remain excluded."
       ]
     },
     {
@@ -7927,20 +7868,25 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Realm Warp opens at the caster and schedules source-charge teleport to the opponent's cast-time position, only for destinations beyond the source minimum range. Leaving its source portal radius or receiving immobilizing/silencing control cancels it. Allies, arrival presentation, Flux damage/healing upgrades and arbitrary map destinations remain excluded."
+      ],
+      "status": "needs-distance",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Ryze",
       "ability": "RyzeR",
       "name": "Realm Warp",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 1,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "Unresolved tooltip variable: Spell_RyzeQWrapper_Name",
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Realm Warp's selected destination is the opponent and must be at least 1000 units away.",
+        "kind": "needs-distance"
+      }
     },
     {
       "status": "executes",
@@ -8263,21 +8209,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Shaco",
       "ability": "Deceive",
       "name": "Deceive",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 3,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/TotalDamage",
-        "Unresolved tooltip variable: Spell_JackInTheBox_Name",
-        "Unresolved tooltip variable: Spell_HallucinateFull_Name",
-        "Unknown stat/formula mapping 9/0 on 16.21.1"
+        "Deceive advances up to 400 units and adds source damage to one attack within the stealth window. Backstab position/critical, True Sight and exceptional spell interactions remain excluded."
       ]
     },
     {
@@ -8394,23 +8338,23 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
-      "cast-count": 1,
-      "runtime": [
-        "ShenR: @MaxShield@ Shield",
-        "ShenR: expected integer key for keyword in range [0, 2), got nil"
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
       ],
+      "status": "requires-ally",
+      "cast-count": 0,
       "champion": "Shen",
       "ability": "ShenR",
       "name": "Stand United",
       "slot": "r",
       "inputs": [],
-      "estimated": 1,
+      "estimated": 0,
       "effect-count": 0,
-      "unresolved-effects": 1,
-      "notes": [
-        "Conditional/maximum effect needs semantics: shield//MaxShield"
-      ]
+      "unresolved-effects": 0,
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
     },
     {
       "status": "executes",
@@ -8454,29 +8398,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "ShyvanaE: @Damage@ + @Calc_Max_Health_Damage@ Max health magic damage",
-        "ShyvanaE: @Calc_Dragon_Damage@  + @Calc_Max_Health_Dragon_Damage@ Max Health magic damage",
-        "ShyvanaE: @DamagePerSecond@ magic damage per second",
-        "ShyvanaE: Slowing by @Calc_Slow@ for @SlowDuration@ seconds",
-        "ShyvanaE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Shyvana",
       "ability": "ShyvanaE",
       "name": "Molten Burst",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 4,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/Damage",
-        "Conditional/maximum effect needs semantics: damage/magic/Calc_Dragon_Damage",
-        "Conditional/maximum effect needs semantics: damage/magic/DamagePerSecond",
-        "Periodic damage needs tick/duration semantics: damage/magic/DamagePerSecond",
-        "Control trigger/duration unresolved: slow"
+        "Human Molten Burst deals source base/AP plus target maximum-health damage and slow. Dragon fireball/trail, collision and transformation interactions remain excluded."
       ]
     },
     {
@@ -8562,21 +8496,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Sion",
       "ability": "SionQ",
       "name": "Decimating Smash",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 4,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/MinDamageTotal",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: airborne",
-        "Control trigger/duration unresolved: stun"
+        "Decimating Smash fully charges for two seconds, deals source maximum physical damage and applies its 2.25-second control. Caster control cancels damage and applies the short cancellation cooldown; manual early releases and geometry remain excluded."
       ]
     },
     {
@@ -8785,21 +8717,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Smolder",
       "ability": "SmolderQ",
       "name": "Super Scorcher Breath",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 3,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.SmolderP:Passive_QDamageIncrease",
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Periodic damage needs tick/duration semantics: damage/true/Tier3_Burn",
-        "Stack state requires explicit triggers."
+        "Base Super Scorcher Breath deals selected critical-stat-scaled physical damage plus configured Dragon Practice magic damage, collecting a stack on a distinct champion spell hit. Its own kill refunds mana once per cast. Starting stacks default to zero. Evolution splash, burn/execute and non-champions remain excluded."
       ]
     },
     {
@@ -9263,40 +9193,40 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Thick Skin stores source post-mitigation health damage at the single-enemy ratio, capped at three maximum-health bars. Its active requires stored grey health, consumes it into the source-duration shield, and otherwise heals after four damage-free seconds at the selected maximum-health rate. The two-enemy ratio and allied contexts remain excluded."
+      ],
+      "status": "needs-incoming-damage",
       "cast-count": 0,
+      "runtime": [],
       "champion": "TahmKench",
       "ability": "TahmKenchE",
       "name": "Thick Skin",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 2,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Thick Skin needs real health damage before a shield or recovery can occur.",
+        "kind": "needs-incoming-damage"
+      }
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "TahmKenchRWrapper: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "TahmKench",
       "ability": "TahmKenchRWrapper",
       "name": "Devour",
       "slot": "r",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 4,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/BaseDamage",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: Spell_TahmKenchW_Name",
-        "Recasts/charges need explicit semantics.",
-        "Stack state requires explicit triggers."
+        "Enemy Devour requires three actual attack-applied Acquired Taste marks, consumes them, suppresses/hides the victim and slows Tahm for the source full duration before source maximum-health damage. Allied swallowing/shields, Q application of passive marks, grounding, spit positioning and manual early release remain excluded."
       ]
     },
     {
@@ -9355,20 +9285,25 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Weaver's Wall automatically rides toward the opponent's initial position using source wall length/speed, with source champion-damage lockout. Immobilization cancels the modeled travel. Position changes at completion; the growing terrain wall, continuous rider path, arbitrary wall direction, voluntary dismount and wall collisions remain excluded."
+      ],
+      "status": "needs-distance",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Taliyah",
       "ability": "TaliyahR",
       "name": "Weaver's Wall",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 1,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
-      ]
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "The automatic ride needs a destination at least 150 units away; this isolated probe starts at zero.",
+        "kind": "needs-distance"
+      }
     },
     {
       "status": "executes",
@@ -9411,7 +9346,10 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "status": "requires-terrain",
       "cast-count": 0,
       "champion": "Talon",
       "ability": "TalonE",
@@ -9421,9 +9359,10 @@
       "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "No recognized executable effect; this does not imply zero damage."
-      ]
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
     },
     {
       "status": "executes",
@@ -9557,23 +9496,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 5,
-      "runtime": [
-        "TeemoR: @TotalDamage@ magic damage",
-        "TeemoR: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Teemo",
       "ability": "TeemoR",
       "name": "Noxious Trap",
       "slot": "r",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "effect-count": 14,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Unresolved tooltip variable: AmmoRechargeTime"
+        "Noxious Trap arms after one second at the target's cast position, triggers once on nearby enemy occupancy and applies four source poison ticks plus slow. Traps retain separate state and source charge recovery; poison refreshes rather than stacking. Bounce, trap destruction, vision and measured toss flight remain excluded."
       ]
     },
     {
@@ -9897,34 +9832,35 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "TwistedFate",
       "ability": "Destiny",
       "name": "Destiny",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
+        "Destiny's automatic duel strategy immediately channels Gate toward the sole opponent within source range. Control cancels the channel. Global vision, selecting a different destination and waiting before recasting remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Twitch",
       "ability": "TwitchHideInShadows",
       "name": "Ambush",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Ambush fades for the source second, then grants source camouflage/movement. An offensive action ends it and grants source AS; attacks during fade request that transition at fade completion. Enemy-proximity bonus movement, damage-delayed fade, Venom and takedown resets remain excluded."
       ]
     },
     {
@@ -10086,21 +10022,21 @@
       "notes": []
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
       "runtime": [
-        "UrgotW: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
+        "UrgotW: Missing bonus stat attack-range"
       ],
       "champion": "Urgot",
       "ability": "UrgotW",
       "name": "Purge",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 6,
+      "effect-count": 27,
+      "unresolved-effects": 0,
       "notes": [
-        "Control trigger/duration unresolved: slow"
+        "Purge replaces attacks with three source-damage shots per second, half-damage supported item on-hits, no critical damage and source movement penalty/range. It fires even with ordinary attacks disabled and allows movement during firing. Rank five remains active for the fight. Slow resistance, leg shotguns, mark target selection and manual toggle cycles remain excluded."
       ]
     },
     {
@@ -10156,23 +10092,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Varus",
       "ability": "VarusW",
       "name": "Blighted Quiver",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 5,
+      "estimated": 5,
+      "effect-count": 17,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/PercentHPPerStack",
-        "Conditional/maximum effect needs semantics: damage/magic/MaxPercentHPPerStack",
-        "Conditional/maximum effect needs semantics: damage/magic/QEmpowerPercentHP",
-        "Conditional/maximum effect needs semantics: damage/magic/MaxQEmpowerPercentHP",
-        "Unresolved tooltip variable: Spell_VarusQ_Name",
-        "Stack state requires explicit triggers."
+        "Blighted Quiver grants source on-hit damage and six-second capped Blight stacks. Applied Q/E/R hits consume stacks for source maximum-health magic damage and per-stack basic cooldown refunds. Active empowers the next applied full-charge Q with source missing-health damage; lower charges, detonation charge amplification and R's spreading stacks remain excluded."
       ]
     },
     {
@@ -10463,22 +10395,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Vex",
       "ability": "VexR",
       "name": "Shadow Surge",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: spell.VexR:RDamageCalc",
-        "Unresolved tooltip variable: spell.VexR:RecastDamageCalc",
-        "Conditional/maximum effect needs semantics: damage/magic/spell.VexR:RecastDamageCalc",
-        "Unresolved tooltip variable: spell.VexR:TakedownWindow",
-        "Recasts/charges need explicit semantics."
+        "Shadow Surge marks on an applied missile hit; one automatic recast lands on the marked champion and deals source second-hit damage. Recast cannot precede the first impact. Doom, takedown resets and measured dash flight remain excluded."
       ]
     },
     {
@@ -10544,21 +10473,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 3,
+      "runtime": [],
       "champion": "Viego",
       "ability": "ViegoQ",
       "name": "Blade of the Ruined King",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 4,
+      "estimated": 4,
+      "effect-count": 20,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/SecondAttackDamage",
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Conditional/maximum effect needs semantics: damage/physical/TotalDamage",
-        "Conditional/maximum effect needs semantics: heal//HealModVsChamps*100"
+        "Blade of the Ruined King stabs with source critical-stat scaling, adds live current-health on-hit damage and consumes a spell-applied mark for a second hit/heal. Possession, current-health critical modifiers and second-hit item procs remain excluded."
       ]
     },
     {
@@ -10843,18 +10770,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Warwick",
       "ability": "WarwickW",
       "name": "Blood Hunt",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 46,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Blood Hunt marks the sole champion for eight seconds and cannot activate within three seconds of champion damage. Actual hits grant source AS for 1.25 seconds against a hunted/low-health target, tripled below the second threshold. Quarter-second movement sensing uses source chase speed out of combat. Map trails, shared ally detection, windup re-evaluation and gradual movement recovery remain excluded."
       ]
     },
     {
@@ -10924,20 +10852,25 @@
       ]
     },
     {
-      "status": "no-executable-effect",
+      "notes": [
+        "Bladecaller recalls actual six-second feathers from Q's two blades, R's five blades and Clean Cuts attacks, applying source crit-scaled damage with five-percent per-feather falloff (ten-percent floor) and root on three applied hits. Casts grant capped source passive charges. Feather positions project one-dimensional cast direction/range; lateral spread, moving return paths, miss-created attack feathers and individual outgoing blade collision remain excluded. Return speed uses the reviewed 4000-unit flight profile."
+      ],
+      "status": "needs-feathers",
       "cast-count": 0,
+      "runtime": [],
       "champion": "Xayah",
       "ability": "XayahE",
       "name": "Bladecaller",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
+      "estimated": 3,
       "effect-count": 0,
-      "unresolved-effects": 2,
-      "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Control trigger/duration unresolved: root"
-      ]
+      "unresolved-effects": 0,
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Bladecaller requires planted feathers from other casts/empowered attacks; the isolated slot has none.",
+        "kind": "needs-feathers"
+      }
     },
     {
       "status": "executes",
@@ -11109,18 +11042,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yasuo",
       "ability": "YasuoW",
       "name": "Wind Wall",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Wind Wall is projected 100 source units toward the foe in one dimension for the source four seconds. Reviewed incoming projectile paths are rejected if they crossed its fixed plane while it existed, even when impact follows expiry. Blocking is recorded at the scheduled impact. Ranged attacks with retained missile speed and explicitly reviewed Gnar Q, Zeri Q, Zoe Q, Hwei QQ, Elise W and Vex R missiles are covered; wall drift/width, other missiles and special non-projectile attack exceptions remain excluded."
       ]
     },
     {
@@ -11192,19 +11126,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yone",
       "ability": "YoneE",
       "name": "Soul Unbound",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 5,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
+        "Soul Unbound records post-mitigation physical/magic health damage from owned attacks/spells, excluding shields, items, runes and summoners. At return it repeats the selected fraction as true damage and returns to the modeled starting body position. Control/action locks defer return; death returns immediately. Manual early return, detailed body displacement and realm restrictions remain excluded."
       ]
     },
     {
@@ -11296,77 +11230,67 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "YunaraQ: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yunara",
       "ability": "YunaraQ",
       "name": "Cultivation of Spirit",
       "slot": "q",
       "inputs": [],
-      "estimated": 2,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 5,
+      "effect-count": 23,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/Calc_Damage",
-        "Unresolved tooltip variable: Spell.YunaraR:Buff_Duration"
+        "Cultivation supplies source passive on-hit magic damage, gains Unleash on real champion attacks and spends eight for source AS/additional on-hit damage. Unleash uses a refreshed expiry window; gradual decay, spreading and Transcendence remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yunara",
       "ability": "YunaraW",
       "name": "Arc of Judgment | Arc of Ruin",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 5,
+      "estimated": 5,
+      "effect-count": 7,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/Calc_Damage_Initial",
-        "Conditional/maximum effect needs semantics: damage/magic/Calc_Damage_Per_Second",
-        "Unresolved tooltip variable: Spell.YunaraR:Calc_RW_Damage",
-        "Conditional/maximum effect needs semantics: damage/magic/Spell.YunaraR:Calc_RW_Damage",
-        "Periodic damage needs tick/duration semantics: damage/magic/Spell.YunaraR:Calc_RW_Damage",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: slow",
-        "Unresolved tooltip variable: Spell_YunaraW2_Name",
-        "Unresolved tooltip variable: Spell.YunaraR:Calc_RW_Slow_Amount",
-        "Unresolved tooltip variable: Spell.YunaraR:RW_Slow_Duration"
+        "Base Arc of Judgment lands source damage and decaying slow, leaving a one-second quarter-second sampled damage area at the impact position. Projectile width, return flight and Transcendent laser remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yunara",
       "ability": "YunaraE",
       "name": "Kanmei's Steps | Untouchable Shadow",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_YunaraE2_Name",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Kanmei's Steps grants source movement with its enhanced amount while approaching the sole opponent. Transcendent dash remains excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Yunara",
       "ability": "YunaraR",
       "name": "Transcend One's Self",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Transcendence refreshes learned Q's active state for the selected duration, upgrades W to source laser damage/slow and E to a modeled dash, and reduces subsequent W cooldowns. Existing cooldown deadlines, spread attacks, aiming and animation timing remain excluded."
       ]
     },
     {
@@ -11395,20 +11319,23 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "YuumiW: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
       ],
+      "status": "requires-ally",
+      "cast-count": 0,
       "champion": "Yuumi",
       "ability": "YuumiW",
       "name": "You and Me!",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
+      "estimated": 0,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": []
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
     },
     {
       "status": "executes",
@@ -11509,19 +11436,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Zaahen",
       "ability": "ZaahenR",
       "name": "Grim Deliverance",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/physical/DamageEndCalc",
-        "Conditional/maximum effect needs semantics: heal//HealPercent*100"
+        "Grim Deliverance grants learned-rank armor penetration, halves non-true damage during modeled casting, advances and heals from post-mitigation champion damage. Revival, terrain and multi-target effects remain excluded."
       ]
     },
     {
@@ -11617,19 +11544,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Zed",
       "ability": "ZedW",
       "name": "Living Shadow",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage.",
-        "Recasts/charges need explicit semantics."
+        "Living Shadow projects a stationary shadow toward the opponent within the selected cast range, then automatically swaps positions on its single modeled recast inside the source range/window. Q/E mimics, double-hit energy returns, cast-overlap swaps and R shadows remain excluded; no duplicated spell damage is invented."
       ]
     },
     {
@@ -11668,20 +11595,20 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "ZeriQ: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 6,
+      "runtime": [],
       "champion": "Zeri",
       "ability": "ZeriQ",
       "name": "Burst Fire",
       "slot": "q",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 6,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Burst Fire sends one aggregate seven-round attack at the sole target with source total damage, normal critical multiplier, one on-hit application and AS-scaled cooldown down to the selected floor. Ability haste does not shorten it. Cast windup uses a fixed 0.15-second model. Per-round collision, excess AS-to-AD conversion, charge generation and Zeri's charged ordinary attack remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -11704,19 +11631,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Zeri",
       "ability": "ZeriE",
       "name": "Spark Surge",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 4,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1",
-        "Unresolved tooltip variable: Spell_ZeriQ_Name"
+        "Spark Surge dashes up to the source open-ground range, empowers Q shots during its source duration, and refunds E cooldown on attacks. Terrain vaulting, critical refund scaling, shot piercing and charged ordinary-attack interactions remain excluded."
       ]
     },
     {
@@ -11818,7 +11745,10 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "notes": [
+        "Rewind subtracts the source duration from Q/E cooldowns and wakes newly ready actions. It does not affect W, R, charges or recast timers."
+      ],
+      "status": "needs-basic-cooldown",
       "cast-count": 2,
       "runtime": [],
       "champion": "Zilean",
@@ -11829,9 +11759,11 @@
       "estimated": 1,
       "effect-count": 0,
       "unresolved-effects": 0,
-      "notes": [
-        "Rewind subtracts the source duration from Q/E cooldowns and wakes newly ready actions. It does not affect W, R, charges or recast timers."
-      ]
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "The isolated probe supplies no Q/E cooldown to refund. Paired E/W regressions verify its actual readiness change.",
+        "kind": "needs-basic-cooldown"
+      }
     },
     {
       "status": "executes",
@@ -11864,19 +11796,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Zoe",
       "ability": "ZoeQ",
       "name": "Paddle Star!",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamageTooltip",
-        "Recasts/charges need explicit semantics."
+        "Paddle Star uses a direct shot toward the sole opponent, with source base/maximum damage interpolated over 1500 traveled units. Backward redirects, arbitrary recast aiming and flight path changes remain excluded."
       ]
     },
     {
@@ -12005,13 +11937,21 @@
     }
   ],
   "summary": {
-    "executes": 596,
-    "no-executable-effect": 78,
-    "not-cast": 12,
-    "cast-without-effect": 6
+    "needs-distance": 2,
+    "no-executable-effect": 9,
+    "vision-only": 1,
+    "requires-terrain": 4,
+    "needs-feathers": 1,
+    "requires-ally": 4,
+    "not-cast": 1,
+    "needs-basic-cooldown": 1,
+    "informational-slot": 1,
+    "executes": 666,
+    "needs-harrier": 1,
+    "needs-incoming-damage": 1
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "3be15e31db3c4c925c1f5dfbf01e79b8c1501f390369fe54a2a072fc3245b96a",
+  "model": "0c2056b984715f314b35038750b96daa4e68abf7fa3b7474173fe0e004f08d81",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

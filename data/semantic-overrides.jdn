@@ -1,5 +1,90 @@
 {:schema 1
- :rules [{:champion "Braum" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :braum-w :stat-scope [[1 2] [6 2]]}
+ :rules [{:champion "RekSai" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :reksai-w}
+         {:champion "Zed" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :zed-w}
+         {:champion "Ryze" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :ryze-r}
+         {:champion "Taliyah" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :taliyah-r}
+         {:champion "Xayah" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :xayah-e :stat-scope [[9 0]]}
+         {:champion "Yasuo" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :yasuo-w}
+         {:champion "Zeri" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :zeri-q}
+         {:champion "Warwick" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :warwick-w}
+         {:champion "Quinn" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :quinn-w}
+         {:champion "Akshan" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :terrain-only}
+         {:champion "Qiyana" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :terrain-only}
+         {:champion "MonkeyKing" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :monkeyking-w}
+         {:champion "Fiora" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :fiora-r}
+         {:champion "Locke" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :locke-w}
+         {:champion "Naafiri" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :naafiri-q}
+         {:champion "Mel" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :mel-r}
+         {:champion "TahmKench" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :tahmkench-e}
+         {:champion "TahmKench" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :tahmkench-r}
+         {:champion "Varus" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :varus-w}
+         {:champion "Zeri" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :zeri-e :stat-scope [[9 0]]}
+         {:champion "Renata" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :renata-w}
+         {:champion "Renata" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :renata-r}
+         {:champion "Rakan" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :ally-only}
+         {:champion "Shen" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :ally-only}
+         {:champion "Yuumi" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :ally-only}
+         {:champion "Kalista" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :ally-only}
+         {:champion "Ashe" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :vision-only}
+         {:champion "Bard" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :terrain-only}
+         {:champion "Talon" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :terrain-only}
+         {:champion "Aphelios" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :informational-slot}
+         {:champion "Anivia" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :anivia-w}
+         {:champion "Yunara" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :yunara-r}
+         {:champion "Akshan" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :akshan-w}
+         {:champion "Twitch" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :twitch-q}
+         {:champion "Jinx" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :jinx-q}
+         {:champion "Urgot" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :urgot-w :stat-scope [[31 2]]}
+         {:champion "AurelionSol" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :aurelionsol-w :stat-scope [[7 0]]}
+         {:champion "KSante" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :ksante-q :stat-scope [[1 2] [6 2]]}
+         {:champion "Hwei" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :hwei-q}
+         {:champion "Rell" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :rell-w}
+         {:champion "Kayn" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayn-r}
+         {:champion "RekSai" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :reksai-r}
+         {:champion "Yone" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :yone-e}
+         {:champion "TwistedFate" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :twistedfate-r}
+         {:champion "Graves" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :graves-e}
+         {:champion "Ashe" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :ashe-q}
+         {:champion "Kalista" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kalista-e}
+         {:champion "Yunara" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :yunara-q}
+         {:champion "Viego" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :viego-q :stat-scope [[9 0]]}
+         {:champion "Smolder" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :smolder-q :stat-scope [[9 0]]}
+         {:champion "Gnar" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :gnar-q}
+         {:champion "Gnar" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :gnar-w}
+         {:champion "Gnar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :gnar-e}
+         {:champion "Jayce" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :jayce-q}
+         {:champion "Jayce" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :jayce-w}
+         {:champion "Jayce" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :jayce-e}
+         {:champion "Akshan" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :akshan-r :stat-scope [[9 0]]}
+         {:champion "AurelionSol" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :aurelionsol-q}
+         {:champion "Briar" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-w}
+         {:champion "Corki" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :corki-w}
+         {:champion "Rammus" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :rammus-w :stat-scope [[1 0] [6 0]]}
+         {:champion "Nilah" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :nilah-r}
+         {:champion "Mordekaiser" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :mordekaiser-r}
+         {:champion "Bard" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :bard-r}
+         {:champion "Teemo" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :teemo-r}
+         {:champion "Akali" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :akali-w}
+         {:champion "Aurora" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :aurora-w}
+         {:champion "Ambessa" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :ambessa-q}
+         {:champion "Fiora" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :fiora-q}
+         {:champion "Elise" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :elise-q}
+         {:champion "Elise" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :elise-w}
+         {:champion "Illaoi" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :illaoi-q}
+         {:champion "Shyvana" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :shyvana-e}
+         {:champion "Zaahen" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :zaahen-r}
+         {:champion "RekSai" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :reksai-e}
+         {:champion "Kayn" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayn-e}
+         {:champion "Khazix" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :khazix-r}
+         {:champion "Hwei" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :hwei-r}
+         {:champion "Sion" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :sion-q}
+         {:champion "KSante" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :ksante-w :stat-scope [[1 2] [6 2]]}
+         {:champion "Yunara" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :yunara-e}
+         {:champion "Yunara" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :yunara-w}
+         {:champion "Vex" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :vex-r}
+         {:champion "Shaco" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :shaco-q :stat-scope [[9 0]]}
+         {:champion "Zoe" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :zoe-q}
+         {:champion "Braum" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :braum-w :stat-scope [[1 2] [6 2]]}
          {:champion "Briar" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-q}
          {:champion "Briar" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-e}
          {:champion "Briar" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :briar-r}

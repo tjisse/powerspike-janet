@@ -207,8 +207,11 @@
         {:op :sum :children [{:op :constant :value base}
                              {:op :multiply :children [{:op :constant :value ratio} {:op :stat :stat :ap :formula 0}]}]})
       (def projected (attacks/apply-projectile champion (attacks/form-profile (champion :id) (champion :patch) form) (champion :attack-windup)))
+      (def reviewed-base (and (= "16.21.1" (champion :patch))
+                              (= form (get {"Gnar" "mini" "Jayce" "hammer" "Elise" "human" "Nidalee" "human"} (champion :id)))))
+      (def reviewed-abilities (if reviewed-base (filter |(not= :r ($ :slot)) (get champion :abilities [])) []))
       (merge projected {:form form :form-name (selected :name) :attack-style (selected :attack-style)
-                        :attack-range (+ (selected :attack-range) (if (selected :range-growth) (* (selected :range-growth) (/ (dec level) 17)) 0)) :abilities []
+                        :attack-range (+ (selected :attack-range) (if (selected :range-growth) (* (selected :range-growth) (/ (dec level) 17)) 0)) :abilities reviewed-abilities
                         :base (table/to-struct base) :growth (table/to-struct growth)
                         :attack-speed-growth (get selected :attack-speed-growth (champion :attack-speed-growth))
                         :form-triggers (if spider-rank
@@ -223,7 +226,9 @@
                                             :bonus-ad-ratio (selected :bonus-ad-ratio)})
                         :limitations [;(filter |(not= $ "Ordinary basic attacks only; champion abilities, passives and special attack rules excluded.")
                                                (get projected :limitations []))
-                                      (cond (= "Gnar" (champion :id))
+                                      (cond reviewed-base
+                                        (string "Fixed " (selected :name) " form: reviewed base-form abilities, ordinary attacks and existing form stats included. Form switching, automatic transformations and unreviewed passives remain excluded.")
+                                        (= "Gnar" (champion :id))
                                         (string "Fixed " (selected :name) " form: ordinary attacks and level-scaled form stats included. Rage, automatic transformations, transformation healing, Hyper, ability casts and form switching are excluded. The selected form persists for the full simulation, including beyond Mega Gnar's usual 15-second duration.")
                                         (= "Elise" (champion :id))
                                         (string "Fixed " (selected :name) " form: ordinary attacks and form movement speed included"

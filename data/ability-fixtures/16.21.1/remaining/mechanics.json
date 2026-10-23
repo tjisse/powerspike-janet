@@ -1,0 +1,1243 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-24",
+  "scope": "Review of all 96 previously non-executing audit slots. Partial semantics, not complete champion support or live-game verification.",
+  "records": [
+    {
+      "champion": "Akali",
+      "slot": "w",
+      "ability": "AkaliW",
+      "name": "Twilight Shroud",
+      "status": "executes",
+      "notes": [
+        "Twilight Shroud restores energy and temporarily increases its maximum; movement decays over its source duration. Shroud geometry, repeated concealment and True Sight remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Akshan",
+      "slot": "w",
+      "ability": "AkshanW",
+      "name": "Going Rogue",
+      "status": "executes",
+      "notes": [
+        "Going Rogue grants source camouflage for its open-ground grace period, broken by offensive actions and detected inside the selected radius. Terrain persistence, Scoundrel pursuit/mana regeneration, gold and ally resurrection require additional context and remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Akshan",
+      "slot": "e",
+      "ability": "AkshanE",
+      "name": "Heroic Swing",
+      "status": "requires-terrain",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
+    },
+    {
+      "champion": "Akshan",
+      "slot": "r",
+      "ability": "AkshanR",
+      "name": "Comeuppance",
+      "status": "executes",
+      "notes": [
+        "Comeuppance fully charges, then fires the source bullet count at source intervals with live missing-health amplification and critical-stat scaling. Control cancels the channel and unreleased shots. Collision, manual early release and measured bullet flight remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Ambessa",
+      "slot": "q",
+      "ability": "AmbessaQ",
+      "name": "Cunning Sweep / Sundering Slam",
+      "status": "executes",
+      "notes": [
+        "Cunning Sweep then one Sundering Slam use source damage and target maximum health. The sole opponent is assumed at the edge/first-hit position. Recast is granted only after an applied initial hit. Drakehound dashes and passive attacks remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Anivia",
+      "slot": "w",
+      "ability": "Crystallize",
+      "name": "Crystallize",
+      "status": "executes",
+      "notes": [
+        "Crystallize is placed under the sole opponent and applies the selected champion push, interrupting interruptible channels. Wall width/lifetime, path blocking, walking around terrain and repeated collisions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Aphelios",
+      "slot": "q",
+      "ability": "ApheliosQ_ClientTooltipWrapper",
+      "name": "Weapon Abilites",
+      "status": "no-executable-effect",
+      "notes": [
+        "Unresolved tooltip variable: spellmodifierdescriptionappend",
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Aphelios",
+      "slot": "w",
+      "ability": "ApheliosW",
+      "name": "Phase",
+      "status": "no-executable-effect",
+      "notes": [
+        "Unresolved tooltip variable: ApheliosGun_LoreName_@f1@",
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Aphelios",
+      "slot": "e",
+      "ability": "ApheliosE_ClientTooltipWrapper",
+      "name": "Weapon Queue System",
+      "status": "informational-slot",
+      "notes": [
+        "Aphelios has no third active ability. E displays the next weapon in his queue; this slot has no cast or independent damage effect."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "Aphelios E displays the weapon queue and is not an active ability.",
+        "kind": "informational-slot"
+      }
+    },
+    {
+      "champion": "Ashe",
+      "slot": "q",
+      "ability": "AsheQ",
+      "name": "Ranger's Focus",
+      "status": "executes",
+      "notes": [
+        "Ranger's Focus requires four real attacks before activation, consumes Focus and grants source AS/replacement attack damage. Attacks do not rebuild Focus during the buff. Stack expiry is modeled as a refreshed full window; gradual falloff, five-arrow presentation and Frost Shot remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Ashe",
+      "slot": "e",
+      "ability": "AsheSpiritOfTheHawk",
+      "name": "Hawkshot",
+      "status": "vision-only",
+      "notes": [
+        "Hawkshot grants map vision rather than duel damage or combat stats. Map exploration and sight areas remain outside this known-position model; Hawkshot does not grant True Sight through invisibility."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "Map vision is outside this duel's known-position model.",
+        "kind": "vision-only"
+      }
+    },
+    {
+      "champion": "AurelionSol",
+      "slot": "q",
+      "ability": "AurelionSolQ",
+      "name": "Breath of Light",
+      "status": "executes",
+      "notes": [
+        "Breath of Light channels source DPS, pays continuous mana, checks range every quarter second and bursts each full second on the sole target. Stardust defaults to configured stacks; flight, collecting Stardust, rotation and other targets remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "AurelionSol",
+      "slot": "w",
+      "ability": "AurelionSolW",
+      "name": "Astral Flight",
+      "status": "executes",
+      "notes": [
+        "Astral Flight grants source cruise speed, allows movement during Breath of Light, resets Q and removes its channel cooldown while flying. Q's flat damage receives the selected W amplification. Control ends flight and Q. Flight follows the configured one-dimensional movement strategy; fixed direction, terrain, Stardust range extension and takedown resets remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Aurora",
+      "slot": "w",
+      "ability": "AuroraW",
+      "name": "Across the Veil",
+      "status": "executes",
+      "notes": [
+        "Across the Veil advances toward the sole opponent and grants source movement. Passive spirits, terrain, True Sight and takedown reset remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Bard",
+      "slot": "e",
+      "ability": "BardE",
+      "name": "Magical Journey",
+      "status": "requires-terrain",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
+    },
+    {
+      "champion": "Bard",
+      "slot": "r",
+      "ability": "BardR",
+      "name": "Tempered Fate",
+      "status": "executes",
+      "notes": [
+        "Tempered Fate places both actors inside the fixed impact area into untargetable invulnerable stasis for the source duration, disabling their actions and movement. Other units, terrain and measured projectile travel remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Briar",
+      "slot": "w",
+      "ability": "BriarW",
+      "name": "Blood Frenzy / Snack Attack",
+      "status": "executes",
+      "notes": [
+        "Blood Frenzy pays current health, leaps and grants source AS/movement; one Snack Attack recast empowers a hit with source live missing-health damage and healing, then ends Frenzy buffs. Forced pursuit, attack cleave, bleed and passive healing amplification remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Corki",
+      "slot": "w",
+      "ability": "CarpetBomb",
+      "name": "Valkyrie",
+      "status": "executes",
+      "notes": [
+        "Valkyrie advances within source range and leaves its source-rate five damage pulses in the landing area. The full path, flight and terrain geometry remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Elise",
+      "slot": "q",
+      "ability": "EliseHumanQ",
+      "name": "Neurotoxin / Venomous Bite",
+      "status": "executes",
+      "notes": [
+        "Human Neurotoxin deals source base/AP plus live current-health damage. Spider Venomous Bite and Spiderlings require separate form handling."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Elise",
+      "slot": "w",
+      "ability": "EliseHumanW",
+      "name": "Volatile Spiderling / Skittering Frenzy",
+      "status": "executes",
+      "notes": [
+        "Human Volatile Spiderling uses the selected damage calculation and modeled projectile delivery. Autonomous pathfinding, three-second roaming and Spiderlings remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Elise",
+      "slot": "r",
+      "ability": "EliseR",
+      "name": "Spider Form",
+      "status": "no-executable-effect",
+      "notes": [
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Fiora",
+      "slot": "q",
+      "ability": "FioraQ",
+      "name": "Lunge",
+      "status": "executes",
+      "notes": [
+        "Lunge advances up to 400 units, deals selected physical damage, applies supported on-hits and refunds half the maximum cooldown on an applied hit. Vitals, aiming and measured dash flight remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Fiora",
+      "slot": "r",
+      "ability": "FioraR",
+      "name": "Grand Challenge",
+      "status": "executes",
+      "notes": [
+        "Grand Challenge grants source movement while the marked opponent is within the source radius, sampled every quarter second. The one-dimensional duel has no facing or four vital directions: vital strikes, true damage and the completion/death healing field remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Gnar",
+      "slot": "q",
+      "ability": "GnarQ",
+      "name": "Boomerang Throw / Boulder Toss",
+      "status": "executes",
+      "notes": [
+        "Mini Boomerang Throw uses source damage, slow and the selected decelerating missile. The sole opponent is hit once. Return path, catching, cooldown refund and subsequent targets remain excluded."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Gnar",
+      "slot": "w",
+      "ability": "GnarW",
+      "name": "Hyper / Wallop",
+      "status": "executes",
+      "notes": [
+        "Mini Hyper triggers on three distinct attacks/abilities against the sole opponent, with source magic damage, maximum-health ratio and R-rank-based decaying movement. Rage and form transitions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Gnar",
+      "slot": "e",
+      "ability": "GnarE",
+      "name": "Hop / Crunch",
+      "status": "executes",
+      "notes": [
+        "Mini Hop lands on the sole opponent after the source travel time, applies source damage/slow and attack speed. The bounce's second destination, terrain and additional targets remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Graves",
+      "slot": "e",
+      "ability": "GravesMove",
+      "name": "Quickdraw",
+      "status": "executes",
+      "notes": [
+        "Quickdraw dashes toward the sole champion and grants two source True Grit stacks, capped at eight, with source armor/MR and expiry. Each modeled attack refunds one source hit's cooldown. Shell/reload state, pellet hit counts and combat refresh remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Heimerdinger",
+      "slot": "q",
+      "ability": "HeimerdingerQ",
+      "name": "H-28 G Evolution Turret",
+      "status": "no-executable-effect",
+      "notes": [
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Hwei",
+      "slot": "q",
+      "ability": "HweiQ",
+      "name": "Subject: Disaster",
+      "status": "executes",
+      "notes": [
+        "Subject: Disaster currently selects Devastating Fire (QQ), using selected base/AP plus target maximum-health damage. QW/QE selection, missile collision, expanding area and other subjects remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Hwei",
+      "slot": "r",
+      "ability": "HweiR",
+      "name": "Spiraling Despair",
+      "status": "executes",
+      "notes": [
+        "Spiraling Despair attaches to the sole opponent, deals quarter-second source DPS pulses and a final explosion, with stacking slow capped at 90%. Expanding area and other enemies remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Illaoi",
+      "slot": "q",
+      "ability": "IllaoiQ",
+      "name": "Tentacle Smash",
+      "status": "executes",
+      "notes": [
+        "Tentacle Smash uses selected level/AD/AP damage and learned Q amplification. Tentacle geometry, healing and autonomous passive slams remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Illaoi",
+      "slot": "e",
+      "ability": "IllaoiE",
+      "name": "Test of Spirit",
+      "status": "no-executable-effect",
+      "notes": [
+        "Control trigger/duration unresolved: slow"
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Jayce",
+      "slot": "q",
+      "ability": "JayceToTheSkies",
+      "name": "To the Skies! / Shock Blast",
+      "status": "executes",
+      "notes": [
+        "Hammer To the Skies lands on the sole opponent, deals selected damage and slows. Leap flight, additional targets and transformations remain excluded."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Jayce",
+      "slot": "w",
+      "ability": "JayceStaticField",
+      "name": "Lightning Field / Hyper Charge",
+      "status": "executes",
+      "notes": [
+        "Hammer Lightning Field supplies source total damage as half-second nearby pulses; Hammer attacks restore source mana. Transformation bonuses and other targets remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Jayce",
+      "slot": "e",
+      "ability": "JayceThunderingBlow",
+      "name": "Thundering Blow / Acceleration Gate",
+      "status": "executes",
+      "notes": [
+        "Hammer Thundering Blow deals source bonus-AD plus target maximum-health magic damage and knocks back the opponent. Terrain and Cannon Gate remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Jayce",
+      "slot": "r",
+      "ability": "JayceStanceHtG",
+      "name": "Mercury Cannon / Mercury Hammer",
+      "status": "no-executable-effect",
+      "notes": [
+        "Unresolved tooltip variable: spell.JayceStanceHtG:RangedFormShred",
+        "Unresolved tooltip variable: spell.JayceStanceHtG:ShredDuration",
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Jinx",
+      "slot": "q",
+      "ability": "JinxQ",
+      "name": "Switcheroo!",
+      "status": "executes",
+      "notes": [
+        "Switcheroo currently keeps Pow-Pow selected. Actual attacks build source minigun AS in 50/75/100-percent increments of the maximum. Expiry uses a refreshed full window; gradual stack falloff, rocket selection, splash and rocket mana costs remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "KSante",
+      "slot": "q",
+      "ability": "KSanteQ",
+      "name": "Ntofo Strikes",
+      "status": "executes",
+      "notes": [
+        "Base Ntofo Strikes uses source bonus-resistance damage and cooldown reduction. Applied hits build a refreshed two-stack window; the third hit stuns/pulls and consumes it, with extended range. Cast time uses the selected fixed directive; health scaling, wave flight and All Out remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "KSante",
+      "slot": "w",
+      "ability": "KSanteW",
+      "name": "Path Maker",
+      "status": "executes",
+      "notes": [
+        "Base Path Maker fully charges with source damage reduction and control/displacement immunity, then deals base plus maximum-health physical damage and pushes/stuns. All Out, manual early release and dash flight remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Kalista",
+      "slot": "e",
+      "ability": "KalistaExpungeWrapper",
+      "name": "Rend",
+      "status": "executes",
+      "notes": [
+        "Rend requires actual attack/Pierce spears, consumes them for source base/additional damage and slow, and refunds source mana/cooldown on its own kill. Spears refresh a four-second window; target switching, Pierce transfer and minion/monster rules remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Kalista",
+      "slot": "r",
+      "ability": "KalistaRx",
+      "name": "Fate's Call",
+      "status": "requires-ally",
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
+    },
+    {
+      "champion": "Kayn",
+      "slot": "e",
+      "ability": "KaynE",
+      "name": "Shadow Step",
+      "status": "executes",
+      "notes": [
+        "Base Shadow Step grants its source movement for the combat-limited duration. No terrain is supplied, so wall entry, wall healing, extended duration and evolved-form behavior remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Kayn",
+      "slot": "r",
+      "ability": "KaynR",
+      "name": "Umbral Trespass",
+      "status": "executes",
+      "notes": [
+        "Base Umbral Trespass requires a recently damaged champion, becomes untargetable for the full source infest duration, then emerges at the sole target and applies source damage. Entry spell-shield cancellation, evolved forms, manual emergence, detailed flight and persistent control interactions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Khazix",
+      "slot": "r",
+      "ability": "KhazixR",
+      "name": "Void Assault",
+      "status": "executes",
+      "notes": [
+        "Unevolved Void Assault grants source movement on each of two activations. Passive reset, True Sight and evolution remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Locke",
+      "slot": "w",
+      "ability": "LockeW",
+      "name": "Soul Ignition",
+      "status": "executes",
+      "notes": [
+        "Soul Ignition grants source AS and decaying movement, paying quarter-second source current-health costs for its full duration. Its recent-damage restoration, missing-health recovery and manual early termination need additional temporal rules and remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Mel",
+      "slot": "r",
+      "ability": "MelR",
+      "name": "Golden Eclipse",
+      "status": "executes",
+      "notes": [
+        "Golden Eclipse requires actual prior hits to build six-second Overwhelm stacks, then deals source flat plus per-stack ultimate damage after its source delay. Passive bonus attack projectiles, the passive execute and per-projectile stack counts for multi-missile spells remain excluded; this handler does not claim those passive effects."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "MonkeyKing",
+      "slot": "w",
+      "ability": "MonkeyKingDecoy",
+      "name": "Warrior Trickster",
+      "status": "executes",
+      "notes": [
+        "Warrior Trickster dashes toward the opponent and grants source invisibility. The stationary clone, mimic attacks/ultimate, collision and alternate dash directions remain excluded; no clone damage is invented."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Mordekaiser",
+      "slot": "r",
+      "ability": "MordekaiserR",
+      "name": "Realm of Death",
+      "status": "executes",
+      "notes": [
+        "Realm of Death snapshots and steals source fractions of the sole target's AD, AP, armor, MR, AS and maximum/current health for seven seconds. Health removal is nonlethal and bypasses shields. The arena, realm isolation, target cancellation, projectile destruction and post-kill persistence remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Naafiri",
+      "slot": "q",
+      "ability": "NaafiriQ",
+      "name": "Darkin Daggers",
+      "status": "executes",
+      "notes": [
+        "Darkin Daggers applies initial physical damage and source half-second bleed ticks. A second applied dagger cashes out remaining bleed, scales source second damage with missing health, and heals on a bleeding champion. Misses/spell shields cannot create or cash out bleed. Packmates and multi-target geometry remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Nidalee",
+      "slot": "r",
+      "ability": "AspectOfTheCougar",
+      "name": "Aspect Of The Cougar",
+      "status": "no-executable-effect",
+      "notes": [
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Nilah",
+      "slot": "r",
+      "ability": "NilahR",
+      "name": "Apotheosis",
+      "status": "executes",
+      "notes": [
+        "Apotheosis applies six source-interval whirl hits and the final source burst/pull, healing from post-mitigation champion damage and shielding overheal. Movement remains possible. Allies, exact geometry and concurrent spell casts remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Qiyana",
+      "slot": "w",
+      "ability": "QiyanaW",
+      "name": "Terrashape",
+      "status": "requires-terrain",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
+    },
+    {
+      "champion": "Quinn",
+      "slot": "w",
+      "ability": "QuinnW",
+      "name": "Heightened Senses",
+      "status": "needs-harrier",
+      "notes": [
+        "Heightened Senses grants source AS/movement only after an actual attack consumes a Q/E-created Harrier mark, alongside selected passive damage. Automatic periodic Harrier assignment, enemy-facing reveal and map vision remain excluded. W does not invent a mark or grant unconditional combat stats."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented-with-prerequisite",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Heightened Senses combat buffs require a Harrier mark from Q/E; this isolated-slot probe has neither.",
+        "kind": "needs-harrier"
+      }
+    },
+    {
+      "champion": "Rakan",
+      "slot": "e",
+      "ability": "RakanE",
+      "name": "Battle Dance",
+      "status": "requires-ally",
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
+    },
+    {
+      "champion": "Rammus",
+      "slot": "w",
+      "ability": "DefensiveBallCurl",
+      "name": "Defensive Ball Curl",
+      "status": "executes",
+      "notes": [
+        "Defensive Ball Curl grants selected flat/total resistance bonuses and reflects source magic damage once per received modeled ordinary attack while active. Retaliation is not added for spells or independent on-hit packets. Manual ending/recast damage and passive Spiked Shell remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "RekSai",
+      "slot": "w",
+      "ability": "RekSaiW",
+      "name": "Burrow / Un-burrow",
+      "status": "executes",
+      "notes": [
+        "Burrow grants source movement and disables attacks/unburrowed Q/E until the automatic Unburrow recast. Unburrow removes its movement, deals source magic damage inside source radius and knocks up subject to the per-target source immunity window. Burrowed Q/tunnels, Fury healing, tremor vision and manual stance retention remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "RekSai",
+      "slot": "e",
+      "ability": "RekSaiE",
+      "name": "Furious Bite / Tunnel",
+      "status": "executes",
+      "notes": [
+        "Unburrowed Furious Bite deals selected physical damage, or source-amplified true damage at 100 Fury and consumes Fury. Fury generation, Burrow and tunnels remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "RekSai",
+      "slot": "r",
+      "ability": "RekSaiR",
+      "name": "Void Rush",
+      "status": "executes",
+      "notes": [
+        "Void Rush requires damage within the selected prey window, becomes untargetable during the modeled source delay, lands source base plus maximum-health damage and resets W. Leap trajectory, Fury generation and cancellation exceptions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Rell",
+      "slot": "w",
+      "ability": "RellW_Dismount",
+      "name": "Ferromancy: Crash Down",
+      "status": "executes",
+      "notes": [
+        "Ferromancy alternates source Crash Down and Mount Up at the source cooldown, preserving dismounted shield/resists/AS/range until remounting. Remount removes that shield and grants mounted movement plus one empowered control attack. Terrain, slide/flip geometry, native form selection and passive shred remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Renata",
+      "slot": "w",
+      "ability": "RenataW",
+      "name": "Bailout",
+      "status": "executes",
+      "notes": [
+        "Self-cast Bailout ramps source AS/chase movement. One lethal hit during its duration restores full health, then drains one maximum-health bar over the selected ten quarter-second ticks (2.5 seconds; the prose tooltip says three); healing can delay the second death. A takedown ends the drain at source recovery health and refreshes owned buffs. Allies and measured ramp/decay phases remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Renata",
+      "slot": "r",
+      "ability": "RenataR",
+      "name": "Hostile Takeover",
+      "status": "executes",
+      "notes": [
+        "Hostile Takeover berserks the sole opponent, disables its spells and forces attacks with source bonus AS. With no allied/neutral targets in this duel, it attacks the caster. Forced pursuit outside normal movement strategy, team target priority and wave geometry remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Ryze",
+      "slot": "r",
+      "ability": "RyzeR",
+      "name": "Realm Warp",
+      "status": "needs-distance",
+      "notes": [
+        "Realm Warp opens at the caster and schedules source-charge teleport to the opponent's cast-time position, only for destinations beyond the source minimum range. Leaving its source portal radius or receiving immobilizing/silencing control cancels it. Allies, arrival presentation, Flux damage/healing upgrades and arbitrary map destinations remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented-with-prerequisite",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Realm Warp's selected destination is the opponent and must be at least 1000 units away.",
+        "kind": "needs-distance"
+      }
+    },
+    {
+      "champion": "Shaco",
+      "slot": "q",
+      "ability": "Deceive",
+      "name": "Deceive",
+      "status": "executes",
+      "notes": [
+        "Deceive advances up to 400 units and adds source damage to one attack within the stealth window. Backstab position/critical, True Sight and exceptional spell interactions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Shen",
+      "slot": "r",
+      "ability": "ShenR",
+      "name": "Stand United",
+      "status": "requires-ally",
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
+    },
+    {
+      "champion": "Shyvana",
+      "slot": "e",
+      "ability": "ShyvanaE",
+      "name": "Molten Burst",
+      "status": "executes",
+      "notes": [
+        "Human Molten Burst deals source base/AP plus target maximum-health damage and slow. Dragon fireball/trail, collision and transformation interactions remain excluded."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Shyvana",
+      "slot": "r",
+      "ability": "ShyvanaR",
+      "name": "Dragon's Descent",
+      "status": "not-cast",
+      "notes": [
+        "Control trigger/duration unresolved: fear"
+      ],
+      "previous_status": "not-cast",
+      "review": "unsupported"
+    },
+    {
+      "champion": "Sion",
+      "slot": "q",
+      "ability": "SionQ",
+      "name": "Decimating Smash",
+      "status": "executes",
+      "notes": [
+        "Decimating Smash fully charges for two seconds, deals source maximum physical damage and applies its 2.25-second control. Caster control cancels damage and applies the short cancellation cooldown; manual early releases and geometry remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Smolder",
+      "slot": "q",
+      "ability": "SmolderQ",
+      "name": "Super Scorcher Breath",
+      "status": "executes",
+      "notes": [
+        "Base Super Scorcher Breath deals selected critical-stat-scaled physical damage plus configured Dragon Practice magic damage, collecting a stack on a distinct champion spell hit. Its own kill refunds mana once per cast. Starting stacks default to zero. Evolution splash, burn/execute and non-champions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Sylas",
+      "slot": "r",
+      "ability": "SylasR",
+      "name": "Hijack",
+      "status": "no-executable-effect",
+      "notes": [
+        "Unsupported calculation: CooldownMultiplierCalculationPart",
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    },
+    {
+      "champion": "TahmKench",
+      "slot": "e",
+      "ability": "TahmKenchE",
+      "name": "Thick Skin",
+      "status": "needs-incoming-damage",
+      "notes": [
+        "Thick Skin stores source post-mitigation health damage at the single-enemy ratio, capped at three maximum-health bars. Its active requires stored grey health, consumes it into the source-duration shield, and otherwise heals after four damage-free seconds at the selected maximum-health rate. The two-enemy ratio and allied contexts remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented-with-prerequisite",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Thick Skin needs real health damage before a shield or recovery can occur.",
+        "kind": "needs-incoming-damage"
+      }
+    },
+    {
+      "champion": "TahmKench",
+      "slot": "r",
+      "ability": "TahmKenchRWrapper",
+      "name": "Devour",
+      "status": "executes",
+      "notes": [
+        "Enemy Devour requires three actual attack-applied Acquired Taste marks, consumes them, suppresses/hides the victim and slows Tahm for the source full duration before source maximum-health damage. Allied swallowing/shields, Q application of passive marks, grounding, spit positioning and manual early release remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Taliyah",
+      "slot": "r",
+      "ability": "TaliyahR",
+      "name": "Weaver's Wall",
+      "status": "needs-distance",
+      "notes": [
+        "Weaver's Wall automatically rides toward the opponent's initial position using source wall length/speed, with source champion-damage lockout. Immobilization cancels the modeled travel. Position changes at completion; the growing terrain wall, continuous rider path, arbitrary wall direction, voluntary dismount and wall collisions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented-with-prerequisite",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "The automatic ride needs a destination at least 150 units away; this isolated probe starts at zero.",
+        "kind": "needs-distance"
+      }
+    },
+    {
+      "champion": "Talon",
+      "slot": "e",
+      "ability": "TalonE",
+      "name": "Assassin's Path",
+      "status": "requires-terrain",
+      "notes": [
+        "This ability needs existing terrain for its traversal. The one-dimensional duel supplies no terrain anchor; no dash or portal is invented. Terrain-aware paths and collisions remain outside this model."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "This ability requires an existing traversable terrain anchor, which this duel does not supply.",
+        "kind": "requires-terrain"
+      }
+    },
+    {
+      "champion": "Teemo",
+      "slot": "r",
+      "ability": "TeemoR",
+      "name": "Noxious Trap",
+      "status": "executes",
+      "notes": [
+        "Noxious Trap arms after one second at the target's cast position, triggers once on nearby enemy occupancy and applies four source poison ticks plus slow. Traps retain separate state and source charge recovery; poison refreshes rather than stacking. Bounce, trap destruction, vision and measured toss flight remain excluded."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "TwistedFate",
+      "slot": "r",
+      "ability": "Destiny",
+      "name": "Destiny",
+      "status": "executes",
+      "notes": [
+        "Destiny's automatic duel strategy immediately channels Gate toward the sole opponent within source range. Control cancels the channel. Global vision, selecting a different destination and waiting before recasting remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Twitch",
+      "slot": "q",
+      "ability": "TwitchHideInShadows",
+      "name": "Ambush",
+      "status": "executes",
+      "notes": [
+        "Ambush fades for the source second, then grants source camouflage/movement. An offensive action ends it and grants source AS; attacks during fade request that transition at fade completion. Enemy-proximity bonus movement, damage-delayed fade, Venom and takedown resets remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Urgot",
+      "slot": "w",
+      "ability": "UrgotW",
+      "name": "Purge",
+      "status": "executes",
+      "notes": [
+        "Purge replaces attacks with three source-damage shots per second, half-damage supported item on-hits, no critical damage and source movement penalty/range. It fires even with ordinary attacks disabled and allows movement during firing. Rank five remains active for the fight. Slow resistance, leg shotguns, mark target selection and manual toggle cycles remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Varus",
+      "slot": "w",
+      "ability": "VarusW",
+      "name": "Blighted Quiver",
+      "status": "executes",
+      "notes": [
+        "Blighted Quiver grants source on-hit damage and six-second capped Blight stacks. Applied Q/E/R hits consume stacks for source maximum-health magic damage and per-stack basic cooldown refunds. Active empowers the next applied full-charge Q with source missing-health damage; lower charges, detonation charge amplification and R's spreading stacks remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Vex",
+      "slot": "r",
+      "ability": "VexR",
+      "name": "Shadow Surge",
+      "status": "executes",
+      "notes": [
+        "Shadow Surge marks on an applied missile hit; one automatic recast lands on the marked champion and deals source second-hit damage. Recast cannot precede the first impact. Doom, takedown resets and measured dash flight remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Viego",
+      "slot": "q",
+      "ability": "ViegoQ",
+      "name": "Blade of the Ruined King",
+      "status": "executes",
+      "notes": [
+        "Blade of the Ruined King stabs with source critical-stat scaling, adds live current-health on-hit damage and consumes a spell-applied mark for a second hit/heal. Possession, current-health critical modifiers and second-hit item procs remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Warwick",
+      "slot": "w",
+      "ability": "WarwickW",
+      "name": "Blood Hunt",
+      "status": "executes",
+      "notes": [
+        "Blood Hunt marks the sole champion for eight seconds and cannot activate within three seconds of champion damage. Actual hits grant source AS for 1.25 seconds against a hunted/low-health target, tripled below the second threshold. Quarter-second movement sensing uses source chase speed out of combat. Map trails, shared ally detection, windup re-evaluation and gradual movement recovery remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Xayah",
+      "slot": "e",
+      "ability": "XayahE",
+      "name": "Bladecaller",
+      "status": "needs-feathers",
+      "notes": [
+        "Bladecaller recalls actual six-second feathers from Q's two blades, R's five blades and Clean Cuts attacks, applying source crit-scaled damage with five-percent per-feather falloff (ten-percent floor) and root on three applied hits. Casts grant capped source passive charges. Feather positions project one-dimensional cast direction/range; lateral spread, moving return paths, miss-created attack feathers and individual outgoing blade collision remain excluded. Return speed uses the reviewed 4000-unit flight profile."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented-with-prerequisite",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "Bladecaller requires planted feathers from other casts/empowered attacks; the isolated slot has none.",
+        "kind": "needs-feathers"
+      }
+    },
+    {
+      "champion": "Yasuo",
+      "slot": "w",
+      "ability": "YasuoW",
+      "name": "Wind Wall",
+      "status": "executes",
+      "notes": [
+        "Wind Wall is projected 100 source units toward the foe in one dimension for the source four seconds. Reviewed incoming projectile paths are rejected if they crossed its fixed plane while it existed, even when impact follows expiry. Blocking is recorded at the scheduled impact. Ranged attacks with retained missile speed and explicitly reviewed Gnar Q, Zeri Q, Zoe Q, Hwei QQ, Elise W and Vex R missiles are covered; wall drift/width, other missiles and special non-projectile attack exceptions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yone",
+      "slot": "e",
+      "ability": "YoneE",
+      "name": "Soul Unbound",
+      "status": "executes",
+      "notes": [
+        "Soul Unbound records post-mitigation physical/magic health damage from owned attacks/spells, excluding shields, items, runes and summoners. At return it repeats the selected fraction as true damage and returns to the modeled starting body position. Control/action locks defer return; death returns immediately. Manual early return, detailed body displacement and realm restrictions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yunara",
+      "slot": "q",
+      "ability": "YunaraQ",
+      "name": "Cultivation of Spirit",
+      "status": "executes",
+      "notes": [
+        "Cultivation supplies source passive on-hit magic damage, gains Unleash on real champion attacks and spends eight for source AS/additional on-hit damage. Unleash uses a refreshed expiry window; gradual decay, spreading and Transcendence remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yunara",
+      "slot": "w",
+      "ability": "YunaraW",
+      "name": "Arc of Judgment | Arc of Ruin",
+      "status": "executes",
+      "notes": [
+        "Base Arc of Judgment lands source damage and decaying slow, leaving a one-second quarter-second sampled damage area at the impact position. Projectile width, return flight and Transcendent laser remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yunara",
+      "slot": "e",
+      "ability": "YunaraE",
+      "name": "Kanmei's Steps | Untouchable Shadow",
+      "status": "executes",
+      "notes": [
+        "Base Kanmei's Steps grants source movement with its enhanced amount while approaching the sole opponent. Transcendent dash remains excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yunara",
+      "slot": "r",
+      "ability": "YunaraR",
+      "name": "Transcend One's Self",
+      "status": "executes",
+      "notes": [
+        "Transcendence refreshes learned Q's active state for the selected duration, upgrades W to source laser damage/slow and E to a modeled dash, and reduces subsequent W cooldowns. Existing cooldown deadlines, spread attacks, aiming and animation timing remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Yuumi",
+      "slot": "w",
+      "ability": "YuumiW",
+      "name": "You and Me!",
+      "status": "requires-ally",
+      "notes": [
+        "This ability requires a different allied champion or Oathsworn. The duel supplies no such target; it cannot cast here and its allied effects are excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "contextual-exclusion",
+      "context": {
+        "reason": "The duel has one opposing champion and no allied champion or Oathsworn.",
+        "kind": "requires-ally"
+      }
+    },
+    {
+      "champion": "Zaahen",
+      "slot": "r",
+      "ability": "ZaahenR",
+      "name": "Grim Deliverance",
+      "status": "executes",
+      "notes": [
+        "Grim Deliverance grants learned-rank armor penetration, halves non-true damage during modeled casting, advances and heals from post-mitigation champion damage. Revival, terrain and multi-target effects remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Zed",
+      "slot": "w",
+      "ability": "ZedW",
+      "name": "Living Shadow",
+      "status": "executes",
+      "notes": [
+        "Living Shadow projects a stationary shadow toward the opponent within the selected cast range, then automatically swaps positions on its single modeled recast inside the source range/window. Q/E mimics, double-hit energy returns, cast-overlap swaps and R shadows remain excluded; no duplicated spell damage is invented."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Zeri",
+      "slot": "q",
+      "ability": "ZeriQ",
+      "name": "Burst Fire",
+      "status": "executes",
+      "notes": [
+        "Burst Fire sends one aggregate seven-round attack at the sole target with source total damage, normal critical multiplier, one on-hit application and AS-scaled cooldown down to the selected floor. Ability haste does not shorten it. Cast windup uses a fixed 0.15-second model. Per-round collision, excess AS-to-AD conversion, charge generation and Zeri's charged ordinary attack remain excluded."
+      ],
+      "previous_status": "not-cast",
+      "review": "implemented"
+    },
+    {
+      "champion": "Zeri",
+      "slot": "e",
+      "ability": "ZeriE",
+      "name": "Spark Surge",
+      "status": "executes",
+      "notes": [
+        "Spark Surge dashes up to the source open-ground range, empowers Q shots during its source duration, and refunds E cooldown on attacks. Terrain vaulting, critical refund scaling, shot piercing and charged ordinary-attack interactions remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Zilean",
+      "slot": "w",
+      "ability": "ZileanW",
+      "name": "Rewind",
+      "status": "needs-basic-cooldown",
+      "notes": [
+        "Rewind subtracts the source duration from Q/E cooldowns and wakes newly ready actions. It does not affect W, R, charges or recast timers."
+      ],
+      "previous_status": "cast-without-effect",
+      "review": "contextual-exclusion",
+      "context": {
+        "only-if-no-effect": true,
+        "reason": "The isolated probe supplies no Q/E cooldown to refund. Paired E/W regressions verify its actual readiness change.",
+        "kind": "needs-basic-cooldown"
+      }
+    },
+    {
+      "champion": "Zoe",
+      "slot": "q",
+      "ability": "ZoeQ",
+      "name": "Paddle Star!",
+      "status": "executes",
+      "notes": [
+        "Paddle Star uses a direct shot toward the sole opponent, with source base/maximum damage interpolated over 1500 traveled units. Backward redirects, arbitrary recast aiming and flight path changes remain excluded."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "implemented"
+    },
+    {
+      "champion": "Zyra",
+      "slot": "w",
+      "ability": "ZyraW",
+      "name": "Rampant Growth",
+      "status": "no-executable-effect",
+      "notes": [
+        "Unresolved tooltip variable: AmmoRechargeTime",
+        "No recognized executable effect; this does not imply zero damage."
+      ],
+      "previous_status": "no-executable-effect",
+      "review": "unsupported"
+    }
+  ],
+  "supplements": [
+    "https://wiki.leagueoflegends.com/en-us/Teemo",
+    "https://wiki.leagueoflegends.com/en-us/Mordekaiser",
+    "https://wiki.leagueoflegends.com/en-us/Yone",
+    "https://wiki.leagueoflegends.com/en-us/Warwick",
+    "https://wiki.leagueoflegends.com/en-us/Xayah"
+  ],
+  "pet_source_note": "Additional matching-patch summon roots are retained for the next implementation. They do not yet enable pet damage. HeimerTYellow root AS is 1.25, while the supplemental wiki lists 1.75; effective runtime cadence requires explicit resolution."
+}

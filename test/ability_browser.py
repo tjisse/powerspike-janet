@@ -68,7 +68,7 @@ def verify(binary_path, fixture_path):
                         represented = page.locator('[data-trace-events]').evaluate_all(
                             'nodes => nodes.flatMap(node => JSON.parse(node.dataset.traceEvents))')
                         expected = [row for row in result['trace'] if row['at'] <= result['end'] and row['kind'] in
-                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'attack-dodged', 'attack-blocked')]
+                                    ('damage', 'heal', 'shield', 'control', 'death', 'parry-start', 'parried', 'spell-block', 'projectile-block', 'attack-dodged', 'attack-blocked')]
                         assert sorted(represented) == list(range(len(expected)))
                 assert not errors, errors
                 browser.close()

@@ -184,7 +184,8 @@
   # updates cached packages without changing their immutable snapshot bytes.
   (def abilities (map (fn [ability]
                         (def current (expr/refresh ability (get ability :record {})))
-                        (merge current {:effects (map |(tooltip/attack-semantics (get ability :tooltip "")
+                        (merge current {:point-targeted (nil? (get-in current [:record "mTargetingTypeData"]))
+                                        :effects (map |(tooltip/attack-semantics (get ability :tooltip "")
                                                                                  (get ability :record {}) $)
                                                       (get current :effects []))}))
                       (get kit :abilities [])))

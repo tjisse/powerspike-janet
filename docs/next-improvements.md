@@ -82,7 +82,12 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    25 slots across 20 champions, including healing channels, health costs,
    damage stores, shared protection, charged releases and temporary movement.
    Its 56 retained scenarios include both roles and mixed-mechanic fights.
-   Next: remaining shared formula/activation gaps from the audit. Keep all remaining omissions explicit; a selectable champion or
+   The [remaining-slot review](remaining-ability-follow-up.md) now implements
+   another 75 slots, with source formulas, recast gates, stealth, stored damage,
+   status changes and positional effects. Its 152 native scenarios cover both
+   roles, including conditional slots and incoming Wind Wall projectiles.
+   Next: the ten explicitly deferred slots in that report, especially weapon
+   state, dynamic transformations, summons, spirits and copied ultimates. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
    beyond the default Annie/Garen matchup. Compare interpreted formulas and
@@ -95,9 +100,9 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 78 without an executable
-   effect, 12 unable to cast in the controlled probe and 6 casting without
-   an applied effect. Prioritize these mechanics and false-positive effects
+   it records 666 executing entries, five implemented entries needing setup,
+   eleven contextual exclusions, nine without executable effects and one unable
+   to activate. There are no unexplained cast-without-effect rows. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.
 2. **Attack timing and projectile behavior.** Measure isolated ordinary and

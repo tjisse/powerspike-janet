@@ -13,18 +13,20 @@
     (engine/simulate {:duration 8 :actors
                       [{:id "player" :kind :champion :champion id :level 18 :position 0 :attack-range 200
                         :attack-speed-ratio 1 :attack-speed-cap 3
-                        :base {:ad 100 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 0 :move-speed 350}
+                        :base {:ad 100 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 0 :move-speed 350 :attack-range 200}
                         :stats {:ad 150 :bonus-ad 50 :hp 100000 :mp 100000 :armor 50 :mr 50 :ap 100 :move-speed 350 :crit-chance 0 :crit-damage 2
                                 :attack-speed (+ 1 bonus-as) :attack-speed-uncapped (+ 1 bonus-as) :attack-speed-bonus bonus-as :attack-speed-item-growth 0 :ability-haste 0 :armor-pen-flat 0}
                         :health 50000 :resource 100000 :abilities [ability] :ranks ranks :triggers (effects/ability-triggers [ability] ranks)
                         :strategy {:attacks true :abilities true :priority [(ability :slot)] :movement :hold}}
-                       {:id "target" :kind :champion :level 18 :position 0 :base {:hp 1000000 :ad 100} :stats {:hp 1000000 :ad 100 :armor 50 :mr 50}
+                       {:id "target" :kind :champion :level 18 :position 0 :attack-speed-ratio 1 :attack-speed-cap 3 :base {:hp 1000000 :ad 100} :stats {:hp 1000000 :ad 100 :armor 50 :mr 50 :attack-speed 1 :attack-speed-uncapped 1 :attack-speed-bonus 0}
                         :strategy {:attacks false :abilities false :movement :hold}}]}))
   (def result (when (not (empty? estimated)) (protect (simulate))))
   (def outcome (when (and result (first result)) (result 1)))
   (def casts (when outcome (filter |(and (= :cast ($ :kind)) (= "player" ($ :actor)) (= (ability :id) ($ :source))) (outcome :trace))))
   (def applied (when outcome (filter |(and (= (ability :id) ($ :source)) (some (fn [kind] (= kind ($ :kind))) [:damage :shield :heal :control :stat-buff :buff :parry-start :cleanse :cooldown-refund :resource :displacement :blink])) (outcome :trace))))
-  (def status (cond (empty? estimated) :no-executable-effect
+  (def context (ability :audit-context))
+  (def status (cond (and context (or (not (context :only-if-no-effect)) (and outcome (empty? applied)))) (context :kind)
+                (empty? estimated) :no-executable-effect
                 (and result (not (first result))) :probe-error
                 (and (empty? casts) (not (ability :passive))) :not-cast
                 (and (ability :passive) (empty? applied)) :passive-without-effect
@@ -33,7 +35,7 @@
    :estimated (length estimated) :unresolved-effects (count |(= :unresolved ($ :status)) (ability :effects))
    :cast-count (length (or casts [])) :effect-count (length (or applied []))
    :inputs (mapcat |(if (dictionary? $) (expr/problems $) []) [(ability :cost) (ability :cooldown) (ability :range)])
-   :notes (ability :unresolved) :runtime (when outcome (outcome :unsupported))
+   :context context :notes (ability :unresolved) :runtime (when outcome (outcome :unsupported))
    :error (when (and result (not (first result))) (string (result 1)))})
 
 (defn run [package]

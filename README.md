@@ -60,6 +60,8 @@ describes the simulated trials that ran. **Adjust trials** opens the trial
 control; a single trial does not establish variation. See
 [trial comparison checks](docs/trial-variation.md).
 
+The [remaining ability review](docs/remaining-ability-follow-up.md) documents 75 additional partial slot implementations, conditional probe outcomes, source evidence and ten still-unsupported slots.
+
 See the [player beta rollout notes](docs/player-beta.md) for remaining release work.
 
 ## Build, format and deploy

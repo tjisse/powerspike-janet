@@ -1,0 +1,1046 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-24",
+  "scope": "Retained sources for all 96 previously non-executing slots. Implemented combat semantics, contextual prerequisites and unresolved mechanics are distinguished in the developer report.",
+  "slots": {
+    "Akali": "w",
+    "Akshan": "wer",
+    "Ambessa": "q",
+    "Anivia": "w",
+    "Aphelios": "qwe",
+    "Ashe": "qe",
+    "AurelionSol": "qw",
+    "Aurora": "w",
+    "Bard": "er",
+    "Briar": "w",
+    "Corki": "w",
+    "Elise": "qwr",
+    "Fiora": "qr",
+    "Gnar": "qwe",
+    "Graves": "e",
+    "Heimerdinger": "q",
+    "Hwei": "qr",
+    "Illaoi": "qe",
+    "Jayce": "qwer",
+    "Jinx": "q",
+    "KSante": "qw",
+    "Kalista": "er",
+    "Kayn": "er",
+    "Khazix": "r",
+    "Locke": "w",
+    "Mel": "r",
+    "MonkeyKing": "w",
+    "Mordekaiser": "r",
+    "Naafiri": "q",
+    "Nidalee": "r",
+    "Nilah": "r",
+    "Qiyana": "w",
+    "Quinn": "w",
+    "Rakan": "e",
+    "Rammus": "w",
+    "RekSai": "wer",
+    "Rell": "w",
+    "Renata": "wr",
+    "Ryze": "r",
+    "Shaco": "q",
+    "Shen": "r",
+    "Shyvana": "er",
+    "Sion": "q",
+    "Smolder": "q",
+    "Sylas": "r",
+    "TahmKench": "er",
+    "Taliyah": "r",
+    "Talon": "e",
+    "Teemo": "r",
+    "TwistedFate": "r",
+    "Twitch": "q",
+    "Urgot": "w",
+    "Varus": "w",
+    "Vex": "r",
+    "Viego": "q",
+    "Warwick": "w",
+    "Xayah": "e",
+    "Yasuo": "w",
+    "Yone": "e",
+    "Yunara": "qwer",
+    "Yuumi": "w",
+    "Zaahen": "r",
+    "Zed": "w",
+    "Zeri": "qe",
+    "Zilean": "w",
+    "Zoe": "q",
+    "Zyra": "w"
+  },
+  "sources": [
+    {
+      "path": "Akali-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/akali/akali.bin.json?powerspike=1",
+      "sha256": "25ec52c2712092969c96d28e223b816bd02639480bfa5ee90f64decb47604338",
+      "bytes": 104697
+    },
+    {
+      "path": "Akali-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Akali.json",
+      "sha256": "f35827c3e31e02aba6c7da739f35f3c565932e51cf26a9c9a41392cdf645153d",
+      "bytes": 17328
+    },
+    {
+      "path": "Akshan-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/akshan/akshan.bin.json?powerspike=1",
+      "sha256": "77b84cb5704216da776043377804a9990256d8eae1329d7617cebaa8735d8759",
+      "bytes": 67287
+    },
+    {
+      "path": "Akshan-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Akshan.json",
+      "sha256": "464696ad2c14737c98e9f7e0af8b505de7fadd9eb3268a539ad367c2d7c68465",
+      "bytes": 10848
+    },
+    {
+      "path": "Ambessa-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ambessa/ambessa.bin.json?powerspike=1",
+      "sha256": "1f209d01604c6bf8ad3ddd6551cdc3ad0a021f85539ba12dca9497d2cb037271",
+      "bytes": 71556
+    },
+    {
+      "path": "Ambessa-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ambessa.json",
+      "sha256": "3ecefd25eb97ed46e9fd2f3227ab1056501057807310d4279ac62a57f7730b89",
+      "bytes": 9944
+    },
+    {
+      "path": "Anivia-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/anivia/anivia.bin.json?powerspike=1",
+      "sha256": "9b3d47d23a5e4f08bf9050031fd60ef9678201a5228e97785ab044fde082e718",
+      "bytes": 45042
+    },
+    {
+      "path": "Anivia-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Anivia.json",
+      "sha256": "b5393e8375eccad74e112a242c75240c0f578d9412d1bd37e854bd2735262b30",
+      "bytes": 13892
+    },
+    {
+      "path": "Aphelios-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/aphelios/aphelios.bin.json?powerspike=1",
+      "sha256": "a52a56d4a748a03bf8435472493030638437da9c1876d6b611cf2c5904d4ec50",
+      "bytes": 125158
+    },
+    {
+      "path": "Aphelios-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Aphelios.json",
+      "sha256": "7a6ef19f4fd9b20ad0bea693643fe7d6b859a061222ed1253b15c32e222c7aaa",
+      "bytes": 11545
+    },
+    {
+      "path": "Ashe-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ashe/ashe.bin.json?powerspike=1",
+      "sha256": "42cb99ccdd3e33763d3febd84c43435c8ab394c9bd32e41239b992319be426fe",
+      "bytes": 101908
+    },
+    {
+      "path": "Ashe-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ashe.json",
+      "sha256": "0b5a11a15c10b03acdda77fed6d3fe9305c23112ac28ee4de80840fbb3b1f5ea",
+      "bytes": 15583
+    },
+    {
+      "path": "AurelionSol-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/aurelionsol/aurelionsol.bin.json?powerspike=1",
+      "sha256": "39c2a3d0b4e6d3873be5774886b3ac7da7d5f7abb95821e77a483c9a1da413b2",
+      "bytes": 103578
+    },
+    {
+      "path": "AurelionSol-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/AurelionSol.json",
+      "sha256": "c36eab12cb4d8d43ad7daa70371b496a6f498043b225f0d502dcd1f53fa410fa",
+      "bytes": 13316
+    },
+    {
+      "path": "Aurora-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/aurora/aurora.bin.json?powerspike=1",
+      "sha256": "73e21df416104d41f8933e3a6d1237efc8b54ae86fa1a783e50ba1542319ab7e",
+      "bytes": 51370
+    },
+    {
+      "path": "Aurora-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Aurora.json",
+      "sha256": "fba8dbbe3b0629e386b32f9a7cd65e6270f61b0bc8a263ca04e8730c3a485a66",
+      "bytes": 10426
+    },
+    {
+      "path": "Bard-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/bard/bard.bin.json?powerspike=1",
+      "sha256": "47458ab27cbe883d3c4e02fc46dcc752f6d661d55dbb549008c9d505eba27359",
+      "bytes": 84545
+    },
+    {
+      "path": "Bard-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Bard.json",
+      "sha256": "7e18045b7bb93d524caf66c5bad80c82bfa97740c9b8e6b405510ae775291ccd",
+      "bytes": 12101
+    },
+    {
+      "path": "Briar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/briar/briar.bin.json?powerspike=1",
+      "sha256": "4cd03960b672d62ee1eabe7da75a29a1aecf65d838d34b22da22215e902c15e6",
+      "bytes": 77426
+    },
+    {
+      "path": "Briar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Briar.json",
+      "sha256": "334989cced96bfc8064bd702b6e38f246d473c7c5560d90102f68dfe7acc93b9",
+      "bytes": 12493
+    },
+    {
+      "path": "Corki-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/corki/corki.bin.json?powerspike=1",
+      "sha256": "56465a813ed6c235dcaf0c5da89867d9448a263e1b53f599b1aee54925d89ec0",
+      "bytes": 61618
+    },
+    {
+      "path": "Corki-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Corki.json",
+      "sha256": "dc77ee332652cd21b44c6e4298443091297d26d37f1fa95f0fb03922781b2729",
+      "bytes": 11213
+    },
+    {
+      "path": "Elise-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/elise/elise.bin.json?powerspike=1",
+      "sha256": "549b8b34df8951d5fb7dc4a1db1436d1f9439df8e2376f1d765d7b85e5e601b6",
+      "bytes": 80725
+    },
+    {
+      "path": "Elise-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Elise.json",
+      "sha256": "85529c134c9ba4e1269282a54ee8520f4969e8837b9c975b96f33d2113632ade",
+      "bytes": 11234
+    },
+    {
+      "path": "Fiora-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/fiora/fiora.bin.json?powerspike=1",
+      "sha256": "86728a453efee24a4aa769f4e76197666e5fdc2d69c9de45264efb5a1591c97b",
+      "bytes": 47082
+    },
+    {
+      "path": "Fiora-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Fiora.json",
+      "sha256": "56316c7a7d807923649e6fcafac4010a4913677860539bb83d6cff4a1ea51864",
+      "bytes": 17558
+    },
+    {
+      "path": "Gnar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/gnar/gnar.bin.json?powerspike=1",
+      "sha256": "4076726ae862e9b61c6799f53747f2e899a2ead3d7ebacdbbe4b6749744b2f4d",
+      "bytes": 73767
+    },
+    {
+      "path": "Gnar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Gnar.json",
+      "sha256": "6163595ba81892a20405f4762a141a47d64bc7e6a324f05caca04cd335b3daf4",
+      "bytes": 12466
+    },
+    {
+      "path": "Graves-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/graves/graves.bin.json?powerspike=1",
+      "sha256": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+      "bytes": 74174
+    },
+    {
+      "path": "Graves-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Graves.json",
+      "sha256": "d58029d8a17d4c6c844b230e46a53e3534947d7b197b9a5d70bdf426b6adb90f",
+      "bytes": 12849
+    },
+    {
+      "path": "Heimerdinger-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/heimerdinger/heimerdinger.bin.json?powerspike=1",
+      "sha256": "ce83ef0c378dce09a5ac785af403f7f0c6117621cdc2cbffda6af9ab831d1f2c",
+      "bytes": 101105
+    },
+    {
+      "path": "Heimerdinger-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Heimerdinger.json",
+      "sha256": "fba748dfb623646e7439a10242955a8bd93163ea5a7792f0296b8823023a7506",
+      "bytes": 11637
+    },
+    {
+      "path": "Hwei-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/hwei/hwei.bin.json?powerspike=1",
+      "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
+      "bytes": 94311
+    },
+    {
+      "path": "Hwei-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Hwei.json",
+      "sha256": "52e43463611c197f3306699e01dc9e2951372bd36c2a6e79b3bc2b7ab6779cc6",
+      "bytes": 13923
+    },
+    {
+      "path": "Illaoi-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/illaoi/illaoi.bin.json?powerspike=1",
+      "sha256": "8b5bbfb888664b4cce7d361156f105083bf90fb30fdfdb0fe296fc0672933cfd",
+      "bytes": 45855
+    },
+    {
+      "path": "Illaoi-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Illaoi.json",
+      "sha256": "ea07e195976a0a3a6c700f6a79232041ed492e5da7da36c2a209df8928a7a190",
+      "bytes": 12549
+    },
+    {
+      "path": "Jayce-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/jayce/jayce.bin.json?powerspike=1",
+      "sha256": "7f26f095495bcf0ad6658fdd8fc45bed712b0d08d532a665bf6a601685b98c8a",
+      "bytes": 72458
+    },
+    {
+      "path": "Jayce-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Jayce.json",
+      "sha256": "9f85305f693ad3c7bb4fc533f5a351780aea5d4a1a9ff249551fe2efefb4e41c",
+      "bytes": 12366
+    },
+    {
+      "path": "Jinx-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/jinx/jinx.bin.json?powerspike=1",
+      "sha256": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+      "bytes": 75794
+    },
+    {
+      "path": "Jinx-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Jinx.json",
+      "sha256": "d1fe9bbad71b9272e5e3f8fddb410c8abb2d1ac871e84d236c9ccb43d4830670",
+      "bytes": 14700
+    },
+    {
+      "path": "KSante-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ksante/ksante.bin.json?powerspike=1",
+      "sha256": "bf26629db81a0d0e7f16754c910640d33e93591557263e4c9dd5541baafaf18b",
+      "bytes": 120758
+    },
+    {
+      "path": "KSante-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/KSante.json",
+      "sha256": "824027b2dc975f306c40f9b2e3513db389da11f080b5ba541a873a17be1ff6d6",
+      "bytes": 11937
+    },
+    {
+      "path": "Kalista-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/kalista/kalista.bin.json?powerspike=1",
+      "sha256": "ecff3fffb839251d6d0ea7034fce4d8e10426a5d42ba39512c9862d3b35862b5",
+      "bytes": 120303
+    },
+    {
+      "path": "Kalista-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Kalista.json",
+      "sha256": "9f624fa9527ec2c05009a4b6e4b9ce4019f040806b10a570bba0344af9c6acd3",
+      "bytes": 11749
+    },
+    {
+      "path": "Kayn-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/kayn/kayn.bin.json?powerspike=1",
+      "sha256": "500b76290ed0de447ade33a1f8272ba4567b7e9e41f35d01adbf8859db425cd5",
+      "bytes": 73612
+    },
+    {
+      "path": "Kayn-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Kayn.json",
+      "sha256": "c7ba1af68d07300437d7dbc2d7603cc54c24e2b004baaa08dd05111e92422f59",
+      "bytes": 11814
+    },
+    {
+      "path": "Khazix-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/khazix/khazix.bin.json?powerspike=1",
+      "sha256": "3cec77e3ceda2fb85cb66c82216f66ae68c609b435c9bfb441a1b665138f25c8",
+      "bytes": 67738
+    },
+    {
+      "path": "Khazix-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Khazix.json",
+      "sha256": "dde36b91d71717f3e9b63ab0b740ed7e6bbb0c91d083962cd1a796e0aefc693c",
+      "bytes": 14650
+    },
+    {
+      "path": "Locke-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/locke/locke.bin.json?powerspike=1",
+      "sha256": "5076c29cf41ad7f8ae93ac061001370c7b6d68042429c39443112b76a5be0c51",
+      "bytes": 64259
+    },
+    {
+      "path": "Locke-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Locke.json",
+      "sha256": "44a59f1126abd30c00f18b972341f830b5ebd08b67bb11b5db15102183324e05",
+      "bytes": 9262
+    },
+    {
+      "path": "Mel-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/mel/mel.bin.json?powerspike=1",
+      "sha256": "d3d49c48d43ec41e380553b59d0eaed5681c088f1e3483c6ae1812fc0062f9fb",
+      "bytes": 74674
+    },
+    {
+      "path": "Mel-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Mel.json",
+      "sha256": "b014f859365d0c5a864acc980a910e28ce083b90fba2a6ddf8e9870f3787354d",
+      "bytes": 11110
+    },
+    {
+      "path": "MonkeyKing-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/monkeyking/monkeyking.bin.json?powerspike=1",
+      "sha256": "79137d94c9af90c5d0672b43904c0d256196869c23570002dcb76cd27ffa1641",
+      "bytes": 49430
+    },
+    {
+      "path": "MonkeyKing-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/MonkeyKing.json",
+      "sha256": "43353278823198592ca65c66b785b048db647e19e19a3cddc0745600aa808d97",
+      "bytes": 11340
+    },
+    {
+      "path": "Mordekaiser-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/mordekaiser/mordekaiser.bin.json?powerspike=1",
+      "sha256": "e3e84718c9ba5e26cbc4207ecc91bacecfbb924bfee62be5665b8dba1d65b8a2",
+      "bytes": 52291
+    },
+    {
+      "path": "Mordekaiser-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Mordekaiser.json",
+      "sha256": "0da0989eca96c9d40e1c645ad3c14e97e185e8d96eeb5fb2360c82559fa9b03e",
+      "bytes": 12613
+    },
+    {
+      "path": "Naafiri-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/naafiri/naafiri.bin.json?powerspike=1",
+      "sha256": "2d83ecc11d0f7c5e4b45eed391a0d5de7f731a7cc755cc2828ccdf6308b3cc68",
+      "bytes": 67443
+    },
+    {
+      "path": "Naafiri-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Naafiri.json",
+      "sha256": "e78fdbef0223d1ffee2e4a4b6d55d2f84d9bf88b30b85d516664b9965ba53143",
+      "bytes": 12179
+    },
+    {
+      "path": "Nidalee-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nidalee/nidalee.bin.json?powerspike=1",
+      "sha256": "46f1c5b0a1905ebd9eda82b96c45234a6d78b23d03c3afa3b3ccb1d9d57bddaa",
+      "bytes": 67803
+    },
+    {
+      "path": "Nidalee-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nidalee.json",
+      "sha256": "2942ed41c95e4e5d153a3041f0c11e5d65eac86c2175ff0cf2bec6d9fafdd7b0",
+      "bytes": 14857
+    },
+    {
+      "path": "Nilah-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nilah/nilah.bin.json?powerspike=1",
+      "sha256": "0c5ba4a3d3386621da64e34cf48e13449a357ecf00979f8d69fdd98c0f6e209c",
+      "bytes": 53996
+    },
+    {
+      "path": "Nilah-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nilah.json",
+      "sha256": "f44638fa970d28b498c1472f03b3ca3d5ab0071f5ea056405785f2b30e1fa31e",
+      "bytes": 10183
+    },
+    {
+      "path": "Qiyana-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/qiyana/qiyana.bin.json?powerspike=1",
+      "sha256": "ea148be137609289a8a86207d8755a6cde25e6bcbd506daa786c8e857a515cd6",
+      "bytes": 110243
+    },
+    {
+      "path": "Qiyana-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Qiyana.json",
+      "sha256": "0fda43c3b0f67e02233deabb35376b25dec6aa173960b1d825fe07795eafc7fd",
+      "bytes": 13352
+    },
+    {
+      "path": "Quinn-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/quinn/quinn.bin.json?powerspike=1",
+      "sha256": "985a0b8dff879c6bc39ff0b72ac100b3719a5c38cddff6700abcb0cf08d604f5",
+      "bytes": 50511
+    },
+    {
+      "path": "Quinn-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Quinn.json",
+      "sha256": "76abc8a51c41f82109c4d9c7610049338998fbeeae2160832d587374d37e5168",
+      "bytes": 11510
+    },
+    {
+      "path": "Rakan-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/rakan/rakan.bin.json?powerspike=1",
+      "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+      "bytes": 57567
+    },
+    {
+      "path": "Rakan-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Rakan.json",
+      "sha256": "24594205999e99ba9a0e91a90efc030d23e6541f4cea822c052953c7611da4d8",
+      "bytes": 12237
+    },
+    {
+      "path": "Rammus-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/rammus/rammus.bin.json?powerspike=1",
+      "sha256": "67c843fe365d29f76415177c7d1cec5e7a0cdd67121b43e7d6deb1da5f01321e",
+      "bytes": 49292
+    },
+    {
+      "path": "Rammus-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Rammus.json",
+      "sha256": "1939f21933c609191a2bc198a6b4e58f75a13848bb45c5c84c7463a58b65e3b2",
+      "bytes": 11122
+    },
+    {
+      "path": "RekSai-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/reksai/reksai.bin.json?powerspike=1",
+      "sha256": "97c280a524cf24ee22f1571832335644b9911e3bc9688ccd433382768382cee7",
+      "bytes": 92878
+    },
+    {
+      "path": "RekSai-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/RekSai.json",
+      "sha256": "40e55abc77a0392610fcd257559d93f34a787d6c91b965c6d9e6eb2338188eea",
+      "bytes": 11482
+    },
+    {
+      "path": "Rell-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json?powerspike=1",
+      "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+      "bytes": 57135
+    },
+    {
+      "path": "Rell-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Rell.json",
+      "sha256": "c170a39160b8957dec20159c1a48c16e16b76b4d721fd7f4f9e2804066443d4a",
+      "bytes": 10591
+    },
+    {
+      "path": "Renata-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/renata/renata.bin.json?powerspike=1",
+      "sha256": "bf2e5a35fcafcf6ee7fd3bf6def39f57e75795cec7a8a525fe0dc0cc6c5c7200",
+      "bytes": 51152
+    },
+    {
+      "path": "Renata-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Renata.json",
+      "sha256": "ef2a8d9a12a1d446b8714c77861d683a09c3b91511bfbd6fac9a7655e45ad9cd",
+      "bytes": 10419
+    },
+    {
+      "path": "Ryze-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/ryze/ryze.bin.json?powerspike=1",
+      "sha256": "3ac691a4502f92cff5570ec9fbb369eb43784b86dfedf524ca33c5dbd01a2c11",
+      "bytes": 56529
+    },
+    {
+      "path": "Ryze-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Ryze.json",
+      "sha256": "2431493cd8d465f5cd79fe10c409b3a8e0273ed2a05734ad400c65caa07e0345",
+      "bytes": 11771
+    },
+    {
+      "path": "Shaco-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/shaco/shaco.bin.json?powerspike=1",
+      "sha256": "fe8b9980bc721f1afcb7a744d59f52b00259d95595971dfb0c17f1ab0a401a15",
+      "bytes": 58438
+    },
+    {
+      "path": "Shaco-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Shaco.json",
+      "sha256": "ad3a6c04353bf3c743abe5ea6220d4da9f537dcaa9a721290584bd038a1f9ffe",
+      "bytes": 15560
+    },
+    {
+      "path": "Shen-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/shen/shen.bin.json?powerspike=1",
+      "sha256": "0c80dd9f4ae07b5714c9914407e8101f9b2d5277fe6bc117a39d0aead97f4588",
+      "bytes": 48948
+    },
+    {
+      "path": "Shen-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Shen.json",
+      "sha256": "00781bf016f0e31ba6fe1ab21cfddacffbf9ac797c152a6b31cdad84f61fbc7f",
+      "bytes": 13190
+    },
+    {
+      "path": "Shyvana-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/shyvana/shyvana.bin.json?powerspike=1",
+      "sha256": "cdb8a0f8c39c8f4fa9cf84938f338d61085359a979d18d30c68e7082ef4229bd",
+      "bytes": 65728
+    },
+    {
+      "path": "Shyvana-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Shyvana.json",
+      "sha256": "167d2c39f171be007904f0801ceab155ab3dfcecf31b08ccfd05335b5d603534",
+      "bytes": 12341
+    },
+    {
+      "path": "Sion-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/sion/sion.bin.json?powerspike=1",
+      "sha256": "56f565b7211f73aab8cb312681f1ec988f53e37875b11c262c5bba502077f39b",
+      "bytes": 94985
+    },
+    {
+      "path": "Sion-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Sion.json",
+      "sha256": "96a5f844ac09bea3e83c1112cc622a5c1237175127661515328e3a3595d2df6b",
+      "bytes": 14603
+    },
+    {
+      "path": "Smolder-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/smolder/smolder.bin.json?powerspike=1",
+      "sha256": "0cc7954c3ca00f057f167ed1ad83658962b46a7524bbef1760f3483da7c47668",
+      "bytes": 71552
+    },
+    {
+      "path": "Smolder-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Smolder.json",
+      "sha256": "c779a63c7571da2c55b8a6eddfa4dd94d1e627c89808478243a35f55ae9bccc2",
+      "bytes": 10393
+    },
+    {
+      "path": "Sylas-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/sylas/sylas.bin.json?powerspike=1",
+      "sha256": "59132e8ead14c609a632c3f398342a77a79d47cb51f200b2c8f54d1b68413843",
+      "bytes": 52833
+    },
+    {
+      "path": "Sylas-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Sylas.json",
+      "sha256": "f6db7899ac83098fe34b10ff3d13cfbc9565189030465a302b245b2ab10a7f55",
+      "bytes": 12336
+    },
+    {
+      "path": "TahmKench-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/tahmkench/tahmkench.bin.json?powerspike=1",
+      "sha256": "bf554fb6792d3a2c0e5d0f38e8950c8dc7c8d81ae017c8f28de99f99837bb1f0",
+      "bytes": 46427
+    },
+    {
+      "path": "TahmKench-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/TahmKench.json",
+      "sha256": "59d4d99e36540cbcfa0df38b88835f28488a13134001000370791e03c7d7d32b",
+      "bytes": 14437
+    },
+    {
+      "path": "Taliyah-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/taliyah/taliyah.bin.json?powerspike=1",
+      "sha256": "1e29cca3896b7bada0fc88372ce33b2f2ce63eb71040e1d88b3e106733377cab",
+      "bytes": 72554
+    },
+    {
+      "path": "Taliyah-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Taliyah.json",
+      "sha256": "4bc6bbf7dea8022fd885218b72faede93dde8b98925935d6e032ca40c4a748fa",
+      "bytes": 10301
+    },
+    {
+      "path": "Talon-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/talon/talon.bin.json?powerspike=1",
+      "sha256": "da74fa3aa9417384168fc4c00677d8c326a5972dc36331bbe25650c38c42c166",
+      "bytes": 70305
+    },
+    {
+      "path": "Talon-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Talon.json",
+      "sha256": "00cb2b6d16c46293a9d71dab07d5723eb1bfb2cc017aee284006679a783f5a7d",
+      "bytes": 13572
+    },
+    {
+      "path": "Teemo-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/teemo/teemo.bin.json?powerspike=1",
+      "sha256": "48cf7e321bf11f0de7f1d409991160cdc1d207c4e3ca5ea2109f907eab48c7d1",
+      "bytes": 58960
+    },
+    {
+      "path": "Teemo-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Teemo.json",
+      "sha256": "0345e03e07c00f8c4bdcc1098a92839fd00c14bb8238890e2a2408d107690e60",
+      "bytes": 13566
+    },
+    {
+      "path": "TwistedFate-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/twistedfate/twistedfate.bin.json?powerspike=1",
+      "sha256": "1e076fe750a9f219fd2a5ca911f05c9f86af6f6bdb027253cdbf21fc99b923e9",
+      "bytes": 81513
+    },
+    {
+      "path": "TwistedFate-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/TwistedFate.json",
+      "sha256": "126dee11804797cfabb1dc8c71b83235dc7e428ee212bbd53491f67efae7e45e",
+      "bytes": 12420
+    },
+    {
+      "path": "Twitch-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/twitch/twitch.bin.json?powerspike=1",
+      "sha256": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+      "bytes": 51094
+    },
+    {
+      "path": "Twitch-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Twitch.json",
+      "sha256": "16d9b4f1a74fe5ca20893936e838b38b5fa705426a4058df4c70c5da7d971fc7",
+      "bytes": 13250
+    },
+    {
+      "path": "Urgot-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/urgot/urgot.bin.json?powerspike=1",
+      "sha256": "f2c99e2ba09dd03a9036a12002fabff3102b5907d81bf6860c185e87b6ae2756",
+      "bytes": 78470
+    },
+    {
+      "path": "Urgot-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Urgot.json",
+      "sha256": "1dcc2f76e126bd8707f65cbd68771b360dac0c87fae681b2a7a9f3c503b95cc2",
+      "bytes": 12986
+    },
+    {
+      "path": "Varus-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/varus/varus.bin.json?powerspike=1",
+      "sha256": "d7e6bbeea67484b529c38d6422114a555967777c3398e46b7bdd06dd6026381f",
+      "bytes": 104837
+    },
+    {
+      "path": "Varus-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Varus.json",
+      "sha256": "1393c62a0be0c72a1182ff580ea99c3406a27700b92589190ffda1bc16a7b770",
+      "bytes": 15424
+    },
+    {
+      "path": "Vex-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/vex/vex.bin.json?powerspike=1",
+      "sha256": "6eca64c98c895a10bb87d90ad7814bfd7f9e70936fb5bbb5f7488a61b07abee3",
+      "bytes": 52027
+    },
+    {
+      "path": "Vex-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Vex.json",
+      "sha256": "610bf1d76faf27b89684205c9b0059840227f21b1f2547330d1177dcbb6d1b0f",
+      "bytes": 10418
+    },
+    {
+      "path": "Viego-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/viego/viego.bin.json?powerspike=1",
+      "sha256": "d559c95e7a22c109da809e5aec23fa80148b42c86ceca84f161dc55af9631f13",
+      "bytes": 74765
+    },
+    {
+      "path": "Viego-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Viego.json",
+      "sha256": "71887944069ef71c00edb599e923a56dd95e79a66b54b5b7f548ae3824cf8e9a",
+      "bytes": 11696
+    },
+    {
+      "path": "Warwick-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/warwick/warwick.bin.json?powerspike=1",
+      "sha256": "cf1ed1425366b05755da01f6b26f1a34806a305aae6b1c5c6f97bdefec119ee3",
+      "bytes": 70172
+    },
+    {
+      "path": "Warwick-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Warwick.json",
+      "sha256": "90edb89a488fd2038908a9131dce6eb609ae905fb545fdbe01046e3abfb41efb",
+      "bytes": 13284
+    },
+    {
+      "path": "Xayah-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/xayah/xayah.bin.json?powerspike=1",
+      "sha256": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+      "bytes": 63288
+    },
+    {
+      "path": "Xayah-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Xayah.json",
+      "sha256": "8820a34ec2bd296742f20f8db9deffe5fc69e0422e457ee67468bab588057f0d",
+      "bytes": 13346
+    },
+    {
+      "path": "Yasuo-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/yasuo/yasuo.bin.json?powerspike=1",
+      "sha256": "0ab3d26bcd4c0f92390fa16d71dd01fc74c5dc419f8facf6c717532a247d992b",
+      "bytes": 118909
+    },
+    {
+      "path": "Yasuo-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Yasuo.json",
+      "sha256": "1154bfaff7b89a834ce8472230ce3af022c24180a9c8a827ae0c8434389e2615",
+      "bytes": 17411
+    },
+    {
+      "path": "Yone-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/yone/yone.bin.json?powerspike=1",
+      "sha256": "b5f5fc5b9ddb6dd8dd485797c077f4c5f72617cf1aad831c14e3ac9ca88c1cb7",
+      "bytes": 76357
+    },
+    {
+      "path": "Yone-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Yone.json",
+      "sha256": "c543b2a2413863e1031ee2f56fe671ca90d6dfb1ca8b594beb8656bbb8729e35",
+      "bytes": 14778
+    },
+    {
+      "path": "Yunara-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/yunara/yunara.bin.json?powerspike=1",
+      "sha256": "07c02afc3a316955f488fa23a7d6a9dc6290395d55e6915e79055c8cd12e2f69",
+      "bytes": 75438
+    },
+    {
+      "path": "Yunara-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Yunara.json",
+      "sha256": "84621992a0942a592a079360fd0c3de6adbac25a1a4877b4713533e0d121be5b",
+      "bytes": 9016
+    },
+    {
+      "path": "Yuumi-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/yuumi/yuumi.bin.json?powerspike=1",
+      "sha256": "b5fe9d36107fe79c39102824b62be46bdc1dcc2537c5b7a52456c54e724b2482",
+      "bytes": 110448
+    },
+    {
+      "path": "Yuumi-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Yuumi.json",
+      "sha256": "717fed49fb2ab28208c198f88095f074527c785bac6abe7be4db2e17546dddc2",
+      "bytes": 16956
+    },
+    {
+      "path": "Zaahen-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zaahen/zaahen.bin.json?powerspike=1",
+      "sha256": "d42dd15ec363c90fa4b72f348b58e04e4edea65b33d4fc716458e4ee60569f55",
+      "bytes": 58997
+    },
+    {
+      "path": "Zaahen-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zaahen.json",
+      "sha256": "285201eced99ab0dfa869aaa5b90d3063ad70aa5a6af95a0014823ef6337b500",
+      "bytes": 8449
+    },
+    {
+      "path": "Zed-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zed/zed.bin.json?powerspike=1",
+      "sha256": "200979d28308828cd9402bb3ac83421b802feca46fd0e967b982e318bf5d06e3",
+      "bytes": 61568
+    },
+    {
+      "path": "Zed-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zed.json",
+      "sha256": "582e69f7ca60617b9df4353db38d7b9f93c4f4491d85b5ce883d8ba4989d30a4",
+      "bytes": 14695
+    },
+    {
+      "path": "Zeri-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zeri/zeri.bin.json?powerspike=1",
+      "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
+      "bytes": 74801
+    },
+    {
+      "path": "Zeri-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zeri.json",
+      "sha256": "3c552fb6ab1dc99d12e9efdac71d9ae998f47b23bbf33622369c49a2a3eaa26c",
+      "bytes": 12419
+    },
+    {
+      "path": "Zilean-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zilean/zilean.bin.json?powerspike=1",
+      "sha256": "bf566037b247c627c38ebc44b6ea3acd437ad0c0127efbdf474f045a7d96f1bf",
+      "bytes": 71076
+    },
+    {
+      "path": "Zilean-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zilean.json",
+      "sha256": "00d264ac5d8ef2035dac31b71b1b8fce07533c531f02770e66a36cfebb57ba09",
+      "bytes": 10486
+    },
+    {
+      "path": "Zoe-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zoe/zoe.bin.json?powerspike=1",
+      "sha256": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+      "bytes": 151982
+    },
+    {
+      "path": "Zoe-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zoe.json",
+      "sha256": "87eaa3f9894267fc238b37b063644ad54e1c97dd1fbdb96af1f4258933fe8ba6",
+      "bytes": 12564
+    },
+    {
+      "path": "Zyra-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zyra/zyra.bin.json?powerspike=1",
+      "sha256": "71940c6ceefdbc3b51ea078897d1b9ef49023d7d2dc0c98937f0bb679a554381",
+      "bytes": 68904
+    },
+    {
+      "path": "Zyra-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Zyra.json",
+      "sha256": "0c3dccf9b0f562c30f528fa1f4ee98a717a478e6941e179198c41ef356f66c32",
+      "bytes": 15595
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json",
+      "sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc",
+      "bytes": 32320350,
+      "retained": "selected localization excerpt"
+    },
+    {
+      "path": "heimertyellow-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/heimertyellow/heimertyellow.bin.json",
+      "sha256": "d8bb8bb92b13715cad8ba4dda3037039976f41bcc76ef39966f72ede55732348",
+      "bytes": 7648
+    },
+    {
+      "path": "zyrathornplant-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zyrathornplant/zyrathornplant.bin.json",
+      "sha256": "fb770c857f1dee0f61cc2740ad06dd125524157d0bcb12896a8231d7324a0893",
+      "bytes": 4433
+    },
+    {
+      "path": "zyragraspingplant-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/zyragraspingplant/zyragraspingplant.bin.json",
+      "sha256": "1313c27ca46554fd0ebfd95471f976236f59eeac2f3f83898500d408e545921d",
+      "bytes": 3409
+    }
+  ],
+  "fixture_sha256": {
+    "Akali-abilities.json": "f35827c3e31e02aba6c7da739f35f3c565932e51cf26a9c9a41392cdf645153d",
+    "Akali-characters.json": "25ec52c2712092969c96d28e223b816bd02639480bfa5ee90f64decb47604338",
+    "Akshan-abilities.json": "464696ad2c14737c98e9f7e0af8b505de7fadd9eb3268a539ad367c2d7c68465",
+    "Akshan-characters.json": "77b84cb5704216da776043377804a9990256d8eae1329d7617cebaa8735d8759",
+    "Ambessa-abilities.json": "3ecefd25eb97ed46e9fd2f3227ab1056501057807310d4279ac62a57f7730b89",
+    "Ambessa-characters.json": "1f209d01604c6bf8ad3ddd6551cdc3ad0a021f85539ba12dca9497d2cb037271",
+    "Anivia-abilities.json": "b5393e8375eccad74e112a242c75240c0f578d9412d1bd37e854bd2735262b30",
+    "Anivia-characters.json": "9b3d47d23a5e4f08bf9050031fd60ef9678201a5228e97785ab044fde082e718",
+    "Aphelios-abilities.json": "7a6ef19f4fd9b20ad0bea693643fe7d6b859a061222ed1253b15c32e222c7aaa",
+    "Aphelios-characters.json": "a52a56d4a748a03bf8435472493030638437da9c1876d6b611cf2c5904d4ec50",
+    "Ashe-abilities.json": "0b5a11a15c10b03acdda77fed6d3fe9305c23112ac28ee4de80840fbb3b1f5ea",
+    "Ashe-characters.json": "42cb99ccdd3e33763d3febd84c43435c8ab394c9bd32e41239b992319be426fe",
+    "AurelionSol-abilities.json": "c36eab12cb4d8d43ad7daa70371b496a6f498043b225f0d502dcd1f53fa410fa",
+    "AurelionSol-characters.json": "39c2a3d0b4e6d3873be5774886b3ac7da7d5f7abb95821e77a483c9a1da413b2",
+    "Aurora-abilities.json": "fba8dbbe3b0629e386b32f9a7cd65e6270f61b0bc8a263ca04e8730c3a485a66",
+    "Aurora-characters.json": "73e21df416104d41f8933e3a6d1237efc8b54ae86fa1a783e50ba1542319ab7e",
+    "Bard-abilities.json": "7e18045b7bb93d524caf66c5bad80c82bfa97740c9b8e6b405510ae775291ccd",
+    "Bard-characters.json": "47458ab27cbe883d3c4e02fc46dcc752f6d661d55dbb549008c9d505eba27359",
+    "Briar-abilities.json": "334989cced96bfc8064bd702b6e38f246d473c7c5560d90102f68dfe7acc93b9",
+    "Briar-characters.json": "4cd03960b672d62ee1eabe7da75a29a1aecf65d838d34b22da22215e902c15e6",
+    "Corki-abilities.json": "dc77ee332652cd21b44c6e4298443091297d26d37f1fa95f0fb03922781b2729",
+    "Corki-characters.json": "56465a813ed6c235dcaf0c5da89867d9448a263e1b53f599b1aee54925d89ec0",
+    "Elise-abilities.json": "85529c134c9ba4e1269282a54ee8520f4969e8837b9c975b96f33d2113632ade",
+    "Elise-characters.json": "549b8b34df8951d5fb7dc4a1db1436d1f9439df8e2376f1d765d7b85e5e601b6",
+    "Fiora-abilities.json": "56316c7a7d807923649e6fcafac4010a4913677860539bb83d6cff4a1ea51864",
+    "Fiora-characters.json": "86728a453efee24a4aa769f4e76197666e5fdc2d69c9de45264efb5a1591c97b",
+    "Gnar-abilities.json": "6163595ba81892a20405f4762a141a47d64bc7e6a324f05caca04cd335b3daf4",
+    "Gnar-characters.json": "4076726ae862e9b61c6799f53747f2e899a2ead3d7ebacdbbe4b6749744b2f4d",
+    "Graves-abilities.json": "d58029d8a17d4c6c844b230e46a53e3534947d7b197b9a5d70bdf426b6adb90f",
+    "Graves-characters.json": "02f77980a4f5e9c77d4dece5c96e2b699d4381c59e5f9783ba22a2844ed0339a",
+    "Heimerdinger-abilities.json": "fba748dfb623646e7439a10242955a8bd93163ea5a7792f0296b8823023a7506",
+    "Heimerdinger-characters.json": "ce83ef0c378dce09a5ac785af403f7f0c6117621cdc2cbffda6af9ab831d1f2c",
+    "Hwei-abilities.json": "52e43463611c197f3306699e01dc9e2951372bd36c2a6e79b3bc2b7ab6779cc6",
+    "Hwei-characters.json": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
+    "Illaoi-abilities.json": "ea07e195976a0a3a6c700f6a79232041ed492e5da7da36c2a209df8928a7a190",
+    "Illaoi-characters.json": "8b5bbfb888664b4cce7d361156f105083bf90fb30fdfdb0fe296fc0672933cfd",
+    "Jayce-abilities.json": "9f85305f693ad3c7bb4fc533f5a351780aea5d4a1a9ff249551fe2efefb4e41c",
+    "Jayce-characters.json": "7f26f095495bcf0ad6658fdd8fc45bed712b0d08d532a665bf6a601685b98c8a",
+    "Jinx-abilities.json": "d1fe9bbad71b9272e5e3f8fddb410c8abb2d1ac871e84d236c9ccb43d4830670",
+    "Jinx-characters.json": "21d6ef0823bddeeb7c476bd888a295170dcaaf5f9f9e3c661d1d8f9fe94bb5a8",
+    "KSante-abilities.json": "824027b2dc975f306c40f9b2e3513db389da11f080b5ba541a873a17be1ff6d6",
+    "KSante-characters.json": "bf26629db81a0d0e7f16754c910640d33e93591557263e4c9dd5541baafaf18b",
+    "Kalista-abilities.json": "9f624fa9527ec2c05009a4b6e4b9ce4019f040806b10a570bba0344af9c6acd3",
+    "Kalista-characters.json": "ecff3fffb839251d6d0ea7034fce4d8e10426a5d42ba39512c9862d3b35862b5",
+    "Kayn-abilities.json": "c7ba1af68d07300437d7dbc2d7603cc54c24e2b004baaa08dd05111e92422f59",
+    "Kayn-characters.json": "500b76290ed0de447ade33a1f8272ba4567b7e9e41f35d01adbf8859db425cd5",
+    "Khazix-abilities.json": "dde36b91d71717f3e9b63ab0b740ed7e6bbb0c91d083962cd1a796e0aefc693c",
+    "Khazix-characters.json": "3cec77e3ceda2fb85cb66c82216f66ae68c609b435c9bfb441a1b665138f25c8",
+    "Locke-abilities.json": "44a59f1126abd30c00f18b972341f830b5ebd08b67bb11b5db15102183324e05",
+    "Locke-characters.json": "5076c29cf41ad7f8ae93ac061001370c7b6d68042429c39443112b76a5be0c51",
+    "Mel-abilities.json": "b014f859365d0c5a864acc980a910e28ce083b90fba2a6ddf8e9870f3787354d",
+    "Mel-characters.json": "d3d49c48d43ec41e380553b59d0eaed5681c088f1e3483c6ae1812fc0062f9fb",
+    "MonkeyKing-abilities.json": "43353278823198592ca65c66b785b048db647e19e19a3cddc0745600aa808d97",
+    "MonkeyKing-characters.json": "79137d94c9af90c5d0672b43904c0d256196869c23570002dcb76cd27ffa1641",
+    "Mordekaiser-abilities.json": "0da0989eca96c9d40e1c645ad3c14e97e185e8d96eeb5fb2360c82559fa9b03e",
+    "Mordekaiser-characters.json": "e3e84718c9ba5e26cbc4207ecc91bacecfbb924bfee62be5665b8dba1d65b8a2",
+    "Naafiri-abilities.json": "e78fdbef0223d1ffee2e4a4b6d55d2f84d9bf88b30b85d516664b9965ba53143",
+    "Naafiri-characters.json": "2d83ecc11d0f7c5e4b45eed391a0d5de7f731a7cc755cc2828ccdf6308b3cc68",
+    "Nidalee-abilities.json": "2942ed41c95e4e5d153a3041f0c11e5d65eac86c2175ff0cf2bec6d9fafdd7b0",
+    "Nidalee-characters.json": "46f1c5b0a1905ebd9eda82b96c45234a6d78b23d03c3afa3b3ccb1d9d57bddaa",
+    "Nilah-abilities.json": "f44638fa970d28b498c1472f03b3ca3d5ab0071f5ea056405785f2b30e1fa31e",
+    "Nilah-characters.json": "0c5ba4a3d3386621da64e34cf48e13449a357ecf00979f8d69fdd98c0f6e209c",
+    "Qiyana-abilities.json": "0fda43c3b0f67e02233deabb35376b25dec6aa173960b1d825fe07795eafc7fd",
+    "Qiyana-characters.json": "ea148be137609289a8a86207d8755a6cde25e6bcbd506daa786c8e857a515cd6",
+    "Quinn-abilities.json": "76abc8a51c41f82109c4d9c7610049338998fbeeae2160832d587374d37e5168",
+    "Quinn-characters.json": "985a0b8dff879c6bc39ff0b72ac100b3719a5c38cddff6700abcb0cf08d604f5",
+    "Rakan-abilities.json": "24594205999e99ba9a0e91a90efc030d23e6541f4cea822c052953c7611da4d8",
+    "Rakan-characters.json": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
+    "Rammus-abilities.json": "1939f21933c609191a2bc198a6b4e58f75a13848bb45c5c84c7463a58b65e3b2",
+    "Rammus-characters.json": "67c843fe365d29f76415177c7d1cec5e7a0cdd67121b43e7d6deb1da5f01321e",
+    "RekSai-abilities.json": "40e55abc77a0392610fcd257559d93f34a787d6c91b965c6d9e6eb2338188eea",
+    "RekSai-characters.json": "97c280a524cf24ee22f1571832335644b9911e3bc9688ccd433382768382cee7",
+    "Rell-abilities.json": "c170a39160b8957dec20159c1a48c16e16b76b4d721fd7f4f9e2804066443d4a",
+    "Rell-characters.json": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+    "Renata-abilities.json": "ef2a8d9a12a1d446b8714c77861d683a09c3b91511bfbd6fac9a7655e45ad9cd",
+    "Renata-characters.json": "bf2e5a35fcafcf6ee7fd3bf6def39f57e75795cec7a8a525fe0dc0cc6c5c7200",
+    "Ryze-abilities.json": "2431493cd8d465f5cd79fe10c409b3a8e0273ed2a05734ad400c65caa07e0345",
+    "Ryze-characters.json": "3ac691a4502f92cff5570ec9fbb369eb43784b86dfedf524ca33c5dbd01a2c11",
+    "Shaco-abilities.json": "ad3a6c04353bf3c743abe5ea6220d4da9f537dcaa9a721290584bd038a1f9ffe",
+    "Shaco-characters.json": "fe8b9980bc721f1afcb7a744d59f52b00259d95595971dfb0c17f1ab0a401a15",
+    "Shen-abilities.json": "00781bf016f0e31ba6fe1ab21cfddacffbf9ac797c152a6b31cdad84f61fbc7f",
+    "Shen-characters.json": "0c80dd9f4ae07b5714c9914407e8101f9b2d5277fe6bc117a39d0aead97f4588",
+    "Shyvana-abilities.json": "167d2c39f171be007904f0801ceab155ab3dfcecf31b08ccfd05335b5d603534",
+    "Shyvana-characters.json": "cdb8a0f8c39c8f4fa9cf84938f338d61085359a979d18d30c68e7082ef4229bd",
+    "Sion-abilities.json": "96a5f844ac09bea3e83c1112cc622a5c1237175127661515328e3a3595d2df6b",
+    "Sion-characters.json": "56f565b7211f73aab8cb312681f1ec988f53e37875b11c262c5bba502077f39b",
+    "Smolder-abilities.json": "c779a63c7571da2c55b8a6eddfa4dd94d1e627c89808478243a35f55ae9bccc2",
+    "Smolder-characters.json": "0cc7954c3ca00f057f167ed1ad83658962b46a7524bbef1760f3483da7c47668",
+    "Sylas-abilities.json": "f6db7899ac83098fe34b10ff3d13cfbc9565189030465a302b245b2ab10a7f55",
+    "Sylas-characters.json": "59132e8ead14c609a632c3f398342a77a79d47cb51f200b2c8f54d1b68413843",
+    "TahmKench-abilities.json": "59d4d99e36540cbcfa0df38b88835f28488a13134001000370791e03c7d7d32b",
+    "TahmKench-characters.json": "bf554fb6792d3a2c0e5d0f38e8950c8dc7c8d81ae017c8f28de99f99837bb1f0",
+    "Taliyah-abilities.json": "4bc6bbf7dea8022fd885218b72faede93dde8b98925935d6e032ca40c4a748fa",
+    "Taliyah-characters.json": "1e29cca3896b7bada0fc88372ce33b2f2ce63eb71040e1d88b3e106733377cab",
+    "Talon-abilities.json": "00cb2b6d16c46293a9d71dab07d5723eb1bfb2cc017aee284006679a783f5a7d",
+    "Talon-characters.json": "da74fa3aa9417384168fc4c00677d8c326a5972dc36331bbe25650c38c42c166",
+    "Teemo-abilities.json": "0345e03e07c00f8c4bdcc1098a92839fd00c14bb8238890e2a2408d107690e60",
+    "Teemo-characters.json": "48cf7e321bf11f0de7f1d409991160cdc1d207c4e3ca5ea2109f907eab48c7d1",
+    "TwistedFate-abilities.json": "126dee11804797cfabb1dc8c71b83235dc7e428ee212bbd53491f67efae7e45e",
+    "TwistedFate-characters.json": "1e076fe750a9f219fd2a5ca911f05c9f86af6f6bdb027253cdbf21fc99b923e9",
+    "Twitch-abilities.json": "16d9b4f1a74fe5ca20893936e838b38b5fa705426a4058df4c70c5da7d971fc7",
+    "Twitch-characters.json": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+    "Urgot-abilities.json": "1dcc2f76e126bd8707f65cbd68771b360dac0c87fae681b2a7a9f3c503b95cc2",
+    "Urgot-characters.json": "f2c99e2ba09dd03a9036a12002fabff3102b5907d81bf6860c185e87b6ae2756",
+    "Varus-abilities.json": "1393c62a0be0c72a1182ff580ea99c3406a27700b92589190ffda1bc16a7b770",
+    "Varus-characters.json": "d7e6bbeea67484b529c38d6422114a555967777c3398e46b7bdd06dd6026381f",
+    "Vex-abilities.json": "610bf1d76faf27b89684205c9b0059840227f21b1f2547330d1177dcbb6d1b0f",
+    "Vex-characters.json": "6eca64c98c895a10bb87d90ad7814bfd7f9e70936fb5bbb5f7488a61b07abee3",
+    "Viego-abilities.json": "71887944069ef71c00edb599e923a56dd95e79a66b54b5b7f548ae3824cf8e9a",
+    "Viego-characters.json": "d559c95e7a22c109da809e5aec23fa80148b42c86ceca84f161dc55af9631f13",
+    "Warwick-abilities.json": "90edb89a488fd2038908a9131dce6eb609ae905fb545fdbe01046e3abfb41efb",
+    "Warwick-characters.json": "cf1ed1425366b05755da01f6b26f1a34806a305aae6b1c5c6f97bdefec119ee3",
+    "Xayah-abilities.json": "8820a34ec2bd296742f20f8db9deffe5fc69e0422e457ee67468bab588057f0d",
+    "Xayah-characters.json": "c330cc9558791d56a8fcb10ba6a6991ebba7bf3fe588934bdb1c1ecd809feeed",
+    "Yasuo-abilities.json": "1154bfaff7b89a834ce8472230ce3af022c24180a9c8a827ae0c8434389e2615",
+    "Yasuo-characters.json": "0ab3d26bcd4c0f92390fa16d71dd01fc74c5dc419f8facf6c717532a247d992b",
+    "Yone-abilities.json": "c543b2a2413863e1031ee2f56fe671ca90d6dfb1ca8b594beb8656bbb8729e35",
+    "Yone-characters.json": "b5f5fc5b9ddb6dd8dd485797c077f4c5f72617cf1aad831c14e3ac9ca88c1cb7",
+    "Yunara-abilities.json": "84621992a0942a592a079360fd0c3de6adbac25a1a4877b4713533e0d121be5b",
+    "Yunara-characters.json": "07c02afc3a316955f488fa23a7d6a9dc6290395d55e6915e79055c8cd12e2f69",
+    "Yuumi-abilities.json": "717fed49fb2ab28208c198f88095f074527c785bac6abe7be4db2e17546dddc2",
+    "Yuumi-characters.json": "b5fe9d36107fe79c39102824b62be46bdc1dcc2537c5b7a52456c54e724b2482",
+    "Zaahen-abilities.json": "285201eced99ab0dfa869aaa5b90d3063ad70aa5a6af95a0014823ef6337b500",
+    "Zaahen-characters.json": "d42dd15ec363c90fa4b72f348b58e04e4edea65b33d4fc716458e4ee60569f55",
+    "Zed-abilities.json": "582e69f7ca60617b9df4353db38d7b9f93c4f4491d85b5ce883d8ba4989d30a4",
+    "Zed-characters.json": "200979d28308828cd9402bb3ac83421b802feca46fd0e967b982e318bf5d06e3",
+    "Zeri-abilities.json": "3c552fb6ab1dc99d12e9efdac71d9ae998f47b23bbf33622369c49a2a3eaa26c",
+    "Zeri-characters.json": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
+    "Zilean-abilities.json": "00d264ac5d8ef2035dac31b71b1b8fce07533c531f02770e66a36cfebb57ba09",
+    "Zilean-characters.json": "bf566037b247c627c38ebc44b6ea3acd437ad0c0127efbdf474f045a7d96f1bf",
+    "Zoe-abilities.json": "87eaa3f9894267fc238b37b063644ad54e1c97dd1fbdb96af1f4258933fe8ba6",
+    "Zoe-characters.json": "deb434ed79940c647e007e8927f4951d564c11ef695a38ea93bfc4b0532110f3",
+    "Zyra-abilities.json": "0c3dccf9b0f562c30f528fa1f4ee98a717a478e6941e179198c41ef356f66c32",
+    "Zyra-characters.json": "71940c6ceefdbc3b51ea078897d1b9ef49023d7d2dc0c98937f0bb679a554381",
+    "strings.json": "c92c5beb781502499e7f3fa06ce2974b4c30ba44b952541d7eb1ad0214db2da2",
+    "heimertyellow-characters.json": "d8bb8bb92b13715cad8ba4dda3037039976f41bcc76ef39966f72ede55732348",
+    "zyrathornplant-characters.json": "fb770c857f1dee0f61cc2740ad06dd125524157d0bcb12896a8231d7324a0893",
+    "zyragraspingplant-characters.json": "1313c27ca46554fd0ebfd95471f976236f59eeac2f3f83898500d408e545921d",
+    "mechanics.json": "1b9853afd6aa510ce6039072ca747d53c52953bb1bc8883553728ad9a7497353"
+  }
+}

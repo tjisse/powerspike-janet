@@ -1,4 +1,4 @@
-# Champion ability-slot coverage audit — 23 October 2026
+# Champion ability-slot coverage audit — 24 October 2026
 
 The reported Seraphine/Garen fight exposed two separate issues: incomplete
 champion mechanics and timeline markers that silently disappeared when events
@@ -63,10 +63,19 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 596 |
-| No executable effect | 78 |
-| Has an estimated effect but does not cast | 12 |
-| Casts without recording an applied effect | 6 |
+| At least one effect recorded | 666 |
+| Implemented but needs another slot/state/destination | 5 |
+| Needs allied champion | 4 |
+| Needs existing terrain | 4 |
+| Vision-only / informational slot / needs a cooldown to refund | 3 |
+| No executable effect | 9 |
+| Has an estimated effect but cannot activate | 1 |
+| Casts without recording an applied effect | 0 |
+
+The [remaining-slot follow-up](remaining-ability-follow-up.md) implements 75
+previously failing slots, including five whose real prerequisites are absent
+from this isolated probe. Eleven entries have explicit contextual exclusions.
+Ten remain unsupported; those are listed individually in the follow-up.
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting

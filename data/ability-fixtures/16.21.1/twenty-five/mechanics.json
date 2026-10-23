@@ -1,0 +1,9 @@
+{
+  "patch": "16.21.1",
+  "KhazixW": {
+    "heal-radius": 275,
+    "source": "https://wiki.leagueoflegends.com/en-us/Kha%27Zix#Void_Spike",
+    "reviewed_at": "2026-10-23",
+    "reason": "The missile castRadius is generic and does not establish the explosion healing radius. The mechanical reference lists 275; source-record damage, healing and travel remain authoritative. No game capture is claimed."
+  }
+}

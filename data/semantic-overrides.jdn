@@ -1,5 +1,30 @@
 {:schema 1
- :rules [{:champion "Warwick" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :warwick-q}
+ :rules [{:champion "Blitzcrank" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :blitzcrank-w}
+         {:champion "Katarina" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :katarina-w}
+         {:champion "Viego" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :viego-e}
+         {:champion "Tryndamere" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :tryndamere-w}
+         {:champion "Yuumi" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :yuumi-e}
+         {:champion "MasterYi" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :master-yi-r}
+         {:champion "Taric" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :taric-r}
+         {:champion "Alistar" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :alistar-r}
+         {:champion "Karma" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :karma-q}
+         {:champion "Karma" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :karma-w}
+         {:champion "Karma" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :karma-e}
+         {:champion "Khazix" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :khazix-q}
+         {:champion "Khazix" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :khazix-w}
+         {:champion "Khazix" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :khazix-e}
+         {:champion "Kayn" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayn-q}
+         {:champion "Kayn" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :kayn-w}
+         {:champion "Syndra" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :syndra-q}
+         {:champion "Veigar" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :veigar-w}
+         {:champion "Volibear" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :volibear-e}
+         {:champion "Nocturne" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :nocturne-e}
+         {:champion "Sivir" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :sivir-q :stat-scope [[9 0]]}
+         {:champion "Corki" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :corki-e}
+         {:champion "Rell" :slot :r :patch-min "16.21.1" :patch-max "16.21.1" :handler :rell-r}
+         {:champion "Nilah" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :nilah-w}
+         {:champion "Maokai" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :maokai-q}
+         {:champion "Warwick" :slot :q :patch-min "16.21.1" :patch-max "16.21.1" :handler :warwick-q}
          {:champion "Singed" :slot :w :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-w}
          {:champion "Singed" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :singed-e}
          {:champion "Katarina" :slot :e :patch-min "16.21.1" :patch-max "16.21.1" :handler :katarina-e}

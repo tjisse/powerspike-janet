@@ -68,7 +68,11 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    spell shields, attack buffs/range, on-hit poison, polymorph, live healing,
    damage, decaying slows and actual basic-cooldown refunds across seventeen
    source sets. It records the remaining geometry and kit exclusions.
-   Next: remaining shared formula/activation gaps from
+   The [twenty-five-slot follow-up](twenty-five-ability-follow-up.md) adds
+   base-form wrapper spells, continuous tethers, distinct defensive protections,
+   shield-dependent movement and periodic damage/shred across twenty champions.
+   Its 54 standalone/browser cases retain the remaining timing, geometry and kit
+   boundaries. Next: remaining shared formula/activation gaps from
    the audit. Keep all remaining omissions explicit; a selectable champion or
    successful probe is not a complete kit.
    Broaden the retained refreshed-patch checks
@@ -82,8 +86,8 @@ removal, with fixed lane heights and hover, keyboard and touch inspection.
    all 173 champions and 692 Q/W/E/R entries on 16.21.1, with per-ability
    compilation and execution reasons. After correcting
    Fiddlesticks' source-root casing and the reviewed completeness batches,
-   it records 155 without an executable
-   effect, 19 unable to cast in the controlled probe and 22 casting without
+   it records 136 without an executable
+   effect, 18 unable to cast in the controlled probe and 17 casting without
    an applied effect. Prioritize these mechanics and false-positive effects
    before adding more champion coverage. The reported Seraphine W/E already
    execute; crowded timeline markers now disclose their grouped events.

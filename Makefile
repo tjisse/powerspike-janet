@@ -72,6 +72,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/vayne-abilities.janet
 	JANET_PATH=build/web-modules $(JANET) test/completeness-abilities.janet
 	JANET_PATH=build/web-modules $(JANET) test/twenty-abilities.janet
+	JANET_PATH=build/web-modules $(JANET) test/twenty-five-abilities.janet
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
@@ -132,6 +133,8 @@ test-runtime: build
 	$(PYTHON) test/ability_runtime.py dist/bin/powerspike build/completeness-runtime-fixture
 	JANET_PATH=build/web-modules PS_TWENTY_FIXTURE=$(CURDIR)/build/twenty-runtime-fixture $(JANET) test/twenty-abilities.janet
 	$(PYTHON) test/ability_runtime.py dist/bin/powerspike build/twenty-runtime-fixture
+	JANET_PATH=build/web-modules PS_TWENTY_FIVE_FIXTURE=$(CURDIR)/build/twenty-five-runtime-fixture $(JANET) test/twenty-five-abilities.janet
+	$(PYTHON) test/ability_runtime.py dist/bin/powerspike build/twenty-five-runtime-fixture
 	JANET_PATH=build/web-modules PS_LATEST_LOADOUT_FIXTURE=$(CURDIR)/build/latest-loadout-runtime-fixture $(JANET) test/latest-loadouts.janet
 	$(PYTHON) test/latest_loadouts_runtime.py dist/bin/powerspike build/latest-loadout-runtime-fixture
 	JANET_PATH=build/web-modules PS_REPARSE_FIXTURE=$(CURDIR)/build/reparse-runtime-fixture $(JANET) test/reparse.janet

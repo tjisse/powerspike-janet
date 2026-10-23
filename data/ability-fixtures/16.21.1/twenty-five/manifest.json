@@ -1,0 +1,319 @@
+{
+  "patch": "16.21.1",
+  "reviewed_at": "2026-10-23",
+  "scope": "Twenty-five base-slot duel semantics. Source receipts, explicit limitations and independent combat tests; not complete kits or game captures.",
+  "slots": {
+    "Blitzcrank": "w",
+    "Katarina": "w",
+    "Viego": "e",
+    "Tryndamere": "w",
+    "Yuumi": "e",
+    "MasterYi": "r",
+    "Taric": "r",
+    "Alistar": "r",
+    "Karma": "qwe",
+    "Khazix": "qwe",
+    "Kayn": "qw",
+    "Syndra": "q",
+    "Veigar": "w",
+    "Volibear": "e",
+    "Nocturne": "e",
+    "Sivir": "q",
+    "Corki": "e",
+    "Rell": "r",
+    "Nilah": "w",
+    "Maokai": "q"
+  },
+  "sources": [
+    {
+      "path": "Blitzcrank-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/blitzcrank/blitzcrank.bin.json?powerspike=1",
+      "sha256": "3168cb5f3841c1b74db02b9b7752b25b86fa5210effdcaa369d830b4b2d43522",
+      "bytes": 47983
+    },
+    {
+      "path": "Blitzcrank-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Blitzcrank.json",
+      "sha256": "feddaea4a95a3ce5b937bbeddf093880331ed8b7996fbafaa67a04eb9d96e1e0",
+      "bytes": 14266
+    },
+    {
+      "path": "Katarina-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/katarina/katarina.bin.json?powerspike=1",
+      "sha256": "1e7fb45a5b9f9864e3327074489e5e685971da1190f9d8a0d7ba86c4bb0da066",
+      "bytes": 67838
+    },
+    {
+      "path": "Katarina-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Katarina.json",
+      "sha256": "8cec755d447544641823fdc765dfb4c1a744f497d6938aed5fe70f087eda37da",
+      "bytes": 14753
+    },
+    {
+      "path": "Viego-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/viego/viego.bin.json?powerspike=1",
+      "sha256": "d559c95e7a22c109da809e5aec23fa80148b42c86ceca84f161dc55af9631f13",
+      "bytes": 74765
+    },
+    {
+      "path": "Viego-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Viego.json",
+      "sha256": "71887944069ef71c00edb599e923a56dd95e79a66b54b5b7f548ae3824cf8e9a",
+      "bytes": 11696
+    },
+    {
+      "path": "Tryndamere-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/tryndamere/tryndamere.bin.json?powerspike=1",
+      "sha256": "8aa5cb2a621a7eb1daef86484caa9f8c84e93482d458c0bfb3cc1a7b15185bc1",
+      "bytes": 40049
+    },
+    {
+      "path": "Tryndamere-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Tryndamere.json",
+      "sha256": "956816a675ed785caf839fabb7e288e84e2a425fc9bf451461091941a61cfcc5",
+      "bytes": 11897
+    },
+    {
+      "path": "Yuumi-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/yuumi/yuumi.bin.json?powerspike=1",
+      "sha256": "b5fe9d36107fe79c39102824b62be46bdc1dcc2537c5b7a52456c54e724b2482",
+      "bytes": 110448
+    },
+    {
+      "path": "Yuumi-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Yuumi.json",
+      "sha256": "717fed49fb2ab28208c198f88095f074527c785bac6abe7be4db2e17546dddc2",
+      "bytes": 16956
+    },
+    {
+      "path": "MasterYi-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/masteryi/masteryi.bin.json?powerspike=1",
+      "sha256": "f52da4f59623528bd05db8bc54aa973df6f4dd6d3b6cb4d02604ad71dace467b",
+      "bytes": 57742
+    },
+    {
+      "path": "MasterYi-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/MasterYi.json",
+      "sha256": "07a2b034288c7ff615dc3d137de0a4d6f53b6a9cc0bc0126ed8e95689359a891",
+      "bytes": 16404
+    },
+    {
+      "path": "Taric-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/taric/taric.bin.json?powerspike=1",
+      "sha256": "609245ccd434ab30729762ab234fabc1bdc14210e79425d87cd8081daabcbfaf",
+      "bytes": 50860
+    },
+    {
+      "path": "Taric-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Taric.json",
+      "sha256": "4251364542ca8ab44933b193f794238878f8b809d373d48b9009859755b0d687",
+      "bytes": 10958
+    },
+    {
+      "path": "Alistar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/alistar/alistar.bin.json?powerspike=1",
+      "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
+      "bytes": 45755
+    },
+    {
+      "path": "Alistar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Alistar.json",
+      "sha256": "c6bd9653a745fc5955116fdb9282d364846b895a9499435848d839ef18f3ab64",
+      "bytes": 11273
+    },
+    {
+      "path": "Karma-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/karma/karma.bin.json?powerspike=1",
+      "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+      "bytes": 60898
+    },
+    {
+      "path": "Karma-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Karma.json",
+      "sha256": "90aa401584b02ebc07cb53d196101da857300058def0b179b118d5eee7eb72cd",
+      "bytes": 15337
+    },
+    {
+      "path": "Khazix-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/khazix/khazix.bin.json?powerspike=1",
+      "sha256": "3cec77e3ceda2fb85cb66c82216f66ae68c609b435c9bfb441a1b665138f25c8",
+      "bytes": 67738
+    },
+    {
+      "path": "Khazix-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Khazix.json",
+      "sha256": "dde36b91d71717f3e9b63ab0b740ed7e6bbb0c91d083962cd1a796e0aefc693c",
+      "bytes": 14650
+    },
+    {
+      "path": "Kayn-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/kayn/kayn.bin.json?powerspike=1",
+      "sha256": "500b76290ed0de447ade33a1f8272ba4567b7e9e41f35d01adbf8859db425cd5",
+      "bytes": 73612
+    },
+    {
+      "path": "Kayn-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Kayn.json",
+      "sha256": "c7ba1af68d07300437d7dbc2d7603cc54c24e2b004baaa08dd05111e92422f59",
+      "bytes": 11814
+    },
+    {
+      "path": "Syndra-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/syndra/syndra.bin.json?powerspike=1",
+      "sha256": "65399b6a86a40560ecf2c2053371acc12cdfa85f0382265c820f2da54126de65",
+      "bytes": 99910
+    },
+    {
+      "path": "Syndra-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Syndra.json",
+      "sha256": "87e342243982a506bad4810f84a81c8072f5b910819041693c8754acc8a00760",
+      "bytes": 15434
+    },
+    {
+      "path": "Veigar-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/veigar/veigar.bin.json?powerspike=1",
+      "sha256": "3082953876ebf65c238241caaea7eabb174e98bf1e389e305b9b717dc7aa14e4",
+      "bytes": 47800
+    },
+    {
+      "path": "Veigar-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Veigar.json",
+      "sha256": "211d6c72aa30aa38d50a49f38deb911374637dc930cc79513725165426fa3884",
+      "bytes": 14094
+    },
+    {
+      "path": "Volibear-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/volibear/volibear.bin.json?powerspike=1",
+      "sha256": "66376373700b4ef30c31c2a4200e7991fb8adaa5fbbe05718bc1f20386c03465",
+      "bytes": 60851
+    },
+    {
+      "path": "Volibear-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Volibear.json",
+      "sha256": "01f211963a00d46ada0ec797885d00f0045bc9569e39dc1686ac1c55716cf009",
+      "bytes": 11630
+    },
+    {
+      "path": "Nocturne-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nocturne/nocturne.bin.json?powerspike=1",
+      "sha256": "d49f7693048c8bcc579761aeaf41c679ce55e0a943a44ab84bb4193c3c955828",
+      "bytes": 52729
+    },
+    {
+      "path": "Nocturne-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nocturne.json",
+      "sha256": "5177aef4f86a171dcbb2c6f0ae7bf8d4374444f64eb7342241c292f013d5d0a9",
+      "bytes": 11684
+    },
+    {
+      "path": "Sivir-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/sivir/sivir.bin.json?powerspike=1",
+      "sha256": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+      "bytes": 97247
+    },
+    {
+      "path": "Sivir-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Sivir.json",
+      "sha256": "d0f4dede2cfded62ac3cf99e76ea853ad5f009c22966cfb9ce0b527988a83987",
+      "bytes": 14748
+    },
+    {
+      "path": "Corki-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/corki/corki.bin.json?powerspike=1",
+      "sha256": "56465a813ed6c235dcaf0c5da89867d9448a263e1b53f599b1aee54925d89ec0",
+      "bytes": 61618
+    },
+    {
+      "path": "Corki-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Corki.json",
+      "sha256": "dc77ee332652cd21b44c6e4298443091297d26d37f1fa95f0fb03922781b2729",
+      "bytes": 11213
+    },
+    {
+      "path": "Rell-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/rell/rell.bin.json?powerspike=1",
+      "sha256": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+      "bytes": 57135
+    },
+    {
+      "path": "Rell-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Rell.json",
+      "sha256": "c170a39160b8957dec20159c1a48c16e16b76b4d721fd7f4f9e2804066443d4a",
+      "bytes": 10591
+    },
+    {
+      "path": "Nilah-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/nilah/nilah.bin.json?powerspike=1",
+      "sha256": "0c5ba4a3d3386621da64e34cf48e13449a357ecf00979f8d69fdd98c0f6e209c",
+      "bytes": 53996
+    },
+    {
+      "path": "Nilah-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Nilah.json",
+      "sha256": "f44638fa970d28b498c1472f03b3ca3d5ab0071f5ea056405785f2b30e1fa31e",
+      "bytes": 10183
+    },
+    {
+      "path": "Maokai-characters.json",
+      "url": "https://raw.communitydragon.org/16.21/game/data/characters/maokai/maokai.bin.json?powerspike=1",
+      "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
+      "bytes": 82908
+    },
+    {
+      "path": "Maokai-abilities.json",
+      "url": "https://ddragon.leagueoflegends.com/cdn/16.21.1/data/en_US/champion/Maokai.json",
+      "sha256": "306aa4f6ff6f62139c90d5fd7478b85a41698deb14ee9e5e8989c6746360e0e8",
+      "bytes": 11299
+    },
+    {
+      "path": "strings.json",
+      "url": "https://raw.communitydragon.org/16.21/game/en_us/data/menu/en_us/lol.stringtable.json?powerspike=1",
+      "excerpt": true,
+      "complete-sha256": "47e9626ae5a4bb0773a45367fd45dba928239382c90b9c213dc4dc6b0dd95fdc"
+    }
+  ],
+  "fixture_sha256": {
+    "Alistar-abilities.json": "c6bd9653a745fc5955116fdb9282d364846b895a9499435848d839ef18f3ab64",
+    "Alistar-characters.json": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
+    "Blitzcrank-abilities.json": "feddaea4a95a3ce5b937bbeddf093880331ed8b7996fbafaa67a04eb9d96e1e0",
+    "Blitzcrank-characters.json": "3168cb5f3841c1b74db02b9b7752b25b86fa5210effdcaa369d830b4b2d43522",
+    "Corki-abilities.json": "dc77ee332652cd21b44c6e4298443091297d26d37f1fa95f0fb03922781b2729",
+    "Corki-characters.json": "56465a813ed6c235dcaf0c5da89867d9448a263e1b53f599b1aee54925d89ec0",
+    "Karma-abilities.json": "90aa401584b02ebc07cb53d196101da857300058def0b179b118d5eee7eb72cd",
+    "Karma-characters.json": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
+    "Katarina-abilities.json": "8cec755d447544641823fdc765dfb4c1a744f497d6938aed5fe70f087eda37da",
+    "Katarina-characters.json": "1e7fb45a5b9f9864e3327074489e5e685971da1190f9d8a0d7ba86c4bb0da066",
+    "Kayn-abilities.json": "c7ba1af68d07300437d7dbc2d7603cc54c24e2b004baaa08dd05111e92422f59",
+    "Kayn-characters.json": "500b76290ed0de447ade33a1f8272ba4567b7e9e41f35d01adbf8859db425cd5",
+    "Khazix-abilities.json": "dde36b91d71717f3e9b63ab0b740ed7e6bbb0c91d083962cd1a796e0aefc693c",
+    "Khazix-characters.json": "3cec77e3ceda2fb85cb66c82216f66ae68c609b435c9bfb441a1b665138f25c8",
+    "Maokai-abilities.json": "306aa4f6ff6f62139c90d5fd7478b85a41698deb14ee9e5e8989c6746360e0e8",
+    "Maokai-characters.json": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
+    "MasterYi-abilities.json": "07a2b034288c7ff615dc3d137de0a4d6f53b6a9cc0bc0126ed8e95689359a891",
+    "MasterYi-characters.json": "f52da4f59623528bd05db8bc54aa973df6f4dd6d3b6cb4d02604ad71dace467b",
+    "Nilah-abilities.json": "f44638fa970d28b498c1472f03b3ca3d5ab0071f5ea056405785f2b30e1fa31e",
+    "Nilah-characters.json": "0c5ba4a3d3386621da64e34cf48e13449a357ecf00979f8d69fdd98c0f6e209c",
+    "Nocturne-abilities.json": "5177aef4f86a171dcbb2c6f0ae7bf8d4374444f64eb7342241c292f013d5d0a9",
+    "Nocturne-characters.json": "d49f7693048c8bcc579761aeaf41c679ce55e0a943a44ab84bb4193c3c955828",
+    "Rell-abilities.json": "c170a39160b8957dec20159c1a48c16e16b76b4d721fd7f4f9e2804066443d4a",
+    "Rell-characters.json": "bb72ce258354afcc80ee1327c4bf4a18f259be6e2d02e63881ca624f280f8783",
+    "Sivir-abilities.json": "d0f4dede2cfded62ac3cf99e76ea853ad5f009c22966cfb9ce0b527988a83987",
+    "Sivir-characters.json": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+    "Syndra-abilities.json": "87e342243982a506bad4810f84a81c8072f5b910819041693c8754acc8a00760",
+    "Syndra-characters.json": "65399b6a86a40560ecf2c2053371acc12cdfa85f0382265c820f2da54126de65",
+    "Taric-abilities.json": "4251364542ca8ab44933b193f794238878f8b809d373d48b9009859755b0d687",
+    "Taric-characters.json": "609245ccd434ab30729762ab234fabc1bdc14210e79425d87cd8081daabcbfaf",
+    "Tryndamere-abilities.json": "956816a675ed785caf839fabb7e288e84e2a425fc9bf451461091941a61cfcc5",
+    "Tryndamere-characters.json": "8aa5cb2a621a7eb1daef86484caa9f8c84e93482d458c0bfb3cc1a7b15185bc1",
+    "Veigar-abilities.json": "211d6c72aa30aa38d50a49f38deb911374637dc930cc79513725165426fa3884",
+    "Veigar-characters.json": "3082953876ebf65c238241caaea7eabb174e98bf1e389e305b9b717dc7aa14e4",
+    "Viego-abilities.json": "71887944069ef71c00edb599e923a56dd95e79a66b54b5b7f548ae3824cf8e9a",
+    "Viego-characters.json": "d559c95e7a22c109da809e5aec23fa80148b42c86ceca84f161dc55af9631f13",
+    "Volibear-abilities.json": "01f211963a00d46ada0ec797885d00f0045bc9569e39dc1686ac1c55716cf009",
+    "Volibear-characters.json": "66376373700b4ef30c31c2a4200e7991fb8adaa5fbbe05718bc1f20386c03465",
+    "Yuumi-abilities.json": "717fed49fb2ab28208c198f88095f074527c785bac6abe7be4db2e17546dddc2",
+    "Yuumi-characters.json": "b5fe9d36107fe79c39102824b62be46bdc1dcc2537c5b7a52456c54e724b2482",
+    "strings.json": "9206377d30f713a1145818d682859413b8f1e6653f447c17743d8171b64d096a",
+    "mechanics.json": "549340fc7de97139278452aa51278ba37a52446b6aa0006f3a1be2ab6b4dfab3"
+  }
+}

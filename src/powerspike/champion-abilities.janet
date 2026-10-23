@@ -394,8 +394,184 @@
            :kassadin-w {:self-cast true :cast-time 0}
            :olaf-w {:self-cast true :cast-time 0})))
 
-(defn review [ability handler]
+(defn twenty-five [ability handler forms]
+  (def spell (ability :record))
+  (defn term [name] (expr/variable name spell))
+  (defn neg [node] (product-of (literal -1) node))
+  (defn plus-one [node] (sum-of (literal 1) node))
+  (defn percent [name] (product-of (literal 0.01) (term name)))
+  (defn damage [type amount] {:kind :damage :target :enemy :damage-type type :amount amount})
+  (defn slow [strength duration] {:kind :control :target :enemy :control :slow :strength strength :duration duration})
+  (defn stat [key amount duration &opt mode target]
+    {:kind :stat-buff :target (or target :self) :stat key :amount amount :duration duration :mode (or mode :add)})
+  (defn speed [amount duration] (stat :move-speed (plus-one amount) duration :multiply))
+  (defn buff [name bonuses duration] {:kind :buff :target :self :buff name :stat-bonuses bonuses :duration duration :refresh true})
+  (defn protection [name duration fields] (merge {:kind :protection :target :self :buff name :duration duration} fields))
+  (defn aux [suffix]
+    (get (find |(string/has-suffix? (string/ascii-lower suffix) (string/ascii-lower ($ :path))) (or forms [])) :record))
+  (def karma-missile (when (= handler :karma-q) (aux "/KarmaQMissile")))
+  (def khazix-missile (when (= handler :khazix-w) (aux "/KhazixWMissile")))
+  (def sivir-missile (when (= handler :sivir-q) (aux "/SivirQMissile")))
+  (def bonus-as {:op :stat :stat :attack-speed-bonus :formula 0})
+  (def note (case handler
+              :blitzcrank-w "Overdrive grants attack speed and movement speed decaying to its source floor, followed by a self slow. Decay uses sixteen model steps; collision and other kit effects remain excluded."
+              :katarina-w "Preparation grants its decaying movement speed using sixteen model steps. Dagger placement, pickups, damage and Shunpo refunds remain excluded."
+              :viego-e "Harrowed Path grants attack speed and movement speed, assuming Viego stays inside established mist. Terrain propagation, arrival, camouflage and field exits remain excluded."
+              :tryndamere-w "Mocking Shout reduces enemy attack damage in range. The facing-dependent slow is excluded because the duel has no facing input."
+              :yuumi-e "Unattached Zoomies shields Yuumi and grants attack speed. Movement speed persists only while this shield remains. Attachment, ally mana restoration and sharing remain excluded."
+              :master-yi-r "Highlander grants attack/movement speed, removes modeled movement and attack-speed slows and prevents new slows during its duration. Takedown extensions/refunds and duration pauses remain excluded."
+              :taric-r "Cosmic Radiance grants damage immunity after its source delay without blocking crowd control. Only the caster is modeled; allied copies and exceptional interactions remain excluded."
+              :alistar-r "Unbreakable Will cleanses modeled disabling controls and reduces physical/magic damage. True damage is unaffected. Airborne displacement cleanup and exceptional debuffs remain excluded."
+              :karma-q "Base Inner Flame deals damage and slows with the selected auxiliary missile speed. Mantra, collision geometry and other targets remain excluded."
+              :karma-w "Base Focused Resolve damages at application and tether completion, then roots if continuously in leash range. Escape or either participant's death breaks the tether. Mantra, vision and other targets remain excluded."
+              :karma-e "Base Inspire shields the caster and grants movement speed. Mantra and other allies remain excluded."
+              :khazix-q "Unevolved Taste Their Fear uses isolated damage in this sole-opponent duel, which assumes no nearby enemy allies or minions. Evolution refunds/range and nonisolated targets remain excluded."
+              :khazix-w "Unevolved Void Spike deals damage and heals only if the caster is within the reviewed 275-unit explosion radius. The missile comes from the selected snapshot. Evolution, collision and extra targets remain excluded."
+              :khazix-e "Unevolved Leap deals landing damage at modeled cast completion. Dash movement, flight time, evolution and resets remain excluded."
+              :kayn-q "Base Reaping Slash applies separate dash/slash damage hits at modeled cast completion. Dash movement, flight/slash separation, transformation and monster variants remain excluded."
+              :kayn-w "Base Blade's Reach deals damage and applies its decaying slow in sixteen model steps. Shadow Assassin, Rhaast and geometry remain excluded."
+              :syndra-q "Base Dark Sphere deals its selected source damage at modeled cast completion. Detonation delay, splinter upgrades/charges and sphere interaction with other spells remain excluded."
+              :veigar-w "Dark Matter deals damage after its source impact delay and uses the explicit zero-stack base cooldown. Phenomenal Evil stacks and their cooldown reduction remain excluded."
+              :volibear-e "Sky Splitter deals base/AP plus maximum-health damage and slows at modeled cast completion. It shields only when the caster is within the blast radius of the opponent. Ground detonation delay, placement and other targets remain excluded."
+              :nocturne-e "Unspeakable Horror deals eight evenly spaced model pulses across its tether duration and fears on completion if continuously in range. Escape or either participant's death breaks it. Fear chase speed, fleeing and measured server tick timing remain excluded."
+              :sivir-q "Boomerang Blade applies two full champion hits, critical-stat scaling and bonus-AS cast scaling. Both phases are assumed to hit; return travel uses twice the release distance. Turning, continued movement and other targets remain excluded."
+              :corki-e "Gatling Gun deals separate source-rate pulses with capped stacking armor/MR reduction lingering after the last hit. Each pulse checks range; damage precedes its new shred stack. Cone facing, other targets and measured tick phase remain excluded."
+              :rell-r "Magnet Storm deals eight evenly spaced model pulses, each checking radius and caster life. Initial pull and continuous dragging/geometry remain excluded."
+              :nilah-w "Jubilant Veil dodges ordinary attacks, reduces magic damage and grants movement speed. Successful dodges suppress ordinary attack procs. Ally sharing, ghosted collision and exceptional empowered attacks remain excluded."
+              :maokai-q "Bramble Smash deals base/AP plus maximum-health damage and briefly slows. Knockback movement/airborne timing and geometry remain excluded."))
+  (assert note "Unknown twenty-five-slot handler.")
+  (def specs
+    (case handler
+      :blitzcrank-w [(buff "Overdrive" {:attack-speed-bonus (term "AttackSpeedMod")} (term "Duration"))
+                     (merge (speed (term "MoveSpeedMod") (term "Duration"))
+                            {:decay-steps (literal 16) :decay-duration (term "MoveSpeedModMinTime") :decay-floor (plus-one (term "MoveSpeedModMin"))})
+                     (merge (slow (term "MoveSpeedModReduction") (term "SlowDuration")) {:target :self :delay (term "Duration")})]
+      :katarina-w [(merge (speed (percent "MovespeedAmount") (term "MovespeedDuration")) {:decay-steps (literal 16)})]
+      :viego-e [(buff "Harrowed Path" {:attack-speed-bonus (term "AttackSpeed")} (term "MistDuration"))
+                (speed (term "TotalMovespeed") (term "MistDuration"))]
+      :tryndamere-w [(stat :ad (term "ADReduction") (term "ReductionDuration") :add :enemy)]
+      :yuumi-e [{:kind :shield :target :self :amount (term "TotalShielding") :duration (term "MSDuration") :shield-key "Zoomies"}
+                (buff "Zoomies" {:attack-speed-bonus (percent "TotalAttackSpeed")} (term "MSDuration"))
+                (merge (speed (percent "MSAmount") (term "MSDuration")) {:requires-shield "Zoomies"})]
+      :master-yi-r [(buff "Highlander" {:attack-speed-bonus (percent "RASBonus")} (term "RDuration"))
+                    (speed (percent "RMSBonus") (term "RDuration"))
+                    {:kind :cleanse :target :self :controls [:slow] :attack-speed-slows true}
+                    (protection "Highlander slow immunity" (term "RDuration") {:controls [:slow] :attack-speed-slows true})]
+      :taric-r [(merge (protection "Cosmic Radiance" (term "InvulnDuration") {:damage-immune true})
+                       {:delay (term "InitialDelay") :requires-caster-alive true})]
+      :alistar-r [{:kind :cleanse :target :self :controls [:stun :charm :fear :suppression :silence :root :slow :grounded :polymorph]}
+                  (protection "Unbreakable Will" (term "RDuration") {:damage-types [:physical :magic] :reduction (percent "RDamageReduction")})]
+      :karma-q [(damage :magic (term "TotalDamage")) (slow (neg (term "SlowAmount")) (term "SlowDuration"))]
+      :karma-w [{:kind :tether :target :enemy :damage-type :magic :amount (product-of (literal 2) (term "InitialDamage"))
+                 :duration (term "TetherDuration") :leash (term "LeashBreakRange") :pulses (literal 2) :first-immediate true
+                 :control :root :control-duration (term "RootDuration") :buff "Focused Resolve tether"}]
+      :karma-e [{:kind :shield :target :self :amount (term "TotalShield") :duration (term "ShieldDuration")}
+                (speed (term "MoveSpeed") (term "MoveSpeedDuration"))]
+      :khazix-q [(damage :physical (term "IsoDamage"))]
+      :khazix-w [{:kind :sequence :target :enemy
+                  :effects [(damage :physical (term "BaseDamage"))
+                            {:kind :heal :target :self :amount (term "HealAmount") :nearby-required
+                             (literal 275)}]}]
+      :khazix-e [(damage :physical (term "TotalDamage"))]
+      :kayn-q [(merge (damage :physical (term "TotalDamage")) {:hits 2})]
+      :kayn-w [(damage :physical (term "TotalDamage"))
+               (merge (slow (neg (term "SlowIntensity")) (term "SlowDuration")) {:decay-steps (literal 16)})]
+      :syndra-q [(damage :magic (term "TotalDamage"))]
+      :veigar-w [(merge (damage :magic (term "TotalDamage")) {:delay (term "ImpactDelay")})]
+      :volibear-e [(damage :magic (sum-of (term "CalculatedDamage") (product-of (term "PercentDamage") {:op :target-stat :stat :hp})))
+                   (slow (term "SlowAmount") (term "SlowDuration"))
+                   {:kind :shield :target :self :amount (term "ShieldValue") :duration (term "ShieldDuration")
+                    :nearby-required (expr/ranked (get spell "castRadius") 0 "Sky Splitter blast radius")}]
+      :nocturne-e [{:kind :tether :target :enemy :damage-type :magic :amount (term "TotalDamage")
+                    :duration (term "LeashDuration") :leash (term "LeashBreakRange") :pulses (literal 8)
+                    :control :fear :control-duration (term "CCDuration") :buff "Unspeakable Horror tether"}]
+      :sivir-q [(merge (damage :physical (term "TotalDamage")) {:travel-multiplier 1})
+                (merge (damage :physical (term "TotalDamage")) {:travel-multiplier 2})]
+      :corki-e [{:kind :spray :target :enemy :damage-type :physical :amount (term "TotalDamage")
+                 :duration (term "SprayDuration") :rate (term "TicksPerSecond") :radius (ability :range)
+                 :shred (neg (term "ShredMax")) :shred-cap (term "ShredCap") :shred-duration (term "ShredDuration")}]
+      :rell-r [(merge (damage :magic (quotient (term "TotalDamage") (literal 8)))
+                      {:hits 8 :interval (quotient (term "Duration") (literal 8)) :delay (quotient (term "Duration") (literal 8))
+                       :range-at-impact (term "GravityRadius") :requires-caster-alive true})
+               (buff "Magnet Storm" {} (term "Duration"))]
+      :nilah-w [(protection "Jubilant Veil" (term "BaseDuration") {:dodge-attacks true :damage-types [:magic] :reduction (term "MagicDamageReduction")})
+                (speed (term "MoveSpeedPercent") (term "BaseDuration"))]
+      :maokai-q [(damage :magic (sum-of (term "TotalDamage") (product-of (term "BasePercentHealth") {:op :target-stat :stat :hp})))
+                 (slow (term "SlowAmount") (term "SlowDuration"))]))
+  (defn problems [value]
+    (cond (and (dictionary? value) (value :op)) (expr/problems value)
+      (dictionary? value) (mapcat problems (values value))
+      (indexed? value) (mapcat problems value) []))
+  (def extra
+    (case handler
+      :blitzcrank-w {:self-cast true :missile-speed 0}
+      :katarina-w {:self-cast true :missile-speed 0 :cast-time 0}
+      :viego-e {:self-cast true :missile-speed 0}
+      :tryndamere-w {:missile-speed 0}
+      :yuumi-e {:self-cast true :missile-speed 0}
+      :master-yi-r {:self-cast true :missile-speed 0 :cast-time 0}
+      :taric-r {:self-cast true :missile-speed 0}
+      :alistar-r {:self-cast true :missile-speed 0 :cast-time 0 :usable-controls [:stun :charm :fear :suppression :silence :root :slow :grounded :polymorph]}
+      :karma-q {:range (expr/ranked (get karma-missile "castRange") 0 "Inner Flame missile range")
+                :missile-speed (get-in karma-missile ["mMissileSpec" "movementComponent" "mSpeed"])}
+      :karma-w {:missile-speed 0}
+      :karma-e {:self-cast true :missile-speed 0}
+      :khazix-w {:range (expr/ranked (get khazix-missile "castRange") 0 "Void Spike missile range")
+                 :missile-speed (get-in khazix-missile ["mMissileSpec" "movementComponent" "mSpeed"])}
+      :khazix-e {:missile-speed 0 :disabled-controls [:grounded :root]}
+      :kayn-q {:missile-speed 0 :disabled-controls [:grounded :root]}
+      :kayn-w {:missile-speed 0}
+      :syndra-q {:missile-speed 0}
+      :veigar-w {:missile-speed 0 :cooldown (term "BaseCooldown")}
+      :volibear-e {:missile-speed 0 :always-release-self true}
+      :nocturne-e {:missile-speed 0}
+      :sivir-q {:missile-speed (get-in sivir-missile ["mMissileSpec" "movementComponent" "mSpeed"])
+                :cast-time-expression (product-of (term "QBaseCastTime")
+                                                  (sum-of (literal 1) (neg {:op :minimum :children [(term "QAttackSpeedCastReductionMax")
+                                                                                                    (product-of bonus-as (term "QAttackSpeedCastReductionPercent"))]})))}
+      :corki-e {:self-cast true :missile-speed 0}
+      :rell-r {:self-cast true :missile-speed 0}
+      :nilah-w {:self-cast true :missile-speed 0}
+      :maokai-q {:missile-speed 0}
+      {}))
+  (def missing (seq [[name record] :in [["Inner Flame" karma-missile] ["Void Spike" khazix-missile] ["Boomerang Blade" sivir-missile]]
+                     :when (and (or (and (= name "Inner Flame") (= handler :karma-q))
+                                    (and (= name "Void Spike") (= handler :khazix-w))
+                                    (and (= name "Boomerang Blade") (= handler :sivir-q))) (not record))]
+                 (string name " requires its matching selected auxiliary spell.")))
+  (def unresolved [;(problems specs) ;(problems extra) ;missing])
+  (merge ability extra
+         {:effects (map |(merge {:target-kinds [:champion :practice] :condition :always :trigger :cast
+                                 :status (if (empty? unresolved) :estimated :unresolved) :evidence {:tooltip note :override true}} $) specs)
+          :unresolved [;unresolved note]}))
+
+(defn review [ability handler &opt forms]
   (case handler
+    :blitzcrank-w (twenty-five ability handler forms)
+    :katarina-w (twenty-five ability handler forms)
+    :viego-e (twenty-five ability handler forms)
+    :tryndamere-w (twenty-five ability handler forms)
+    :yuumi-e (twenty-five ability handler forms)
+    :master-yi-r (twenty-five ability handler forms)
+    :taric-r (twenty-five ability handler forms)
+    :alistar-r (twenty-five ability handler forms)
+    :karma-q (twenty-five ability handler forms)
+    :karma-w (twenty-five ability handler forms)
+    :karma-e (twenty-five ability handler forms)
+    :khazix-q (twenty-five ability handler forms)
+    :khazix-w (twenty-five ability handler forms)
+    :khazix-e (twenty-five ability handler forms)
+    :kayn-q (twenty-five ability handler forms)
+    :kayn-w (twenty-five ability handler forms)
+    :syndra-q (twenty-five ability handler forms)
+    :veigar-w (twenty-five ability handler forms)
+    :volibear-e (twenty-five ability handler forms)
+    :nocturne-e (twenty-five ability handler forms)
+    :sivir-q (twenty-five ability handler forms)
+    :corki-e (twenty-five ability handler forms)
+    :rell-r (twenty-five ability handler forms)
+    :nilah-w (twenty-five ability handler forms)
+    :maokai-q (twenty-five ability handler forms)
     :garen-e (garen ability handler)
     :garen-r (garen ability handler)
     :fiddlesticks-q (fiddlesticks ability handler)

@@ -320,18 +320,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Alistar",
       "ability": "FerociousHowl",
       "name": "Unbreakable Will",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Unbreakable Will cleanses modeled disabling controls and reduces physical/magic damage. True damage is unaffected. Airborne displacement cleanup and exceptional debuffs remain excluded."
       ]
     },
     {
@@ -1117,20 +1118,20 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "Overdrive: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Blitzcrank",
       "ability": "Overdrive",
       "name": "Overdrive",
       "slot": "w",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Overdrive grants attack speed and movement speed decaying to its source floor, followed by a self slow. Decay uses sixteen model steps; collision and other kit effects remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -1711,18 +1712,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Corki",
       "ability": "GGun",
       "name": "Gatling Gun",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 1,
+      "effect-count": 48,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/physical/TotalDamage"
+        "Gatling Gun deals separate source-rate pulses with capped stacking armor/MR reduction lingering after the last hit. Each pulse checks range; damage precedes its new shred stack. Cone facing, other targets and measured tick phase remain excluded."
       ]
     },
     {
@@ -4094,51 +4096,51 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Karma",
       "ability": "KarmaQ",
       "name": "Inner Flame",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KarmaQ_Tooltip_@IsEmpowered@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Inner Flame deals damage and slows with the selected auxiliary missile speed. Mantra, collision geometry and other targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Karma",
       "ability": "KarmaSpiritBind",
       "name": "Focused Resolve",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KarmaW_Tooltip_@spell.KarmaQ:IsEmpowered@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Focused Resolve damages at application and tether completion, then roots if continuously in leash range. Escape or either participant's death breaks the tether. Mantra, vision and other targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Karma",
       "ability": "KarmaSolKimShield",
       "name": "Inspire",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KarmaE_Tooltip_@spell.KarmaQ:IsEmpowered@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Inspire shields the caster and grants movement speed. Mantra and other allies remain excluded."
       ]
     },
     {
@@ -4323,18 +4325,19 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Katarina",
       "ability": "KatarinaW",
       "name": "Preparation",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Preparation grants its decaying movement speed using sixteen model steps. Dagger placement, pickups, damage and Shunpo refunds remain excluded."
       ]
     },
     {
@@ -4437,35 +4440,35 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Kayn",
       "ability": "KaynQ",
       "name": "Reaping Slash",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: game_spell_Kayn_Q_main_@f1@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Reaping Slash applies separate dash/slash damage hits at modeled cast completion. Dash movement, flight/slash separation, transformation and monster variants remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Kayn",
       "ability": "KaynW",
       "name": "Blade's Reach",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: game_spell_Kayn_W_maintext_@f1@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Blade's Reach deals damage and applies its decaying slow in sixteen model steps. Shadow Assassin, Rhaast and geometry remain excluded."
       ]
     },
     {
@@ -4563,51 +4566,51 @@
       "notes": []
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Khazix",
       "ability": "KhazixQ",
       "name": "Taste Their Fear",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KhazixQ_Tooltip_@IsEvolved@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Unevolved Taste Their Fear uses isolated damage in this sole-opponent duel, which assumes no nearby enemy allies or minions. Evolution refunds/range and nonisolated targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Khazix",
       "ability": "KhazixW",
       "name": "Void Spike",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KhazixW_Tooltip_@IsEvolved@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Unevolved Void Spike deals damage and heals only if the caster is within the reviewed 275-unit explosion radius. The missile comes from the selected snapshot. Evolution, collision and extra targets remain excluded."
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Khazix",
       "ability": "KhazixE",
       "name": "Leap",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_KhazixE_Tooltip_@IsEvolved@",
-        "No recognized executable effect; this does not imply zero damage."
+        "Unevolved Leap deals landing damage at modeled cast completion. Dash movement, flight time, evolution and resets remain excluded."
       ]
     },
     {
@@ -5587,20 +5590,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Maokai",
       "ability": "MaokaiQ",
       "name": "Bramble Smash",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 2,
+      "effect-count": 4,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamage",
-        "Control trigger/duration unresolved: slow",
-        "Control trigger/duration unresolved: airborne"
+        "Bramble Smash deals base/AP plus maximum-health damage and briefly slows. Knockback movement/airborne timing and geometry remain excluded."
       ]
     },
     {
@@ -5706,20 +5708,20 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "Highlander: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "MasterYi",
       "ability": "Highlander",
       "name": "Highlander",
       "slot": "r",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 4,
+      "effect-count": 4,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Highlander grants attack/movement speed, removes modeled movement and attack-speed slows and prevents new slows during its duration. Takedown extensions/refunds and duration pauses remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -6573,18 +6575,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nilah",
       "ability": "NilahW",
       "name": "Jubilant Veil",
       "slot": "w",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Jubilant Veil dodges ordinary attacks, reduces magic damage and grants movement speed. Successful dodges suppress ordinary attack procs. Ally sharing, ghosted collision and exceptional empowered attacks remain excluded."
       ]
     },
     {
@@ -6655,20 +6658,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Nocturne",
       "ability": "NocturneUnspeakableHorror",
       "name": "Unspeakable Horror",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 3,
+      "estimated": 1,
+      "effect-count": 10,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage",
-        "Control trigger/duration unresolved: fear",
-        "Control trigger/duration unresolved: fear"
+        "Unspeakable Horror deals eight evenly spaced model pulses across its tether duration and fears on completion if continuously in range. Escape or either participant's death breaks it. Fear chase speed, fleeing and measured server tick timing remain excluded."
       ]
     },
     {
@@ -7571,18 +7573,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Rell",
       "ability": "RellR",
       "name": "Magnet Storm",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 9,
+      "unresolved-effects": 0,
       "notes": [
-        "Periodic damage needs tick/duration semantics: damage/magic/TotalDamage"
+        "Magnet Storm deals eight evenly spaced model pulses, each checking radius and caster life. Initial pull and continuous dragging/geometry remain excluded."
       ]
     },
     {
@@ -8724,18 +8727,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Sivir",
       "ability": "SivirQ",
       "name": "Boomerang Blade",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
-      "unresolved-effects": 1,
+      "estimated": 2,
+      "effect-count": 2,
+      "unresolved-effects": 0,
       "notes": [
-        "Unknown stat/formula mapping 9/0 on 16.21.1"
+        "Boomerang Blade applies two full champion hits, critical-stat scaling and bonus-AS cast scaling. Both phases are assumed to hit; return travel uses twice the release distance. Turning, continued movement and other targets remain excluded."
       ]
     },
     {
@@ -9229,20 +9233,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Syndra",
       "ability": "SyndraQ",
       "name": "Dark Sphere",
       "slot": "q",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 2,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell_SyndraQ_Damage_0",
-        "Unresolved tooltip variable: spell.SyndraPassive:Q1UpgradeThreshold",
-        "No recognized executable effect; this does not imply zero damage."
+        "Base Dark Sphere deals its selected source damage at modeled cast completion. Detonation delay, splinter upgrades/charges and sphere interaction with other spells remain excluded."
       ]
     },
     {
@@ -9577,18 +9580,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Taric",
       "ability": "TaricR",
       "name": "Cosmic Radiance",
       "slot": "r",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 1,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Cosmic Radiance grants damage immunity after its source delay without blocking crowd control. Only the caster is modeled; allied copies and exceptional interactions remain excluded."
       ]
     },
     {
@@ -9883,20 +9887,20 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "TryndamereW: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Tryndamere",
       "ability": "TryndamereW",
       "name": "Mocking Shout",
       "slot": "w",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 1,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Mocking Shout reduces enemy attack damage in range. The facing-dependent slow is excluded because the duel has no facing input."
+      ]
     },
     {
       "status": "executes",
@@ -10387,23 +10391,19 @@
       ]
     },
     {
-      "status": "not-cast",
-      "cast-count": 0,
-      "runtime": [
-        "VeigarDarkMatter: Zero-cooldown activation requires a charge, recast or champion handler; effect excluded."
-      ],
+      "status": "executes",
+      "cast-count": 1,
+      "runtime": [],
       "champion": "Veigar",
       "ability": "VeigarDarkMatter",
       "name": "Dark Matter",
       "slot": "w",
       "inputs": [],
       "estimated": 1,
-      "effect-count": 0,
+      "effect-count": 1,
       "unresolved-effects": 0,
       "notes": [
-        "Unresolved tooltip variable: Spell.VeigarPassive:PStacksPerDarkMatterCDR",
-        "Unresolved tooltip variable: Spell.VeigarPassive:DarkMatterCDRIncrement",
-        "Stack state requires explicit triggers."
+        "Dark Matter deals damage after its source impact delay and uses the explicit zero-stack base cooldown. Phenomenal Evil stacks and their cooldown reduction remain excluded."
       ]
     },
     {
@@ -10672,18 +10672,19 @@
       ]
     },
     {
-      "status": "no-executable-effect",
-      "cast-count": 0,
+      "status": "executes",
+      "cast-count": 2,
+      "runtime": [],
       "champion": "Viego",
       "ability": "ViegoE",
       "name": "Harrowed Path",
       "slot": "e",
       "inputs": [],
-      "estimated": 0,
-      "effect-count": 0,
+      "estimated": 2,
+      "effect-count": 4,
       "unresolved-effects": 0,
       "notes": [
-        "No recognized executable effect; this does not imply zero damage."
+        "Harrowed Path grants attack speed and movement speed, assuming Viego stays inside established mist. Terrain propagation, arrival, camouflage and field exits remain excluded."
       ]
     },
     {
@@ -10894,24 +10895,19 @@
       ]
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "VolibearE: @TotalDamageTooltip@ plus @PercentDamage*100@% max Health magic damage",
-        "VolibearE: @ShieldAPRatioTooltip@ plus @ShieldAmount*100@% max Health Shield",
-        "VolibearE: Slow strength unresolved; movement reduction and utility contribution excluded."
-      ],
+      "runtime": [],
       "champion": "Volibear",
       "ability": "VolibearE",
       "name": "Sky Splitter",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
-      "unresolved-effects": 2,
+      "estimated": 3,
+      "effect-count": 3,
+      "unresolved-effects": 0,
       "notes": [
-        "Conditional/maximum effect needs semantics: damage/magic/TotalDamageTooltip",
-        "Conditional/maximum effect needs semantics: shield//ShieldAPRatioTooltip"
+        "Sky Splitter deals base/AP plus maximum-health damage and slows at modeled cast completion. It shields only when the caster is within the blast radius of the opponent. Ground detonation delay, placement and other targets remain excluded."
       ]
     },
     {
@@ -11517,20 +11513,20 @@
       "notes": []
     },
     {
-      "status": "cast-without-effect",
+      "status": "executes",
       "cast-count": 1,
-      "runtime": [
-        "YuumiE: expected integer key for keyword in range [0, 2), got nil"
-      ],
+      "runtime": [],
       "champion": "Yuumi",
       "ability": "YuumiE",
       "name": "Zoomies",
       "slot": "e",
       "inputs": [],
-      "estimated": 1,
-      "effect-count": 0,
+      "estimated": 3,
+      "effect-count": 3,
       "unresolved-effects": 0,
-      "notes": []
+      "notes": [
+        "Unattached Zoomies shields Yuumi and grants attack speed. Movement speed persists only while this shield remains. Attachment, ally mana restoration and sharing remain excluded."
+      ]
     },
     {
       "status": "executes",
@@ -12110,13 +12106,13 @@
     }
   ],
   "summary": {
-    "executes": 496,
-    "no-executable-effect": 155,
-    "not-cast": 19,
-    "cast-without-effect": 22
+    "executes": 521,
+    "no-executable-effect": 136,
+    "not-cast": 18,
+    "cast-without-effect": 17
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "bd9a739b4de09f39a3a17e414c2493051275c95a9a87256d295042caa7f6f822",
+  "model": "100a59ec52a4bf0d9ae8d1a60653420a0e93b2bdb709ea956367c0cc9e474f85",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

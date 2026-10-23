@@ -63,10 +63,10 @@ developer audit cache; reported-case raw sources are also retained in
 
 | Controlled probe result | Abilities |
 | --- | ---: |
-| At least one effect recorded | 496 |
-| No executable effect | 155 |
-| Has an estimated effect but does not cast | 19 |
-| Casts without recording an applied effect | 22 |
+| At least one effect recorded | 521 |
+| No executable effect | 136 |
+| Has an estimated effect but does not cast | 18 |
+| Casts without recording an applied effect | 17 |
 
 These counts are **coverage triage, not an accuracy score**. The probe isolates
 one learned spell at level 18, with 100 AP, 150 AD, ample resource, half starting
@@ -134,6 +134,12 @@ probe has no Q/E cooldown to refund, so its no-effect result remains honest;
 an E-enabled scenario separately verifies the changed readiness deadline.
 Spell shields, poison refresh timing, attack buffs and polymorph now have
 explicit state. Remaining kit/timing omissions stay documented with the batch.
+
+The [twenty-five-slot follow-up](twenty-five-ability-follow-up.md) adds twenty-five
+executing entries across twenty champions, including base-form wrapper spells,
+continuous tethers, attack dodges, damage/slow immunity, damage reductions,
+shield-dependent movement and source-rate spray/shred. Exact scope and remaining
+movement, timing, form and kit limitations stay documented with that batch.
 
 ## Main causes and next work
 

@@ -78,8 +78,22 @@ button:disabled { cursor: default; opacity: .5; }
 .matchup-time { min-width: 70px; color: var(--gold); font-size: 13px; font-variant-numeric: tabular-nums; }
 .matchup-inspection label { display: flex; align-items: center; gap: 8px; flex: 1; }
 .matchup-inspection select { width: 100%; max-width: 480px; padding: 7px; font-size: 11px; }
-.matchup-health { min-height: 48px; font-variant-numeric: tabular-nums; }
+.matchup-health { grid-template-columns: minmax(0,1fr) minmax(92px,auto) minmax(0,1fr); min-height: 48px; font-variant-numeric: tabular-nums; }
 .matchup-health > div { min-width: 0; }
+.matchup-distance { text-align: center; white-space: nowrap; }
+.matchup-distance output { font-variant-numeric: tabular-nums; }
+.matchup-key.distance { border-color: var(--gold); }
+.matchup-line.distance { stroke: var(--gold); }
+.matchup-marker.distance { fill: var(--gold); }
+.matchup-legend > [hidden] { display: none; }
+.matchup-legend { min-height: 18px; }
+.matchup-metric { flex-shrink: 0; }
+@media (max-width: 420px) {
+  .matchup-metric { width: 100%; }
+  .matchup-metric button { flex: 1; padding-inline: 5px; }
+  .matchup-health { gap: 8px; font-size: 11px; }
+  .matchup-health strong { font-size: 12px; }
+}
 .matchup-event-detail { position: fixed; inset: auto; z-index: 20; display: grid; gap: 6px; width: max-content; max-width: min(340px,calc(100vw - 24px)); max-height: min(260px,calc(100dvh - 24px)); overflow-y: auto; font-size: 12px; line-height: 1.5; color: var(--muted); padding: 12px 14px; margin: 0; border: 1px solid var(--line); border-radius: 5px; background: var(--panel); box-shadow: 0 8px 28px #0008; }
 .matchup-event-detail[hidden] { display: none; }
 .matchup-event-detail strong { color: var(--ink); }
@@ -257,3 +271,10 @@ button:disabled { cursor: default; opacity: .5; }
  .workspace-message-list { grid-template-columns: minmax(0,1fr); }
 }
 @media(max-width:650px) { .workspace-message-list { grid-template-columns: minmax(0,1fr); } }
+/* Keep all three readings anchored while switching graph views. */
+.matchup-health { height: 84px; grid-template-rows: 60px; }
+@media (max-width: 650px) {
+  .matchup-health { height: 114px; grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: 60px 22px; gap: 8px; }
+  .matchup-distance { grid-column: 1 / -1; grid-row: 2; display: flex !important; align-items: baseline; justify-content: center; gap: 8px; }
+  .matchup-health > div:last-child { grid-column: 2; grid-row: 1; }
+}

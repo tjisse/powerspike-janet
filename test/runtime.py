@@ -240,6 +240,15 @@ def verify(binary_path, seed_path=None, parry_fixture=None, level_scaling_fixtur
                         assert abs(hits[0]['at'] - ready - ability['cast-time'] - actor['attack-range'] / ability['missile-speed']) < 1e-6
                         assert abs(actor['position'] - (625 if reverse else 75)) < 1e-6
                         assert actor['damage-dealt'] > 0
+                        frames = outcome['positions']
+                        assert frames and frames[0]['at'] == 0
+                        assert all(a['at'] <= b['at'] for a,b in zip(frames,frames[1:]))
+                        previous = max((frame for frame in frames if frame['at'] <= .1), key=lambda frame:frame['at'])
+                        following = next(frame for frame in frames if frame['at'] > .1)
+                        fraction = (.1-previous['at'])/(following['at']-previous['at'])
+                        positions = [a+fraction*(b-a) for a,b in zip(previous['positions'], following['positions'])]
+                        assert abs(abs(positions[1]-positions[0])-666.5) < 1e-6
+                        assert abs(abs(frames[-1]['positions'][1]-frames[-1]['positions'][0])-625) < 1e-6
                     elif label == 'changing':
                         casts = [event for event in outcome['trace'] if event['kind'] == 'cast' and event['source'] == 'fixture-q']
                         hits = [event for event in outcome['trace'] if event['kind'] == 'damage' and event['source'] == 'fixture-q']

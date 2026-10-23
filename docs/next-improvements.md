@@ -42,6 +42,10 @@ layout stability, direct reruns and error recovery.
 The attention area is hidden when empty. Patch refresh progress fits a fixed
 header dropdown; event details appear in hover, keyboard-focus and tap tooltips.
 Decorative section dividers and redundant result labels are removed.
+The [distance graph](distance-graph.md) now visualizes the current one-dimensional
+separation and keeps its selected-time value in the HP overview. It shares the
+existing time cursor and preserves pauses and instantaneous displacement.
+Richer positioning, range geometry and kiting behavior remain follow-up work.
 The [combat lanes](timeline-and-concurrency.md#status-duration-bands) also show
 colored status durations on the shared time axis, including overlap and early
 removal, with fixed lane heights and hover, keyboard and touch inspection.

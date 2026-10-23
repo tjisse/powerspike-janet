@@ -4,11 +4,13 @@
 (import ./runes :as runes)
 (import ./stats :as stats)
 (import ./status-timeline :as status-timeline)
+(import ./position-timeline :as position-timeline)
 (import pshash :as hash)
 
 (def version "combat-2")
 (def identity (hash/sha256 (string version (slurp "src/powerspike/engine.janet")
                                    (slurp "src/powerspike/status-timeline.janet")
+                                   (slurp "src/powerspike/position-timeline.janet")
                                    (slurp "src/powerspike/expressions.janet") (slurp "src/powerspike/stats.janet")
                                    (slurp "src/powerspike/damage.janet") (slurp "src/powerspike/effects.janet")
                                    (slurp "src/powerspike/normalize.janet")
@@ -327,6 +329,7 @@
   (def unsupported @[])
   (def tracing (get scenario :trace true))
   (def statuses (when tracing (status-timeline/create)))
+  (def positions-timeline (when tracing @[]))
   (def seed (get scenario :seed 1))
   (def trial (get scenario :trial 0))
   (var sequence 0)
@@ -582,7 +585,10 @@
       (put actor :channel nil) (put actor :busy-until at)
       (record :channel-end {:actor (actor :id) :source (channel :source) :cooldown-left (* remaining fraction)})
       (resume actor)))
+  (defn capture-position []
+    (when tracing (position-timeline/capture positions-timeline at (tuple ;(map |($ :position) actors)))))
   (defn advance [time]
+    (capture-position)
     (def dt (- time at))
     (def positions (map |($ :position) actors))
     (def velocities (map velocity actors))
@@ -629,8 +635,11 @@
     (def gap (- (positions 1) (positions 0)))
     (when (< (* gap (- ((actors 1) :position) ((actors 0) :position))) 0)
       (def contact (+ (positions 0) (* (velocities 0) (/ gap (- (velocities 0) (velocities 1))))))
+      (when tracing
+        (position-timeline/capture positions-timeline (+ at (/ gap (- (velocities 0) (velocities 1)))) [contact contact]))
       (each actor actors (put actor :position contact)))
-    (set at time))
+    (set at time)
+    (capture-position))
   (defn trigger [owner target event-key origin depth &opt slot on-hit-scale]
     (when (< depth 3)
       (each effect (get owner :triggers [])
@@ -2412,6 +2421,7 @@
       (update-zones)
       (refresh-inputs)
       (steer)
+      (capture-position)
       (when tracing (status-timeline/capture statuses actors at duration))))
   (advance duration)
   (when tracing (set before (participants)))
@@ -2419,7 +2429,7 @@
   (def player (actors 0))
   (def opponent (actors 1))
   (def attack-damage (player :attack-damage))
-  {:engine version :model identity :actors actors :trace trace :statuses (if tracing (status-timeline/intervals statuses) [])
+  {:engine version :model identity :actors actors :trace trace :positions (or positions-timeline []) :statuses (if tracing (status-timeline/intervals statuses) [])
    :damage-breakdown (table/to-struct (player :breakdown))
    :events (filter |(= (player :id) ($ :actor)) hits) :unsupported unsupported
    :assumptions ["Declared ability priority precedes basic attacks."

@@ -259,7 +259,7 @@
   (def endpoint (or (find |(<= ($ :at) end) (reverse trace)) (last trace)))
   (def hp (when winner (get-in endpoint [:participants winner :health] (get-in actors [winner :health] 0))))
   [:section {:id "results" :class "results matchup-results" :data-matchup-result (json/encode {:trace trace :duration (state :duration) :end end :names names
-                                                                                               :statuses (get combat :statuses [])
+                                                                                               :statuses (get combat :statuses []) :positions (get combat :positions [])
                                                                                                :sources (event-sources (result :package) actors trace)
                                                                                                :actors (map |{:id ($ :id) :hp (get-in $ [:stats :hp] 1)
                                                                                                               :icon (icon-source (result :package) "champion"
@@ -273,11 +273,13 @@
       (when (> (get combat :samples 1) 1) (string " · Trial 0 of " (combat :samples)))]]
     [:div {:class "matchup-metric" :aria-label "Chart metric"}
      [:button {:type "button" :data-matchup-metric "health" :aria-pressed "true"} "Health remaining"]
-     [:button {:type "button" :data-matchup-metric "damage" :aria-pressed "false"} "Damage dealt"]]]
+     [:button {:type "button" :data-matchup-metric "damage" :aria-pressed "false"} "Damage dealt"]
+     [:button {:type "button" :data-matchup-metric "distance" :aria-pressed "false"} "Distance"]]]
    [:div {:class "matchup-legend"}
-    (seq [[index name] :pairs names] [:span [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])
+    (seq [[index name] :pairs names] [:span {:data-champion-legend true} [:i {:class (if (= index 0) "matchup-key" "matchup-key opponent")}] name])
+    [:span {:data-distance-legend true :hidden true} [:i {:class "matchup-key distance"}] "Distance between champions"]
     (when (some |(= :parried ($ :kind)) trace)
-      [:span {:class "muted matchup-parry-hint" :title "Select an event for details"} "× Parried hit"])]
+      [:span {:data-champion-legend true :class "muted matchup-parry-hint" :title "Select an event for details"} "× Parried hit"])]
    [:div {:class "matchup-visual"}
     [:div {:id "matchup-chart" :class "matchup-chart" :role "slider" :tabindex 0 :aria-label "Inspect fight time" :aria-valuemin 0 :aria-valuemax end :aria-valuenow 0}]
     [:section {:id "matchup-events" :class "matchup-events" :aria-label "Combat events"}

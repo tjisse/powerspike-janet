@@ -519,6 +519,8 @@ def verify(base):
         native_scrollbars = p.chromium.launch(headless=True, ignore_default_args=['--hide-scrollbars'])
         verify_workspace(native_scrollbars, base)
         native_scrollbars.close()
+        from distance_browser import verify as verify_distance
+        verify_distance(browser, base)
         from status_browser import verify as verify_statuses
         verify_statuses(browser, base)
         from report_browser import verify as verify_reports

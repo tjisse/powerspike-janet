@@ -11951,7 +11951,7 @@
     "needs-incoming-damage": 1
   },
   "snapshot": "6532a5438b5858bb36c56d1542cfe547319b84b34ee2e406074ca13d36d858e1",
-  "model": "0c2056b984715f314b35038750b96daa4e68abf7fa3b7474173fe0e004f08d81",
+  "model": "97411a119fda8a2777a51afc518efc74891be7c8100643611d6544564da5faf4",
   "parser": "7",
   "champions": 173,
   "scope": "Q/W/E/R from the selected snapshot, with current semantic handlers. Isolated level-18 learned slot at zero distance, ample resource, 50% self health, 100 AP/150 AD, enabled ordinary attacks, no enemy actions, eight seconds. Explicitly modeled passive slot effects run from hits without casts. A recorded effect is partial execution, not complete-kit or in-game validation. Other champion passives and automatic form behavior are outside this probe."

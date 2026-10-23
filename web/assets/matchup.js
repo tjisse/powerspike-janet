@@ -4,13 +4,14 @@
   if (app?.dataset.layout !== 'matchup') return;
   const $ = selector => document.querySelector(selector);
   const format = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(value || 0);
+  const formatDistance = value => new Intl.NumberFormat('en-US', {maximumFractionDigits: 2}).format(value);
   const tabs = new Map(), undo = new Map(), lockState = new Map();
   const unavailableIcons = new Set();
   const championSlotsKey = 'powerspike.champions.v1';
   const commandFields = new Set(['championaction', 'championwho', 'championjson']);
   let configurationPending = false;
   let championActionPending = false;
-  let baseline = null, pending = null, identity = '', result = null, rows = [], events = [], statuses = [];
+  let baseline = null, pending = null, identity = '', result = null, rows = [], events = [], statuses = [], positionFrames = [];
   const timelineTargets = '[data-trace-event],[data-status-index]';
   const statusNames = {stun: 'Stun', silence: 'Silence', slow: 'Slow', root: 'Root', charm: 'Charm', fear: 'Fear', airborne: 'Airborne', suppression: 'Suppression', blind: 'Blind', disarm: 'Disarm', grounded: 'Grounded', shield: 'Shield', parry: 'Parry', spellblade: 'Spellblade', 'outgoing-multiplier': 'Damage reduction', 'healing-multiplier': 'Healing reduction', 'move-speed': 'Movement speed', tenacity: 'Tenacity', armor: 'Armor', mr: 'Magic resistance'};
   const statusColors = {stun: '#efb85c', silence: '#c59aff', slow: '#68b9ed', root: '#8cce75', charm: '#f58db4', fear: '#e99062', airborne: '#d6e3ef', suppression: '#a7a1f4', blind: '#8e9aab', disarm: '#f0ca91', grounded: '#b2b68c', shield: '#5fdfca', parry: '#f3d88a', spellblade: '#67cdd9', 'outgoing-multiplier': '#df8878', 'healing-multiplier': '#d59dbc', 'move-speed': '#8ade9d', tenacity: '#9caff0', armor: '#c4b06b', mr: '#83c4a0'};
@@ -235,6 +236,8 @@
     identity = container.dataset.runId;
     result = JSON.parse(container.dataset.matchupResult);
     selected = null; time = Math.min(4, result.end);
+    positionFrames = (result.positions || []).filter(frame => Number.isFinite(frame.at) && Array.isArray(frame.positions) && frame.positions.length === 2 && frame.positions.every(Number.isFinite));
+    if (!positionFrames.length && metric === 'distance') metric = 'health';
     const totals = [0, 0];
     rows = result.trace.filter(record => record.at <= result.end).map(record => {
       const actor = result.actors.findIndex(a => a.id === record.actor);
@@ -371,27 +374,42 @@
     while (lo < hi) { const mid = (lo + hi) >>> 1; if (rows[mid].at <= t) lo = mid + 1; else hi = mid; }
     return rows[Math.max(0, lo - 1)];
   }
+  function distanceAt(t) {
+    if (!positionFrames.length) return null;
+    let lo = 0, hi = positionFrames.length;
+    while (lo < hi) { const mid = (lo + hi) >>> 1; if (positionFrames[mid].at <= t) lo = mid + 1; else hi = mid; }
+    const previous = positionFrames[Math.max(0, lo - 1)], next = positionFrames[lo];
+    const fraction = next && next.at > previous.at ? Math.max(0, Math.min(1, (t - previous.at) / (next.at - previous.at))) : 0;
+    const positions = previous.positions.map((value, i) => next ? value + fraction * (next.positions[i] - value) : value);
+    return Math.abs(positions[1] - positions[0]);
+  }
+  function distancePoints() {
+    const points = positionFrames.filter(frame => frame.at <= result.end).map(frame => ({at: frame.at, values: [Math.abs(frame.positions[1] - frame.positions[0])]}));
+    if (points.length && points.at(-1).at < result.end) points.push({at: result.end, values: [distanceAt(result.end)]});
+    return points;
+  }
   function draw() {
     const box = $('#matchup-chart');
     if (!box || !result || !rows.length) return;
     const width = Math.max(220, box.clientWidth), height = 235, left = 76, right = width - 23, top = 27, bottom = 200;
-    const health = metric === 'health', points = rows.map(record => ({at: record.at, values: result.actors.map((actor, i) => health ? (record.participants[i]?.health || 0) / Math.max(1, actor.hp) * 100 : record.dealt[i])}));
+    const health = metric === 'health', distance = metric === 'distance', points = distance ? distancePoints() : rows.map(record => ({at: record.at, values: result.actors.map((actor, i) => health ? (record.participants[i]?.health || 0) / Math.max(1, actor.hp) * 100 : record.dealt[i])}));
     const max = health ? Math.max(100, ...points.flatMap(p => p.values)) : Math.max(1, ...points.flatMap(p => p.values));
     const ceiling = health ? Math.ceil(max / 25) * 25 : Math.ceil(max / Math.max(1, 10 ** Math.floor(Math.log10(max)))) * Math.max(1, 10 ** Math.floor(Math.log10(max)));
     const x = t => left + t / result.duration * (right - left), y = value => bottom - value / ceiling * (bottom - top);
-    const svg = svgNode('svg', {width, height, viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `${health ? 'Health remaining (%)' : 'Damage dealt (HP)'} for ${result.names.join(' and ')}`});
-    svg.append(svgNode('text', {x: left, y: 15}, health ? 'Health remaining (%)' : 'Damage dealt (HP)'));
+    const label = distance ? 'Distance between champions (units)' : health ? 'Health remaining (%)' : 'Damage dealt (HP)';
+    const svg = svgNode('svg', {width, height, viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `${label} · ${result.names.join(' and ')}`});
+    svg.append(svgNode('text', {x: left, y: 15}, distance ? 'Distance (units)' : label));
     [0, .25, .5, .75, 1].forEach(fraction => {
       const value = fraction * ceiling;
       svg.append(svgNode('line', {x1: left, x2: right, y1: y(value), y2: y(value), class: 'matchup-grid'}));
       svg.append(svgNode('text', {x: left - 9, y: y(value) + 4, 'text-anchor': 'end'}, format(value)));
     });
     (width < 450 ? [0, .5, 1] : [0, .2, .4, .6, .8, 1]).forEach(fraction => svg.append(svgNode('text', {x: x(fraction * result.duration), y: bottom + 21, 'text-anchor': fraction === 0 ? 'start' : fraction === 1 ? 'end' : 'middle'}, `${Number((fraction * result.duration).toFixed(2))} s`)));
-    for (let side = 0; side < 2; side++) {
+    for (let side = 0; side < (distance ? 1 : 2); side++) {
       let path = `M ${x(points[0].at)} ${y(points[0].values[side])}`;
-      for (const p of points.slice(1)) path += ` H ${x(p.at)} V ${y(p.values[side])}`;
+      for (const p of points.slice(1)) path += distance ? ` L ${x(p.at)} ${y(p.values[side])}` : ` H ${x(p.at)} V ${y(p.values[side])}`;
       if (points.at(-1).at < result.end) path += ` H ${x(result.end)}`;
-      svg.append(svgNode('path', {d: path, class: `matchup-line ${side ? 'opponent' : 'player'}`}));
+      svg.append(svgNode('path', {d: path, class: `matchup-line ${distance ? 'distance' : side ? 'opponent' : 'player'}`}));
     }
     if (result.end < result.duration) {
       svg.append(svgNode('line', {x1: x(result.end), x2: x(result.end), y1: top, y2: bottom, class: 'matchup-grid'}));
@@ -399,17 +417,27 @@
     }
     const current = recordAt(time), percent = result.actors.map((a, i) => (current.participants[i]?.health || 0) / Math.max(1, a.hp) * 100);
     svg.append(svgNode('line', {x1: x(time), x2: x(time), y1: top, y2: bottom, class: 'matchup-guide'}));
-    result.actors.forEach((actor, i) => svg.append(svgNode('circle', {cx: x(time), cy: y(health ? percent[i] : current.dealt[i]), r: 4, class: `matchup-marker ${i ? 'opponent' : 'player'}`})));
+    const separation = distanceAt(time);
+    if (distance) svg.append(svgNode('circle', {cx: x(time), cy: y(separation), r: 4, class: 'matchup-marker distance'}));
+    else result.actors.forEach((actor, i) => svg.append(svgNode('circle', {cx: x(time), cy: y(health ? percent[i] : current.dealt[i]), r: 4, class: `matchup-marker ${i ? 'opponent' : 'player'}`})));
     const overlay = svgNode('rect', {x: left, y: top, width: right - left, height: bottom - top, fill: 'transparent'});
     function inspect(event) { const rect = svg.getBoundingClientRect(); time = Math.max(0, Math.min(result.end, ((event.clientX - rect.left) * width / rect.width - left) / (right - left) * result.duration)); selected = null; hideEventTooltip(); draw(); }
     overlay.addEventListener('pointermove', event => { if (event.pointerType !== 'touch') inspect(event); }); overlay.addEventListener('click', inspect); svg.append(overlay); box.replaceChildren(svg);
     const healthBox = $('.matchup-health');
-    healthBox.replaceChildren(...result.actors.map((actor, i) => { const cell = node('div'); cell.append(node('strong', '', result.names[i]), node('span', '', health ? `${format(current.participants[i]?.health)} / ${format(actor.hp)} HP (${format(percent[i])}%)` : `${format(current.dealt[i])} damage · ${format(percent[i])}% health`)); return cell; }));
+    const healthCells = result.actors.map((actor, i) => { const cell = node('div'); cell.append(node('strong', '', result.names[i]), node('span', '', health || distance ? `${format(current.participants[i]?.health)} / ${format(actor.hp)} HP (${format(percent[i])}%)` : `${format(current.dealt[i])} damage · ${format(percent[i])}% health`)); return cell; });
+    const distanceCell = node('div', 'matchup-distance');
+    const distanceValue = node('output', '', separation === null ? '—' : `${formatDistance(separation)} units`);
+    distanceValue.dataset.distance = separation === null ? '' : String(separation);
+    distanceCell.append(node('strong', '', 'Distance'), distanceValue);
+    healthBox.replaceChildren(healthCells[0], distanceCell, healthCells[1]);
+    document.querySelectorAll('[data-champion-legend]').forEach(key => { key.hidden = distance; });
+    $('[data-distance-legend]').hidden = !distance;
     $('.matchup-time').textContent = `${time.toFixed(2)} s`;
+    box.dataset.renderedRun = identity;
     box.setAttribute('aria-valuenow', time.toFixed(2));
-    box.setAttribute('aria-valuetext', `${time.toFixed(2)} seconds`);
+    box.setAttribute('aria-valuetext', `${time.toFixed(2)} seconds${distance && separation !== null ? ` · ${formatDistance(separation)} units apart` : ''}`);
     $('.matchup-timeline-guide').style.left = `${x(time)}px`;
-    document.querySelectorAll('[data-matchup-metric]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.matchupMetric === metric)));
+    document.querySelectorAll('[data-matchup-metric]').forEach(button => { button.setAttribute('aria-pressed', String(button.dataset.matchupMetric === metric)); if (button.dataset.matchupMetric === 'distance') button.disabled = !positionFrames.length; });
     drawEvents(width, left, right);
   }
   function drawEvents(width, left, right) {

@@ -80,6 +80,7 @@ test-web: build/web-ready format-check
 	JANET_PATH=build/web-modules $(JANET) test/reparse.janet
 	JANET_PATH=build/web-modules $(JANET) test/level-scaling.janet
 	JANET_PATH=build/web-modules $(JANET) test/engine.janet
+	JANET_PATH=build/web-modules PS_DISTANCE_FIXTURE=$(CURDIR)/build/distance-browser.json $(JANET) test/position-timeline.janet
 	JANET_PATH=build/web-modules PS_STATUS_FIXTURE=$(CURDIR)/build/status-timeline-browser.json $(JANET) test/status-timeline.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-cadence.janet
 	JANET_PATH=build/web-modules $(JANET) test/attack-limits.janet
